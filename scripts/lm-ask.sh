@@ -11,7 +11,8 @@ set -e
 MODEL_FAST="qwen/qwen3.5-9b"
 MODEL_R1="deepseek/deepseek-r1-0528-qwen3-8b"
 MODEL_BIG="qwen/qwen3.5-35b-a3b"
-MODEL_CLOUD="kimi-k2.5:cloud"   # routage cloud Ollama — 0 token facturé
+MODEL_CLOUD="gpt-oss:120b"      # routage cloud Ollama — 0 token facturé (gratuit ; kimi-k2.5=payant)
+CLOUD_KEY_FILE="$HOME/.ollama/cloud_api_key"
 MAX=3000
 MODE="dual"   # dual | seq | single
 USE_CLOUD=0   # --cloud → force le routage cloud ; sinon fallback auto si local KO
@@ -60,11 +61,15 @@ call_ollama() {
     | jq -r '.response // empty' 2>/dev/null
 }
 
-# Routage cloud Ollama (kimi-k2.5:cloud) — 0 token facturé, via le daemon local
+# Routage cloud Ollama — API hébergée ollama.com, 0 token facturé (clé Bearer)
 call_cloud() {
-  curl -s -m 180 "http://127.0.0.1:11434/api/generate" \
-    -d "$(jq -nc --arg m "$MODEL_CLOUD" --arg p "$SYS\n\n$PROMPT" '{model:$m,prompt:$p,stream:false}')" \
-    | jq -r '.response // empty' 2>/dev/null
+  local key; key="${OLLAMA_API_KEY:-$(cat "$CLOUD_KEY_FILE" 2>/dev/null)}"
+  [[ -z "$key" ]] && return 1
+  curl -s -m 180 "https://ollama.com/api/chat" \
+    -H "Authorization: Bearer $key" \
+    -d "$(jq -nc --arg m "$MODEL_CLOUD" --arg s "$SYS" --arg p "$PROMPT" \
+        '{model:$m,messages:[{role:"system",content:$s},{role:"user",content:$p}],stream:false}')" \
+    | jq -r '.message.content // empty' 2>/dev/null
 }
 
 # Auto-détection du meilleur modèle Ollama LOCAL installé (autonomie M4 en solo)
