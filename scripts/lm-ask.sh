@@ -11,8 +11,10 @@ set -e
 MODEL_FAST="qwen/qwen3.5-9b"
 MODEL_R1="deepseek/deepseek-r1-0528-qwen3-8b"
 MODEL_BIG="qwen/qwen3.5-35b-a3b"
+MODEL_CLOUD="kimi-k2.5:cloud"   # routage cloud Ollama — 0 token facturé
 MAX=3000
 MODE="dual"   # dual | seq | single
+USE_CLOUD=0   # --cloud → force le routage cloud ; sinon fallback auto si local KO
 SYS="Tu es un assistant concis. Réponds directement en français, sans préambule."
 
 MODELS_M1=("$MODEL_FAST" "$MODEL_R1")
@@ -25,6 +27,7 @@ while [[ "$1" == --* ]]; do
     --reason) MODELS_M1=("$MODEL_R1"); MODELS_M2=("$MODEL_R1"); shift ;;
     --big)    MODELS_M1=("$MODEL_FAST"); MODELS_M2=("$MODEL_BIG"); shift ;;
     --fast)   MODELS_M1=("$MODEL_FAST"); MODELS_M2=("$MODEL_FAST"); shift ;;
+    --cloud)  USE_CLOUD=1; shift ;;
     --seq)    MODE="seq"; shift ;;
     *) shift ;;
   esac
@@ -51,11 +54,26 @@ call_model() {
 }
 
 call_ollama() {
-  local base="${1:-http://127.0.0.1:11434}" model="${2:-gemma3:4b}"
+  local base="${1:-http://127.0.0.1:11434}" model="${2:-$OLLAMA_MODEL}"
   curl -s -m 60 "$base/api/generate" \
     -d "$(jq -nc --arg m "$model" --arg p "$SYS\n\n$PROMPT" '{model:$m,prompt:$p,stream:false}')" \
     | jq -r '.response // empty' 2>/dev/null
 }
+
+# Routage cloud Ollama (kimi-k2.5:cloud) — 0 token facturé, via le daemon local
+call_cloud() {
+  curl -s -m 180 "http://127.0.0.1:11434/api/generate" \
+    -d "$(jq -nc --arg m "$MODEL_CLOUD" --arg p "$SYS\n\n$PROMPT" '{model:$m,prompt:$p,stream:false}')" \
+    | jq -r '.response // empty' 2>/dev/null
+}
+
+# Auto-détection du meilleur modèle Ollama LOCAL installé (autonomie M4 en solo)
+# Choisit par ordre de préférence parmi ce qui est réellement présent, sinon le 1er dispo.
+OLLAMA_MODEL="$(curl -s -m 2 http://127.0.0.1:11434/api/tags 2>/dev/null | jq -r '
+  ([.models[].name]) as $m
+  | (["qwen2.5:7b","llama3.1:8b","gemma3:4b","deepseek-r1:7b","llama3.2:latest","llama3.2","qwen3:1.7b","qwen2.5:1.5b"][]
+     | select(. as $p | $m | index($p))) // $m[0] // empty' 2>/dev/null | head -1)"
+[[ -z "$OLLAMA_MODEL" ]] && OLLAMA_MODEL="qwen3:1.7b"
 
 # Vérif connectivité (1s timeout)
 M1_UP=0; M2_UP=0; OL1_UP=0; OL3_UP=0
@@ -64,7 +82,17 @@ curl -s -m 1 "$M2/v1/models" >/dev/null 2>&1 && M2_UP=1
 curl -s -m 1 http://127.0.0.1:11434/api/tags >/dev/null 2>&1 && OL1_UP=1
 curl -s -m 1 "$M3_OLLAMA/api/tags" >/dev/null 2>&1 && OL3_UP=1
 
-[[ $M1_UP -eq 0 && $M2_UP -eq 0 && $OL1_UP -eq 0 && $OL3_UP -eq 0 ]] && { echo "✘ Aucun backend dispo" >&2; exit 2; }
+# --cloud : routage cloud direct (prioritaire), 0 token facturé
+if [[ $USE_CLOUD -eq 1 ]]; then
+  R="$(call_cloud)"; [[ -n "$R" ]] && { echo "$R"; exit 0; }
+  echo "✘ Cloud KO (ollama signin requis ?)" >&2
+fi
+
+# Si aucun backend local/LAN : tenter le cloud en dernier recours avant d'abandonner
+if [[ $M1_UP -eq 0 && $M2_UP -eq 0 && $OL1_UP -eq 0 && $OL3_UP -eq 0 ]]; then
+  R="$(call_cloud)"; [[ -n "$R" ]] && { echo "$R"; exit 0; }
+  echo "✘ Aucun backend dispo (local + cloud)" >&2; exit 2
+fi
 
 if [[ "$MODE" == "dual" ]]; then
   # === MODE DUAL : M1×2 + M2×2 en parallèle — premier gagne ===
@@ -83,7 +111,7 @@ if [[ "$MODE" == "dual" ]]; then
 
   # OL1 + OL3 (M3 Ollama) si aucun LMStudio dispo
   [[ $OL1_UP -eq 1 && ${#PIDS[@]} -eq 0 ]] && {
-    ( R="$(call_ollama "http://127.0.0.1:11434" "gemma3:4b")"; [[ -n "$R" ]] && echo "$R" > "$TMPF" ) &
+    ( R="$(call_ollama "http://127.0.0.1:11434" "$OLLAMA_MODEL")"; [[ -n "$R" ]] && echo "$R" > "$TMPF" ) &
     PIDS+=($!)
   }
   [[ $OL3_UP -eq 1 && ${#PIDS[@]} -le 0 ]] && {
@@ -101,7 +129,9 @@ if [[ "$MODE" == "dual" ]]; then
     fi
   done
   rm -f "$TMPF"; kill "${PIDS[@]}" 2>/dev/null
-  echo "✘ Timeout dual-mode" >&2; exit 2
+  # Fallback cloud si le local n'a rien rendu à temps
+  R="$(call_cloud)"; [[ -n "$R" ]] && { echo "$R"; exit 0; }
+  echo "✘ Timeout dual-mode (cloud KO aussi)" >&2; exit 2
 
 else
   # === MODE SEQ : M1 → M2 → OL1 ===
@@ -113,5 +143,6 @@ else
   done
   [[ $OL3_UP -eq 1 ]] && { R="$(call_ollama "$M3_OLLAMA" "gemma3:4b")"; [[ -n "$R" ]] && echo "$R" && exit 0; }
   [[ $OL1_UP -eq 1 ]] && { R="$(call_ollama)"; [[ -n "$R" ]] && echo "$R" && exit 0; }
-  echo "✘ Tous backends ont échoué" >&2; exit 2
+  R="$(call_cloud)"; [[ -n "$R" ]] && echo "$R" && exit 0
+  echo "✘ Tous backends ont échoué (cloud inclus)" >&2; exit 2
 fi
