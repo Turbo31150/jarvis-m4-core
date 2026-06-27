@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect x="2" y="2" width="60" height="60" rx="8" fill="#0d2a1a" stroke="#00f593" stroke-width="3"/>
+  <text x="32" y="20" font-family="monospace" font-size="8" fill="#00f593" text-anchor="middle" font-weight="bold">WINDOWS</text>
+  <text x="32" y="34" font-family="monospace" font-size="9" fill="#00f593" text-anchor="middle" font-weight="bold">CLAIR</text>
+  <text x="32" y="48" font-family="monospace" font-size="6" fill="#888" text-anchor="middle">1280283457</text>
+</svg>

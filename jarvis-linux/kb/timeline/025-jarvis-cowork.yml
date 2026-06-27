@@ -1,0 +1,7 @@
+date: 2026-03-05
+repos:
+  - jarvis-cowork
+modules:
+  - qa_scripts (570+)
+  - auto_repair_pipelines
+description: "Co-development/quality layer around agents with auto-repair capabilities."

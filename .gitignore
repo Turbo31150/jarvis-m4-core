@@ -1,0 +1,47 @@
+# === SECRETS — NE JAMAIS COMMITER ===
+.secrets
+*.env
+.env
+*.key
+*.pem
+*.token
+*token*
+*secret*
+id_rsa*
+*credential*
+infra/config/agent-tokens.enc
+infra/config/ssh-access/
+data/failover.env
+
+# === GROS / MODÈLES (hors versionnage, limite GitHub 100M) ===
+core/
+core
+models/
+*.onnx
+*.gguf
+*.bin
+*.pt
+*.safetensors
+
+# === BASES / CACHES / LOGS ===
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+.remember/
+node_modules/
+.cache/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+.claude/
+backups/
+logs/
+*.log
+content_buffer/
+antigravity_heavy_tasks/
+claude_code_queue/
+cowork_engine.db
+.ruff_cache/

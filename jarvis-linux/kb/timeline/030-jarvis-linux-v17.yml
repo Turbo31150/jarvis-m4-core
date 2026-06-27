@@ -1,0 +1,9 @@
+date: 2026-03-11
+repos:
+  - jarvis-linux
+modules:
+  - os_core
+  - voice_interface
+  - trading_monitoring
+  - mcp_host
+description: "JARVIS OS v17.0 - Linux/cluster core, voice-first, zero cloud, 9 cognitive layers, 6 GPUs."

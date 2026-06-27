@@ -1,0 +1,213 @@
+#!/bin/bash
+# ╔══════════════════════════════════════════════════════════════╗
+# ║  JARVIS CLI — Interface unifiée (masque l'infrastructure)   ║
+# ║  Usage: j [commande] [options]                               ║
+# ╚══════════════════════════════════════════════════════════════╝
+VERSION="3.2.0"
+JARVIS_HOME="${JARVIS_HOME:-/home/turbo/jarvis}"
+OL1="http://127.0.0.1:11434"
+
+_red()    { echo -e "\033[0;31m$*\033[0m"; }
+_green()  { echo -e "\033[0;32m$*\033[0m"; }
+_yellow() { echo -e "\033[0;33m$*\033[0m"; }
+_cyan()   { echo -e "\033[0;36m$*\033[0m"; }
+_bold()   { echo -e "\033[1m$*\033[0m"; }
+
+# ── STATUT CLUSTER (masqué en 3 lignes) ──────────────────────
+cmd_status() {
+  _bold "⚡ JARVIS v${VERSION} — Cluster Status"
+  echo ""
+  
+  # Services Swarm
+  local up=0 down=0
+  while IFS= read -r line; do
+    replicas=$(echo "$line" | awk '{print $4}')
+    name=$(echo "$line" | awk '{print $2}' | sed 's/jarvis_prod_//')
+    desired=$(echo "$replicas" | cut -d/ -f2)
+    actual=$(echo "$replicas" | cut -d/ -f1)
+    if [[ "$actual" == "$desired" ]] && [[ "$actual" != "0" ]]; then
+      _green "  ✓ $name ($replicas)"
+      up=$((up+1))
+    else
+      _red "  ✗ $name ($replicas)"
+      down=$((down+1))
+    fi
+  done < <(docker service ls --format "{{.ID}} {{.Name}} {{.Mode}} {{.Replicas}}" 2>/dev/null | grep -v "^$")
+  
+  echo ""
+  # OL1 local
+  if curl -s --max-time 2 "${OL1}/api/tags" &>/dev/null; then
+    models=$(curl -s --max-time 2 "${OL1}/api/tags" | python3 -c "import json,sys; print(len(json.load(sys.stdin).get('models',[])))")
+    _green "  ✓ OL1-Ollama ($models modèles)"
+  else
+    _red "  ✗ OL1-Ollama (offline)"
+  fi
+  
+  # Monitoring
+  if curl -s --max-time 2 http://localhost:8420/api/health &>/dev/null; then
+    _green "  ✓ Monitoring (http://localhost:8420)"
+  else
+    _yellow "  ⚠ Monitoring (arrêté)"
+  fi
+  
+  echo ""
+  _bold "  Services: ${up} UP / ${down} DOWN"
+  
+  # Dernier benchmark
+  local bench=$(ls -t ${JARVIS_HOME}/logs/bench_massif_*.json 2>/dev/null | head -1)
+  if [[ -n "$bench" ]]; then
+    score=$(python3 -c "import json; d=json.load(open('$bench')); print(d.get('stability_score','?'))" 2>/dev/null)
+    ts=$(basename "$bench" | sed 's/bench_massif_//;s/.json//')
+    _cyan "  📊 Bench score: ${score}/100 (${ts})"
+  fi
+}
+
+# ── CHAT RAPIDE AVEC OL1 ─────────────────────────────────────
+cmd_ask() {
+  local prompt="$*"
+  if [[ -z "$prompt" ]]; then
+    _red "Usage: j ask 'votre question'"
+    return 1
+  fi
+  _bold "🤖 OL1 → $prompt"
+  echo ""
+  curl -s -X POST "${OL1}/api/generate" \
+    -H "Content-Type: application/json" \
+    -d "{\"model\":\"qwen3:1.7b\",\"prompt\":\"${prompt}\",\"stream\":true,\"options\":{\"num_predict\":300}}" \
+    2>/dev/null | while read -r line; do
+      tok=$(echo "$line" | python3 -c "import sys,json; d=json.loads(sys.stdin.read()); print(d.get('response',''),end='')" 2>/dev/null)
+      printf "%s" "$tok"
+    done
+  echo ""
+}
+
+# ── LOGS SIMPLIFIÉS ──────────────────────────────────────────
+cmd_logs() {
+  local svc="${1:-jarvis-ws}"
+  docker service logs "jarvis_prod_${svc}" --tail ${2:-20} 2>&1 | \
+    grep -v "^$" | \
+    grep -E "ERROR|WARNING|INFO|started|Uvicorn|listening" | \
+    tail -20
+}
+
+# ── RESTART SERVICE ──────────────────────────────────────────
+cmd_restart() {
+  local svc="$1"
+  if [[ -z "$svc" ]]; then
+    _red "Usage: j restart [service]"
+    _yellow "Services: ws domino cowork pipeline telegram antigravity-mcp"
+    return 1
+  fi
+  _yellow "🔄 Restarting jarvis_prod_${svc}..."
+  docker service update --force "jarvis_prod_${svc}" 2>&1 | tail -3
+}
+
+# ── BENCHMARK ────────────────────────────────────────────────
+cmd_bench() {
+  _bold "🚀 Lancement benchmark massif..."
+  nohup bash "${JARVIS_HOME}/scripts/bench_massive.sh" \
+    > "${JARVIS_HOME}/logs/bench_latest.log" 2>&1 &
+  echo "PID:$! — Logs: ${JARVIS_HOME}/logs/bench_latest.log"
+  echo "Suivre: j bench-watch"
+}
+
+cmd_bench_watch() {
+  tail -f "${JARVIS_HOME}/logs/bench_latest.log"
+}
+
+# ── CRASH SNAPSHOTS ──────────────────────────────────────────
+cmd_crashes() {
+  curl -s http://localhost:8420/api/crash-snapshots 2>/dev/null | \
+    python3 -c "
+import json,sys
+d=json.load(sys.stdin)
+print(f'Total snapshots: {d[\"count\"]}')
+for s in d['snapshots'][:5]:
+  nd=s['data']
+  print(f'  {nd[\"node\"]:6} | {nd.get(\"ts_human\",\"?\")} | {nd[\"error\"][:60]}')
+" 2>/dev/null || _red "Monitoring offline (j monitor-start)"
+}
+
+cmd_crashes_clear() {
+  curl -s -X DELETE http://localhost:8420/api/crash-snapshots | python3 -c "import json,sys; d=json.load(sys.stdin); print(f'✓ {d[\"deleted\"]} snapshots supprimés')"
+}
+
+# ── MONITORING ────────────────────────────────────────────────
+cmd_monitor_start() {
+  if pgrep -f "monitoring/server.py" &>/dev/null; then
+    _green "Monitoring déjà actif"
+    return
+  fi
+  cd "${JARVIS_HOME}/monitoring" && \
+    nohup python3 server.py > /tmp/monitoring.log 2>&1 &
+  echo "PID:$! — http://localhost:8420"
+}
+
+# ── ROUTING MAP ──────────────────────────────────────────────
+cmd_routes() {
+  _bold "🗺  JARVIS — Routing Map"
+  echo ""
+  echo "  LOCAL (OL1):"
+  echo "    Ollama API      → http://127.0.0.1:11434"
+  echo "    Monitoring      → http://localhost:8420"
+  echo "    Node Agent      → http://127.0.0.1:8421"
+  echo ""
+  echo "  SWARM SERVICES:"
+  echo "    jarvis-ws       → ws://localhost:19742  (WebSocket gateway)"
+  echo "    domino-mcp      → http://localhost:18901 (MCP SSE endpoint)"
+  echo "    antigravity-mcp → http://localhost:18902 (OpenClaw ACP)"
+  echo "    n8n             → http://localhost:5678  (Workflow automation)"
+  echo ""
+  echo "  CLUSTER (LAN):"
+  echo "    M1 LM Studio    → http://192.168.1.85:1234"
+  echo "    M2 LM Studio    → http://192.168.1.26:1234"
+  echo "    M1 Ollama       → http://192.168.1.85:11434"
+  echo ""
+  echo "  MCP (Antigravity):"
+  echo "    jarvis-cluster  → python3 /home/turbo/jarvis/mcp/cluster_server.py"
+  echo "    jarvis-agents   → python3 /home/turbo/jarvis/mcp/agents_server.py"
+  echo "    openclaw        → openclaw (binary)"
+  echo "    redis           → npx @modelcontextprotocol/server-redis redis://localhost:6379"
+}
+
+# ── HELP ─────────────────────────────────────────────────────
+cmd_help() {
+  _bold "⚡ JARVIS CLI v${VERSION}"
+  echo ""
+  echo "  COMMANDES PRINCIPALES:"
+  _cyan "  j status           " ; echo "— État du cluster (vue simplifiée)"
+  _cyan "  j ask 'question'   " ; echo "— Chat rapide OL1"
+  _cyan "  j routes           " ; echo "— Carte des routes réseau"
+  _cyan "  j logs [svc] [n]   " ; echo "— Logs service (défaut: ws, 20 lignes)"
+  _cyan "  j restart [svc]    " ; echo "— Redémarrer un service"
+  echo ""
+  echo "  BENCHMARK & MONITORING:"
+  _cyan "  j bench            " ; echo "— Lancer benchmark massif"
+  _cyan "  j bench-watch      " ; echo "— Suivre le benchmark en cours"
+  _cyan "  j monitor-start    " ; echo "— Démarrer dashboard monitoring"
+  _cyan "  j crashes          " ; echo "— Voir les derniers crash snapshots"
+  _cyan "  j crashes-clear    " ; echo "— Purger les snapshots"
+}
+
+# ── DISPATCH ─────────────────────────────────────────────────
+CMD="${1:-help}"
+shift || true
+
+case "$CMD" in
+  status|st)          cmd_status ;;
+  ask|chat|q)         cmd_ask "$@" ;;
+  logs|log|l)         cmd_logs "$@" ;;
+  restart|rs)         cmd_restart "$@" ;;
+  bench|benchmark)    cmd_bench ;;
+  bench-watch|bw)     cmd_bench_watch ;;
+  routes|map|r)       cmd_routes ;;
+  monitor-start|mon)  cmd_monitor_start ;;
+  crashes|crash|c)    cmd_crashes ;;
+  crashes-clear|cc)   cmd_crashes_clear ;;
+  help|h|--help|-h)   cmd_help ;;
+  *)
+    _red "Commande inconnue: $CMD"
+    cmd_help
+    exit 1
+    ;;
+esac

@@ -1,0 +1,8 @@
+date: 2026-02-16
+repos:
+  - jarvis-whisper-flow
+modules:
+  - realtime_voice_pipeline
+  - cuda_optimization
+  - command_processing
+description: "Real-time voice pipeline with CUDA, low latency (<300ms), supporting 26 voice commands."

@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JARVIS CLUSTER MONITOR</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0d1117;
+    --bg2: #161b22;
+    --bg3: #21262d;
+    --border: #30363d;
+    --green: #00ff88;
+    --red: #ff4444;
+    --yellow: #ffd166;
+    --cyan: #00d4ff;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --card-w: 280px;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Courier New', monospace;
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* ── Header ── */
+  header {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  header h1 {
+    font-size: 18px;
+    letter-spacing: 3px;
+    color: var(--cyan);
+    text-shadow: 0 0 10px var(--cyan);
+  }
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  #clock { color: var(--cyan); font-size: 13px; }
+  #ws-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .ws-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--red);
+    transition: background 0.3s;
+  }
+  .ws-dot.connected { background: var(--green); box-shadow: 0 0 6px var(--green); }
+
+  /* ── Main grid ── */
+  main {
+    padding: 20px 24px;
+  }
+
+  .section-title {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ── Node cards ── */
+  .nodes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(var(--card-w), 1fr));
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .node-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    position: relative;
+    transition: border-color 0.3s;
+  }
+  .node-card.online { border-color: #30363d; }
+  .node-card.offline { border-color: var(--red); opacity: 0.7; }
+  .node-card.online:hover { border-color: var(--cyan); }
+
+  .node-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .node-name {
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: var(--cyan);
+  }
+  .node-status {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+  .node-status.online { background: rgba(0,255,136,0.15); color: var(--green); }
+  .node-status.offline { background: rgba(255,68,68,0.15); color: var(--red); }
+
+  .node-ip { font-size: 10px; color: var(--muted); margin-bottom: 12px; }
+
+  /* ── Metric rows ── */
+  .metric-row {
+    margin-bottom: 10px;
+  }
+  .metric-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .metric-value { color: var(--text); }
+
+  .bar-track {
+    background: var(--bg3);
+    border-radius: 3px;
+    height: 6px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.6s ease;
+    min-width: 2px;
+  }
+  .bar-fill.cpu  { background: linear-gradient(90deg, #00aaff, var(--cyan)); }
+  .bar-fill.ram  { background: linear-gradient(90deg, #7c3aed, #a855f7); }
+  .bar-fill.gpu  { background: linear-gradient(90deg, #f59e0b, #fcd34d); }
+  .bar-fill.vram { background: linear-gradient(90deg, var(--green), #86efac); }
+  .bar-fill.score { background: linear-gradient(90deg, #22c55e, #86efac); }
+  .bar-fill.hot  { background: linear-gradient(90deg, var(--red), #ff8888) !important; }
+  .bar-fill.warn { background: linear-gradient(90deg, var(--yellow), #ffe066) !important; }
+
+  .gpu-section { margin-top: 10px; }
+  .gpu-title {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+  .gpu-item { margin-bottom: 8px; padding: 8px; background: var(--bg3); border-radius: 4px; }
+  .gpu-name { font-size: 10px; color: var(--muted); margin-bottom: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  .services-row {
+    margin-top: 10px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .badge {
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 4px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+  .badge.ok { border-color: var(--green); color: var(--green); }
+  .badge.fail { border-color: var(--red); color: var(--red); }
+  .badge.warn { border-color: var(--yellow); color: var(--yellow); }
+  .badge.na { color: #555; }
+
+  .ping-row { margin-top: 8px; font-size: 10px; color: var(--muted); }
+  .ping-val { color: var(--text); }
+
+  /* ── Tool usage section ── */
+  .tool-section {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+  }
+  .tool-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .tool-item {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    min-width: 120px;
+  }
+  .tool-name { font-size: 11px; color: var(--muted); }
+  .tool-count {
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--cyan);
+    line-height: 1.2;
+  }
+
+  /* ── Agents section ── */
+  .agents-section {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+  }
+  .agents-toolbar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .agents-toolbar span {
+    font-size: 11px;
+    color: var(--muted);
+    margin-right: 4px;
+  }
+  .filter-btn {
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    background: var(--bg3);
+    color: var(--muted);
+    cursor: pointer;
+    font-family: 'Courier New', monospace;
+    transition: all 0.2s;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    border-color: var(--cyan);
+    color: var(--cyan);
+  }
+  .agents-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .agent-badge {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 4px 10px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    max-width: 220px;
+  }
+  .agent-badge:hover { border-color: var(--cyan); background: #1c2230; }
+  .agent-badge.running { border-color: rgba(0,255,136,0.3); }
+  .agent-badge.exited  { border-color: rgba(255,68,68,0.3); opacity: 0.7; }
+  .agent-badge.unknown { border-color: rgba(255,209,102,0.3); }
+  .agent-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+  .agent-dot.running { background: var(--green); box-shadow: 0 0 4px var(--green); }
+  .agent-dot.exited  { background: var(--red); }
+  .agent-dot.unknown { background: var(--yellow); }
+  .agent-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text); }
+
+  /* ── Agent log modal ── */
+  #log-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 500;
+    align-items: center;
+    justify-content: center;
+  }
+  #log-modal.visible { display: flex; }
+  .log-box {
+    background: var(--bg2);
+    border: 1px solid var(--cyan);
+    border-radius: 8px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .log-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .log-title { font-size: 13px; color: var(--cyan); }
+  .log-close {
+    cursor: pointer;
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1;
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-family: monospace;
+    padding: 0 4px;
+  }
+  .log-close:hover { color: var(--red); }
+  .log-body {
+    overflow-y: auto;
+    padding: 12px 16px;
+    font-size: 11px;
+    line-height: 1.6;
+    color: var(--muted);
+    white-space: pre-wrap;
+    word-break: break-all;
+    flex: 1;
+  }
+
+  /* ── LM Scoring section ── */
+  .lm-section {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+  }
+  .lm-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .lm-refresh-info {
+    font-size: 10px;
+    color: var(--muted);
+  }
+  table.lm-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+    min-width: 560px;
+  }
+  table.lm-table th {
+    text-align: left;
+    padding: 6px 10px;
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+  }
+  table.lm-table th:hover { color: var(--cyan); }
+  table.lm-table th.sorted { color: var(--cyan); }
+  table.lm-table th.sorted::after { content: " ↓"; }
+  table.lm-table th.sorted.asc::after { content: " ↑"; }
+  table.lm-table td {
+    padding: 7px 10px;
+    border-bottom: 1px solid rgba(48,54,61,0.5);
+    vertical-align: middle;
+  }
+  table.lm-table tr:hover td { background: var(--bg3); }
+  .lm-model { color: var(--text); font-weight: bold; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .lm-backend { color: var(--muted); }
+  .lm-calls { color: var(--cyan); font-weight: bold; }
+  .lm-latency { color: var(--yellow); }
+  .score-cell { display: flex; align-items: center; gap: 8px; }
+  .score-bar-track { flex: 1; height: 6px; background: var(--bg3); border-radius: 3px; overflow: hidden; min-width: 60px; }
+  .score-bar-fill { height: 100%; border-radius: 3px; transition: width 0.6s ease; }
+  .score-val { width: 36px; text-align: right; font-size: 11px; }
+
+  /* ── Footer ── */
+  footer {
+    text-align: center;
+    padding: 16px;
+    font-size: 11px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── Animations ── */
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+  .ws-dot.connecting { background: var(--yellow); animation: pulse 1s infinite; }
+
+  #last-update { font-size: 10px; color: var(--muted); }
+
+  /* ── Heavy Tasks ── */
+  .heavy-table-wrap { overflow-x: auto; margin-top: 8px; }
+  table.heavy-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+  }
+  table.heavy-table th {
+    text-align: left;
+    color: var(--muted);
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    user-select: none;
+  }
+  table.heavy-table th:hover { color: var(--cyan); }
+  table.heavy-table td {
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  table.heavy-table tr:hover td { background: var(--bg3); }
+  .metric-bar-wrap { display: flex; align-items: center; gap: 6px; min-width: 90px; }
+  .metric-bar-bg { flex: 1; height: 6px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
+  .metric-bar-fill { height: 100%; border-radius: 3px; }
+  .bar-cpu  { background: var(--cyan); }
+  .bar-ram  { background: var(--green); }
+  .bar-vram { background: var(--yellow); }
+  .bar-lat  { background: #cc77ff; }
+  .heavy-refresh { font-size: 10px; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>JARVIS CLUSTER MONITOR</h1>
+  <div class="header-right">
+    <div id="ws-status">
+      <div class="ws-dot connecting" id="ws-dot"></div>
+      <span id="ws-label">Connecting...</span>
+    </div>
+    <span id="last-update">Never</span>
+    <span id="clock">--:--:--</span>
+  </div>
+</header>
+
+<main>
+  <!-- ── Cluster Nodes ── -->
+  <p class="section-title">Cluster Nodes</p>
+  <div class="nodes-grid" id="nodes-grid">
+    <!-- Cards rendered by JS -->
+  </div>
+
+  <!-- ── Tool usage ── -->
+  <p class="section-title">Tool Usage — All Nodes</p>
+  <div class="tool-section">
+    <div class="tool-grid" id="tool-grid">
+      <span style="color:var(--muted);font-size:12px">Waiting for data...</span>
+    </div>
+  </div>
+
+  <!-- ── Cowork Agents ── -->
+  <p class="section-title">Cowork Agents</p>
+  <div class="agents-section">
+    <div class="agents-toolbar">
+      <span>Filter:</span>
+      <button class="filter-btn active" data-filter="all" onclick="setAgentFilter('all', this)">ALL</button>
+      <button class="filter-btn" data-filter="running" onclick="setAgentFilter('running', this)">RUNNING</button>
+      <button class="filter-btn" data-filter="exited" onclick="setAgentFilter('exited', this)">STOPPED</button>
+      <span id="agents-count" style="margin-left:8px;color:var(--muted);font-size:10px"></span>
+    </div>
+    <div class="agents-grid" id="agents-grid">
+      <span style="color:var(--muted);font-size:12px">Waiting for data...</span>
+    </div>
+  </div>
+
+  <!-- ── LM Scoring ── -->
+  <p class="section-title">LM Scoring</p>
+  <div class="lm-section">
+    <div class="lm-section-header">
+      <span></span>
+      <span class="lm-refresh-info">Auto-refresh 30s</span>
+    </div>
+    <div id="lm-content">
+      <span style="color:var(--muted);font-size:12px">Waiting for data...</span>
+    </div>
+  </div>
+</main>
+
+
+  <!-- ── Heavy Tasks ── -->
+  <p class="section-title">Top taches gourmandes</p>
+  <div class="lm-section">
+    <div class="lm-section-header">
+      <span></span>
+      <span class="heavy-refresh">Auto-refresh 60s</span>
+    </div>
+    <div class="heavy-table-wrap">
+      <table class="heavy-table" id="heavy-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Titre</th>
+            <th>CPU%</th>
+            <th>RAM MB</th>
+            <th>VRAM MB</th>
+            <th>Latence ms</th>
+            <th>Exec.</th>
+          </tr>
+        </thead>
+        <tbody id="heavy-tbody">
+          <tr><td colspan="7" style="color:var(--muted);padding:12px">Chargement...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+<!-- ── Agent Log Modal ── -->
+<div id="log-modal">
+  <div class="log-box">
+    <div class="log-header">
+      <span class="log-title" id="log-modal-title">Logs</span>
+      <button class="log-close" onclick="closeLogModal()">x</button>
+    </div>
+    <div class="log-body" id="log-modal-body">Loading...</div>
+  </div>
+</div>
+
+<footer>JARVIS v1 &mdash; WebSocket push every 3s &mdash; <span id="footer-ts"></span></footer>
+
+<script>
+// ── Config ──────────────────────────────────────────────────────────────────
+const WS_URL = `ws://${location.hostname}:8420/ws`;
+const RECONNECT_DELAY = 4000;
+
+const NODE_IPS = {
+  M1: "192.168.1.85",
+  M2: "192.168.1.26",
+  M3: "192.168.1.133",
+  OL1: "127.0.0.1"
+};
+
+// ── State ────────────────────────────────────────────────────────────────────
+let _agentFilter = "all";
+let _agentsData = [];
+let _lmData = [];
+let _lmSortCol = "calls";
+let _lmSortAsc = false;
+let _lmRefreshTimer = null;
+
+// ── Clock ────────────────────────────────────────────────────────────────────
+function updateClock() {
+  const now = new Date();
+  document.getElementById("clock").textContent = now.toLocaleTimeString("fr-FR");
+  document.getElementById("footer-ts").textContent = now.toLocaleDateString("fr-FR", {weekday:"long", year:"numeric", month:"long", day:"numeric"});
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// ── Helpers ──────────────────────────────────────────────────────────────────
+function pct(val) {
+  if (val < 0) return 0;
+  return Math.min(100, val);
+}
+function barColor(pct, type) {
+  if (pct >= 90) return "hot";
+  if (pct >= 70) return "warn";
+  return type;
+}
+function fmtMB(mb) {
+  if (mb < 0) return "?";
+  if (mb >= 1024) return (mb / 1024).toFixed(1) + " GB";
+  return mb + " MB";
+}
+function fmtPing(ms) {
+  if (ms < 0) return "?";
+  return ms.toFixed(1) + " ms";
+}
+
+function makeBar(percent, type, label, value) {
+  const p = pct(percent);
+  const cls = barColor(p, type);
+  return `
+    <div class="metric-row">
+      <div class="metric-label">
+        <span>${label}</span>
+        <span class="metric-value">${value}</span>
+      </div>
+      <div class="bar-track">
+        <div class="bar-fill ${cls}" style="width:${p}%"></div>
+      </div>
+    </div>`;
+}
+
+function renderBadge(label, status) {
+  let cls = "na";
+  if (status === "up") { cls = "ok"; }
+  else if (status === "down") { cls = "fail"; }
+  else if (status === "N/A") { cls = "na"; }
+  return `<span class="badge ${cls}">${label}: ${status}</span>`;
+}
+
+function renderServicesBadge(count) {
+  if (count < 0) return `<span class="badge na">services: ?</span>`;
+  if (count === 0) return `<span class="badge ok">services: OK</span>`;
+  return `<span class="badge fail">${count} FAILED</span>`;
+}
+
+// ── Card renderer ─────────────────────────────────────────────────────────────
+function renderCard(name, data) {
+  const online = data.online;
+  const ip = NODE_IPS[name] || name;
+
+  let gpuHtml = "";
+  if (data.gpus && data.gpus.length > 0) {
+    const items = data.gpus.map(g => {
+      const utilPct = g.util_percent >= 0 ? g.util_percent : 0;
+      const vramPct = g.vram_total_mb > 0 ? Math.round(100 * g.vram_used_mb / g.vram_total_mb) : 0;
+      const tempStr = g.temp_c >= 0 ? `${g.temp_c}°C` : "?";
+      return `
+        <div class="gpu-item">
+          <div class="gpu-name">GPU${g.index} — ${g.name}</div>
+          <div class="metric-label"><span>Util</span><span class="metric-value">${utilPct}%</span></div>
+          <div class="bar-track" style="margin-bottom:4px">
+            <div class="bar-fill ${barColor(utilPct,'gpu')}" style="width:${pct(utilPct)}%"></div>
+          </div>
+          <div class="metric-label"><span>VRAM</span><span class="metric-value">${fmtMB(g.vram_used_mb)} / ${fmtMB(g.vram_total_mb)}</span></div>
+          <div class="bar-track" style="margin-bottom:4px">
+            <div class="bar-fill ${barColor(vramPct,'vram')}" style="width:${pct(vramPct)}%"></div>
+          </div>
+          <div class="metric-label"><span>Temp</span><span class="metric-value">${tempStr}</span></div>
+        </div>`;
+    }).join("");
+    gpuHtml = `<div class="gpu-section"><div class="gpu-title">GPUs (${data.gpus.length})</div>${items}</div>`;
+  }
+
+  const cpu = data.cpu_percent >= 0 ? data.cpu_percent : 0;
+  const ram = data.ram || {};
+  const ramPct = ram.percent >= 0 ? ram.percent : 0;
+  const errorNote = (!online && data.error) ? `<div style="font-size:10px;color:var(--red);margin-top:6px;word-break:break-all">${data.error}</div>` : "";
+
+  return `
+    <div class="node-card ${online ? 'online' : 'offline'}">
+      <div class="node-header">
+        <span class="node-name">${name}</span>
+        <span class="node-status ${online ? 'online' : 'offline'}">${online ? 'ONLINE' : 'OFFLINE'}</span>
+      </div>
+      <div class="node-ip">${ip}:8421</div>
+      ${online ? `
+        ${makeBar(cpu, "cpu", "CPU", cpu.toFixed(1) + "%")}
+        ${makeBar(ramPct, "ram", "RAM", fmtMB(ram.used_mb) + " / " + fmtMB(ram.total_mb))}
+        ${gpuHtml}
+        <div class="services-row">
+          ${renderServicesBadge(data.services_failed)}
+          ${renderBadge("LM", data.lm_studio ? data.lm_studio.status : "N/A")}
+          ${renderBadge("Ollama", data.ollama ? data.ollama.status : "N/A")}
+        </div>
+        <div class="ping-row">Ping: <span class="ping-val">${fmtPing(data.ping_ms)}</span></div>
+      ` : `
+        <div style="color:var(--muted);font-size:12px;margin-top:12px">Node unreachable</div>
+        ${errorNote}
+      `}
+    </div>`;
+}
+
+// ── Tool usage ────────────────────────────────────────────────────────────────
+function renderToolUsage(allData) {
+  const merged = {};
+  for (const [, nodeData] of Object.entries(allData)) {
+    const tc = nodeData.tool_counts || {};
+    for (const [k, v] of Object.entries(tc)) {
+      merged[k] = (merged[k] || 0) + v;
+    }
+  }
+  const lmUp = Object.values(allData).filter(d => d.lm_studio && d.lm_studio.status === "up").length;
+  const ollamaUp = Object.values(allData).filter(d => d.ollama && d.ollama.status === "up").length;
+  merged["lm_studio_nodes"] = lmUp;
+  merged["ollama_nodes"] = ollamaUp;
+
+  const grid = document.getElementById("tool-grid");
+  if (Object.keys(merged).length === 0) {
+    grid.innerHTML = `<span style="color:var(--muted);font-size:12px">No tool data yet</span>`;
+    return;
+  }
+  grid.innerHTML = Object.entries(merged).map(([k, v]) => `
+    <div class="tool-item">
+      <div class="tool-name">${k.replace(/_/g, ' ')}</div>
+      <div class="tool-count">${v}</div>
+    </div>
+  `).join("");
+}
+
+// ── Agents ────────────────────────────────────────────────────────────────────
+function setAgentFilter(filter, btn) {
+  _agentFilter = filter;
+  document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  renderAgents(_agentsData);
+}
+
+function renderAgents(agents) {
+  _agentsData = agents;
+  const grid = document.getElementById("agents-grid");
+  const count = document.getElementById("agents-count");
+
+  // Handle error cases
+  if (agents.length === 1 && agents[0]._error) {
+    const err = agents[0]._error;
+    let msg = "Docker indisponible";
+    if (err === "docker_not_found") msg = "Docker non installe";
+    else if (err === "docker_timeout") msg = "Docker timeout";
+    else if (err !== "docker_unavailable") msg = `Erreur: ${err}`;
+    grid.innerHTML = `<span style="color:var(--muted);font-size:12px">${msg}</span>`;
+    count.textContent = "";
+    return;
+  }
+
+  const filtered = _agentFilter === "all"
+    ? agents
+    : agents.filter(a => a.status_class === _agentFilter);
+
+  const running = agents.filter(a => a.status_class === "running").length;
+  count.textContent = `${running} running / ${agents.length} total`;
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `<span style="color:var(--muted);font-size:12px">Aucun agent dans ce filtre</span>`;
+    return;
+  }
+
+  // Sort: running first
+  const sorted = [...filtered].sort((a, b) => {
+    if (a.status_class === b.status_class) return a.name.localeCompare(b.name);
+    return a.status_class === "running" ? -1 : 1;
+  });
+
+  grid.innerHTML = sorted.map(a => {
+    const shortName = a.name.replace(/^(openclaw-sbx-agent-|cowork-)/, "");
+    return `
+      <div class="agent-badge ${a.status_class}" title="${a.name}\n${a.image}\n${a.uptime}" onclick="openLogModal('${a.name}')">
+        <div class="agent-dot ${a.status_class}"></div>
+        <span class="agent-name">${shortName}</span>
+      </div>`;
+  }).join("");
+}
+
+// ── Log modal ─────────────────────────────────────────────────────────────────
+function openLogModal(name) {
+  document.getElementById("log-modal-title").textContent = name;
+  document.getElementById("log-modal-body").textContent = "Loading...";
+  document.getElementById("log-modal").classList.add("visible");
+
+  fetch(`/api/agent/${encodeURIComponent(name)}/logs`)
+    .then(r => r.json())
+    .then(data => {
+      const lines = data.lines || [];
+      document.getElementById("log-modal-body").textContent =
+        lines.length > 0 ? lines.join("\n") : "(no logs)";
+    })
+    .catch(e => {
+      document.getElementById("log-modal-body").textContent = "Error: " + e;
+    });
+}
+
+function closeLogModal() {
+  document.getElementById("log-modal").classList.remove("visible");
+}
+
+// Close modal on backdrop click
+document.getElementById("log-modal").addEventListener("click", function(e) {
+  if (e.target === this) closeLogModal();
+});
+
+// ── LM Scoring ───────────────────────────────────────────────────────────────
+function scoreColor(score) {
+  if (score >= 80) return "#22c55e";
+  if (score >= 60) return "#86efac";
+  if (score >= 40) return "#ffd166";
+  return "#ff4444";
+}
+
+function renderLMScores(data) {
+  _lmData = data;
+  const container = document.getElementById("lm-content");
+
+  if (!data || data.length === 0) {
+    container.innerHTML = `<span style="color:var(--muted);font-size:12px">Aucune donnee (cowork_engine.db introuvable ou vide)</span>`;
+    return;
+  }
+
+  // Sort
+  const sorted = [...data].sort((a, b) => {
+    const va = a[_lmSortCol] ?? 0;
+    const vb = b[_lmSortCol] ?? 0;
+    if (typeof va === "string") return _lmSortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
+    return _lmSortAsc ? va - vb : vb - va;
+  });
+
+  const cols = [
+    { key: "model",       label: "Modele" },
+    { key: "backend",     label: "Backend" },
+    { key: "calls",       label: "Appels" },
+    { key: "avg_latency", label: "Latence moy." },
+    { key: "avg_score",   label: "Score qualite" },
+  ];
+
+  const headers = cols.map(c => {
+    const isSorted = _lmSortCol === c.key;
+    const cls = isSorted ? ("sorted" + (_lmSortAsc ? " asc" : "")) : "";
+    return `<th class="${cls}" onclick="lmSort('${c.key}')">${c.label}</th>`;
+  }).join("");
+
+  const rows = sorted.map(r => {
+    const score = r.avg_score || 0;
+    const color = scoreColor(score);
+    return `<tr>
+      <td class="lm-model" title="${r.model}">${r.model}</td>
+      <td class="lm-backend">${r.backend || "-"}</td>
+      <td class="lm-calls">${r.calls}</td>
+      <td class="lm-latency">${r.avg_latency} ms</td>
+      <td>
+        <div class="score-cell">
+          <div class="score-bar-track">
+            <div class="score-bar-fill" style="width:${Math.min(100,score)}%;background:${color}"></div>
+          </div>
+          <span class="score-val" style="color:${color}">${score.toFixed(0)}</span>
+        </div>
+      </td>
+    </tr>`;
+  }).join("");
+
+  container.innerHTML = `
+    <table class="lm-table">
+      <thead><tr>${headers}</tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+}
+
+function lmSort(col) {
+  if (_lmSortCol === col) {
+    _lmSortAsc = !_lmSortAsc;
+  } else {
+    _lmSortCol = col;
+    _lmSortAsc = false;
+  }
+  renderLMScores(_lmData);
+}
+
+
+// ── Heavy Tasks ──────────────────────────────────────────────────────────────
+let _heavyMax = { cpu: 1, ram: 1, vram: 1, lat: 1 };
+
+function renderHeavyTasks(data) {
+  const tbody = document.getElementById("heavy-tbody");
+  if (!data || data.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" style="color:var(--muted);padding:12px">Aucune donnee disponible — lancez des taches avec jarvis task run</td></tr>';
+    return;
+  }
+  _heavyMax.cpu  = Math.max(1, ...data.map(r => r.avg_cpu));
+  _heavyMax.ram  = Math.max(1, ...data.map(r => r.avg_ram_mb));
+  _heavyMax.vram = Math.max(1, ...data.map(r => r.avg_vram_mb));
+  _heavyMax.lat  = Math.max(1, ...data.map(r => r.avg_latency));
+
+  function miniBar(val, max, cls) {
+    const pct = Math.min(100, (val / max) * 100);
+    return `<div class="metric-bar-wrap">
+      <div class="metric-bar-bg"><div class="metric-bar-fill ${cls}" style="width:${pct}%"></div></div>
+      <span>${val}</span>
+    </div>`;
+  }
+
+  tbody.innerHTML = data.map((r, i) =>
+    `<tr>
+      <td style="color:var(--muted)">${r.task_id}</td>
+      <td style="max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${r.title}">${r.title}</td>
+      <td>${miniBar(r.avg_cpu, _heavyMax.cpu, 'bar-cpu')}</td>
+      <td>${miniBar(r.avg_ram_mb, _heavyMax.ram, 'bar-ram')}</td>
+      <td>${miniBar(r.avg_vram_mb, _heavyMax.vram, 'bar-vram')}</td>
+      <td>${miniBar(r.avg_latency, _heavyMax.lat, 'bar-lat')}</td>
+      <td style="color:var(--muted)">${r.count}</td>
+    </tr>`
+  ).join("");
+}
+
+function heavyRefresh() {
+  fetch("/api/task-metrics?limit=10")
+    .then(r => r.json())
+    .then(renderHeavyTasks)
+    .catch(() => {});
+}
+heavyRefresh();
+setInterval(heavyRefresh, 60000);
+
+// LM auto-refresh every 30s via REST (separate from WS)
+function lmRefresh() {
+  fetch("/api/lm-scores")
+    .then(r => r.json())
+    .then(renderLMScores)
+    .catch(() => {});
+}
+setInterval(lmRefresh, 30000);
+
+// ── Main render ───────────────────────────────────────────────────────────────
+function render(msg) {
+  const data = msg.data || {};
+  const agents = msg.agents || [];
+  const lm_scores = msg.lm_scores || null;
+
+  // Nodes
+  const grid = document.getElementById("nodes-grid");
+  const order = ["M1", "M2", "M3", "OL1"];
+  const allNames = [...new Set([...order, ...Object.keys(data)])];
+  grid.innerHTML = allNames.map(name => {
+    const d = data[name] || { online: false, error: "No data", gpus: [], ram: {}, tool_counts: {} };
+    return renderCard(name, d);
+  }).join("");
+
+  renderToolUsage(data);
+
+  // Agents
+  renderAgents(agents);
+
+  // LM scores (only if present in payload)
+  if (lm_scores !== null) {
+    renderLMScores(lm_scores);
+  }
+
+  const now = new Date().toLocaleTimeString("fr-FR");
+  document.getElementById("last-update").textContent = `Updated: ${now}`;
+}
+
+// ── WebSocket ─────────────────────────────────────────────────────────────────
+let ws = null;
+
+function connect() {
+  const dot = document.getElementById("ws-dot");
+  const label = document.getElementById("ws-label");
+  dot.className = "ws-dot connecting";
+  label.textContent = "Connecting...";
+
+  ws = new WebSocket(WS_URL);
+
+  ws.onopen = () => {
+    dot.className = "ws-dot connected";
+    label.textContent = "Live";
+  };
+
+  ws.onmessage = (evt) => {
+    try {
+      const msg = JSON.parse(evt.data);
+      if (msg.type === "metrics") {
+        render(msg);
+      }
+    } catch (e) {
+      console.error("Parse error:", e);
+    }
+  };
+
+  ws.onerror = () => {};
+
+  ws.onclose = () => {
+    dot.className = "ws-dot";
+    label.textContent = "Reconnecting...";
+    setTimeout(connect, RECONNECT_DELAY);
+  };
+}
+
+connect();
+</script>
+</body>
+</html>

@@ -1,0 +1,248 @@
+{
+  "ts": "2026-04-29T23:19:05.989709",
+  "model_weights": {
+    "M1::gemma3:4b": {
+      "score": 87.0,
+      "lat_ms": 19096,
+      "weight": 4.329
+    },
+    "M1::qwen3:1.7b": {
+      "score": 86.0,
+      "lat_ms": 13614,
+      "weight": 5.885
+    },
+    "M1::qwen2.5:1.5b": {
+      "score": 90.0,
+      "lat_ms": 17063,
+      "weight": 4.983
+    }
+  },
+  "machine_profiles": {
+    "M1": {
+      "node": "M1",
+      "ip": "192.168.1.85",
+      "ollama": "UP",
+      "lm_studio": "STARTING",
+      "ram_gb": 48,
+      "gpus": 5,
+      "gpu_free": {
+        "GPU0": 11935,
+        "GPU2": 3837,
+        "GPU3": 6135
+      },
+      "load_now": 9.9,
+      "priority": 1,
+      "preferred_models": [
+        "qwen2.5:1.5b",
+        "qwen3:1.7b",
+        "gemma3:4b"
+      ],
+      "avoid": [
+        "deepseek-r1:7b"
+      ],
+      "role": "orchestrator"
+    },
+    "M3": {
+      "node": "M3",
+      "ip": "192.168.1.113",
+      "ollama": "UP",
+      "lm_studio": "DOWN",
+      "ram_gb": 16,
+      "gpus": 0,
+      "load_now": 4.09,
+      "priority": 2,
+      "preferred_models": [
+        "gemma3:4b",
+        "qwen3:1.7b"
+      ],
+      "avoid": [
+        "deepseek-r1:7b",
+        "kimi-k2.5:cloud"
+      ],
+      "role": "secondary"
+    },
+    "M2": {
+      "node": "M2",
+      "ip": "192.168.1.26",
+      "ollama": "DOWN",
+      "lm_studio": "DOWN",
+      "priority": 99,
+      "role": "offline"
+    }
+  },
+  "routing_matrix": {
+    "startup_check": {
+      "fast": {
+        "machine": "M1",
+        "model": "qwen2.5:1.5b",
+        "fallback": "M3"
+      },
+      "quality": {
+        "machine": "M1",
+        "model": "gemma3:4b",
+        "fallback_machine": "antigravity"
+      },
+      "heavy": {
+        "machine": "antigravity",
+        "model": "cloud",
+        "note": "tanked by antigravity"
+      }
+    },
+    "shutdown_predict": {
+      "fast": {
+        "machine": "M1",
+        "model": "qwen3:1.7b",
+        "fallback": "M3"
+      },
+      "quality": {
+        "machine": "M1",
+        "model": "gemma3:4b",
+        "fallback_machine": "antigravity"
+      },
+      "heavy": {
+        "machine": "antigravity",
+        "model": "cloud",
+        "note": "tanked by antigravity"
+      }
+    },
+    "flux_routing": {
+      "fast": {
+        "machine": "M1",
+        "model": "qwen2.5:1.5b",
+        "fallback": "M3"
+      },
+      "quality": {
+        "machine": "M1",
+        "model": "kimi-k2.5:cloud",
+        "fallback_machine": "antigravity"
+      },
+      "heavy": {
+        "machine": "antigravity",
+        "model": "cloud",
+        "note": "tanked by antigravity"
+      }
+    },
+    "error_compress": {
+      "fast": {
+        "machine": "M1",
+        "model": "qwen3:1.7b",
+        "fallback": "M3"
+      },
+      "quality": {
+        "machine": "M1",
+        "model": "deepseek-r1:7b",
+        "fallback_machine": "antigravity"
+      },
+      "heavy": {
+        "machine": "antigravity",
+        "model": "cloud",
+        "note": "tanked by antigravity"
+      }
+    },
+    "vram_scaling": {
+      "fast": {
+        "machine": "M1",
+        "model": "qwen3:1.7b",
+        "fallback": "M3"
+      },
+      "quality": {
+        "machine": "M1",
+        "model": "gemma3:4b",
+        "fallback_machine": "antigravity"
+      },
+      "heavy": {
+        "machine": "antigravity",
+        "model": "cloud",
+        "note": "tanked by antigravity"
+      }
+    },
+    "heavy_reasoning": {
+      "fast": {
+        "machine": "M1",
+        "model": "deepseek-r1:7b",
+        "fallback": "M3"
+      },
+      "quality": {
+        "machine": "M1",
+        "model": "kimi-k2.5:cloud",
+        "fallback_machine": "antigravity"
+      },
+      "heavy": {
+        "machine": "antigravity",
+        "model": "cloud",
+        "note": "tanked by antigravity"
+      }
+    }
+  },
+  "stabilization_rules": [
+    {
+      "priority": 1,
+      "rule": "npm_spawn_limit",
+      "action": "max 5 npm processes simultan\u00e9s \u2014 tuer surplus",
+      "target": "node/npm x73/63"
+    },
+    {
+      "priority": 2,
+      "rule": "ollama_unload_idle",
+      "action": "unload model si idle >5min (keep_alive:0)",
+      "target": "ollama runner"
+    },
+    {
+      "priority": 3,
+      "rule": "mcp_pool_size",
+      "action": "limiter MCP servers \u00e0 8 simultan\u00e9s max",
+      "target": "MCP npm explosion"
+    },
+    {
+      "priority": 4,
+      "rule": "rsync_cgroup",
+      "action": "cgroup limit rsync \u00e0 4 CPUs pendant backup",
+      "target": "rsync timeshift"
+    },
+    {
+      "priority": 5,
+      "rule": "python3_fork_max",
+      "action": "max 20 python3 workers via semaphore cowork",
+      "target": "python3 x87"
+    }
+  ],
+  "log_templates": {
+    "M1": {
+      "log_file": "/var/log/jarvis/M1_profile.jsonl",
+      "metrics": [
+        "load",
+        "ram_free",
+        "gpu_util",
+        "gpu_temp",
+        "vram_used",
+        "ollama_active",
+        "lm_active",
+        "npm_count",
+        "node_count"
+      ],
+      "alerts": {
+        "load_gt": 15,
+        "ram_free_lt": 2000,
+        "gpu_temp_gt": 80,
+        "npm_count_gt": 20
+      },
+      "interval_s": 30,
+      "action_on_alert": "ollama_unload + npm_kill_surplus + telegram_notify"
+    },
+    "M3": {
+      "log_file": "/var/log/jarvis/M3_profile.jsonl",
+      "metrics": [
+        "load",
+        "ram_free",
+        "ollama_active",
+        "task_count"
+      ],
+      "alerts": {
+        "load_gt": 8,
+        "ram_free_lt": 500
+      },
+      "interval_s": 60,
+      "action_on_alert": "reject_new_tasks + telegram_notify"
+    }
+  }
+}

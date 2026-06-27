@@ -1,0 +1,43 @@
+=== JARVIS PRODUCTION AUDIT 20260506_143353 ===
+\n[1/6] CLUSTER LLM
+  ✓ M1: 4 models
+  ✗ M2: DOWN (http://192.168.1.26:1234)
+  ✓ OL1: 6 models
+\n[2/6] SERVICES SYSTEMD
+  ~ jarvis-vocal: inactive
+not-found (non critique)
+  ~ jarvis-ws: inactive
+not-found (non critique)
+  ~ lumen-voice: inactive
+not-found (non critique)
+  ~ jarvis-whisper: inactive
+not-found (non critique)
+\n[3/6] DOCKER CONTAINERS
+  ✓ Running: 31 containers
+  ~ DOWN: jarvis_prod_jarvis-telegram.1.icw6sg6vrwreja1fz4280squu:Exited (1) 23 seconds ago
+  ~ DOWN: jarvis_prod_jarvis-telegram.1.0v9mdtbdt00kxavf54zq64q8g:Exited (1) 59 seconds ago
+  ~ DOWN: jarvis_prod_jarvis-telegram.1.c6q11vqtob10mkrjhjp3a4mkj:Exited (1) About a minute ago
+  ~ DOWN: jarvis_prod_jarvis-telegram.1.70c09w0rlg4678wdlx5cxztaj:Exited (1) 2 minutes ago
+  ~ DOWN: jarvis_prod_vocal-whisper.1.t50f4fjdpfif8k7vrzwo6mddf:Exited (137) 2 minutes ago
+  ~ DOWN: jarvis_prod_vocal-whisper.1.to6eqy58gau063ch36ges8h0j:Exited (137) 5 minutes ago
+  ~ DOWN: jarvis_prod_vocal-whisper.1.s6dpmwtptndhp8ngxbo61y225:Exited (137) 9 minutes ago
+  ~ DOWN: jarvis_prod_vocal-whisper.1.t2rs3fmz3goochqgquv5rln1b:Exited (137) 12 minutes ago
+  ~ DOWN: jarvis_prod_antigravity-mcp.1.ebs84l59az13mngv7opy356th:Exited (1) 4 hours ago
+  ~ DOWN: jarvis_prod_antigravity-mcp.1.yi2n1gn0vs7ahe2982c27jzhh:Exited (1) 4 hours ago
+\n[4/6] MCP SERVERS — IMPORT CHECK
+  ✓ jarvis.core.utils.mcp_server
+  ✓ jarvis.core.utils.ia_tool_executor
+  ✓ jarvis.core.utils.ia_tools
+  ✗ jarvis.core.scripts.integrations.production_bridge: ImportError
+\n[5/6] DATABASES
+  ✓ jarvis_master.db: 6 tables
+  ✓ etoile.db: 3 tables
+  ✓ jarvis_logs.db: 0 tables
+  ✓ cowork_engine.db: 5 tables
+\n[6/6] PORTS
+  ~ JARVIS-WS :9742 fermé
+  ✓ OpenClaw :18789
+  ✓ OL1 :11434
+  ✓ LMStudio-local :1234
+\n=== RÉSUMÉ: 2 erreur(s) critique(s) ===
+ACTION REQUISE — voir /home/turbo/jarvis/reports/audit_20260506_143353.txt

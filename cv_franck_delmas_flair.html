@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Franck Delmas — CV Portfolio | AI Engineer</title>
+<style>
+  :root {
+    --primary: #0f172a;
+    --accent: #6366f1;
+    --accent2: #22d3ee;
+    --accent3: #a855f7;
+    --surface: #1e293b;
+    --surface2: #0f172a;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --border: #334155;
+    --green: #10b981;
+    --yellow: #f59e0b;
+    --red: #ef4444;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--primary);
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 15px;
+  }
+
+  /* ─── HEADER ─── */
+  header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+    border-bottom: 2px solid var(--accent);
+    padding: 48px 60px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    top: -50px; right: -50px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .header-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 32px;
+    align-items: start;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .name {
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    background: linear-gradient(90deg, #e2e8f0, var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .title {
+    font-size: 18px;
+    color: var(--accent2);
+    font-weight: 500;
+    margin-top: 4px;
+    letter-spacing: 0.5px;
+  }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 14px;
+    margin-top: 8px;
+  }
+
+  .contact-block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-end;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .contact-block a {
+    color: var(--accent2);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .contact-block a:hover { color: white; }
+
+  .badge-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  .badge-purple { background: rgba(168,85,247,0.2); color: #c084fc; border: 1px solid rgba(168,85,247,0.4); }
+  .badge-cyan { background: rgba(34,211,238,0.15); color: var(--accent2); border: 1px solid rgba(34,211,238,0.3); }
+  .badge-green { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+  .badge-yellow { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+
+  /* ─── LAYOUT ─── */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 0;
+    max-width: 1100px;
+    margin: 0 auto;
+    min-height: calc(100vh - 200px);
+  }
+
+  .sidebar {
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 36px 28px;
+  }
+
+  .content {
+    padding: 36px 40px;
+  }
+
+  /* ─── SECTION TITLES ─── */
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  section { margin-bottom: 36px; }
+
+  /* ─── SKILLS ─── */
+  .skill-group { margin-bottom: 20px; }
+  .skill-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tag {
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .tag-core { background: rgba(99,102,241,0.2); color: #a5b4fc; border: 1px solid rgba(99,102,241,0.35); }
+  .tag-infra { background: rgba(34,211,238,0.1); color: #67e8f9; border: 1px solid rgba(34,211,238,0.25); }
+  .tag-ai { background: rgba(168,85,247,0.15); color: #d8b4fe; border: 1px solid rgba(168,85,247,0.3); }
+  .tag-data { background: rgba(16,185,129,0.12); color: #6ee7b7; border: 1px solid rgba(16,185,129,0.25); }
+  .tag-voice { background: rgba(245,158,11,0.12); color: #fde68a; border: 1px solid rgba(245,158,11,0.25); }
+
+  /* ─── METRICS ─── */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .metric-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+  }
+
+  .metric-value {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--accent2);
+    display: block;
+  }
+
+  .metric-label {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+  }
+
+  /* ─── FLAIR MATCH ─── */
+  .match-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+  }
+
+  .match-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .dot-green { background: var(--green); box-shadow: 0 0 6px var(--green); }
+  .dot-yellow { background: var(--yellow); box-shadow: 0 0 6px var(--yellow); }
+  .dot-red { background: var(--red); }
+
+  .match-text { font-size: 12px; }
+  .match-domain { font-weight: 600; color: var(--text); font-size: 12px; }
+  .match-level { font-size: 10px; color: var(--muted); }
+
+  /* ─── PROJECTS ─── */
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .project-card:hover { border-color: var(--accent); }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+
+  .card-flagship::before { background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+  .card-trading::before { background: linear-gradient(90deg, var(--green), #059669); }
+  .card-infra::before { background: linear-gradient(90deg, var(--accent2), #0891b2); }
+  .card-voice::before { background: linear-gradient(90deg, var(--accent3), #7c3aed); }
+  .card-analytics::before { background: linear-gradient(90deg, var(--yellow), #d97706); }
+
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+
+  .project-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+  }
+
+  .project-subtitle {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .github-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+    background: var(--surface2);
+    flex-shrink: 0;
+  }
+
+  .github-link:hover { color: white; border-color: var(--accent); }
+
+  .project-desc {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 16px;
+    line-height: 1.7;
+  }
+
+  .project-metrics {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+
+  .pm {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pm-value {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent2);
+  }
+
+  .pm-label {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 12px;
+  }
+
+  .tech {
+    padding: 2px 8px;
+    background: rgba(99,102,241,0.15);
+    border: 1px solid rgba(99,102,241,0.3);
+    border-radius: 4px;
+    font-size: 11px;
+    color: #a5b4fc;
+    font-family: 'Courier New', monospace;
+  }
+
+  /* ─── ARCHITECTURE ─── */
+  .arch-layers {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 16px 0;
+  }
+
+  .arch-layer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 14px;
+    border-radius: 6px;
+    border-left: 3px solid var(--accent);
+    background: var(--surface2);
+    font-size: 13px;
+  }
+
+  .layer-num {
+    font-size: 10px;
+    color: var(--muted);
+    min-width: 20px;
+    font-family: monospace;
+  }
+
+  .layer-name {
+    font-weight: 600;
+    color: var(--accent2);
+    min-width: 120px;
+  }
+
+  .layer-tech { color: var(--muted); font-size: 12px; }
+
+  /* ─── EXPERIENCE ─── */
+  .exp-item {
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--surface);
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+
+  .exp-title { font-size: 16px; font-weight: 700; color: white; }
+  .exp-meta { font-size: 12px; color: var(--muted); margin: 4px 0 12px; }
+  .exp-bullets { list-style: none; }
+  .exp-bullets li {
+    font-size: 14px;
+    color: var(--muted);
+    padding: 3px 0;
+    padding-left: 16px;
+    position: relative;
+  }
+  .exp-bullets li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  /* ─── PRINT / PDF ─── */
+  @media print {
+    @page { margin: 12mm 10mm; size: A4; }
+
+    * {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      color-adjust: exact !important;
+    }
+
+    body {
+      background: #ffffff !important;
+      color: #1e293b !important;
+      font-size: 11px !important;
+      line-height: 1.5 !important;
+    }
+
+    /* Variables override pour print */
+    :root {
+      --primary: #ffffff;
+      --accent: #4f46e5;
+      --accent2: #0891b2;
+      --accent3: #7c3aed;
+      --surface: #f8fafc;
+      --surface2: #f1f5f9;
+      --text: #1e293b;
+      --muted: #475569;
+      --border: #cbd5e1;
+      --green: #059669;
+      --yellow: #d97706;
+      --red: #dc2626;
+    }
+
+    header {
+      background: #1e293b !important;
+      color: white !important;
+      padding: 24px 32px 20px !important;
+      border-bottom: 3px solid #4f46e5 !important;
+    }
+
+    .name {
+      font-size: 28px !important;
+      background: none !important;
+      -webkit-background-clip: unset !important;
+      -webkit-text-fill-color: white !important;
+      background-clip: unset !important;
+      color: white !important;
+    }
+
+    .title { color: #67e8f9 !important; font-size: 13px !important; }
+    .subtitle { color: #94a3b8 !important; font-size: 11px !important; }
+
+    .contact-block { color: #94a3b8 !important; font-size: 11px !important; }
+    .contact-block a { color: #67e8f9 !important; }
+
+    .badge {
+      border: 1px solid #4f46e5 !important;
+      font-size: 9px !important;
+      padding: 2px 8px !important;
+    }
+    .badge-purple { background: #ede9fe !important; color: #5b21b6 !important; border-color: #7c3aed !important; }
+    .badge-cyan { background: #e0f2fe !important; color: #0369a1 !important; border-color: #0891b2 !important; }
+    .badge-green { background: #d1fae5 !important; color: #065f46 !important; border-color: #059669 !important; }
+    .badge-yellow { background: #fef3c7 !important; color: #92400e !important; border-color: #d97706 !important; }
+
+    .main-grid {
+      grid-template-columns: 240px 1fr !important;
+      gap: 0 !important;
+    }
+
+    .sidebar {
+      background: #f8fafc !important;
+      border-right: 1px solid #cbd5e1 !important;
+      padding: 20px 18px !important;
+    }
+
+    .content { padding: 20px 24px !important; }
+
+    .section-title {
+      color: #4f46e5 !important;
+      border-bottom: 1px solid #e2e8f0 !important;
+      font-size: 9px !important;
+      margin-bottom: 10px !important;
+    }
+
+    /* Métriques */
+    .metrics-grid { gap: 6px !important; }
+    .metric-card {
+      background: #f1f5f9 !important;
+      border: 1px solid #e2e8f0 !important;
+      padding: 8px !important;
+    }
+    .metric-value { color: #0891b2 !important; font-size: 16px !important; }
+    .metric-label { color: #64748b !important; }
+
+    /* Tags */
+    .tag { font-size: 9px !important; padding: 2px 6px !important; }
+    .tag-core { background: #ede9fe !important; color: #4338ca !important; border-color: #a5b4fc !important; }
+    .tag-infra { background: #e0f2fe !important; color: #0369a1 !important; border-color: #7dd3fc !important; }
+    .tag-ai { background: #f3e8ff !important; color: #6d28d9 !important; border-color: #c4b5fd !important; }
+    .tag-data { background: #d1fae5 !important; color: #065f46 !important; border-color: #6ee7b7 !important; }
+    .tag-voice { background: #fef3c7 !important; color: #92400e !important; border-color: #fcd34d !important; }
+
+    /* Match Flair */
+    .match-item {
+      background: #f8fafc !important;
+      border: 1px solid #e2e8f0 !important;
+      padding: 6px 8px !important;
+      margin-bottom: 6px !important;
+    }
+    .match-domain { color: #1e293b !important; font-size: 11px !important; }
+    .match-level { color: #64748b !important; font-size: 9px !important; }
+    .dot-green { background: #059669 !important; box-shadow: none !important; }
+    .dot-yellow { background: #d97706 !important; box-shadow: none !important; }
+
+    /* Dispo */
+    .sidebar section:last-child > div {
+      background: #d1fae5 !important;
+      border: 1px solid #6ee7b7 !important;
+    }
+
+    /* Project cards */
+    .project-card {
+      background: #f8fafc !important;
+      border: 1px solid #cbd5e1 !important;
+      padding: 14px !important;
+      margin-bottom: 12px !important;
+      break-inside: avoid !important;
+    }
+
+    .project-card::before { height: 2px !important; }
+    .card-flagship::before { background: #4f46e5 !important; }
+    .card-trading::before { background: #059669 !important; }
+    .card-infra::before { background: #0891b2 !important; }
+    .card-voice::before { background: #7c3aed !important; }
+    .card-analytics::before { background: #d97706 !important; }
+
+    .project-name { color: #0f172a !important; font-size: 14px !important; }
+    .project-subtitle { color: #64748b !important; font-size: 10px !important; }
+    .project-desc { color: #475569 !important; font-size: 11px !important; }
+
+    .github-link {
+      background: #ede9fe !important;
+      border: 1px solid #a5b4fc !important;
+      color: #4338ca !important;
+      font-size: 10px !important;
+      padding: 3px 8px !important;
+    }
+
+    .pm-value { color: #0891b2 !important; font-size: 13px !important; }
+    .pm-label { color: #64748b !important; font-size: 9px !important; }
+
+    /* Architecture layers */
+    .arch-layer {
+      background: #f1f5f9 !important;
+      border-left: 2px solid #4f46e5 !important;
+      font-size: 10px !important;
+      padding: 5px 10px !important;
+    }
+    .layer-name { color: #0891b2 !important; min-width: 90px !important; }
+    .layer-tech { color: #475569 !important; }
+    .layer-num { color: #94a3b8 !important; }
+
+    /* Tech tags */
+    .tech {
+      background: #ede9fe !important;
+      border-color: #a5b4fc !important;
+      color: #4338ca !important;
+      font-size: 9px !important;
+      padding: 1px 5px !important;
+    }
+
+    /* Expérience */
+    .exp-item {
+      background: #f8fafc !important;
+      border: 1px solid #e2e8f0 !important;
+      border-left: 3px solid #4f46e5 !important;
+      padding: 14px !important;
+      break-inside: avoid !important;
+    }
+    .exp-title { color: #0f172a !important; font-size: 13px !important; }
+    .exp-meta { color: #64748b !important; }
+    .exp-bullets li { color: #475569 !important; font-size: 11px !important; }
+    .exp-bullets li::before { color: #4f46e5 !important; }
+
+    /* Profil text */
+    section > p { color: #475569 !important; border-left-color: #4f46e5 !important; }
+    section > p strong { color: #0f172a !important; }
+
+    /* Flair cards */
+    section:last-of-type > div > div:first-child {
+      background: #ede9fe !important;
+      border-color: #a5b4fc !important;
+    }
+    section:last-of-type > div > div:first-child > div { color: #4f46e5 !important; }
+    section:last-of-type > div > div:last-child {
+      background: #e0f2fe !important;
+      border-color: #7dd3fc !important;
+    }
+    section:last-of-type > div > div:last-child > div { color: #0369a1 !important; }
+
+    footer {
+      color: #64748b !important;
+      border-top: 1px solid #e2e8f0 !important;
+      font-size: 10px !important;
+    }
+    footer a { color: #4f46e5 !important; }
+
+    /* Dispo sidebar */
+    [style*="background: rgba(16,185,129"] {
+      background: #d1fae5 !important;
+      border-color: #6ee7b7 !important;
+    }
+
+    /* Textes inline style */
+    [style*="color: var(--accent2)"] { color: #0891b2 !important; }
+    [style*="color: var(--accent)"] { color: #4f46e5 !important; }
+    [style*="color: var(--muted)"] { color: #475569 !important; }
+    [style*="color: white"] { color: #0f172a !important; }
+    [style*="color: #34d399"] { color: #059669 !important; }
+    [style*="color: #6366f1"] { color: #4338ca !important; }
+    [style*="background: rgba(99,102,241"] { background: #ede9fe !important; border-color: #a5b4fc !important; }
+    [style*="background: rgba(34,211,238"] { background: #e0f2fe !important; border-color: #7dd3fc !important; }
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    text-align: center;
+    padding: 24px;
+    color: var(--muted);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header>
+  <div class="header-grid">
+    <div>
+      <div class="name">Franck Delmas</div>
+      <div class="title">AI Engineer · Architecte Systèmes Distribués · Multi-GPU</div>
+      <div class="subtitle">Orchestration multi-agents · Infrastructure IA on-premise · Freelance / Mission longue</div>
+      <div class="badge-row">
+        <span class="badge badge-purple">928 Agents IA</span>
+        <span class="badge badge-cyan">6 GPUs / 46GB VRAM</span>
+        <span class="badge badge-green">44 Repos GitHub</span>
+        <span class="badge badge-yellow">Mission 18 mois</span>
+      </div>
+    </div>
+    <div class="contact-block">
+      <a href="mailto:miningexpert31@gmail.com">✉ miningexpert31@gmail.com</a>
+      <a href="https://github.com/Turbo31150" target="_blank">⌥ github.com/Turbo31150</a>
+      <span>📍 France (remote / déplacement)</span>
+      <span style="margin-top:8px; color: #6366f1; font-weight:700; font-size:14px;">TJM cible : 550–700 €/j</span>
+    </div>
+  </div>
+</header>
+
+<!-- ═══ MAIN GRID ═══ -->
+<div class="main-grid">
+
+  <!-- ═══ SIDEBAR ═══ -->
+  <aside class="sidebar">
+
+    <!-- Métriques clés -->
+    <section>
+      <div class="section-title">Chiffres clés</div>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <span class="metric-value">928+</span>
+          <div class="metric-label">Agents IA actifs</div>
+        </div>
+        <div class="metric-card">
+          <span class="metric-value">6</span>
+          <div class="metric-label">GPUs NVIDIA</div>
+        </div>
+        <div class="metric-card">
+          <span class="metric-value">&lt;300ms</span>
+          <div class="metric-label">Latence vocale</div>
+        </div>
+        <div class="metric-card">
+          <span class="metric-value">835</span>
+          <div class="metric-label">Pipelines auto</div>
+        </div>
+        <div class="metric-card">
+          <span class="metric-value">144+</span>
+          <div class="metric-label">Outils MCP</div>
+        </div>
+        <div class="metric-card">
+          <span class="metric-value">€21k</span>
+          <div class="metric-label">Économie/an cloud</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stack technique -->
+    <section>
+      <div class="section-title">Stack technique</div>
+
+      <div class="skill-group">
+        <div class="skill-label">Langages</div>
+        <div class="skill-tags">
+          <span class="tag tag-core">Python</span>
+          <span class="tag tag-core">TypeScript</span>
+          <span class="tag tag-core">Bash</span>
+          <span class="tag tag-core">JavaScript</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-label">IA / LLM / Orchestration</div>
+        <div class="skill-tags">
+          <span class="tag tag-ai">LangChain</span>
+          <span class="tag tag-ai">MCP Protocol</span>
+          <span class="tag tag-ai">Claude SDK</span>
+          <span class="tag tag-ai">LM Studio</span>
+          <span class="tag tag-ai">Ollama</span>
+          <span class="tag tag-ai">vLLM</span>
+          <span class="tag tag-ai">DeepSeek-R1</span>
+          <span class="tag tag-ai">Multi-agent</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-label">Infrastructure / Cloud</div>
+        <div class="skill-tags">
+          <span class="tag tag-infra">Docker Swarm</span>
+          <span class="tag tag-infra">Docker Compose</span>
+          <span class="tag tag-infra">Linux</span>
+          <span class="tag tag-infra">systemd</span>
+          <span class="tag tag-infra">CUDA</span>
+          <span class="tag tag-infra">NVIDIA</span>
+          <span class="tag tag-infra">FastAPI</span>
+          <span class="tag tag-infra">WebSocket</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-label">Data / Bases de données</div>
+        <div class="skill-tags">
+          <span class="tag tag-data">PostgreSQL</span>
+          <span class="tag tag-data">Redis</span>
+          <span class="tag tag-data">SQLite3</span>
+          <span class="tag tag-data">Elasticsearch</span>
+          <span class="tag tag-data">SQLAlchemy</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-label">Voice / Real-time</div>
+        <div class="skill-tags">
+          <span class="tag tag-voice">Whisper CUDA</span>
+          <span class="tag tag-voice">faster-whisper</span>
+          <span class="tag tag-voice">Silero VAD</span>
+          <span class="tag tag-voice">PyAudio</span>
+          <span class="tag tag-voice">ElevenLabs</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-label">Frontend / Dashboard</div>
+        <div class="skill-tags">
+          <span class="tag tag-core">React</span>
+          <span class="tag tag-core">Node.js</span>
+          <span class="tag tag-core">WebSocket</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Match Flair Group -->
+    <section>
+      <div class="section-title">Adéquation Flair Group</div>
+
+      <div class="match-item">
+        <div class="match-dot dot-green"></div>
+        <div>
+          <div class="match-domain">IA &amp; Data</div>
+          <div class="match-level">Expert — JARVIS OS, TradeOracle</div>
+        </div>
+      </div>
+      <div class="match-item">
+        <div class="match-dot dot-green"></div>
+        <div>
+          <div class="match-domain">Innovation R&D</div>
+          <div class="match-level">Expert — multi-agent, MCP, LLM</div>
+        </div>
+      </div>
+      <div class="match-item">
+        <div class="match-dot dot-green"></div>
+        <div>
+          <div class="match-domain">Infrastructure Cloud</div>
+          <div class="match-level">Solide — Docker Swarm, GPU</div>
+        </div>
+      </div>
+      <div class="match-item">
+        <div class="match-dot dot-green"></div>
+        <div>
+          <div class="match-domain">Développement Agile</div>
+          <div class="match-level">Solide — 570+ QA scripts</div>
+        </div>
+      </div>
+      <div class="match-item">
+        <div class="match-dot dot-yellow"></div>
+        <div>
+          <div class="match-domain">Cybersécurité</div>
+          <div class="match-level">Partiel — secrets mgmt, on-premise</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Disponibilité -->
+    <section>
+      <div class="section-title">Disponibilité</div>
+      <div style="background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); border-radius: 8px; padding: 14px; text-align: center;">
+        <div style="color: #34d399; font-weight: 700; font-size: 14px;">Disponible</div>
+        <div style="color: var(--muted); font-size: 12px; margin-top: 4px;">Mission freelance 18 mois</div>
+        <div style="color: var(--muted); font-size: 12px;">ou CDI client final</div>
+        <div style="color: var(--accent2); font-weight: 700; margin-top: 8px;">550–700 €/j TJM</div>
+      </div>
+    </section>
+
+  </aside>
+
+  <!-- ═══ CONTENT ═══ -->
+  <main class="content">
+
+    <!-- Profil synthèse -->
+    <section>
+      <div class="section-title">Profil</div>
+      <p style="color: var(--muted); font-size: 15px; line-height: 1.8; border-left: 3px solid var(--accent); padding-left: 16px;">
+        Ingénieur IA indépendant spécialisé dans la conception et l'opération de systèmes distribués multi-GPU.
+        Auteur de <strong style="color: white;">JARVIS OS v17.0</strong> — un OS IA autonome orchestrant 928 agents sur 6 GPUs avec 835 pipelines self-healing.
+        Expert en orchestration multi-LLM, pipelines temps réel et infrastructure on-premise à coût minimal.
+        Approche R&D : itérations rapides, métriques mesurables, zéro dépendance cloud.
+      </p>
+    </section>
+
+    <!-- ═══ PORTFOLIO PROJETS ═══ -->
+    <section>
+      <div class="section-title">Portfolio — Projets GitHub</div>
+
+      <!-- JARVIS OS -->
+      <div class="project-card card-flagship">
+        <div class="project-header">
+          <div>
+            <div class="project-name">JARVIS OS v17.0</div>
+            <div class="project-subtitle">OS IA autonome — Projet flagship · Score Claude Code 98/100</div>
+          </div>
+          <a href="https://github.com/Turbo31150/jarvis-linux" class="github-link" target="_blank">
+            ⌥ jarvis-linux
+          </a>
+        </div>
+        <p class="project-desc">
+          Système d'exploitation IA distribué en 9 couches cognitives, orchestrant 928+ agents spécialisés
+          sur un cluster 6 GPUs / 46GB VRAM. Zero cloud dependency — traitement 100% on-premise.
+          Interface voice-first avec pipeline CUDA &lt;300ms. 835 chaînes d'automation self-healing,
+          144+ outils MCP exposés, 2 658 commandes vocales nativement reconnues.
+        </p>
+        <div class="project-metrics">
+          <div class="pm"><span class="pm-value">928+</span><span class="pm-label">Agents actifs</span></div>
+          <div class="pm"><span class="pm-value">46GB</span><span class="pm-label">VRAM GPU</span></div>
+          <div class="pm"><span class="pm-value">835</span><span class="pm-label">Pipelines auto</span></div>
+          <div class="pm"><span class="pm-value">2 658</span><span class="pm-label">Commandes vocales</span></div>
+          <div class="pm"><span class="pm-value">91.4%</span><span class="pm-label">Python codebase</span></div>
+        </div>
+
+        <div class="arch-layers">
+          <div class="arch-layer"><span class="layer-num">L1</span><span class="layer-name">Hardware</span><span class="layer-tech">6x NVIDIA GPU, CUDA, cluster 3 machines</span></div>
+          <div class="arch-layer"><span class="layer-num">L2</span><span class="layer-name">OS</span><span class="layer-tech">Ubuntu/Debian optimisé, systemd</span></div>
+          <div class="arch-layer"><span class="layer-num">L3</span><span class="layer-name">Data</span><span class="layer-tech">SQLite3 distribué synchronisé</span></div>
+          <div class="arch-layer"><span class="layer-num">L4</span><span class="layer-name">Inférence</span><span class="layer-tech">LM Studio · Ollama · vLLM · load balancing</span></div>
+          <div class="arch-layer"><span class="layer-num">L5</span><span class="layer-name">Protocole</span><span class="layer-tech">144+ MCP handlers</span></div>
+          <div class="arch-layer"><span class="layer-num">L6</span><span class="layer-name">Agents</span><span class="layer-tech">928 agents spécialisés</span></div>
+          <div class="arch-layer"><span class="layer-num">L7</span><span class="layer-name">Orchestration</span><span class="layer-tech">Claude Agent SDK · consensus voting</span></div>
+          <div class="arch-layer"><span class="layer-num">L8</span><span class="layer-name">Pipeline</span><span class="layer-tech">n8n · Python · self-healing chains</span></div>
+          <div class="arch-layer"><span class="layer-num">L9</span><span class="layer-name">Interface</span><span class="layer-tech">Voice CUDA · WebSocket dashboard</span></div>
+        </div>
+
+        <div class="tech-stack">
+          <span class="tech">Python</span><span class="tech">CUDA</span><span class="tech">LM Studio</span>
+          <span class="tech">Ollama</span><span class="tech">vLLM</span><span class="tech">MCP</span>
+          <span class="tech">Claude SDK</span><span class="tech">SQLite3</span><span class="tech">Docker</span>
+          <span class="tech">WebSocket</span><span class="tech">FastAPI</span><span class="tech">n8n</span>
+        </div>
+      </div>
+
+      <!-- JARVIS-CLUSTER -->
+      <div class="project-card card-infra">
+        <div class="project-header">
+          <div>
+            <div class="project-name">JARVIS-CLUSTER — La Créatrice</div>
+            <div class="project-subtitle">Infra GPU distribuée · Docker Swarm · 3 nœuds physiques</div>
+          </div>
+          <a href="https://github.com/Turbo31150/JARVIS-CLUSTER" class="github-link" target="_blank">
+            ⌥ JARVIS-CLUSTER
+          </a>
+        </div>
+        <p class="project-desc">
+          Infrastructure multi-nœuds orchestrant 3 machines physiques (M1 Master 6 GPUs, M2 Detector, M3 Orchestrator)
+          via Docker Swarm. Pipeline de dispatch en 9 étapes avec failover adaptatif, circuit breaker,
+          monitoring thermique GPU et endpoints OpenAI-compatibles. ROI : breakeven vs cloud en &lt;3 mois.
+        </p>
+        <div class="project-metrics">
+          <div class="pm"><span class="pm-value">3</span><span class="pm-label">Nœuds physiques</span></div>
+          <div class="pm"><span class="pm-value">9</span><span class="pm-label">Étapes dispatch</span></div>
+          <div class="pm"><span class="pm-value">€30/mois</span><span class="pm-label">Coût opérationnel</span></div>
+          <div class="pm"><span class="pm-value">€21k/an</span><span class="pm-label">Économie vs cloud</span></div>
+        </div>
+        <div class="tech-stack">
+          <span class="tech">Docker Swarm</span><span class="tech">Python</span><span class="tech">FastAPI</span>
+          <span class="tech">WebSocket</span><span class="tech">systemd</span><span class="tech">Linux</span>
+          <span class="tech">GPU Thermal</span><span class="tech">Circuit Breaker</span><span class="tech">OpenAI API</span>
+        </div>
+      </div>
+
+      <!-- TradeOracle -->
+      <div class="project-card card-trading">
+        <div class="project-header">
+          <div>
+            <div class="project-name">TradeOracle</div>
+            <div class="project-subtitle">Trading crypto autonome · Multi-LLM consensus · MEXC Futures</div>
+          </div>
+          <a href="https://github.com/Turbo31150/TradeOracle" class="github-link" target="_blank">
+            ⌥ TradeOracle
+          </a>
+        </div>
+        <p class="project-desc">
+          Agent de trading crypto autonome exécutant des futures sur 800+ paires MEXC via un système
+          de consensus multi-modèles (Domino Pipeline). Score composite 70/100 requis avant exécution.
+          Risk management 3-tier avec TP à +1.5%, +3%, +7% et SL à -1.2%.
+          Dashboard temps réel FastAPI + WebSocket.
+        </p>
+        <div class="project-metrics">
+          <div class="pm"><span class="pm-value">800+</span><span class="pm-label">Paires crypto</span></div>
+          <div class="pm"><span class="pm-value">62%</span><span class="pm-label">Win rate breakout</span></div>
+          <div class="pm"><span class="pm-value">40+</span><span class="pm-label">Outils MCP</span></div>
+          <div class="pm"><span class="pm-value">3 LLM</span><span class="pm-label">Consensus voting</span></div>
+        </div>
+        <div class="tech-stack">
+          <span class="tech">Python</span><span class="tech">LangChain</span><span class="tech">FastAPI</span>
+          <span class="tech">Gemini 3.0</span><span class="tech">LM Studio</span><span class="tech">MCP</span>
+          <span class="tech">SQLAlchemy</span><span class="tech">MEXC API</span><span class="tech">WebSocket</span>
+        </div>
+      </div>
+
+      <!-- Whisper Flow -->
+      <div class="project-card card-voice">
+        <div class="project-header">
+          <div>
+            <div class="project-name">jarvis-whisper-flow</div>
+            <div class="project-subtitle">STT CUDA temps réel · Privacy-first · 99+ langues</div>
+          </div>
+          <a href="https://github.com/Turbo31150/jarvis-whisper-flow" class="github-link" target="_blank">
+            ⌥ jarvis-whisper-flow
+          </a>
+        </div>
+        <p class="project-desc">
+          Pipeline speech-to-text on-premise avec faster-whisper + CUDA. Latence &lt;300ms sur RTX 3060,
+          WER 3.2% (large-v3). Détection d'activité vocale Silero VAD, 26 commandes intégrées,
+          hot-reload des skills sans restart. 100% local, aucune donnée envoyée à un tiers.
+        </p>
+        <div class="project-metrics">
+          <div class="pm"><span class="pm-value">&lt;300ms</span><span class="pm-label">Latence RTX 3060</span></div>
+          <div class="pm"><span class="pm-value">3.2%</span><span class="pm-label">WER large-v3</span></div>
+          <div class="pm"><span class="pm-value">99+</span><span class="pm-label">Langues supportées</span></div>
+          <div class="pm"><span class="pm-value">26</span><span class="pm-label">Commandes vocales</span></div>
+        </div>
+        <div class="tech-stack">
+          <span class="tech">faster-whisper</span><span class="tech">CUDA</span><span class="tech">Silero VAD</span>
+          <span class="tech">PyAudio</span><span class="tech">Docker</span><span class="tech">NVIDIA toolkit</span>
+          <span class="tech">PipeWire</span><span class="tech">Python</span>
+        </div>
+      </div>
+
+      <!-- TradeOracle-Nexus -->
+      <div class="project-card card-analytics">
+        <div class="project-header">
+          <div>
+            <div class="project-name">TradeOracle-Nexus-Elastic</div>
+            <div class="project-subtitle">Plateforme analytique financière · Elasticsearch · Monte Carlo</div>
+          </div>
+          <a href="https://github.com/Turbo31150/TradeOracle-Nexus-Elastic" class="github-link" target="_blank">
+            ⌥ TradeOracle-Nexus-Elastic
+          </a>
+        </div>
+        <p class="project-desc">
+          Plateforme d'analyse financière avec backtesting Monte Carlo, indexation Elasticsearch
+          des signaux de marché et pipeline de données haute fréquence. Visualisation temps réel
+          des performances de stratégies de trading.
+        </p>
+        <div class="tech-stack">
+          <span class="tech">Elasticsearch</span><span class="tech">Python</span><span class="tech">Monte Carlo</span>
+          <span class="tech">Backtesting</span><span class="tech">FastAPI</span><span class="tech">SQLAlchemy</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ═══ EXPÉRIENCE ═══ -->
+    <section>
+      <div class="section-title">Expérience</div>
+
+      <div class="exp-item">
+        <div class="exp-title">AI Engineer Indépendant — Architecte Systèmes IA Distribués</div>
+        <div class="exp-meta">Freelance · 2023 – présent · Remote / France</div>
+        <ul class="exp-bullets">
+          <li>Conception et déploiement de JARVIS OS : OS IA autonome orchestrant 928 agents sur cluster 6 GPUs</li>
+          <li>Architecture multi-agent avec consensus LLM (Claude, Gemini, DeepSeek, modèles distillés)</li>
+          <li>Infrastructure Docker Swarm multi-nœuds avec failover adaptatif et économie €21k/an vs cloud</li>
+          <li>Développement de pipelines STT temps réel CUDA (latence &lt;300ms, 3.2% WER)</li>
+          <li>Système de trading crypto autonome multi-LLM sur 800+ paires MEXC Futures</li>
+          <li>44 repositories publics GitHub, 144+ outils MCP, 835 pipelines d'automation self-healing</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-title">Développeur Full Stack &amp; Data Engineer</div>
+        <div class="exp-meta">Missions antérieures · Python · FastAPI · React · PostgreSQL · Elasticsearch</div>
+        <ul class="exp-bullets">
+          <li>Développement d'APIs FastAPI avec WebSocket pour dashboards temps réel</li>
+          <li>Pipelines ETL, indexation Elasticsearch, analytics Monte Carlo</li>
+          <li>Automation navigateur (CDP Chrome DevTools Protocol)</li>
+          <li>Déploiements Docker, monitoring GPU, scripting Linux/Bash</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ═══ POURQUOI FLAIR GROUP ═══ -->
+    <section>
+      <div class="section-title">Pourquoi Flair Group — Mission 18 mois</div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+
+        <div style="padding: 16px; background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.25); border-radius: 8px;">
+          <div style="color: var(--accent); font-weight: 700; margin-bottom: 8px; font-size: 13px;">Ce que j'apporte</div>
+          <ul style="list-style: none; font-size: 13px; color: var(--muted);">
+            <li style="padding: 2px 0;">▸ Expertise IA rare sur le marché ESN</li>
+            <li style="padding: 2px 0;">▸ Autonomie totale sur systèmes complexes</li>
+            <li style="padding: 2px 0;">▸ Culture R&D + résultats mesurables</li>
+            <li style="padding: 2px 0;">▸ Maîtrise complète du stack cloud/on-prem</li>
+            <li style="padding: 2px 0;">▸ Engagement sur durée (projet JARVIS = 12+ mois)</li>
+          </ul>
+        </div>
+
+        <div style="padding: 16px; background: rgba(34,211,238,0.06); border: 1px solid rgba(34,211,238,0.2); border-radius: 8px;">
+          <div style="color: var(--accent2); font-weight: 700; margin-bottom: 8px; font-size: 13px;">Valeurs partagées (Flair)</div>
+          <ul style="list-style: none; font-size: 13px; color: var(--muted);">
+            <li style="padding: 2px 0;">▸ Transparence — code open-source, métriques publiques</li>
+            <li style="padding: 2px 0;">▸ Engagement — 44 repos, contribution active</li>
+            <li style="padding: 2px 0;">▸ Innovation — MCP Protocol, multi-agent (2024)</li>
+            <li style="padding: 2px 0;">▸ Respect — documentation soignée, tests 570+</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  Franck Delmas · AI Engineer · <a href="https://github.com/Turbo31150" style="color: var(--accent);">github.com/Turbo31150</a> · miningexpert31@gmail.com
+  <br><span style="font-size: 11px; margin-top: 4px; display: block;">CV généré pour candidature Flair Group — Mission freelance 18 mois / CDI</span>
+</footer>
+
+</body>
+</html>

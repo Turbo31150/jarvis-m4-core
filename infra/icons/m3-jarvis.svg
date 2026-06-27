@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="30" fill="#1a0a2e" stroke="#9d4edd" stroke-width="3"/>
+  <text x="32" y="22" font-family="monospace" font-size="10" fill="#9d4edd" text-anchor="middle" font-weight="bold">JARVIS</text>
+  <text x="32" y="36" font-family="monospace" font-size="14" fill="#c77dff" text-anchor="middle" font-weight="bold">M3</text>
+  <text x="32" y="48" font-family="monospace" font-size="7" fill="#888" text-anchor="middle">.113</text>
+</svg>

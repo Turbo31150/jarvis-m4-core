@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JARVIS Dashboard — PAMERYS M4</title>
+<style>
+/* ── Reset & Variables ─────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d0e10;--sidebar:#131519;--card:#1a1d23;--border:#2e333d;
+  --blue:#4a9eff;--green:#00d4aa;--red:#ff4a4a;--orange:#ffaa00;
+  --text:#e2e8f0;--muted:#8892a0;--font:'Consolas','DejaVu Sans Mono',monospace;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:14px;display:flex;min-height:100vh}
+
+/* ── Sidebar ───────────────────────────────────────────────────────── */
+#sidebar{width:200px;min-width:200px;background:var(--sidebar);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:16px 0;position:sticky;top:0;height:100vh;overflow-y:auto}
+#sidebar .logo{padding:0 16px 20px;font-size:18px;font-weight:bold;color:var(--blue);letter-spacing:1px}
+#sidebar .logo span{color:var(--green)}
+nav a{display:flex;align-items:center;gap:10px;padding:10px 16px;color:var(--muted);text-decoration:none;border-left:3px solid transparent;transition:all .2s}
+nav a:hover,nav a.active{color:var(--text);background:rgba(74,158,255,.08);border-left-color:var(--blue)}
+nav a .icon{font-size:16px}
+#sidebar .version{margin-top:auto;padding:12px 16px;font-size:11px;color:var(--muted)}
+
+/* ── Main Content ──────────────────────────────────────────────────── */
+#main{flex:1;overflow-y:auto}
+.section{display:none;padding:24px}
+.section.active{display:block}
+h2{font-size:20px;margin-bottom:20px;color:var(--blue)}
+h3{font-size:15px;margin-bottom:12px;color:var(--text)}
+
+/* ── Cards ─────────────────────────────────────────────────────────── */
+.cards{display:flex;flex-wrap:wrap;gap:16px;margin-bottom:24px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;min-width:160px;flex:1;transition:border-color .2s}
+.card:hover{border-color:var(--blue)}
+.card .label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.card .value{font-size:28px;font-weight:bold}
+.card .sub{font-size:12px;color:var(--muted);margin-top:4px}
+.c-green{color:var(--green)}.c-red{color:var(--red)}.c-orange{color:var(--orange)}.c-blue{color:var(--blue)}
+
+/* ── Tables ─────────────────────────────────────────────────────────── */
+.tbl-wrap{overflow-x:auto;margin-bottom:20px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:var(--sidebar);color:var(--muted);padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);font-weight:normal;text-transform:uppercase;font-size:11px;letter-spacing:.5px}
+td{padding:8px 12px;border-bottom:1px solid rgba(46,51,61,.5)}
+tr:hover td{background:rgba(74,158,255,.04)}
+
+/* ── Forms ──────────────────────────────────────────────────────────── */
+.form-row{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:16px;align-items:flex-end}
+.form-group{display:flex;flex-direction:column;gap:4px;min-width:120px;flex:1}
+.form-group label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+input,select,textarea{background:var(--card);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:4px;font-family:var(--font);font-size:13px;outline:none;width:100%;transition:border-color .2s}
+input:focus,select:focus,textarea:focus{border-color:var(--blue)}
+textarea{resize:vertical;min-height:80px}
+.btn{background:var(--blue);color:#fff;border:none;padding:8px 18px;border-radius:4px;font-family:var(--font);font-size:13px;cursor:pointer;transition:background .2s;white-space:nowrap}
+.btn:hover{background:#5aadff}.btn.secondary{background:var(--card);border:1px solid var(--border);color:var(--text)}
+.btn.secondary:hover{border-color:var(--blue);color:var(--blue)}
+.btn.danger{background:#992222}.btn.danger:hover{background:var(--red)}
+
+/* ── Planning grid ──────────────────────────────────────────────────── */
+.planning-grid{display:grid;grid-template-columns:60px repeat(5,1fr);gap:2px;margin-bottom:20px;font-size:12px}
+.pg-header{background:var(--sidebar);padding:8px 6px;text-align:center;border-radius:4px;font-size:11px;color:var(--muted);text-transform:uppercase}
+.pg-header.today{color:var(--blue);border:1px solid var(--blue)}
+.pg-hour{background:rgba(46,51,61,.4);padding:6px;text-align:center;color:var(--muted);border-radius:4px;font-size:11px}
+.pg-cell{background:var(--card);border:1px solid var(--border);border-radius:4px;min-height:48px;padding:4px;position:relative}
+.pg-cours{background:rgba(74,158,255,.15);border-left:3px solid var(--blue);padding:4px 6px;border-radius:3px;font-size:11px;line-height:1.4}
+.pg-cours.current-day{background:rgba(0,212,170,.15);border-left-color:var(--green)}
+
+/* ── Budget chart ───────────────────────────────────────────────────── */
+.budget-top{display:flex;gap:24px;margin-bottom:24px;flex-wrap:wrap}
+.solde-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:20px 28px;text-align:center;min-width:200px}
+.solde-box .label{font-size:12px;color:var(--muted);margin-bottom:4px}
+.solde-box .amount{font-size:36px;font-weight:bold}
+svg.pie{overflow:visible}
+
+/* ── JARVIS chat ────────────────────────────────────────────────────── */
+#chat-history{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;min-height:200px;max-height:400px;overflow-y:auto;margin-bottom:16px;font-size:13px;line-height:1.6}
+.msg-user{color:var(--blue);margin-bottom:12px}
+.msg-user::before{content:"▶ Vous : ";font-weight:bold}
+.msg-ai{color:var(--green);margin-bottom:12px;white-space:pre-wrap}
+.msg-ai::before{content:"◆ JARVIS : ";font-weight:bold}
+.msg-err{color:var(--red);margin-bottom:12px}
+.spinner{display:inline-block;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── Documents tree ─────────────────────────────────────────────────── */
+.doc-tree{font-size:13px}
+.doc-item{padding:4px 8px;cursor:pointer;border-radius:4px;display:flex;align-items:center;gap:8px}
+.doc-item:hover{background:rgba(74,158,255,.08);color:var(--blue)}
+.doc-children{margin-left:20px;border-left:1px solid var(--border)}
+.doc-dir::before{content:"📁 "}
+.doc-file::before{content:"📄 "}
+
+/* ── System ─────────────────────────────────────────────────────────── */
+.sys-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:20px}
+.status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+.dot-green{background:var(--green);box-shadow:0 0 6px var(--green)}
+.dot-red{background:var(--red)}.dot-orange{background:var(--orange)}
+
+/* ── Citation ───────────────────────────────────────────────────────── */
+.citation{background:var(--card);border-left:3px solid var(--blue);padding:12px 16px;border-radius:0 8px 8px 0;margin-bottom:20px;font-style:italic;color:var(--muted)}
+
+/* ── Shortcuts ──────────────────────────────────────────────────────── */
+.shortcuts{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+
+/* ── Responsive ─────────────────────────────────────────────────────── */
+@media(max-width:700px){
+  #sidebar{width:52px;min-width:52px}
+  #sidebar .logo,nav a span,#sidebar .version{display:none}
+  nav a{justify-content:center;padding:12px}
+}
+
+/* ── Misc ───────────────────────────────────────────────────────────── */
+.badge{display:inline-block;padding:2px 8px;border-radius:12px;font-size:11px}
+.badge-green{background:rgba(0,212,170,.15);color:var(--green);border:1px solid rgba(0,212,170,.3)}
+.badge-red{background:rgba(255,74,74,.15);color:var(--red);border:1px solid rgba(255,74,74,.3)}
+.badge-orange{background:rgba(255,170,0,.15);color:var(--orange);border:1px solid rgba(255,170,0,.3)}
+.filter-row{display:flex;gap:12px;margin-bottom:12px;align-items:center}
+.filter-row label{font-size:12px;color:var(--muted)}
+hr{border:none;border-top:1px solid var(--border);margin:20px 0}
+.msg{padding:8px 12px;border-radius:4px;font-size:12px;margin-bottom:8px}
+.msg-ok{background:rgba(0,212,170,.1);border:1px solid rgba(0,212,170,.3);color:var(--green)}
+.msg-ko{background:rgba(255,74,74,.1);border:1px solid rgba(255,74,74,.3);color:var(--red)}
+#clock{font-size:32px;font-weight:bold;color:var(--green);letter-spacing:2px;margin-bottom:4px}
+#date-str{font-size:13px;color:var(--muted);margin-bottom:20px}
+.cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:20px}
+.cal-head{background:var(--sidebar);padding:8px 4px;text-align:center;font-size:11px;color:var(--muted);border-radius:4px;text-transform:uppercase}
+.cal-day{background:var(--card);border:1px solid var(--border);border-radius:4px;min-height:70px;padding:6px;cursor:pointer;transition:border-color .2s}
+.cal-day:hover{border-color:var(--blue)}.cal-day.today{border-color:var(--green);background:rgba(0,212,170,.05)}.cal-day.other-month{opacity:.35}
+.cal-day .dn{font-size:13px;font-weight:bold;margin-bottom:3px}.cal-day.today .dn{color:var(--green)}
+.cal-ev{font-size:10px;padding:2px 4px;border-radius:2px;margin-bottom:2px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;border-left:2px solid var(--blue);background:rgba(74,158,255,.15)}
+.cal-ev.t-cours{border-left-color:var(--green);background:rgba(0,212,170,.15)}.cal-ev.t-perso{border-left-color:var(--orange);background:rgba(255,170,0,.15)}.cal-ev.t-reunion{border-left-color:var(--red);background:rgba(255,74,74,.15)}
+.voice-bar{padding:10px 16px;border-top:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.vbtn{background:var(--card);border:2px solid var(--border);color:var(--text);width:38px;height:38px;border-radius:50%;font-size:17px;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.vbtn.rec{background:rgba(255,74,74,.2);border-color:var(--red);animation:vp 1s infinite}
+@keyframes vp{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+.vstatus{font-size:11px;color:var(--muted);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+</style>
+</head>
+<body>
+
+<!-- ── SIDEBAR ─────────────────────────────────────────────────────────── -->
+<div id="sidebar">
+  <div class="logo">JAR<span>VIS</span></div>
+  <nav>
+    <a href="#" class="active" data-section="dashboard"><span class="icon">🏠</span><span>Dashboard</span></a>
+    <a href="#" data-section="planning"><span class="icon">📅</span><span>Planning</span></a>
+    <a href="#" data-section="budget"><span class="icon">💰</span><span>Budget</span></a>
+    <a href="#" data-section="notes"><span class="icon">📊</span><span>Notes Élèves</span></a>
+    <a href="#" data-section="assistant"><span class="icon">🤖</span><span>Assistant</span></a>
+    <a href="#" data-section="documents"><span class="icon">📁</span><span>Documents</span></a>
+    <a href="#" data-section="systeme"><span class="icon">⚙️</span><span>Système</span></a>
+    <a href="#" data-section="calendrier"><span class="icon">🗓️</span><span>Calendrier</span></a>
+    <a href="#" data-section="agents"><span class="icon">🤖</span><span>Agents</span></a>
+    <a href="#" data-section="todo"><span class="icon">✅</span><span>TODO</span></a>
+  </nav>
+  <div class="voice-bar">
+    <button class="vbtn" id="voiceBtn" onclick="triggerVoice()" title="Parler à JARVIS (Alt+X)">🎤</button>
+    <span class="vstatus" id="voiceSt">Cliquer pour parler</span>
+  </div>
+  <div class="version">PAMERYS M4 · v2026.05</div>
+</div>
+
+<!-- ── MAIN ────────────────────────────────────────────────────────────── -->
+<div id="main">
+
+<!-- 1. DASHBOARD ────────────────────────────────────────────────────────── -->
+<div id="section-dashboard" class="section active">
+  <div id="clock">--:--:--</div>
+  <div id="date-str"></div>
+  <div class="citation" id="citation"></div>
+  <div class="cards">
+    <div class="card">
+      <div class="label">GPU Temp</div>
+      <div class="value" id="d-gpu-temp">--°C</div>
+      <div class="sub" id="d-state">—</div>
+    </div>
+    <div class="card">
+      <div class="label">Fan RPM</div>
+      <div class="value c-blue" id="d-fan">-- RPM</div>
+      <div class="sub">Ventilateur</div>
+    </div>
+    <div class="card">
+      <div class="label">Cluster M1</div>
+      <div class="value" id="d-m1">…</div>
+      <div class="sub">192.168.1.85</div>
+    </div>
+    <div class="card">
+      <div class="label">Cluster M2</div>
+      <div class="value" id="d-m2">…</div>
+      <div class="sub">192.168.1.26</div>
+    </div>
+  </div>
+  <h3>Accès rapide</h3>
+  <div class="shortcuts">
+    <button class="btn secondary" onclick="navigate('planning')">📅 Planning</button>
+    <button class="btn secondary" onclick="navigate('budget')">💰 Budget</button>
+    <button class="btn secondary" onclick="navigate('notes')">📊 Notes</button>
+    <button class="btn secondary" onclick="navigate('assistant')">🤖 JARVIS</button>
+    <button class="btn secondary" onclick="navigate('documents')">📁 Documents</button>
+    <button class="btn secondary" onclick="navigate('systeme')">⚙️ Système</button>
+  </div>
+</div>
+
+<!-- 2. PLANNING ─────────────────────────────────────────────────────────── -->
+<div id="section-planning" class="section">
+  <h2>📅 Planning hebdomadaire</h2>
+  <div class="planning-grid" id="planning-grid"></div>
+  <h3>Ajouter un cours</h3>
+  <div class="form-row">
+    <div class="form-group">
+      <label>Jour</label>
+      <select id="p-jour">
+        <option>Lundi</option><option>Mardi</option><option>Mercredi</option>
+        <option>Jeudi</option><option>Vendredi</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Heure début</label><input id="p-heure" type="time" value="08:00"></div>
+    <div class="form-group"><label>Durée</label>
+      <select id="p-duree">
+        <option value="1h">1h</option><option value="1h30">1h30</option>
+        <option value="2h">2h</option><option value="3h">3h</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Titre du cours</label><input id="p-titre" type="text" placeholder="Mathématiques…"></div>
+    <div class="form-group"><label>Salle</label><input id="p-salle" type="text" placeholder="A101"></div>
+    <button class="btn" onclick="addCours()">Ajouter</button>
+  </div>
+  <div id="p-msg"></div>
+</div>
+
+<!-- 3. BUDGET ───────────────────────────────────────────────────────────── -->
+<div id="section-budget" class="section">
+  <h2>💰 Budget</h2>
+  <div class="budget-top">
+    <div class="solde-box">
+      <div class="label">Solde du mois</div>
+      <div class="amount" id="solde">--,-- €</div>
+    </div>
+    <div>
+      <div id="pie-legend"></div>
+    </div>
+    <div style="flex:1;min-width:200px">
+      <svg id="pie-svg" width="180" height="180" class="pie" viewBox="-1 -1 2 2" style="transform:rotate(-90deg)"></svg>
+    </div>
+  </div>
+  <div class="tbl-wrap">
+    <table id="budget-table">
+      <thead><tr><th>Date</th><th>Type</th><th>Catégorie</th><th>Montant</th><th>Description</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <h3>Ajouter une transaction</h3>
+  <div class="form-row">
+    <div class="form-group">
+      <label>Type</label>
+      <select id="b-type"><option value="revenu">Revenu</option><option value="dépense">Dépense</option></select>
+    </div>
+    <div class="form-group">
+      <label>Catégorie</label>
+      <select id="b-cat">
+        <option>Salaire</option><option>Cours particuliers</option><option>Loyer</option>
+        <option>Alimentation</option><option>Transport</option><option>Matériel pédagogique</option>
+        <option>Santé</option><option>Loisirs</option><option>Abonnements</option><option>Autre</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Montant (€)</label><input id="b-montant" type="number" step="0.01" placeholder="0.00"></div>
+    <div class="form-group"><label>Description</label><input id="b-desc" type="text" placeholder="Details…"></div>
+    <button class="btn" onclick="addTransaction()">Ajouter</button>
+  </div>
+  <div id="b-msg"></div>
+</div>
+
+<!-- 4. NOTES ────────────────────────────────────────────────────────────── -->
+<div id="section-notes" class="section">
+  <h2>📊 Notes Élèves</h2>
+  <div class="filter-row">
+    <label>Filtrer par classe :</label>
+    <input id="n-filter" type="text" placeholder="6A, 5B…" style="width:120px" oninput="loadNotes()">
+  </div>
+  <div id="notes-moyennes" style="margin-bottom:16px;display:flex;flex-wrap:wrap;gap:10px"></div>
+  <div class="tbl-wrap">
+    <table id="notes-table">
+      <thead><tr><th>Nom</th><th>Prénom</th><th>Classe</th><th>Matière</th><th>Note/20</th><th>Coeff</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <h3>Ajouter une note</h3>
+  <div class="form-row">
+    <div class="form-group"><label>Nom</label><input id="n-nom" type="text" placeholder="Dupont"></div>
+    <div class="form-group"><label>Prénom</label><input id="n-prenom" type="text" placeholder="Alice"></div>
+    <div class="form-group"><label>Classe</label><input id="n-classe" type="text" placeholder="6A"></div>
+    <div class="form-group">
+      <label>Matière</label>
+      <select id="n-matiere">
+        <option>Mathématiques</option><option>Français</option><option>Histoire-Géo</option>
+        <option>Sciences</option><option>Anglais</option><option>Espagnol</option>
+        <option>Physique-Chimie</option><option>SVT</option><option>Technologie</option><option>Autre</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Note /20</label><input id="n-note" type="number" min="0" max="20" step="0.5" placeholder="15"></div>
+    <div class="form-group"><label>Coefficient</label><input id="n-coeff" type="number" min="0.5" step="0.5" value="1" placeholder="1"></div>
+    <button class="btn" onclick="addNote()">Ajouter</button>
+  </div>
+  <div id="n-msg"></div>
+</div>
+
+<!-- 5. ASSISTANT ────────────────────────────────────────────────────────── -->
+<div id="section-assistant" class="section">
+  <h2>🤖 Assistant JARVIS</h2>
+  <div id="chat-history"></div>
+  <div class="form-row">
+    <div class="form-group" style="flex:3">
+      <label>Votre question</label>
+      <textarea id="a-question" rows="3" placeholder="Pose ta question ici… (Ctrl+Entrée pour envoyer)"></textarea>
+    </div>
+    <div class="form-group" style="flex:0;min-width:140px">
+      <label>Mode</label>
+      <select id="a-mode">
+        <option value="cours">Cours</option>
+        <option value="recherche">Recherche</option>
+        <option value="code">Code</option>
+        <option value="trading">Trading</option>
+      </select>
+    </div>
+    <button class="btn" style="align-self:flex-end" onclick="askJarvis()">Demander</button>
+  </div>
+  <div style="margin-top:8px">
+    <label style="font-size:11px;color:var(--muted)">Historique (localStorage)</label>
+    <button class="btn secondary" style="margin-left:12px;font-size:11px;padding:4px 10px" onclick="clearHistory()">Effacer</button>
+  </div>
+</div>
+
+<!-- 6. DOCUMENTS ────────────────────────────────────────────────────────── -->
+<div id="section-documents" class="section">
+  <h2>📁 Documents</h2>
+  <div class="shortcuts" style="margin-bottom:16px">
+    <button class="btn secondary" onclick="openDoc('/home/pamerys/Documents/Cours')">📚 Cours</button>
+    <button class="btn secondary" onclick="openDoc('/home/pamerys/Documents/Budget')">💰 Budget</button>
+    <button class="btn secondary" onclick="openDoc('/home/pamerys/Documents/Recherche')">🔬 Recherche</button>
+  </div>
+  <div class="doc-tree" id="doc-tree"></div>
+</div>
+
+<!-- 7. SYSTÈME ──────────────────────────────────────────────────────────── -->
+<div id="section-systeme" class="section">
+  <h2>⚙️ Système</h2>
+
+  <!-- Audit score + MAMS countdown -->
+  <div class="cards" style="margin-bottom:16px">
+    <div class="card" style="text-align:center">
+      <div class="label">Score JARVIS</div>
+      <div class="value" id="sys-score" style="font-size:2rem">--/--</div>
+      <div class="sub" id="sys-score-pct">calcul...</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div class="label">🎯 Oral MAMS</div>
+      <div class="value c-orange" id="sys-mams-days" style="font-size:2rem">J-?</div>
+      <div class="sub">2 juin 2026</div>
+    </div>
+    <div class="card">
+      <div class="label">GPU Temp</div>
+      <div class="value" id="s-gpu">--°C</div>
+      <div class="sub" id="s-state">—</div>
+    </div>
+    <div class="card">
+      <div class="label">Fan</div>
+      <div class="value c-blue" id="s-fan">-- RPM</div>
+    </div>
+    <div class="card">
+      <div class="label">Disque /home</div>
+      <div class="value" id="sys-disk">--%</div>
+    </div>
+  </div>
+
+  <!-- Services status -->
+  <h3>Services JARVIS</h3>
+  <div id="sys-items" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px"></div>
+
+  <h3>Services détaillés</h3>
+  <div class="sys-grid" id="services-grid"></div>
+
+  <h3>Actions</h3>
+  <div class="shortcuts">
+    <button class="btn secondary" onclick="runCmd('restart-widget')">↺ Restart Widget</button>
+    <button class="btn secondary" onclick="runCmd('git-push')">↑ Push GitHub</button>
+    <button class="btn secondary" onclick="runCmd('backup')">💾 Backup</button>
+    <button class="btn" onclick="loadSystemAudit()" style="background:var(--accent)">🔍 Audit complet</button>
+  </div>
+  <div id="sys-msg"></div>
+</div>
+
+<!-- 8. CALENDRIER RDV ────────────────────────────────────────────────── -->
+<div id="section-calendrier" class="section">
+  <h2>🗓️ Calendrier & RDV</h2>
+  <div class="cal-nav">
+    <button class="btn secondary" onclick="prevMonth()">◀ Préc.</button>
+    <h3 id="calTitle" style="color:var(--blue)">Chargement...</h3>
+    <button class="btn secondary" onclick="nextMonth()">Suiv. ▶</button>
+  </div>
+  <div class="cal-grid" id="calGrid"></div>
+  <div class="card" style="margin-bottom:20px">
+    <h3 style="margin-bottom:12px">➕ Nouveau RDV / Événement</h3>
+    <div class="form-row">
+      <div class="form-group" style="flex:2"><label>Titre *</label><input id="rTitre" placeholder="Conseil de classe, Sortie scolaire, Réunion..."></div>
+      <div class="form-group"><label>Date *</label><input type="date" id="rDate"></div>
+      <div class="form-group"><label>Début</label><input type="time" id="rDebut"></div>
+      <div class="form-group"><label>Fin</label><input type="time" id="rFin"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Type</label>
+        <select id="rType">
+          <option value="rdv">🔵 RDV</option>
+          <option value="cours">🟢 Cours</option>
+          <option value="perso">🟡 Personnel</option>
+          <option value="reunion">🔴 Réunion</option>
+        </select>
+      </div>
+      <div class="form-group" style="flex:2"><label>Lieu / Notes</label><input id="rDesc" placeholder="Salle B12, Visio Teams, Gymnase..."></div>
+      <div class="form-group" style="justify-content:flex-end"><label>&nbsp;</label><button class="btn" onclick="addRdv()">Ajouter</button></div>
+    </div>
+    <div id="rdvMsg"></div>
+  </div>
+  <h3 style="margin-bottom:10px">Événements du mois</h3>
+  <div id="rdvList"></div>
+</div>
+
+<!-- 9. AGENTS & OUTILS ─────────────────────────────────────────────── -->
+<div id="section-agents" class="section">
+  <h2>🤖 Agents & Outils JARVIS</h2>
+  <div class="filter-row" style="margin-bottom:16px">
+    <label>Filtrer:</label>
+    <select id="agentCatFilter" onchange="filterAgents(this.value)">
+      <option value="">Tous</option>
+      <option value="IA">🤖 IA</option>
+      <option value="Pédagogie">📚 Pédagogie</option>
+      <option value="Concours">🎓 Concours</option>
+      <option value="Admin">🏛️ Admin</option>
+      <option value="Agenda">📅 Agenda</option>
+      <option value="Budget">💰 Budget</option>
+      <option value="Système">⚙️ Système</option>
+      <option value="Données">📁 Données</option>
+      <option value="Cours">🎥 Cours</option>
+      <option value="Bureau">🪟 Bureau</option>
+    </select>
+    <input id="agentSearch" placeholder="Rechercher un agent..." style="max-width:200px" oninput="filterAgents()">
+  </div>
+  <div id="agentGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px"></div>
+
+  <hr>
+  <h2 style="margin-top:20px">🔑 Mots-clés → Agents auto</h2>
+  <div id="kwGrid" style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px"></div>
+
+  <hr>
+  <h2 style="margin-top:20px">⌨️ CLI — Commandes rapides</h2>
+  <div id="cliList" style="font-family:monospace;font-size:12px"></div>
+</div>
+
+<!-- 10. TODO LIST ──────────────────────────────────────────────────── -->
+<div id="section-todo" class="section">
+  <h2>✅ TODO LIST PAMERYS</h2>
+
+  <!-- Filtres -->
+  <div class="filter-row" style="margin-bottom:16px;flex-wrap:wrap;gap:8px">
+    <button class="btn secondary" onclick="loadTodo('')">Tous</button>
+    <button class="btn secondary" onclick="loadTodo('concours')" style="border-color:#ffaa00;color:#ffaa00">🎓 Concours</button>
+    <button class="btn secondary" onclick="loadTodo('admin')" style="border-color:#ff4a4a;color:#ff4a4a">🏛️ Admin</button>
+    <button class="btn secondary" onclick="loadTodo('pédagogie')" style="border-color:#00d4aa;color:#00d4aa">📚 Cours</button>
+    <button class="btn secondary" onclick="loadTodo('budget')" style="border-color:#4a9eff;color:#4a9eff">💰 Budget</button>
+    <button class="btn secondary" onclick="loadTodo('système')" style="border-color:#8892a0;color:#8892a0">⚙️ Système</button>
+  </div>
+
+  <!-- Formulaire ajout rapide -->
+  <div class="card" style="margin-bottom:20px">
+    <div class="form-row">
+      <div class="form-group" style="flex:3"><label>Tâche *</label><input id="todoTitre" placeholder="Appeler MDPH31, Préparer question jury, ..."></div>
+      <div class="form-group"><label>Catégorie</label>
+        <select id="todoCat">
+          <option value="concours">🎓 Concours</option>
+          <option value="admin">🏛️ Admin</option>
+          <option value="pédagogie">📚 Pédagogie</option>
+          <option value="budget">💰 Budget</option>
+          <option value="système">⚙️ Système</option>
+          <option value="général">📋 Général</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Priorité</label>
+        <select id="todoPrio">
+          <option value="urgent">🚨 Urgent</option>
+          <option value="high">⬆️ Haute</option>
+          <option value="normal" selected>Normal</option>
+          <option value="low">⬇️ Basse</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Deadline</label><input type="date" id="todoDeadline"></div>
+      <div class="form-group"><label>CLI (optionnel)</label><input id="todoCli" placeholder="jarvis-ask ..."></div>
+      <div class="form-group" style="justify-content:flex-end"><label>&nbsp;</label><button class="btn" onclick="addTodo()">➕ Ajouter</button></div>
+    </div>
+    <div id="todoMsg"></div>
+  </div>
+
+  <!-- TODO prédéfinies urgentes -->
+  <div style="margin-bottom:16px">
+    <strong style="color:var(--orange)">⚡ Ajouter rapide:</strong>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <button class="btn secondary" style="font-size:11px" onclick="quickTodo('Préparer réponses questions jury MAMS','concours','urgent','2026-06-01')">🎓 Questions jury MAMS</button>
+      <button class="btn secondary" style="font-size:11px" onclick="quickTodo('Appeler MDPH31 suivi dossier','admin','high','')">📞 MDPH31</button>
+      <button class="btn secondary" style="font-size:11px" onclick="quickTodo('Relancer CAF mise à jour adresse','admin','high','')">🏠 CAF adresse</button>
+      <button class="btn secondary" style="font-size:11px" onclick="quickTodo('Vérifier dossier DALO Alteal','admin','normal','')">🏛️ DALO Alteal</button>
+      <button class="btn secondary" style="font-size:11px" onclick="quickTodo('Backup mensuel SQL + GitHub','système','normal','')">💾 Backup GitHub</button>
+    </div>
+  </div>
+
+  <div id="todoList"></div>
+</div>
+
+</div><!-- /#main -->
+
+<script>
+/* ════════════════════════════════════════════════════════════════════════
+   NAVIGATION
+════════════════════════════════════════════════════════════════════════ */
+const SECTIONS = ['dashboard','planning','budget','notes','assistant','documents','systeme','calendrier','agents','todo'];
+
+function navigate(id) {
+  SECTIONS.forEach(s => {
+    document.getElementById('section-' + s).classList.toggle('active', s === id);
+  });
+  document.querySelectorAll('nav a').forEach(a => {
+    a.classList.toggle('active', a.dataset.section === id);
+  });
+  if (id === 'planning')  loadPlanning();
+  if (id === 'budget')    loadBudget();
+  if (id === 'notes')     loadNotes();
+  if (id === 'documents') loadDocs();
+  if (id === 'systeme')   loadServices();
+}
+
+document.querySelectorAll('nav a').forEach(a => {
+  a.addEventListener('click', e => { e.preventDefault(); navigate(a.dataset.section); });
+});
+
+/* ════════════════════════════════════════════════════════════════════════
+   CLOCK & CITATION
+════════════════════════════════════════════════════════════════════════ */
+const JOURS_FR = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+const MOIS_FR  = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+const CITATIONS = [
+  '"L\'éducation est l\'arme la plus puissante pour changer le monde." — Nelson Mandela',
+  '"La vraie ignorance n\'est pas l\'absence de connaissances, mais le refus d\'en acquérir." — Karl Popper',
+  '"Enseigner c\'est apprendre deux fois." — Joseph Joubert',
+  '"L\'intelligence, c\'est la capacité de s\'adapter au changement." — Stephen Hawking',
+  '"Un bon professeur peut inspirer l\'espoir, allumer l\'imagination et insuffler l\'amour de l\'apprentissage." — Brad Henry',
+  '"Éduquer un enfant, ce n\'est pas le remplir d\'eau, c\'est allumer un feu." — W.B. Yeats',
+  '"La connaissance s\'acquiert par l\'expérience, tout le reste n\'est que de l\'information." — Albert Einstein',
+  '"Apprendre sans réfléchir est vain. Réfléchir sans apprendre est dangereux." — Confucius',
+  '"Le but de l\'éducation, c\'est de remplacer un esprit vide par un esprit ouvert." — Malcolm Forbes',
+  '"Chaque enfant qui reçoit une éducation fait grandir l\'humanité." — Victor Hugo',
+];
+
+function updateClock() {
+  const now = new Date();
+  document.getElementById('clock').textContent = now.toTimeString().slice(0,8);
+  document.getElementById('date-str').textContent =
+    JOURS_FR[now.getDay()] + ' ' + now.getDate() + ' ' + MOIS_FR[now.getMonth()] + ' ' + now.getFullYear();
+}
+setInterval(updateClock, 1000);
+updateClock();
+document.getElementById('citation').textContent =
+  CITATIONS[new Date().getDay() % CITATIONS.length];
+
+/* ════════════════════════════════════════════════════════════════════════
+   STATUS AUTO-REFRESH (5 s)
+════════════════════════════════════════════════════════════════════════ */
+function tempColor(t) {
+  if (t >= 95) return 'c-red';
+  if (t >= 80) return 'c-orange';
+  return 'c-green';
+}
+
+async function refreshStatus() {
+  try {
+    const d = await fetch('/api/status').then(r => r.json());
+    const gpu = d.gpu || {};
+    const temp = gpu.temp || 0;
+    const cls  = tempColor(temp);
+    ['d-gpu-temp','s-gpu'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) { el.textContent = temp + '°C'; el.className = 'value ' + cls; }
+    });
+    ['d-state','s-state'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = gpu.state || '—';
+    });
+    ['d-fan','s-fan'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = (gpu.fan_rpm || 0) + ' RPM';
+    });
+    const oc = document.getElementById('s-oc');
+    if (oc) {
+      oc.textContent = d.oc_active ? 'OUI' : 'NON';
+      oc.className = 'value ' + (d.oc_active ? 'c-green' : 'c-orange');
+    }
+  } catch(e) { /* silent */ }
+}
+
+async function refreshCluster() {
+  try {
+    const d = await fetch('/api/cluster').then(r => r.json());
+    ['M1','M2'].forEach(name => {
+      const id = 'd-' + name.toLowerCase();
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (d[name] && d[name].status === 'up') {
+        el.textContent = '▲ UP'; el.className = 'value c-green';
+      } else {
+        el.textContent = '▼ DOWN'; el.className = 'value c-red';
+      }
+    });
+  } catch(e) { /* silent */ }
+}
+
+async function loadSystemAudit() {
+  try {
+    const d = await fetch('/api/system').then(r => r.json());
+
+    // Score
+    const sc = document.getElementById('sys-score');
+    const sp = document.getElementById('sys-score-pct');
+    if (sc) { sc.textContent = `${d.score}/${d.max}`; sc.className = 'value ' + (d.score_pct >= 80 ? 'c-green' : d.score_pct >= 60 ? 'c-orange' : 'c-red'); }
+    if (sp) { sp.textContent = `${d.score_pct}%`; }
+
+    // MAMS countdown
+    const md = document.getElementById('sys-mams-days');
+    if (md) { md.textContent = d.mams_days > 0 ? `J-${d.mams_days}` : '🎯 JOUR J'; md.className = 'value ' + (d.mams_days <= 3 ? 'c-red' : 'c-orange'); }
+
+    // Disk
+    const dk = document.getElementById('sys-disk');
+    if (dk) { dk.textContent = `${d.disk_pct}%`; dk.className = 'value ' + (d.disk_pct < 80 ? 'c-green' : 'c-red'); }
+
+    // Items list
+    const cont = document.getElementById('sys-items');
+    if (cont && d.items) {
+      cont.innerHTML = d.items.map(it => {
+        const col = it.status === 'ok' ? '#10b981' : '#ef4444';
+        const ico = it.status === 'ok' ? '✅' : '❌';
+        return `<span style="background:#1a1a2e;border:1px solid ${col};border-radius:6px;padding:4px 10px;font-size:12px;color:${col}">${ico} ${it.name} <span style="color:#999">${it.detail}</span></span>`;
+      }).join('');
+    }
+  } catch(e) { console.error('audit error', e); }
+}
+
+refreshStatus();
+refreshCluster();
+loadSystemAudit();
+setInterval(refreshStatus, 5000);
+setInterval(refreshCluster, 30000);
+setInterval(loadSystemAudit, 30000);
+
+/* ════════════════════════════════════════════════════════════════════════
+   PLANNING
+════════════════════════════════════════════════════════════════════════ */
+const DAYS = ['Lundi','Mardi','Mercredi','Jeudi','Vendredi'];
+const HOURS = ['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00'];
+const TODAY_IDX = new Date().getDay(); // 1=Lundi…5=Vendredi
+
+async function loadPlanning() {
+  const cours = await fetch('/api/planning').then(r => r.json()).catch(() => []);
+  const grid = document.getElementById('planning-grid');
+  grid.innerHTML = '';
+  // Headers
+  grid.innerHTML += '<div class="pg-header"></div>';
+  DAYS.forEach((d, i) => {
+    const isToday = (i + 1) === TODAY_IDX;
+    grid.innerHTML += `<div class="pg-header${isToday ? ' today' : ''}">${d}</div>`;
+  });
+  // Rows
+  HOURS.forEach(h => {
+    grid.innerHTML += `<div class="pg-hour">${h}</div>`;
+    DAYS.forEach((d, i) => {
+      const isToday = (i + 1) === TODAY_IDX;
+      const matching = cours.filter(c => c.jour === d && c.heure === h);
+      const inner = matching.map(c =>
+        `<div class="pg-cours${isToday ? ' current-day' : ''}">
+          <b>${escHtml(c.titre)}</b>${c.salle ? '<br>' + escHtml(c.salle) : ''}
+        </div>`
+      ).join('');
+      grid.innerHTML += `<div class="pg-cell">${inner}</div>`;
+    });
+  });
+}
+
+async function addCours() {
+  const body = {
+    jour:  document.getElementById('p-jour').value,
+    heure: document.getElementById('p-heure').value,
+    duree: document.getElementById('p-duree').value,
+    titre: document.getElementById('p-titre').value.trim(),
+    salle: document.getElementById('p-salle').value.trim(),
+  };
+  if (!body.titre) { showMsg('p-msg','Titre requis','ko'); return; }
+  const r = await fetch('/api/planning', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)});
+  const d = await r.json();
+  if (d.ok) { showMsg('p-msg','Cours ajouté','ok'); loadPlanning(); document.getElementById('p-titre').value = ''; }
+  else showMsg('p-msg', d.error || 'Erreur', 'ko');
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   BUDGET
+════════════════════════════════════════════════════════════════════════ */
+const CAT_COLORS = ['#4a9eff','#00d4aa','#ff4a4a','#ffaa00','#cc88ff','#ff88aa','#44ddff','#ffdd44','#88ff88','#aaaaaa'];
+
+async function loadBudget() {
+  const rows = await fetch('/api/budget').then(r => r.json()).catch(() => []);
+  const tbody = document.querySelector('#budget-table tbody');
+  tbody.innerHTML = '';
+  let revenus = 0, depenses = 0;
+  const catMap = {};
+  rows.forEach(r => {
+    if (r.type === 'revenu') revenus += r.montant;
+    else {
+      depenses += r.montant;
+      catMap[r.categorie] = (catMap[r.categorie] || 0) + r.montant;
+    }
+    const sign = r.type === 'revenu' ? 1 : -1;
+    const cls = r.type === 'revenu' ? 'c-green' : 'c-red';
+    tbody.innerHTML += `<tr>
+      <td>${escHtml(r.date)}</td>
+      <td><span class="badge ${r.type==='revenu'?'badge-green':'badge-red'}">${escHtml(r.type)}</span></td>
+      <td>${escHtml(r.categorie)}</td>
+      <td class="${cls}">${sign > 0 ? '+' : '-'}${Math.abs(r.montant).toFixed(2)} €</td>
+      <td>${escHtml(r.description || '')}</td>
+    </tr>`;
+  });
+  const solde = revenus - depenses;
+  const sel = document.getElementById('solde');
+  sel.textContent = (solde >= 0 ? '+' : '') + solde.toFixed(2) + ' €';
+  sel.className = 'amount ' + (solde >= 0 ? 'c-green' : 'c-red');
+  drawPie(catMap);
+}
+
+function drawPie(catMap) {
+  const cats = Object.keys(catMap);
+  const total = cats.reduce((s, c) => s + catMap[c], 0);
+  const svg = document.getElementById('pie-svg');
+  const legend = document.getElementById('pie-legend');
+  svg.innerHTML = '';
+  legend.innerHTML = '<div style="font-size:11px;color:var(--muted);margin-bottom:8px">Dépenses par catégorie</div>';
+  if (total === 0) { svg.innerHTML = '<circle r="1" fill="#2e333d"/>'; return; }
+  let startAngle = 0;
+  cats.forEach((cat, i) => {
+    const slice = catMap[cat] / total;
+    const endAngle = startAngle + slice * 2 * Math.PI;
+    const x1 = Math.cos(startAngle), y1 = Math.sin(startAngle);
+    const x2 = Math.cos(endAngle),   y2 = Math.sin(endAngle);
+    const large = slice > 0.5 ? 1 : 0;
+    const color = CAT_COLORS[i % CAT_COLORS.length];
+    const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+    path.setAttribute('d', `M 0 0 L ${x1} ${y1} A 1 1 0 ${large} 1 ${x2} ${y2} Z`);
+    path.setAttribute('fill', color);
+    svg.appendChild(path);
+    legend.innerHTML += `<div style="font-size:11px;margin:2px 0"><span style="display:inline-block;width:10px;height:10px;background:${color};border-radius:2px;margin-right:6px;vertical-align:middle"></span>${escHtml(cat)}: ${catMap[cat].toFixed(0)} €</div>`;
+    startAngle = endAngle;
+  });
+}
+
+async function addTransaction() {
+  const body = {
+    type:        document.getElementById('b-type').value,
+    categorie:   document.getElementById('b-cat').value,
+    montant:     document.getElementById('b-montant').value,
+    description: document.getElementById('b-desc').value,
+  };
+  if (!body.montant) { showMsg('b-msg','Montant requis','ko'); return; }
+  const r = await fetch('/api/budget', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)});
+  const d = await r.json();
+  if (d.ok) {
+    showMsg('b-msg','Transaction ajoutée','ok');
+    loadBudget();
+    document.getElementById('b-montant').value = '';
+    document.getElementById('b-desc').value = '';
+  } else showMsg('b-msg', d.error || 'Erreur', 'ko');
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   NOTES
+════════════════════════════════════════════════════════════════════════ */
+async function loadNotes() {
+  const filtre = document.getElementById('n-filter').value.trim();
+  const url = '/api/notes' + (filtre ? '?classe=' + encodeURIComponent(filtre) : '');
+  const rows = await fetch(url).then(r => r.json()).catch(() => []);
+  const tbody = document.querySelector('#notes-table tbody');
+  tbody.innerHTML = '';
+  const matMap = {};
+  rows.forEach(r => {
+    if (!matMap[r.matiere]) matMap[r.matiere] = {sum:0,coeff:0,count:0};
+    matMap[r.matiere].sum   += r.note * r.coeff;
+    matMap[r.matiere].coeff += r.coeff;
+    matMap[r.matiere].count++;
+    const cls = r.note >= 10 ? 'c-green' : 'c-red';
+    tbody.innerHTML += `<tr>
+      <td>${escHtml(r.nom)}</td><td>${escHtml(r.prenom)}</td><td>${escHtml(r.classe)}</td>
+      <td>${escHtml(r.matiere)}</td>
+      <td class="${cls}"><b>${r.note}</b>/20</td>
+      <td>${r.coeff}</td>
+    </tr>`;
+  });
+  const moy = document.getElementById('notes-moyennes');
+  moy.innerHTML = Object.entries(matMap).map(([m, v]) => {
+    const avg = v.coeff > 0 ? (v.sum / v.coeff).toFixed(2) : '—';
+    const cls = parseFloat(avg) >= 10 ? 'badge-green' : 'badge-red';
+    return `<span class="badge ${cls}">${escHtml(m)}: ${avg}/20 (${v.count} élève${v.count > 1 ? 's' : ''})</span>`;
+  }).join(' ');
+}
+
+async function addNote() {
+  const body = {
+    nom:     document.getElementById('n-nom').value.trim(),
+    prenom:  document.getElementById('n-prenom').value.trim(),
+    classe:  document.getElementById('n-classe').value.trim(),
+    matiere: document.getElementById('n-matiere').value,
+    note:    document.getElementById('n-note').value,
+    coeff:   document.getElementById('n-coeff').value,
+  };
+  if (!body.nom || !body.prenom || !body.note) { showMsg('n-msg','Nom, prénom et note requis','ko'); return; }
+  const r = await fetch('/api/notes', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)});
+  const d = await r.json();
+  if (d.ok) {
+    showMsg('n-msg','Note ajoutée','ok');
+    loadNotes();
+    ['n-nom','n-prenom','n-note'].forEach(id => { document.getElementById(id).value = ''; });
+  } else showMsg('n-msg', d.error || 'Erreur', 'ko');
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   ASSISTANT JARVIS
+════════════════════════════════════════════════════════════════════════ */
+const HIST_KEY = 'jarvis_chat_history';
+
+function loadChatHistory() {
+  const hist = JSON.parse(localStorage.getItem(HIST_KEY) || '[]');
+  const el = document.getElementById('chat-history');
+  el.innerHTML = hist.length
+    ? ''
+    : '<span style="color:var(--muted)">Historique vide. Posez votre première question !</span>';
+  hist.forEach(item => {
+    el.innerHTML += `<div class="msg-user">${escHtml(item.q)}</div>`;
+    el.innerHTML += `<div class="msg-ai">${escHtml(item.a)}</div>`;
+  });
+  el.scrollTop = el.scrollHeight;
+}
+
+async function askJarvis() {
+  const q    = document.getElementById('a-question').value.trim();
+  const mode = document.getElementById('a-mode').value;
+  if (!q) return;
+  const el = document.getElementById('chat-history');
+  // Remove placeholder
+  const placeholder = el.querySelector('span');
+  if (placeholder) placeholder.remove();
+  el.innerHTML += `<div class="msg-user">${escHtml(q)}</div>`;
+  const streamId = 'stream-' + Date.now();
+  el.innerHTML += `<div class="msg-ai" id="${streamId}"><span class="spinner">⟳</span> Réflexion en cours…</div>`;
+  el.scrollTop = el.scrollHeight;
+  document.getElementById('a-question').value = '';
+  try {
+    const r = await fetch('/api/jarvis-ask', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({question:q, mode})
+    });
+    const d = await r.json();
+    const streamEl = document.getElementById(streamId);
+    if (streamEl) streamEl.remove();
+    if (d.answer) {
+      const hist = JSON.parse(localStorage.getItem(HIST_KEY) || '[]');
+      hist.push({q, a: d.answer, mode, ts: new Date().toISOString()});
+      if (hist.length > 50) hist.shift();
+      localStorage.setItem(HIST_KEY, JSON.stringify(hist));
+      el.innerHTML += `<div class="msg-ai">${escHtml(d.answer)}<br><small style="color:var(--muted)">[${escHtml(d.model)}]</small></div>`;
+    } else {
+      el.innerHTML += `<div class="msg-err">Erreur: ${escHtml(d.error || 'inconnu')}</div>`;
+    }
+  } catch(e) {
+    const streamEl = document.getElementById(streamId);
+    if (streamEl) streamEl.remove();
+    el.innerHTML += `<div class="msg-err">Erreur réseau: ${escHtml(e.message)}</div>`;
+  }
+  el.scrollTop = el.scrollHeight;
+}
+
+function clearHistory() {
+  localStorage.removeItem(HIST_KEY);
+  loadChatHistory();
+}
+
+document.getElementById('a-question').addEventListener('keydown', e => {
+  if (e.key === 'Enter' && e.ctrlKey) { e.preventDefault(); askJarvis(); }
+});
+
+loadChatHistory();
+
+/* ════════════════════════════════════════════════════════════════════════
+   DOCUMENTS
+════════════════════════════════════════════════════════════════════════ */
+async function loadDocs() {
+  const tree = await fetch('/api/docs').then(r => r.json()).catch(() => []);
+  document.getElementById('doc-tree').innerHTML = renderTree(tree);
+}
+
+function renderTree(nodes) {
+  return nodes.map(n => {
+    if (n.type === 'dir') {
+      const children = n.children && n.children.length ? renderTree(n.children) : '';
+      return `<div class="doc-item doc-dir" onclick="openDoc(${JSON.stringify(n.path)})">${escHtml(n.name)}</div>
+              <div class="doc-children">${children}</div>`;
+    }
+    return `<div class="doc-item doc-file" onclick="openDoc(${JSON.stringify(n.path)})">${escHtml(n.name)}</div>`;
+  }).join('');
+}
+
+function openDoc(path) {
+  fetch('/api/open?path=' + encodeURIComponent(path)).catch(() => {});
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   SYSTÈME
+════════════════════════════════════════════════════════════════════════ */
+const SERVICES = [
+  'jarvis-voice-widget',
+  'jarvis-thermal-agent',
+  'jarvis-orchestrator',
+  'jarvis-health-check',
+  'jarvis-cluster-monitor',
+  'jarvis-vocal-whisper',
+];
+
+async function loadServices() {
+  const grid = document.getElementById('services-grid');
+  grid.innerHTML = SERVICES.map(s =>
+    `<div class="card">
+      <div class="label">${escHtml(s.replace('jarvis-',''))}</div>
+      <div class="value" id="svc-${s}"><span class="spinner">⟳</span></div>
+    </div>`
+  ).join('');
+  for (const s of SERVICES) {
+    try {
+      const r = await fetch('/api/service-status?name=' + encodeURIComponent(s));
+      const d = await r.json();
+      const el = document.getElementById('svc-' + s);
+      if (!el) continue;
+      if (d.active) {
+        el.innerHTML = '<span class="status-dot dot-green"></span>Actif';
+        el.className = 'value c-green';
+      } else {
+        el.innerHTML = '<span class="status-dot dot-red"></span>' + escHtml(d.state || 'Inactif');
+        el.className = 'value c-red';
+      }
+    } catch(e) {
+      const el = document.getElementById('svc-' + s);
+      if (el) { el.textContent = '?'; el.className = 'value c-orange'; }
+    }
+  }
+}
+
+async function runCmd(cmd) {
+  showMsg('sys-msg', '⟳ Exécution: ' + cmd + '…', 'ok');
+  try {
+    const r = await fetch('/api/run-cmd', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({cmd})
+    });
+    const d = await r.json();
+    showMsg('sys-msg', d.output || d.error || 'OK', d.ok ? 'ok' : 'ko');
+  } catch(e) {
+    showMsg('sys-msg', 'Erreur réseau', 'ko');
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   UTILITIES
+════════════════════════════════════════════════════════════════════════ */
+function showMsg(id, text, type) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.className = 'msg msg-' + (type === 'ok' ? 'ok' : 'ko');
+  el.textContent = text;
+  setTimeout(() => { el.textContent = ''; el.className = ''; }, 5000);
+}
+
+function escHtml(s) {
+  return String(s)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+
+// ── AGENTS & OUTILS ──────────────────────────────────────────
+let _allAgents=[], _allKw={};
+async function loadAgents(){
+  try{_allAgents=await fetch('/api/agents').then(r=>r.json());}catch{_allAgents=[];}
+  try{_allKw=await fetch('/api/keywords').then(r=>r.json());}catch{_allKw={};}
+  renderAgents(_allAgents);renderKw();renderCli();
+}
+function filterAgents(cat){
+  cat=cat||document.getElementById('agentCatFilter')?.value||'';
+  const q=document.getElementById('agentSearch')?.value?.toLowerCase()||'';
+  const filtered=_allAgents.filter(a=>(!cat||a.categorie===cat)&&(!q||a.nom.includes(q)||a.desc.toLowerCase().includes(q)));
+  renderAgents(filtered);
+}
+function renderAgents(agents){
+  const g=document.getElementById('agentGrid');if(!g)return;
+  const cols={IA:'blue',Pédagogie:'green',Concours:'orange',Admin:'red',Agenda:'green',Budget:'blue',Système:'muted',Données:'muted',Cours:'orange',Bureau:'muted'};
+  g.innerHTML=agents.map(a=>`
+    <div class="card" style="display:flex;flex-direction:column;gap:8px">
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:22px">${a.icon}</span>
+        <div>
+          <div style="font-weight:bold;color:var(--${cols[a.categorie]||'blue'})">${escHtml(a.nom)}</div>
+          <div style="font-size:11px;color:var(--muted)">${escHtml(a.categorie)}</div>
+        </div>
+      </div>
+      <div style="font-size:12px;color:var(--text);flex:1">${escHtml(a.desc)}</div>
+      <div style="background:var(--sidebar);padding:6px 8px;border-radius:4px;font-size:11px;font-family:monospace;color:var(--green);cursor:pointer" onclick="copyCmd('${escHtml(a.cli)}')" title="Cliquer pour copier">${escHtml(a.cli)}</div>
+    </div>`).join('');
+}
+function renderKw(){
+  const g=document.getElementById('kwGrid');if(!g)return;
+  const cols={cours:'green',concours:'orange',budget:'blue',trading:'muted',admin:'red',rdv:'green',code:'orange',backup:'muted',médical:'red'};
+  g.innerHTML=Object.entries(_allKw).map(([k,v])=>`
+    <div style="background:var(--card);border:1px solid var(--border);border-left:3px solid var(--${cols[k]||'blue'});border-radius:6px;padding:10px 14px;min-width:160px">
+      <div style="font-weight:bold;font-size:13px">🔑 ${k}</div>
+      <div style="font-size:11px;color:var(--muted);margin:4px 0">${escHtml(v.desc)}</div>
+      ${v.agents.map(a=>`<div style="font-size:10px;color:var(--green);font-family:monospace">→ ${a}</div>`).join('')}
+    </div>`).join('');
+}
+function renderCli(){
+  const g=document.getElementById('cliList');if(!g)return;
+  const cmds=[
+    ['jarvis-ask "question" --cours','Assistant pédagogique (M1 qwen3.5)'],
+    ['jarvis-ask "question" --code','Expert développeur'],
+    ['jarvis-ask "question" --trading','Trading crypto (deepseek-r1)'],
+    ['jarvis-concours "question jury"','Préparation oral MAMS 2 juin'],
+    ['jarvis-admin "ma démarche"','Admin MDPH/DALO/CAF'],
+    ['jarvis-rdv','RDV du jour'],
+    ['notes_eleves ajouter Dupont Marie 6A Maths 15','Ajouter une note élève'],
+    ['notes_eleves bulletin 6A','Bulletin de classe'],
+    ['obs-cours start','Démarrer enregistrement cours'],
+    ['push-all','Push GitHub tous repos'],
+    ['backup-now','Backup immédiat'],
+    ['python3 ~/jarvis/scripts/dashboard.py','Dashboard terminal'],
+  ];
+  g.innerHTML=cmds.map(([cmd,desc])=>`
+    <div style="display:flex;align-items:center;gap:12px;padding:6px 0;border-bottom:1px solid rgba(46,51,61,.4)">
+      <code style="color:var(--green);min-width:400px;cursor:pointer" onclick="copyCmd('${cmd}')" title="Copier">${cmd}</code>
+      <span style="color:var(--muted);font-size:12px">${desc}</span>
+    </div>`).join('');
+}
+function copyCmd(cmd){
+  navigator.clipboard?.writeText(cmd).then(()=>{
+    const t=document.createElement('div');
+    t.style='position:fixed;top:20px;right:20px;background:#00d4aa;color:#000;padding:8px 16px;border-radius:6px;z-index:9999;font-size:12px';
+    t.textContent='✓ Copié: '+cmd.substring(0,40);
+    document.body.appendChild(t);setTimeout(()=>t.remove(),2000);
+  });
+}
+
+// ── TODO LIST ────────────────────────────────────────────────
+async function loadTodo(cat){
+  const url='/api/todo'+(cat?'?cat='+encodeURIComponent(cat):'');
+  const todos=await fetch(url).then(r=>r.json()).catch(()=>[]);
+  renderTodo(todos);
+}
+function renderTodo(todos){
+  const el=document.getElementById('todoList');if(!el)return;
+  const prioCols={urgent:'red',high:'orange',normal:'blue',low:'muted'};
+  const prioIcons={urgent:'🚨',high:'⬆️',normal:'●',low:'⬇️'};
+  const catIcons={concours:'🎓',admin:'🏛️','pédagogie':'📚',budget:'💰',système:'⚙️',général:'📋'};
+  const done=todos.filter(t=>t.statut==='done'), pending=todos.filter(t=>t.statut!=='done');
+  if(!todos.length){el.innerHTML='<div style="color:var(--muted)">Aucune tâche. Ajoutez-en ci-dessus !</div>';return;}
+  el.innerHTML=`
+    <div style="margin-bottom:12px;color:var(--muted);font-size:12px">${pending.length} en cours · ${done.length} terminées</div>
+    ${pending.map(t=>renderTodoItem(t,prioIcons,prioCols,catIcons)).join('')}
+    ${done.length?`<details style="margin-top:16px"><summary style="cursor:pointer;color:var(--muted);font-size:12px">✓ ${done.length} terminée(s)</summary>${done.map(t=>renderTodoItem(t,prioIcons,prioCols,catIcons)).join('')}</details>`:''}
+  `;
+}
+function renderTodoItem(t,pi,pc,ci){
+  const done=t.statut==='done';
+  return `<div style="background:var(--card);border:1px solid var(--border);border-left:3px solid var(--${pc[t.priorite]||'blue'});border-radius:4px;padding:10px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px;${done?'opacity:.5':''}">
+    <input type="checkbox" ${done?'checked':''} onchange="toggleTodo(${t.id},this.checked)" style="width:16px;height:16px;cursor:pointer;accent-color:var(--green)">
+    <div style="flex:1">
+      <div style="display:flex;align-items:center;gap:8px">
+        <span>${pi[t.priorite]||'●'}</span>
+        <span style="${done?'text-decoration:line-through':''};font-weight:bold">${escHtml(t.titre)}</span>
+        <span style="font-size:11px;color:var(--muted)">${ci[t.categorie]||''} ${t.categorie}</span>
+        ${t.deadline?`<span style="font-size:11px;color:var(--orange)">⏰ ${t.deadline}</span>`:''}
+      </div>
+      ${t.cli?`<div style="font-size:11px;font-family:monospace;color:var(--green);margin-top:3px;cursor:pointer" onclick="copyCmd('${escHtml(t.cli)}')">${escHtml(t.cli)}</div>`:''}
+    </div>
+    <button class="btn danger" style="padding:3px 8px;font-size:11px" onclick="delTodo(${t.id})">✕</button>
+  </div>`;
+}
+async function addTodo(){
+  const d={titre:document.getElementById('todoTitre').value,categorie:document.getElementById('todoCat').value,priorite:document.getElementById('todoPrio').value,deadline:document.getElementById('todoDeadline').value,cli:document.getElementById('todoCli').value};
+  if(!d.titre){showMsg('todoMsg','Titre requis','ko');return;}
+  await fetch('/api/todo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});
+  document.getElementById('todoTitre').value='';document.getElementById('todoCli').value='';
+  showMsg('todoMsg','✓ Tâche ajoutée','ok');loadTodo('');
+}
+async function quickTodo(titre,cat,prio,deadline){
+  await fetch('/api/todo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({titre,categorie:cat,priorite:prio,deadline})});
+  loadTodo('');
+}
+async function toggleTodo(id,done){
+  await fetch('/api/todo/'+id,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({statut:done?'done':'todo'})});
+  loadTodo('');
+}
+async function delTodo(id){await fetch('/api/todo/'+id,{method:'DELETE'});loadTodo('');}
+
+// Init sections au clic
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelector('[data-section="agents"]')?.addEventListener('click',()=>{if(!window._agentsInit){window._agentsInit=true;loadAgents();}});
+  document.querySelector('[data-section="todo"]')?.addEventListener('click',()=>{if(!window._todoInit){window._todoInit=true;loadTodo('');}});
+});
+
+// ── CALENDRIER RDV ───────────────────────────────────────────
+let _cM=new Date().getMonth(),_cY=new Date().getFullYear();
+window._rdv=[];
+async function loadRdv(){
+  try{const r=await fetch(`/api/rdv?year=${_cY}&month=${_cM+1}`);window._rdv=await r.json();}catch{window._rdv=[];}
+  renderCal();renderRdvList();
+}
+function renderCal(){
+  const g=document.getElementById('calGrid');if(!g)return;
+  const fd=new Date(_cY,_cM,1).getDay(),dim=new Date(_cY,_cM+1,0).getDate(),tod=new Date();
+  g.innerHTML='';
+  ['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'].forEach(d=>{const h=document.createElement('div');h.className='cal-head';h.textContent=d;g.appendChild(h);});
+  const start=fd===0?6:fd-1;
+  for(let i=0;i<start;i++){const c=document.createElement('div');c.className='cal-day other-month';g.appendChild(c);}
+  for(let d=1;d<=dim;d++){
+    const c=document.createElement('div');
+    const isT=d===tod.getDate()&&_cM===tod.getMonth()&&_cY===tod.getFullYear();
+    c.className='cal-day'+(isT?' today':'');
+    const ds=`${_cY}-${String(_cM+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    c.innerHTML=`<div class="dn">${d}</div>`;
+    (window._rdv||[]).filter(r=>r.date===ds).forEach(r=>{
+      const ev=document.createElement('div');ev.className=`cal-ev t-${r.type}`;
+      ev.textContent=(r.heure_debut?r.heure_debut+' ':'')+r.titre;
+      ev.title=r.titre+(r.description?' — '+r.description:'');
+      ev.onclick=e=>{e.stopPropagation();if(confirm('Supprimer "'+r.titre+'" ?'))delRdv(r.id);};
+      c.appendChild(ev);
+    });
+    c.onclick=()=>{const rd=document.getElementById('rDate');if(rd)rd.value=ds;};
+    g.appendChild(c);
+  }
+  const ct=document.getElementById('calTitle');
+  if(ct)ct.textContent=new Date(_cY,_cM).toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
+}
+function renderRdvList(){
+  const el=document.getElementById('rdvList');if(!el)return;
+  const sorted=[...window._rdv].sort((a,b)=>a.date.localeCompare(b.date));
+  if(!sorted.length){el.innerHTML='<div style="color:var(--muted)">Aucun événement ce mois</div>';return;}
+  const cols={cours:'green',rdv:'blue',perso:'orange',reunion:'red'};
+  el.innerHTML=sorted.map(r=>`<div style="background:var(--card);border:1px solid var(--border);border-left:3px solid var(--${cols[r.type]||'blue'});border-radius:4px;padding:10px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center"><div><strong>${escHtml(r.titre)}</strong><span style="color:var(--muted);font-size:12px;margin-left:8px">${r.date}${r.heure_debut?' '+r.heure_debut:''}${r.heure_fin?' → '+r.heure_fin:''}</span>${r.description?`<div style="font-size:12px;color:var(--muted);margin-top:2px">${escHtml(r.description)}</div>`:''}</div><button class="btn danger" style="padding:4px 10px;font-size:11px" onclick="delRdv(${r.id})">✕</button></div>`).join('');
+}
+async function addRdv(){
+  const d={titre:document.getElementById('rTitre').value,date:document.getElementById('rDate').value,heure_debut:document.getElementById('rDebut').value,heure_fin:document.getElementById('rFin').value,type:document.getElementById('rType').value,description:document.getElementById('rDesc').value};
+  if(!d.titre||!d.date){showMsg('rdvMsg','Titre et date requis','ko');return;}
+  await fetch('/api/rdv',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});
+  document.getElementById('rTitre').value='';document.getElementById('rDesc').value='';
+  showMsg('rdvMsg','✓ RDV ajouté','ok');loadRdv();
+}
+async function delRdv(id){await fetch('/api/rdv/'+id,{method:'DELETE'});loadRdv();}
+function prevMonth(){_cM--;if(_cM<0){_cM=11;_cY--;}loadRdv();}
+function nextMonth(){_cM++;if(_cM>11){_cM=0;_cY++;}loadRdv();}
+
+// ── VOIX ──────────────────────────────────────────────────────
+async function triggerVoice(){
+  const btn=document.getElementById('voiceBtn'),st=document.getElementById('voiceSt');
+  if(!btn||!st)return;
+  btn.classList.add('rec');st.textContent='Écoute...';
+  try{await fetch('/api/voice-record',{method:'POST'});st.textContent='Widget déclenché ✓';}
+  catch{st.textContent='Erreur';}
+  setTimeout(()=>{btn.classList.remove('rec');st.textContent='Cliquer pour parler';},3000);
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelector('[data-section="calendrier"]')?.addEventListener('click',()=>{
+    if(!window._rdvInit){window._rdvInit=true;loadRdv();}
+  });
+  const rd=document.getElementById('rDate');if(rd)rd.value=new Date().toISOString().split('T')[0];
+});
+</script>
+</body>
+</html>

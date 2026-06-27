@@ -1,0 +1,13 @@
+name: jarvis-linux
+type: os-core
+timeline_ref: 030-jarvis-linux-v17
+roles:
+  - linux-cluster
+  - voice-interface
+  - mcp-host
+modules:
+  - trading_sentinel
+  - mcp_server
+  - health_aggregator
+  - rate_limiter
+  - security

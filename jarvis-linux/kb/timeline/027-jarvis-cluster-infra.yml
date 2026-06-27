@@ -1,0 +1,8 @@
+date: 2026-03-10
+repos:
+  - JARVIS-CLUSTER
+modules:
+  - docker_swarm_infra
+  - multi_inference_backends (4)
+  - failover_mechanisms
+description: "Infrastructure layer for managing agents on a multi-inference backend cluster using Docker Swarm."

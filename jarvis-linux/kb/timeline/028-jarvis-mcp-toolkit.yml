@@ -1,0 +1,7 @@
+date: 2026-03-27
+repos:
+  - jarvis-mcp-toolkit
+modules:
+  - mcp_handlers (88+)
+  - multi_agent_normalization
+description: "MCP toolkit for normalizing tools across multiple agents, coupled with multi-GPU cluster."

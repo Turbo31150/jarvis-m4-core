@@ -1,0 +1,8 @@
+date: 2026-02-11
+repos:
+  - turbo
+modules:
+  - gpu_monitoring
+  - cluster_dashboard
+  - websocket_ui
+description: "Real-time GPU/cluster dashboard with cyberpunk UI, first graphical control center."

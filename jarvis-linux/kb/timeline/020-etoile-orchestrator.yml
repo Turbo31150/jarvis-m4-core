@@ -1,0 +1,8 @@
+date: 2026-02-18
+repos:
+  - etoile
+modules:
+  - orchestrator_v12.4
+  - agent_management (928 agents)
+  - endpoint_management (504 endpoints)
+description: "Orchestrator v12.4, precursor to distributed OS, multi-GPU, still Windows-centric."

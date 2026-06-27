@@ -1,0 +1,7 @@
+date: 2026-01-11
+repos:
+  - telegram-bot-trading
+modules:
+  - trading_core
+  - telegram_integration
+description: "Initial trading bot with Telegram integration, focused on Windows terminal."

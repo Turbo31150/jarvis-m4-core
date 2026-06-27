@@ -1,0 +1,54 @@
+{
+  "themes": {
+    "cours": {
+      "keywords": ["leçon", "élève", "devoir", "exercice", "correction", "note", "classe", "collège", "lycée", "matière", "programme", "enseignement", "cours", "examen", "évaluation", "séquence", "séance"],
+      "model_host": "M2",
+      "model_url": "http://192.168.1.26:1234",
+      "model_id": "qwen/qwen3.5-9b",
+      "system_prompt": "Tu es assistant pédagogique. Aide concise pour enseignant."
+    },
+    "trading": {
+      "keywords": ["action", "bourse", "crypto", "bitcoin", "mexc", "signal", "achat", "vente", "position", "portefeuille", "trade", "trading", "marché", "cours", "indice", "ethereum", "altcoin", "futures", "spot"],
+      "model_host": "M1",
+      "model_url": "http://192.168.1.85:1234",
+      "model_id": "deepseek/deepseek-r1-0528-qwen3-8b",
+      "system_prompt": "Tu es expert trading. Analyse concise."
+    },
+    "code": {
+      "keywords": ["python", "script", "bug", "erreur", "fonction", "classe", "git", "linux", "terminal", "code", "programme", "développement", "javascript", "bash", "api", "serveur", "docker", "import", "variable", "debug"],
+      "model_host": "M1",
+      "model_url": "http://192.168.1.85:1234",
+      "model_id": "qwen/qwen3.5-9b",
+      "system_prompt": "Tu es expert développeur. Code direct, pas de blabla."
+    },
+    "recherche": {
+      "keywords": ["cherche", "trouve", "wikipedia", "définition", "explication", "qu'est-ce que", "c'est quoi", "pourquoi", "recherche", "information", "renseignement", "expliquer", "décrire"],
+      "model_host": "M2",
+      "model_url": "http://192.168.1.26:1234",
+      "model_id": "qwen/qwen3.5-9b",
+      "system_prompt": "Tu es moteur de recherche pédagogique."
+    },
+    "médical": {
+      "keywords": ["santé", "symptôme", "médicament", "douleur", "fatigue", "médecin", "maladie", "traitement", "ordonnance", "diagnostic", "fièvre", "allergie", "mal", "douloureux"],
+      "model_host": "M1",
+      "model_url": "http://192.168.1.85:1234",
+      "model_id": "qwen/qwen3.5-9b",
+      "system_prompt": "Tu es assistant santé. Recommande toujours un médecin."
+    },
+    "général": {
+      "keywords": [],
+      "model_host": "M2",
+      "model_url": "http://192.168.1.26:1234",
+      "model_id": "qwen/qwen3.5-9b",
+      "instance_suffix": ":1",
+      "system_prompt": "Tu es JARVIS, assistant IA polyvalent. Réponds de façon concise et utile."
+    }
+  },
+  "default_theme": "général",
+  "fallback_chain": [
+    "http://192.168.1.85:1234",
+    "http://192.168.1.26:1234",
+    "http://127.0.0.1:11434"
+  ],
+  "ollama_model": "gemma3:4b"
+}

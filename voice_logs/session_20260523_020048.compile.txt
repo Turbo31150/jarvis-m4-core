@@ -1,0 +1,17 @@
+**Résumé structuré en bullet points par thème :**
+
+- **[02:01] Qu'est-ce, babe ?**  
+  - Thème : Personnalisation du système pour une enseignante.  
+  - Icônes : Adaptées pour un contexte pédagogique.  
+  - Economie : Intégration optimisée des fonctionnalités.  
+  - Clarté : Design visuel clair et épuré.  
+  - Fluidité : Navigation facile et intuitive.  
+  - Actualité : Mises à jour régulières et personnalisées.  
+
+- **[02:11] Sous-titrage ST' 501**  
+  - Fonctionnalité : Support pour sous-titres.  
+  - Adaptation : Prise en charge des formats de sous-titres.  
+
+- **[02:12] Est-ce que tu vas bien ?**  
+  - Réponse : "Tout va bien."  
+  - Contexte : Confirmation de la santé et de l'efficacité du système.

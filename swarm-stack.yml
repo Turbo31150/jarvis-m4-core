@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  # Portainer - gestion UI du swarm
+  portainer:
+    image: portainer/portainer-ce:latest
+    ports:
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+      restart_policy:
+        condition: on-failure
+
+  # Registry privé pour images JARVIS
+  registry:
+    image: registry:2
+    ports:
+      - "5000:5000"
+    volumes:
+      - registry_data:/var/lib/registry
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+
+volumes:
+  portainer_data:
+  registry_data:

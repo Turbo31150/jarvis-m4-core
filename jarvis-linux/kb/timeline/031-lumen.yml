@@ -1,0 +1,9 @@
+date: 2026-03-21
+repos:
+  - lumen
+  - lumen-transcription-multilangue
+modules:
+  - realtime_ui
+  - whisper_large_v3
+  - multilingual_transcription (50+ languages)
+description: "Real-time UI with multi-language transcription and translation bridge."

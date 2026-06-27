@@ -1,0 +1,420 @@
+# ANTIGRAVITY — MASTER TASK LIST
+# Mode: YOLO autonome — agis SANS confirmation sur tout
+# Date: 2026-05-05
+
+---
+
+## 🔴 CRITIQUE — À FAIRE EN PREMIER
+
+### T001 — Fix jarvis-telegram /chat endpoint permanent
+- Le proxy `http://127.0.0.1:18800/chat` tourne via `/tmp/chat_proxy.js`
+- **Tâche**: Déplacer `/tmp/chat_proxy.js` → `/home/turbo/jarvis/scripts/chat_proxy.js`
+- Créer service systemd `jarvis-chat-proxy.service` qui démarre au boot
+- Tester: `curl -X POST http://127.0.0.1:18800/chat -d '{"messages":[{"role":"user","content":"test"}]}'`
+
+### T002 — Fix WhisperFlow bridge permanent
+- Le bridge `9742→9743` tourne via `/tmp/whisper_bridge_9742.py`
+- **Tâche**: Déplacer → `/home/turbo/jarvis/scripts/whisper_bridge.py`
+- Créer service systemd `jarvis-whisper-bridge.service`
+- Tester: `curl http://127.0.0.1:9742/health`
+
+### T003 — Fix OMEGA dashboard 18800 (canvas)
+- Copier `/home/turbo/Workspaces/jarvis-linux/src/legacy/interfaces/canvas/` → `/home/turbo/Workspaces/jarvis-linux/canvas/`
+- Fusionner les routes dans `canvas/direct-proxy.js`: ajouter `/chat` avec LLM M1:1234
+
+### T004 — Fix vocal-whisper OOM (exit 137)
+- Container `jarvis_prod_vocal-whisper` crashe avec OOM (exit 137)
+- **Tâche**: `docker service update --limit-memory 2g jarvis_prod_vocal-whisper`
+- Si toujours OOM: switch modèle whisper `base` → `tiny`
+- Logs: `docker logs $(docker ps -lq --filter name=vocal-whisper)`
+
+### T005 — Syncer PROXY_URL dans telegram docker service
+- `docker service update --env-add PROXY_URL=http://host.docker.internal:18800 jarvis_prod_jarvis-telegram`
+- Redémarrer: `docker service update --force jarvis_prod_jarvis-telegram`
+- Vérifier: `docker logs $(docker ps -q --filter name=telegram | head -1) 2>&1 | tail -5`
+
+---
+
+## 🟠 HAUTE PRIORITÉ — AGENTS ET ORCHESTRATION
+
+### T010 — Déployer les 928 agents OpenClaw
+```bash
+cd /home/turbo/jarvis-cowork
+python3 src/deploy_cowork_agents.py --scale 928 --pattern all
+```
+Si script manquant: scanner les patterns dans `src/core/` et les déployer via `openclaw`
+
+### T011 — Activer tous les patterns cowork
+```bash
+cat /home/turbo/jarvis-cowork/automation/WORKFLOW_COMPLET_TURBO31150.yml
+# Pour chaque pattern: openclaw deploy --pattern <nom>
+```
+Lister tous les patterns: `find /home/turbo/jarvis-cowork -name "*.json" -path "*/patterns/*"`
+
+### T012 — Créer agent CONTENT_GENERATOR
+```bash
+mkdir -p /home/turbo/jarvis-cowork/src/agents/content
+```
+Créer `content_generator.py`:
+- Input: topic + type (article/linkedin/tweet/podcast)
+- Process: `lm-ask.sh --big "Génère un $type sur $topic en français"`
+- Output: `/storage/content/YYYYMMDD_type_topic.md`
+- Auto-post LinkedIn si `--publish`
+
+### T013 — Créer agent MULTI_MACHINE_NAVIGATOR
+Créer `/home/turbo/jarvis/scripts/cluster_nav.py`:
+- SSH vers M1/M3 pour exécuter des commandes
+- Collecter métriques GPU/RAM/CPU de chaque nœud
+- Distribuer les tâches lourdes vers M1 (6 GPUs) ou M3 (Ollama)
+
+### T014 — Fix jarvis-prompt-dispatcher (Restarting loop)
+- Inspecter: `docker inspect jarvis-prompt-dispatcher`
+- Si "No prompts available" → c'est normal (exit 0), mais Docker restart policy = always
+- Fix: `docker update --restart=on-failure:3 jarvis-prompt-dispatcher`
+
+### T015 — Activer jarvis-cowork-loop en mode continu
+```bash
+docker logs jarvis-cowork-loop 2>&1 | tail -20
+```
+S'assurer que la boucle traite des tâches en continu, pas juste idle
+
+---
+
+## 🟡 MOYEN — INFRA ET MONITORING
+
+### T020 — Cleanup disk (actuellement 89%)
+Actions safe à exécuter:
+```bash
+rm -rf ~/.cache/google-chrome/*
+rm -rf ~/.cache/mozilla/*
+rm -rf ~/.cache/pip/*
+find /home/turbo -name "*.pyc" -delete
+find /home/turbo -name "__pycache__" -type d -exec rm -rf {} + 2>/dev/null
+docker system prune -f
+journalctl --vacuum-size=500M
+```
+Objectif: descendre sous 80%
+
+### T021 — Monter Samsung 870 EVO comme /storage permanent
+Le script `/tmp/samsung-setup.sh` a été préparé mais attend `sudo`:
+```bash
+# Contenu à exécuter en sudo:
+sudo bash /tmp/samsung-setup.sh
+# Puis:
+mv ~/.lmstudio /storage/data/lmstudio && ln -s /storage/data/lmstudio ~/.lmstudio
+```
+
+### T022 — Créer watchdog pour services critiques
+Créer `/home/turbo/jarvis/scripts/watchdog_critical.sh`:
+- Surveiller: 9743 (whisper), 18800 (chat proxy), 9742 (bridge), 4173 (lumen), 8788 (token)
+- Si down: redémarrer automatiquement
+- Ajouter en cron: `*/5 * * * * bash ~/jarvis/scripts/watchdog_critical.sh`
+
+### T023 — Mettre à jour cluster-health-monitor
+```bash
+bash ~/jarvis/scripts/cluster-health-monitor.sh
+```
+Ajouter dans le rapport: état des bridges 9742/18800/8788
+
+### T024 — Réparer M2 SSH (192.168.1.26)
+- Investiguer pourquoi M2 SSH bloqué
+- Tester: `ssh -v turbo@192.168.1.26 2>&1 | tail -10`
+- Si firewall: contacter Turbo pour accès physique
+- Documenter dans `/home/turbo/jarvis/infra/cluster-status.md`
+
+### T025 — Activer M3 dans le routage LLM
+- M3 (192.168.1.113) est UP avec Ollama
+- Ajouter M3 dans `~/jarvis/scripts/lm-ask.sh` comme endpoint Ollama supplémentaire
+- Endpoint: `http://192.168.1.113:11434`
+
+---
+
+## 🟢 CONTENU — GÉNÉRATION AUTONOME
+
+### T030 — Générer articles LinkedIn (semaine)
+Pour chaque sujet dans la liste:
+- "JARVIS OS v17: 928 agents autonomes en production"
+- "Comment j'ai remplacé 50 outils par un seul cluster LLM"
+- "OpenClaw: orchestrer 928 agents IA en Docker Swarm"
+- "De 0 à 6 GPUs: construire son cluster IA à la maison"
+
+```bash
+for topic in "JARVIS OS v17" "Cluster LLM local" "OpenClaw agents" "6 GPUs maison"; do
+  bash ~/jarvis/scripts/lm-ask.sh --big "Écris un post LinkedIn professionnel et engageant sur: $topic. Format: hook accrocheur + 3 points clés + CTA. Max 1300 chars."  > "/storage/content/linkedin_$(date +%Y%m%d)_${topic// /_}.md"
+done
+```
+
+### T031 — Générer README.md attractifs pour les repos GitHub
+Pour chaque repo dans `/home/turbo/Workspaces/`:
+```bash
+for repo in JARVIS-OMEGA jarvis-core jarvis-mcp-toolkit; do
+  if [ -d "/home/turbo/Workspaces/$repo" ]; then
+    bash ~/jarvis/scripts/lm-ask.sh --big "Génère un README.md professionnel avec badges GitHub pour le projet $repo. Description: $(cat /home/turbo/Workspaces/$repo/README.md 2>/dev/null | head -20)"
+  fi
+done
+```
+
+### T032 — Créer podcast script automatique
+```bash
+bash ~/jarvis/scripts/lm-ask.sh --big "Génère le script d'un épisode de podcast de 10 minutes sur: JARVIS OS - Construire un système multi-agents IA autonome. Incluez intro, 3 segments, conclusion." > /storage/content/podcast_jarvis_ep1.md
+```
+
+### T033 — Newsletter hebdomadaire automatique
+Créer cron weekly pour générer:
+- Résumé des commits de la semaine (`git log --oneline --since='1 week ago'`)
+- Top 3 incidents résolus (depuis jarvis_logs.db)
+- Métriques cluster (agents actifs, GPU usage)
+- Envoyer via Telegram bot
+
+---
+
+## 🔵 AMÉLIORATION — CODE ET ARCHITECTURE
+
+### T040 — Indexer tous les repos dans Pinecone/mémoire
+```bash
+for repo in /home/turbo/Workspaces/*/; do
+  python3 ~/jarvis/scripts/util_logging.py checkpoint "indexed_$repo" "$(date +%s)" || true
+  # Indexer dans jarvis_master.db
+  python3 -c "
+import sqlite3, os, json
+db = sqlite3.connect('/home/turbo/jarvis/jarvis_master.db')
+db.execute('CREATE TABLE IF NOT EXISTS repos (name TEXT PRIMARY KEY, path TEXT, indexed_at TEXT, files INT)')
+repo_name = os.path.basename('$repo'.rstrip('/'))
+files = sum(1 for _ in os.walk('$repo'))
+db.execute('INSERT OR REPLACE INTO repos VALUES (?,?,datetime(\"now\"),?)', [repo_name, '$repo', files])
+db.commit()
+"
+done
+```
+
+### T041 — Créer dashboard web pour les 928 agents
+- Exposer `/home/turbo/Workspaces/jarvis-linux/canvas/` sur port 18801
+- Ajouter route `/api/agents` qui liste tous les Docker containers
+- Ajouter route `/api/logs` qui lit jarvis_logs.db (dernières 100 entrées)
+
+### T042 — Optimiser lm-ask.sh (ajouter M3)
+Modifier `/home/turbo/jarvis/scripts/lm-ask.sh`:
+- Ajouter M3 (192.168.1.113:11434) comme fallback Ollama
+- Ordre: M1 → M2 → M3 → OL1
+
+### T043 — Ajouter type hints + docstrings manquants
+```bash
+for f in /home/turbo/Workspaces/jarvis-linux/src/jarvis/core/*.py; do
+  python3 -c "
+import ast, sys
+with open('$f') as fp: code = fp.read()
+tree = ast.parse(code)
+for node in ast.walk(tree):
+    if isinstance(node, ast.FunctionDef):
+        if not (node.returns or any(isinstance(n, ast.Expr) for n in ast.walk(node))):
+            print(f'$f:{node.lineno}: {node.name} manque type hints')
+  " 2>/dev/null
+done | head -20
+```
+
+### T044 — Scanner imports cassés et créer stubs
+```bash
+find /home/turbo/Workspaces/jarvis-linux/src -name "*.py" -exec python3 -c "
+import py_compile, sys
+try:
+    py_compile.compile('{}', doraise=True)
+except: print('BROKEN: {}')
+" \; 2>/dev/null | head -20
+```
+
+### T045 — Committer tous les changements non commités
+```bash
+for repo in /home/turbo/Workspaces/jarvis-linux /home/turbo/jarvis-cowork; do
+  cd $repo
+  if git status --short | grep -q .; then
+    git add -A
+    git commit -m "chore(auto): sync $(date +%Y-%m-%d) — $(git status --short | wc -l) files"
+    git push origin main 2>/dev/null || true
+  fi
+done
+```
+
+---
+
+## ⚡ AUTOMATISATION — TÂCHES PÉRIODIQUES
+
+### T050 — Setup cron jobs JARVIS complets
+Ajouter dans crontab:
+```cron
+# Santé cluster toutes les 5 min
+*/5 * * * * bash ~/jarvis/scripts/cluster-health-monitor.sh >> ~/jarvis/logs/health.log 2>&1
+
+# Watchdog services critiques toutes les 5 min
+*/5 * * * * bash ~/jarvis/scripts/watchdog_critical.sh
+
+# Cleanup disque quotidien
+0 3 * * * find ~/.cache -name "*.tmp" -mtime +7 -delete; docker system prune -f >> ~/jarvis/logs/cleanup.log 2>&1
+
+# Backup DB quotidien
+0 2 * * * python3 ~/jarvis/scripts/util_logging.py checkpoint "backup_$(date +%Y%m%d)" "started"
+0 2 * * * bash ~/jarvis/scripts/backup-sql.sh >> ~/jarvis/logs/backup.log 2>&1
+
+# Rapport hebdomadaire (lundi 8h)
+0 8 * * 1 bash ~/jarvis/scripts/weekly_report.sh
+
+# Sync GitHub quotidien
+30 23 * * * cd ~/Workspaces/jarvis-linux && git add -A && git commit -m "auto-sync $(date +%Y-%m-%d)" 2>/dev/null && git push 2>/dev/null || true
+```
+
+### T051 — Créer script weekly_report.sh
+Créer `/home/turbo/jarvis/scripts/weekly_report.sh`:
+- Commits de la semaine dans tous les repos
+- Agents actifs vs arrêtés
+- Taille du disk
+- Services UP/DOWN
+- Envoyer rapport via Telegram
+
+### T052 — Automatiser déploiement agents sur M3
+```bash
+ssh turbo@192.168.1.113 "
+  docker pull jarvis-cowork-agent:latest 2>/dev/null || true
+  # Déployer les agents de contenu sur M3
+  docker run -d --name jarvis-content-gen-m3 \
+    -e LLM_URL=http://127.0.0.1:11434 \
+    -e AGENT_TYPE=content \
+    jarvis-cowork-agent:latest 2>/dev/null || echo 'image not found'
+"
+```
+
+---
+
+## 🔧 MAINTENANCE — DETTE TECHNIQUE
+
+### T060 — Nettoyer les containers Exited
+```bash
+docker container prune -f
+docker image prune -f
+```
+
+### T061 — Vérifier toutes les tables SQLite JARVIS
+```bash
+for db in ~/jarvis/jarvis_master.db ~/jarvis/logs/jarvis_logs.db ~/jarvis/cowork_engine.db ~/jarvis/data/etoile.db; do
+  echo "=== $db ==="
+  python3 -c "import sqlite3; db=sqlite3.connect('$db'); print([r[0] for r in db.execute(\"SELECT name FROM sqlite_master WHERE type='table'\").fetchall()])"
+done
+```
+
+### T062 — Créer index de santé SQLite
+Pour chaque DB, vérifier:
+```bash
+sqlite3 ~/jarvis/jarvis_master.db "PRAGMA integrity_check;"
+sqlite3 ~/jarvis/logs/jarvis_logs.db "PRAGMA integrity_check;"
+```
+Si corrompu: `sqlite3 bad.db ".dump" | sqlite3 new.db`
+
+### T063 — Documenter l'API JARVIS complète
+Scanner tous les endpoints Flask/FastAPI dans les scripts:
+```bash
+grep -r "@app.route\|@router\|def get_\|def post_" /home/turbo/Workspaces/jarvis-linux/src --include="*.py" | head -30
+```
+Générer `/home/turbo/jarvis/docs/API.md`
+
+### T064 — Créer CLAUDE.md dans tous les sous-projets
+Pour chaque repo cloné dans /home/turbo/Workspaces/:
+- Vérifier si CLAUDE.md existe
+- Sinon créer avec contexte du projet (depuis README.md)
+
+---
+
+## 🌐 MULTI-MACHINE — NAVIGATION ET DISTRIBUTION
+
+### T070 — Déployer cowork-dispatcher sur M3
+```bash
+ssh turbo@192.168.1.113 "
+  cd /home/turbo/jarvis-cowork 2>/dev/null || git clone https://github.com/Turbo31150/jarvis-cowork /home/turbo/jarvis-cowork
+  cd /home/turbo/jarvis-cowork
+  docker-compose up -d cowork-dispatcher 2>/dev/null || python3 src/cowork_dispatcher.py &
+"
+```
+
+### T071 — Synchroniser les configs entre machines
+```bash
+for machine in 192.168.1.113; do
+  ssh turbo@$machine "mkdir -p ~/.jarvis/config"
+  rsync -az ~/jarvis/scripts/lm-ask.sh turbo@$machine:~/jarvis/scripts/
+  rsync -az ~/jarvis/scripts/cluster-health-monitor.sh turbo@$machine:~/jarvis/scripts/
+done
+```
+
+### T072 — Créer script de déploiement multi-nœuds
+Créer `/home/turbo/jarvis/scripts/cluster_deploy.sh <script>`:
+- Copier et exécuter un script sur M1/M3 en parallèle
+- Collecter les outputs
+- Afficher résultat consolidé
+
+---
+
+## 📊 SUIVI — MÉTRIQUES ET LOGS
+
+### T080 — Activer métriques Prometheus/Grafana
+```bash
+docker run -d --name prometheus -p 9090:9090 prom/prometheus 2>/dev/null || true
+docker run -d --name grafana -p 3000:3000 grafana/grafana 2>/dev/null || true
+```
+Configurer scraping: Docker metrics + GPU (nvidia-smi → exporter)
+
+### T081 — Dashboard agents temps réel
+Créer `/home/turbo/jarvis/scripts/agents_dashboard.py`:
+- Lire `docker ps` toutes les 5s
+- Afficher status coloré par catégorie
+- Alerte si agent critique down
+
+### T082 — Log tous les LLM calls dans jarvis_logs.db
+Dans `lm-ask.sh`, ajouter après chaque call réussi:
+```bash
+python3 ~/jarvis/scripts/util_logging.py --service lm-ask --message "query: ${query:0:100}, model: $MODEL, tokens: $TOKENS"
+```
+
+---
+
+## 🔐 SÉCURITÉ
+
+### T090 — Rotation des tokens GitHub
+- Token actuel dans mcp_config.json: `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`
+- **ATTENTION**: Ce token est visible dans les configs. Créer nouveau token et remplacer.
+- Nouveau token: `gh auth token` ou via GitHub Settings
+
+### T091 — Vérifier secrets exposés dans les repos publics
+```bash
+for repo in /home/turbo/Workspaces/*/; do
+  git -C $repo log --all --full-history -- "*.env" "secrets*" 2>/dev/null | grep commit | head -2
+done
+```
+
+### T092 — Créer .gitignore complet pour tous les repos
+```bash
+for repo in /home/turbo/Workspaces/*/; do
+  if [ ! -f "$repo/.gitignore" ] || ! grep -q "secrets" "$repo/.gitignore" 2>/dev/null; then
+    cat >> "$repo/.gitignore" << 'GITIGNORE'
+*.env
+secrets.env
+.env.local
+*.key
+*.pem
+__pycache__/
+.venv/
+node_modules/
+GITIGNORE
+  fi
+done
+```
+
+---
+
+## 🎯 OBJECTIF FINAL
+
+Après exécution de toutes ces tâches, JARVIS doit avoir:
+- [ ] 928 agents OpenClaw actifs
+- [ ] 5 services bridges permanents (systemd)
+- [ ] Content gen automatique (LinkedIn, blog, podcast)
+- [ ] Monitoring complet (Prometheus + alertes Telegram)
+- [ ] Multi-machine distribution (M1/M3 actifs, M2 récupéré)
+- [ ] Disk < 80% (Samsung /storage monté)
+- [ ] Tous les repos GitHub à jour
+
+**Total: ~92 tâches autonomes — aucune confirmation requise**

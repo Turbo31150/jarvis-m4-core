@@ -1,0 +1,40 @@
+{
+  "nodes": [
+    {
+      "name": "M1",
+      "host": "192.168.1.85",
+      "agent_port": 8421,
+      "ssh_user": "turbo",
+      "gpus": true,
+      "gpu_count": 5,
+      "lm_studio_port": 1234,
+      "ollama_port": null,
+      "primary": true
+    },
+    {
+      "name": "M2",
+      "host": "192.168.1.26",
+      "agent_port": 8421,
+      "ssh_user": "turbo",
+      "gpus": true,
+      "gpu_count": 0,
+      "lm_studio_port": 1234,
+      "ollama_port": null,
+      "primary": false
+    },
+    {
+      "name": "OL1",
+      "host": "127.0.0.1",
+      "agent_port": 8421,
+      "ssh_user": "turbo",
+      "gpus": false,
+      "gpu_count": 0,
+      "lm_studio_port": null,
+      "ollama_port": 11434,
+      "primary": false
+    }
+  ],
+  "server_port": 8420,
+  "scrape_interval": 1,
+  "base_dir": "/home/pamerys/jarvis"
+}

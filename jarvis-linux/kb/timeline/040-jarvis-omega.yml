@@ -1,0 +1,7 @@
+date: 2026-04-03
+repos:
+  - JARVIS-OMEGA
+modules:
+  - distilled_os
+  - distributed_cluster_vision
+description: "Distilled version of the multi-AI OS, focusing on distributed cluster vision."

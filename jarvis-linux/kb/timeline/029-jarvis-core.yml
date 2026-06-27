@@ -1,0 +1,7 @@
+date: 2026-03-28
+repos:
+  - jarvis-core
+modules:
+  - unified_orchestration_engine (26 modules, 9 agents)
+  - mcp_integration
+description: "Unified orchestration engine, foundation for JARVIS OS, neutral profile before OS Linux."
