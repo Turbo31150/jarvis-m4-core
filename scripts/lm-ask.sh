@@ -68,12 +68,18 @@ call_cloud() {
 }
 
 # Auto-détection du meilleur modèle Ollama LOCAL installé (autonomie M4 en solo)
-# Choisit par ordre de préférence parmi ce qui est réellement présent, sinon le 1er dispo.
+# M4 = CPU only (pas de GPU Ollama) → on privilégie les modèles LÉGERS pour ne pas saturer.
+# Les modèles lourds (7b/8b) restent accessibles via --big.
 OLLAMA_MODEL="$(curl -s -m 2 http://127.0.0.1:11434/api/tags 2>/dev/null | jq -r '
   ([.models[].name]) as $m
-  | (["qwen2.5:7b","llama3.1:8b","gemma3:4b","deepseek-r1:7b","llama3.2:latest","llama3.2","qwen3:1.7b","qwen2.5:1.5b"][]
+  | (["gemma3:4b","qwen3:1.7b","llama3.2:latest","llama3.2","qwen2.5:1.5b","qwen2.5:7b","llama3.1:8b","deepseek-r1:7b"][]
      | select(. as $p | $m | index($p))) // $m[0] // empty' 2>/dev/null | head -1)"
-[[ -z "$OLLAMA_MODEL" ]] && OLLAMA_MODEL="qwen3:1.7b"
+[[ -z "$OLLAMA_MODEL" ]] && OLLAMA_MODEL="gemma3:4b"
+# --big en solo M4 → bascule sur le modèle local le plus capable présent
+[[ "${MODELS_M2[0]}" == "$MODEL_BIG" ]] && OLLAMA_BIG="$(curl -s -m 2 http://127.0.0.1:11434/api/tags 2>/dev/null | jq -r '
+  ([.models[].name]) as $m
+  | (["qwen2.5:7b","llama3.1:8b","deepseek-r1:7b","gemma3:4b"][]
+     | select(. as $p | $m | index($p))) // empty' 2>/dev/null | head -1)" && [[ -n "$OLLAMA_BIG" ]] && OLLAMA_MODEL="$OLLAMA_BIG"
 
 # Vérif connectivité (1s timeout)
 M1_UP=0; M2_UP=0; OL1_UP=0; OL3_UP=0
