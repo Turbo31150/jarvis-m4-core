@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin IA — Tes démarches administratives pré-remplies</title>
+<meta name="description" content="Impôts, CAF, MDPH, permis : tes formulaires pré-remplis automatiquement. Dis ta démarche, on s'occupe du reste.">
+<meta property="og:title" content="Admin IA — Tes démarches administratives pré-remplies"><meta property="og:description" content="Impôts, CAF, MDPH, permis : tes formulaires pré-remplis automatiquement. Dis ta démarche, on s'occupe du reste.">
+<style>
+:root{--bg:#0a0e14;--bg2:#111722;--card:#161d2b;--line:#222c3d;--txt:#e6edf3;--muted:#8b97a8;--a:#34d399;--a2:#22d3ee;--ok:#34d399}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,"Segoe UI",Roboto,Inter,sans-serif;background:var(--bg);color:var(--txt);line-height:1.55}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+a{color:var(--a);text-decoration:none}
+.btn{display:inline-block;padding:14px 26px;border-radius:12px;font-weight:700;cursor:pointer;border:none;font-size:1rem;transition:.2s}
+.btn-p{background:linear-gradient(135deg,var(--a),var(--a2));color:#06121a}.btn-p:hover{filter:brightness(1.1);transform:translateY(-2px)}
+.btn-g{background:transparent;border:1px solid var(--line);color:var(--txt)}.btn-g:hover{border-color:var(--a)}
+header{padding:64px 0 36px;text-align:center;background:radial-gradient(700px 320px at 50% -10%,rgba(52,211,153,.12),transparent)}
+.badge{display:inline-block;font-size:.8rem;color:var(--a);border:1px solid var(--line);border-radius:99px;padding:6px 14px;margin-bottom:20px;letter-spacing:.5px}
+h1{font-size:clamp(1.9rem,5vw,2.9rem);line-height:1.1;font-weight:800;letter-spacing:-1px}
+.grad{background:linear-gradient(135deg,var(--a),var(--a2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sub{color:var(--muted);font-size:1.12rem;max-width:520px;margin:18px auto 28px}
+section{padding:18px 0}
+.box{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:28px}
+.box h2{font-size:1.3rem;margin-bottom:6px}.box .q{color:var(--muted);margin-bottom:18px}
+select,input,textarea{width:100%;background:#0b0f17;border:1px solid var(--line);border-radius:10px;padding:13px;color:var(--txt);font-size:.95rem;margin-bottom:10px}
+select:focus,input:focus,textarea:focus{outline:none;border-color:var(--a)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.chip{padding:9px 15px;border:1px solid var(--line);border-radius:99px;cursor:pointer;background:var(--card);color:var(--muted);font-size:.9rem;user-select:none}
+.chip.on{border-color:var(--a);color:var(--a)}
+#res{margin-top:18px}
+.verdict{border:1px solid rgba(52,211,153,.4);background:rgba(52,211,153,.08);border-radius:12px;padding:18px}
+.verdict b{color:var(--ok)}
+.reco{margin-top:12px;border:1px solid var(--line);background:rgba(255,255,255,.02);border-radius:12px;padding:16px;font-size:.92rem}
+.packs{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:14px}
+.pack{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column}
+.pack.feat{border-color:var(--a2)}
+.pack .t{font-size:.74rem;color:var(--a);font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.pack h3{font-size:1.15rem;margin:6px 0}.pack .p{font-size:1.7rem;font-weight:800}.pack .p small{font-size:.8rem;color:var(--muted);font-weight:500}
+.pack ul{list-style:none;margin:12px 0;flex:1}.pack li{padding:5px 0;color:var(--muted);font-size:.86rem;display:flex;gap:8px}.pack li::before{content:"✓";color:var(--ok);font-weight:800}
+.cta{text-align:center;padding:40px 0}
+footer{border-top:1px solid var(--line);padding:28px 0;text-align:center;color:var(--muted);font-size:.85rem;margin-top:20px}
+</style></head><body>
+<header><div class="wrap">
+<span class="badge">📋 GRATUIT · SANS INSCRIPTION</span>
+<h1>Tes démarches admin,<br><span class="grad">pré-remplies. En 1 clic.</span></h1>
+<p class="sub">Impôts, CAF, MDPH, permis de conduire… Dis-nous ta démarche, on identifie les formulaires et on les pré-remplit.</p>
+<a href="#action" class="btn btn-p">📋 Trouver ma démarche</a>
+</div></header>
+
+<section id="action"><div class="wrap"><div class="box">
+<h2>Quelle démarche t'embête ?</h2><p class="q">Choisis, on te dit ce qu'on pré-remplit pour toi.</p>
+<div class="chips" id="ch"></div><button class="btn btn-p" onclick="go()">Voir ma démarche</button>
+<div id="res"></div>
+</div></div></section>
+
+<section id="packs"><div class="wrap">
+<h2 style="text-align:center;margin-bottom:6px;font-size:1.5rem">On le fait avec toi ?</h2>
+<p style="text-align:center;color:var(--muted);margin-bottom:18px">Le repérage est gratuit. Le remplissage, tu choisis le niveau d'aide.</p>
+<div class="packs"><div class="pack"><span class="t">Particulier</span><h3>Guidé</h3><div class="p">19€<small>/démarche</small></div><ul><li>Partage d'écran 30 min</li><li>On remplit ensemble</li><li>Tu gardes la main</li></ul><a href="mailto:franck-delmas@laposte.net?subject=Guidé" class="btn btn-g">Réserver</a></div><div class="pack feat"><span class="t">Pressé</span><h3>Dossier complet</h3><div class="p">79€<small>/dossier</small></div><ul><li>On monte tout de A à Z</li><li>Justificatifs vérifiés</li><li>Prêt à envoyer</li><li>Sous 48h</li></ul><a href="mailto:franck-delmas@laposte.net?subject=Dossier complet" class="btn btn-g">Déléguer</a></div><div class="pack"><span class="t">Récurrent</span><h3>Suivi annuel</h3><div class="p">15€<small>/mois</small></div><ul><li>Toutes tes démarches</li><li>Rappels échéances</li><li>Prioritaire</li></ul><a href="mailto:franck-delmas@laposte.net?subject=Suivi annuel" class="btn btn-g">S'abonner</a></div></div>
+</div></section>
+
+<section class="cta"><div class="wrap">
+<h2 style="font-size:1.5rem">Décris ta démarche, on s'en occupe.</h2>
+<p style="color:var(--muted);margin:12px 0 22px">2 phrases suffisent : quelle démarche + ta situation.</p>
+<a href="mailto:franck-delmas@laposte.net?subject=Admin%20IA%20-%20ma%20démarche" class="btn btn-p">✉️ Décrire ma démarche</a>
+</div></section>
+
+<footer><div class="wrap"><b>Admin IA</b> — un service JARVIS OS · Franck Delmas<br>100% confidentiel · particuliers & familles</div></footer>
+<script>const D={'Impôts':'déclaration 2042 + annexes, revenus pré-importés, calcul automatique',
+'CAF':'dossier RSA/APL/prime activité, justificatifs listés, formulaire rempli',
+'MDPH':'dossier handicap complet (Cerfa 15692), volet médical guidé',
+'Permis':'inscription ANTS, pièces justificatives, suivi du dossier',
+'Carte grise':'demande immatriculation ANTS, calcul taxe, pièces',
+'Retraite':'demande de retraite, relevé de carrière, simulation'};
+let sel='';const ch=document.getElementById('ch');
+Object.keys(D).forEach(k=>{const c=document.createElement('div');c.className='chip';c.textContent=k;c.onclick=()=>{sel=k;document.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));c.classList.add('on')};ch.appendChild(c)});
+function go(){if(!sel){document.getElementById('res').innerHTML='<div class="reco">👆 Choisis d\'abord une démarche.</div>';return}
+document.getElementById('res').innerHTML='<div class="verdict"><b>✅ '+sel+' — ce qu\'on pré-remplit :</b><br>'+D[sel]+'</div><div class="reco"><b>La suite :</b> on remplit tout avec toi en partage d\'écran (Pack Guidé 19€) ou on monte ton dossier complet de A à Z (Dossier complet 79€). 👇</div>';document.getElementById('res').scrollIntoView({behavior:'smooth',block:'nearest'})}</script>
+</body></html>
