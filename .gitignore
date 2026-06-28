@@ -45,3 +45,6 @@ antigravity_heavy_tasks/
 claude_code_queue/
 cowork_engine.db
 .ruff_cache/
+secrets-vault/
+.config/
+*.age

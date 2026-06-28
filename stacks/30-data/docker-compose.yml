@@ -1,0 +1,40 @@
+version: '3.9'
+
+# 30-data — données & index (M4). Démarrage : PostgreSQL (image officielle, pas de build).
+# Port NON publié : accessible uniquement via le bus overlay (postgres:5432).
+# deploy : docker stack deploy -c ~/jarvis/stacks/30-data/docker-compose.yml data
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: jarvis_agents
+      POSTGRES_USER: jarvis
+      POSTGRES_PASSWORD_FILE: /run/secrets/pg_pass
+    secrets:
+      - pg_pass
+    volumes:
+      - jarvis_postgres_data:/var/lib/postgresql/data
+    networks:
+      - jarvis-bus
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U jarvis -d jarvis_agents"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    deploy:
+      placement:
+        constraints: [node.hostname == pamerys-m4]
+      restart_policy:
+        condition: on-failure
+
+secrets:
+  pg_pass:
+    external: true
+
+volumes:
+  jarvis_postgres_data:
+
+networks:
+  jarvis-bus:
+    external: true

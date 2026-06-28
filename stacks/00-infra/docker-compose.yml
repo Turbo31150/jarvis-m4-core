@@ -1,0 +1,66 @@
+version: '3.9'
+
+# 00-infra — socle partagé M4 (stack "jarvis")
+# Étend la stack existante : portainer + registry INCHANGÉS, ajoute Redis (bus/cache/discovery).
+# Déploiement : docker stack deploy -c ~/jarvis/stacks/00-infra/docker-compose.yml jarvis
+
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    ports:
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+      restart_policy:
+        condition: on-failure
+
+  registry:
+    image: registry:2
+    ports:
+      - "5000:5000"
+    volumes:
+      - registry_data:/var/lib/registry
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+
+  # Bus / cache / discovery — consommé par toutes les entités via redis:6379 (jarvis-bus)
+  redis:
+    image: redis:7-alpine
+    command: ["sh", "-c", "redis-server --appendonly yes --save '' --requirepass \"$$(cat /run/secrets/redis_pass)\""]
+    ports:
+      - "127.0.0.1:6379:6379"   # host-only ; le reste passe par le DNS overlay 'redis'
+    secrets:
+      - redis_pass
+    volumes:
+      - redis_data:/data
+    networks:
+      - default
+      - jarvis-bus
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a \"$$(cat /run/secrets/redis_pass)\" ping | grep -q PONG"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+      restart_policy:
+        condition: on-failure
+
+secrets:
+  redis_pass:
+    external: true
+
+volumes:
+  portainer_data:
+  registry_data:
+  redis_data:
+
+networks:
+  jarvis-bus:
+    external: true
