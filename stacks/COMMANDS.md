@@ -1,7 +1,6 @@
-# Bibliothèque de commandes M4 — 285 commandes préchargées
+# Bibliothèque de commandes M4 — 292 commandes
 
-_Source : `jarvis-index.db` (table `commands`). Modèle entreprise : voir ORGANIGRAMME-AGENTS-M4.md._
-_Recherche : `sqlite3 ~/jarvis/stacks/jarvis-index.db "SELECT command,description FROM commands WHERE entity='10-ia'"`_
+_Source : jarvis-index.db. Skills par mots-clés : voir SKILLS-KEYWORDS.md._
 
 
 ## 00-infra
@@ -21,6 +20,14 @@ docker run --rm -v jarvis_redis_data:/d -v ~/backups:/b alpine tar czf /b/redis-
 **backup registry** — Sauvegarde le volume du registre d'images prive.
 ```bash
 docker run --rm -v jarvis_registry_data:/d -v ~/backups:/b alpine tar czf /b/registry-$(date +%F).tgz -C /d .
+```
+**backup tous volumes** — sauvegarde tous les volumes critiques
+```bash
+for v in $(docker volume ls -q | grep -E "n8n|registry|redis|portainer|postgres"); do docker run --rm -v $v:/d:ro alpine tar czf - -C /d . | age -r $PUB > ~/jarvis/backups/vol-$v-$(date +%F).tar.gz.age; done
+```
+**backup volume** — sauvegarde chiffree d un volume docker
+```bash
+docker run --rm -v <volume>:/d:ro alpine tar czf - -C /d . | age -r $(age-keygen -y ~/.config/sops/age/keys.txt) > ~/jarvis/backups/vol-<volume>-$(date +%F).tar.gz.age
 ```
 **deploy socle** — redis+registry+portainer
 ```bash
@@ -129,6 +136,10 @@ curl -s http://127.0.0.1:5000/v2/50-business/alkymia-site/tags/list
 **reseau bus** — Liste les conteneurs attaches a l'overlay du bus jarvis-bus.
 ```bash
 docker network inspect jarvis-bus --format '{{range .Containers}}{{.Name}} {{end}}'
+```
+**restore volume** — restaure un volume depuis une sauvegarde chiffree
+```bash
+age -d -i ~/.config/sops/age/keys.txt <backup>.age | docker run --rm -i -v <volume>:/d alpine tar xzf - -C /d
 ```
 **rotate redis_pass** — Cree une nouvelle version du secret Redis pour rotation sans downtime.
 ```bash
@@ -312,6 +323,10 @@ sqlite3 ~/jarvis/cowork_engine.db 'SELECT ts,model,backend,task_type,latency_ms 
 ```bash
 docker run --rm -v docker_jarvis-n8n-data:/d -v ~/backups:/b alpine tar czf /b/n8n-$(date +%F).tgz -C /d .
 ```
+**backup n8n** — sauvegarde workflows+credentials n8n
+```bash
+docker run --rm -v docker_jarvis-n8n-data:/d:ro -v ~/backups:/b alpine tar czf /b/n8n-$(date +%F).tgz -C /d .
+```
 **browseros lire liens** — Extrait le texte et les liens d-une page (scraping leger)
 ```bash
 browseros-cli -p "$page" read --links
@@ -458,6 +473,10 @@ sqlite3 /home/pamerys/jarvis/stacks/jarvis-index.db "INSERT INTO automation_log(
 **audit fuite dumps** — Scanne le dossier de backups pour des secrets exposés
 ```bash
 gitleaks detect --no-git --source ~/backups -v
+```
+**backup postgres** — dump SQL chiffre de postgres
+```bash
+docker exec $(docker ps -qf name=postgres) pg_dump -U jarvis jarvis_agents | age -r $PUB > ~/jarvis/backups/pg-$(date +%F).sql.age
 ```
 **backup sqlite live** — Sauvegarde à chaud cohérente d'une base SQLite (rdv.db)
 ```bash
@@ -888,6 +907,10 @@ bash ~/jarvis/scripts/sec-audit.sh
 ```bash
 cp ~/.config/sops/age/keys.txt /media/$USER/USB/age-keys-$(date +%F).txt && chmod 600 /media/$USER/USB/age-keys-$(date +%F).txt
 ```
+**backup coffre** — sauvegarde du coffre sops+age
+```bash
+tar czf - -C ~/jarvis secrets-vault | age -r $PUB > ~/jarvis/backups/coffre-$(date +%F).tar.gz.age
+```
 **chercher tokens clairs** — Recherche manuelle de tokens/cles en clair hors fichiers chiffres.
 ```bash
 grep -rIlE 'ghp_[A-Za-z0-9]{20,}|api[_-]?key=|password=' ~/jarvis --exclude-dir=.git --exclude='*.enc.env'
@@ -1018,6 +1041,10 @@ docker stack ls; docker service ls
 **index sql** — cette bibliotheque
 ```bash
 sqlite3 ~/jarvis/stacks/jarvis-index.db ".tables"
+```
+**lister backups** — inventaire des sauvegardes chiffrees
+```bash
+ls -lh ~/jarvis/backups/*.age
 ```
 
 ## pamerys-ecole
