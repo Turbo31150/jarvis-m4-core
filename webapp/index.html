@@ -208,6 +208,7 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,input:focus-visible,sele
     <a href="#" data-section="ateliers"><span class="icon">🔄</span><span>Ateliers</span></a>
     <a href="#" data-section="budget"><span class="icon">💰</span><span>Budget</span></a>
     <a href="#" data-section="notes"><span class="icon">📊</span><span>Notes Élèves</span></a>
+    <a href="#" data-section="carnet"><span class="icon">📓</span><span>Carnet</span></a>
     <a href="#" data-section="prof"><span class="icon">👩‍🏫</span><span>Espace Prof</span></a>
     <a href="#" data-section="biblio"><span class="icon">📚</span><span>Bibliothèque</span></a>
     <a href="#" data-section="sorties"><span class="icon">🚌</span><span>Sorties</span></a>
@@ -371,6 +372,27 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,input:focus-visible,sele
     <button class="btn" onclick="addNote()">Ajouter</button>
   </div>
   <div id="n-msg"></div>
+</div>
+
+<!-- 4a-bis. CARNET (évaluations /20 + radar) ──────────────────────────────── -->
+<div id="section-carnet" class="section">
+  <h2>📓 Carnet de notes</h2>
+  <p class="sub" style="color:var(--muted);margin-bottom:12px">
+    Moyennes /20 par élève (table évaluations, notes ramenées sur 20) et profil par matière comparé à la classe.
+  </p>
+  <div class="filter-row">
+    <label>Période :</label>
+    <input id="ct-periode" type="text" placeholder="P1, T1… (vide = tout)" style="width:160px" onchange="loadCarnet()">
+    <button onclick="loadCarnet()">Actualiser</button>
+  </div>
+  <div class="tbl-wrap" style="margin-top:14px">
+    <table id="carnet-table">
+      <thead><tr><th>Nom</th><th>Prénom</th><th>Moyenne /20</th><th>Nb notes</th><th>Groupe de besoin</th><th>Profil</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <div id="carnet-msg" class="sub" style="margin-top:8px"></div>
+  <div id="carnet-radar" style="margin-top:18px"></div>
 </div>
 
 <!-- 4b. LOGICIELS ───────────────────────────────────────────────────────── -->
@@ -908,7 +930,7 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,input:focus-visible,sele
 /* ════════════════════════════════════════════════════════════════════════
    NAVIGATION
 ════════════════════════════════════════════════════════════════════════ */
-const SECTIONS = ['dashboard','planning','edt','groupes','appel','ateliers','budget','notes','prof','biblio','sorties','equipe','automations','logiciels','assistant','documents','systeme','calendrier','agents','todo'];
+const SECTIONS = ['dashboard','planning','edt','groupes','appel','ateliers','budget','notes','carnet','prof','biblio','sorties','equipe','automations','logiciels','assistant','documents','systeme','calendrier','agents','todo'];
 
 function navigate(id) {
   SECTIONS.forEach(s => {
@@ -924,6 +946,7 @@ function navigate(id) {
   if (id === 'ateliers')  loadAteliers();
   if (id === 'budget')    loadBudget();
   if (id === 'notes')     loadNotes();
+  if (id === 'carnet')    loadCarnet();
   if (id === 'documents') loadDocs();
   if (id === 'systeme')   loadServices();
   if (id === 'logiciels') loadLogiciels();
@@ -1673,6 +1696,65 @@ async function addNote() {
     loadNotes();
     ['n-nom','n-prenom','n-note'].forEach(id => { document.getElementById(id).value = ''; });
   } else showMsg('n-msg', d.error || 'Erreur', 'ko');
+}
+
+/* ── CARNET (évaluations /20 + profil élève vs classe) ── */
+function carnetGroupe(m){
+  if (m == null) return ['—','badge'];
+  if (m < 10)    return ['Soutien','badge-red'];
+  if (m < 14)    return ['Standard','badge-orange'];
+  return ['Approfondissement','badge-green'];
+}
+async function loadCarnet(){
+  const per = document.getElementById('ct-periode').value.trim();
+  const q = per ? '?periode=' + encodeURIComponent(per) : '';
+  const tbody = document.querySelector('#carnet-table tbody');
+  const msg = document.getElementById('carnet-msg');
+  tbody.innerHTML = '<tr><td colspan="6" class="sub">Chargement…</td></tr>';
+  document.getElementById('carnet-radar').innerHTML = '';
+  const rows = await pJson('/api/carnet/moyennes' + q);
+  if (!rows || rows.error) { tbody.innerHTML=''; msg.innerHTML='<span class="c-red">'+escHtml((rows&&rows.error)||'Erreur de chargement')+'</span>'; return; }
+  if (!rows.length){ tbody.innerHTML='<tr><td colspan="6" class="sub">Aucune évaluation pour ce filtre.</td></tr>'; msg.textContent=''; return; }
+  msg.textContent = rows.length + ' élève' + (rows.length>1?'s':'') + ' avec des notes';
+  tbody.innerHTML = rows.map(r => {
+    const m = r.moyenne_generale;
+    const [g,gc] = carnetGroupe(m);
+    const cls = m == null ? '' : (m >= 10 ? 'c-green' : 'c-red');
+    const mats = Object.keys(r.par_matiere||{}).length;
+    return `<tr>
+      <td>${escHtml(r.nom)}</td><td>${escHtml(r.prenom)}</td>
+      <td class="${cls}"><b>${m==null?'—':m}</b></td>
+      <td>${r.nb_notes}</td>
+      <td><span class="badge ${gc}">${g}</span></td>
+      <td><button onclick="loadCarnetRadar(${r.eleve_id})">Profil (${mats} mat.)</button></td>
+    </tr>`;
+  }).join('');
+}
+async function loadCarnetRadar(eid){
+  const box = document.getElementById('carnet-radar');
+  const per = document.getElementById('ct-periode').value.trim();
+  const q = per ? '?periode=' + encodeURIComponent(per) : '';
+  box.innerHTML = '<div class="sub">Chargement du profil…</div>';
+  const d = await pJson('/api/carnet/eleve/' + eid + '/radar' + q);
+  if (!d || d.error){ box.innerHTML='<span class="c-red">'+escHtml((d&&d.error)||'Erreur')+'</span>'; return; }
+  const nom = (((d.eleve&&d.eleve.prenom)||'') + ' ' + ((d.eleve&&d.eleve.nom)||'')).trim() || 'élève';
+  if (!d.axes || !d.axes.length){ box.innerHTML='<h3>Profil de '+escHtml(nom)+'</h3><div class="sub">Aucune matière évaluée.</div>'; return; }
+  const bars = d.axes.map(a => {
+    const ev = a.eleve, cl = a.classe;
+    const wEv = ev==null?0:Math.max(2,Math.min(100, ev/20*100));
+    const wCl = cl==null?0:Math.max(0,Math.min(100, cl/20*100));
+    const col = ev==null?'var(--muted)':(cl!=null && ev>=cl?'var(--green)':'var(--orange)');
+    return `<div style="margin:8px 0">
+      <div style="font-weight:650;font-size:13px">${escHtml(a.matiere)} — <span class="${ev!=null&&ev>=10?'c-green':'c-red'}">${ev==null?'—':ev}</span>/20 <span class="sub" style="font-weight:400">(classe : ${cl==null?'—':cl})</span></div>
+      <div style="background:var(--line,#e9e9e9);border-radius:6px;height:14px;position:relative;margin-top:3px">
+        <div style="background:${col};height:14px;border-radius:6px;width:${wEv}%"></div>
+        <div title="moyenne classe" style="position:absolute;top:-3px;height:20px;width:2px;background:var(--blue);left:${wCl}%"></div>
+      </div>
+    </div>`;
+  }).join('');
+  box.innerHTML = '<h3>Profil de '+escHtml(nom)+'</h3>'
+    + '<p class="sub" style="margin:-4px 0 8px">Barre colorée = note de l\'élève ; trait bleu = moyenne de la classe.</p>'
+    + bars;
 }
 
 /* ════════════════════════════════════════════════════════════════════════
