@@ -203,6 +203,9 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,input:focus-visible,sele
     <a href="#" class="active" data-section="dashboard"><span class="icon">🏠</span><span>Dashboard</span></a>
     <a href="#" data-section="planning"><span class="icon">📅</span><span>Planning</span></a>
     <a href="#" data-section="edt"><span class="icon">📋</span><span>Emploi du temps</span></a>
+    <a href="#" data-section="groupes"><span class="icon">🎨</span><span>Groupes</span></a>
+    <a href="#" data-section="appel"><span class="icon">✋</span><span>Appel</span></a>
+    <a href="#" data-section="ateliers"><span class="icon">🔄</span><span>Ateliers</span></a>
     <a href="#" data-section="budget"><span class="icon">💰</span><span>Budget</span></a>
     <a href="#" data-section="notes"><span class="icon">📊</span><span>Notes Élèves</span></a>
     <a href="#" data-section="prof"><span class="icon">👩‍🏫</span><span>Espace Prof</span></a>
@@ -587,6 +590,43 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,input:focus-visible,sele
   <div id="edt-volumes" class="sub"></div>
 </div>
 
+<div id="section-groupes" class="section">
+  <h2>🎨 Groupes de besoin</h2>
+  <div class="sub">Crée des groupes pour différencier (soutien, approfondissement…).</div>
+  <div class="form-row" style="margin-top:12px">
+    <div class="form-group"><label>Nom</label><input id="grp-nom" placeholder="Soutien lecture"></div>
+    <div class="form-group"><label>Couleur</label><input id="grp-couleur" type="color" value="#2F8F5B"></div>
+    <div class="form-group"><label>Critère</label><input id="grp-critere" placeholder="lecture"></div>
+    <button class="btn" onclick="grpAdd()">➕ Créer</button>
+  </div>
+  <div id="grp-list"></div>
+</div>
+
+<div id="section-appel" class="section">
+  <h2>✋ Registre d'appel</h2>
+  <div class="form-row">
+    <div class="form-group"><label>Date</label><input id="appel-date" type="date" onchange="loadAppel()"></div>
+  </div>
+  <div id="appel-list"></div>
+</div>
+
+<div id="section-ateliers" class="section">
+  <h2>🔄 Ateliers tournants</h2>
+  <div class="sub">Postes d'ateliers + rotation automatique des groupes (maternelle).</div>
+  <div class="form-row" style="margin-top:12px">
+    <div class="form-group"><label>Atelier</label><input id="atl-nom" placeholder="Langage écrit"></div>
+    <div class="form-group"><label>Domaine</label><input id="atl-domaine" placeholder="français"></div>
+    <button class="btn" onclick="atlAdd()">➕ Ajouter</button>
+  </div>
+  <div id="atl-list" style="margin-bottom:16px"></div>
+  <h3>Rotation automatique</h3>
+  <div class="form-row">
+    <div class="form-group"><label>Groupes (séparés par ,)</label><input id="atl-groupes" value="A,B,C,D"></div>
+    <button class="btn secondary" onclick="atlRotation()">🔄 Générer</button>
+  </div>
+  <div id="atl-rotation"></div>
+</div>
+
 <div id="section-sorties" class="section">
   <h2>🚌 Sorties scolaires</h2>
   <p class="sub">Organisez vos sorties : autorisations, budget, et mot d'information aux parents généré par l'IA.</p>
@@ -868,7 +908,7 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,input:focus-visible,sele
 /* ════════════════════════════════════════════════════════════════════════
    NAVIGATION
 ════════════════════════════════════════════════════════════════════════ */
-const SECTIONS = ['dashboard','planning','edt','budget','notes','prof','biblio','sorties','equipe','automations','logiciels','assistant','documents','systeme','calendrier','agents','todo'];
+const SECTIONS = ['dashboard','planning','edt','groupes','appel','ateliers','budget','notes','prof','biblio','sorties','equipe','automations','logiciels','assistant','documents','systeme','calendrier','agents','todo'];
 
 function navigate(id) {
   SECTIONS.forEach(s => {
@@ -879,6 +919,9 @@ function navigate(id) {
   });
   if (id === 'planning')  loadPlanning();
   if (id === 'edt')       loadEdt();
+  if (id === 'groupes')   loadGroupes();
+  if (id === 'appel')     loadAppel();
+  if (id === 'ateliers')  loadAteliers();
   if (id === 'budget')    loadBudget();
   if (id === 'notes')     loadNotes();
   if (id === 'documents') loadDocs();
@@ -917,6 +960,40 @@ async function edtAdd(){
   loadEdt();
 }
 async function edtDel(id){ await pJson('/api/edt/creneaux/'+id,{method:'DELETE'}); loadEdt(); }
+
+/* ── GROUPES / APPEL / ATELIERS ── */
+const _esc=s=>String(s||'').replace(/[<>&]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
+async function loadGroupes(){
+  const box=document.getElementById('grp-list'); if(!box) return;
+  const list=await pJson('/api/groupes')||[];
+  box.innerHTML=list.length?list.map(g=>`<div class="card" style="margin-top:10px"><b style="color:${/^#[0-9a-fA-F]{3,6}$/.test(g.couleur)?_esc(g.couleur):'var(--blue)'}">${_esc(g.nom)}</b> <span class="sub">${_esc(g.critere)} · ${g.nb_membres} élève(s)</span> <button class="btn danger" onclick="grpDel(${g.id})">🗑️</button><div class="sub" style="margin-top:6px">${(g.membres||[]).map(m=>_esc(m.prenom)+' '+_esc(m.nom)).join(', ')||'—'}</div></div>`).join(''):'<div class="sub">Aucun groupe pour l\'instant.</div>';
+}
+async function grpAdd(){const g=id=>document.getElementById(id);const r=await pJson('/api/groupes',{method:'POST',body:JSON.stringify({nom:g('grp-nom').value,couleur:g('grp-couleur').value,critere:g('grp-critere').value})});if(r&&r.error){alert(r.error);return;}g('grp-nom').value='';g('grp-critere').value='';loadGroupes();}
+async function grpDel(id){await pJson('/api/groupes/'+id,{method:'DELETE'});loadGroupes();}
+
+async function loadAppel(){
+  const di=document.getElementById('appel-date'); if(!di) return;
+  if(!di.value) di.value=new Date().toISOString().slice(0,10);
+  const d=di.value;
+  const list=await pJson('/api/appel/'+d)||[];
+  document.getElementById('appel-list').innerHTML='<table style="width:100%"><tr><th>Élève</th><th>Présent&nbsp;?</th></tr>'+list.map(x=>`<tr><td>${_esc(x.prenom)} ${_esc(x.nom)}</td><td><input type="checkbox" ${x.present?'checked':''} onchange="appelMark(${x.eleve_id},'${d}',this.checked)"></td></tr>`).join('')+'</table>';
+}
+async function appelMark(eid,date,present){await pJson('/api/appel/marquer',{method:'POST',body:JSON.stringify({eleve_id:eid,date:date,present:present?1:0})});}
+
+async function loadAteliers(){
+  const box=document.getElementById('atl-list'); if(!box) return;
+  const list=await pJson('/api/ateliers')||[];
+  box.innerHTML=list.length?list.map(a=>`<span class="badge badge-green" style="margin:3px">${_esc(a.nom)} <span onclick="atlDel(${a.id})" style="cursor:pointer">✕</span></span>`).join(' '):'<div class="sub">Aucun atelier.</div>';
+}
+async function atlAdd(){const g=id=>document.getElementById(id);const r=await pJson('/api/ateliers',{method:'POST',body:JSON.stringify({nom:g('atl-nom').value,domaine:g('atl-domaine').value})});if(r&&r.error){alert(r.error);return;}g('atl-nom').value='';loadAteliers();}
+async function atlDel(id){await pJson('/api/ateliers/'+id,{method:'DELETE'});loadAteliers();}
+async function atlRotation(){
+  const box=document.getElementById('atl-rotation');
+  const grp=document.getElementById('atl-groupes').value||'A,B,C,D';
+  const r=await pJson('/api/ateliers/rotation?groupes='+encodeURIComponent(grp));
+  if(!r||r.error){box.innerHTML='<div class="sub">'+_esc((r&&r.error)||'erreur')+'</div>';return;}
+  box.innerHTML='<table style="width:100%"><tr><th>Jour</th>'+r.groupes.map(g=>'<th>'+_esc(g)+'</th>').join('')+'</tr>'+r.rotation.map(row=>'<tr><td>J'+row.jour+'</td>'+r.groupes.map(g=>{const a=row.affectations.find(x=>x.groupe===g);return '<td>'+_esc(a?a.atelier:'')+'</td>';}).join('')+'</tr>').join('')+'</table>';
+}
 
 /* ── SORTIES ── */
 async function loadSorties(){
