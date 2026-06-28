@@ -198,7 +198,9 @@ def compile_with_qwen(entries: list) -> str:
                 ],
                 "stream": False,
                 "think": False,
-                "options": {"num_predict": 400},
+                # num_gpu:0 → CPU forcé : whisper-server sature la VRAM 4 Go du RTX 3050,
+                # le fallback Ollama planterait en cudaMalloc OOM sinon.
+                "options": {"num_predict": 400, "num_gpu": 0},
             }
         ).encode()
         conn = HTTPConnection("127.0.0.1", 11434, timeout=60)
@@ -737,13 +739,20 @@ class VoiceWidget:
 # ── Pipeline hotkey ───────────────────────────────────────────────────────────
 def _on_recording_done():
     global _wav_path
-    _widget.root.after(0, lambda: _widget.set_state("processing"))
-    text = transcribe(_wav_path)
-    try:
-        os.unlink(_wav_path)
-    except FileNotFoundError:
-        pass
+    # Capture atomique : un double-toggle / appui rapide peut relancer ce handler en
+    # parallèle et remettre _wav_path à None entre transcribe() et unlink() → on fige
+    # le chemin dans une locale et on libère tout de suite le global.
+    wav = _wav_path
     _wav_path = None
+    if not wav:
+        _widget.root.after(0, lambda: _widget.set_state("idle"))
+        return
+    _widget.root.after(0, lambda: _widget.set_state("processing"))
+    text = transcribe(wav)
+    try:
+        os.unlink(wav)
+    except (FileNotFoundError, TypeError):
+        pass
 
     if text and not text.startswith("[ERR"):
         _widget.root.after(0, lambda: _widget.add_entry(text))
@@ -759,9 +768,14 @@ def _on_recording_done():
         paste_text(text)
         _widget.root.after(0, lambda: _widget.set_state("success", text))
         _widget.root.after(2500, lambda: _widget.set_state("idle"))
-    else:
+    elif text and text.startswith("[ERR"):
+        # Vraie erreur (backend whisper injoignable…) → état error visible.
         _widget.root.after(0, lambda: _widget.set_state("error", text))
         _widget.root.after(3000, lambda: _widget.set_state("idle"))
+    else:
+        # Transcription vide (silence / pas de parole) → retour idle silencieux,
+        # pas d'état "error" trompeur.
+        _widget.root.after(0, lambda: _widget.set_state("idle"))
 
 
 def _make_listener():
@@ -858,18 +872,10 @@ def main():
 
     root.after(80, _poll_sig)
 
+    # Trigger UNIQUE = SIGUSR1 (raccourci GNOME Alt+X → voice_widget.sh), fiable sur
+    # X11 ET Wayland. On NE démarre PAS le listener pynput : sur X11 il doublait le
+    # raccourci GNOME (un appui = start pynput + stop SIGUSR1) → _wav_path None → crash.
     listener = None
-    is_wayland = os.environ.get("XDG_SESSION_TYPE", "").lower() == "wayland"
-    if HAS_PYNPUT and not is_wayland:
-        try:
-            listener = _make_listener()
-            listener.start()
-        except Exception:
-            listener = None
-    elif is_wayland and os.environ.get("JARVIS_VOICE_AUTOSTART", "1") == "1":
-        # Wayland : pas de hotkey pynput → démarrer l'enregistrement dès le lancement.
-        # Flux : Alt+X (lance + enregistre) → parler → Alt+X (stoppe + écrit au curseur).
-        root.after(700, _toggle_recording)
     try:
         root.mainloop()
     finally:
