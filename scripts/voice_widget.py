@@ -73,7 +73,8 @@ _settings = {
     "paste_shortcut": "ctrl+v",  # ou "ctrl+shift+v" pour les terminaux
     "translate": False,  # déprécié — remplacé par translate_to
     "translate_to": "",  # "" = aucune · "en" = anglais · "fr" = français
-    "dictionary": True,  # corrections personnalisées via voice_dict.json
+    "dictionary": True,  # active la personnalisation BDQT (pré-biais + correction)
+    "context": "general",  # domaine BDQT : general|ecole|civique|mairie|tech
     "polish": False,  # correction qualité courrier (LLM) pour député/pétitions
     "subtitles": False,
     "auto_save": False,
@@ -118,13 +119,29 @@ def _denoise(wav_path: str) -> str:
 DICT_FILE = Path.home() / "jarvis" / "voice_dict.json"
 _dict_cache = {"sig": None, "rules": []}
 
-# Bibliothèque SQLite (source unique amont+aval). Import tolérant : si absent,
-# le widget retombe sur voice_dict.json sans planter.
+# Système unique de qualité = BDQT (base transcription_quality.db) côté SERVEUR :
+# le serveur whisper applique pré-biais (hotwords/initial_prompt par contexte) ET
+# post-correction phonétique. Le widget choisit juste le CONTEXTE et ne double-corrige
+# pas. bdqt_core est importé uniquement pour le glossaire injecté dans la relecture LLM.
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent / "transcription"))
 try:
-    import lexicon as _lexicon
+    import bdqt_core as _bdqt
+except Exception:
+    _bdqt = None
+try:
+    import lexicon as _lexicon  # gardé pour repli hors-ligne du dictionnaire
 except Exception:
     _lexicon = None
+
+# Contextes BDQT proposés dans l'UI (libellé → valeur serveur)
+CONTEXTS = [
+    ("Général", "general"),
+    ("École", "ecole"),
+    ("Député / pétition", "civique"),
+    ("Mairie", "mairie"),
+    ("Tech", "tech"),
+]
 
 
 def _corrections():
@@ -221,15 +238,36 @@ def _llm_chat(system: str, user: str, max_tokens: int = 600) -> str:
         return ""
 
 
+_glossary_cache = {"ctx": None, "txt": ""}
+
+
 def _glossary_hint():
-    """Glossaire métier (depuis la bibliothèque) à injecter dans les prompts LLM."""
-    if _lexicon is None:
-        return ""
-    try:
-        g = _lexicon.build_glossary()
-        return f" Respecte l'orthographe exacte de ce glossaire : {g}." if g else ""
-    except Exception:
-        return ""
+    """Glossaire métier (top termes BDQT du contexte courant) pour la relecture LLM."""
+    ctx = _settings.get("context", "general")
+    if _glossary_cache["ctx"] == ctx:
+        return _glossary_cache["txt"]
+    out = ""
+    if _bdqt is not None:
+        try:
+            import os as _os
+
+            if _os.path.exists(_bdqt.DB_PATH):
+                conn = _bdqt.get_conn()
+                where = "" if ctx == "general" else "WHERE domain=?"
+                params = () if ctx == "general" else (ctx,)
+                rows = conn.execute(
+                    f"SELECT term FROM lexicon {where} "
+                    "ORDER BY weight DESC, length(term) ASC LIMIT 40",
+                    params,
+                ).fetchall()
+                conn.close()
+                terms = ", ".join(r["term"] for r in rows)
+                if terms:
+                    out = f" Respecte l'orthographe exacte de ce glossaire : {terms}."
+        except Exception:
+            out = ""
+    _glossary_cache.update(ctx=ctx, txt=out)
+    return out
 
 
 def polish_text(text: str) -> str:
@@ -277,18 +315,10 @@ def transcribe(wav_path: str) -> str:
 
     lang = _settings["language"]
     req = {"audio": audio_b64, "format": "wav", "language": lang}
-    # Pré-biais (amont) : alimenter Whisper en vocabulaire pour qu'il « entende »
-    # les sigles. Actif pour le français, via la bibliothèque si dispo.
-    if _lexicon is not None and lang == "fr" and _settings.get("dictionary", True):
-        try:
-            hw = _lexicon.build_hotwords()
-            ip = _lexicon.build_initial_prompt()
-            if hw:
-                req["hotwords"] = hw
-            if ip:
-                req["initial_prompt"] = ip
-        except Exception:
-            pass
+    # Contexte BDQT : le SERVEUR applique le pré-biais (hotwords/initial_prompt du
+    # domaine) ET la post-correction phonétique. On envoie juste le contexte choisi.
+    if lang == "fr" and _settings.get("dictionary", True):
+        req["context"] = _settings.get("context", "general")
     payload = json.dumps(req).encode()
     try:
         conn = HTTPConnection(WHISPER_HOST, WHISPER_PORT, timeout=30)
@@ -298,11 +328,11 @@ def transcribe(wav_path: str) -> str:
     except Exception as e:
         return f"[ERR: {e}]"
 
-    # Pipeline de personnalisation (du moins cher au plus cher) :
-    # 1) Dictionnaire perso : corrections instantanées (vocabulaire, noms, sigles).
-    if _settings.get("dictionary", True):
+    # Le texte est déjà corrigé côté serveur (BDQT). Repli local apply_dictionary
+    # uniquement si BDQT indisponible côté serveur (sécurité hors-ligne).
+    if _bdqt is None and _settings.get("dictionary", True):
         text = apply_dictionary(text)
-    # 2) Qualité courrier : correction orthographe/style via LLM (député/pétitions).
+    # Qualité courrier : correction orthographe/style via LLM (député/pétitions).
     if _settings.get("polish") and text:
         text = polish_text(text)
     # 3) Traduction vers langue cible (ex. dicter en FR → texte EN).
@@ -673,6 +703,37 @@ class VoiceWidget:
         )
         lang_menu.pack(side=tk.LEFT, padx=(4, 0))
 
+        # — Sélecteur de contexte BDQT (domaine de vocabulaire) —
+        tk.Label(
+            lang_row,
+            text=" 📂",
+            font=("monospace", 8),
+            fg=PALETTE["muted"],
+            bg=PALETTE["surf"],
+        ).pack(side=tk.LEFT)
+        self._ctx_labels = [lbl for lbl, _v in CONTEXTS]
+        _cur = next(
+            (lbl for lbl, v in CONTEXTS if v == _settings.get("context", "general")),
+            self._ctx_labels[0],
+        )
+        self._ctx_var = tk.StringVar(value=_cur)
+        ctx_menu = tk.OptionMenu(
+            lang_row, self._ctx_var, *self._ctx_labels, command=self._on_ctx_change
+        )
+        ctx_menu.config(
+            font=("monospace", 8),
+            bg=PALETTE["border"],
+            fg=PALETTE["text"],
+            activebackground=PALETTE["surf"],
+            highlightthickness=0,
+            bd=0,
+            width=14,
+        )
+        ctx_menu["menu"].config(
+            font=("monospace", 8), bg=PALETTE["border"], fg=PALETTE["text"]
+        )
+        ctx_menu.pack(side=tk.LEFT, padx=(2, 0))
+
         # — Section TOGGLES —
         toggles = tk.Frame(self.panel, bg=PALETTE["surf"])
         toggles.pack(fill=tk.X, pady=(0, 4))
@@ -773,6 +834,13 @@ class VoiceWidget:
     def _on_lang_change(self, val):
         _settings["language"] = val
         self.status_var.set(f"Langue : {val}  · Alt+X → parler")
+
+    def _on_ctx_change(self, label):
+        for lbl, v in CONTEXTS:
+            if lbl == label:
+                _settings["context"] = v
+                break
+        self.status_var.set(f"Contexte : {label}  · Alt+X → parler")
 
     def _on_paste_toggle(self):
         _settings["auto_paste"] = self._paste_var.get()
