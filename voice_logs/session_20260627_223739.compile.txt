@@ -1,0 +1,14 @@
+**Résumé structuré en bullet points par thème :**
+
+- **Jeu en session vocale** :  
+  - Joué à l'épée du sauveur.  
+  - Personnage : Méchant (l'utilisateur).  
+  - Un gentil ne le tue pas.  
+
+- **Test de fonctionnalité** :  
+  - Est-ce que cela fonctionne ?  
+  - Retests plusieurs fois pour vérifier.  
+  - Amélioration de la vitesse.  
+
+- **Société Radio-Canada** :  
+  - Sous-titrage par Société Radio-Canada.

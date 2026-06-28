@@ -58,7 +58,7 @@ DAILY_SENT_FLAG = Path("/tmp/codeur-daily-sent")
 # ---------------------------------------------------------------------------
 # Telegram credentials (env vars take priority, fallback to hardcoded)
 # ---------------------------------------------------------------------------
-TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "8369376863:AAF-7YGDbun8mXWwqYJFj-eX6P78DeIu9Aw")
+TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "8369376863:REVOKED-USE-ENV-VAR")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "2010747443")
 
 # ---------------------------------------------------------------------------

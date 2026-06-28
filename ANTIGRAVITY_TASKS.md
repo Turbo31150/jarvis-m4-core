@@ -375,7 +375,7 @@ python3 ~/jarvis/scripts/util_logging.py --service lm-ask --message "query: ${qu
 ## 🔐 SÉCURITÉ
 
 ### T090 — Rotation des tokens GitHub
-- Token actuel dans mcp_config.json: `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`
+- Token actuel dans mcp_config.json: `gho_REVOKED-SEE-SECRETS-MANAGER`
 - **ATTENTION**: Ce token est visible dans les configs. Créer nouveau token et remplacer.
 - Nouveau token: `gh auth token` ou via GitHub Settings
 

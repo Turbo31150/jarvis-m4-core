@@ -18,6 +18,7 @@ Session log + compilation Qwen (LM Studio qwen3.5-9b → fallback Ollama qwen3:1
 import base64
 import json
 import os
+import signal
 import subprocess
 import tempfile
 import threading
@@ -26,7 +27,15 @@ from datetime import datetime
 from http.client import HTTPConnection
 from pathlib import Path
 
-from pynput import keyboard
+# pynput ne fonctionne que sous X11 ; sous Wayland on utilise SIGUSR1 (raccourci GNOME).
+try:
+    from pynput import keyboard
+
+    HAS_PYNPUT = True
+except Exception:
+    keyboard = None
+    HAS_PYNPUT = False
+
 
 # ── Config ────────────────────────────────────────────────────────────────────
 WHISPER_HOST = "127.0.0.1"
@@ -59,6 +68,7 @@ _target_window = None  # Fenêtre active capturée au moment Alt+X (press)
 _settings = {
     "language": "fr",
     "auto_paste": True,
+    "paste_shortcut": "ctrl+v",  # ou "ctrl+shift+v" pour les terminaux
     "translate": False,
     "subtitles": False,
     "auto_save": False,
@@ -67,7 +77,41 @@ _settings = {
 
 
 # ── Whisper client ────────────────────────────────────────────────────────────
+_NOISE_PROF = os.path.expanduser("~/jarvis/scripts/fan_noise.prof")
+
+
+def _denoise(wav_path: str) -> str:
+    """Débruite le wav (souffle ventilo F15) avant Whisper. sox noisered + passe-haut voix.
+    Retourne le chemin nettoyé, ou l'original si sox/profil indisponible."""
+    if not os.path.exists(_NOISE_PROF):
+        return wav_path
+    out = wav_path + ".denoised.wav"
+    try:
+        # highpass 120Hz (coupe le rumble ventilo) + noisered (profil souffle) + normalisation douce
+        r = subprocess.run(
+            [
+                "sox",
+                wav_path,
+                out,
+                "highpass",
+                "120",
+                "noisered",
+                _NOISE_PROF,
+                "0.25",
+                "norm",
+                "-1",
+            ],
+            capture_output=True,
+            timeout=15,
+        )
+        return out if (r.returncode == 0 and os.path.exists(out)) else wav_path
+    except Exception:
+        return wav_path
+
+
 def transcribe(wav_path: str) -> str:
+    # Débruitage désactivé : la réduction de gain suffit, sox noisered détruisait la voix.
+    # Réactivable si besoin via _denoise(wav_path).
     try:
         with open(wav_path, "rb") as f:
             audio_b64 = base64.b64encode(f.read()).decode()
@@ -168,6 +212,12 @@ def compile_with_qwen(entries: list) -> str:
 # ── Audio ─────────────────────────────────────────────────────────────────────
 def start_recording():
     global _arecord_proc, _wav_path
+    # Blindage : tuer tout arecord orphelin qui tiendrait encore le micro
+    # (sinon "device occupé" → fichier audio absent). Évite le mic verrouillé.
+    try:
+        subprocess.run(["pkill", "-9", "-x", "arecord"], timeout=3)
+    except Exception:
+        pass
     _wav_path = tempfile.mktemp(suffix=".wav")
     _arecord_proc = subprocess.Popen(
         [
@@ -203,33 +253,71 @@ def paste_text(text: str):
         return
     import time
 
+    wayland = os.environ.get("XDG_SESSION_TYPE", "").lower() == "wayland"
+
     # Copier dans le presse-papier (toujours, pour Ctrl+V manuel)
-    try:
-        subprocess.run(
-            ["xclip", "-selection", "clipboard"],
-            input=text.encode(),
-            stderr=subprocess.DEVNULL,
-            check=True,
-        )
-    except Exception:
+    if wayland:
         try:
             subprocess.run(
-                ["xsel", "--clipboard", "--input"],
-                input=text.encode(),
-                stderr=subprocess.DEVNULL,
+                ["wl-copy"], input=text.encode(), stderr=subprocess.DEVNULL, check=True
             )
         except Exception:
             pass
+    else:
+        try:
+            subprocess.run(
+                ["xclip", "-selection", "clipboard"],
+                input=text.encode(),
+                stderr=subprocess.DEVNULL,
+                check=True,
+            )
+        except Exception:
+            try:
+                subprocess.run(
+                    ["xsel", "--clipboard", "--input"],
+                    input=text.encode(),
+                    stderr=subprocess.DEVNULL,
+                )
+            except Exception:
+                pass
 
     if _settings["auto_paste"]:
         # Attendre que Alt+X soit complètement relâché (évite les modifiers résiduels)
         time.sleep(0.25)
-        # xdotool type : cibler la fenêtre capturée au moment de la touche Alt+X
-        cmd = ["xdotool", "type", "--clearmodifiers", "--delay", "20"]
-        if _target_window:
-            cmd += ["--window", _target_window]
-        cmd.append(text)
-        subprocess.run(cmd, stderr=subprocess.DEVNULL)
+        if wayland:
+            # GNOME/Mutter : `wtype` NE marche PAS (pas de virtual-keyboard protocol),
+            # et `ydotool type` envoie des keycodes US → mélange les lettres sur AZERTY.
+            # Méthode FIABLE = coller le presse-papier (déjà rempli par wl-copy plus haut),
+            # indépendant du layout. Raccourci selon la cible : Ctrl+V (défaut, champs/
+            # navigateur/electron) ou Ctrl+Shift+V (terminaux).
+            shortcut = _settings.get("paste_shortcut", "ctrl+v")
+            if shortcut == "ctrl+shift+v":
+                keys = ["29:1", "42:1", "47:1", "47:0", "42:0", "29:0"]  # Ctrl+Shift+V
+            else:
+                keys = ["29:1", "47:1", "47:0", "29:0"]  # Ctrl+V
+            pasted = False
+            try:
+                pasted = (
+                    subprocess.run(
+                        ["ydotool", "key", *keys], stderr=subprocess.DEVNULL
+                    ).returncode
+                    == 0
+                )
+            except FileNotFoundError:
+                pass
+            if not pasted:
+                # Dernier recours : frappe directe (peut mélanger sur AZERTY)
+                try:
+                    subprocess.run(["ydotool", "type", text], stderr=subprocess.DEVNULL)
+                except FileNotFoundError:
+                    pass
+        else:
+            # X11 : cibler la fenêtre capturée au moment de la touche Alt+X
+            cmd = ["xdotool", "type", "--clearmodifiers", "--delay", "20"]
+            if _target_window:
+                cmd += ["--window", _target_window]
+            cmd.append(text)
+            subprocess.run(cmd, stderr=subprocess.DEVNULL)
 
 
 # ── Sous-titres YouTube / OBS ─────────────────────────────────────────────────
@@ -724,16 +812,69 @@ def _make_listener():
 
 
 # ── Entry point ───────────────────────────────────────────────────────────────
+def _toggle_recording():
+    """Bascule enregistrement ↔ transcription. Déclenché par SIGUSR1 (raccourci GNOME Alt+X)."""
+    global _recording, _target_window
+    if not _recording:
+        _target_window = None  # Wayland : ydotool écrit dans la fenêtre focalisée
+        _recording = True
+        _widget.root.after(0, lambda: _widget.set_state("recording"))
+        start_recording()
+    else:
+        _recording = False
+        stop_recording()
+        threading.Thread(target=_on_recording_done, daemon=True).start()
+
+
+_sigusr1_pending = False
+
+
 def main():
-    global _widget
+    global _widget, _sigusr1_pending
     root = tk.Tk()
     _widget = VoiceWidget(root)
-    listener = _make_listener()
-    listener.start()
+
+    # SIGUSR1 : toggle déclenché par voice_widget.sh (raccourci GNOME Alt+X / Super+V).
+    # tkinter bloque la livraison des signaux pendant la boucle Tk → on NE traite PAS
+    # le toggle dans le handler. Le handler pose juste un flag ; un poll périodique
+    # (qui garde l'interpréteur réactif) consomme le flag et bascule de façon fiable.
+    def _on_sigusr1(*_a):
+        global _sigusr1_pending
+        _sigusr1_pending = True
+
+    signal.signal(signal.SIGUSR1, _on_sigusr1)
+
+    def _poll_sig():
+        global _sigusr1_pending
+        if _sigusr1_pending:
+            _sigusr1_pending = False
+            try:
+                _toggle_recording()
+            except Exception as e:
+                print(f"[voice] toggle err: {e}", flush=True)
+        root.after(
+            80, _poll_sig
+        )  # 80ms : réactif + garde l'interpréteur vivant pour les signaux
+
+    root.after(80, _poll_sig)
+
+    listener = None
+    is_wayland = os.environ.get("XDG_SESSION_TYPE", "").lower() == "wayland"
+    if HAS_PYNPUT and not is_wayland:
+        try:
+            listener = _make_listener()
+            listener.start()
+        except Exception:
+            listener = None
+    elif is_wayland and os.environ.get("JARVIS_VOICE_AUTOSTART", "1") == "1":
+        # Wayland : pas de hotkey pynput → démarrer l'enregistrement dès le lancement.
+        # Flux : Alt+X (lance + enregistre) → parler → Alt+X (stoppe + écrit au curseur).
+        root.after(700, _toggle_recording)
     try:
         root.mainloop()
     finally:
-        listener.stop()
+        if listener:
+            listener.stop()
 
 
 if __name__ == "__main__":

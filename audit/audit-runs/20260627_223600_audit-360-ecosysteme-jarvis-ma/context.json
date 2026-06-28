@@ -1,0 +1,24 @@
+{
+  "topic": "Audit 360 ecosysteme JARVIS + machine F15/M4",
+  "client": "JARVIS-OS-pamerys",
+  "url": "",
+  "profile": "full",
+  "mode": "deep",
+  "target": "/home/pamerys/jarvis",
+  "agents": [
+    "tech",
+    "business",
+    "legal",
+    "ops"
+  ],
+  "waves": [
+    "local",
+    "web",
+    "multi",
+    "synth"
+  ],
+  "max_tokens": 3000,
+  "web": true,
+  "started": "2026-06-27T22:36:00",
+  "outdir": "/home/pamerys/jarvis/audit/audit-runs/20260627_223600_audit-360-ecosysteme-jarvis-ma"
+}

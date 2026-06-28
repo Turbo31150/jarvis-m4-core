@@ -1,0 +1,41 @@
+{
+  "files": 412,
+  "size_mb": 6367.8,
+  "languages": {
+    "JSON": 64,
+    "Shell": 51,
+    "Python": 42,
+    "Markdown": 25,
+    "YAML": 15,
+    "SQL": 5,
+    "HTML": 4,
+    "React": 2,
+    "JS": 1,
+    "TS": 1
+  },
+  "key_files": [
+    "monitoring/requirements.txt",
+    "lumen/README.md",
+    "lumen/package.json"
+  ],
+  "git": {
+    "branch": "clean-main",
+    "commits": "4",
+    "last": "2026-06-27 routage cloud zéro-token: gpt-oss:120b via API ollama.com (clé hors repo)",
+    "contributors": 1
+  },
+  "secrets_suspects": [
+    "ANTIGRAVITY_MASTER.md:267",
+    "ANTIGRAVITY_MASTER.md:270",
+    "scripts/abuseipdb-blacklist-sync.sh:6",
+    "scripts/swarm-join-node.sh:8",
+    "scripts/watchdog_critical.sh:9",
+    "scripts/lm-ask.sh:14",
+    "scripts/lm-ask.sh:64",
+    "scripts/lm-ask.sh:96",
+    "audit/jarvis-audit.py:80",
+    "audit/AUDIT_CONFIG.yaml:14",
+    "audit/AUDIT_CONFIG.yaml:15"
+  ],
+  "rgpd_markers_files": 6
+}

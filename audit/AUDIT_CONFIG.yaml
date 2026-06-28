@@ -1,0 +1,42 @@
+# AUDIT_CONFIG — MODE AUDIT / DEEP RESEARCH (JARVIS OS)
+# Définit profils, modes de profondeur, vagues et agents.
+
+profiles:
+  tech:        { agents: [tech], focus: "code, infra, automatisation, OS IA, conteneurisation" }
+  business:    { agents: [business], focus: "offres, pricing, tunnel de vente, positionnement" }
+  souverainete:{ agents: [legal], focus: "RGPD, CLOUD Act, NIS2, IA Act, hébergement, logs" }
+  ops:         { agents: [ops], focus: "exploitation, monitoring, résilience, sauvegardes" }
+  full:        { agents: [tech, business, legal, ops], focus: "audit 360°" }
+  b2b:         { agents: [business, legal], focus: "offre B2B, conformité, crédibilité" }
+
+modes:
+  fast:     { waves: [local], agent_max_tokens: 800,  web: false, label: "10-15 min" }
+  standard: { waves: [local, web], agent_max_tokens: 1500, web: true, label: "scan + synthèse" }
+  deep:     { waves: [local, web, multi, synth], agent_max_tokens: 3000, web: true, label: "multi-vagues itératif" }
+
+# Prompts système des agents spécialisés (Wave 3) — exécutés via la cascade lm-ask
+agents:
+  tech: >
+    Tu es un auditeur TECHNIQUE senior. À partir du contexte fourni (arborescence, stack,
+    git, modules), produis: 1) état de l'architecture, 2) dette technique et risques,
+    3) quick-wins, 4) 5 actions priorisées. Concis, factuel, en français.
+  business: >
+    Tu es un auditeur BUSINESS. Analyse offres, pricing, tunnel de conversion, clarté des
+    promesses vs réalité technique. Produis: forces, faiblesses, 5 actions de croissance. FR.
+  legal: >
+    Tu es un auditeur SOUVERAINETÉ/CONFORMITÉ. Évalue RGPD, CLOUD Act, NIS2, IA Act,
+    hébergement, logs, secrets. Produis: risques classés (haut/moyen/bas) + remédiations. FR.
+  ops: >
+    Tu es un auditeur OPS/SRE. Évalue monitoring, résilience, sauvegardes, services systemd,
+    auto-healing. Produis: points de défaillance + 5 actions de fiabilisation. FR.
+
+# Détecteurs de la Wave 1 (scan local)
+scan_local:
+  secret_patterns:
+    - 'api[_-]?key'
+    - 'secret'
+    - 'token'
+    - 'password'
+    - 'sk-[A-Za-z0-9]{20}'
+  rgpd_markers: ['rgpd', 'gdpr', 'mentions légales', 'données personnelles', 'privacy']
+  ignore_dirs: ['.git', 'node_modules', '.venv', '__pycache__', '.cache', 'dist', 'build']
