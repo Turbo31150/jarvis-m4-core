@@ -18,6 +18,7 @@ Session log + compilation Qwen (LM Studio qwen3.5-9b → fallback Ollama qwen3:1
 import base64
 import json
 import os
+import re
 import signal
 import subprocess
 import tempfile
@@ -69,7 +70,10 @@ _settings = {
     "language": "fr",
     "auto_paste": True,
     "paste_shortcut": "ctrl+v",  # ou "ctrl+shift+v" pour les terminaux
-    "translate": False,
+    "translate": False,  # déprécié — remplacé par translate_to
+    "translate_to": "",  # "" = aucune · "en" = anglais · "fr" = français
+    "dictionary": True,  # corrections personnalisées via voice_dict.json
+    "polish": False,  # correction qualité courrier (LLM) pour député/pétitions
     "subtitles": False,
     "auto_save": False,
     "save_dir": str(Path.home() / "Documents" / "transcriptions"),
@@ -109,6 +113,130 @@ def _denoise(wav_path: str) -> str:
         return wav_path
 
 
+# ── Personnalisation : dictionnaire + qualité courrier + traduction ───────────
+DICT_FILE = Path.home() / "jarvis" / "voice_dict.json"
+_dict_cache = {"mtime": -1.0, "rules": []}
+
+
+def apply_dictionary(text: str) -> str:
+    """Corrige/personnalise la transcription via ~/jarvis/voice_dict.json.
+
+    Le fichier est rechargé automatiquement à chaque modification (édition à chaud).
+    Clés = ce que Whisper écrit, valeurs = correction. Insensible à la casse, mot
+    ou expression entière. Les expressions les plus longues sont appliquées d'abord.
+    """
+    if not text:
+        return text
+    try:
+        mtime = DICT_FILE.stat().st_mtime
+        if mtime != _dict_cache["mtime"]:
+            data = json.loads(DICT_FILE.read_text(encoding="utf-8"))
+            reps = data.get("replacements", {})
+            ordered = sorted(reps.items(), key=lambda kv: -len(kv[0]))
+            _dict_cache["rules"] = [
+                (re.compile(rf"(?<!\w){re.escape(k)}(?!\w)", re.IGNORECASE), v)
+                for k, v in ordered
+            ]
+            _dict_cache["mtime"] = mtime
+    except FileNotFoundError:
+        return text
+    except Exception:
+        return text
+    for rx, repl in _dict_cache["rules"]:
+        text = rx.sub(repl, text)
+    return text
+
+
+def _llm_chat(system: str, user: str, max_tokens: int = 600) -> str:
+    """Chat LLM local : LM Studio (qwen3.5-9b) → fallback Ollama (CPU). '' si échec."""
+    try:
+        payload = json.dumps(
+            {
+                "model": LMS_MODEL,
+                "messages": [
+                    {"role": "system", "content": system},
+                    {"role": "user", "content": user},
+                ],
+                "stream": False,
+                "max_tokens": max_tokens,
+                "temperature": 0.2,
+                "enable_thinking": False,
+            }
+        ).encode()
+        conn = HTTPConnection("127.0.0.1", 1234, timeout=90)
+        conn.request(
+            "POST",
+            "/v1/chat/completions",
+            payload,
+            {"Content-Type": "application/json"},
+        )
+        data = json.loads(conn.getresponse().read())
+        msg = data["choices"][0]["message"]
+        out = (msg.get("content") or msg.get("reasoning_content", "")).strip()
+        if out:
+            return out
+    except Exception:
+        pass
+    # Fallback Ollama — CPU forcé (whisper-server sature la VRAM 4 Go du RTX 3050).
+    try:
+        payload = json.dumps(
+            {
+                "model": QWEN_MODEL,
+                "messages": [
+                    {"role": "system", "content": system},
+                    {"role": "user", "content": user},
+                ],
+                "stream": False,
+                "think": False,
+                "options": {
+                    "num_predict": max_tokens,
+                    "num_gpu": 0,
+                    "temperature": 0.2,
+                },
+            }
+        ).encode()
+        conn = HTTPConnection("127.0.0.1", 11434, timeout=120)
+        conn.request("POST", "/api/chat", payload, {"Content-Type": "application/json"})
+        data = json.loads(conn.getresponse().read())
+        return data["message"]["content"].strip()
+    except Exception:
+        return ""
+
+
+def polish_text(text: str) -> str:
+    """Qualité courrier : corrige orthographe/grammaire/ponctuation/style, même langue."""
+    if not text:
+        return text
+    out = _llm_chat(
+        "Tu es correcteur professionnel. Corrige l'orthographe, la grammaire, la "
+        "ponctuation et la mise en forme du texte dicté pour un courrier formel "
+        "(destiné à un député ou une pétition). GARDE strictement la langue d'origine "
+        "et le sens exact. N'ajoute aucun commentaire ni explication : renvoie "
+        "UNIQUEMENT le texte corrigé.",
+        text,
+        max_tokens=900,
+    )
+    return out or text
+
+
+_LANG_NAMES = {"en": "anglais", "fr": "français", "es": "espagnol", "de": "allemand"}
+
+
+def translate_text(text: str, target: str) -> str:
+    """Traduit vers la langue cible (registre soutenu, qualité courrier officiel)."""
+    if not text or not target:
+        return text
+    name = _LANG_NAMES.get(target, target)
+    out = _llm_chat(
+        f"Tu es traducteur professionnel. Traduis fidèlement le texte ci-dessous en "
+        f"{name}, dans un registre soutenu adapté à un courrier officiel. Renvoie "
+        f"UNIQUEMENT la traduction, sans commentaire.",
+        text,
+        max_tokens=1000,
+    )
+    return out or text
+
+
 def transcribe(wav_path: str) -> str:
     # Débruitage désactivé : la réduction de gain suffit, sox noisered détruisait la voix.
     # Réactivable si besoin via _denoise(wav_path).
@@ -130,18 +258,17 @@ def transcribe(wav_path: str) -> str:
     except Exception as e:
         return f"[ERR: {e}]"
 
-    # Traduction optionnelle via lm-ask.sh
-    if _settings["translate"] and text and os.path.exists(TRANSLATE_CMD):
-        try:
-            result = subprocess.run(
-                ["bash", TRANSLATE_CMD, f"Traduis en français: {text}"],
-                capture_output=True,
-                text=True,
-                timeout=30,
-            )
-            text = result.stdout.strip() or text
-        except Exception:
-            pass
+    # Pipeline de personnalisation (du moins cher au plus cher) :
+    # 1) Dictionnaire perso : corrections instantanées (vocabulaire, noms, sigles).
+    if _settings.get("dictionary", True):
+        text = apply_dictionary(text)
+    # 2) Qualité courrier : correction orthographe/style via LLM (député/pétitions).
+    if _settings.get("polish") and text:
+        text = polish_text(text)
+    # 3) Traduction vers langue cible (ex. dicter en FR → texte EN).
+    target = _settings.get("translate_to", "")
+    if target and target != lang and text:
+        text = translate_text(text, target)
 
     return text
 
@@ -511,13 +638,21 @@ class VoiceWidget:
         toggles.pack(fill=tk.X, pady=(0, 4))
 
         self._paste_var = tk.BooleanVar(value=_settings["auto_paste"])
-        self._translate_var = tk.BooleanVar(value=_settings["translate"])
+        self._dict_var = tk.BooleanVar(value=_settings.get("dictionary", True))
+        self._polish_var = tk.BooleanVar(value=_settings.get("polish", False))
+        self._translate_var = tk.BooleanVar(value=_settings.get("translate_to") == "fr")
+        self._translate_en_var = tk.BooleanVar(
+            value=_settings.get("translate_to") == "en"
+        )
         self._subtitle_var = tk.BooleanVar(value=_settings["subtitles"])
         self._save_var = tk.BooleanVar(value=_settings["auto_save"])
 
         checks = [
             ("⌨  Coller auto", self._paste_var, self._on_paste_toggle),
+            ("📖  Dictionnaire perso", self._dict_var, self._on_dict_toggle),
+            ("✍  Qualité courrier (député)", self._polish_var, self._on_polish_toggle),
             ("🔤  Traduire → FR", self._translate_var, self._on_translate_toggle),
+            ("🇬🇧  Traduire → EN", self._translate_en_var, self._on_translate_en_toggle),
             ("🎬  Sous-titres YouTube", self._subtitle_var, self._on_subtitle_toggle),
             ("💾  Auto-sauvegarder", self._save_var, self._on_save_toggle),
         ]
@@ -602,8 +737,32 @@ class VoiceWidget:
     def _on_paste_toggle(self):
         _settings["auto_paste"] = self._paste_var.get()
 
+    def _on_dict_toggle(self):
+        _settings["dictionary"] = self._dict_var.get()
+
+    def _on_polish_toggle(self):
+        _settings["polish"] = self._polish_var.get()
+        if _settings["polish"]:
+            self.status_var.set("Qualité courrier ON · Alt+X → parler")
+
     def _on_translate_toggle(self):
-        _settings["translate"] = self._translate_var.get()
+        # FR et EN mutuellement exclusifs.
+        on = self._translate_var.get()
+        _settings["translate_to"] = "fr" if on else ""
+        if on:
+            self._translate_en_var.set(False)
+        self.status_var.set(
+            ("Traduction → FR" if on else "Traduction OFF") + " · Alt+X"
+        )
+
+    def _on_translate_en_toggle(self):
+        on = self._translate_en_var.get()
+        _settings["translate_to"] = "en" if on else ""
+        if on:
+            self._translate_var.set(False)
+        self.status_var.set(
+            ("Traduction → EN" if on else "Traduction OFF") + " · Alt+X"
+        )
 
     def _on_subtitle_toggle(self):
         _settings["subtitles"] = self._subtitle_var.get()

@@ -1,0 +1,26 @@
+{
+  "_aide": "Dictionnaire de correction de la transcription vocale. 'clé' = ce que Whisper écrit par erreur, 'valeur' = la correction voulue. Insensible à la casse, mot/expression entière. Édition à chaud : enregistre ce fichier, la prochaine dictée l'utilise aussitôt. Ajoute ici les noms propres, sigles et mots que Whisper rate souvent.",
+  "replacements": {
+    "ce 1": "CE1",
+    "ce 2": "CE2",
+    "cm 1": "CM1",
+    "cm 2": "CM2",
+    "c p": "CP",
+    "par un professeur": "parents-professeurs",
+    "parent professeur": "parents-professeurs",
+    "circonscription": "circonscription",
+    "le député": "le député",
+    "la députée": "la députée",
+    "education nationale": "Éducation nationale",
+    "éducation nationale": "Éducation nationale",
+    "rep plus": "REP+",
+    "a e s h": "AESH",
+    "atsem": "ATSEM",
+    "rased": "RASED",
+    "p a i": "PAI",
+    "p p s": "PPS",
+    "conseil d'école": "conseil d'école",
+    "inspection académique": "inspection académique",
+    "wisp": "Whisper"
+  }
+}
