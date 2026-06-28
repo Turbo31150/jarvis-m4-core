@@ -204,5 +204,11 @@ footer { text-align:center; padding:1.5rem; color:#64748b; font-size:.78rem; bor
 document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'})}));
 function sub(e){e.preventDefault();const b=e.target.querySelector('.submit-btn');b.textContent='✅ Envoyé ! Réponse sous 24h.';b.style.background='#10b981';b.disabled=true;}
 </script>
+
+<!-- Mentions légales — TODO avant mise en ligne définitive : compléter le SIRET / statut juridique (auto-entrepreneur, etc.) -->
+<footer style="padding:26px 18px;text-align:center;font-size:12px;color:#8a8a8a;border-top:1px solid rgba(128,128,128,.18);line-height:1.8;font-family:system-ui,-apple-system,sans-serif">
+  <strong style="color:#9a9a9a">Mentions légales</strong> — Éditeur : Franck Delmas · Contact : <a href="mailto:franckdelmas00@gmail.com" style="color:inherit;text-decoration:underline">franckdelmas00@gmail.com</a> · Hébergeur : Netlify, Inc. (USA).<br>
+  Vos données ne servent qu’à traiter votre demande, ne sont jamais revendues, et restent traitées en local. Droits RGPD (accès, rectification, suppression) sur simple email. Aucun cookie de suivi tiers.
+</footer>
 </body>
 </html>

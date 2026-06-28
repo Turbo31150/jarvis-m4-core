@@ -75,4 +75,10 @@ let sel='';const ch=document.getElementById('ch');
 Object.keys(D).forEach(k=>{const c=document.createElement('div');c.className='chip';c.textContent=k;c.onclick=()=>{sel=k;document.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));c.classList.add('on')};ch.appendChild(c)});
 function go(){if(!sel){document.getElementById('res').innerHTML='<div class="reco">👆 Choisis d\'abord une démarche.</div>';return}
 document.getElementById('res').innerHTML='<div class="verdict"><b>✅ '+sel+' — ce qu\'on pré-remplit :</b><br>'+D[sel]+'</div><div class="reco"><b>La suite :</b> on remplit tout avec toi en partage d\'écran (Pack Guidé 19€) ou on monte ton dossier complet de A à Z (Dossier complet 79€). 👇</div>';document.getElementById('res').scrollIntoView({behavior:'smooth',block:'nearest'})}</script>
+
+<!-- Mentions légales — TODO avant mise en ligne définitive : compléter le SIRET / statut juridique (auto-entrepreneur, etc.) -->
+<footer style="padding:26px 18px;text-align:center;font-size:12px;color:#8a8a8a;border-top:1px solid rgba(128,128,128,.18);line-height:1.8;font-family:system-ui,-apple-system,sans-serif">
+  <strong style="color:#9a9a9a">Mentions légales</strong> — Éditeur : Franck Delmas · Contact : <a href="mailto:franckdelmas00@gmail.com" style="color:inherit;text-decoration:underline">franckdelmas00@gmail.com</a> · Hébergeur : Netlify, Inc. (USA).<br>
+  Vos données ne servent qu’à traiter votre demande, ne sont jamais revendues, et restent traitées en local. Droits RGPD (accès, rectification, suppression) sur simple email. Aucun cookie de suivi tiers.
+</footer>
 </body></html>
