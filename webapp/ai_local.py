@@ -288,7 +288,14 @@ def generate(
         except Exception:
             continue
 
-    # 2) Ollama CLOUD — DÉPORTÉ (API directe par clé, ou offload daemon signé).
+    # 2) Z.AI GLM Coding Plan — DÉPORTÉ (qualité), si clé ZAI_API_KEY définie.
+    txt = _zai(msgs, max_tokens, temperature)
+    if txt:
+        if cache:
+            _cache_put(key, user, txt, f"zai:{ZAI_MODEL}")
+        return {"text": txt, "backend": f"zai:{ZAI_MODEL}", "cached": False}
+
+    # 3) Ollama CLOUD — DÉPORTÉ (API directe par clé, ou offload daemon signé).
     txt = _ollama_cloud(msgs, max_tokens, temperature)
     if txt:
         if cache:

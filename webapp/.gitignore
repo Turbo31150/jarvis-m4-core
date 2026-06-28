@@ -18,3 +18,18 @@ __pycache__/
 
 # Sauvegardes de rebrand
 .backup-rebrand/
+
+# === checkpoint-securise-app : exclusions de sécurité ===
+*.db
+backups/
+*.env
+.env
+*.token
+.*_token
+*secret*
+*.key
+*.pem
+certs/
+__pycache__/
+*.pyc
+.ruff_cache/

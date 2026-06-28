@@ -174,6 +174,73 @@ def _route_suggestions():
                         }
                     )
 
+        # --- Sorties imminentes (≤ 14 jours, non annulées) → préparer mot parents ---
+        if _table_exists(conn, "sorties"):
+            sorties = conn.execute(
+                """
+                SELECT id, titre, date, statut FROM sorties
+                WHERE statut != 'annulee'
+                  AND date(date) BETWEEN date('now') AND date('now','+14 days')
+                ORDER BY date
+                """,
+            ).fetchall()
+            for s in sorties:
+                suggestions.append(
+                    {
+                        "type": "rappel_sortie",
+                        "titre": f"Sortie « {s['titre']} » le {s['date']}",
+                        "cible": s["titre"],
+                        "raison": "Préparer le mot aux parents / vérifier les autorisations",
+                        "sortie_id": s["id"],
+                    }
+                )
+
+        # --- Réunions à venir (≤ 14 jours) → préparer l'ordre du jour ---
+        if _table_exists(conn, "reunions"):
+            reunions = conn.execute(
+                """
+                SELECT id, titre, date, ordre_du_jour FROM reunions
+                WHERE date(date) BETWEEN date('now') AND date('now','+14 days')
+                ORDER BY date
+                """,
+            ).fetchall()
+            for r in reunions:
+                if not (r["ordre_du_jour"] or "").strip():
+                    suggestions.append(
+                        {
+                            "type": "reunion",
+                            "titre": f"Réunion « {r['titre']} » le {r['date']}",
+                            "cible": r["titre"],
+                            "raison": "Ordre du jour vide — à préparer",
+                            "reunion_id": r["id"],
+                        }
+                    )
+
+        # --- Élèves en difficulté (moyenne < 50%) → exercice à différencier ---
+        if _table_exists(conn, "evaluations") and _table_exists(conn, "eleves"):
+            faibles = conn.execute(
+                """
+                SELECT e.id, e.prenom, e.nom,
+                       AVG(ev.note * 1.0 / NULLIF(ev.sur,0)) AS ratio,
+                       COUNT(*) AS n
+                FROM evaluations ev
+                JOIN eleves e ON e.id = ev.eleve_id
+                GROUP BY ev.eleve_id
+                HAVING n >= 2 AND ratio IS NOT NULL AND ratio < 0.5
+                ORDER BY ratio
+                """,
+            ).fetchall()
+            for f in faibles:
+                suggestions.append(
+                    {
+                        "type": "exercice_differencier",
+                        "titre": f"Exercice adapté pour {f['prenom']}",
+                        "cible": f"{f['prenom']} {f['nom']}",
+                        "raison": f"Moyenne {round(f['ratio'] * 100)}% sur {f['n']} évals — différenciation conseillée",
+                        "eleve_id": f["id"],
+                    }
+                )
+
         conn.close()
     except Exception as e:
         return jsonify({"error": str(e)}), 500
