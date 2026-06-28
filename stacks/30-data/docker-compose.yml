@@ -25,6 +25,8 @@ services:
     deploy:
       placement:
         constraints: [node.hostname == pamerys-m4]
+      resources:
+        limits: { memory: 512M }
       restart_policy:
         condition: on-failure
 

@@ -1,6 +1,6 @@
 version: '3.9'
 
-# 50-business — apps métier/commercial (M4). Démarrage : sites statiques (vitrines).
+# 50-business — apps métier/commercial (PRODUCTION). Sites statiques renforcés.
 # deploy : docker stack deploy -c ~/jarvis/stacks/50-business/docker-compose.yml business --with-registry-auth
 
 services:
@@ -9,9 +9,16 @@ services:
     ports:
       - "8086:80"
     networks: [jarvis-bus]
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost/ >/dev/null 2>&1 || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
     deploy:
       placement:
         constraints: [node.role == manager]
+      resources:
+        limits: { memory: 64M }
       restart_policy:
         condition: on-failure
 
@@ -20,9 +27,16 @@ services:
     ports:
       - "8085:80"
     networks: [jarvis-bus]
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost/ >/dev/null 2>&1 || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
     deploy:
       placement:
         constraints: [node.role == manager]
+      resources:
+        limits: { memory: 64M }
       restart_policy:
         condition: on-failure
 

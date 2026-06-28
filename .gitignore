@@ -48,3 +48,4 @@ cowork_engine.db
 secrets-vault/
 .config/
 *.age
+reports/

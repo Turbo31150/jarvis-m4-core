@@ -1,8 +1,7 @@
 version: '3.9'
 
-# 00-infra — socle partagé M4 (stack "jarvis")
-# Étend la stack existante : portainer + registry INCHANGÉS, ajoute Redis (bus/cache/discovery).
-# Déploiement : docker stack deploy -c ~/jarvis/stacks/00-infra/docker-compose.yml jarvis
+# 00-infra — socle PRODUCTION (stack "jarvis"). Renforcé : limites mémoire + Redis overlay-only.
+# deploy : docker stack deploy -c ~/jarvis/stacks/00-infra/docker-compose.yml jarvis
 
 services:
   portainer:
@@ -15,6 +14,8 @@ services:
     deploy:
       placement:
         constraints: [node.role == manager]
+      resources:
+        limits: { memory: 256M }
       restart_policy:
         condition: on-failure
 
@@ -27,13 +28,15 @@ services:
     deploy:
       placement:
         constraints: [node.role == manager]
+      resources:
+        limits: { memory: 256M }
+      restart_policy:
+        condition: on-failure
 
-  # Bus / cache / discovery — consommé par toutes les entités via redis:6379 (jarvis-bus)
   redis:
     image: redis:7-alpine
-    command: ["sh", "-c", "redis-server --appendonly yes --save '' --requirepass \"$$(cat /run/secrets/redis_pass)\""]
-    ports:
-      - "127.0.0.1:6379:6379"   # host-only ; le reste passe par le DNS overlay 'redis'
+    # Plus de port publié : accessible UNIQUEMENT via le bus overlay 'redis:6379' (production)
+    command: ["sh", "-c", "redis-server --appendonly yes --save '' --maxmemory 200mb --maxmemory-policy allkeys-lru --requirepass \"$$(cat /run/secrets/redis_pass)\""]
     secrets:
       - redis_pass
     volumes:
@@ -49,6 +52,8 @@ services:
     deploy:
       placement:
         constraints: [node.role == manager]
+      resources:
+        limits: { memory: 256M }
       restart_policy:
         condition: on-failure
 
