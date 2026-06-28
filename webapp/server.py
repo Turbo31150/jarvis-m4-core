@@ -51,7 +51,16 @@ except Exception as _e:  # pragma: no cover
     print(f"[ressources] module non chargé: {_e}")
 
 # ── Modules gestion d'année (sorties, équipe, automatisations) ──
-for _modname in ("sorties", "equipe", "automations", "export_pdf", "edt"):
+for _modname in (
+    "sorties",
+    "equipe",
+    "automations",
+    "export_pdf",
+    "edt",
+    "groupes",
+    "appel",
+    "ateliers",
+):
     try:
         _m = __import__(_modname)
         _m.register(app)
