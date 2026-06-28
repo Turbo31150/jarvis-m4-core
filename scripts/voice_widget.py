@@ -21,6 +21,7 @@ import os
 import re
 import signal
 import subprocess
+import sys
 import tempfile
 import threading
 import tkinter as tk
@@ -113,35 +114,52 @@ def _denoise(wav_path: str) -> str:
         return wav_path
 
 
-# ── Personnalisation : dictionnaire + qualité courrier + traduction ───────────
+# ── Personnalisation : bibliothèque (lexicon.py) → dictionnaire + qualité + trad ─
 DICT_FILE = Path.home() / "jarvis" / "voice_dict.json"
-_dict_cache = {"mtime": -1.0, "rules": []}
+_dict_cache = {"sig": None, "rules": []}
+
+# Bibliothèque SQLite (source unique amont+aval). Import tolérant : si absent,
+# le widget retombe sur voice_dict.json sans planter.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+try:
+    import lexicon as _lexicon
+except Exception:
+    _lexicon = None
+
+
+def _corrections():
+    """Corrections {variante: terme} : bibliothèque si dispo, sinon voice_dict.json."""
+    if _lexicon is not None:
+        try:
+            reps = _lexicon.build_corrections()
+            if reps:
+                return reps, (
+                    "lex",
+                    _lexicon.LEXICON_DB.stat().st_mtime
+                    if _lexicon.LEXICON_DB.exists()
+                    else 0,
+                )
+        except Exception:
+            pass
+    try:
+        data = json.loads(DICT_FILE.read_text(encoding="utf-8"))
+        return data.get("replacements", {}), ("json", DICT_FILE.stat().st_mtime)
+    except Exception:
+        return {}, ("none", 0)
 
 
 def apply_dictionary(text: str) -> str:
-    """Corrige/personnalise la transcription via ~/jarvis/voice_dict.json.
-
-    Le fichier est rechargé automatiquement à chaque modification (édition à chaud).
-    Clés = ce que Whisper écrit, valeurs = correction. Insensible à la casse, mot
-    ou expression entière. Les expressions les plus longues sont appliquées d'abord.
-    """
+    """Corrige la transcription (aval) via la bibliothèque, rechargée à chaud."""
     if not text:
         return text
-    try:
-        mtime = DICT_FILE.stat().st_mtime
-        if mtime != _dict_cache["mtime"]:
-            data = json.loads(DICT_FILE.read_text(encoding="utf-8"))
-            reps = data.get("replacements", {})
-            ordered = sorted(reps.items(), key=lambda kv: -len(kv[0]))
-            _dict_cache["rules"] = [
-                (re.compile(rf"(?<!\w){re.escape(k)}(?!\w)", re.IGNORECASE), v)
-                for k, v in ordered
-            ]
-            _dict_cache["mtime"] = mtime
-    except FileNotFoundError:
-        return text
-    except Exception:
-        return text
+    reps, sig = _corrections()
+    if sig != _dict_cache["sig"]:
+        ordered = sorted(reps.items(), key=lambda kv: -len(kv[0]))
+        _dict_cache["rules"] = [
+            (re.compile(rf"(?<!\w){re.escape(k)}(?!\w)", re.IGNORECASE), v)
+            for k, v in ordered
+        ]
+        _dict_cache["sig"] = sig
     for rx, repl in _dict_cache["rules"]:
         text = rx.sub(repl, text)
     return text
@@ -203,6 +221,17 @@ def _llm_chat(system: str, user: str, max_tokens: int = 600) -> str:
         return ""
 
 
+def _glossary_hint():
+    """Glossaire métier (depuis la bibliothèque) à injecter dans les prompts LLM."""
+    if _lexicon is None:
+        return ""
+    try:
+        g = _lexicon.build_glossary()
+        return f" Respecte l'orthographe exacte de ce glossaire : {g}." if g else ""
+    except Exception:
+        return ""
+
+
 def polish_text(text: str) -> str:
     """Qualité courrier : corrige orthographe/grammaire/ponctuation/style, même langue."""
     if not text:
@@ -212,7 +241,7 @@ def polish_text(text: str) -> str:
         "ponctuation et la mise en forme du texte dicté pour un courrier formel "
         "(destiné à un député ou une pétition). GARDE strictement la langue d'origine "
         "et le sens exact. N'ajoute aucun commentaire ni explication : renvoie "
-        "UNIQUEMENT le texte corrigé.",
+        "UNIQUEMENT le texte corrigé." + _glossary_hint(),
         text,
         max_tokens=900,
     )
@@ -230,7 +259,7 @@ def translate_text(text: str, target: str) -> str:
     out = _llm_chat(
         f"Tu es traducteur professionnel. Traduis fidèlement le texte ci-dessous en "
         f"{name}, dans un registre soutenu adapté à un courrier officiel. Renvoie "
-        f"UNIQUEMENT la traduction, sans commentaire.",
+        f"UNIQUEMENT la traduction, sans commentaire." + _glossary_hint(),
         text,
         max_tokens=1000,
     )
@@ -247,9 +276,20 @@ def transcribe(wav_path: str) -> str:
         return "[ERR: fichier audio absent]"
 
     lang = _settings["language"]
-    payload = json.dumps(
-        {"audio": audio_b64, "format": "wav", "language": lang}
-    ).encode()
+    req = {"audio": audio_b64, "format": "wav", "language": lang}
+    # Pré-biais (amont) : alimenter Whisper en vocabulaire pour qu'il « entende »
+    # les sigles. Actif pour le français, via la bibliothèque si dispo.
+    if _lexicon is not None and lang == "fr" and _settings.get("dictionary", True):
+        try:
+            hw = _lexicon.build_hotwords()
+            ip = _lexicon.build_initial_prompt()
+            if hw:
+                req["hotwords"] = hw
+            if ip:
+                req["initial_prompt"] = ip
+        except Exception:
+            pass
+    payload = json.dumps(req).encode()
     try:
         conn = HTTPConnection(WHISPER_HOST, WHISPER_PORT, timeout=30)
         conn.request("POST", "/", payload, {"Content-Type": "application/json"})
