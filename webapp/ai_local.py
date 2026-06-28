@@ -31,6 +31,10 @@ OLLAMA_CLOUD_MODEL = os.environ.get("OLLAMA_CLOUD_MODEL", "gpt-oss:120b")
 OLLAMA_API_KEY = os.environ.get(
     "OLLAMA_API_KEY", ""
 )  # créer sur ollama.com/settings/keys
+# --- Z.AI GLM Coding Plan (déporté, qualité ; clé sur z.ai/manage-apikey) ---
+ZAI_BASE = os.environ.get("ZAI_BASE", "https://api.z.ai/api/paas/v4")
+ZAI_MODEL = os.environ.get("ZAI_MODEL", "glm-4.6")  # ex glm-5.2 / glm-4.6
+ZAI_API_KEY = os.environ.get("ZAI_API_KEY", "")
 LOCAL_MAX_TEMP = (
     82  # °C : au-delà, on REFUSE l'inférence locale CPU (anti-emballement M4)
 )
@@ -135,6 +139,29 @@ def _gemini(prompt, timeout=180):
             timeout=timeout,
         )
         txt = (r.stdout or "").strip()
+        return txt or None
+    except Exception:
+        return None
+
+
+def _zai(msgs, max_tokens, temperature):
+    """Z.AI GLM Coding Plan — DÉPORTÉ (forfait plat), 0 chaleur M4. Texte ou None.
+    Endpoint OpenAI-compatible. Nécessite ZAI_API_KEY."""
+    if not ZAI_API_KEY:
+        return None
+    try:
+        r = requests.post(
+            f"{ZAI_BASE}/chat/completions",
+            headers={"Authorization": f"Bearer {ZAI_API_KEY}"},
+            json={
+                "model": ZAI_MODEL,
+                "messages": msgs,
+                "temperature": temperature,
+                "max_tokens": max_tokens,
+            },
+            timeout=120,
+        )
+        txt = r.json()["choices"][0]["message"]["content"].strip()
         return txt or None
     except Exception:
         return None

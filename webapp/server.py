@@ -58,6 +58,32 @@ for _modname in ("sorties", "equipe", "automations", "export_pdf"):
     except Exception as _e:  # pragma: no cover
         print(f"[{_modname}] module non chargé: {_e}")
 
+# ── GARDE DE SÉCURITÉ GLOBAL ─────────────────────────────────────────────
+# RGPD : le serveur écoute sur 0.0.0.0 (LAN + téléphone). SANS ce garde, n'importe
+# quel appareil du réseau lirait les données élèves (sorties, mails, logs) ou
+# exécuterait /api/open, /api/run-cmd, /api/logiciels sans token. On exige donc le
+# token X-Prof-Token sur TOUTES les routes /api/ (sauf localhost, exempté).
+import hmac as _hmac
+
+try:
+    from prof_routes import PROF_TOKEN as _PROF_TOKEN
+except Exception:  # pragma: no cover
+    _PROF_TOKEN = ""
+
+
+@app.before_request
+def _require_token_global():
+    p = request.path
+    if not p.startswith("/api/"):
+        return None  # /, manifest, sw.js, icons, /prof, static : publics
+    if request.remote_addr in ("127.0.0.1", "::1"):
+        return None  # localhost exempté (front same-origin, curl, monitoring)
+    sent = request.headers.get("X-Prof-Token", "")
+    if _PROF_TOKEN and _hmac.compare_digest(sent, _PROF_TOKEN):
+        return None
+    return jsonify({"error": "non autorisé", "need_token": True}), 401
+
+
 # ── paths ──────────────────────────────────────────────────────────────
 BASE = Path("/home/pamerys/jarvis")
 THERMAL_JSON = BASE / "logs" / "thermal-status.json"
@@ -328,8 +354,22 @@ def api_open():
         target = Path(path).resolve()
     except Exception:
         return jsonify({"error": "Invalid path"}), 400
-    if not any(str(target).startswith(str(root)) for root in _OPEN_ALLOWED):
+    # confinement réel (pas de bypass par préfixe : /home/x-evil ne matche plus /home/x)
+    if not any(target.is_relative_to(root) for root in _OPEN_ALLOWED):
         return jsonify({"error": "Chemin non autorisé"}), 403
+    # ne jamais ouvrir un exécutable/script via xdg-open (RCE)
+    _DENY_SUFFIX = {
+        ".desktop",
+        ".sh",
+        ".py",
+        ".appimage",
+        ".jar",
+        ".bin",
+        ".run",
+        ".exe",
+    }
+    if target.suffix.lower() in _DENY_SUFFIX:
+        return jsonify({"error": "Type de fichier non autorisé"}), 403
     if not target.is_file() and not target.is_dir():
         return jsonify({"error": "Not found"}), 404
     subprocess.Popen(["xdg-open", str(target)], env={**os.environ, "DISPLAY": ":0"})

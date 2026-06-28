@@ -8,6 +8,7 @@ serveur écoute sur 0.0.0.0 (réseau local + PWA Android). Token auto-généré 
 ~/jarvis/webapp/.prof_token ; la page /prof le demande une fois (localStorage).
 """
 
+import hmac
 import os
 import secrets
 import sqlite3
@@ -48,7 +49,8 @@ def require_token(fn):
     def wrap(*a, **k):
         if request.remote_addr in ("127.0.0.1", "::1"):
             return fn(*a, **k)
-        if request.headers.get("X-Prof-Token", "") == PROF_TOKEN:
+        sent = request.headers.get("X-Prof-Token", "")
+        if PROF_TOKEN and hmac.compare_digest(sent, PROF_TOKEN):  # constant-time
             return fn(*a, **k)
         return jsonify({"error": "non autorisé", "need_token": True}), 401
 
