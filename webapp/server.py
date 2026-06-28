@@ -5,6 +5,7 @@ import json
 import os
 import sqlite3
 import subprocess
+import time
 from datetime import datetime
 from pathlib import Path
 
@@ -12,6 +13,50 @@ import requests
 from flask import Flask, jsonify, request, send_from_directory
 
 app = Flask(__name__, static_folder=".")
+
+# ── Module Logiciels (cockpit unique : lance Gén.5/Biblio Manuels/… via Wine) ──
+import sys as _sys
+
+_sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+try:
+    import logiciels as _logiciels
+
+    _logiciels.register(app)
+except Exception as _e:  # pragma: no cover
+    print(f"[logiciels] module non chargé: {_e}")
+
+# ── Module Espace Prof (élèves, exercices différenciés, corrections, séquences) ──
+try:
+    import prof_routes as _prof_routes
+
+    _prof_routes.register(app)
+    print("[JARVIS] Espace Prof chargé (/api/eleves, /api/exercice/*, …)")
+except Exception as _e:  # pragma: no cover
+    print(f"[prof_routes] module non chargé: {_e}")
+
+# ── Module Outils Classe (problèmes maths, rituels, comportement, ceintures) ──
+try:
+    import outils_classe as _outils_classe
+
+    _outils_classe.register(app)
+except Exception as _e:  # pragma: no cover
+    print(f"[outils_classe] module non chargé: {_e}")
+
+# ── Module Ressources (supports pédagogiques imprimables PDF) ──
+try:
+    import ressources as _ressources
+
+    _ressources.register(app)
+except Exception as _e:  # pragma: no cover
+    print(f"[ressources] module non chargé: {_e}")
+
+# ── Modules gestion d'année (sorties, équipe, automatisations) ──
+for _modname in ("sorties", "equipe", "automations", "export_pdf"):
+    try:
+        _m = __import__(_modname)
+        _m.register(app)
+    except Exception as _e:  # pragma: no cover
+        print(f"[{_modname}] module non chargé: {_e}")
 
 # ── paths ──────────────────────────────────────────────────────────────
 BASE = Path("/home/pamerys/jarvis")
@@ -266,12 +311,28 @@ def api_docs():
 
 
 # ── /api/open ──────────────────────────────────────────────────────────
+# Répertoires autorisés à l'ouverture (anti path-traversal / exécution arbitraire)
+_OPEN_ALLOWED = [
+    (Path.home() / "Documents").resolve(),
+    (Path.home() / "jarvis" / "webapp").resolve(),
+    (Path.home() / "Téléchargements").resolve(),
+]
+
+
 @app.route("/api/open")
 def api_open():
     path = request.args.get("path", "")
-    if not path or not os.path.exists(path):
+    if not path:
+        return jsonify({"error": "Missing path"}), 400
+    try:
+        target = Path(path).resolve()
+    except Exception:
+        return jsonify({"error": "Invalid path"}), 400
+    if not any(str(target).startswith(str(root)) for root in _OPEN_ALLOWED):
+        return jsonify({"error": "Chemin non autorisé"}), 403
+    if not target.is_file() and not target.is_dir():
         return jsonify({"error": "Not found"}), 404
-    subprocess.Popen(["xdg-open", path], env={**os.environ, "DISPLAY": ":0"})
+    subprocess.Popen(["xdg-open", str(target)], env={**os.environ, "DISPLAY": ":0"})
     return jsonify({"ok": True})
 
 
@@ -316,6 +377,44 @@ def api_run_cmd():
 @app.route("/")
 def index():
     return send_from_directory(".", "index.html")
+
+
+# ── PWA (installable + synchro Android) ──────────────────────────────
+@app.route("/manifest.json")
+def pwa_manifest():
+    return send_from_directory(
+        ".", "manifest.json", mimetype="application/manifest+json"
+    )
+
+
+@app.route("/sw.js")
+def pwa_sw():
+    resp = send_from_directory(".", "sw.js", mimetype="application/javascript")
+    resp.headers["Service-Worker-Allowed"] = "/"
+    resp.headers["Cache-Control"] = "no-cache"
+    return resp
+
+
+@app.route("/icon-192.png")
+def pwa_icon192():
+    return send_from_directory(".", "icon-192.png", mimetype="image/png")
+
+
+@app.route("/icon-512.png")
+def pwa_icon512():
+    return send_from_directory(".", "icon-512.png", mimetype="image/png")
+
+
+@app.route("/ca.crt")
+def pwa_ca():
+    # Certificat racine à installer une fois sur le téléphone Android
+    return send_from_directory(
+        "certs",
+        "ca.crt",
+        mimetype="application/x-x509-ca-cert",
+        as_attachment=True,
+        download_name="JARVIS-M4-Root-CA.crt",
+    )
 
 
 # ── RDV Calendrier ───────────────────────────────────────────────────
@@ -707,4 +806,21 @@ def api_system():
 
 
 if __name__ == "__main__":
+    import ssl as _ssl
+    import threading as _th
+    from werkzeug.serving import make_server as _mk
+
+    _certdir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "certs")
+    _crt = os.path.join(_certdir, "server.crt")
+    _key = os.path.join(_certdir, "server.key")
+
+    # HTTPS:8443 (téléphone Android — PWA installable + offline) si certs présents
+    if os.path.exists(_crt) and os.path.exists(_key):
+        _ctx = _ssl.SSLContext(_ssl.PROTOCOL_TLS_SERVER)
+        _ctx.load_cert_chain(_crt, _key)
+        _https = _mk("0.0.0.0", 8443, app, ssl_context=_ctx)
+        _th.Thread(target=_https.serve_forever, daemon=True).start()
+        print("[JARVIS] HTTPS actif sur https://0.0.0.0:8443 (PWA Android)")
+
+    # HTTP:7777 (PC/localhost — contexte sécurisé via localhost)
     app.run(host="0.0.0.0", port=7777, debug=False)

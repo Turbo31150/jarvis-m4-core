@@ -1,0 +1,20 @@
+# === Espace Prof / Pousseline — exclusions ===
+# Binaires lourds (Wine) — 664M, hors GitHub
+logiciels/
+
+# Données élèves (RGPD) — JAMAIS sur le cloud
+*.db
+backups/
+
+# Secrets
+*.env
+.prof_token
+certs/
+
+# Caches
+__pycache__/
+.ruff_cache/
+*.pyc
+
+# Sauvegardes de rebrand
+.backup-rebrand/

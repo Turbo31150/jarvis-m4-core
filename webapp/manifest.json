@@ -1,0 +1,16 @@
+{
+  "name": "Pousseline — Préparez votre classe",
+  "short_name": "Pousseline",
+  "description": "L'application des enseignants : cahier-journal, séances, exercices différenciés, évaluations et mails parents, propulsés par l'IA — données locales, 0 abonnement cloud.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0d0e10",
+  "theme_color": "#0d0e10",
+  "lang": "fr",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

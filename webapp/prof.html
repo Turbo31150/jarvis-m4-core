@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pousseline — Espace Prof</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0d0e10;color:#e6e6e6;font-family:system-ui,Segoe UI,sans-serif;font-size:15px;line-height:1.5}
+header{background:linear-gradient(90deg,#1a1d23,#0f3460);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e94560}
+h1{font-size:18px}h1 span{color:#e94560}
+#ia{font-size:12px;color:#8892a4}
+.tabs{display:flex;gap:4px;padding:10px;flex-wrap:wrap;background:#131519}
+.tab{padding:8px 14px;border-radius:8px;background:#1a1d23;color:#8892a4;cursor:pointer;font-size:13px;border:1px solid transparent}
+.tab.on{background:rgba(233,69,96,.15);color:#e94560;border-color:#e94560}
+main{padding:16px;max-width:900px;margin:0 auto}
+.panel{display:none}.panel.on{display:block}
+.card{background:#1a1d23;border:1px solid #2a2d35;border-radius:12px;padding:16px;margin-bottom:14px}
+label{display:block;font-size:12px;color:#8892a4;margin:8px 0 3px}
+input,select,textarea{width:100%;background:#0d0e10;border:1px solid #2a2d35;border-radius:8px;padding:9px;color:#e6e6e6;font-family:inherit;font-size:14px}
+textarea{min-height:90px;resize:vertical}
+.row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1;min-width:120px}
+button{background:#e94560;color:#fff;border:none;border-radius:8px;padding:10px 16px;font-weight:600;cursor:pointer;font-size:14px;margin-top:10px}
+button:hover{background:#c0392b}button.sec{background:#2a2d35}
+.out{background:#0d0e10;border:1px solid #2a2d35;border-radius:8px;padding:14px;margin-top:12px;white-space:pre-wrap;font-size:14px}
+.eleve{display:flex;justify-content:space-between;padding:8px;border-bottom:1px solid #2a2d35;font-size:14px}
+.badge{font-size:11px;background:rgba(233,69,96,.2);color:#e94560;padding:2px 8px;border-radius:10px}
+.spin{color:#f5a623}
+small{color:#8892a4}
+</style></head>
+<body>
+<header>
+  <h1>🌱 Espace <span>Prof</span> · Pousseline</h1>
+  <div id="ia">…</div>
+</header>
+<div class="tabs">
+  <div class="tab on" data-p="exo">📝 Exercices</div>
+  <div class="tab" data-p="corr">✅ Corrections</div>
+  <div class="tab" data-p="seq">📚 Séances</div>
+  <div class="tab" data-p="mail">✉️ Mail parents</div>
+  <div class="tab" data-p="eleves">👧 Élèves</div>
+</div>
+<main>
+  <!-- EXERCICES -->
+  <div class="panel on" id="p-exo"><div class="card">
+    <b>Générer des exercices différenciés</b> <small>(soutien / standard / approfondissement)</small>
+    <div class="row">
+      <div><label>Matière</label><select id="ex-mat"><option>maths</option><option>français</option><option>questionner le monde</option><option>EMC</option></select></div>
+      <div><label>Niveau</label><select id="ex-niv"><option>PS</option><option>MS</option><option>GS</option><option>CP</option><option>CE1</option><option selected>CE2</option><option>CM1</option><option>CM2</option></select></div>
+      <div><label>Nombre</label><input id="ex-nb" type="number" value="5"></div>
+    </div>
+    <label>Notion</label><input id="ex-not" placeholder="ex: addition posée avec retenue">
+    <label>Adapter à un élève (optionnel)</label><select id="ex-el"><option value="">— toute la classe —</option></select>
+    <button onclick="genExo()">Générer</button>
+    <div class="out" id="ex-out" style="display:none"></div>
+  </div></div>
+  <!-- CORRECTIONS -->
+  <div class="panel" id="p-corr"><div class="card">
+    <b>Corriger une réponse d'élève</b>
+    <label>Énoncé</label><textarea id="co-en"></textarea>
+    <label>Réponse de l'élève</label><textarea id="co-rep"></textarea>
+    <div class="row"><div><label>Niveau</label><select id="co-niv"><option>CP</option><option>CE1</option><option selected>CE2</option><option>CM1</option><option>CM2</option></select></div></div>
+    <button onclick="corriger()">Corriger</button>
+    <div class="out" id="co-out" style="display:none"></div>
+  </div></div>
+  <!-- SÉANCES -->
+  <div class="panel" id="p-seq"><div class="card">
+    <b>Préparer une séance</b>
+    <label>Sujet</label><input id="sq-suj" placeholder="ex: les fractions">
+    <div class="row"><div><label>Niveau</label><select id="sq-niv"><option>CP</option><option>CE1</option><option selected>CE2</option><option>CM1</option><option>CM2</option></select></div><div><label>Durée (min)</label><input id="sq-dur" type="number" value="45"></div></div>
+    <button onclick="genSeq()">Générer la séance</button>
+    <div class="out" id="sq-out" style="display:none"></div>
+  </div></div>
+  <!-- MAIL -->
+  <div class="panel" id="p-mail"><div class="card">
+    <b>Brouillon de mail aux parents</b>
+    <label>Élève (optionnel)</label><select id="ma-el"><option value="">— général —</option></select>
+    <label>Motif</label><textarea id="ma-mot" placeholder="ex: féliciter pour les progrès en lecture"></textarea>
+    <button onclick="genMail()">Rédiger le brouillon</button>
+    <div class="out" id="ma-out" style="display:none"></div>
+  </div></div>
+  <!-- ÉLÈVES -->
+  <div class="panel" id="p-eleves"><div class="card">
+    <b>Ajouter un élève</b>
+    <div class="row"><div><label>Prénom</label><input id="el-pre"></div><div><label>Nom</label><input id="el-nom"></div>
+    <div><label>Niveau</label><select id="el-niv"><option>PS</option><option>MS</option><option>GS</option><option>CP</option><option>CE1</option><option selected>CE2</option><option>CM1</option><option>CM2</option></select></div></div>
+    <label>Besoins / différenciation</label><input id="el-bes" placeholder="ex: dyslexie, AESH, PPRE">
+    <button onclick="addEleve()">Ajouter</button>
+    <div id="liste-eleves" style="margin-top:14px"></div>
+  </div></div>
+</main>
+<script>
+const $=s=>document.querySelector(s);
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('.panel').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on');$('#p-'+t.dataset.p).classList.add('on');
+});
+function tok(){return localStorage.getItem('profToken')||'';}
+function hdr(j){const h=j?{'Content-Type':'application/json'}:{};const t=tok();if(t)h['X-Prof-Token']=t;return h;}
+async function ask401(r){if(r.status===401){const t=prompt('Code d\'accès Espace Prof (voir ~/jarvis/webapp/.prof_token) :');if(t){localStorage.setItem('profToken',t.trim());location.reload();}throw new Error('token');}return r;}
+async function api(u,b){const r=await ask401(await fetch(u,{method:'POST',headers:hdr(true),body:JSON.stringify(b)}));return r.json();}
+async function get(u){const r=await ask401(await fetch(u,{headers:hdr(false)}));return r.json();}
+function busy(el){el.style.display='block';el.innerHTML='<span class="spin">⏳ Génération en cours (IA locale, ~1-2 min la 1re fois)…</span>';}
+async function iaStatus(){try{const s=await get('/api/prof/ia-status');$('#ia').textContent=(s.cluster_m1||s.cluster_m2?'🟢 cluster':s.ollama?'🟡 local (Ollama)':'🔴 IA off')+' · GPU '+s.gpu_temp+'°C';}catch(e){$('#ia').textContent='IA ?';}}
+async function loadEleves(){const l=await get('/api/eleves');if(!Array.isArray(l))return;
+  const opt='<option value="">— toute la classe —</option>'+l.map(e=>`<option value="${e.id}">${e.prenom} ${e.nom} (${e.niveau})</option>`).join('');
+  $('#ex-el').innerHTML=opt;$('#ma-el').innerHTML='<option value="">— général —</option>'+l.map(e=>`<option value="${e.id}">${e.prenom} ${e.nom}</option>`).join('');
+  $('#liste-eleves').innerHTML=l.map(e=>`<div class="eleve"><span>${e.prenom} ${e.nom} <span class="badge">${e.niveau}</span> ${e.besoins?'<small>'+e.besoins+'</small>':''}</span></div>`).join('')||'<small>Aucun élève</small>';}
+function showOut(o,txt,backend,cached){o.textContent=txt||'';if(backend){const s=document.createElement('small');s.style.display='block';s.style.marginTop='8px';s.textContent='moteur: '+backend+(cached?' (cache)':'');o.appendChild(s);}}
+async function genExo(){const o=$('#ex-out');busy(o);const d=await api('/api/exercice/generer',{matiere:$('#ex-mat').value,niveau:$('#ex-niv').value,notion:$('#ex-not').value,nb:+$('#ex-nb').value,eleve_id:$('#ex-el').value||null});showOut(o,d.contenu_md||d.error,d.backend,d.cached);}
+async function corriger(){const o=$('#co-out');busy(o);const d=await api('/api/exercice/corriger',{enonce:$('#co-en').value,reponse_eleve:$('#co-rep').value,niveau:$('#co-niv').value});o.textContent=d.feedback||d.error;}
+async function genSeq(){const o=$('#sq-out');busy(o);const d=await api('/api/sequence/generer',{sujet:$('#sq-suj').value,niveau:$('#sq-niv').value,duree:+$('#sq-dur').value});o.textContent=d.contenu_md||d.error;}
+async function genMail(){const o=$('#ma-out');busy(o);const d=await api('/api/mail-parent/draft',{motif:$('#ma-mot').value,eleve_id:$('#ma-el').value||null});o.textContent=d.draft||d.error;}
+async function addEleve(){await api('/api/eleves',{prenom:$('#el-pre').value,nom:$('#el-nom').value,niveau:$('#el-niv').value,besoins:$('#el-bes').value});$('#el-pre').value='';$('#el-nom').value='';loadEleves();}
+iaStatus();loadEleves();setInterval(iaStatus,30000);
+</script>
+</body></html>
