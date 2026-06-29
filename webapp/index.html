@@ -274,10 +274,27 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,input:focus-visible,sele
 
 <!-- 2. PLANNING ─────────────────────────────────────────────────────────── -->
 <div id="section-planning" class="section">
-  <h2>📅 Planning hebdomadaire</h2>
-  <div class="planning-grid" id="planning-grid"></div>
-  <h3>Ajouter un cours</h3>
+  <h2>📅 Mes plannings</h2>
+  <p class="sub" style="margin-bottom:14px">Deux plannings bien distincts, alimentés uniquement par tes données : ton <b>Espace professeur</b> et ta <b>vie personnelle</b>.</p>
+
+  <div style="border-left:4px solid var(--green,#3a9d5d);padding-left:12px;margin-bottom:8px">
+    <h3 style="color:var(--green,#3a9d5d);margin:0">📚 Planning professionnel <span class="sub">— Espace prof</span></h3>
+  </div>
+  <div class="planning-grid" id="planning-grid-pro"></div>
+
+  <div style="border-left:4px solid var(--blue,#4a9eff);padding-left:12px;margin:22px 0 8px">
+    <h3 style="color:var(--blue,#4a9eff);margin:0">🏡 Planning vie personnelle <span class="sub">— Claire</span></h3>
+  </div>
+  <div class="planning-grid" id="planning-grid-perso"></div>
+
+  <h3 style="margin-top:22px">Ajouter au planning</h3>
   <div class="form-row">
+    <div class="form-group"><label>Planning</label>
+      <select id="p-cat">
+        <option value="pro">📚 Professionnel</option>
+        <option value="perso">🏡 Vie perso</option>
+      </select>
+    </div>
     <div class="form-group">
       <label>Jour</label>
       <select id="p-jour">
@@ -292,8 +309,8 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,input:focus-visible,sele
         <option value="2h">2h</option><option value="3h">3h</option>
       </select>
     </div>
-    <div class="form-group"><label>Titre du cours</label><input id="p-titre" type="text" placeholder="Mathématiques…"></div>
-    <div class="form-group"><label>Salle</label><input id="p-salle" type="text" placeholder="A101"></div>
+    <div class="form-group"><label>Titre</label><input id="p-titre" type="text" placeholder="Mathématiques, Sport, RDV…"></div>
+    <div class="form-group"><label>Lieu / salle</label><input id="p-salle" type="text" placeholder="Classe, gymnase…"></div>
     <button class="btn" onclick="addCours()">Ajouter</button>
   </div>
   <div id="p-msg"></div>
@@ -1682,24 +1699,22 @@ const DAYS = ['Lundi','Mardi','Mercredi','Jeudi','Vendredi'];
 const HOURS = ['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00'];
 const TODAY_IDX = new Date().getDay(); // 1=Lundi…5=Vendredi
 
-async function loadPlanning() {
-  const cours = await fetch('/api/planning').then(r => r.json()).catch(() => []);
-  const grid = document.getElementById('planning-grid');
-  grid.innerHTML = '';
-  // Headers
-  grid.innerHTML += '<div class="pg-header"></div>';
+function renderPlanningGrid(gridId, cours, accent) {
+  const grid = document.getElementById(gridId);
+  if (!grid) return;
+  grid.innerHTML = '<div class="pg-header"></div>';
   DAYS.forEach((d, i) => {
     const isToday = (i + 1) === TODAY_IDX;
     grid.innerHTML += `<div class="pg-header${isToday ? ' today' : ''}">${d}</div>`;
   });
-  // Rows
   HOURS.forEach(h => {
     grid.innerHTML += `<div class="pg-hour">${h}</div>`;
     DAYS.forEach((d, i) => {
       const isToday = (i + 1) === TODAY_IDX;
       const matching = cours.filter(c => c.jour === d && c.heure === h);
       const inner = matching.map(c =>
-        `<div class="pg-cours${isToday ? ' current-day' : ''}">
+        `<div class="pg-cours${isToday ? ' current-day' : ''}" style="border-left:3px solid ${accent}"
+              title="Supprimer" onclick="delCours(${c.id})">
           <b>${escHtml(c.titre)}</b>${c.salle ? '<br>' + escHtml(c.salle) : ''}
         </div>`
       ).join('');
@@ -1708,8 +1723,23 @@ async function loadPlanning() {
   });
 }
 
+async function loadPlanning() {
+  const [pro, perso] = await Promise.all([
+    fetch('/api/planning?cat=pro').then(r => r.json()).catch(() => []),
+    fetch('/api/planning?cat=perso').then(r => r.json()).catch(() => []),
+  ]);
+  renderPlanningGrid('planning-grid-pro', pro, 'var(--green,#3a9d5d)');
+  renderPlanningGrid('planning-grid-perso', perso, 'var(--blue,#4a9eff)');
+}
+
+async function delCours(id) {
+  await fetch('/api/planning/' + id, {method:'DELETE'}).catch(() => {});
+  loadPlanning();
+}
+
 async function addCours() {
   const body = {
+    categorie: document.getElementById('p-cat').value,
     jour:  document.getElementById('p-jour').value,
     heure: document.getElementById('p-heure').value,
     duree: document.getElementById('p-duree').value,
@@ -1719,7 +1749,7 @@ async function addCours() {
   if (!body.titre) { showMsg('p-msg','Titre requis','ko'); return; }
   const r = await fetch('/api/planning', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)});
   const d = await r.json();
-  if (d.ok) { showMsg('p-msg','Cours ajouté','ok'); loadPlanning(); document.getElementById('p-titre').value = ''; }
+  if (d.ok) { showMsg('p-msg','Ajouté ✓','ok'); loadPlanning(); document.getElementById('p-titre').value = ''; }
   else showMsg('p-msg', d.error || 'Erreur', 'ko');
 }
 

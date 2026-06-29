@@ -65,6 +65,7 @@ for _modname in (
     "bibliotheque",
     "mailer",
     "banque_annuelle",
+    "systeme_io",
 ):
     try:
         _m = __import__(_modname)
@@ -203,8 +204,21 @@ def add_budget():
 # ── /api/planning ──────────────────────────────────────────────────────
 @app.route("/api/planning", methods=["GET"])
 def get_planning():
+    # ?cat=pro|perso : ne renvoyer qu'un des deux plannings (pro = Espace prof, perso = vie perso)
+    cat = (request.args.get("cat") or "").strip().lower()
     with db_conn(PLANNING_DB) as conn:
-        rows = conn.execute("SELECT * FROM cours ORDER BY jour,heure").fetchall()
+        # filet : garantir la colonne categorie même sur une base ancienne
+        cols = [r[1] for r in conn.execute("PRAGMA table_info(cours)")]
+        if "categorie" not in cols:
+            conn.execute("ALTER TABLE cours ADD COLUMN categorie TEXT DEFAULT 'pro'")
+            conn.commit()
+        if cat in ("pro", "perso"):
+            rows = conn.execute(
+                "SELECT * FROM cours WHERE COALESCE(categorie,'pro')=? ORDER BY jour,heure",
+                (cat,),
+            ).fetchall()
+        else:
+            rows = conn.execute("SELECT * FROM cours ORDER BY jour,heure").fetchall()
     return jsonify([dict(r) for r in rows])
 
 
@@ -214,11 +228,22 @@ def add_planning():
     required = ("jour", "heure", "duree", "titre")
     if not all(k in d for k in required):
         return jsonify({"error": "Missing fields"}), 400
+    cat = str(d.get("categorie", "pro")).lower()
+    if cat not in ("pro", "perso"):
+        cat = "pro"
     with db_conn(PLANNING_DB) as conn:
         conn.execute(
-            "INSERT INTO cours (jour,heure,duree,titre,salle) VALUES (?,?,?,?,?)",
-            (d["jour"], d["heure"], d["duree"], d["titre"], d.get("salle", "")),
+            "INSERT INTO cours (jour,heure,duree,titre,salle,categorie) VALUES (?,?,?,?,?,?)",
+            (d["jour"], d["heure"], d["duree"], d["titre"], d.get("salle", ""), cat),
         )
+        conn.commit()
+    return jsonify({"ok": True})
+
+
+@app.route("/api/planning/<int:cid>", methods=["DELETE"])
+def del_planning(cid):
+    with db_conn(PLANNING_DB) as conn:
+        conn.execute("DELETE FROM cours WHERE id=?", (cid,))
         conn.commit()
     return jsonify({"ok": True})
 
