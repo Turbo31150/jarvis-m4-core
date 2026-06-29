@@ -39,4 +39,10 @@ else
   echo "$(ts) EDT vide — cahier non généré" >> "$LOG"
 fi
 
+# 3) Banque annuelle : remplir quelques fiches manquantes (l'année se construit
+#    progressivement, garde thermique côté serveur, 0 token via la cascade).
+curl -s -m300 -X POST "$BASE/api/banque/batch" \
+  -H 'Content-Type: application/json' -d '{"max":3}' \
+  -w "$(ts) banque batch [%{http_code}]\n" >> "$LOG" 2>&1
+
 echo "$(ts) nuit terminée (${T}°C)" >> "$LOG"
