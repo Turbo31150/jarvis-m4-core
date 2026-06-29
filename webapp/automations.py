@@ -639,37 +639,48 @@ def _route_autosend():
 
 
 def register(app):
+    # Défense en profondeur : en plus du garde global @before_request de server.py
+    # (token sur tout /api/, localhost exempté), on protège chaque route par
+    # require_token — cohérent avec mailer.py / prof_routes.py et robuste si le
+    # garde global venait à être retiré. Routes mutantes/IA = privilégiées.
+    try:
+        from prof_routes import require_token as _rt
+    except Exception:  # pragma: no cover
+
+        def _rt(f):
+            return f
+
     app.add_url_rule(
-        "/api/automations/run", "automations_run", _route_run, methods=["POST"]
+        "/api/automations/run", "automations_run", _rt(_route_run), methods=["POST"]
     )
     app.add_url_rule(
         "/api/automations/auto-send",
         "automations_autosend",
-        _route_autosend,
+        _rt(_route_autosend),
         methods=["GET", "POST"],
     )
     app.add_url_rule(
         "/api/automations/suggestions",
         "automations_suggestions",
-        _route_suggestions,
+        _rt(_route_suggestions),
         methods=["GET"],
     )
     app.add_url_rule(
         "/api/automations/mail-dynamique",
         "automations_mail_dynamique",
-        _route_mail_dynamique,
+        _rt(_route_mail_dynamique),
         methods=["POST"],
     )
     app.add_url_rule(
         "/api/automations/planning-auto",
         "automations_planning_auto",
-        _route_planning_auto,
+        _rt(_route_planning_auto),
         methods=["POST"],
     )
     app.add_url_rule(
         "/api/automations/log",
         "automations_log",
-        _route_log,
+        _rt(_route_log),
         methods=["GET"],
     )
     print("[Pousseline] Automatisations chargé")
