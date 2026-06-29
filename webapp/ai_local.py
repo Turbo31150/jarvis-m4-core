@@ -86,20 +86,28 @@ _UP_CACHE = {}  # url -> (timestamp, ok) ; évite de re-sonder un nœud down à 
 _UP_TTL = 15.0
 
 
-def _up(url, timeout=2):
+def _up(url, timeout=1.5):
     import time
 
     now = time.time()
     hit = _UP_CACHE.get(url)
     if hit and now - hit[0] < _UP_TTL:
         return hit[1]
+    ok = False
     try:
         ok = requests.get(f"{url}/v1/models", timeout=timeout).ok
-    except Exception:
-        try:
-            ok = requests.get(f"{url}/api/tags", timeout=timeout).ok
-        except Exception:
-            ok = False
+    except requests.exceptions.RequestException as e:
+        # Hôte injoignable (timeout de connexion / refus) → re-sonder le MÊME hôte mort
+        # est inutile et double le coût (2 nœuds down = dashboard figé). On ne tente le
+        # second endpoint (API Ollama) que si l'hôte a répondu mais pas sur /v1/models.
+        unreachable = isinstance(
+            e, (requests.exceptions.ConnectTimeout, requests.exceptions.ConnectionError)
+        )
+        if not unreachable:
+            try:
+                ok = requests.get(f"{url}/api/tags", timeout=timeout).ok
+            except requests.exceptions.RequestException:
+                ok = False
     _UP_CACHE[url] = (now, ok)
     return ok
 
@@ -234,13 +242,30 @@ def _ollama_cloud_ready():
 
 
 def backend_status():
-    """État de l'environnement (pour l'UI). temp = point le plus chaud du M4."""
+    """État de l'environnement (pour l'UI). temp = point le plus chaud du M4.
+
+    Les sondes réseau (nœuds cluster + ollama) tournent EN PARALLÈLE : sondées en
+    série, deux nœuds down bloquaient le dashboard ~8 s à froid (cf. _UP_CACHE TTL).
+    """
+    from concurrent.futures import ThreadPoolExecutor
+
     temp = _gpu_temp()
+    with ThreadPoolExecutor(max_workers=4) as ex:
+        f_m1 = ex.submit(_up, M1)
+        f_m2 = ex.submit(_up, M2)
+        f_ol = ex.submit(_up, OLLAMA)
+        f_cloud = ex.submit(_ollama_cloud_ready)
+        m1, m2, ol, cloud = (
+            f_m1.result(),
+            f_m2.result(),
+            f_ol.result(),
+            f_cloud.result(),
+        )
     return {
-        "cluster_m1": _up(M1),
-        "cluster_m2": _up(M2),
-        "ollama_local": _up(OLLAMA),
-        "ollama_cloud": _ollama_cloud_ready(),
+        "cluster_m1": m1,
+        "cluster_m2": m2,
+        "ollama_local": ol,
+        "ollama_cloud": cloud,
         "gpu_temp": temp,
         "local_bride": temp
         >= LOCAL_MAX_TEMP,  # True = inférence locale refusée (trop chaud)

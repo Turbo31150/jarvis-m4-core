@@ -113,13 +113,12 @@ def _apply_fallback(type_, prenom):
 # ---------------------------------------------------------------------------
 
 
-def _route_suggestions():
-    """Analyse les données réelles et propose des actions automatiques."""
+def _collect_suggestions():
+    """Construit la liste des suggestions (sans Flask) — réutilisable par l'exécuteur autonome."""
     suggestions = []
-    try:
-        conn = _get_conn()
-        _init_table(conn)
-
+    conn = _get_conn()
+    _init_table(conn)
+    if True:
         # --- Absences récentes (7 derniers jours) ---
         if _table_exists(conn, "presence") and _table_exists(conn, "eleves"):
             limit_date = (date.today() - timedelta(days=7)).isoformat()
@@ -241,10 +240,16 @@ def _route_suggestions():
                     }
                 )
 
-        conn.close()
+    conn.close()
+    return suggestions
+
+
+def _route_suggestions():
+    """Analyse les données réelles et propose des actions automatiques."""
+    try:
+        suggestions = _collect_suggestions()
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
     return jsonify({"suggestions": suggestions, "total": len(suggestions)})
 
 
@@ -423,11 +428,226 @@ def _route_log():
 
 
 # ---------------------------------------------------------------------------
+# Exécuteur AUTONOME (planificateur on-demand, anti-surchauffe)
+# ---------------------------------------------------------------------------
+
+# Plafond thermique : au-dessus, on NE lance PAS d'inférence (évite la boucle 95°C).
+_TEMP_MAX = 86
+_MAIL_TYPES = {
+    "mail_absence": "absence",
+    "bilan_periode": "bilan_periode",
+    "rappel_sortie": "rappel_sortie",
+}
+
+
+def _cpu_temp():
+    """Température max des zones thermiques (°C). 0 si illisible."""
+    import glob
+
+    t = 0
+    for p in glob.glob("/sys/class/thermal/thermal_zone*/temp"):
+        try:
+            with open(p) as f:
+                t = max(t, int(f.read().strip()) // 1000)
+        except Exception:
+            pass
+    return t
+
+
+def _kv_get(conn, k, default=""):
+    try:
+        r = conn.execute("SELECT v FROM kv WHERE k=?", (k,)).fetchone()
+        return r["v"] if r and r["v"] is not None else default
+    except Exception:
+        return default
+
+
+def _build_mail(conn, type_, eleve_id):
+    """Génère {objet,corps} pour un élève via IA, fallback modèle. Sans Flask."""
+    prenom, nom, besoins, niveau = "l'élève", "", "", ""
+    if eleve_id and _table_exists(conn, "eleves"):
+        row = conn.execute(
+            "SELECT prenom,nom,besoins,niveau FROM eleves WHERE id=?", (int(eleve_id),)
+        ).fetchone()
+        if row:
+            prenom = row["prenom"] or prenom
+            nom = row["nom"] or ""
+            besoins = row["besoins"] or ""
+            niveau = row["niveau"] or ""
+    system = (
+        "Tu es une enseignante bienveillante du primaire en France. Réponds UNIQUEMENT "
+        'avec un JSON valide {"objet":"...","corps":"..."} — pas de markdown.'
+    )
+    infos = (
+        f"Prénom : {prenom}"
+        + (f", Niveau : {niveau}" if niveau else "")
+        + (f", Besoins : {besoins}" if besoins else "")
+    )
+    user = f"Rédige un mail de type « {type_} » pour les parents. Infos élève : {infos}. Concis, chaleureux."
+    try:
+        import json as _json
+
+        res = ai_local.generate(user=user, system=system, max_tokens=600, cache=False)
+        txt = res["text"].strip()
+        if txt.startswith("```"):
+            txt = txt.split("```")[1]
+            txt = txt[4:] if txt.startswith("json") else txt
+            txt = txt.strip()
+        data = _json.loads(txt)
+        if isinstance(data, dict) and "objet" in data and "corps" in data:
+            return data, prenom, nom
+    except Exception:
+        pass
+    return _apply_fallback(type_, prenom), prenom, nom
+
+
+def run_due(auto_send=None, max_actions=3):
+    """Exécute les automatisations dues. Appelé par le timer systemd (on-demand) ou la route.
+
+    - Garde thermique : si la machine est déjà chaude, on reporte (pas d'inférence).
+    - Prépare les mails dus (absence, bilan besoins, rappel sortie) et les journalise.
+    - auto_send : n'envoie réellement que si activé (kv 'automation_auto_send'=1) ET SMTP configuré.
+    Renvoie un dict résumé (jamais d'exception remontée au timer).
+    """
+    out = {
+        "ok": True,
+        "temp": _cpu_temp(),
+        "prepares": 0,
+        "envoyes": 0,
+        "reporte": False,
+        "details": [],
+    }
+    if out["temp"] >= _TEMP_MAX:
+        out["reporte"] = True
+        out["ok"] = False
+        out["raison"] = (
+            f"Surchauffe ({out['temp']}°C ≥ {_TEMP_MAX}°C) — automatisations reportées"
+        )
+        try:
+            conn = _get_conn()
+            _init_table(conn)
+            _log(conn, "systeme", "scheduler", out["raison"])
+            conn.close()
+        except Exception:
+            pass
+        return out
+
+    try:
+        conn = _get_conn()
+        _init_table(conn)
+        if auto_send is None:
+            auto_send = _kv_get(conn, "automation_auto_send", "0") == "1"
+        suggestions = _collect_suggestions()
+    except Exception as e:
+        out["ok"] = False
+        out["raison"] = f"Erreur collecte : {e}"
+        return out
+
+    # config SMTP partagée avec le module mailer (envoi réel optionnel)
+    smtp_cfg = {}
+    try:
+        import mailer
+
+        smtp_cfg = mailer._get_cfg()
+    except Exception:
+        mailer = None
+
+    done = 0
+    for s in suggestions:
+        if done >= max_actions or _cpu_temp() >= _TEMP_MAX:
+            break
+        t = s.get("type")
+        if t not in _MAIL_TYPES:
+            continue
+        type_mail = _MAIL_TYPES[t]
+        eleve_id = s.get("eleve_id")
+        mail, prenom, nom = _build_mail(conn, type_mail, eleve_id)
+        cible = f"{prenom} {nom}".strip() or s.get("cible", "")
+        sent = False
+        # envoi réel seulement si demandé + config OK + email parent connu
+        dest = ""
+        if eleve_id:
+            r = conn.execute(
+                "SELECT email_parent FROM eleves WHERE id=?", (eleve_id,)
+            ).fetchone()
+            dest = (
+                (r["email_parent"] or "").strip()
+                if r and "email_parent" in r.keys()
+                else ""
+            )
+        if auto_send and mailer and smtp_cfg and mailer._cfg_ready(smtp_cfg) and dest:
+            try:
+                mailer._send_smtp(smtp_cfg, dest, mail["objet"], mail["corps"])
+                sent = True
+                out["envoyes"] += 1
+                conn.execute(
+                    "INSERT INTO mail_log(dest,sujet,corps,eleve_id,statut) VALUES(?,?,?,?,?)",
+                    (dest, mail["objet"], mail["corps"], eleve_id, "envoye"),
+                )
+                conn.commit()
+            except Exception as e:
+                _log(conn, "echec_envoi", cible, str(e)[:300])
+        if not sent:
+            import json as _json
+
+            _log(
+                conn,
+                type_mail,
+                cible,
+                _json.dumps({**mail, "auto": True}, ensure_ascii=False),
+            )
+            out["prepares"] += 1
+        out["details"].append({"type": type_mail, "cible": cible, "envoye": sent})
+        done += 1
+
+    conn.close()
+    return out
+
+
+def _route_run():
+    from flask import request as _rq
+
+    d = _rq.get_json(force=True, silent=True) or {}
+    res = run_due(
+        auto_send=d.get("auto_send"), max_actions=int(d.get("max_actions", 3))
+    )
+    return jsonify(res)
+
+
+def _route_autosend():
+    """GET: lit l'état. POST {on:bool}: active/désactive l'envoi automatique réel."""
+    from flask import request as _rq
+
+    conn = _get_conn()
+    _init_table(conn)
+    if _rq.method == "POST":
+        on = "1" if (_rq.get_json(force=True, silent=True) or {}).get("on") else "0"
+        conn.execute(
+            "INSERT INTO kv(k,v) VALUES('automation_auto_send',?) "
+            "ON CONFLICT(k) DO UPDATE SET v=excluded.v",
+            (on,),
+        )
+        conn.commit()
+    state = _kv_get(conn, "automation_auto_send", "0") == "1"
+    conn.close()
+    return jsonify({"auto_send": state})
+
+
+# ---------------------------------------------------------------------------
 # Enregistrement Flask
 # ---------------------------------------------------------------------------
 
 
 def register(app):
+    app.add_url_rule(
+        "/api/automations/run", "automations_run", _route_run, methods=["POST"]
+    )
+    app.add_url_rule(
+        "/api/automations/auto-send",
+        "automations_autosend",
+        _route_autosend,
+        methods=["GET", "POST"],
+    )
     app.add_url_rule(
         "/api/automations/suggestions",
         "automations_suggestions",
@@ -453,3 +673,14 @@ def register(app):
         methods=["GET"],
     )
     print("[Pousseline] Automatisations chargé")
+
+
+if __name__ == "__main__":
+    # Appelé par le timer systemd (on-demand). Aucune boucle : exécute une fois et sort.
+    import json as _json
+    import sys as _sys
+
+    if len(_sys.argv) > 1 and _sys.argv[1] == "run":
+        print(_json.dumps(run_due(), ensure_ascii=False))
+    else:
+        print("usage: python3 automations.py run")

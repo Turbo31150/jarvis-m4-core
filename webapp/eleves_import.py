@@ -26,6 +26,10 @@ def _init():
         c.execute("""CREATE TABLE IF NOT EXISTS eleve_champs (
             id INTEGER PRIMARY KEY AUTOINCREMENT, eleve_id INTEGER,
             cle TEXT NOT NULL, valeur TEXT DEFAULT '', couleur TEXT DEFAULT '')""")
+        # garantir la colonne email_parent (indep. de l'ordre de chargement des modules)
+        cols = [row["name"] for row in c.execute("PRAGMA table_info(eleves)")]
+        if cols and "email_parent" not in cols:
+            c.execute("ALTER TABLE eleves ADD COLUMN email_parent TEXT")
         c.commit()
 
 
@@ -37,12 +41,27 @@ def _norm(s):
     return s
 
 
-# Mapping en-tete normalise -> champ interne
+# Mapping en-tete normalise -> champ interne (plusieurs libelles acceptes par champ)
 _COLMAP = {
     "nom": "nom",
     "prenom": "prenom",
     "niveau": "niveau",
+    "classe": "niveau",
     "groupe": "groupe",
+    "groupe de besoin": "groupe",
+    "email parent": "email_parent",
+    "mail parent": "email_parent",
+    "email": "email_parent",
+    "mail": "email_parent",
+    "courriel": "email_parent",
+    "email responsable": "email_parent",
+    "points forts": "points_forts",
+    "atouts": "points_forts",
+    "besoins": "besoins",
+    "besoin": "besoins",
+    "ppre": "besoins",
+    "pap": "besoins",
+    "amenagements": "besoins",
 }
 
 
@@ -103,11 +122,11 @@ def register(app):
                     c.execute("DELETE FROM eleves")
                 for r in data_rows:
 
-                    def val(field):
+                    def val(field, limit=80):
                         idx = col_idx.get(field)
                         if idx is None or idx >= len(r):
                             return ""
-                        return (r[idx] or "").strip()[:80]
+                        return (r[idx] or "").strip()[:limit]
 
                     nom = val("nom")
                     prenom = val("prenom")
@@ -116,10 +135,22 @@ def register(app):
                         continue
                     niveau = val("niveau")
                     groupe = val("groupe")
+                    email_parent = val("email_parent", 200)
+                    points_forts = val("points_forts", 200)
+                    besoins = val("besoins", 200)
                     c.execute(
-                        "INSERT INTO eleves (nom, prenom, niveau, groupe, created_at) "
-                        "VALUES (?, ?, ?, ?, datetime('now'))",
-                        (nom, prenom, niveau, groupe),
+                        "INSERT INTO eleves "
+                        "(nom, prenom, niveau, groupe, points_forts, besoins, email_parent, created_at) "
+                        "VALUES (?, ?, ?, ?, ?, ?, ?, datetime('now'))",
+                        (
+                            nom,
+                            prenom,
+                            niveau,
+                            groupe,
+                            points_forts,
+                            besoins,
+                            email_parent,
+                        ),
                     )
                     importes += 1
                 c.commit()

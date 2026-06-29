@@ -6,11 +6,11 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#0d0e10;color:#e6e6e6;font-family:system-ui,Segoe UI,sans-serif;font-size:15px;line-height:1.5}
-header{background:linear-gradient(90deg,#1a1d23,#0f3460);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e94560}
+header{background:linear-gradient(90deg,#1a1d23,#0f3460);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e94560;position:sticky;top:0;z-index:10}
 h1{font-size:18px}h1 span{color:#e94560}
 #ia{font-size:12px;color:#8892a4}
-.tabs{display:flex;gap:4px;padding:10px;flex-wrap:wrap;background:#131519}
-.tab{padding:8px 14px;border-radius:8px;background:#1a1d23;color:#8892a4;cursor:pointer;font-size:13px;border:1px solid transparent}
+.tabs{display:flex;gap:4px;padding:10px;flex-wrap:wrap;background:#131519;position:sticky;top:51px;z-index:9}
+.tab{padding:8px 14px;border-radius:8px;background:#1a1d23;color:#8892a4;cursor:pointer;font-size:13px;border:1px solid transparent;user-select:none}
 .tab.on{background:rgba(233,69,96,.15);color:#e94560;border-color:#e94560}
 main{padding:16px;max-width:900px;margin:0 auto}
 .panel{display:none}.panel.on{display:block}
@@ -20,12 +20,37 @@ input,select,textarea{width:100%;background:#0d0e10;border:1px solid #2a2d35;bor
 textarea{min-height:90px;resize:vertical}
 .row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1;min-width:120px}
 button{background:#e94560;color:#fff;border:none;border-radius:8px;padding:10px 16px;font-weight:600;cursor:pointer;font-size:14px;margin-top:10px}
-button:hover{background:#c0392b}button.sec{background:#2a2d35}
+button:hover{background:#c0392b}button.sec{background:#2a2d35}button.sec:hover{background:#3a3d45}
+button.mini{padding:5px 10px;font-size:12px;margin:0}
 .out{background:#0d0e10;border:1px solid #2a2d35;border-radius:8px;padding:14px;margin-top:12px;white-space:pre-wrap;font-size:14px}
-.eleve{display:flex;justify-content:space-between;padding:8px;border-bottom:1px solid #2a2d35;font-size:14px}
+.eleve{display:flex;justify-content:space-between;align-items:center;padding:8px;border-bottom:1px solid #2a2d35;font-size:14px}
 .badge{font-size:11px;background:rgba(233,69,96,.2);color:#e94560;padding:2px 8px;border-radius:10px}
 .spin{color:#f5a623}
 small{color:#8892a4}
+.chk{display:flex;align-items:center;gap:8px;padding:6px 8px;border:1px solid #2a2d35;border-radius:8px;margin:4px 0;cursor:pointer}
+.chk input{width:auto}
+.grp{display:inline-block;font-size:11px;padding:2px 8px;border-radius:10px;font-weight:600}
+.g-soutien{background:rgba(245,166,35,.2);color:#f5a623}
+.g-standard{background:rgba(120,144,220,.2);color:#7890dc}
+.g-approfondissement{background:rgba(46,204,113,.2);color:#2ecc71}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #2a2d35}
+th{color:#8892a4;font-weight:600}
+.hint{font-size:12px;color:#8892a4;margin-top:4px}
+.flex{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.day{margin-bottom:8px}
+.day label{font-weight:600;color:#e6e6e6}
+.vtabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:12px}
+.vtab{padding:6px 12px;border-radius:8px;background:#0d0e10;border:1px solid #2a2d35;color:#8892a4;cursor:pointer;font-size:13px}
+.vtab.on{background:rgba(233,69,96,.15);color:#e94560;border-color:#e94560}
+.vpanel{display:none}.vpanel.on{display:block}
+.opanel{display:none}.opanel.on{display:block}
+.rec{background:#c0392b!important;animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.6}}
+.dot{display:inline-block;width:12px;height:12px;border-radius:50%;vertical-align:middle;margin-right:4px;border:1px solid #444}
+.copy{float:right}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#1a1d23;border:1px solid #e94560;border-radius:8px;padding:10px 18px;font-size:13px;opacity:0;transition:opacity .3s;z-index:99}
+.toast.on{opacity:1}
 </style></head>
 <body>
 <header>
@@ -33,18 +58,63 @@ small{color:#8892a4}
   <div id="ia">…</div>
 </header>
 <div class="tabs">
-  <div class="tab on" data-p="exo">📝 Exercices</div>
+  <div class="tab on" data-p="home">🏠 Accueil</div>
+  <div class="tab" data-p="pilot">🔔 Pilotage</div>
+  <div class="tab" data-p="exo">📝 Exercices</div>
+  <div class="tab" data-p="diff">🔀 Différencier</div>
   <div class="tab" data-p="corr">✅ Corrections</div>
   <div class="tab" data-p="seq">📚 Séances</div>
+  <div class="tab" data-p="edt">🗓️ Emploi du temps</div>
+  <div class="tab" data-p="cj">📅 Cahier-journal</div>
+  <div class="tab" data-p="prog">🗂️ Programmations</div>
+  <div class="tab" data-p="eval">📊 Évaluations</div>
+  <div class="tab" data-p="bull">📋 Bulletins</div>
+  <div class="tab" data-p="appel">🙋 Appel</div>
+  <div class="tab" data-p="vie">🎒 Vie de classe</div>
+  <div class="tab" data-p="outils">🧰 Outils</div>
   <div class="tab" data-p="mail">✉️ Mail parents</div>
   <div class="tab" data-p="eleves">👧 Élèves</div>
+  <div class="tab" data-p="export">📤 Export</div>
 </div>
 <main>
+
+  <!-- ACCUEIL / DASHBOARD -->
+  <div class="panel on" id="p-home"><div class="card">
+    <b>Tableau de bord</b>
+    <div id="dash" style="margin-top:12px"><small>Chargement…</small></div>
+    <button class="sec mini" onclick="loadDash()" style="margin-top:12px">↻ Rafraîchir</button>
+  </div></div>
+
+  <!-- PILOTAGE / AUTOMATISATIONS -->
+  <div class="panel" id="p-pilot">
+    <div class="card">
+      <b>🔔 Suggestions du jour</b>
+      <div class="hint">Actions proposées d'après tes données : absences, élèves en difficulté, sorties et réunions à venir.</div>
+      <button class="sec mini" onclick="loadSuggestions()" style="margin-top:8px">↻ Analyser</button>
+      <div id="sg-list" style="margin-top:10px"><small>Clique sur Analyser.</small></div>
+    </div>
+    <div class="card">
+      <b>🗓️ Planning automatique de la semaine</b>
+      <div class="hint">Propose une répartition équilibrée à partir de ton emploi du temps enregistré.</div>
+      <label>Contraintes (optionnel)</label><input id="pl-cont" placeholder="ex: piscine le mardi, décloisonnement jeudi après-midi">
+      <button onclick="genPlanning()">Générer le planning</button>
+      <div class="out" id="pl-out" style="display:none"></div>
+    </div>
+    <div class="card">
+      <b>⚙️ Exécution automatique</b>
+      <div class="hint">Prépare les mails dus (absences, bilans, rappels sorties). L'envoi réel n'a lieu que si tu l'actives ci-dessous ET que le SMTP est configuré.</div>
+      <label class="chk" style="margin-top:8px"><input type="checkbox" id="auto-send"> Autoriser l'envoi automatique réel des mails</label>
+      <div class="flex"><button onclick="runAuto()">▶️ Exécuter maintenant</button><button class="sec" onclick="loadAutoLog()">📜 Journal</button></div>
+      <div class="out" id="au-out" style="display:none"></div>
+      <div id="au-log" style="margin-top:10px"></div>
+    </div>
+  </div>
+
   <!-- EXERCICES -->
-  <div class="panel on" id="p-exo"><div class="card">
+  <div class="panel" id="p-exo"><div class="card">
     <b>Générer des exercices différenciés</b> <small>(soutien / standard / approfondissement)</small>
     <div class="row">
-      <div><label>Matière</label><select id="ex-mat"><option>maths</option><option>français</option><option>questionner le monde</option><option>EMC</option></select></div>
+      <div><label>Matière</label><select id="ex-mat"><option>maths</option><option>français</option><option>questionner le monde</option><option>histoire-géographie</option><option>sciences</option><option>EMC</option><option>anglais</option></select></div>
       <div><label>Niveau</label><select id="ex-niv"><option>PS</option><option>MS</option><option>GS</option><option>CP</option><option>CE1</option><option selected>CE2</option><option>CM1</option><option>CM2</option></select></div>
       <div><label>Nombre</label><input id="ex-nb" type="number" value="5"></div>
     </div>
@@ -53,6 +123,23 @@ small{color:#8892a4}
     <button onclick="genExo()">Générer</button>
     <div class="out" id="ex-out" style="display:none"></div>
   </div></div>
+
+  <!-- DIFFÉRENCIATION MULTI-ÉLÈVES -->
+  <div class="panel" id="p-diff"><div class="card">
+    <b>Différencier une notion pour plusieurs élèves</b>
+    <div class="hint">Une même notion → une version adaptée au profil de chaque élève coché (max 6, l'IA locale est lente au-delà).</div>
+    <div class="row">
+      <div><label>Matière</label><select id="di-mat"><option>maths</option><option>français</option><option>questionner le monde</option><option>sciences</option><option>EMC</option></select></div>
+      <div><label>Niveau</label><select id="di-niv"><option>CP</option><option>CE1</option><option selected>CE2</option><option>CM1</option><option>CM2</option></select></div>
+      <div><label>Nb / élève</label><input id="di-nb" type="number" value="3"></div>
+    </div>
+    <label>Notion</label><input id="di-not" placeholder="ex: les fractions simples">
+    <label>Élèves à différencier</label>
+    <div id="di-list"><small>Aucun élève — ajoute-les dans l'onglet Élèves.</small></div>
+    <button onclick="differencier()">Générer les variantes adaptées</button>
+    <div class="out" id="di-out" style="display:none"></div>
+  </div></div>
+
   <!-- CORRECTIONS -->
   <div class="panel" id="p-corr"><div class="card">
     <b>Corriger une réponse d'élève</b>
@@ -62,6 +149,7 @@ small{color:#8892a4}
     <button onclick="corriger()">Corriger</button>
     <div class="out" id="co-out" style="display:none"></div>
   </div></div>
+
   <!-- SÉANCES -->
   <div class="panel" id="p-seq"><div class="card">
     <b>Préparer une séance</b>
@@ -70,48 +158,593 @@ small{color:#8892a4}
     <button onclick="genSeq()">Générer la séance</button>
     <div class="out" id="sq-out" style="display:none"></div>
   </div></div>
-  <!-- MAIL -->
-  <div class="panel" id="p-mail"><div class="card">
-    <b>Brouillon de mail aux parents</b>
-    <label>Élève (optionnel)</label><select id="ma-el"><option value="">— général —</option></select>
-    <label>Motif</label><textarea id="ma-mot" placeholder="ex: féliciter pour les progrès en lecture"></textarea>
-    <button onclick="genMail()">Rédiger le brouillon</button>
-    <div class="out" id="ma-out" style="display:none"></div>
+
+  <!-- EMPLOI DU TEMPS -->
+  <div class="panel" id="p-edt"><div class="card">
+    <b>Emploi du temps hebdomadaire</b>
+    <div class="hint">Saisis les créneaux de chaque jour (texte libre). Sert de base à la génération automatique du cahier-journal.</div>
+    <div id="edt-days"></div>
+    <button onclick="saveEdt()">💾 Enregistrer l'emploi du temps</button>
   </div></div>
+
+  <!-- CAHIER-JOURNAL -->
+  <div class="panel" id="p-cj"><div class="card">
+    <b>Cahier-journal</b>
+    <div class="row">
+      <div><label>Date</label><input id="cj-date" type="date"></div>
+      <div><label>Niveau (optionnel)</label><input id="cj-niv" placeholder="ex: CE2"></div>
+    </div>
+    <button onclick="genCj()">🪄 Générer automatiquement (depuis l'emploi du temps)</button>
+    <label>Contenu</label><textarea id="cj-txt" style="min-height:240px" placeholder="Le cahier-journal apparaît ici. Tu peux le modifier puis enregistrer."></textarea>
+    <div class="flex">
+      <button onclick="saveCj()">💾 Enregistrer</button>
+      <button class="sec" onclick="downloadPdf($('#cj-txt').value,'Cahier-journal '+($('#cj-date').value||todayISO()))">📄 PDF</button>
+      <button class="sec" onclick="loadCjList()">📜 Historique</button>
+    </div>
+    <div id="cj-list" style="margin-top:12px"></div>
+  </div></div>
+
+  <!-- PROGRAMMATIONS -->
+  <div class="panel" id="p-prog"><div class="card">
+    <b>Programmation / progression</b>
+    <div class="row">
+      <div><label>Matière</label><select id="pg-mat"><option>français</option><option>maths</option><option>questionner le monde</option><option>histoire-géographie</option><option>sciences</option><option>EMC</option><option>EPS</option><option>arts</option><option>anglais</option></select></div>
+      <div><label>Niveau</label><select id="pg-niv"><option>CP</option><option>CE1</option><option selected>CE2</option><option>CM1</option><option>CM2</option></select></div>
+    </div>
+    <div class="row">
+      <div><label>Portée</label><select id="pg-portee"><option value="annuelle">Annuelle (P1→P5)</option><option value="periode">Une période</option></select></div>
+      <div><label>Période (si portée = période)</label><input id="pg-per" placeholder="ex: Période 2"></div>
+    </div>
+    <button onclick="genProg()">Générer</button>
+    <div class="out" id="pg-out" style="display:none"></div>
+    <button class="sec mini" onclick="loadProgList()" style="margin-top:10px">📜 Historique</button>
+    <div id="pg-list" style="margin-top:8px"></div>
+  </div></div>
+
+  <!-- ÉVALUATIONS -->
+  <div class="panel" id="p-eval"><div class="card">
+    <b>Saisir une évaluation</b>
+    <div class="row">
+      <div><label>Élève</label><select id="ev-el"></select></div>
+      <div><label>Matière</label><input id="ev-mat" placeholder="ex: maths"></div>
+    </div>
+    <label>Compétence</label><input id="ev-comp" placeholder="ex: calculer une addition à retenue">
+    <div class="row">
+      <div><label>Note</label><input id="ev-note" type="number" value="7"></div>
+      <div><label>Sur</label><input id="ev-sur" type="number" value="10"></div>
+      <div><label>Période</label><input id="ev-per" placeholder="ex: Période 1"></div>
+    </div>
+    <button onclick="addEval()">Enregistrer la note</button>
+  </div>
+  <div class="card">
+    <b>Bilan & groupes de besoin</b> <small>(moyenne ramenée /20)</small>
+    <button class="sec mini" onclick="loadBilan()" style="margin-top:8px">↻ Calculer le bilan</button>
+    <div id="ev-bilan" style="margin-top:10px"></div>
+  </div></div>
+
+  <!-- BULLETINS -->
+  <div class="panel" id="p-bull"><div class="card">
+    <b>Appréciation / LSU / Synthèse</b>
+    <div class="row">
+      <div><label>Élève</label><select id="bu-el"></select></div>
+      <div><label>Type</label><select id="bu-type"><option value="appreciation">Appréciation de bulletin</option><option value="lsu">Synthèse LSU</option><option value="synthese">Synthèse équipe éducative</option></select></div>
+      <div><label>Période</label><input id="bu-per" value="Période 1"></div>
+    </div>
+    <label>Observations de l'enseignante</label><textarea id="bu-obs" placeholder="ex: élève sérieux, progrès en lecture, encore fragile en numération"></textarea>
+    <button onclick="genBull()">Rédiger</button>
+    <div class="out" id="bu-out" style="display:none"></div>
+    <button class="sec mini" onclick="loadBullList()" style="margin-top:10px">📜 Historique</button>
+    <div id="bu-list" style="margin-top:8px"></div>
+  </div></div>
+
+  <!-- APPEL -->
+  <div class="panel" id="p-appel"><div class="card">
+    <b>Appel du jour</b>
+    <div class="row"><div><label>Date</label><input id="ap-date" type="date"></div></div>
+    <div id="ap-list" style="margin-top:10px"><small>Chargement…</small></div>
+    <button onclick="saveAppel()">💾 Enregistrer l'appel</button>
+  </div></div>
+
+  <!-- MAIL -->
+  <div class="panel" id="p-mail">
+    <div class="card">
+      <b>Rédiger un mail aux parents</b>
+      <label>Élève (optionnel)</label><select id="ma-el"><option value="">— général —</option></select>
+      <div class="row">
+        <div><label>Mail dynamique (type)</label><select id="ma-type"><option value="">— motif libre —</option><option value="absence">Suivi d'absence</option><option value="felicitations">Félicitations</option><option value="inquietude">Inquiétude bienveillante</option><option value="rappel_sortie">Rappel sortie</option><option value="bilan_periode">Bilan de période</option></select></div>
+      </div>
+      <label>Motif / contexte</label><textarea id="ma-mot" placeholder="ex: féliciter pour les progrès en lecture"></textarea>
+      <button onclick="genMail()">🪄 Rédiger</button>
+      <div class="out" id="ma-out" style="display:none"></div>
+    </div>
+    <div class="card">
+      <b>✉️ Envoyer</b>
+      <label>Destinataire</label><input id="ma-dest" placeholder="parent@… (vide = email du parent de l'élève sélectionné)">
+      <label>Objet</label><input id="ma-suj" placeholder="objet du mail">
+      <label>Corps</label><textarea id="ma-corps" style="min-height:160px"></textarea>
+      <div class="flex">
+        <button onclick="sendMail(false)">📤 Envoyer</button>
+        <button class="sec" onclick="sendMail(true)">💾 Brouillon (sans envoyer)</button>
+        <button class="sec" onclick="loadMailLog()">📜 Journal</button>
+      </div>
+      <div class="out" id="ma-send-out" style="display:none"></div>
+      <div id="ma-log" style="margin-top:10px"></div>
+    </div>
+    <div class="card">
+      <b>⚙️ Configuration de l'envoi (SMTP)</b> <span id="smtp-state" class="badge">?</span>
+      <div class="hint">Réglages stockés en local (jamais sur GitHub). Pour Gmail/Outlook, utilise un mot de passe d'application.</div>
+      <div class="row">
+        <div><label>Fournisseur</label><select id="sm-preset"><option value="">— personnalisé —</option><option value="gmail">Gmail</option><option value="outlook">Outlook</option><option value="orange">Orange</option><option value="free">Free</option><option value="laposte">La Poste</option></select></div>
+        <div><label>Nom affiché</label><input id="sm-from" placeholder="ex: Mme Dupont — CE2"></div>
+      </div>
+      <div class="row">
+        <div><label>Adresse (identifiant)</label><input id="sm-user" placeholder="vous@gmail.com"></div>
+        <div><label>Mot de passe</label><input id="sm-pass" type="password" placeholder="(laisser vide pour ne pas changer)"></div>
+      </div>
+      <div class="flex">
+        <button onclick="saveSmtp()">💾 Enregistrer</button>
+        <button class="sec" onclick="testSmtp()">✅ Mail de test</button>
+      </div>
+      <div class="out" id="sm-out" style="display:none"></div>
+    </div>
+  </div>
+
   <!-- ÉLÈVES -->
   <div class="panel" id="p-eleves"><div class="card">
     <b>Ajouter un élève</b>
     <div class="row"><div><label>Prénom</label><input id="el-pre"></div><div><label>Nom</label><input id="el-nom"></div>
     <div><label>Niveau</label><select id="el-niv"><option>PS</option><option>MS</option><option>GS</option><option>CP</option><option>CE1</option><option selected>CE2</option><option>CM1</option><option>CM2</option></select></div></div>
+    <div class="row"><div><label>Points forts</label><input id="el-pf" placeholder="ex: à l'aise à l'oral"></div><div><label>Email parent</label><input id="el-mail" placeholder="parent@…"></div></div>
     <label>Besoins / différenciation</label><input id="el-bes" placeholder="ex: dyslexie, AESH, PPRE">
     <button onclick="addEleve()">Ajouter</button>
     <div id="liste-eleves" style="margin-top:14px"></div>
   </div></div>
+
+  <!-- VIE DE CLASSE -->
+  <div class="panel" id="p-vie">
+    <div class="vtabs">
+      <div class="vtab on" data-v="sorties">🚌 Sorties</div>
+      <div class="vtab" data-v="equipe">👥 Équipe</div>
+      <div class="vtab" data-v="groupes">🟢 Groupes</div>
+      <div class="vtab" data-v="ateliers">🎨 Ateliers</div>
+    </div>
+
+    <!-- SORTIES -->
+    <div class="vpanel on" id="v-sorties">
+      <div class="card">
+        <b>Nouvelle sortie scolaire</b>
+        <div class="row"><div><label>Titre</label><input id="so-titre" placeholder="ex: Visite du musée"></div><div><label>Date</label><input id="so-date" type="date"></div></div>
+        <div class="row"><div><label>Lieu</label><input id="so-lieu"></div><div><label>Transport</label><input id="so-transport" placeholder="ex: Car"></div></div>
+        <div class="row"><div><label>Coût / élève (€)</label><input id="so-cout" type="number" value="0" step="0.5"></div><div><label>Encadrants</label><input id="so-enc" placeholder="ex: 2 parents + AESH"></div><div><label>Statut</label><select id="so-statut"><option value="prevue">Prévue</option><option value="confirmee">Confirmée</option><option value="annulee">Annulée</option></select></div></div>
+        <label>Objectif pédagogique</label><input id="so-obj" placeholder="ex: découvrir le patrimoine local">
+        <button onclick="addSortie()">Ajouter la sortie</button>
+      </div>
+      <div class="card"><b>Sorties planifiées</b><div id="so-list" style="margin-top:10px"></div>
+        <div class="out" id="so-mot" style="display:none"></div></div>
+    </div>
+
+    <!-- ÉQUIPE -->
+    <div class="vpanel" id="v-equipe">
+      <div class="card">
+        <b>Ajouter un collègue</b>
+        <div class="row"><div><label>Prénom</label><input id="co-pre"></div><div><label>Nom</label><input id="co-nom"></div>
+        <div><label>Rôle</label><select id="co-role"><option>PE</option><option>directeur</option><option>ATSEM</option><option>AESH</option><option>remplaçant</option></select></div></div>
+        <div class="row"><div><label>Niveaux</label><input id="co-niv" placeholder="ex: CE2"></div><div><label>Email</label><input id="co-email"></div><div><label>Jours de présence</label><input id="co-jours" placeholder="ex: lundi, jeudi"></div></div>
+        <button onclick="addCollegue()">Ajouter</button>
+        <div id="co-list" style="margin-top:12px"></div>
+      </div>
+      <div class="card">
+        <b>Réunions</b>
+        <div class="row"><div><label>Titre</label><input id="re-titre" placeholder="ex: Conseil de cycle"></div><div><label>Date</label><input id="re-date" type="date"></div>
+        <div><label>Type</label><select id="re-type"><option value="conseil_ecole">Conseil d'école</option><option value="conseil_cycle">Conseil de cycle</option><option value="equipe">Équipe</option><option value="parents">Parents</option></select></div></div>
+        <label>Participants</label><input id="re-part" placeholder="ex: équipe CE2, directrice">
+        <button onclick="addReunion()">Créer la réunion</button>
+        <div id="re-list" style="margin-top:12px"></div>
+        <div class="out" id="re-out" style="display:none"></div>
+      </div>
+    </div>
+
+    <!-- GROUPES -->
+    <div class="vpanel" id="v-groupes">
+      <div class="card">
+        <b>Créer un groupe de besoin</b>
+        <div class="row"><div><label>Nom</label><input id="gr-nom" placeholder="ex: Lecture soutien"></div>
+        <div><label>Couleur</label><input id="gr-coul" type="color" value="#e94560"></div>
+        <div><label>Critère</label><input id="gr-crit" placeholder="ex: déchiffrage"></div></div>
+        <button onclick="addGroupe()">Créer</button>
+      </div>
+      <div class="card"><b>Groupes</b><div id="gr-list" style="margin-top:10px"></div></div>
+    </div>
+
+    <!-- ATELIERS -->
+    <div class="vpanel" id="v-ateliers">
+      <div class="card">
+        <b>Créer un atelier</b>
+        <div class="row"><div><label>Nom</label><input id="at-nom" placeholder="ex: Manipulation"></div><div><label>Domaine</label><input id="at-dom" placeholder="ex: numération"></div></div>
+        <button onclick="addAtelier()">Créer</button>
+        <div id="at-list" style="margin-top:12px"></div>
+      </div>
+      <div class="card">
+        <b>Rotation des ateliers</b>
+        <div class="row"><div><label>Groupes (séparés par virgule)</label><input id="at-grp" value="A,B,C,D"></div><div><label>Nombre de jours</label><input id="at-jrs" type="number" value="4"></div></div>
+        <button class="sec" onclick="loadRotation()">Calculer la rotation</button>
+        <div id="at-rot" style="margin-top:10px"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OUTILS -->
+  <div class="panel" id="p-outils">
+    <div class="vtabs">
+      <div class="vtab on" data-o="maths">🧮 Problèmes</div>
+      <div class="vtab" data-o="rituel">🌅 Rituels</div>
+      <div class="vtab" data-o="comport">😊 Comportement</div>
+      <div class="vtab" data-o="ceint">🎖️ Ceintures</div>
+      <div class="vtab" data-o="dictee">🎤 Dictée vocale</div>
+    </div>
+
+    <div class="opanel on" id="o-maths"><div class="card">
+      <b>Générateur de problèmes de maths</b>
+      <div class="row">
+        <div><label>Niveau</label><select id="pm-niv"><option>CP</option><option>CE1</option><option selected>CE2</option><option>CM1</option><option>CM2</option></select></div>
+        <div><label>Type</label><select id="pm-type"><option value="additif">Additif (+/−)</option><option value="multiplicatif">Multiplicatif (×/÷)</option><option value="mixte">Mixte</option><option value="proportionnalité">Proportionnalité</option><option value="géométrie">Géométrie</option><option value="mesures">Mesures</option></select></div>
+        <div><label>Nombre</label><input id="pm-nb" type="number" value="4"></div>
+      </div>
+      <label>Thème (optionnel)</label><input id="pm-theme" placeholder="ex: la récréation, les bonbons">
+      <button onclick="genMaths()">Générer</button>
+      <div class="out" id="pm-out" style="display:none"></div>
+    </div></div>
+
+    <div class="opanel" id="o-rituel"><div class="card">
+      <b>Rituel du matin</b>
+      <div class="row">
+        <div><label>Niveau</label><select id="ri-niv"><option>CP</option><option>CE1</option><option selected>CE2</option><option>CM1</option><option>CM2</option></select></div>
+        <div><label>Type</label><select id="ri-genre"><option value="phrase_du_jour">Phrase du jour</option><option value="dictee_flash">Dictée flash</option><option value="calcul_mental">Calcul mental</option><option value="jogging_ecriture">Jogging d'écriture</option></select></div>
+      </div>
+      <label>Notion ciblée (optionnel)</label><input id="ri-notion" placeholder="ex: accord sujet-verbe">
+      <button onclick="genRituel()">Générer</button>
+      <div class="out" id="ri-out" style="display:none"></div>
+    </div></div>
+
+    <div class="opanel" id="o-comport"><div class="card">
+      <b>Suivi du comportement</b>
+      <div class="hint">Clique + ou − pour ajouter/retirer un point. Le motif est optionnel.</div>
+      <label>Motif (optionnel, appliqué au prochain clic)</label><input id="cp-motif" placeholder="ex: a aidé un camarade">
+      <div id="cp-list" style="margin-top:10px"></div>
+    </div></div>
+
+    <div class="opanel" id="o-ceint"><div class="card">
+      <b>Attribuer une ceinture</b>
+      <div class="row">
+        <div><label>Élève</label><select id="ce-el"></select></div>
+        <div><label>Domaine</label><input id="ce-dom" placeholder="ex: lecture, addition"></div>
+        <div><label>Ceinture</label><select id="ce-coul"></select></div>
+      </div>
+      <button onclick="setCeinture()">Attribuer</button>
+      <div id="ce-list" style="margin-top:12px"></div>
+    </div></div>
+
+    <div class="opanel" id="o-dictee"><div class="card">
+      <b>Dictée vocale</b>
+      <div class="hint">Parle, le texte est transcrit (Whisper local). Pratique pour les observations rapides.</div>
+      <button id="dic-btn" onclick="toggleDictee()">🎤 Démarrer la dictée</button>
+      <textarea id="dic-txt" style="min-height:140px;margin-top:10px" placeholder="La transcription apparaît ici…"></textarea>
+      <div class="flex"><button class="sec" onclick="navigator.clipboard.writeText($('#dic-txt').value);toast('Copié')">📋 Copier</button></div>
+    </div></div>
+  </div>
+
+  <!-- EXPORT -->
+  <div class="panel" id="p-export"><div class="card">
+    <b>Exporter vers ~/Documents/Classe</b>
+    <div class="hint">Écrit tous les exercices, séances, bulletins, cahiers-journaux et programmations en fichiers Markdown imprimables, classés par dossier.</div>
+    <button onclick="doExport()">📤 Exporter tout</button>
+    <div class="out" id="exp-out" style="display:none"></div>
+  </div></div>
+
 </main>
+<div class="toast" id="toast"></div>
 <script>
 const $=s=>document.querySelector(s);
+const JOURS=["lundi","mardi","mercredi","jeudi","vendredi"];
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
   document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
   document.querySelectorAll('.panel').forEach(x=>x.classList.remove('on'));
   t.classList.add('on');$('#p-'+t.dataset.p).classList.add('on');
+  const p=t.dataset.p;
+  if(p==='home')loadDash();
+  if(p==='edt')loadEdt();
+  if(p==='appel')loadAppel();
+  if(p==='eval')loadBilan();
+  if(p==='mail')loadSmtp();
+  if(p==='pilot')loadAutoSend();
+  if(p==='vie')loadVie();
+  if(p==='outils')loadOutils();
 });
 function tok(){return localStorage.getItem('profToken')||'';}
 function hdr(j){const h=j?{'Content-Type':'application/json'}:{};const t=tok();if(t)h['X-Prof-Token']=t;return h;}
 async function ask401(r){if(r.status===401){const t=prompt('Code d\'accès Espace Prof (voir ~/jarvis/webapp/.prof_token) :');if(t){localStorage.setItem('profToken',t.trim());location.reload();}throw new Error('token');}return r;}
-async function api(u,b){const r=await ask401(await fetch(u,{method:'POST',headers:hdr(true),body:JSON.stringify(b)}));return r.json();}
+async function api(u,b,m){const r=await ask401(await fetch(u,{method:m||'POST',headers:hdr(true),body:JSON.stringify(b)}));return r.json();}
 async function get(u){const r=await ask401(await fetch(u,{headers:hdr(false)}));return r.json();}
 function busy(el){el.style.display='block';el.innerHTML='<span class="spin">⏳ Génération en cours (IA locale, ~1-2 min la 1re fois)…</span>';}
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2200);}
+function todayISO(){return new Date().toISOString().slice(0,10);}
+function copyBtn(txt){const b=document.createElement('button');b.className='sec mini copy';b.textContent='📋 Copier';b.onclick=()=>{navigator.clipboard.writeText(txt);toast('Copié');};return b;}
+function deriveTitle(txt){const m=(txt||'').split('\n').map(l=>l.replace(/^#+\s*/,'').trim()).find(l=>l);return (m||'Document').slice(0,60);}
+async function downloadPdf(markdown,titre){const r=await fetch('/api/prof/export-pdf',{method:'POST',headers:hdr(true),body:JSON.stringify({markdown,titre:titre||'Document'})});if(!r.ok){toast('Erreur PDF');return;}const blob=await r.blob();const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download=(titre||'document').replace(/[^a-z0-9 _-]/gi,'_')+'.pdf';a.click();URL.revokeObjectURL(u);toast('PDF téléchargé');}
+function pdfBtn(txt,titre){const b=document.createElement('button');b.className='sec mini';b.textContent='📄 PDF';b.style.marginLeft='6px';b.onclick=()=>downloadPdf(txt,titre);return b;}
+function showOut(o,txt,backend,cached){o.innerHTML='';const bar=document.createElement('div');bar.appendChild(copyBtn(txt||''));if(txt)bar.appendChild(pdfBtn(txt,deriveTitle(txt)));o.appendChild(bar);const span=document.createElement('div');span.style.marginTop='8px';span.textContent=txt||'';o.appendChild(span);if(backend){const s=document.createElement('small');s.style.display='block';s.style.marginTop='8px';s.textContent='moteur: '+backend+(cached?' (cache)':'');o.appendChild(s);}}
+
 async function iaStatus(){try{const s=await get('/api/prof/ia-status');$('#ia').textContent=(s.cluster_m1||s.cluster_m2?'🟢 cluster':s.ollama?'🟡 local (Ollama)':'🔴 IA off')+' · GPU '+s.gpu_temp+'°C';}catch(e){$('#ia').textContent='IA ?';}}
-async function loadEleves(){const l=await get('/api/eleves');if(!Array.isArray(l))return;
-  const opt='<option value="">— toute la classe —</option>'+l.map(e=>`<option value="${e.id}">${e.prenom} ${e.nom} (${e.niveau})</option>`).join('');
-  $('#ex-el').innerHTML=opt;$('#ma-el').innerHTML='<option value="">— général —</option>'+l.map(e=>`<option value="${e.id}">${e.prenom} ${e.nom}</option>`).join('');
-  $('#liste-eleves').innerHTML=l.map(e=>`<div class="eleve"><span>${e.prenom} ${e.nom} <span class="badge">${e.niveau}</span> ${e.besoins?'<small>'+e.besoins+'</small>':''}</span></div>`).join('')||'<small>Aucun élève</small>';}
-function showOut(o,txt,backend,cached){o.textContent=txt||'';if(backend){const s=document.createElement('small');s.style.display='block';s.style.marginTop='8px';s.textContent='moteur: '+backend+(cached?' (cache)':'');o.appendChild(s);}}
+
+let ELEVES=[];
+async function loadEleves(){const l=await get('/api/eleves');if(!Array.isArray(l))return;ELEVES=l;
+  const optClasse='<option value="">— toute la classe —</option>'+l.map(e=>`<option value="${e.id}">${e.prenom} ${e.nom} (${e.niveau})</option>`).join('');
+  const optSimple=l.map(e=>`<option value="${e.id}">${e.prenom} ${e.nom} (${e.niveau})</option>`).join('');
+  if($('#ex-el'))$('#ex-el').innerHTML=optClasse;
+  if($('#ma-el'))$('#ma-el').innerHTML='<option value="">— général —</option>'+optSimple;
+  if($('#ev-el'))$('#ev-el').innerHTML=optSimple;
+  if($('#bu-el'))$('#bu-el').innerHTML=optSimple;
+  // checkboxes différenciation
+  $('#di-list').innerHTML=l.length?l.map(e=>`<label class="chk"><input type="checkbox" class="di-chk" value="${e.id}"> ${e.prenom} ${e.nom} <span class="badge">${e.niveau}</span> ${e.besoins?'<small>'+e.besoins+'</small>':''}</label>`).join(''):'<small>Aucun élève — ajoute-les dans l\'onglet Élèves.</small>';
+  // liste élèves (avec suppression)
+  $('#liste-eleves').innerHTML=l.map(e=>`<div class="eleve"><span>${e.prenom} ${e.nom} <span class="badge">${e.niveau}</span> ${e.besoins?'<small>'+e.besoins+'</small>':''}</span><button class="sec mini" onclick="delEleve(${e.id})">🗑</button></div>`).join('')||'<small>Aucun élève</small>';
+}
+
+// ── ACCUEIL
+async function loadDash(){const d=$('#dash');try{const s=await get('/api/prof/dashboard');
+  d.innerHTML=`<div class="flex">
+    <span class="badge">👧 ${s.eleves} élèves</span>
+    <span class="badge">📝 ${s.exercices} exercices</span>
+    <span class="badge">📚 ${s.sequences} séances</span>
+    <span class="badge">✅ ${s.corrections} corrections</span>
+    <span class="badge">📋 ${s.bulletins} bulletins</span>
+    <span class="badge">🗂️ ${s.programmations} programmations</span>
+  </div><p style="margin-top:10px">${s.cahier_aujourdhui?'✅ Cahier-journal du jour rédigé':'⚠️ Pas de cahier-journal aujourd\'hui'}</p>`;
+}catch(e){d.innerHTML='<small>Erreur de chargement</small>';}}
+
+// ── EXERCICES
 async function genExo(){const o=$('#ex-out');busy(o);const d=await api('/api/exercice/generer',{matiere:$('#ex-mat').value,niveau:$('#ex-niv').value,notion:$('#ex-not').value,nb:+$('#ex-nb').value,eleve_id:$('#ex-el').value||null});showOut(o,d.contenu_md||d.error,d.backend,d.cached);}
-async function corriger(){const o=$('#co-out');busy(o);const d=await api('/api/exercice/corriger',{enonce:$('#co-en').value,reponse_eleve:$('#co-rep').value,niveau:$('#co-niv').value});o.textContent=d.feedback||d.error;}
-async function genSeq(){const o=$('#sq-out');busy(o);const d=await api('/api/sequence/generer',{sujet:$('#sq-suj').value,niveau:$('#sq-niv').value,duree:+$('#sq-dur').value});o.textContent=d.contenu_md||d.error;}
-async function genMail(){const o=$('#ma-out');busy(o);const d=await api('/api/mail-parent/draft',{motif:$('#ma-mot').value,eleve_id:$('#ma-el').value||null});o.textContent=d.draft||d.error;}
-async function addEleve(){await api('/api/eleves',{prenom:$('#el-pre').value,nom:$('#el-nom').value,niveau:$('#el-niv').value,besoins:$('#el-bes').value});$('#el-pre').value='';$('#el-nom').value='';loadEleves();}
-iaStatus();loadEleves();setInterval(iaStatus,30000);
+
+// ── DIFFÉRENCIATION
+async function differencier(){const ids=[...document.querySelectorAll('.di-chk:checked')].map(c=>+c.value);
+  if(!ids.length){toast('Coche au moins un élève');return;}
+  const o=$('#di-out');busy(o);
+  const d=await api('/api/exercice/differencier',{matiere:$('#di-mat').value,niveau:$('#di-niv').value,notion:$('#di-not').value,nb:+$('#di-nb').value,eleve_ids:ids});
+  if(d.error&&!d.variantes){o.innerHTML='⚠️ '+d.error;return;}
+  const vs=d.variantes||d.partiel||[];
+  o.innerHTML='';
+  vs.forEach(v=>{const b=document.createElement('div');b.style.marginBottom='16px';
+    b.innerHTML=`<b style="color:#e94560">👧 ${v.prenom}</b> <small>(${v.backend})</small>`;
+    const t=document.createElement('div');t.style.whiteSpace='pre-wrap';t.style.marginTop='6px';t.textContent=v.contenu_md;
+    b.appendChild(copyBtn(v.contenu_md));b.appendChild(pdfBtn(v.contenu_md,'Exercices '+v.prenom));b.appendChild(t);o.appendChild(b);});
+  if(!vs.length)o.textContent='Aucune variante générée.';
+}
+
+// ── CORRECTIONS
+async function corriger(){const o=$('#co-out');busy(o);const d=await api('/api/exercice/corriger',{enonce:$('#co-en').value,reponse_eleve:$('#co-rep').value,niveau:$('#co-niv').value});showOut(o,d.feedback||d.error,d.backend);}
+
+// ── SÉANCES
+async function genSeq(){const o=$('#sq-out');busy(o);const d=await api('/api/sequence/generer',{sujet:$('#sq-suj').value,niveau:$('#sq-niv').value,duree:+$('#sq-dur').value});showOut(o,d.contenu_md||d.error,d.backend);}
+
+// ── EMPLOI DU TEMPS
+async function loadEdt(){let edt={};try{edt=await get('/api/prof/edt')||{};}catch(e){}
+  $('#edt-days').innerHTML=JOURS.map(j=>`<div class="day"><label>${j.charAt(0).toUpperCase()+j.slice(1)}</label><textarea id="edt-${j}" style="min-height:60px" placeholder="ex: 8h30 rituels · 9h maths (numération) · 10h30 français…">${(edt[j]||'').replace(/</g,'&lt;')}</textarea></div>`).join('');}
+async function saveEdt(){const edt={};JOURS.forEach(j=>edt[j]=$('#edt-'+j).value);await api('/api/prof/edt',{edt});toast('Emploi du temps enregistré');}
+
+// ── CAHIER-JOURNAL
+async function genCj(){const o=$('#cj-txt');o.value='⏳ Génération…';const date=$('#cj-date').value||todayISO();
+  const d=await api('/api/cahier-journal/generer',{date,niveau:$('#cj-niv').value});
+  o.value=d.contenu_md||d.error||'';toast('Cahier généré ('+(d.backend||'?')+')');}
+async function saveCj(){const date=$('#cj-date').value||todayISO();await api('/api/cahier-journal',{date,contenu_md:$('#cj-txt').value});toast('Cahier-journal enregistré');}
+async function loadCjList(){const l=await get('/api/cahier-journal');if(!Array.isArray(l))return;
+  $('#cj-list').innerHTML='<b>Historique</b>'+l.map(c=>`<div class="eleve"><span>📅 ${c.date}</span><button class="sec mini" onclick="openCj('${c.date}')">Ouvrir</button></div>`).join('');}
+async function openCj(date){const l=await get('/api/cahier-journal');const c=(l||[]).find(x=>x.date===date);if(c){$('#cj-date').value=c.date;$('#cj-txt').value=c.contenu_md||'';toast('Chargé');}}
+
+// ── PROGRAMMATIONS
+async function genProg(){const o=$('#pg-out');busy(o);const d=await api('/api/prof/programmation',{matiere:$('#pg-mat').value,niveau:$('#pg-niv').value,portee:$('#pg-portee').value,periode:$('#pg-per').value});showOut(o,d.contenu_md||d.error,d.backend);}
+async function loadProgList(){const l=await get('/api/prof/programmations');if(!Array.isArray(l))return;
+  $('#pg-list').innerHTML=l.map(p=>`<div class="eleve"><span>${p.matiere} ${p.niveau} <span class="badge">${p.portee}${p.periode?' · '+p.periode:''}</span></span><small>${(p.created_at||'').slice(0,10)}</small></div>`).join('')||'<small>Aucune programmation</small>';}
+
+// ── ÉVALUATIONS
+async function addEval(){if(!$('#ev-el').value){toast('Choisis un élève');return;}
+  await api('/api/prof/eval',{eleve_id:+$('#ev-el').value,matiere:$('#ev-mat').value,competence:$('#ev-comp').value,note:+$('#ev-note').value,sur:+$('#ev-sur').value,periode:$('#ev-per').value});
+  toast('Note enregistrée');$('#ev-comp').value='';loadBilan();}
+async function loadBilan(){const l=await get('/api/prof/eval/bilan');if(!Array.isArray(l)){return;}
+  if(!l.length){$('#ev-bilan').innerHTML='<small>Aucune évaluation saisie</small>';return;}
+  $('#ev-bilan').innerHTML='<table><tr><th>Élève</th><th>Niveau</th><th>Moyenne /20</th><th>Nb</th><th>Groupe</th></tr>'+
+    l.map(r=>`<tr><td>${r.prenom} ${r.nom}</td><td>${r.niveau||''}</td><td>${r.moyenne!=null?r.moyenne:'—'}</td><td>${r.nb}</td><td><span class="grp g-${r.groupe}">${r.groupe}</span></td></tr>`).join('')+'</table>';}
+
+// ── BULLETINS
+async function genBull(){if(!$('#bu-el').value){toast('Choisis un élève');return;}
+  const o=$('#bu-out');busy(o);const d=await api('/api/prof/bulletin',{eleve_id:+$('#bu-el').value,type:$('#bu-type').value,periode:$('#bu-per').value,observations:$('#bu-obs').value});
+  showOut(o,d.contenu_md||d.error,d.backend);loadBullList();}
+async function loadBullList(){const l=await get('/api/prof/bulletins');if(!Array.isArray(l))return;
+  $('#bu-list').innerHTML=l.map(b=>`<div class="eleve"><span>${b.prenom||''} ${b.nom||''} <span class="badge">${b.type} · ${b.periode}</span></span><small>${(b.created_at||'').slice(0,10)}</small></div>`).join('')||'<small>Aucun bulletin</small>';}
+
+// ── APPEL
+let APPEL=[];
+async function loadAppel(){const date=$('#ap-date').value||todayISO();if(!$('#ap-date').value)$('#ap-date').value=date;
+  const l=await get('/api/presence?date='+date);if(!Array.isArray(l)){$('#ap-list').innerHTML='<small>Erreur</small>';return;}APPEL=l;
+  if(!l.length){$('#ap-list').innerHTML='<small>Aucun élève</small>';return;}
+  $('#ap-list').innerHTML=l.map(e=>`<label class="chk"><input type="checkbox" class="ap-chk" value="${e.eleve_id}" ${e.present?'checked':''}> ${e.prenom} ${e.nom} <span class="badge">${e.niveau||''}</span></label>`).join('');}
+async function saveAppel(){const date=$('#ap-date').value||todayISO();
+  const presences=[...document.querySelectorAll('.ap-chk')].map(c=>({eleve_id:+c.value,present:c.checked}));
+  const d=await api('/api/presence',{date,presences});toast('Appel enregistré ('+(d.saved||0)+')');}
+
+// ── MAIL (rédaction + envoi + SMTP)
+async function genMail(){const o=$('#ma-out');busy(o);const type=$('#ma-type').value;const eid=$('#ma-el').value||null;
+  if(type){const d=await api('/api/automations/mail-dynamique',{type,eleve_id:eid,contexte:$('#ma-mot').value});
+    if(d.objet){$('#ma-suj').value=d.objet;$('#ma-corps').value=d.corps||'';showOut(o,'Objet : '+d.objet+'\n\n'+(d.corps||''));toast('Mail rédigé — vérifie puis envoie');}
+    else showOut(o,d.error||'Erreur');
+  }else{const d=await api('/api/mail-parent/draft',{motif:$('#ma-mot').value,eleve_id:eid});
+    if(d.draft){$('#ma-corps').value=d.draft;showOut(o,d.draft,d.backend);toast('Brouillon prêt — ajoute l\'objet puis envoie');}
+    else showOut(o,d.error,d.backend);}
+}
+async function sendMail(dry){const o=$('#ma-send-out');o.style.display='block';o.textContent='⏳…';
+  const d=await api('/api/mail/send',{dest:$('#ma-dest').value,sujet:$('#ma-suj').value,corps:$('#ma-corps').value,eleve_id:$('#ma-el').value||null,dry_run:dry});
+  if(d.error){o.textContent='⚠️ '+d.error;return;}
+  o.textContent=(d.statut==='envoye'?'✅ ':'💾 ')+(d.info||d.statut)+' → '+d.dest;loadMailLog();}
+async function loadMailLog(){const l=await get('/api/mail/log');if(!Array.isArray(l))return;
+  $('#ma-log').innerHTML='<b>Journal</b>'+(l.map(m=>`<div class="eleve"><span>${m.statut==='envoye'?'✅':m.statut==='echec'?'❌':'💾'} ${m.dest} <small>${m.sujet||''}</small></span><small>${(m.created_at||'').slice(5,16)}</small></div>`).join('')||'<small>Aucun envoi</small>');}
+async function loadSmtp(){try{const c=await get('/api/mail/config');
+  $('#sm-user').value=c.user||'';$('#sm-from').value=c.from_name||'';
+  $('#sm-pass').placeholder=c.password_set?'•••• (laisser vide pour ne pas changer)':'mot de passe d\'application';
+  const st=$('#smtp-state');st.textContent=c.configured?'✅ configuré':'⚠️ non configuré';st.style.background=c.configured?'rgba(46,204,113,.2)':'rgba(245,166,35,.2)';st.style.color=c.configured?'#2ecc71':'#f5a623';
+}catch(e){}}
+async function saveSmtp(){const o=$('#sm-out');o.style.display='block';o.textContent='⏳…';
+  const b={preset:$('#sm-preset').value,from_name:$('#sm-from').value,user:$('#sm-user').value};
+  if($('#sm-pass').value)b.password=$('#sm-pass').value;
+  const d=await api('/api/mail/config',b);o.textContent=d.configured?'✅ Enregistré et prêt à envoyer':'💾 Enregistré (incomplet : il manque des champs)';$('#sm-pass').value='';loadSmtp();}
+async function testSmtp(){const o=$('#sm-out');o.style.display='block';o.textContent='⏳ Envoi du test…';
+  const d=await api('/api/mail/test',{});o.textContent=d.error?'⚠️ '+d.error:'✅ '+d.info;}
+
+// ── PILOTAGE / AUTOMATISATIONS
+async function loadSuggestions(){const o=$('#sg-list');o.innerHTML='<small>⏳ Analyse…</small>';
+  const d=await get('/api/automations/suggestions');const s=d.suggestions||[];
+  if(!s.length){o.innerHTML='<small>✅ Rien à signaler aujourd\'hui.</small>';return;}
+  o.innerHTML=s.map(x=>`<div class="eleve"><span>${sugIcon(x.type)} <b>${x.titre}</b><br><small>${x.raison||''}</small></span>${x.eleve_id?`<button class="sec mini" onclick="sugMail(${x.eleve_id},'${sugMailType(x.type)}')">✉️ Mail</button>`:''}</div>`).join('');}
+function sugIcon(t){return{mail_absence:'🚷',bilan_periode:'📊',rappel_sortie:'🚌',reunion:'👥',exercice_differencier:'🔀'}[t]||'🔔';}
+function sugMailType(t){return{mail_absence:'absence',bilan_periode:'bilan_periode',rappel_sortie:'rappel_sortie'}[t]||'absence';}
+function sugMail(eid,type){document.querySelector('.tab[data-p="mail"]').click();$('#ma-el').value=eid;$('#ma-type').value=type;genMail();}
+async function genPlanning(){const o=$('#pl-out');busy(o);const d=await api('/api/automations/planning-auto',{contraintes:$('#pl-cont').value});showOut(o,d.texte||d.error,d.backend);}
+async function loadAutoSend(){try{const d=await get('/api/automations/auto-send');$('#auto-send').checked=!!d.auto_send;}catch(e){}}
+$('#p-pilot')&&document.addEventListener('change',e=>{if(e.target&&e.target.id==='auto-send'){api('/api/automations/auto-send',{on:e.target.checked});toast(e.target.checked?'Envoi auto activé':'Envoi auto désactivé');}});
+async function runAuto(){const o=$('#au-out');o.style.display='block';o.textContent='⏳ Exécution…';
+  const d=await api('/api/automations/run',{auto_send:$('#auto-send').checked,max_actions:5});
+  if(d.reporte){o.textContent='🌡️ '+(d.raison||'reporté (surchauffe)');return;}
+  o.textContent=`✅ Préparés : ${d.prepares} · Envoyés : ${d.envoyes} (${d.temp}°C)`+
+    (d.details&&d.details.length?'\n'+d.details.map(x=>`  ${x.envoye?'📤':'💾'} ${x.cible} (${x.type})`).join('\n'):'');loadAutoLog();}
+async function loadAutoLog(){const l=await get('/api/automations/log');if(!Array.isArray(l))return;
+  $('#au-log').innerHTML='<b>Journal des automatisations</b>'+(l.map(x=>`<div class="eleve"><span>${x.type} → ${x.cible||'—'}</span><small>${(x.created_at||'').slice(5,16)}</small></div>`).join('')||'<small>Vide</small>');}
+
+// ── ÉLÈVES
+async function addEleve(){if(!$('#el-pre').value){toast('Prénom requis');return;}
+  await api('/api/eleves',{prenom:$('#el-pre').value,nom:$('#el-nom').value,niveau:$('#el-niv').value,points_forts:$('#el-pf').value,besoins:$('#el-bes').value,email_parent:$('#el-mail').value});
+  $('#el-pre').value='';$('#el-nom').value='';$('#el-pf').value='';$('#el-bes').value='';$('#el-mail').value='';loadEleves();toast('Élève ajouté');}
+async function delEleve(id){if(!confirm('Supprimer cet élève ?'))return;await api('/api/eleves/'+id,{},'DELETE');loadEleves();toast('Supprimé');}
+
+// ── EXPORT
+async function doExport(){const o=$('#exp-out');o.style.display='block';o.textContent='⏳ Export…';
+  const d=await api('/api/prof/export',{});
+  if(d.error){o.textContent='⚠️ '+d.error;return;}
+  const e=d.exportes||{};o.textContent='✅ Exporté dans '+d.dossier+'\n'+Object.entries(e).map(([k,v])=>`  ${k}: ${v} fichier(s)`).join('\n');}
+
+// ── VIE DE CLASSE
+function vtxt(x){return typeof x==='string'?x:(x&&x.text)||'';}
+let VIE_INIT=false;
+function loadVie(){
+  if(!VIE_INIT){
+    document.querySelectorAll('.vtab').forEach(t=>t.onclick=()=>{
+      document.querySelectorAll('.vtab').forEach(x=>x.classList.remove('on'));
+      document.querySelectorAll('.vpanel').forEach(x=>x.classList.remove('on'));
+      t.classList.add('on');$('#v-'+t.dataset.v).classList.add('on');
+    });
+    VIE_INIT=true;
+  }
+  loadSorties();loadCollegues();loadReunions();loadGroupes();loadAteliers();
+}
+// Sorties
+async function addSortie(){if(!$('#so-titre').value){toast('Titre requis');return;}
+  await api('/api/sorties',{titre:$('#so-titre').value,date:$('#so-date').value,lieu:$('#so-lieu').value,transport:$('#so-transport').value,cout_par_eleve:+$('#so-cout').value,encadrants:$('#so-enc').value,objectif_pedagogique:$('#so-obj').value,statut:$('#so-statut').value});
+  $('#so-titre').value='';$('#so-lieu').value='';$('#so-obj').value='';loadSorties();toast('Sortie ajoutée');}
+async function loadSorties(){const l=await get('/api/sorties');if(!Array.isArray(l))return;
+  $('#so-list').innerHTML=l.map(s=>`<div class="eleve"><span>🚌 <b>${s.titre}</b> <span class="badge">${s.statut}</span><br><small>${s.date||''} · ${s.lieu||''} · ${s.transport||''} · ${s.cout_par_eleve||0}€</small></span><span class="flex"><button class="sec mini" onclick="motParents(${s.id})">✉️ Mot</button><button class="sec mini" onclick="delSortie(${s.id})">🗑</button></span></div>`).join('')||'<small>Aucune sortie</small>';}
+async function motParents(sid){const o=$('#so-mot');o.style.display='block';o.textContent='⏳ Rédaction du mot…';const d=await api('/api/sorties/'+sid+'/mot-parents',{});showOut(o,vtxt(d.texte)||d.error);}
+async function delSortie(id){if(!confirm('Supprimer cette sortie ?'))return;await api('/api/sorties/'+id,{},'DELETE');loadSorties();}
+// Collègues
+async function addCollegue(){if(!$('#co-pre').value){toast('Prénom requis');return;}
+  await api('/api/collegues',{prenom:$('#co-pre').value,nom:$('#co-nom').value,role:$('#co-role').value,niveaux:$('#co-niv').value,email:$('#co-email').value,jours_presence:$('#co-jours').value});
+  $('#co-pre').value='';$('#co-nom').value='';loadCollegues();toast('Collègue ajouté');}
+async function loadCollegues(){const l=await get('/api/collegues');if(!Array.isArray(l))return;
+  $('#co-list').innerHTML=l.map(c=>`<div class="eleve"><span>${c.prenom} ${c.nom} <span class="badge">${c.role}</span> <small>${c.niveaux||''} ${c.jours_presence?'· '+c.jours_presence:''}</small></span><button class="sec mini" onclick="delCollegue(${c.id})">🗑</button></div>`).join('')||'<small>Aucun collègue</small>';}
+async function delCollegue(id){if(!confirm('Supprimer ?'))return;await api('/api/collegues/'+id,{},'DELETE');loadCollegues();}
+// Réunions
+async function addReunion(){if(!$('#re-titre').value){toast('Titre requis');return;}
+  await api('/api/reunions',{titre:$('#re-titre').value,date:$('#re-date').value,type:$('#re-type').value,participants:$('#re-part').value});
+  $('#re-titre').value='';loadReunions();toast('Réunion créée');}
+async function loadReunions(){const l=await get('/api/reunions');if(!Array.isArray(l))return;
+  $('#re-list').innerHTML=l.map(r=>`<div class="eleve"><span>📅 <b>${r.titre}</b> <span class="badge">${r.type||''}</span><br><small>${r.date||''} ${r.participants?'· '+r.participants:''}</small></span><span class="flex"><button class="sec mini" onclick="genOrdre(${r.id})">📋 Ordre</button><button class="sec mini" onclick="genCR(${r.id})">📝 CR</button><button class="sec mini" onclick="delReunion(${r.id})">🗑</button></span></div>`).join('')||'<small>Aucune réunion</small>';}
+async function genOrdre(rid){const o=$('#re-out');o.style.display='block';o.textContent='⏳…';const d=await api('/api/reunions/'+rid+'/ordre-du-jour',{});showOut(o,vtxt(d.texte)||d.error);loadReunions();}
+async function genCR(rid){const o=$('#re-out');o.style.display='block';o.textContent='⏳…';const d=await api('/api/reunions/'+rid+'/compte-rendu',{});showOut(o,vtxt(d.texte)||d.error);}
+async function delReunion(id){if(!confirm('Supprimer ?'))return;await api('/api/reunions/'+id,{},'DELETE');loadReunions();}
+// Groupes
+async function addGroupe(){if(!$('#gr-nom').value){toast('Nom requis');return;}
+  await api('/api/groupes',{nom:$('#gr-nom').value,couleur:$('#gr-coul').value,critere:$('#gr-crit').value});
+  $('#gr-nom').value='';$('#gr-crit').value='';loadGroupes();toast('Groupe créé');}
+async function loadGroupes(){const l=await get('/api/groupes');if(!Array.isArray(l))return;
+  const opts=ELEVES.map(e=>`<option value="${e.id}">${e.prenom} ${e.nom}</option>`).join('');
+  $('#gr-list').innerHTML=l.map(g=>`<div class="card" style="background:#0d0e10;margin-bottom:8px">
+    <b><span class="dot" style="background:${g.couleur||'#888'}"></span>${g.nom}</b> <small>${g.critere||''} · ${g.nb_membres} élève(s)</small>
+    <button class="sec mini" style="float:right" onclick="delGroupe(${g.id})">🗑</button>
+    <div style="margin-top:8px">${g.membres.map(m=>`<span class="badge">${m.prenom} ${m.nom} <a onclick="delMembre(${g.id},${m.eleve_id})" style="cursor:pointer">✕</a></span>`).join(' ')||'<small>vide</small>'}</div>
+    <div class="flex" style="margin-top:8px"><select id="grsel-${g.id}">${opts}</select><button class="mini" onclick="addMembre(${g.id})">+ Ajouter</button></div>
+  </div>`).join('')||'<small>Aucun groupe</small>';}
+async function addMembre(gid){const v=$('#grsel-'+gid).value;if(!v)return;await api('/api/groupes/'+gid+'/membres',{eleve_id:+v});loadGroupes();}
+async function delMembre(gid,eid){await api('/api/groupes/'+gid+'/membres/'+eid,{},'DELETE');loadGroupes();}
+async function delGroupe(id){if(!confirm('Supprimer ce groupe ?'))return;await api('/api/groupes/'+id,{},'DELETE');loadGroupes();}
+// Ateliers
+async function addAtelier(){if(!$('#at-nom').value){toast('Nom requis');return;}
+  await api('/api/ateliers',{nom:$('#at-nom').value,domaine:$('#at-dom').value});$('#at-nom').value='';$('#at-dom').value='';loadAteliers();toast('Atelier créé');}
+async function loadAteliers(){const l=await get('/api/ateliers');if(!Array.isArray(l))return;
+  $('#at-list').innerHTML=l.map(a=>`<div class="eleve"><span>🎨 ${a.nom} <small>${a.domaine||''}</small></span><button class="sec mini" onclick="delAtelier(${a.id})">🗑</button></div>`).join('')||'<small>Aucun atelier</small>';}
+async function delAtelier(id){if(!confirm('Supprimer ?'))return;await api('/api/ateliers/'+id,{},'DELETE');loadAteliers();}
+async function loadRotation(){const g=encodeURIComponent($('#at-grp').value),j=encodeURIComponent($('#at-jrs').value);
+  const d=await get('/api/ateliers/rotation?groupes='+g+'&jours='+j);const o=$('#at-rot');
+  if(d.error){o.innerHTML='<small>⚠️ '+d.error+'</small>';return;}
+  const rot=d.rotation||[];if(!rot.length){o.innerHTML='<small>Rien à afficher</small>';return;}
+  const cols=rot[0].affectations.map(a=>a.groupe);
+  o.innerHTML='<table><tr><th>Jour</th>'+cols.map(c=>'<th>'+c+'</th>').join('')+'</tr>'+
+    rot.map(r=>'<tr><td>J'+r.jour+'</td>'+r.affectations.map(a=>'<td>'+a.atelier+'</td>').join('')+'</tr>').join('')+'</table>';}
+
+// ── OUTILS
+let OUT_INIT=false;
+function loadOutils(){
+  if(!OUT_INIT){
+    document.querySelectorAll('#p-outils .vtab').forEach(t=>t.onclick=()=>{
+      document.querySelectorAll('#p-outils .vtab').forEach(x=>x.classList.remove('on'));
+      document.querySelectorAll('.opanel').forEach(x=>x.classList.remove('on'));
+      t.classList.add('on');$('#o-'+t.dataset.o).classList.add('on');
+    });
+    // peupler le select ceinture-couleur
+    $('#ce-coul').innerHTML=['blanche','jaune','orange','verte','bleue','marron','noire'].map(c=>`<option value="${c}">${c}</option>`).join('');
+    OUT_INIT=true;
+  }
+  // selects élèves
+  const opt=ELEVES.map(e=>`<option value="${e.id}">${e.prenom} ${e.nom} (${e.niveau})</option>`).join('');
+  if($('#ce-el'))$('#ce-el').innerHTML=opt;
+  loadComport();loadCeintures();
+}
+async function genMaths(){const o=$('#pm-out');busy(o);const d=await api('/api/prof/probleme-maths',{niveau:$('#pm-niv').value,type:$('#pm-type').value,theme:$('#pm-theme').value,nb:+$('#pm-nb').value});showOut(o,d.contenu_md||d.error,d.backend,d.cached);}
+async function genRituel(){const o=$('#ri-out');busy(o);const d=await api('/api/prof/rituel',{niveau:$('#ri-niv').value,genre:$('#ri-genre').value,notion:$('#ri-notion').value});showOut(o,d.contenu_md||d.error,d.backend,d.cached);}
+// Comportement
+async function loadComport(){const l=await get('/api/prof/comportement');if(!Array.isArray(l))return;
+  $('#cp-list').innerHTML=l.map(e=>`<div class="eleve"><span>${e.prenom} ${e.nom} <span class="badge">${e.points>0?'+':''}${e.points}</span></span><span class="flex"><button class="sec mini" onclick="addPoint(${e.id},-1)">−</button><button class="mini" onclick="addPoint(${e.id},1)">+</button></span></div>`).join('')||'<small>Aucun élève</small>';}
+async function addPoint(eid,delta){await api('/api/prof/comportement',{eleve_id:eid,delta,motif:$('#cp-motif').value});$('#cp-motif').value='';loadComport();}
+// Ceintures
+async function setCeinture(){if(!$('#ce-el').value||!$('#ce-dom').value){toast('Élève et domaine requis');return;}
+  await api('/api/prof/ceintures',{eleve_id:+$('#ce-el').value,domaine:$('#ce-dom').value,couleur:$('#ce-coul').value});$('#ce-dom').value='';loadCeintures();toast('Ceinture attribuée');}
+function ceintColor(c){return{blanche:'#eee',jaune:'#f5d623',orange:'#f5a623',verte:'#2ecc71',bleue:'#3498db',marron:'#8b5a2b',noire:'#222'}[c]||'#888';}
+async function loadCeintures(){const d=await get('/api/prof/ceintures');const l=(d&&d.ceintures)||[];
+  const byEl={};l.forEach(c=>{(byEl[c.prenom+' '+c.nom]=byEl[c.prenom+' '+c.nom]||[]).push(c);});
+  const keys=Object.keys(byEl);
+  $('#ce-list').innerHTML=keys.length?keys.map(k=>`<div class="eleve"><span><b>${k}</b><br>${byEl[k].map(c=>`<span class="badge"><span class="dot" style="background:${ceintColor(c.couleur)}"></span>${c.domaine}: ${c.couleur}</span>`).join(' ')}</span></div>`).join(''):'<small>Aucune ceinture attribuée</small>';}
+// Dictée vocale (micro → Whisper local)
+let DIC_REC=null,DIC_CHUNKS=[];
+async function toggleDictee(){const btn=$('#dic-btn');
+  if(DIC_REC&&DIC_REC.state==='recording'){DIC_REC.stop();return;}
+  try{const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+    DIC_CHUNKS=[];DIC_REC=new MediaRecorder(stream);
+    DIC_REC.ondataavailable=e=>{if(e.data.size)DIC_CHUNKS.push(e.data);};
+    DIC_REC.onstop=async()=>{stream.getTracks().forEach(t=>t.stop());btn.classList.remove('rec');btn.textContent='⏳ Transcription…';
+      const blob=new Blob(DIC_CHUNKS,{type:'audio/webm'});const b64=await blobB64(blob);
+      const d=await api('/api/prof/dictee',{audio:b64,format:'webm'});
+      if(d.text){const t=$('#dic-txt');t.value=(t.value?t.value+' ':'')+d.text;}else toast(d.error||'Transcription indisponible');
+      btn.textContent='🎤 Démarrer la dictée';};
+    DIC_REC.start();btn.classList.add('rec');btn.textContent='⏹️ Arrêter';
+  }catch(e){toast('Micro inaccessible : '+e.message);}
+}
+function blobB64(blob){return new Promise(r=>{const fr=new FileReader();fr.onloadend=()=>r(fr.result.split(',')[1]);fr.readAsDataURL(blob);});}
+
+iaStatus();loadEleves();loadDash();setInterval(iaStatus,30000);
 </script>
 </body></html>

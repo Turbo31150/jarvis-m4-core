@@ -131,4 +131,107 @@ def register(app):
             }
         )
 
-    print("[Pousseline] Emploi du temps chargé (/api/edt/creneaux, /api/edt/volumes)")
+    @app.route("/api/edt/generer", methods=["POST"])
+    def edt_generer():
+        """Propose un emploi du temps hebdo complet via IA (respect ~24h + volumes officiels).
+        Ne touche PAS la base : renvoie une proposition à valider puis appliquer."""
+        import json as _json
+
+        import ai_local
+
+        d = request.get_json(force=True, silent=True) or {}
+        niveau = str(d.get("niveau", "CE2")).strip()[:30]
+        contraintes = str(d.get("contraintes", "")).strip()[:500]
+        prompt = (
+            f"Tu es enseignante en primaire (France). Construis un emploi du temps "
+            f"hebdomadaire COMPLET pour une classe de {niveau}, du lundi au vendredi, "
+            f"environ 24h d'enseignement, en respectant les volumes officiels du B.O. "
+            f"(français ~10h, maths ~5h en cycle 2 ; EPS, langue vivante, "
+            f"questionner le monde/sciences, arts, EMC, récréations). "
+            f"Journée type 8h30-11h30 et 13h30-16h30, récréations 10h15-10h30 et 15h-15h15. "
+            f"{('Contraintes : ' + contraintes) if contraintes else ''}\n"
+            "Réponds UNIQUEMENT par un tableau JSON, sans texte autour, de la forme : "
+            '[{"jour":0,"debut":"08:30","fin":"09:30","matiere":"Français","domaine":"français"}], '
+            "jour: 0=lundi..4=vendredi. Pas de créneau le mercredi après-midi."
+        )
+        try:
+            res = ai_local.generate(
+                prompt, max_tokens=2000, cache=True, temperature=0.4
+            )
+        except ai_local.AIUnavailable as e:
+            return jsonify({"error": str(e)}), 503
+        txt = res["text"]
+        # extraire le tableau JSON même si l'IA ajoute du texte
+        creneaux = []
+        try:
+            s, e = txt.find("["), txt.rfind("]")
+            if s >= 0 and e > s:
+                creneaux = _json.loads(txt[s : e + 1])
+        except Exception:
+            creneaux = []
+        # nettoyer/valider chaque créneau
+        clean = []
+        for c in creneaux if isinstance(creneaux, list) else []:
+            if not isinstance(c, dict):
+                continue
+            deb, fin = str(c.get("debut", ""))[:5], str(c.get("fin", ""))[:5]
+            mat = str(c.get("matiere", "")).strip()[:60]
+            if mat and _duree(deb, fin) > 0:
+                clean.append(
+                    {
+                        "jour": _clamp(c.get("jour"), 0, 0, 5),
+                        "debut": deb,
+                        "fin": fin,
+                        "matiere": mat,
+                        "domaine": str(c.get("domaine", "")).strip()[:60],
+                        "niveau": niveau,
+                    }
+                )
+        if not clean:
+            return jsonify(
+                {
+                    "error": "L'IA n'a pas renvoyé d'emploi du temps exploitable. Réessaie.",
+                    "brut": txt[:400],
+                }
+            ), 502
+        return jsonify(
+            {"ok": True, "creneaux": clean, "backend": res["backend"], "nb": len(clean)}
+        )
+
+    @app.route("/api/edt/appliquer", methods=["POST"])
+    def edt_appliquer():
+        """Insère une proposition validée. remplacer=True vide d'abord l'EDT existant."""
+        d = request.get_json(force=True, silent=True) or {}
+        creneaux = d.get("creneaux") or []
+        if not isinstance(creneaux, list) or not creneaux:
+            return jsonify({"error": "Aucun créneau à appliquer"}), 400
+        with _conn() as c:
+            if d.get("remplacer"):
+                c.execute("DELETE FROM edt_creneaux")
+            n = 0
+            for cr in creneaux:
+                if not isinstance(cr, dict):
+                    continue
+                deb, fin = str(cr.get("debut", ""))[:5], str(cr.get("fin", ""))[:5]
+                mat = str(cr.get("matiere", "")).strip()[:60]
+                if not mat or _duree(deb, fin) <= 0:
+                    continue
+                c.execute(
+                    "INSERT INTO edt_creneaux(jour,debut,fin,matiere,domaine,niveau) "
+                    "VALUES(?,?,?,?,?,?)",
+                    (
+                        _clamp(cr.get("jour"), 0, 0, 5),
+                        deb,
+                        fin,
+                        mat,
+                        str(cr.get("domaine", "")).strip()[:60],
+                        str(cr.get("niveau", "")).strip()[:30],
+                    ),
+                )
+                n += 1
+            c.commit()
+        return jsonify({"ok": True, "inseres": n})
+
+    print(
+        "[Pousseline] Emploi du temps chargé (/api/edt/creneaux, /api/edt/volumes, /api/edt/generer)"
+    )

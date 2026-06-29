@@ -111,8 +111,8 @@ def register(app):
         d = _body()
         try:
             eid = _write(
-                "INSERT INTO eleves(nom,prenom,niveau,groupe,points_forts,besoins) "
-                "VALUES(?,?,?,?,?,?)",
+                "INSERT INTO eleves(nom,prenom,niveau,groupe,points_forts,besoins,email_parent) "
+                "VALUES(?,?,?,?,?,?,?)",
                 (
                     d.get("nom", ""),
                     d.get("prenom", ""),
@@ -120,6 +120,7 @@ def register(app):
                     d.get("groupe", ""),
                     d.get("points_forts", ""),
                     d.get("besoins", ""),
+                    str(d.get("email_parent", ""))[:200],
                 ),
             )
             return jsonify({"id": eid, "ok": True})
@@ -135,7 +136,15 @@ def register(app):
         d = _body()
         cols = [
             k
-            for k in ("nom", "prenom", "niveau", "groupe", "points_forts", "besoins")
+            for k in (
+                "nom",
+                "prenom",
+                "niveau",
+                "groupe",
+                "points_forts",
+                "besoins",
+                "email_parent",
+            )
             if k in d
         ]
         if not cols:

@@ -204,6 +204,7 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,input:focus-visible,sele
     <a href="#" data-section="planning"><span class="icon">📅</span><span>Planning</span></a>
     <a href="#" data-section="edt"><span class="icon">📋</span><span>Emploi du temps</span></a>
     <a href="#" data-section="groupes"><span class="icon">🎨</span><span>Groupes</span></a>
+    <a href="#" data-section="import"><span class="icon">📥</span><span>Import élèves</span></a>
     <a href="#" data-section="appel"><span class="icon">✋</span><span>Appel</span></a>
     <a href="#" data-section="ateliers"><span class="icon">🔄</span><span>Ateliers</span></a>
     <a href="#" data-section="budget"><span class="icon">💰</span><span>Budget</span></a>
@@ -395,6 +396,22 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,input:focus-visible,sele
   <div id="carnet-radar" style="margin-top:18px"></div>
 </div>
 
+<!-- 4a-ter. IMPORT ÉLÈVES (CSV + champs perso) ─────────────────────────────── -->
+<div id="section-import" class="section">
+  <h2>📥 Import élèves</h2>
+  <p class="sub" style="color:var(--muted);margin-bottom:10px">
+    Colle ta liste (export ONDE ou tableur). Colonnes reconnues : <b>nom ; prénom ; niveau ; groupe ; email parent ; points forts ; besoins</b> (séparateur ; ou ,). Sans en-tête, l'ordre nom;prénom;niveau;groupe est supposé.
+  </p>
+  <textarea id="imp-csv" rows="7" style="width:100%;font-family:monospace;font-size:13px;box-sizing:border-box" placeholder="nom;prenom;niveau;groupe&#10;Dupont;Léa;CM1;A&#10;Bernard;Gabin;CM1;B"></textarea>
+  <div class="filter-row" style="margin-top:8px">
+    <label><input type="checkbox" id="imp-remplacer"> Remplacer toute la liste existante</label>
+    <button onclick="doImport()">Importer</button>
+  </div>
+  <div id="imp-msg" class="sub" style="margin-top:8px"></div>
+  <h3 style="margin-top:20px">Élèves (<span id="imp-count">0</span>) — champs personnalisés</h3>
+  <div id="imp-eleves"></div>
+</div>
+
 <!-- 4b. LOGICIELS ───────────────────────────────────────────────────────── -->
 <div id="section-logiciels" class="section">
   <h2>🧰 Logiciels — tout au même endroit</h2>
@@ -446,6 +463,7 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,input:focus-visible,sele
       <div class="form-group"><label>Groupe</label><input id="e-groupe" placeholder="vert"></div>
       <div class="form-group"><label>Points forts</label><input id="e-forts" placeholder="lecture, oral"></div>
       <div class="form-group"><label>Besoins (PPRE/PAP/AESH…)</label><input id="e-besoins" placeholder="dyslexie, étayage"></div>
+      <div class="form-group"><label>Email parent</label><input id="e-email" type="email" placeholder="parent@exemple.fr"></div>
       <button class="btn" onclick="addEleve()">Ajouter</button>
     </div>
   </div>
@@ -525,6 +543,34 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,input:focus-visible,sele
       <button class="btn" onclick="mailParent()">Rédiger</button>
     </div>
     <div id="m-result" style="margin-top:12px"></div>
+    <div id="m-send-box" style="display:none;margin-top:12px;padding:12px;border:1px solid var(--border,#ddd);border-radius:8px">
+      <div class="form-row">
+        <div class="form-group" style="flex:2"><label>Destinataire (email parent)</label><input id="m-dest" placeholder="parent@exemple.fr — ou laisser vide si l'élève en a un"></div>
+        <div class="form-group"><label>Objet</label><input id="m-sujet" placeholder="Objet du mail"></div>
+        <button class="btn" onclick="envoyerMail()">📤 Envoyer</button>
+      </div>
+      <div id="m-send-result" class="sub" style="margin-top:8px"></div>
+    </div>
+    <details style="margin-top:14px">
+      <summary class="sub" style="cursor:pointer">⚙️ Configuration de l'envoi (SMTP)</summary>
+      <div style="padding:10px 0">
+        <div class="form-row">
+          <div class="form-group"><label>Fournisseur</label>
+            <select id="sm-preset"><option value="">— personnalisé —</option><option value="gmail">Gmail</option><option value="outlook">Outlook</option><option value="orange">Orange</option><option value="free">Free</option><option value="laposte">La Poste</option></select>
+          </div>
+          <div class="form-group"><label>Adresse (login)</label><input id="sm-user" placeholder="moi@gmail.com"></div>
+          <div class="form-group"><label>Nom affiché</label><input id="sm-from" placeholder="Mme Pamerys"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Mot de passe d'application</label><input id="sm-pass" type="password" placeholder="(laisser vide = inchangé)"></div>
+          <div class="form-group"><label>Serveur (si perso)</label><input id="sm-host" placeholder="smtp.exemple.fr"></div>
+          <div class="form-group"><label>Port</label><input id="sm-port" type="number" placeholder="587"></div>
+        </div>
+        <button class="btn" onclick="saveSmtp()">💾 Enregistrer</button>
+        <button class="btn" onclick="testSmtp()" style="margin-left:8px">✉️ Tester</button>
+        <div id="sm-result" class="sub" style="margin-top:8px"></div>
+      </div>
+    </details>
   </div>
 
   <!-- BULLETINS / LSU -->
@@ -606,6 +652,15 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,input:focus-visible,sele
     <input id="edt-matiere" placeholder="Matière (ex. Français)">
     <input id="edt-domaine" placeholder="Domaine (ex. français)">
     <button onclick="edtAdd()">➕ Ajouter</button>
+  </div>
+  <div class="card" style="margin:12px 0;background:#f7f9ff">
+    <strong>🤖 Générer un emploi du temps complet par IA</strong>
+    <div class="form-row" style="margin-top:8px">
+      <input id="edt-gen-niveau" placeholder="Niveau (ex. CE2)" value="CE2" style="max-width:140px">
+      <input id="edt-gen-contraintes" placeholder="Contraintes (ex. piscine mardi 14h, décloisonnement jeudi…)" style="flex:1">
+      <button class="btn" onclick="edtGenerer()">✨ Proposer</button>
+    </div>
+    <div id="edt-gen-result" class="sub" style="margin-top:8px"></div>
   </div>
   <div id="edt-list"></div>
   <h3>Volumes hebdomadaires</h3>
@@ -697,6 +752,17 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,input:focus-visible,sele
   <div class="form-row">
     <button class="btn secondary" onclick="loadAutoSuggestions()">🔍 Suggestions du jour</button>
     <button class="btn secondary" onclick="genPlanningAuto()">🗓️ Proposer un planning équilibré</button>
+  </div>
+  <div class="card" style="margin:12px 0;background:#fff8f0">
+    <strong>🤖 Pilote automatique</strong>
+    <p class="sub" style="margin:6px 0">L'app prépare seule les mails dus chaque matin (7h30). Par sécurité, rien n'est <em>envoyé</em> sans ton accord.</p>
+    <div class="form-row" style="align-items:center">
+      <label style="display:flex;gap:6px;align-items:center;cursor:pointer">
+        <input type="checkbox" id="auto-send-toggle" onchange="toggleAutoSend()"> Envoyer les mails automatiquement (sinon : brouillons à valider)
+      </label>
+      <button class="btn" onclick="runAutomations()">▶️ Lancer maintenant</button>
+    </div>
+    <div id="auto-run-result" class="sub" style="margin-top:8px"></div>
   </div>
   <div id="auto-suggestions"></div>
   <h3 style="margin-top:18px">✉️ Mail parents dynamique</h3>
@@ -930,7 +996,7 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,input:focus-visible,sele
 /* ════════════════════════════════════════════════════════════════════════
    NAVIGATION
 ════════════════════════════════════════════════════════════════════════ */
-const SECTIONS = ['dashboard','planning','edt','groupes','appel','ateliers','budget','notes','carnet','prof','biblio','sorties','equipe','automations','logiciels','assistant','documents','systeme','calendrier','agents','todo'];
+const SECTIONS = ['dashboard','planning','edt','groupes','import','appel','ateliers','budget','notes','carnet','prof','biblio','sorties','equipe','automations','logiciels','assistant','documents','systeme','calendrier','agents','todo'];
 
 function navigate(id) {
   SECTIONS.forEach(s => {
@@ -942,6 +1008,7 @@ function navigate(id) {
   if (id === 'planning')  loadPlanning();
   if (id === 'edt')       loadEdt();
   if (id === 'groupes')   loadGroupes();
+  if (id === 'import')    loadImport();
   if (id === 'appel')     loadAppel();
   if (id === 'ateliers')  loadAteliers();
   if (id === 'budget')    loadBudget();
@@ -983,6 +1050,30 @@ async function edtAdd(){
   loadEdt();
 }
 async function edtDel(id){ await pJson('/api/edt/creneaux/'+id,{method:'DELETE'}); loadEdt(); }
+let EDT_PROPOSITION=[];
+async function edtGenerer(){
+  const out=document.getElementById('edt-gen-result');
+  out.innerHTML='⏳ L\'IA construit la semaine (~1 min sur ce PC)…';
+  const res=await pJson('/api/edt/generer',{method:'POST',body:JSON.stringify({
+    niveau:document.getElementById('edt-gen-niveau').value.trim(),
+    contraintes:document.getElementById('edt-gen-contraintes').value.trim()})});
+  if(res.error){ out.innerHTML='❌ '+res.error; return; }
+  EDT_PROPOSITION=res.creneaux;
+  const J=['Lun','Mar','Mer','Jeu','Ven','Sam'];
+  out.innerHTML='✅ '+res.nb+' créneaux proposés ('+esc(res.backend)+') :<br>'
+    +'<table style="margin-top:6px"><thead><tr><th>Jour</th><th>Horaire</th><th>Matière</th></tr></thead><tbody>'
+    +res.creneaux.map(c=>`<tr><td>${J[c.jour]||'?'}</td><td>${esc(c.debut)}-${esc(c.fin)}</td><td>${esc(c.matiere)}</td></tr>`).join('')
+    +'</tbody></table>'
+    +'<div style="margin-top:8px"><button class="btn" onclick="edtAppliquer(true)">✅ Remplacer mon EDT par cette proposition</button> '
+    +'<button class="btn secondary" onclick="edtAppliquer(false)">➕ Ajouter à l\'existant</button></div>';
+}
+async function edtAppliquer(remplacer){
+  if(!EDT_PROPOSITION.length) return;
+  if(remplacer && !confirm('Remplacer tout l\'emploi du temps actuel par la proposition ?')) return;
+  const res=await pJson('/api/edt/appliquer',{method:'POST',body:JSON.stringify({creneaux:EDT_PROPOSITION,remplacer:remplacer})});
+  document.getElementById('edt-gen-result').innerHTML = res.error?('❌ '+res.error):('✅ '+res.inseres+' créneaux appliqués');
+  loadEdt();
+}
 
 /* ── GROUPES / APPEL / ATELIERS ── */
 const _esc=s=>String(s||'').replace(/[<>&]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
@@ -1075,10 +1166,29 @@ async function genOdj(id){
 /* ── AUTOMATISATIONS ── */
 async function loadAutoSuggestions(){
   const box=document.getElementById('auto-suggestions'); if(!box) return;
+  loadAutoSendState();
   box.innerHTML='<span class="sub">Analyse…</span>';
   const d=await pJson('/api/automations/suggestions'); const arr=(d&&(d.suggestions||d))||[];
   const list=Array.isArray(arr)?arr:[];
   box.innerHTML=list.length?'<div style="margin:8px 0">'+list.map(s=>`<div style="border-left:4px solid var(--orange);background:var(--card);padding:8px 12px;margin:6px 0;border-radius:6px"><b>${s.titre||s.type||''}</b><br><span class="sub">${s.raison||''} ${s.cible?'· '+s.cible:''}</span></div>`).join('')+'</div>':'<span class="sub">Aucune action suggérée pour le moment. 🎉</span>';
+}
+async function loadAutoSendState(){
+  const r=await pJson('/api/automations/auto-send'); const t=document.getElementById('auto-send-toggle');
+  if(t&&r&&!r.error) t.checked=!!r.auto_send;
+}
+async function toggleAutoSend(){
+  const on=document.getElementById('auto-send-toggle').checked;
+  const out=document.getElementById('auto-run-result');
+  const r=await pJson('/api/automations/auto-send',{method:'POST',body:JSON.stringify({on})});
+  out.innerHTML = r.error?('❌ '+r.error):(r.auto_send?'✅ Envoi automatique ACTIVÉ — vérifie que le SMTP est configuré (onglet Mail parents).':'⏸️ Envoi automatique désactivé : les mails restent en brouillon.');
+}
+async function runAutomations(){
+  const out=document.getElementById('auto-run-result'); out.innerHTML='⏳ Exécution (peut prendre ~1 min, et reporte si le PC chauffe)…';
+  const r=await pJson('/api/automations/run',{method:'POST',body:'{}'});
+  if(r.error){ out.innerHTML='❌ '+r.error; return; }
+  if(r.reporte){ out.innerHTML='🌡️ '+ (r.raison||'Reporté (surchauffe)'); return; }
+  out.innerHTML='✅ Terminé — '+r.prepares+' brouillon(s) préparé(s), '+r.envoyes+' mail(s) envoyé(s). (PC à '+r.temp+'°C)';
+  loadAutoSuggestions();
 }
 async function genMailAuto(){
   const box=document.getElementById('auto-mail'); box.innerHTML='<span class="sub">⏳ IA…</span>';
@@ -1211,6 +1321,7 @@ function profTab(name){
   if(name==='eval'){ fillEvalEleves(); loadEvalBilan(); }
   if(name==='appel') loadAppel();
   if(name==='corr')  loadCorrHist();
+  if(name==='mail')  loadSmtp();
   if(name==='cahier'){ if(!document.getElementById('cj-date').value){document.getElementById('cj-date').value=new Date().toISOString().slice(0,10);loadCahierDay();} loadRessources(); }
 }
 
@@ -1246,9 +1357,9 @@ async function loadProfDash(){
 }
 async function loadEleves(){
   PROF_ELEVES = await pJson('/api/eleves')||[];
-  const rows = PROF_ELEVES.map(e=>`<tr><td>${esc(e.prenom)} ${esc(e.nom)}</td><td>${esc(e.niveau)}</td><td>${esc(e.groupe||'')}</td><td>${esc(e.points_forts||'')}</td><td>${esc(e.besoins||'')}</td><td><button class="btn secondary" onclick="delEleve(${e.id})">🗑</button></td></tr>`).join('');
+  const rows = PROF_ELEVES.map(e=>`<tr><td>${esc(e.prenom)} ${esc(e.nom)}</td><td>${esc(e.niveau)}</td><td>${esc(e.groupe||'')}</td><td>${esc(e.points_forts||'')}</td><td>${esc(e.besoins||'')}</td><td><input type="email" value="${esc(e.email_parent||'')}" placeholder="parent@…" style="width:160px" onchange="setEmailParent(${e.id}, this.value)"></td><td><button class="btn secondary" onclick="delEleve(${e.id})">🗑</button></td></tr>`).join('');
   document.getElementById('eleves-list').innerHTML = PROF_ELEVES.length
-    ? `<table><thead><tr><th>Élève</th><th>Niveau</th><th>Groupe</th><th>Points forts</th><th>Besoins</th><th></th></tr></thead><tbody>${rows}</tbody></table>`
+    ? `<table><thead><tr><th>Élève</th><th>Niveau</th><th>Groupe</th><th>Points forts</th><th>Besoins</th><th>Email parent</th><th></th></tr></thead><tbody>${rows}</tbody></table>`
     : '<p class="sub">Aucun élève. Ajoute ta classe ci-dessous.</p>';
   // checkboxes différenciation
   document.getElementById('x-eleves').innerHTML = PROF_ELEVES.map(e=>`<label class="btn secondary" style="cursor:pointer"><input type="checkbox" class="x-el" value="${e.id}"> ${esc(e.prenom)} (${esc(e.niveau)})</label>`).join('') || '<span class="sub">Ajoute des élèves d\'abord.</span>';
@@ -1258,13 +1369,16 @@ async function loadEleves(){
   const bs=document.getElementById('b-eleve'); if(bs) bs.innerHTML=PROF_ELEVES.map(e=>`<option value="${e.id}">${esc(e.prenom)} ${esc(e.nom)} (${esc(e.niveau)})</option>`).join('');
 }
 async function addEleve(){
-  const b={prenom:$('e-prenom').value,nom:$('e-nom').value,niveau:$('e-niveau').value,groupe:$('e-groupe').value,points_forts:$('e-forts').value,besoins:$('e-besoins').value};
+  const b={prenom:$('e-prenom').value,nom:$('e-nom').value,niveau:$('e-niveau').value,groupe:$('e-groupe').value,points_forts:$('e-forts').value,besoins:$('e-besoins').value,email_parent:$('e-email').value.trim()};
   if(!b.prenom&&!b.nom){return;}
   await pJson('/api/eleves',{method:'POST',body:JSON.stringify(b)});
-  ['e-prenom','e-nom','e-groupe','e-forts','e-besoins'].forEach(i=>$(i).value='');
+  ['e-prenom','e-nom','e-groupe','e-forts','e-besoins','e-email'].forEach(i=>$(i).value='');
   loadEleves();
 }
 async function delEleve(id){await pJson('/api/eleves/'+id,{method:'DELETE'});loadEleves();}
+async function setEmailParent(id, val){
+  await pJson('/api/eleves/'+id,{method:'PATCH',body:JSON.stringify({email_parent:val.trim()})});
+}
 
 async function loadAppel(){
   const d=document.getElementById('ap-date'); if(!d.value)d.value=new Date().toISOString().slice(0,10);
@@ -1396,10 +1510,48 @@ async function loadCorrHist(){
     ? '<table><thead><tr><th>Élève</th><th>Énoncé</th><th>Date</th></tr></thead><tbody>'+h.slice(0,30).map(c=>`<tr><td>${esc((c.prenom||'')+' '+(c.nom||''))}</td><td>${esc((c.enonce||'').slice(0,60))}</td><td>${esc((c.created_at||'').slice(0,10))}</td></tr>`).join('')+'</tbody></table>'
     : '<p class="sub">Aucune correction enregistrée.</p>';
 }
+let LAST_DRAFT='';
 async function mailParent(){
-  const r=document.getElementById('m-result'); r.innerHTML='<p class="sub">⏳ IA…</p>';
+  const r=document.getElementById('m-result'); r.innerHTML='<p class="sub">⏳ Génération en cours (~1 min sur ce PC)…</p>';
   const res=await pJson('/api/mail-parent/draft',{method:'POST',body:JSON.stringify({motif:$('m-motif').value,eleve_id:$('m-eleve').value||null})});
-  r.innerHTML = res.error?('❌ '+res.error):md(res.draft);
+  if(res.error){ r.innerHTML='❌ '+res.error; return; }
+  LAST_DRAFT = res.draft||'';
+  r.innerHTML = md(LAST_DRAFT);
+  // pré-remplir objet (1re ligne « Objet : … » si présente) et révéler l'envoi
+  const m = LAST_DRAFT.match(/objet\s*:\s*(.+)/i);
+  if(m) $('m-sujet').value = m[1].trim().slice(0,200);
+  $('m-send-box').style.display='block';
+}
+async function envoyerMail(){
+  const out=document.getElementById('m-send-result'); out.innerHTML='⏳ Envoi…';
+  const res=await pJson('/api/mail/send',{method:'POST',body:JSON.stringify({
+    dest:$('m-dest').value.trim(), sujet:$('m-sujet').value.trim(),
+    corps:LAST_DRAFT, eleve_id:$('m-eleve').value||null})});
+  if(res.error){ out.innerHTML='❌ '+res.error; return; }
+  out.innerHTML = res.dry_run
+    ? '⚠️ '+res.info+' (configure le SMTP ci-dessous pour envoyer pour de vrai)'
+    : '✅ Mail envoyé à '+esc(res.dest);
+}
+async function loadSmtp(){
+  const c=await pJson('/api/mail/config'); if(!c||c.error) return;
+  $('sm-user').value=c.user||''; $('sm-from').value=c.from_name||'';
+  $('sm-host').value=c.host||''; $('sm-port').value=c.port||587;
+  $('sm-result').innerHTML = c.configured?'✅ Envoi configuré':'⚙️ Non configuré (mails en brouillon)';
+}
+async function saveSmtp(){
+  const out=document.getElementById('sm-result'); out.innerHTML='⏳…';
+  const body={preset:$('sm-preset').value, user:$('sm-user').value.trim(),
+    from_name:$('sm-from').value.trim(), host:$('sm-host').value.trim()};
+  if($('sm-port').value) body.port=parseInt($('sm-port').value);
+  if($('sm-pass').value) body.password=$('sm-pass').value;
+  const res=await pJson('/api/mail/config',{method:'POST',body:JSON.stringify(body)});
+  $('sm-pass').value='';
+  out.innerHTML = res.error?('❌ '+res.error):(res.configured?'✅ Enregistré — envoi prêt':'💾 Enregistré (mot de passe encore requis)');
+}
+async function testSmtp(){
+  const out=document.getElementById('sm-result'); out.innerHTML='⏳ Envoi du test…';
+  const res=await pJson('/api/mail/test',{method:'POST',body:'{}'});
+  out.innerHTML = res.error?('❌ '+res.error):('✅ '+res.info);
 }
 
 document.querySelectorAll('nav a').forEach(a => {
@@ -1714,7 +1866,7 @@ async function loadCarnet(){
   document.getElementById('carnet-radar').innerHTML = '';
   const rows = await pJson('/api/carnet/moyennes' + q);
   if (!rows || rows.error) { tbody.innerHTML=''; msg.innerHTML='<span class="c-red">'+escHtml((rows&&rows.error)||'Erreur de chargement')+'</span>'; return; }
-  if (!rows.length){ tbody.innerHTML='<tr><td colspan="6" class="sub">Aucune évaluation pour ce filtre.</td></tr>'; msg.textContent=''; return; }
+  if (!rows.length){ tbody.innerHTML='<tr><td colspan="6" class="sub">Aucune évaluation pour ce filtre. Saisis des notes dans <b>Espace Prof → Évaluations</b>, elles apparaîtront ici.</td></tr>'; msg.textContent=''; return; }
   msg.textContent = rows.length + ' élève' + (rows.length>1?'s':'') + ' avec des notes';
   tbody.innerHTML = rows.map(r => {
     const m = r.moyenne_generale;
@@ -1755,6 +1907,71 @@ async function loadCarnetRadar(eid){
   box.innerHTML = '<h3>Profil de '+escHtml(nom)+'</h3>'
     + '<p class="sub" style="margin:-4px 0 8px">Barre colorée = note de l\'élève ; trait bleu = moyenne de la classe.</p>'
     + bars;
+}
+
+/* ── IMPORT ÉLÈVES (CSV + champs perso) ── */
+async function doImport(){
+  const csv = document.getElementById('imp-csv').value.trim();
+  const msg = document.getElementById('imp-msg');
+  if (!csv){ msg.innerHTML='<span class="c-red">Colle d\'abord une liste.</span>'; return; }
+  const remplacer = document.getElementById('imp-remplacer').checked;
+  msg.textContent = 'Import en cours…';
+  const r = await pJson('/api/eleves/import', {method:'POST', body:JSON.stringify({csv, remplacer})});
+  if (!r || r.error){ msg.innerHTML='<span class="c-red">'+escHtml((r&&r.error)||'Erreur')+'</span>'; return; }
+  msg.innerHTML='<span class="c-green">'+r.importes+' importé'+(r.importes>1?'s':'')+(r.ignores?(' · '+r.ignores+' ligne'+(r.ignores>1?'s':'')+' ignorée'+(r.ignores>1?'s':'')):'')+'.</span>';
+  document.getElementById('imp-csv').value='';
+  document.getElementById('imp-remplacer').checked=false;
+  loadImport();
+}
+async function loadImport(){
+  const box = document.getElementById('imp-eleves');
+  box.innerHTML = '<div class="sub">Chargement…</div>';
+  const els = await pJson('/api/eleves');
+  if (!els || els.error){ box.innerHTML='<span class="c-red">Erreur de chargement</span>'; return; }
+  document.getElementById('imp-count').textContent = els.length;
+  if (!els.length){ box.innerHTML='<div class="sub">Aucun élève. Importe une liste ci-dessus.</div>'; return; }
+  box.innerHTML = els.map(e => `
+    <div style="border:1px solid var(--line,#e6e6e6);border-radius:10px;padding:10px;margin:6px 0">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px">
+        <b>${escHtml(e.nom)} ${escHtml(e.prenom)}</b>
+        <span class="sub">${escHtml(e.niveau||'')}${e.groupe?(' · groupe '+escHtml(e.groupe)):''}</span>
+        <button onclick="toggleChamps(${e.id})">Champs perso</button>
+      </div>
+      <div id="champs-${e.id}" style="display:none;margin-top:8px"></div>
+    </div>`).join('');
+}
+async function toggleChamps(eid){
+  const c = document.getElementById('champs-'+eid);
+  if (c.style.display==='none'){ c.style.display='block'; await loadEleveChamps(eid); }
+  else c.style.display='none';
+}
+async function loadEleveChamps(eid){
+  const c = document.getElementById('champs-'+eid);
+  c.innerHTML = '<div class="sub">…</div>';
+  const list = await pJson('/api/eleves/'+eid+'/champs');
+  const badges = (Array.isArray(list)?list:[]).map(ch =>
+    `<span class="badge" style="${ch.couleur?('background:'+escHtml(ch.couleur)+'22;border:1px solid '+escHtml(ch.couleur)+';color:#333'):''};margin:2px">`
+    + escHtml(ch.cle) + (ch.valeur?(' : '+escHtml(ch.valeur)):'')
+    + ` <span onclick="delChamp(${ch.id},${eid})" style="cursor:pointer" title="Supprimer">✕</span></span>`
+  ).join(' ') || '<span class="sub">Aucun champ.</span>';
+  c.innerHTML = '<div style="margin-bottom:6px">'+badges+'</div>'
+    + '<div class="filter-row">'
+    + '<input id="ch-cle-'+eid+'" placeholder="clé (ex. PAP, allergie)" style="width:150px">'
+    + '<input id="ch-val-'+eid+'" placeholder="valeur" style="width:160px">'
+    + '<input id="ch-col-'+eid+'" type="color" value="#1f6e45" title="couleur" style="width:42px;padding:0;height:32px">'
+    + '<button onclick="addChamp('+eid+')">+ Ajouter</button></div>';
+}
+async function addChamp(eid){
+  const cle = document.getElementById('ch-cle-'+eid).value.trim();
+  if (!cle) return;
+  const valeur = document.getElementById('ch-val-'+eid).value.trim();
+  const couleur = document.getElementById('ch-col-'+eid).value;
+  const r = await pJson('/api/eleves/'+eid+'/champs', {method:'POST', body:JSON.stringify({cle, valeur, couleur})});
+  if (r && r.ok) loadEleveChamps(eid);
+}
+async function delChamp(cid, eid){
+  const r = await pJson('/api/eleves/champs/'+cid, {method:'DELETE'});
+  if (r && r.ok) loadEleveChamps(eid);
 }
 
 /* ════════════════════════════════════════════════════════════════════════
