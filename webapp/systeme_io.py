@@ -122,7 +122,7 @@ def register(app):
     def systeme_ping():
         """Teste la clé : un appel léger à l'API. Ne modifie rien."""
         try:
-            status, payload = _call("GET", "/api/contacts", params={"limit": 1})
+            status, payload = _call("GET", "/api/contacts", params={"limit": 10})
         except RuntimeError as e:
             return jsonify({"error": str(e)}), 400
         ok = 200 <= status < 300
