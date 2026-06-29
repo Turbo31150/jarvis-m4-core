@@ -64,6 +64,7 @@ for _modname in (
     "eleves_import",
     "bibliotheque",
     "mailer",
+    "banque_annuelle",
 ):
     try:
         _m = __import__(_modname)

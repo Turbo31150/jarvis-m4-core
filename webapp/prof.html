@@ -9,7 +9,10 @@ body{background:#0d0e10;color:#e6e6e6;font-family:system-ui,Segoe UI,sans-serif;
 header{background:linear-gradient(90deg,#1a1d23,#0f3460);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e94560;position:sticky;top:0;z-index:10}
 h1{font-size:18px}h1 span{color:#e94560}
 #ia{font-size:12px;color:#8892a4}
-.tabs{display:flex;gap:4px;padding:10px;flex-wrap:wrap;background:#131519;position:sticky;top:51px;z-index:9}
+.groups{display:flex;gap:6px;padding:10px 10px 0;flex-wrap:wrap;background:#131519;position:sticky;top:51px;z-index:9}
+.grp{padding:9px 16px;border-radius:10px 10px 0 0;background:#0d0e10;color:#8892a4;cursor:pointer;font-size:14px;font-weight:600;border:1px solid #2a2d35;border-bottom:none;user-select:none}
+.grp.on{background:#e94560;color:#fff;border-color:#e94560}
+.tabs{display:flex;gap:4px;padding:10px;flex-wrap:wrap;background:#131519;position:sticky;top:96px;z-index:9;border-top:2px solid #e94560}
 .tab{padding:8px 14px;border-radius:8px;background:#1a1d23;color:#8892a4;cursor:pointer;font-size:13px;border:1px solid transparent;user-select:none}
 .tab.on{background:rgba(233,69,96,.15);color:#e94560;border-color:#e94560}
 main{padding:16px;max-width:900px;margin:0 auto}
@@ -57,24 +60,33 @@ th{color:#8892a4;font-weight:600}
   <h1>🌱 Espace <span>Prof</span> · Pousseline</h1>
   <div id="ia">…</div>
 </header>
+<div class="groups">
+  <div class="grp on" data-g="home">🏠 Accueil</div>
+  <div class="grp" data-g="prepare">✏️ Préparer</div>
+  <div class="grp" data-g="suivre">📊 Suivre</div>
+  <div class="grp" data-g="classe">🎒 Classe</div>
+  <div class="grp" data-g="auto">🤖 Automatiser</div>
+  <div class="grp" data-g="outils">🧰 Outils</div>
+</div>
 <div class="tabs">
-  <div class="tab on" data-p="home">🏠 Accueil</div>
-  <div class="tab" data-p="pilot">🔔 Pilotage</div>
-  <div class="tab" data-p="exo">📝 Exercices</div>
-  <div class="tab" data-p="diff">🔀 Différencier</div>
-  <div class="tab" data-p="corr">✅ Corrections</div>
-  <div class="tab" data-p="seq">📚 Séances</div>
-  <div class="tab" data-p="edt">🗓️ Emploi du temps</div>
-  <div class="tab" data-p="cj">📅 Cahier-journal</div>
-  <div class="tab" data-p="prog">🗂️ Programmations</div>
-  <div class="tab" data-p="eval">📊 Évaluations</div>
-  <div class="tab" data-p="bull">📋 Bulletins</div>
-  <div class="tab" data-p="appel">🙋 Appel</div>
-  <div class="tab" data-p="vie">🎒 Vie de classe</div>
-  <div class="tab" data-p="outils">🧰 Outils</div>
-  <div class="tab" data-p="mail">✉️ Mail parents</div>
-  <div class="tab" data-p="eleves">👧 Élèves</div>
-  <div class="tab" data-p="export">📤 Export</div>
+  <div class="tab on" data-p="home" data-grp="home">🏠 Tableau de bord</div>
+  <div class="tab" data-p="annee" data-grp="prepare">📚 Année</div>
+  <div class="tab" data-p="exo" data-grp="prepare">📝 Exercices</div>
+  <div class="tab" data-p="diff" data-grp="prepare">🔀 Différencier</div>
+  <div class="tab" data-p="seq" data-grp="prepare">📖 Séances</div>
+  <div class="tab" data-p="prog" data-grp="prepare">🗂️ Programmations</div>
+  <div class="tab" data-p="cj" data-grp="prepare">📅 Cahier-journal</div>
+  <div class="tab" data-p="edt" data-grp="prepare">🗓️ Emploi du temps</div>
+  <div class="tab" data-p="eval" data-grp="suivre">📊 Évaluations</div>
+  <div class="tab" data-p="bull" data-grp="suivre">📋 Bulletins</div>
+  <div class="tab" data-p="corr" data-grp="suivre">✅ Corrections</div>
+  <div class="tab" data-p="appel" data-grp="suivre">🙋 Appel</div>
+  <div class="tab" data-p="eleves" data-grp="classe">👧 Élèves</div>
+  <div class="tab" data-p="vie" data-grp="classe">🎒 Vie de classe</div>
+  <div class="tab" data-p="pilot" data-grp="auto">🔔 Pilotage</div>
+  <div class="tab" data-p="mail" data-grp="auto">✉️ Mail parents</div>
+  <div class="tab" data-p="outils" data-grp="outils">🧰 Outils</div>
+  <div class="tab" data-p="export" data-grp="outils">📤 Export</div>
 </div>
 <main>
 
@@ -109,6 +121,24 @@ th{color:#8892a4;font-weight:600}
       <div id="au-log" style="margin-top:10px"></div>
     </div>
   </div>
+
+  <!-- ANNÉE / BANQUE ANNUELLE -->
+  <div class="panel" id="p-annee"><div class="card">
+    <b>📚 Banque annuelle — toutes matières, maternelle → CM2</b>
+    <div class="hint">Choisis un niveau et une matière : génère les fiches différenciées (soutien/standard/approfondissement + corrigé) de toute l'année, imprime-les en PDF. La nuit en prépare automatiquement quelques-unes.</div>
+    <div class="row">
+      <div><label>Niveau</label><select id="an-niv"></select></div>
+      <div><label>Matière</label><select id="an-mat"></select></div>
+    </div>
+    <div class="flex">
+      <button onclick="loadPlan()">Afficher le programme</button>
+      <button class="sec" onclick="genMatiere()">⚙️ Générer la matière entière</button>
+      <button class="sec" onclick="pdfBanque()">📄 PDF du niveau</button>
+    </div>
+    <div id="an-prog" class="hint" style="margin-top:8px"></div>
+    <div id="an-grid" style="margin-top:6px"></div>
+    <div class="out" id="an-out" style="display:none"></div>
+  </div></div>
 
   <!-- EXERCICES -->
   <div class="panel" id="p-exo"><div class="card">
@@ -459,7 +489,17 @@ document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
   if(p==='pilot')loadAutoSend();
   if(p==='vie')loadVie();
   if(p==='outils')loadOutils();
+  if(p==='annee')loadAnnee();
 });
+// Rubriques (navigation à 2 niveaux) : une rubrique = un sous-ensemble d'onglets.
+function showGroup(g){
+  document.querySelectorAll('.grp').forEach(x=>x.classList.toggle('on',x.dataset.g===g));
+  const tabs=[...document.querySelectorAll('.tab')];
+  tabs.forEach(t=>{t.style.display=(t.dataset.grp===g)?'':'none';});
+  const first=tabs.find(t=>t.dataset.grp===g);
+  if(first)first.click();
+}
+document.querySelectorAll('.grp').forEach(gb=>gb.onclick=()=>showGroup(gb.dataset.g));
 function tok(){return localStorage.getItem('profToken')||'';}
 function hdr(j){const h=j?{'Content-Type':'application/json'}:{};const t=tok();if(t)h['X-Prof-Token']=t;return h;}
 async function ask401(r){if(r.status===401){const t=prompt('Code d\'accès Espace Prof (voir ~/jarvis/webapp/.prof_token) :');if(t){localStorage.setItem('profToken',t.trim());location.reload();}throw new Error('token');}return r;}
@@ -745,6 +785,36 @@ async function toggleDictee(){const btn=$('#dic-btn');
 }
 function blobB64(blob){return new Promise(r=>{const fr=new FileReader();fr.onloadend=()=>r(fr.result.split(',')[1]);fr.readAsDataURL(blob);});}
 
-iaStatus();loadEleves();loadDash();setInterval(iaStatus,30000);
+// ── ANNÉE / BANQUE ANNUELLE
+const AN_NIV=["PS","MS","GS","CP","CE1","CE2","CM1","CM2"];
+let ANCELLS=[];
+function loadAnnee(){
+  if(!$('#an-niv').dataset.init){
+    $('#an-niv').innerHTML=AN_NIV.map(n=>`<option ${n==='CE2'?'selected':''}>${n}</option>`).join('');
+    $('#an-niv').onchange=loadMatieres;$('#an-niv').dataset.init='1';loadMatieres();
+  }
+}
+async function loadMatieres(){const d=await get('/api/banque/plan?niveau='+encodeURIComponent($('#an-niv').value));
+  $('#an-mat').innerHTML=(d.matieres||[]).map(m=>`<option>${m}</option>`).join('');}
+async function loadPlan(){const niv=$('#an-niv').value,mat=$('#an-mat').value;
+  const d=await get('/api/banque/plan?niveau='+encodeURIComponent(niv)+'&matiere='+encodeURIComponent(mat));
+  ANCELLS=d.cellules||[];
+  $('#an-prog').textContent=`${d.faits}/${d.total} fiche(s) prête(s) pour ${niv} · ${mat}`;
+  $('#an-grid').innerHTML=ANCELLS.map((c,i)=>`<div class="eleve"><span>P${c.periode} · ${c.notion} ${c.fait?'<span class="badge">✅ prête</span>':''}</span><button class="${c.fait?'sec ':''}mini" onclick="genCell(${i})">${c.fait?'↻ Régénérer':'Générer'}</button></div>`).join('')||'<small>—</small>';}
+async function genCell(i){const c=ANCELLS[i];if(!c)return;const o=$('#an-out');busy(o);
+  const d=await api('/api/banque/generer',{niveau:$('#an-niv').value,matiere:$('#an-mat').value,notion:c.notion,periode:c.periode});
+  showOut(o,d.contenu_md||d.error,d.backend,d.cached);loadPlan();}
+async function genMatiere(){if(!ANCELLS.length)await loadPlan();const o=$('#an-out');o.style.display='block';
+  const todo=ANCELLS.filter(c=>!c.fait);if(!todo.length){o.textContent='✅ Tout est déjà prêt.';return;}
+  for(let i=0;i<todo.length;i++){o.textContent=`⏳ ${i+1}/${todo.length} — ${todo[i].notion}…`;
+    const d=await api('/api/banque/generer',{niveau:$('#an-niv').value,matiere:$('#an-mat').value,notion:todo[i].notion,periode:todo[i].periode});
+    if(d.error){o.textContent='⚠️ '+d.error+' (généré '+i+'/'+todo.length+')';loadPlan();return;}}
+  o.textContent='✅ Matière entière générée';loadPlan();}
+async function pdfBanque(){const niv=$('#an-niv').value,mat=$('#an-mat').value;
+  const r=await fetch('/api/banque/pdf?niveau='+encodeURIComponent(niv)+'&matiere='+encodeURIComponent(mat),{headers:hdr(false)});
+  if(!r.ok){toast('Génère d\'abord des fiches pour ce niveau');return;}
+  const b=await r.blob();const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='Banque_'+niv+'_'+mat+'.pdf';a.click();URL.revokeObjectURL(u);toast('PDF téléchargé');}
+
+iaStatus();loadEleves();loadDash();setInterval(iaStatus,30000);showGroup('home');
 </script>
 </body></html>
