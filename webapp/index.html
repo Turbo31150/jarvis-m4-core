@@ -833,6 +833,14 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,input:focus-visible,sele
     <button class="btn secondary" onclick="openDoc('/home/pamerys/Documents/Recherche')">🔬 Recherche</button>
   </div>
   <div class="doc-tree" id="doc-tree"></div>
+
+  <h3 style="margin-top:22px">📄 Rapports &amp; Banque PDF</h3>
+  <p class="sub" style="margin:2px 0 10px">Documents pédagogiques générés par l'app — cliquer pour consulter.</p>
+  <div class="doc-tree" id="rapports-list">Chargement…</div>
+
+  <h3 style="margin-top:22px">🔗 Ressources libres &amp; gratuites (validées)</h3>
+  <p class="sub" style="margin:2px 0 10px">Sources légales (licence libre ou officiel Éducation nationale) — aucun manuel sous copyright.</p>
+  <div class="doc-tree" id="ressources-list">Chargement…</div>
 </div>
 
 <!-- 7. SYSTÈME ──────────────────────────────────────────────────────────── -->
@@ -2075,7 +2083,36 @@ loadChatHistory();
 /* ════════════════════════════════════════════════════════════════════════
    DOCUMENTS
 ════════════════════════════════════════════════════════════════════════ */
+async function loadRapports() {
+  const box = document.getElementById('rapports-list');
+  if (!box) return;
+  const items = await fetch('/api/rapports').then(r => r.json()).catch(() => []);
+  if (!items.length) { box.innerHTML = '<p class="sub">Aucun PDF pour l\'instant.</p>'; return; }
+  box.innerHTML = items.map(d =>
+    `<a class="doc-item" href="${d.url}" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 12px;border:1px solid var(--line,#e3e8ee);border-radius:10px;margin-bottom:6px;text-decoration:none;color:inherit">
+       <span style="font-size:18px">📄</span>
+       <span style="flex:1"><strong>${d.titre}</strong><br><span class="sub" style="font-size:11px">${d.nom} · ${d.taille}</span></span>
+       <span class="sub" style="font-size:11px">Consulter ▸</span>
+     </a>`).join('');
+}
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelector('[data-section="documents"]')?.addEventListener('click', loadRapports);
+});
+async function loadRessourcesLibres() {
+  const box = document.getElementById('ressources-list');
+  if (!box) return;
+  const items = await fetch('/api/ressources-libres').then(r => r.json()).catch(() => []);
+  if (!items.length) { box.innerHTML = '<p class="sub">—</p>'; return; }
+  box.innerHTML = items.map(d =>
+    `<a class="doc-item" href="${d.url}" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 12px;border:1px solid var(--line,#e3e8ee);border-radius:10px;margin-bottom:6px;text-decoration:none;color:inherit">
+       <span style="font-size:18px">🔗</span>
+       <span style="flex:1"><strong>${d.nom}</strong><br><span class="sub" style="font-size:11px">${d.niveaux} · ${d.matiere} · ${d.licence}</span></span>
+       <span class="sub" style="font-size:11px">Ouvrir ▸</span>
+     </a>`).join('');
+}
 async function loadDocs() {
+  loadRapports();
+  loadRessourcesLibres();
   const tree = await fetch('/api/docs').then(r => r.json()).catch(() => []);
   document.getElementById('doc-tree').innerHTML = renderTree(tree);
 }

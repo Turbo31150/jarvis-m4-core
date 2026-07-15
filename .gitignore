@@ -49,3 +49,9 @@ secrets-vault/
 .config/
 *.age
 reports/
+secrets.env
+.config/jarvis/
+
+# Rapports PDF générés (binaires, régénérables)
+webapp/static/rapports/*.pdf
+webapp/static/ressources-libres/*.html

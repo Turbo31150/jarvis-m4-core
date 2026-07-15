@@ -21,7 +21,7 @@ from pathlib import Path
 import requests
 
 ECOLE_DB = Path(__file__).resolve().parent / "ecole.db"
-M1 = "http://192.168.1.85:1234"
+M1 = "http://192.168.0.10:1234"  # M1 déménagé (ex 192.168.1.85) — resync 2026-07-09
 M2 = "http://192.168.1.26:1234"
 OLLAMA = "http://127.0.0.1:11434"
 GEMINI_SH = str(Path.home() / "jarvis" / "scripts" / "gemini-ask.sh")

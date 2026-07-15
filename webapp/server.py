@@ -66,6 +66,7 @@ for _modname in (
     "mailer",
     "banque_annuelle",
     "systeme_io",
+    "documents",
 ):
     try:
         _m = __import__(_modname)
