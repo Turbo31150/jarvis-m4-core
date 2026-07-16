@@ -17,6 +17,7 @@ from pathlib import Path
 from flask import jsonify, request, send_file
 
 import ai_local
+from programme_maternelle_2026 import cells_2026 as _maternelle_cells_2026
 
 ECOLE_DB = str(Path(__file__).resolve().parent / "ecole.db")
 _TEMP_MAX = 86  # au-dessus, pas de génération (cf. protocole anti-surchauffe)
@@ -459,7 +460,14 @@ def _periode(idx, total):
 
 
 def _cells(niveau, matiere=None):
-    """Liste des cellules attendues (squelette) pour un niveau (et matière)."""
+    """Liste des cellules attendues (squelette) pour un niveau (et matière).
+
+    Maternelle (PS/MS/GS) → programme officiel 2026 (BO n°19) : 5 domaines ×
+    5 périodes × 4-6 notions. Élémentaire → grille PROGRAMME historique.
+    """
+    if niveau in ("PS", "MS", "GS"):
+        cells = _maternelle_cells_2026(niveau)
+        return [c for c in cells if c["matiere"] == matiere] if matiere else cells
     out = []
     prog = PROGRAMME.get(niveau, {})
     mats = [matiere] if matiere else list(prog.keys())

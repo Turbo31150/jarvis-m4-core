@@ -62,7 +62,8 @@ for _modname in (
     "ateliers",
     "carnet",
     "eleves_import",
-    "bibliotheque",
+    # "bibliotheque",  # retiré : /api/biblio (index JARVIS) = route morte, 0 appel front ;
+    #                    l'onglet « biblio » est servi par /api/prof/ressources (ressources.py)
     "ressources",
     "mailer",
     "banque_annuelle",
