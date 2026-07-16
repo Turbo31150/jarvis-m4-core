@@ -63,6 +63,7 @@ for _modname in (
     "carnet",
     "eleves_import",
     "bibliotheque",
+    "ressources",
     "mailer",
     "banque_annuelle",
     "systeme_io",
@@ -72,6 +73,7 @@ for _modname in (
     "admin",
     "adaptatif",
     "integrations",
+    "commandes",
 ):
     try:
         _m = __import__(_modname)

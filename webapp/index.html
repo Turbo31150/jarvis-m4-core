@@ -217,6 +217,8 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,input:focus-visible,sele
     <a href="#" data-section="equipe"><span class="icon">👥</span><span>Équipe & Réunions</span></a>
     <a href="#" data-section="automations"><span class="icon">⚡</span><span>Automatisations</span></a>
     <a href="#" data-section="outils"><span class="icon">🎲</span><span>Outils Classe</span></a>
+    <a href="#" data-section="commandes"><span class="icon">🛒</span><span>Commandes</span></a>
+    <a href="#" data-section="planb"><span class="icon">🆘</span><span>Plan B</span></a>
     <a href="#" data-section="logiciels"><span class="icon">🧰</span><span>Logiciels</span></a>
     <a href="#" data-section="assistant"><span class="icon">🤖</span><span>Assistant</span></a>
     <a href="#" data-section="documents"><span class="icon">📁</span><span>Documents</span></a>
@@ -1079,13 +1081,119 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,input:focus-visible,sele
   <div id="todoList"></div>
 </div>
 
+<!-- OUTILS CLASSE ──────────────────────────────────────────────────────── -->
+<div id="section-outils" class="section">
+  <h2>🎲 Outils Classe</h2>
+  <div class="sub" style="margin-bottom:14px">Générateurs 0-token (IA locale, cascade déportée) + suivi des élèves.</div>
+
+  <div class="card" style="margin-bottom:16px;display:block">
+    <h3>➗ Générateur de problèmes de maths</h3>
+    <div class="form-row">
+      <div class="form-group"><label>Niveau</label>
+        <select id="om-niveau"><option>CP</option><option>CE1</option><option selected>CE2</option><option>CM1</option><option>CM2</option></select></div>
+      <div class="form-group"><label>Type</label>
+        <select id="om-type"><option value="additif">Additif</option><option value="soustractif">Soustractif</option><option value="multiplicatif">Multiplicatif</option><option value="division">Division</option><option value="mixte">Mixte</option></select></div>
+      <div class="form-group" style="flex:2"><label>Thème (optionnel)</label><input id="om-theme" placeholder="la fête de l'école, la cantine…"></div>
+      <div class="form-group" style="min-width:90px"><label>Nombre</label><input type="number" id="om-nb" value="4" min="1" max="12"></div>
+      <button class="btn" style="align-self:flex-end" onclick="genProbleme()">Générer</button>
+    </div>
+    <div id="om-out" style="margin-top:12px"></div>
+  </div>
+
+  <div class="card" style="margin-bottom:16px;display:block">
+    <h3>🌅 Rituel du matin</h3>
+    <div class="form-row">
+      <div class="form-group"><label>Niveau</label>
+        <select id="or-niveau"><option>CP</option><option>CE1</option><option selected>CE2</option><option>CM1</option><option>CM2</option></select></div>
+      <div class="form-group"><label>Type</label>
+        <select id="or-genre"><option value="phrase_du_jour">Phrase du jour</option><option value="dictee_flash">Dictée flash</option><option value="calcul_mental">Calcul mental</option><option value="jogging_ecriture">Jogging d'écriture</option></select></div>
+      <div class="form-group" style="flex:2"><label>Notion (optionnel)</label><input id="or-notion" placeholder="l'accord sujet-verbe…"></div>
+      <button class="btn" style="align-self:flex-end" onclick="genRituel()">Générer</button>
+    </div>
+    <div id="or-out" style="margin-top:12px"></div>
+  </div>
+
+  <div class="card" style="margin-bottom:16px;display:block">
+    <h3>⭐ Suivi comportement</h3>
+    <div id="oc-table"><div class="sub">Chargement…</div></div>
+  </div>
+
+  <div class="card" style="display:block">
+    <h3>🥋 Ceintures de compétences</h3>
+    <div id="oz-table"><div class="sub">Chargement…</div></div>
+  </div>
+</div>
+
+<!-- COMMANDES & BUDGET MATÉRIEL ────────────────────────────────────────── -->
+<div id="section-commandes" class="section">
+  <h2>🛒 Commandes &amp; budget matériel</h2>
+  <div class="sub" style="margin-bottom:14px">Budget de classe, liste de commande de matériel, et génération IA 0-token depuis un texte de besoins.</div>
+
+  <div class="card" style="margin-bottom:16px;display:block">
+    <h3>💶 Budget de classe</h3>
+    <div class="form-row">
+      <div class="form-group"><label>Budget total (€)</label><input type="number" id="cb-total" step="0.01" placeholder="0.00"></div>
+      <div class="form-group"><label>Réserve (€)</label><input type="number" id="cb-reserve" step="0.01" placeholder="0.00"></div>
+      <div class="form-group" style="flex:2"><label>Note</label><input id="cb-note" placeholder="Coopérative, mairie…"></div>
+      <button class="btn" style="align-self:flex-end" onclick="saveCmdBudget()">Enregistrer</button>
+    </div>
+    <div id="cb-totaux" class="sub" style="margin-top:10px"></div>
+  </div>
+
+  <div class="card" style="margin-bottom:16px;display:block">
+    <h3>🤖 Générer la liste depuis mes besoins (IA 0-token)</h3>
+    <textarea id="cg-audit" rows="3" placeholder="Ex : renouveler feutres et crayons, 25 cahiers 96p, une réserve de gommettes, 2 jeux de numération…" style="width:100%"></textarea>
+    <button class="btn" style="margin-top:8px" onclick="genCommandes()">Générer les lignes</button>
+    <div id="cg-msg" class="sub" style="margin-top:8px"></div>
+  </div>
+
+  <div class="card" style="display:block">
+    <h3>📋 Lignes de commande</h3>
+    <div class="form-row">
+      <div class="form-group" style="flex:2"><label>Article</label><input id="cl-article" placeholder="Feutres ardoise"></div>
+      <div class="form-group" style="min-width:80px"><label>Quantité</label><input id="cl-quantite" placeholder="10"></div>
+      <div class="form-group" style="min-width:90px"><label>Prix unit. (€)</label><input type="number" id="cl-prix" step="0.01" placeholder="0.00"></div>
+      <div class="form-group"><label>Section</label><input id="cl-section" placeholder="Écriture"></div>
+      <button class="btn" style="align-self:flex-end" onclick="addCmdLigne()">Ajouter</button>
+    </div>
+    <div id="cl-table" style="margin-top:12px"><div class="sub">Chargement…</div></div>
+  </div>
+</div>
+
+<!-- PLAN B — CONTENUS PRÉ-GÉNÉRÉS À PIOCHER ─────────────────────────────── -->
+<div id="section-planb" class="section">
+  <h2>🆘 Plan B — contenus prêts à piocher</h2>
+  <div class="sub" style="margin-bottom:14px">En retard, exercice trop long, module qui plante ? Pioche ici : <b>247 fiches déjà prêtes</b>, instantané, hors-ligne, 0 attente. Chaque fiche a 3 niveaux (Soutien / Standard / Approfondissement).</div>
+
+  <div class="card" style="margin-bottom:16px;display:block">
+    <div class="form-row">
+      <div class="form-group"><label>Niveau</label><select id="pb-niveau" onchange="pbLoadNiveau()"></select></div>
+      <div class="form-group" style="flex:2"><label>Matière</label><select id="pb-matiere" onchange="pbRenderNotions()"></select></div>
+      <button class="btn" style="align-self:flex-end" onclick="pbHasard()">🎲 Surprends-moi</button>
+    </div>
+    <div id="pb-notions" style="margin-top:12px"><div class="sub">Chargement…</div></div>
+  </div>
+
+  <div class="card" id="pb-fiche-card" style="display:none">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+      <h3 id="pb-titre" style="margin:0"></h3>
+      <div style="white-space:nowrap">
+        <button class="btn secondary" id="pb-btn-court" onclick="pbCourt()">✂️ Version courte</button>
+        <button class="btn secondary" id="pb-btn-full" onclick="pbFull()" style="display:none">↔️ Version complète</button>
+        <button class="btn secondary" onclick="pbPrint()">🖨️ Imprimer</button>
+      </div>
+    </div>
+    <div id="pb-contenu" style="margin-top:12px"></div>
+  </div>
+</div>
+
 </div><!-- /#main -->
 
 <script>
 /* ════════════════════════════════════════════════════════════════════════
    NAVIGATION
 ════════════════════════════════════════════════════════════════════════ */
-const SECTIONS = ['dashboard','planning','edt','groupes','import','appel','ateliers','budget','notes','carnet','prof','biblio','sorties','equipe','automations','logiciels','assistant','documents','systeme','calendrier','agents','todo'];
+const SECTIONS = ['dashboard','planning','edt','groupes','import','appel','ateliers','budget','notes','carnet','prof','biblio','sorties','equipe','automations','logiciels','assistant','documents','systeme','calendrier','agents','todo','outils','commandes','planb'];
 
 function navigate(id) {
   SECTIONS.forEach(s => {
@@ -1111,6 +1219,186 @@ function navigate(id) {
   if (id === 'sorties')   loadSorties();
   if (id === 'equipe')  { loadCollegues(); loadReunions(); }
   if (id === 'automations') { loadAutoSuggestions(); loadAdaptJournal(); }
+  if (id === 'outils')    loadOutils();
+  if (id === 'commandes') loadCommandes();
+  if (id === 'planb')     loadPlanB();
+}
+
+/* ── OUTILS CLASSE ── */
+let OUTILS_ELEVES = [];
+async function loadOutils(){
+  const rows = await pJson('/api/prof/comportement') || [];
+  OUTILS_ELEVES = rows;
+  renderComportement(rows);
+  loadCeintures();
+}
+function renderComportement(rows){
+  const box=document.getElementById('oc-table'); if(!box) return;
+  if(!rows.length){ box.innerHTML='<div class="sub">Aucun élève — importe ta classe (onglet Import élèves).</div>'; return; }
+  box.innerHTML='<table style="width:100%;border-collapse:collapse">'+
+    '<tr><th style="text-align:left">Élève</th><th>Niveau</th><th>Points</th><th></th></tr>'+
+    rows.map(e=>`<tr><td>${esc(e.prenom)} ${esc(e.nom)}</td><td style="text-align:center">${esc(e.niveau)}</td>`+
+      `<td style="text-align:center;font-weight:700;color:${e.points<0?'var(--accent)':'var(--green)'}">${e.points}</td>`+
+      `<td style="text-align:right;white-space:nowrap"><button class="btn secondary" onclick="cptDelta(${e.id},1)">＋</button> `+
+      `<button class="btn secondary" onclick="cptDelta(${e.id},-1)">－</button></td></tr>`).join('')+'</table>';
+}
+async function cptDelta(id,delta){
+  await pJson('/api/prof/comportement',{method:'POST',body:JSON.stringify({eleve_id:id,delta})});
+  const rows=await pJson('/api/prof/comportement')||[]; OUTILS_ELEVES=rows; renderComportement(rows);
+}
+async function genProbleme(){
+  const out=document.getElementById('om-out'); out.innerHTML='<div class="sub">Génération en cours… (0 token)</div>';
+  const body={niveau:$('om-niveau').value,type:$('om-type').value,theme:$('om-theme').value,nb:+$('om-nb').value};
+  const r=await pJson('/api/prof/probleme-maths',{method:'POST',body:JSON.stringify(body)});
+  if(r&&r.contenu_md) out.innerHTML=md(r.contenu_md)+`<div class="sub" style="margin-top:8px">via ${esc(r.backend)}${r.cached?' (cache)':''} · 0 token</div>`;
+  else out.innerHTML='<div class="sub">⚠️ '+esc((r&&r.error)||'Indisponible (surchauffe ?)')+'</div>';
+}
+async function genRituel(){
+  const out=document.getElementById('or-out'); out.innerHTML='<div class="sub">Génération en cours… (0 token)</div>';
+  const body={niveau:$('or-niveau').value,genre:$('or-genre').value,notion:$('or-notion').value};
+  const r=await pJson('/api/prof/rituel',{method:'POST',body:JSON.stringify(body)});
+  if(r&&r.contenu_md) out.innerHTML=md(r.contenu_md)+`<div class="sub" style="margin-top:8px">via ${esc(r.backend)}${r.cached?' (cache)':''} · 0 token</div>`;
+  else out.innerHTML='<div class="sub">⚠️ '+esc((r&&r.error)||'Indisponible (surchauffe ?)')+'</div>';
+}
+async function loadCeintures(){
+  const box=document.getElementById('oz-table'); if(!box) return;
+  const d=await pJson('/api/prof/ceintures')||{}; const cs=d.couleurs||['blanche'];
+  const optEleves=OUTILS_ELEVES.map(e=>`<option value="${e.id}">${esc(e.prenom)} ${esc(e.nom)}</option>`).join('');
+  const optCoul=cs.map(c=>`<option value="${c}">${c}</option>`).join('');
+  let html='<div class="form-row" style="margin-bottom:10px">'+
+    `<div class="form-group"><label>Élève</label><select id="oz-eleve">${optEleves}</select></div>`+
+    '<div class="form-group"><label>Domaine</label><input id="oz-domaine" placeholder="Lecture, Numération…"></div>'+
+    `<div class="form-group"><label>Ceinture</label><select id="oz-couleur">${optCoul}</select></div>`+
+    '<button class="btn" style="align-self:flex-end" onclick="setCeinture()">Attribuer</button></div>';
+  const list=d.ceintures||[];
+  if(list.length) html+='<table style="width:100%;border-collapse:collapse"><tr><th style="text-align:left">Élève</th><th style="text-align:left">Domaine</th><th>Ceinture</th></tr>'+
+    list.map(c=>`<tr><td>${esc(c.prenom)} ${esc(c.nom)}</td><td>${esc(c.domaine)}</td><td style="text-align:center">${esc(c.couleur)}</td></tr>`).join('')+'</table>';
+  else html+='<div class="sub">Aucune ceinture attribuée pour l\'instant.</div>';
+  box.innerHTML=html;
+}
+async function setCeinture(){
+  const body={eleve_id:+$('oz-eleve').value,domaine:$('oz-domaine').value,couleur:$('oz-couleur').value};
+  if(!body.domaine){alert('Indique un domaine.');return;}
+  const r=await pJson('/api/prof/ceintures',{method:'POST',body:JSON.stringify(body)});
+  if(r&&r.error){alert(r.error);return;}
+  $('oz-domaine').value=''; loadCeintures();
+}
+
+/* ── COMMANDES & BUDGET MATÉRIEL ── */
+async function loadCommandes(){
+  const b = await pJson('/api/commandes/budget') || {};
+  if($('cb-total')  && document.activeElement!==$('cb-total'))   $('cb-total').value   = b.budget||'';
+  if($('cb-reserve')&& document.activeElement!==$('cb-reserve')) $('cb-reserve').value = b.reserve||'';
+  if($('cb-note')   && document.activeElement!==$('cb-note'))    $('cb-note').value    = b.note||'';
+  renderCmdTotaux(b);
+  loadCmdLignes();
+}
+function renderCmdTotaux(t){
+  const box=$('cb-totaux'); if(!box) return;
+  const e=n=>Number(n||0).toFixed(2); const reste=Number(t.reste||0);
+  box.innerHTML=`Budget <b>${e(t.budget)} €</b> · réserve ${e(t.reserve)} € · disponible <b>${e(t.disponible)} €</b> · commandé ${e(t.total_commande)} € · reste <b style="color:${reste<0?'var(--accent)':'var(--green)'}">${e(reste)} €</b>`;
+}
+async function saveCmdBudget(){
+  const body={total:+$('cb-total').value||0,reserve:+$('cb-reserve').value||0,note:$('cb-note').value};
+  const r=await pJson('/api/commandes/budget',{method:'POST',body:JSON.stringify(body)});
+  renderCmdTotaux(r||{}); loadCmdLignes();
+}
+async function loadCmdLignes(){
+  const box=$('cl-table'); if(!box) return;
+  const d=await pJson('/api/commandes/lignes')||{}; renderCmdTotaux(d);
+  const list=d.lignes||[];
+  if(!list.length){ box.innerHTML='<div class="sub">Aucune ligne — ajoute un article ou génère depuis tes besoins.</div>'; return; }
+  box.innerHTML='<table style="width:100%;border-collapse:collapse">'+
+    '<tr><th style="text-align:left">Article</th><th>Qté</th><th>Prix</th><th>Total</th><th style="text-align:left">Section</th><th></th></tr>'+
+    list.map(l=>`<tr><td>${esc(l.article)}</td><td style="text-align:center">${esc(l.quantite)}</td>`+
+      `<td style="text-align:right">${Number(l.prix||0).toFixed(2)} €</td><td style="text-align:right">${Number(l.total||0).toFixed(2)} €</td>`+
+      `<td>${esc(l.section)}</td><td style="text-align:right"><button class="btn secondary" onclick="delCmdLigne(${l.id})">🗑️</button></td></tr>`).join('')+'</table>';
+}
+async function addCmdLigne(){
+  const art=$('cl-article').value.trim(); if(!art){alert('Article requis.');return;}
+  const body={article:art,quantite:$('cl-quantite').value,prix:+$('cl-prix').value||0,section:$('cl-section').value};
+  const r=await pJson('/api/commandes/ligne',{method:'POST',body:JSON.stringify(body)});
+  if(r&&r.error){alert(r.error);return;}
+  $('cl-article').value='';$('cl-quantite').value='';$('cl-prix').value='';$('cl-section').value='';
+  loadCmdLignes();
+}
+async function delCmdLigne(id){ await pFetch('/api/commandes/ligne/'+id,{method:'DELETE'}); loadCmdLignes(); }
+async function genCommandes(){
+  const msg=$('cg-msg'); const audit=$('cg-audit').value.trim();
+  if(!audit){msg.innerHTML='⚠️ Colle d\'abord tes besoins.';return;}
+  msg.innerHTML='Génération en cours… (0 token)';
+  const r=await pJson('/api/commandes/generer',{method:'POST',body:JSON.stringify({audit})});
+  if(r&&r.ok){ msg.innerHTML=`✅ ${r.ajoutees} ligne(s) via ${esc(r.backend||'IA')} · 0 token`; $('cg-audit').value=''; loadCmdLignes(); }
+  else msg.innerHTML='⚠️ '+esc((r&&r.error)||'Indisponible');
+}
+
+/* ── PLAN B — contenus pré-générés (100% local, 0 IA) ── */
+let PB_FICHES = [], PB_CURRENT = null, PB_DISPLAYED = '';
+async function loadPlanB(){
+  const sel=$('pb-niveau'); if(sel && !sel.options.length){
+    sel.innerHTML=NIVEAUX.map(n=>`<option${n==='CE2'?' selected':''}>${n}</option>`).join('');
+  }
+  pbLoadNiveau();
+}
+async function pbLoadNiveau(){
+  const niv=$('pb-niveau').value;
+  PB_FICHES = await pJson('/api/banque?niveau='+encodeURIComponent(niv)) || [];
+  const mats=[...new Set(PB_FICHES.map(f=>f.matiere))].sort();
+  $('pb-matiere').innerHTML='<option value="">Toutes les matières</option>'+mats.map(m=>`<option>${esc(m)}</option>`).join('');
+  pbRenderNotions();
+}
+function pbRenderNotions(){
+  const box=$('pb-notions'); if(!box) return;
+  const mat=$('pb-matiere').value;
+  const list=PB_FICHES.filter(f=>!mat||f.matiere===mat);
+  if(!list.length){ box.innerHTML='<div class="sub">Aucune fiche ici — remplis la banque (onglet Année) ou change de niveau.</div>'; return; }
+  box.innerHTML='<div class="sub" style="margin-bottom:6px">'+list.length+' fiche(s) prête(s) — clique pour afficher :</div>'+
+    list.map(f=>`<button class="btn secondary" style="margin:3px" onclick="pbShow(${f.id})">${mat?'':esc(f.matiere)+' · '}${esc(f.notion)}</button>`).join('');
+}
+async function pbShow(id){
+  const f=await pJson('/api/banque/cellule?id='+id); if(!f||f.error){alert('Fiche introuvable');return;}
+  PB_CURRENT=f; PB_DISPLAYED=f.contenu_md||'';
+  $('pb-titre').textContent=`${f.niveau} · ${f.matiere} — ${f.notion} (P${f.periode})`;
+  $('pb-contenu').innerHTML=md(PB_DISPLAYED);
+  $('pb-fiche-card').style.display='';
+  $('pb-btn-court').style.display=''; $('pb-btn-full').style.display='none';
+  $('pb-fiche-card').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function pbExtraitSoutien(txt){
+  const iS=txt.search(/soutien/i);
+  if(iS<0) return null;
+  const after=txt.slice(iS);
+  const iNext=after.search(/standard|approfondiss/i);
+  const bloc=iNext>0? after.slice(0,iNext) : after;
+  // remonter au début de la ligne de titre du soutien
+  const head=txt.slice(0,iS); const nl=head.lastIndexOf('\n');
+  return (nl>=0?txt.slice(nl+1,iS):'')+bloc;
+}
+function pbCourt(){
+  if(!PB_CURRENT) return;
+  const s=pbExtraitSoutien(PB_CURRENT.contenu_md||'');
+  if(!s){ alert('Pas de niveau « Soutien » détecté — version complète affichée.'); return; }
+  PB_DISPLAYED='## ✂️ Version courte (Soutien)\n\n'+s;
+  $('pb-contenu').innerHTML=md(PB_DISPLAYED);
+  $('pb-btn-court').style.display='none'; $('pb-btn-full').style.display='';
+}
+function pbFull(){
+  if(!PB_CURRENT) return;
+  PB_DISPLAYED=PB_CURRENT.contenu_md||'';
+  $('pb-contenu').innerHTML=md(PB_DISPLAYED);
+  $('pb-btn-court').style.display=''; $('pb-btn-full').style.display='none';
+}
+function pbHasard(){
+  const mat=$('pb-matiere').value;
+  const list=PB_FICHES.filter(f=>!mat||f.matiere===mat);
+  if(!list.length){ alert('Aucune fiche à tirer.'); return; }
+  pbShow(list[Math.floor(Math.random()*list.length)].id);
+}
+function pbPrint(){
+  if(!PB_CURRENT) return;
+  const w=window.open('','_blank'); if(!w){alert('Autorise les pop-ups pour imprimer.');return;}
+  w.document.write('<html><head><title>'+esc(PB_CURRENT.notion)+'</title><meta charset="utf-8"><style>body{font-family:system-ui,sans-serif;padding:24px;line-height:1.5;max-width:800px;margin:auto}h1,h3,h4{color:#1a6}</style></head><body><h1>'+esc(PB_CURRENT.niveau+' — '+PB_CURRENT.notion)+'</h1>'+md(PB_DISPLAYED)+'</body></html>');
+  w.document.close(); w.focus(); setTimeout(()=>w.print(),300);
 }
 
 /* ── EDT ── */

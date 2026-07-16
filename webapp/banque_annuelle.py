@@ -384,6 +384,35 @@ PROGRAMME = {
 
 NIVEAUX = list(PROGRAMME.keys())
 
+# ── PROGRAMME MATERNELLE 2026 (BO n°19 du 7 mai 2026, rentrée 2026-2027) ──────
+# Squelette officiel des 5 domaines. On NE régénère pas le contenu déjà produit :
+# on le remappe. Une réforme future = éditer ce seul bloc puis relancer _tag_domaines().
+DOMAINES_2026 = [
+    "Développement et structuration du langage oral et écrit",
+    "Acquisition des premiers outils mathématiques",
+    "Agir, s'exprimer, comprendre à travers l'activité physique",
+    "Agir, s'exprimer, comprendre à travers les activités artistiques",
+    "Explorer le monde",  # volets : « Se repérer dans le temps et l'espace » + « le vivant, la matière, les objets »
+]
+# Correspondance matière interne (grille de génération) → domaine officiel 2026.
+MATIERE_TO_DOMAINE_2026 = {
+    "Langage oral": DOMAINES_2026[0],
+    "Langage écrit": DOMAINES_2026[0],
+    "Phonologie": DOMAINES_2026[0],
+    "Graphisme": DOMAINES_2026[0],
+    "Nombres": DOMAINES_2026[1],
+    "Formes et grandeurs": DOMAINES_2026[1],
+    "Explorer le monde": DOMAINES_2026[4],
+    "Activités physiques": DOMAINES_2026[2],
+    "Motricité": DOMAINES_2026[2],
+    "Activités artistiques": DOMAINES_2026[3],
+}
+
+
+def domaine_2026(matiere):
+    """Domaine officiel 2026 d'une matière interne (défaut: Explorer le monde)."""
+    return MATIERE_TO_DOMAINE_2026.get(matiere, DOMAINES_2026[4])
+
 
 def _conn():
     c = sqlite3.connect(ECOLE_DB)
@@ -644,6 +673,42 @@ def register(app):
             download_name=titre.replace(" ", "_") + ".pdf",
         )
 
+    @_rt
+    def domaines2026():
+        """Contenu existant regroupé par les 5 domaines officiels du programme 2026.
+        Ne régénère rien : remappe banque + programmations sur le squelette 2026."""
+        niveau = request.args.get("niveau", "MS")
+        c = _conn()
+        fiches = c.execute(
+            "SELECT id,matiere,notion,periode FROM banque WHERE niveau=? ORDER BY matiere,periode",
+            (niveau,),
+        ).fetchall()
+        progs = c.execute(
+            "SELECT matiere FROM programmations WHERE niveau=? AND portee='annuelle'",
+            (niveau,),
+        ).fetchall()
+        out = []
+        for d in DOMAINES_2026:
+            df = [
+                {"id": r["id"], "matiere": r["matiere"], "notion": r["notion"]}
+                for r in fiches
+                if domaine_2026(r["matiere"]) == d
+            ]
+            pc = sum(1 for p in progs if domaine_2026(p["matiere"]) == d)
+            out.append(
+                {"domaine": d, "fiches": df, "nb_fiches": len(df), "nb_prog": pc}
+            )
+        return jsonify(
+            {
+                "niveau": niveau,
+                "source": "BO n°19 du 7 mai 2026 — rentrée 2026-2027",
+                "domaines": out,
+            }
+        )
+
+    app.add_url_rule(
+        "/api/programme2026", "banque_domaines2026", domaines2026, methods=["GET"]
+    )
     app.add_url_rule("/api/banque/plan", "banque_plan", plan, methods=["GET"])
     app.add_url_rule("/api/banque/generer", "banque_generer", generer, methods=["POST"])
     app.add_url_rule("/api/banque", "banque_liste", liste, methods=["GET"])

@@ -180,22 +180,6 @@ def _cache_put(key, q, a, backend):
         pass
 
 
-def _gemini(prompt, timeout=180):
-    """Filet de sécurité : Gemini via gemini-ask.sh (Google One, 0 token facturé).
-    N'est appelé qu'en dernier recours (cluster + Ollama KO). Renvoie le texte ou None."""
-    try:
-        r = subprocess.run(
-            ["bash", GEMINI_SH, prompt],
-            capture_output=True,
-            text=True,
-            timeout=timeout,
-        )
-        txt = (r.stdout or "").strip()
-        return txt or None
-    except Exception:
-        return None
-
-
 def _zai(msgs, max_tokens, temperature):
     """Z.AI GLM Coding Plan — DÉPORTÉ (forfait plat), 0 chaleur M4. Texte ou None.
     Endpoint OpenAI-compatible. Nécessite ZAI_API_KEY."""
@@ -407,13 +391,6 @@ def generate(
         if cache:
             _cache_put(key, user, txt, "ollama-cloud")
         return {"text": txt, "backend": "ollama-cloud", "cached": False}
-
-    # 3) Gemini / Antigravity (Google One, 0 token) — déporté, via gemini-smart.sh
-    g = _gemini(f"{system}\n\n{user}")
-    if g:
-        if cache:
-            _cache_put(key, user, g, "gemini")
-        return {"text": g, "backend": "gemini", "cached": False}
 
     # ═══ LOCAL EN TOUT DERNIER RECOURS — chauffe le M4, BLOQUÉ si trop chaud ═══
     temp = _gpu_temp()

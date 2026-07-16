@@ -77,6 +77,8 @@ th{color:#8892a4;font-weight:600}
   <div class="tab" data-p="prog" data-grp="prepare">🗂️ Programmations</div>
   <div class="tab" data-p="cj" data-grp="prepare">📅 Cahier-journal</div>
   <div class="tab" data-p="edt" data-grp="prepare">🗓️ Emploi du temps</div>
+  <div class="tab" data-p="ress" data-grp="prepare">📎 Ressources</div>
+  <div class="tab" data-p="dom2026" data-grp="prepare">🎓 Domaines 2026</div>
   <div class="tab" data-p="eval" data-grp="suivre">📊 Évaluations</div>
   <div class="tab" data-p="bull" data-grp="suivre">📋 Bulletins</div>
   <div class="tab" data-p="corr" data-grp="suivre">✅ Corrections</div>
@@ -96,6 +98,27 @@ th{color:#8892a4;font-weight:600}
     <b>Tableau de bord</b>
     <div id="dash" style="margin-top:12px"><small>Chargement…</small></div>
     <button class="sec mini" onclick="loadDash()" style="margin-top:12px">↻ Rafraîchir</button>
+  </div></div>
+
+  <!-- RESSOURCES OFFICIELLES (Eduscol / BO) -->
+  <div class="panel" id="p-ress"><div class="card">
+    <b>📎 Ressources officielles</b>
+    <div class="hint">Supports Eduscol / BO par domaine, à jour du programme maternelle. Cliquer pour ouvrir la source.</div>
+    <div style="margin:8px 0"><input id="ress-q" placeholder="Filtrer (ex: nombres, phono, arts…)" oninput="renderRess()" style="width:100%"></div>
+    <div id="ress-list"><small>Chargement…</small></div>
+  </div></div>
+
+  <!-- DOMAINES OFFICIELS 2026 -->
+  <div class="panel" id="p-dom2026"><div class="card">
+    <b>🎓 Domaines du programme 2026</b>
+    <div class="hint">BO n°19 du 7 mai 2026 (rentrée 2026-2027). Ton contenu déjà généré, regroupé par les 5 domaines officiels.</div>
+    <div style="margin:8px 0">
+      <label>Niveau</label>
+      <select id="dom-niv" onchange="loadDomaines2026()" style="width:120px">
+        <option>MS</option><option>GS</option><option>PS</option>
+      </select>
+    </div>
+    <div id="dom-list"><small>Chargement…</small></div>
   </div></div>
 
   <!-- PILOTAGE / AUTOMATISATIONS -->
@@ -517,6 +540,8 @@ document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
   const p=t.dataset.p;
   if(p==='home')loadDash();
   if(p==='edt')loadEdt();
+  if(p==='ress')loadRessources();
+  if(p==='dom2026')loadDomaines2026();
   if(p==='appel')loadAppel();
   if(p==='eval')loadBilan();
   if(p==='mail')loadSmtp();
@@ -535,6 +560,35 @@ function showGroup(g){
   if(first)first.click();
 }
 document.querySelectorAll('.grp').forEach(gb=>gb.onclick=()=>showGroup(gb.dataset.g));
+async function loadDomaines2026(){
+  const niv=$('#dom-niv')?.value||'MS';
+  $('#dom-list').innerHTML='<small>Chargement…</small>';
+  let d;try{d=await get('/api/programme2026?niveau='+niv);}catch(e){$('#dom-list').innerHTML='<small>Erreur.</small>';return;}
+  const N=(d.domaines||[]).map((dm,i)=>{
+    const fiches=dm.fiches.map(f=>'<span style="display:inline-block;background:#1a1d23;border:1px solid #2a2d35;border-radius:6px;padding:3px 8px;margin:2px;font-size:11px;color:#c8cdd6">'+f.notion+' <span style="color:#5a6072">('+f.matiere+')</span></span>').join('');
+    return '<div style="margin:12px 0;padding:10px;background:#15171c;border-radius:8px;border-left:3px solid #e94560">'
+      +'<b style="color:#e94560">'+(i+1)+'. '+dm.domaine+'</b>'
+      +' <span style="color:#7cc4ff;font-size:12px">'+dm.nb_fiches+' fiches · '+dm.nb_prog+' prog.</span>'
+      +(fiches?'<div style="margin-top:6px">'+fiches+'</div>':'<div style="margin-top:6px"><small style="color:#5a6072">— à compléter —</small></div>')
+      +'</div>';
+  }).join('');
+  $('#dom-list').innerHTML='<div style="color:#5a6072;font-size:11px;margin-bottom:4px">📖 '+d.source+'</div>'+N;
+}
+let _RESS=[];
+async function loadRessources(){
+  if(!_RESS.length){try{const d=await get('/api/prof/ressources-externes');_RESS=d.externes||[];}catch(e){$('#ress-list').innerHTML='<small>Erreur de chargement.</small>';return;}}
+  renderRess();
+}
+function renderRess(){
+  const q=($('#ress-q')?.value||'').toLowerCase().trim();
+  const items=_RESS.filter(r=>!q||(r.matiere+' '+r.nom+' '+(r.description||'')).toLowerCase().includes(q));
+  const groups={};items.forEach(r=>{(groups[r.matiere]=groups[r.matiere]||[]).push(r);});
+  const keys=Object.keys(groups).sort();
+  if(!keys.length){$('#ress-list').innerHTML='<small>Aucune ressource.</small>';return;}
+  $('#ress-list').innerHTML=keys.map(k=>'<div style="margin:10px 0 4px"><b style="color:#e94560">'+k+'</b></div>'+
+    groups[k].map(r=>'<div style="padding:6px 0;border-bottom:1px solid #22252c"><a href="'+r.url+'" target="_blank" rel="noopener" style="color:#7cc4ff">'+r.nom+'</a> <span style="color:#5a6072;font-size:11px">['+(r.type||'lien')+']</span>'+(r.description?'<br><small style="color:#8892a4">'+r.description+'</small>':'')+'</div>').join('')
+  ).join('');
+}
 function tok(){return localStorage.getItem('profToken')||'';}
 function hdr(j){const h=j?{'Content-Type':'application/json'}:{};const t=tok();if(t)h['X-Prof-Token']=t;return h;}
 async function ask401(r){if(r.status===401){const t=prompt('Code d\'accès Espace Prof (voir ~/jarvis/webapp/.prof_token) :');if(t){localStorage.setItem('profToken',t.trim());location.reload();}throw new Error('token');}return r;}
