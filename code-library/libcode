@@ -1,0 +1,3 @@
+#!/bin/bash
+# Bibliothèque de code — SQL avant compute. Usage: libcode <requête> | --list | --show <nom>
+exec python3 "$(dirname "$0")/lib.py" "$@"

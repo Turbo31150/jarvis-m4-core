@@ -1,0 +1,3 @@
+code_library.db
+*.db
+__pycache__/
