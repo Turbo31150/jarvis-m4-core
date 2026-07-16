@@ -75,6 +75,7 @@ for _modname in (
     "adaptatif",
     "integrations",
     "commandes",
+    "barre_magique",
 ):
     try:
         _m = __import__(_modname)

@@ -93,6 +93,16 @@ th{color:#8892a4;font-weight:600}
 </div>
 <main>
 
+  <!-- BARRE MAGIQUE (routeur par mot-clé, 0 token) -->
+  <div class="card" style="border:1px solid #e94560;background:linear-gradient(90deg,rgba(233,69,96,.08),transparent)">
+    <div style="display:flex;gap:8px;align-items:center">
+      <span style="font-size:18px">✨</span>
+      <input id="magik-q" placeholder="Écris ce que tu veux… (ex : séance sur les formes en MS, 5 fiches d'addition CE2, ressources phono)" style="flex:1" onkeydown="if(event.key==='Enter')magik()">
+      <button onclick="magik()" style="white-space:nowrap">Go</button>
+    </div>
+    <div id="magik-res" style="margin-top:8px"></div>
+  </div>
+
   <!-- ACCUEIL / DASHBOARD -->
   <div class="panel on" id="p-home"><div class="card">
     <b>Tableau de bord</b>
@@ -566,6 +576,19 @@ function showGroup(g){
   if(first)first.click();
 }
 document.querySelectorAll('.grp').forEach(gb=>gb.onclick=()=>showGroup(gb.dataset.g));
+const MAGIK_TAB={generer_seance:'seq',generer_exercices:'exo',differencier:'diff',cahier_journal:'cj',programmation:'prog',ressources:'ress',banque_batch:'annee',domaines_2026:'dom2026',corriger:'corr',mail_parents:'mail',bulletin:'bull',ateliers:'vie',edt:'edt'};
+async function magik(){
+  const q=$('#magik-q').value.trim(); if(!q)return;
+  $('#magik-res').innerHTML='<small>Détection…</small>';
+  let d;try{d=await api('/api/router',{phrase:q});}catch(e){$('#magik-res').innerHTML='<small>Erreur.</small>';return;}
+  if(!d.trouve){$('#magik-res').innerHTML='<small>Aucune action reconnue. Essaie : « séance », « fiches », « ressources », « cahier-journal »…</small>';return;}
+  const tab=MAGIK_TAB[d.intent];
+  const params=Object.entries(d.params_detectes||{}).map(([k,v])=>k+'='+v).join(' · ')||'—';
+  $('#magik-res').innerHTML='<div style="padding:6px;background:#15171c;border-radius:6px">🎯 <b style="color:#e94560">'+d.intent.replace(/_/g,' ')+'</b> <span style="color:#7cc4ff;font-size:11px">('+d.confiance+'%)</span>'
+    +'<br><small style="color:#8892a4">Contexte détecté : '+params+'</small>'
+    +(tab?'<br><button class="sec mini" style="margin-top:6px" onclick="document.querySelector(\'.grp[data-g=&quot;'+({seq:'prepare',exo:'prepare',diff:'prepare',cj:'prepare',prog:'prepare',ress:'prepare',annee:'prepare',dom2026:'prepare',corr:'suivre',mail:'auto',bull:'suivre',vie:'classe',edt:'prepare'}[tab])+'&quot;]\').click();document.querySelector(\'.tab[data-p=&quot;'+tab+'&quot;]\').click();">Ouvrir →</button>':'')
+    +'</div>';
+}
 async function loadExo(){
   let r;try{r=await get('/api/exercices');}catch(e){$('#exo-list').innerHTML='<small>Erreur.</small>';return;}
   if(!Array.isArray(r)||!r.length){$('#exo-list').innerHTML='<small>Aucun exercice enregistré pour l\'instant.</small>';return;}
