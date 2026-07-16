@@ -55,3 +55,4 @@ secrets.env
 # Rapports PDF générés (binaires, régénérables)
 webapp/static/rapports/*.pdf
 webapp/static/ressources-libres/*.html
+webapp/modeles-communication/brouillons/
