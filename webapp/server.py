@@ -70,6 +70,8 @@ for _modname in (
     "documents_io",
     "autosave",
     "admin",
+    "adaptatif",
+    "integrations",
 ):
     try:
         _m = __import__(_modname)

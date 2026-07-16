@@ -37,6 +37,9 @@ OLLAMA_API_KEY = os.environ.get(
 ZAI_BASE = os.environ.get("ZAI_BASE", "https://api.z.ai/api/paas/v4")
 ZAI_MODEL = os.environ.get("ZAI_MODEL", "glm-4.6")  # ex glm-5.2 / glm-4.6
 ZAI_API_KEY = os.environ.get("ZAI_API_KEY", "")
+# --- Google Gemini (déporté, qualité, quota gratuit ; clé Google AI Studio) ---
+GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
 LOCAL_MAX_TEMP = (
     82  # °C : au-delà, on REFUSE l'inférence locale CPU (anti-emballement M4)
 )
@@ -216,6 +219,33 @@ def _zai(msgs, max_tokens, temperature):
         return None
 
 
+def _gemini(msgs, max_tokens, temperature):
+    """Google Gemini — DÉPORTÉ, quota gratuit, 0 chaleur M4. Texte ou None.
+    Remplace l'ancien gemini-ask.sh (cassé). Nécessite GEMINI_API_KEY."""
+    if not GEMINI_API_KEY:
+        return None
+    # Concatène system+user en un seul prompt (API generateContent)
+    prompt = "\n\n".join(m["content"] for m in msgs if m.get("content"))
+    try:
+        r = requests.post(
+            f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent",
+            params={"key": GEMINI_API_KEY},
+            json={
+                "contents": [{"parts": [{"text": prompt}]}],
+                "generationConfig": {
+                    "temperature": temperature,
+                    "maxOutputTokens": max_tokens,
+                },
+            },
+            timeout=60,
+        )
+        data = r.json()
+        txt = data["candidates"][0]["content"]["parts"][0]["text"].strip()
+        return txt or None
+    except Exception:
+        return None
+
+
 def _ollama_cloud(msgs, max_tokens, temperature):
     """Ollama CLOUD — DÉPORTÉ, 0 chaleur, 0 token. Renvoie le texte ou None.
     Mode 1 (préféré) : API directe ollama.com via OLLAMA_API_KEY — ne dépend pas du
@@ -363,6 +393,13 @@ def generate(
         if cache:
             _cache_put(key, user, txt, f"zai:{ZAI_MODEL}")
         return {"text": txt, "backend": f"zai:{ZAI_MODEL}", "cached": False}
+
+    # 2bis) Google Gemini — DÉPORTÉ (quota gratuit, qualité), si GEMINI_API_KEY.
+    txt = _gemini(msgs, max_tokens, temperature)
+    if txt:
+        if cache:
+            _cache_put(key, user, txt, f"gemini:{GEMINI_MODEL}")
+        return {"text": txt, "backend": f"gemini:{GEMINI_MODEL}", "cached": False}
 
     # 3) Ollama CLOUD — DÉPORTÉ (API directe par clé, ou offload daemon signé).
     txt = _ollama_cloud(msgs, max_tokens, temperature)

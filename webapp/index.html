@@ -772,6 +772,32 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,input:focus-visible,sele
 <div id="section-automations" class="section">
   <h2>⚡ Automatisations dynamiques</h2>
   <p class="sub">L'app analyse vos données et propose des actions. Mails parents et planning générés et adaptés automatiquement.</p>
+
+  <!-- MOTEUR ADAPTATIF : journal de la semaine → régénération adaptée -->
+  <div class="card" style="margin:12px 0;border-left:4px solid var(--green,#1aa179)">
+    <strong>🧠 Moteur adaptatif — le carnet de la semaine</strong>
+    <p class="sub" style="margin:6px 0">Note ce qui arrive dans la semaine (besoin d'un élève, sortie, actualité, problème). Quand tu veux, <em>Actualiser</em> régénère exercices, contenu et ajustements d'emploi du temps — adaptés à tes élèves. Rien ne tourne en boucle, tout est à ta demande.</p>
+    <div class="form-row" style="gap:6px;flex-wrap:wrap">
+      <select id="adapt-cat" style="padding:8px;border-radius:8px">
+        <option value="eleve">👧 Élève</option>
+        <option value="probleme">⚠️ Problème rencontré</option>
+        <option value="sortie">🚌 Sortie</option>
+        <option value="actualite">📰 Actualité</option>
+        <option value="demande">🙋 Demande</option>
+        <option value="recherche">🔎 Recherche du jour</option>
+        <option value="note">📝 Note</option>
+      </select>
+      <input id="adapt-txt" type="text" placeholder="ex : Léa bloque sur les additions à retenue" style="flex:1;min-width:220px;padding:8px;border-radius:8px" onkeydown="if(event.key==='Enter')addAdaptNote()">
+      <button class="btn" onclick="addAdaptNote()">➕ Ajouter</button>
+    </div>
+    <div id="adapt-journal" class="sub" style="margin:10px 0"></div>
+    <div class="form-row">
+      <button class="btn" onclick="actualiserSemaine()" id="adapt-go">✨ Actualiser la semaine</button>
+      <span class="sub" id="adapt-status" style="font-size:12px;align-self:center"></span>
+    </div>
+    <div id="adapt-result" style="margin-top:10px;white-space:pre-wrap"></div>
+  </div>
+
   <div class="form-row">
     <button class="btn secondary" onclick="loadAutoSuggestions()">🔍 Suggestions du jour</button>
     <button class="btn secondary" onclick="genPlanningAuto()">🗓️ Proposer un planning équilibré</button>
@@ -874,6 +900,15 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,input:focus-visible,sele
       <button class="btn" onclick="backupNow()">💾 Sauvegarder</button>
     </div>
     <div id="admin-etat" class="sub">Chargement…</div>
+  </div>
+
+  <!-- Intégrations & API : état réel de chaque connexion -->
+  <div class="card" style="margin-bottom:16px">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+      <strong>🔌 Intégrations &amp; API</strong>
+      <button class="btn secondary" style="margin-left:auto" onclick="loadIntegrations()">↻ Tester</button>
+    </div>
+    <div id="integrations-etat" class="sub">Chargement…</div>
   </div>
 
   <!-- Audit score + MAMS countdown -->
@@ -1069,13 +1104,13 @@ function navigate(id) {
   if (id === 'notes')     loadNotes();
   if (id === 'carnet')    loadCarnet();
   if (id === 'documents') loadDocs();
-  if (id === 'systeme')   { loadServices(); loadAdmin(); }
+  if (id === 'systeme')   { loadServices(); loadAdmin(); loadIntegrations(); }
   if (id === 'logiciels') loadLogiciels();
   if (id === 'prof')      loadProf();
   if (id === 'biblio')    loadBiblio();
   if (id === 'sorties')   loadSorties();
   if (id === 'equipe')  { loadCollegues(); loadReunions(); }
-  if (id === 'automations') loadAutoSuggestions();
+  if (id === 'automations') { loadAutoSuggestions(); loadAdaptJournal(); }
 }
 
 /* ── EDT ── */
@@ -2506,6 +2541,55 @@ window.addEventListener('load',()=>{
       .catch(()=>{});
   }
 });
+// Intégrations & API : état réel de chaque connexion
+async function loadIntegrations(){
+  const el=document.getElementById('integrations-etat'); if(!el) return;
+  el.textContent='test en cours…';
+  const ICO={ok:'✅',cle_invalide:'🔑⚠️',a_config:'⚪',absent:'⚫'};
+  try{
+    const d=await fetch('/api/integrations/etat').then(r=>r.json());
+    el.innerHTML=(d.integrations||[]).map(i=>`<div style="display:flex;gap:8px;align-items:center;padding:3px 0">
+      <span>${ICO[i.etat]||'?'}</span>
+      <strong style="min-width:130px">${escHtml(i.nom)}</strong>
+      <span class="pill" style="font-size:11px">${escHtml(i.categorie)}</span>
+      <span style="flex:1;color:var(--muted,#888)">${escHtml(i.detail)}</span></div>`).join('');
+  }catch(e){ el.textContent='⚠ test impossible'; }
+}
+// Moteur adaptatif : carnet de la semaine → régénération adaptée
+async function loadAdaptJournal(){
+  const el=document.getElementById('adapt-journal'); if(!el) return;
+  try{
+    const d=await fetch('/api/adaptatif/journal').then(r=>r.json());
+    const j=d.journal||[];
+    if(!j.length){ el.innerHTML='<em>Aucune observation cette semaine. Ajoute ce que tu remarques ↑</em>'; return; }
+    const ICO={eleve:'👧',probleme:'⚠️',sortie:'🚌',actualite:'📰',demande:'🙋',recherche:'🔎',note:'📝'};
+    el.innerHTML=j.map(o=>`<div style="display:flex;gap:8px;align-items:center;padding:3px 0">
+      <span>${ICO[o.categorie]||'📝'}</span><span style="flex:1">${escHtml(o.texte)}</span>
+      <button class="btn secondary" style="padding:2px 8px" onclick="delAdaptNote(${o.id})">✕</button></div>`).join('');
+  }catch(e){ el.textContent='⚠ chargement journal impossible'; }
+}
+async function addAdaptNote(){
+  const txt=document.getElementById('adapt-txt'), cat=document.getElementById('adapt-cat');
+  if(!txt.value.trim()) return;
+  await fetch('/api/adaptatif/note',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({categorie:cat.value,texte:txt.value.trim()})}).catch(()=>{});
+  txt.value=''; loadAdaptJournal();
+}
+async function delAdaptNote(id){
+  await fetch('/api/adaptatif/note/'+id,{method:'DELETE'}).catch(()=>{});
+  loadAdaptJournal();
+}
+async function actualiserSemaine(){
+  const btn=document.getElementById('adapt-go'), st=document.getElementById('adapt-status'), res=document.getElementById('adapt-result');
+  btn.disabled=true; st.textContent='génération en cours (IA locale)…'; res.textContent='';
+  try{
+    const d=await fetch('/api/adaptatif/actualiser',{method:'POST'}).then(r=>r.json());
+    if(d.ok){ st.textContent='✅ '+d.backend+' · '+d.base.observations+' obs · '+d.base.eleves+' élèves';
+      res.textContent=d.propositions; }
+    else { st.textContent='⚠ '+(d.error||'échec'); }
+  }catch(e){ st.textContent='⚠ réseau'; }
+  btn.disabled=false;
+}
 // Dashboard Admin : état consolidé (backends IA, bases, sauvegardes, thermique)
 async function loadAdmin(){
   const el=document.getElementById('admin-etat'); if(!el) return;
