@@ -62,6 +62,20 @@ PROGRAMME = {
             "Les animaux familiers",
             "L'eau",
         ],
+        "Activités physiques": [
+            "Courir et s'arrêter",
+            "Sauter à pieds joints",
+            "Rouler, ramper",
+            "Lancer une balle",
+            "Rondes et jeux dansés",
+        ],
+        "Activités artistiques": [
+            "Peindre avec les mains",
+            "Coller des gommettes",
+            "Modeler la pâte",
+            "Chanter une comptine",
+            "Écouter un son",
+        ],
     },
     "MS": {
         "Langage oral": [
@@ -99,6 +113,20 @@ PROGRAMME = {
             "Flotte / coule",
             "La frise de la semaine",
         ],
+        "Activités physiques": [
+            "Parcours de motricité",
+            "Sauter loin, sauter haut",
+            "Lancer et attraper",
+            "Se déplacer en rythme",
+            "Jeux collectifs à règles",
+        ],
+        "Activités artistiques": [
+            "Peinture au pinceau",
+            "Dessiner un bonhomme",
+            "Modelage en volume",
+            "Percussions corporelles",
+            "Jeu dramatique (marionnettes)",
+        ],
     },
     "GS": {
         "Langage oral": [
@@ -135,6 +163,20 @@ PROGRAMME = {
             "Le temps : la frise",
             "Espace : plan de la classe",
             "Objets techniques",
+        ],
+        "Activités physiques": [
+            "Parcours d'équilibre",
+            "Courses et relais",
+            "Viser une cible",
+            "Danse et chorégraphie",
+            "Jeux d'opposition",
+        ],
+        "Activités artistiques": [
+            "Composition plastique",
+            "Dessin d'observation",
+            "Sculpture et assemblage",
+            "Chant et rythme structuré",
+            "Mise en scène d'une histoire",
         ],
     },
     # ───── ÉLÉMENTAIRE — CYCLE 2 ─────

@@ -15,10 +15,19 @@ from flask import jsonify, send_file, abort
 # Répertoires scannés (ordre = priorité d'affichage)
 RAP_DIRS = [
     Path("/home/pamerys/jarvis/webapp/static/rapports"),
+    Path("/home/pamerys/jarvis/webapp/static/ressources-libres"),
     Path("/home/pamerys/Documents"),
 ]
 # Motifs de fichiers pédagogiques à exposer (évite d'exposer tout ~/Documents)
-PATTERNS = ("audit_", "Banque_", "Cahier-journal", "rapport_", "Rapport_")
+PATTERNS = (
+    "audit_",
+    "Banque_",
+    "Cahier-journal",
+    "rapport_",
+    "Rapport_",
+    "guide-",
+    "programme-",
+)
 
 
 def _titre(nom: str) -> str:
@@ -149,6 +158,38 @@ def register(app):
     def api_ressources_libres():
         return jsonify(RESSOURCES_LIBRES)
 
+    # Aspiration offline : le navigateur (CDP) POST le code source des pages ici.
+    # CORS ouvert car appelé depuis un onglet d'un autre domaine (eduscol...).
+    ASPIR_DIR = Path("/home/pamerys/jarvis/webapp/static/ressources-libres/pages-html")
+
+    @app.route("/api/aspirer", methods=["POST", "OPTIONS"])
+    def api_aspirer():
+        from flask import request as _rq, make_response
+
+        if _rq.method == "OPTIONS":
+            r = make_response("")
+        else:
+            # Accepte JSON {nom,html} OU corps brut (sendBeacon text/plain) + ?nom=
+            nom = _rq.args.get("nom", "")
+            html = ""
+            d = _rq.get_json(force=True, silent=True)
+            if isinstance(d, dict):
+                nom = nom or str(d.get("nom", "page"))
+                html = str(d.get("html", ""))
+            else:
+                html = _rq.get_data(as_text=True) or ""
+                nom = nom or "page"
+            nom = Path(nom.replace("/", "_")).name
+            if not nom.endswith(".html"):
+                nom += ".html"
+            ASPIR_DIR.mkdir(parents=True, exist_ok=True)
+            (ASPIR_DIR / nom).write_text(html, encoding="utf-8")
+            r = make_response(jsonify({"ok": True, "nom": nom, "octets": len(html)}))
+        r.headers["Access-Control-Allow-Origin"] = "*"
+        r.headers["Access-Control-Allow-Headers"] = "Content-Type"
+        r.headers["Access-Control-Allow-Methods"] = "POST, OPTIONS"
+        return r
+
     @app.route("/rapports-pdf/<path:name>")
     @require_token
     def rapports_pdf(name):
@@ -156,3 +197,22 @@ def register(app):
         if not p:
             abort(404)
         return send_file(str(p), mimetype="application/pdf")
+
+    @app.route("/bibliotheque-offline")
+    @require_token
+    def bibliotheque_offline():
+        p = Path(
+            "/home/pamerys/jarvis/webapp/static/ressources-libres/bibliotheque-offline.html"
+        )
+        if not p.exists():
+            abort(404)
+        return send_file(str(p), mimetype="text/html")
+
+    # Symbiose app+site : la vitrine "Prof IA" servie DEPUIS l'app (route publique).
+    @app.route("/accueil")
+    @app.route("/site")
+    def site_accueil():
+        p = Path("/home/pamerys/jarvis/webapp/site_accueil.html")
+        if not p.exists():
+            abort(404)
+        return send_file(str(p), mimetype="text/html")

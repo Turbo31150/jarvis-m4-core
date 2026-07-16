@@ -201,6 +201,7 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,input:focus-visible,sele
   <div class="logo">Pousse<span>line</span></div>
   <nav>
     <a href="#" class="active" data-section="dashboard"><span class="icon">🏠</span><span>Dashboard</span></a>
+    <a href="/accueil" target="_blank"><span class="icon">⭐</span><span>Découvrir</span></a>
     <a href="#" data-section="planning"><span class="icon">📅</span><span>Planning</span></a>
     <a href="#" data-section="edt"><span class="icon">📋</span><span>Emploi du temps</span></a>
     <a href="#" data-section="groupes"><span class="icon">🎨</span><span>Groupes</span></a>
@@ -228,6 +229,11 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,input:focus-visible,sele
     <button class="vbtn" id="voiceBtn" onclick="triggerVoice()" title="Parler à Pousseline (Alt+X)">🎤</button>
     <span class="vstatus" id="voiceSt">Cliquer pour parler</span>
   </div>
+  <button id="btn-install-app" onclick="installerApp()" title="Installer Pousseline comme application"
+    style="display:none;align-items:center;gap:8px;justify-content:center;margin:8px 10px 4px;padding:9px;
+    border:0;border-radius:10px;background:var(--green,#1aa179);color:#fff;font-weight:600;cursor:pointer;width:calc(100% - 20px)">
+    📲 Installer l'app
+  </button>
   <div class="version">Pousseline · v1.0</div>
 </div>
 
@@ -834,6 +840,18 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,input:focus-visible,sele
   </div>
   <div class="doc-tree" id="doc-tree"></div>
 
+  <!-- Éditeur intégré : consulter / modifier / enregistrer un document texte -->
+  <div id="doc-editor" style="display:none;margin-top:16px;border:1px solid var(--border,#3a3a4a);border-radius:10px;padding:12px;background:var(--card,#1c1c28)">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap">
+      <strong id="doc-editor-name" style="flex:1">—</strong>
+      <span class="sub" id="doc-editor-status" style="font-size:12px"></span>
+      <button class="btn" onclick="saveDoc()" id="doc-save-btn">💾 Enregistrer</button>
+      <button class="btn secondary" onclick="closeDocEditor()">✕ Fermer</button>
+    </div>
+    <textarea id="doc-editor-text" spellcheck="false"
+      style="width:100%;min-height:340px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;line-height:1.5;padding:10px;border-radius:8px;border:1px solid var(--border,#3a3a4a);background:var(--bg,#12121a);color:var(--fg,#e8e8f0);resize:vertical"></textarea>
+  </div>
+
   <h3 style="margin-top:22px">📄 Rapports &amp; Banque PDF</h3>
   <p class="sub" style="margin:2px 0 10px">Documents pédagogiques générés par l'app — cliquer pour consulter.</p>
   <div class="doc-tree" id="rapports-list">Chargement…</div>
@@ -846,6 +864,17 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,input:focus-visible,sele
 <!-- 7. SYSTÈME ──────────────────────────────────────────────────────────── -->
 <div id="section-systeme" class="section">
   <h2>⚙️ Système</h2>
+
+  <!-- Dashboard Admin : état consolidé (backends IA, bases, sauvegardes) -->
+  <div class="card" style="margin-bottom:16px">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+      <strong>🛠️ Administration</strong>
+      <span class="sub" id="admin-cpu" style="font-size:12px"></span>
+      <button class="btn secondary" style="margin-left:auto" onclick="loadAdmin()">↻ Rafraîchir</button>
+      <button class="btn" onclick="backupNow()">💾 Sauvegarder</button>
+    </div>
+    <div id="admin-etat" class="sub">Chargement…</div>
+  </div>
 
   <!-- Audit score + MAMS countdown -->
   <div class="cards" style="margin-bottom:16px">
@@ -1040,7 +1069,7 @@ function navigate(id) {
   if (id === 'notes')     loadNotes();
   if (id === 'carnet')    loadCarnet();
   if (id === 'documents') loadDocs();
-  if (id === 'systeme')   loadServices();
+  if (id === 'systeme')   { loadServices(); loadAdmin(); }
   if (id === 'logiciels') loadLogiciels();
   if (id === 'prof')      loadProf();
   if (id === 'biblio')    loadBiblio();
@@ -2128,8 +2157,68 @@ function renderTree(nodes) {
   }).join('');
 }
 
+/* Types gérés dans le navigateur (pas besoin de xdg-open côté serveur) */
+const DOC_TEXTE = ['md','txt','csv','json','html','htm','xml','yaml','yml','log','ini','conf','tex','rst','org','markdown'];
+const DOC_VIEW  = ['pdf','png','jpg','jpeg','gif','svg','webp','bmp'];
+let _docPath = null;
+
+function _ext(p){ const m = p.split('.').pop(); return m ? m.toLowerCase() : ''; }
+
 function openDoc(path) {
-  fetch('/api/open?path=' + encodeURIComponent(path)).catch(() => {});
+  const ext = _ext(path);
+  const isDir = !path.includes('.') || path.split('/').pop().indexOf('.') < 0;
+  if (DOC_TEXTE.includes(ext)) {          // consulter + modifier + enregistrer
+    editDoc(path);
+  } else if (DOC_VIEW.includes(ext)) {     // consulter dans le navigateur (PDF/image)
+    window.open('/api/file?path=' + encodeURIComponent(path), '_blank');
+  } else if (isDir) {                      // dossier → gestionnaire de fichiers local
+    fetch('/api/open?path=' + encodeURIComponent(path)).catch(() => {});
+  } else {                                 // docx/odt/xlsx… → télécharger, éditable hors-ligne
+    window.open('/api/file?path=' + encodeURIComponent(path), '_blank');
+  }
+}
+
+async function editDoc(path) {
+  const ed = document.getElementById('doc-editor');
+  const st = document.getElementById('doc-editor-status');
+  ed.style.display = 'block';
+  document.getElementById('doc-editor-name').textContent = path.split('/').pop();
+  document.getElementById('doc-editor-text').value = 'Chargement…';
+  st.textContent = '';
+  _docPath = null;
+  try {
+    const r = await fetch('/api/file-content?path=' + encodeURIComponent(path)).then(r => r.json());
+    if (!r.ok) { st.textContent = '⚠ ' + (r.error || 'erreur'); return; }
+    if (!r.editable) {                     // binaire → ouvrir en consultation
+      ed.style.display = 'none';
+      window.open('/api/file?path=' + encodeURIComponent(path), '_blank');
+      return;
+    }
+    document.getElementById('doc-editor-text').value = r.text;
+    _docPath = r.path;
+    st.textContent = 'prêt';
+    ed.scrollIntoView({behavior:'smooth', block:'nearest'});
+  } catch(e){ st.textContent = '⚠ réseau'; }
+}
+
+async function saveDoc() {
+  if (!_docPath) return;
+  const st = document.getElementById('doc-editor-status');
+  const btn = document.getElementById('doc-save-btn');
+  btn.disabled = true; st.textContent = 'enregistrement…';
+  try {
+    const r = await fetch('/api/file-save', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({path:_docPath, text:document.getElementById('doc-editor-text').value})
+    }).then(r => r.json());
+    st.textContent = r.ok ? '✅ enregistré (' + r.octets + ' o)' : '⚠ ' + (r.error || 'échec');
+  } catch(e){ st.textContent = '⚠ réseau'; }
+  btn.disabled = false;
+}
+
+function closeDocEditor() {
+  document.getElementById('doc-editor').style.display = 'none';
+  _docPath = null;
 }
 
 /* ════════════════════════════════════════════════════════════════════════
@@ -2409,6 +2498,49 @@ if('serviceWorker' in navigator){
     .then(()=>console.log('[JARVIS] PWA service worker actif'))
     .catch(e=>console.log('[JARVIS] SW erreur',e)));
 }
+// Sauvegarde auto : 1 snapshot des bases par session (filet anti-perte, silencieux)
+window.addEventListener('load',()=>{
+  if(!sessionStorage.getItem('pousseline_backup')){
+    fetch('/api/backup',{method:'POST'})
+      .then(()=>{sessionStorage.setItem('pousseline_backup','1');console.log('[Pousseline] sauvegarde auto OK');})
+      .catch(()=>{});
+  }
+});
+// Dashboard Admin : état consolidé (backends IA, bases, sauvegardes, thermique)
+async function loadAdmin(){
+  const el=document.getElementById('admin-etat'); if(!el) return;
+  try{
+    const d=await fetch('/api/admin/etat').then(r=>r.json());
+    const cpu=document.getElementById('admin-cpu');
+    if(cpu) cpu.textContent = d.cpu_temp!=null ? ('CPU '+d.cpu_temp+'°C'+(d.cpu_temp>=82?' 🔥':'')) : '';
+    const be=(d.backends||[]).map(b=>`<span class="pill">${b.up?'🟢':'⚫'} ${escHtml(b.nom)}${b.modele?' · '+escHtml(String(b.modele)):''}</span>`).join(' ');
+    const ba=(d.bases||[]).map(b=>`<span class="pill">${b.present?'🗄️':'❌'} ${escHtml(b.nom)}${b.tables!=null?' ('+b.tables+' tables, '+b.ko+' Ko)':''}</span>`).join(' ');
+    const sv=d.sauvegardes||{};
+    el.innerHTML=`<div style="margin-bottom:8px"><strong>IA :</strong> ${be||'—'}</div>
+      <div style="margin-bottom:8px"><strong>Bases :</strong> ${ba||'—'}</div>
+      <div><strong>Sauvegardes :</strong> ${sv.total||0} · dernière : ${sv.derniere?escHtml(sv.derniere):'aucune'}</div>`;
+  }catch(e){ el.textContent='⚠ impossible de charger l\'état'; }
+}
+async function backupNow(){
+  const el=document.getElementById('admin-etat');
+  try{ const r=await fetch('/api/backup',{method:'POST'}).then(r=>r.json());
+    if(r.ok){ loadAdmin(); } else { if(el) el.textContent='⚠ '+(r.error||'échec sauvegarde'); }
+  }catch(e){ if(el) el.textContent='⚠ réseau'; }
+}
+// Installation de l'app : capte l'invite navigateur et affiche un bouton "Installer"
+let _deferredInstall=null;
+window.addEventListener('beforeinstallprompt',e=>{
+  e.preventDefault(); _deferredInstall=e;
+  const b=document.getElementById('btn-install-app'); if(b) b.style.display='flex';
+});
+async function installerApp(){
+  if(!_deferredInstall){ alert("Pour installer : menu du navigateur → « Installer Pousseline » / « Ajouter à l'écran d'accueil »."); return; }
+  _deferredInstall.prompt();
+  const {outcome}=await _deferredInstall.userChoice;
+  if(outcome==='accepted'){ const b=document.getElementById('btn-install-app'); if(b) b.style.display='none'; }
+  _deferredInstall=null;
+}
+window.addEventListener('appinstalled',()=>{const b=document.getElementById('btn-install-app'); if(b) b.style.display='none';});
 </script>
 </body>
 </html>

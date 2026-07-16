@@ -67,6 +67,9 @@ for _modname in (
     "banque_annuelle",
     "systeme_io",
     "documents",
+    "documents_io",
+    "autosave",
+    "admin",
 ):
     try:
         _m = __import__(_modname)
@@ -385,6 +388,24 @@ _OPEN_ALLOWED = [
 ]
 
 
+def _display():
+    """Retourne un display X dont le socket existe VRAIMENT.
+
+    Le service hérite DISPLAY=:0 (unit + env) mais M4 tourne en réalité sur :1
+    (seul socket /tmp/.X11-unix/X1). On ne garde le DISPLAY hérité que si son
+    socket existe, sinon on prend le premier socket réel — sans quoi evince /
+    xdg-open s'ouvrent sur un écran fantôme et rien ne s'affiche.
+    """
+    try:
+        displays = [":" + s.name[1:] for s in sorted(Path("/tmp/.X11-unix").glob("X*"))]
+    except OSError:
+        displays = []
+    env_disp = os.environ.get("DISPLAY")
+    if env_disp and env_disp in displays:
+        return env_disp
+    return displays[0] if displays else (env_disp or ":0")
+
+
 @app.route("/api/open")
 def api_open():
     path = request.args.get("path", "")
@@ -412,7 +433,18 @@ def api_open():
         return jsonify({"error": "Type de fichier non autorisé"}), 403
     if not target.is_file() and not target.is_dir():
         return jsonify({"error": "Not found"}), 404
-    subprocess.Popen(["xdg-open", str(target)], env={**os.environ, "DISPLAY": ":0"})
+    env = {**os.environ, "DISPLAY": _display()}
+    # Chrome tourne en mode --app (kiosk) et "avale" les PDF sans les afficher :
+    # on les ouvre avec une visionneuse dédiée. Le reste passe par xdg-open.
+    cmd = ["xdg-open", str(target)]
+    if target.is_file() and target.suffix.lower() == ".pdf":
+        import shutil
+
+        viewer = shutil.which("evince") or shutil.which("okular")
+        if viewer:
+            cmd = [viewer, str(target)]
+    # start_new_session : détache le process de gvfs/service (sinon meurt avec la requête)
+    subprocess.Popen(cmd, env=env, start_new_session=True)
     return jsonify({"ok": True})
 
 

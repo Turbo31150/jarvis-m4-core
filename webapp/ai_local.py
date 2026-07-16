@@ -21,7 +21,9 @@ from pathlib import Path
 import requests
 
 ECOLE_DB = Path(__file__).resolve().parent / "ecole.db"
-M1 = "http://192.168.0.10:1234"  # M1 déménagé (ex 192.168.1.85) — resync 2026-07-09
+M1 = os.environ.get(
+    "M1_HOST", "http://10.42.0.1:1234"
+)  # câble direct M4↔M1 (ex 192.168.0.10 / .1.85)
 M2 = "http://192.168.1.26:1234"
 OLLAMA = "http://127.0.0.1:11434"
 GEMINI_SH = str(Path.home() / "jarvis" / "scripts" / "gemini-ask.sh")
@@ -110,6 +112,45 @@ def _up(url, timeout=1.5):
                 ok = False
     _UP_CACHE[url] = (now, ok)
     return ok
+
+
+_MODEL_CACHE = {}  # url -> (ts, model_id) : évite de re-lister /v1/models à chaque appel
+
+
+def _pick_chat_model(url, timeout=4):
+    """Renvoie l'id du 1er modèle de chat chargé sur ce nœud LM Studio.
+
+    Les noms de modèles varient d'un nœud à l'autre (M1 direct = qwen3.5-9b,
+    M1 LAN = qwen3.5-35b…). On interroge /v1/models et on écarte les modèles
+    d'embedding. Cache 60 s. Renvoie None si rien d'exploitable.
+    """
+    import time
+
+    now = time.time()
+    hit = _MODEL_CACHE.get(url)
+    if hit and now - hit[0] < 60:
+        return hit[1]
+    model = None
+    try:
+        data = requests.get(f"{url}/v1/models", timeout=timeout).json().get("data", [])
+        cands = [
+            m.get("id", "")
+            for m in data
+            if m.get("id") and "embed" not in m["id"].lower()
+        ]
+        # Préférer les modèles NON-« thinking » : qwen3.x rend souvent un content vide
+        # (tout part en reasoning) → on les met en dernier recours.
+        THINKY = ("qwen3", "qwq", "deepseek-r1", "-r1")
+
+        def _score(mid):
+            return 1 if any(t in mid.lower() for t in THINKY) else 0
+
+        cands.sort(key=_score)
+        model = cands[0] if cands else None
+    except requests.exceptions.RequestException:
+        model = None
+    _MODEL_CACHE[url] = (now, model)
+    return model
 
 
 def _cache_get(key):
@@ -294,11 +335,14 @@ def generate(
     for node, url in (("M1", M1), ("M2", M2)):
         if not _up(url):
             continue
+        model = _pick_chat_model(url)  # modèle réellement chargé sur ce nœud
+        if not model:
+            continue
         try:
             r = requests.post(
                 f"{url}/v1/chat/completions",
                 json={
-                    "model": "qwen3.5-35b-a3b",
+                    "model": model,
                     "messages": msgs,
                     "temperature": temperature,
                     "max_tokens": max_tokens,

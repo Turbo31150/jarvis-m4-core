@@ -86,6 +86,19 @@ def register(app):
         if not matiere or _duree(debut, fin) <= 0:
             return jsonify({"error": "matiere requise et fin > debut"}), 400
         with _conn() as c:
+            # Détection de conflit : 2 créneaux le même jour se chevauchent si
+            # debut < fin_existant ET debut_existant < fin. On refuse (fail-closed).
+            nd, nf = _minutes(debut), _minutes(fin)
+            for r in c.execute(
+                "SELECT debut, fin, matiere FROM edt_creneaux WHERE jour=?", (jour,)
+            ).fetchall():
+                if nd < _minutes(r["fin"]) and _minutes(r["debut"]) < nf:
+                    return jsonify(
+                        {
+                            "error": "conflit de créneau",
+                            "conflit": f"{r['matiere']} {r['debut']}–{r['fin']}",
+                        }
+                    ), 409
             cur = c.execute(
                 "INSERT INTO edt_creneaux(jour,debut,fin,matiere,domaine,niveau) "
                 "VALUES(?,?,?,?,?,?)",
