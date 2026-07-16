@@ -32,6 +32,14 @@ Nav item 🛒 + section `#section-commandes` (budget classe, générateur IA dep
 Module `programme_maternelle_2026.py` (375 notions, 5 domaines BO n°19 × 5 périodes) + `_cells()` de `banque_annuelle.py` branché : PS/MS/GS → 125 cellules 2026 chacun. Dispatch lancé → banque 247 → ~622 fiches (0 token, ~15 min). **Piège ruff** : mettre l'usage avant l'import (autofix F401 supprime les imports non encore utilisés).
 **Reste** : (a) nettoyer les ~90 anciennes fiches maternelle (matières « Langage oral »/« Nombres »… hors plan 2026) ; (b) câbler `/api/banque/plan` + onglet « Année » sur les domaines 2026 (actuellement affiche encore les anciennes matières via PROGRAMME).
 
+## 🟠 BLOCAGES RUBRIQUE DOCUMENTS/SUPPORTS (2026-07-17)
+1. **Export PDF cassé** : aucune lib PDF installée (`reportlab`/`weasyprint`/`wkhtmltopdf`/`pandoc` absents) → `export_pdf.md_to_pdf_path` échoue, `/api/banque/pdf` et `/api/prof/export-pdf` renvoient 500. Fix : `pip install --user weasyprint` (a des deps système) OU `apt install wkhtmltopdf` OU repli : générer des **recueils HTML imprimables** (Ctrl+P) au lieu de PDF.
+2. **`/api/ressources-libres` statique** : retourne la constante `RESSOURCES_LIBRES`, pas un `glob()` du dossier → déposer des fichiers ne les liste pas. Fix : rendre la route dynamique (glob `static/ressources-libres/**`).
+→ Tant que non résolu, la rubrique « Documents/Bibliothèque » ne peut pas être alimentée automatiquement en supports.
+
+## ✅ Rubriques SQL remplies (2026-07-17)
+groupes 3(+11 élèves) · ateliers 30 · sorties 4 · réunions 5 · banque 549→~620 (GS en fond). Reste `collègues` (1) = vraies personnes, à saisir par l'utilisatrice.
+
 ## 🔴 AUDIT GÉNÉRATION (2026-07-16) — voir `AUDIT-GENERATION-2026-07-16.md`
 L'app **génère** (via ollama-cloud) mais SPOF : M1 down + local bridé thermique (≥82 °C) + pas de repli hors-IA → 503 si le cloud/net tombe = « ne génère rien ».
 **Priorité #0 (robustesse)** : réintégrer un **moteur templates local sans IA** (l'ancienne app Windows l'avait) pour ne jamais renvoyer 503. Puis delta produit : styles de formulation (5), appréciation structurée 3 blocs, accord genre F/M, génération par lot, exports Word/Excel, TTS bulletin. Sources : `/mnt/windows/Users/clair/{generateur_commentaires_v3,generateur_commentaires_scolaires,module_vocal,export_bulletins}.py`. Cf. mémoire `ancienne-app-prof-windows`.
