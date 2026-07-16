@@ -56,3 +56,6 @@ secrets.env
 webapp/static/rapports/*.pdf
 webapp/static/ressources-libres/*.html
 webapp/modeles-communication/brouillons/
+webapp/prof-jour/_jour/
+prof-jour/_jour/
+webapp/backups/
