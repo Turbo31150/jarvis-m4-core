@@ -498,7 +498,9 @@ def _generate_cell(niveau, matiere, notion, periode):
         "## SOUTIEN (étayé, plus simple)\n## STANDARD\n## APPROFONDISSEMENT\n"
         "Consignes claires, adaptées à l'âge. Markdown, prêt à imprimer."
     )
-    res = ai_local.generate(prompt, max_tokens=1100, cache=True)
+    # repli=False : le dispatch veut de VRAIES fiches (retry si cascade KO),
+    # pas une trame hors-ligne. Les routes interactives gardent le repli par défaut.
+    res = ai_local.generate(prompt, max_tokens=1100, cache=True, repli=False)
     c = _conn()
     try:
         c.execute(

@@ -334,6 +334,7 @@ def generate(
     max_tokens=1500,
     cache=True,
     temperature=0.5,
+    repli=True,  # défaut : jamais de 503 (trame hors-ligne). Le dispatch passe repli=False.
 ):
     key = hashlib.sha256((system + "||" + user).encode()).hexdigest()[:40]
     if cache:
@@ -423,6 +424,17 @@ def generate(
                     }
             except Exception:
                 continue
+
+    # Filet HORS-IA : jamais de 503 pour les appels qui l'acceptent (repli=True).
+    # Le dispatch de masse garde repli=False → AIUnavailable → retry (vraies fiches).
+    if repli:
+        import templates_repli
+
+        return {
+            "text": templates_repli.repli(user, system),
+            "backend": "templates-local",
+            "cached": False,
+        }
 
     if temp >= LOCAL_MAX_TEMP:
         raise AIUnavailable(
