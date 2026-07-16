@@ -176,6 +176,11 @@ th{color:#8892a4;font-weight:600}
     <label>Adapter à un élève (optionnel)</label><select id="ex-el"><option value="">— toute la classe —</option></select>
     <button onclick="genExo()">Générer</button>
     <div class="out" id="ex-out" style="display:none"></div>
+  </div>
+  <div class="card">
+    <b>📚 Mes exercices enregistrés</b>
+    <button class="sec mini" onclick="loadExo()" style="margin:6px 0">↻ Rafraîchir</button>
+    <div id="exo-list"><small>Chargement…</small></div>
   </div></div>
 
   <!-- DIFFÉRENCIATION MULTI-ÉLÈVES -->
@@ -540,6 +545,7 @@ document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
   const p=t.dataset.p;
   if(p==='home')loadDash();
   if(p==='edt')loadEdt();
+  if(p==='exo')loadExo();
   if(p==='ress')loadRessources();
   if(p==='dom2026')loadDomaines2026();
   if(p==='appel')loadAppel();
@@ -560,6 +566,12 @@ function showGroup(g){
   if(first)first.click();
 }
 document.querySelectorAll('.grp').forEach(gb=>gb.onclick=()=>showGroup(gb.dataset.g));
+async function loadExo(){
+  let r;try{r=await get('/api/exercices');}catch(e){$('#exo-list').innerHTML='<small>Erreur.</small>';return;}
+  if(!Array.isArray(r)||!r.length){$('#exo-list').innerHTML='<small>Aucun exercice enregistré pour l\'instant.</small>';return;}
+  $('#exo-list').innerHTML='<div style="color:#5a6072;font-size:11px;margin-bottom:4px">'+r.length+' exercice(s)</div>'+
+    r.map(e=>'<div style="padding:6px 0;border-bottom:1px solid #22252c"><b style="color:#c8cdd6">'+(e.notion||e.titre||'—')+'</b> <span style="color:#5a6072;font-size:11px">'+(e.matiere||'')+' · '+(e.niveau||'')+'</span></div>').join('');
+}
 async function loadDomaines2026(){
   const niv=$('#dom-niv')?.value||'MS';
   $('#dom-list').innerHTML='<small>Chargement…</small>';
