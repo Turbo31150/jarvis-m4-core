@@ -1373,6 +1373,14 @@ async function pbLoadNiveau(){
 }
 async function pbPlan(){
   const box=$('pb-plan'); if(!box) return;
+  // Délégation (une seule liaison) : évite toute injection JS dans un onclick inline (fix XSS).
+  if(!box._bound){
+    box.addEventListener('click', e=>{
+      const b=e.target.closest('.pb-gen-btn'); if(!b) return;
+      pbGenerer(b.dataset.matiere, b.dataset.notion, parseInt(b.dataset.periode||'1',10));
+    });
+    box._bound=true;
+  }
   const niv=$('pb-niveau').value;
   const p=await pJson('/api/banque/plan?niveau='+encodeURIComponent(niv));
   if(!p||p.error){ box.innerHTML='<div class="sub">Plan indisponible.</div>'; return; }
@@ -1383,7 +1391,7 @@ async function pbPlan(){
     return `<div style="margin:6px 0"><b>${esc(m)}</b> — `+cs.map(c=>
       c.fait
         ? `<span style="margin:2px;color:var(--muted,#888)">✅ ${esc(c.notion)}</span>`
-        : `<button class="btn secondary" style="margin:2px;font-size:11px;padding:3px 8px" onclick="pbGenerer('${esc(m).replace(/'/g,"\\'")}','${esc(c.notion).replace(/'/g,"\\'")}',${c.periode||1})">⬜ ${esc(c.notion)}</button>`
+        : `<button class="btn secondary pb-gen-btn" data-matiere="${esc(m)}" data-notion="${esc(c.notion)}" data-periode="${c.periode||1}" style="margin:2px;font-size:11px;padding:3px 8px">⬜ ${esc(c.notion)}</button>`
     ).join(' ')+`</div>`;
   }).join('')||'<div class="sub">Aucune notion au programme pour ce niveau.</div>';
 }
