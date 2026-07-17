@@ -843,12 +843,13 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,input:focus-visible,sele
       <textarea id="a-question" rows="3" placeholder="Pose ta question ici… (Ctrl+Entrée pour envoyer)"></textarea>
     </div>
     <div class="form-group" style="flex:0;min-width:140px">
-      <label>Mode</label>
+      <label>Profil</label>
       <select id="a-mode">
-        <option value="cours">Cours</option>
-        <option value="recherche">Recherche</option>
-        <option value="code">Code</option>
-        <option value="trading">Trading</option>
+        <option value="standard">Standard</option>
+        <option value="demarches">Démarches</option>
+        <option value="falc">FALC</option>
+        <option value="mediateur">Médiateur</option>
+        <option value="senior">Senior</option>
       </select>
     </div>
     <button class="btn" style="align-self:flex-end" onclick="askJarvis()">Demander</button>
@@ -2391,8 +2392,8 @@ function loadChatHistory() {
 }
 
 async function askJarvis() {
-  const q    = document.getElementById('a-question').value.trim();
-  const mode = document.getElementById('a-mode').value;
+  const q       = document.getElementById('a-question').value.trim();
+  const persona = document.getElementById('a-mode').value;
   if (!q) return;
   const el = document.getElementById('chat-history');
   // Remove placeholder
@@ -2404,20 +2405,20 @@ async function askJarvis() {
   el.scrollTop = el.scrollHeight;
   document.getElementById('a-question').value = '';
   try {
-    const r = await fetch('/api/jarvis-ask', {
+    const r = await fetch('/api/assistant', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({question:q, mode})
+      body: JSON.stringify({prompt:q, persona})
     });
     const d = await r.json();
     const streamEl = document.getElementById(streamId);
     if (streamEl) streamEl.remove();
-    if (d.answer) {
+    if (d.texte) {
       const hist = JSON.parse(localStorage.getItem(HIST_KEY) || '[]');
-      hist.push({q, a: d.answer, mode, ts: new Date().toISOString()});
+      hist.push({q, a: d.texte, mode: persona, ts: new Date().toISOString()});
       if (hist.length > 50) hist.shift();
       localStorage.setItem(HIST_KEY, JSON.stringify(hist));
-      el.innerHTML += `<div class="msg-ai">${escHtml(d.answer)}<br><small style="color:var(--muted)">[${escHtml(d.model)}]</small></div>`;
+      el.innerHTML += `<div class="msg-ai">${escHtml(d.texte)}<br><small style="color:var(--muted)">[${escHtml(d.backend)}${d.cached?' · cache':''}]</small></div>`;
     } else {
       el.innerHTML += `<div class="msg-err">Erreur: ${escHtml(d.error || 'inconnu')}</div>`;
     }
