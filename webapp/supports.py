@@ -14,6 +14,7 @@ DOSSIERS = {
     "recueils": "📚 Recueils de fiches (par niveau)",
     "plans": "🗓️ Plans de l'année (MS/GS × 5 périodes)",
     "modeles": "🗂️ Classeur de modèles (mails, réunions, absences…)",
+    "profils": "🧩 Adaptations par profil d'élève (dys, TDAH, TSA, allophone, HPI…)",
 }
 
 
