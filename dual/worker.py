@@ -35,7 +35,9 @@ RETRYABLE = {
     "empty_response",
     "http_error",
 }
-NON_RETRYABLE = {"model_unavailable", "cancelled"}
+# reasoning_only : relancer à l'identique reproduirait le même
+# raisonnement sans réponse — il faut changer la requête, pas réessayer.
+NON_RETRYABLE = {"model_unavailable", "cancelled", "reasoning_only"}
 
 
 @dataclass

@@ -42,6 +42,18 @@ class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         if self.path == "/v1/models":
             self._json(200, {"data": [{"id": "fake-model"}, {"id": "ghost-model"}]})
+        elif self.path == "/api/v0/models":
+            # Reproduit LM Studio : un seul modèle résident, les autres
+            # refusent de se charger faute de VRAM (cudaMalloc OOM).
+            self._json(
+                200,
+                {
+                    "data": [
+                        {"id": "fake-model", "state": "loaded"},
+                        {"id": "ghost-model", "state": "not-loaded"},
+                    ]
+                },
+            )
         else:
             self._json(404, {"error": "not found"})
 
@@ -65,6 +77,15 @@ class Handler(BaseHTTPRequestHandler):
             self.wfile.write(f"data: {json.dumps(obj)}\n\n".encode())
             self.wfile.flush()
 
+        if mode == "reasoning_only":
+            # Reproduit qwen3.5 en mode thinking : que du reasoning_content,
+            # jamais de content — le budget part entièrement en raisonnement.
+            for tok in ("Hmm", ", réfléchissons", "..."):
+                sse({"choices": [{"delta": {"reasoning_content": tok}}]})
+            self.wfile.write(b"data: [DONE]\n\n")
+            self.wfile.flush()
+            self.close_connection = True
+            return
         if mode == "empty":
             sse({"choices": [{"delta": {}}]})
             self.wfile.write(b"data: [DONE]\n\n")
@@ -168,6 +189,37 @@ class ProviderTests(unittest.TestCase):
         p = build_provider("lmstudio", "http://127.0.0.1:1", self.t)
         r = p.chat("fake-model", [{"role": "user", "content": "hi"}])
         self.assertIn(r.status, ("server_unavailable", "timeout_connect"))
+
+    def test_reasoning_only_is_distinguished_from_empty(self):
+        """Un modèle qui ne produit que du raisonnement n'est pas « vide ».
+
+        Mesuré sur qwen3.5-9b : status empty_response, chars=0, même à
+        max_tokens=300. Confondre les deux envoie chercher une panne serveur
+        là où il suffit de désactiver le mode thinking.
+        """
+        MODE["value"] = "reasoning_only"
+        r = self.provider().chat("fake-model", [{"role": "user", "content": "hi"}])
+        MODE["value"] = "ok"
+        self.assertEqual(r.status, "reasoning_only")
+        self.assertIn("thinking", (r.error or "").lower())
+
+    def test_loaded_models_detected(self):
+        """LM Studio expose l'état de chargement : on doit le lire."""
+        self.assertEqual(self.provider().loaded_models(), ["fake-model"])
+
+    def test_loaded_model_is_preferred(self):
+        """Sur un backend mono-modèle, le worker doit viser le modèle résident.
+
+        Sans cela on élit un modèle `not-loaded` qui répondra OOM, puis on le
+        déclare « fantôme » alors qu'il serait fonctionnel s'il était chargé.
+        """
+        from dual.config import _assign_workers
+
+        w = _assign_workers(
+            [("lmstudio", ["ghost-model", "fake-model"])],
+            loaded={"lmstudio": ["fake-model"]},
+        )
+        self.assertEqual(w["worker_a"]["model"], "fake-model")
 
     def test_metrics_never_invented(self):
         """Sans usage fourni, tokens_per_second doit valoir UNAVAILABLE."""

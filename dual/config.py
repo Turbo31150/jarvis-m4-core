@@ -91,10 +91,15 @@ def discover(
 
     cfg = load()
     providers, found = {}, []
+    loaded_by_alias: dict[str, list[str]] = {}
     for alias, url in CANDIDATES:
-        kind = ("agy" if alias == "agy"
-                else "ollama" if alias.startswith("ollama")
-                else "lmstudio")
+        kind = (
+            "agy"
+            if alias == "agy"
+            else "ollama"
+            if alias.startswith("ollama")
+            else "lmstudio"
+        )
         try:
             p = build_provider(kind, url)
             models = p.discover_models()
@@ -104,13 +109,28 @@ def discover(
             continue
         if not models:
             continue
+        # Modèles résidents : sur un backend mono-modèle (GPU étroit), seuls
+        # ceux-là peuvent répondre — les autres échouent en cudaMalloc OOM.
+        resident = p.loaded_models() if hasattr(p, "loaded_models") else []
+        if resident:
+            loaded_by_alias[alias] = resident
         usable = models
         if probe:
             t = Timeouts(connect=5, first_token=180, idle=60, request=300)
             pr = build_provider(kind, url, t)
             usable = []
-            for m in models:
+            # On sonde le résident en premier : c'est le seul verdict fiable,
+            # et cela évite de déloger un modèle qui fonctionne.
+            ordered = ([m for m in models if m in resident]
+                       + [m for m in models if m not in resident])
+            for m in ordered:
                 if "embed" in m.lower():
+                    continue
+                if resident and m not in resident:
+                    # Ne PAS le déclarer fantôme : il n'est simplement pas
+                    # chargé, et ce backend n'en tient qu'un à la fois.
+                    if verbose:
+                        print(f"       skip  {m:38s} not-loaded (backend mono-modèle)")
                     continue
                 r = pr.chat(
                     m,
@@ -141,11 +161,13 @@ def discover(
             print(f"  [OK] {alias:14s} {url:28s} {len(usable)} modèle(s) utilisable(s)")
 
     cfg["providers"] = providers
-    cfg["workers"] = _assign_workers(found)
+    cfg["workers"] = _assign_workers(found, loaded=loaded_by_alias)
     return cfg
 
 
-def _assign_workers(found: list[tuple[str, list[str]]]) -> dict:
+def _assign_workers(
+    found: list[tuple[str, list[str]]], loaded: dict | None = None
+) -> dict:
     """A et B doivent viser des BACKENDS DISTINCTS : deux modèles sur un même
     serveur mono-GPU sérialisent l'inférence (constat matériel M4, 4 Go VRAM).
     """
@@ -158,11 +180,15 @@ def _assign_workers(found: list[tuple[str, list[str]]]) -> dict:
         "lmstudio_m1": ["qwen/qwen3.5-9b"],
         "ollama": ["gemma3:4b", "llama3.2", "qwen2.5:1.5b", "qwen2.5:0.5b"],
         # agy : Flash low = le plus rapide, suffisant pour un worker.
-        "agy": ["gemini-3.7-flash-low", "gemini-3.6-flash-low",
-                "gpt-oss-120b-medium"],
+        "agy": ["gemini-3.7-flash-low", "gemini-3.6-flash-low", "gpt-oss-120b-medium"],
     }
 
     def pick(alias, models):
+        # Un modèle déjà résident bat toute préférence de nom : sur un backend
+        # mono-modèle, c'est le seul qui puisse réellement répondre.
+        for m in (loaded or {}).get(alias, []):
+            if m in models:
+                return m
         for m in prefer.get(alias, []):
             if m in models:
                 return m

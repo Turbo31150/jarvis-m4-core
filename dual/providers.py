@@ -5,7 +5,7 @@ Stdlib uniquement (http.client) pour maîtriser les 4 timeouts distincts :
 connect / first_token / idle / request.
 
 Statuts renvoyés (jamais inventés) :
-  success | empty_response | model_unavailable | server_unavailable
+  success | empty_response | reasoning_only | model_unavailable | server_unavailable
   | timeout_connect | timeout_first_token | timeout_idle | timeout_request
   | http_error | cancelled
 """
@@ -67,6 +67,9 @@ class Provider:
     """Contrat commun. Sous-classer pour chaque backend réel."""
 
     name = "abstract"
+    # Chaque backend coupe le raisonnement à sa façon : le message d'erreur
+    # doit nommer LE bon réglage, pas celui du voisin.
+    THINK_OFF_HINT = "consulter la documentation du backend"
 
     def __init__(self, base_url: str, timeouts: Timeouts | None = None, journal=None):
         self.base_url = base_url.rstrip("/")
@@ -163,6 +166,7 @@ class Provider:
         t_start = time.perf_counter()
         ttft = None
         ntok = 0
+        nreason = 0
         chunks: list[str] = []
         usage: dict = {}
         conn = None
@@ -256,7 +260,10 @@ class Provider:
                 line = raw.decode("utf-8", "replace").strip()
                 if not line:
                     continue
-                piece, done, u = parse_line(line)
+                parsed = parse_line(line)
+                piece, done, u = parsed[0], parsed[1], parsed[2]
+                if len(parsed) > 3 and parsed[3]:
+                    nreason += len(parsed[3])
                 if u:
                     usage.update(u)
                 if piece:
@@ -285,6 +292,17 @@ class Provider:
 
             usage.update(extract_usage(usage))
             if not chunks:
+                if nreason:
+                    yield {
+                        "event": "RESULT",
+                        "result": result(
+                            "reasoning_only",
+                            f"le modèle est en mode thinking : {nreason} caractères "
+                            f"de raisonnement, aucun contenu. Couper le raisonnement "
+                            f"({self.THINK_OFF_HINT}) ou augmenter max_tokens.",
+                        ),
+                    }
+                    return
                 yield {
                     "event": "RESULT",
                     "result": result("empty_response", "HTTP 200 mais contenu vide"),
@@ -312,10 +330,25 @@ class LMStudioProvider(Provider):
     """LM Studio — endpoint OpenAI-compatible /v1 (vérifié sur cette machine)."""
 
     name = "lmstudio"
+    THINK_OFF_HINT = "no_think=True"
 
     def discover_models(self) -> list[str]:
         d = self._get_json("/v1/models")
         return [m["id"] for m in d.get("data", [])]
+
+    def loaded_models(self) -> list[str]:
+        """Modèles RÉSIDENTS en mémoire, via l'endpoint natif /api/v0/models.
+
+        Décisif sur un GPU étroit : LM Studio ne décharge pas le modèle courant
+        avant d'en charger un autre, donc toute demande visant un modèle
+        `not-loaded` échoue en cudaMalloc OOM. Ce n'est pas un modèle cassé,
+        c'est un modèle qui n'est pas là. Liste vide si l'endpoint n'existe pas.
+        """
+        try:
+            d = self._get_json("/api/v0/models")
+        except Exception:  # noqa: BLE001 - endpoint absent selon la version
+            return []
+        return [m["id"] for m in d.get("data", []) if m.get("state") == "loaded"]
 
     def stream(self, model, messages, request_id=None, worker=None, **opts):
         payload = {
@@ -327,6 +360,11 @@ class LMStudioProvider(Provider):
         for k in ("temperature", "max_tokens", "top_p", "seed"):
             if k in opts and opts[k] is not None:
                 payload[k] = opts[k]
+        if opts.get("no_think") and payload["messages"]:
+            # Suffixe reconnu par les qwen3* pour couper le raisonnement.
+            last = dict(payload["messages"][-1])
+            last["content"] = f"{last.get('content', '')} /no_think".strip()
+            payload["messages"] = payload["messages"][:-1] + [last]
 
         def parse(line):
             if not line.startswith("data:"):
@@ -348,7 +386,16 @@ class LMStudioProvider(Provider):
                     "total_tokens": j["usage"].get("total_tokens", UNAVAILABLE),
                 }
             ch = (j.get("choices") or [{}])[0]
-            return (ch.get("delta") or {}).get("content"), False, u
+            delta = ch.get("delta") or {}
+            # Les modèles qwen3* émettent leur raisonnement dans un champ
+            # séparé : sans contenu ET sans le compter, on conclut à tort
+            # « réponse vide » alors que le modèle travaille.
+            return (
+                delta.get("content"),
+                False,
+                u,
+                delta.get("reasoning_content") or delta.get("reasoning"),
+            )
 
         yield from self._run_stream(
             "/v1/chat/completions",
@@ -365,6 +412,7 @@ class OllamaProvider(Provider):
     """Ollama — /api/chat, NDJSON. Fournit des compteurs de tokens réels."""
 
     name = "ollama"
+    THINK_OFF_HINT = "think=False"
 
     def discover_models(self) -> list[str]:
         d = self._get_json("/api/tags")
@@ -400,7 +448,10 @@ class OllamaProvider(Provider):
                     u["completion_tokens"], int
                 ):
                     u["total_tokens"] = u["prompt_tokens"] + u["completion_tokens"]
-            return (j.get("message") or {}).get("content"), bool(j.get("done")), u
+            msg = j.get("message") or {}
+            # Ollama place le raisonnement dans `thinking` : sans le compter,
+            # un modèle qwen3 qui réfléchit passe pour une réponse vide.
+            return msg.get("content"), bool(j.get("done")), u, msg.get("thinking")
 
         yield from self._run_stream(
             "/api/chat", payload, model, request_id, worker, parse, lambda u: {}
