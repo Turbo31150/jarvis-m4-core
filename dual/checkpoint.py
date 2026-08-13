@@ -1,16 +1,23 @@
 """Checkpoints & reprise — état d'un job persisté à chaque étape.
 
-Écriture atomique (tmp + rename) pour survivre à un kill au milieu d'un write.
+Deux garanties, distinctes et toutes deux nécessaires :
+  - contre un kill : écriture par temporaire + rename, le temporaire étant
+    propre au processus (un `.tmp` partagé se fait renommer sous les pieds) ;
+  - contre un autre processus : verrou `fcntl.flock` autour du read-modify-write.
+    `run` et `watchdog --act` écrivent le même job — un threading.Lock ne les
+    sépare pas, et la relecture de l'un écraserait la progression de l'autre.
 """
 
 from __future__ import annotations
 
+import fcntl
 import hashlib
 import json
 import os
 import threading
 import time
 import uuid
+from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -46,8 +53,30 @@ class JobStore:
         self.path = self.dir / f"{job_id}.json"
 
     # -- persistance -------------------------------------------------------
+    @contextmanager
+    def _exclusive(self):
+        """Verrou INTER-PROCESSUS autour d'un read-modify-write.
+
+        `jarvis-dual run` et `jarvis-dual watchdog --act` sont deux processus
+        distincts qui écrivent le même job : un threading.Lock ne les sépare
+        pas. Sans flock, la relecture de l'un écrase la progression de l'autre.
+        Le lock est pris sur un fichier dédié, jamais sur l'état lui-même
+        (qui est remplacé par rename, donc son inode change).
+        """
+        self.dir.mkdir(parents=True, exist_ok=True)
+        lock_path = self.path.with_suffix(".lock")
+        with _LOCK:  # threads du processus courant
+            with open(lock_path, "a+") as fh:
+                fcntl.flock(fh, fcntl.LOCK_EX)
+                try:
+                    yield
+                finally:
+                    fcntl.flock(fh, fcntl.LOCK_UN)
+
     def _write(self, state: dict):
-        tmp = self.path.with_suffix(".tmp")
+        # Temporaire propre au processus : un `.tmp` partagé fait renommer à
+        # un processus le fichier qu'un autre est en train d'écrire.
+        tmp = self.path.with_suffix(f".tmp.{os.getpid()}")
         tmp.write_text(json.dumps(state, indent=2, ensure_ascii=False, default=str))
         os.replace(tmp, self.path)
 
@@ -71,12 +100,12 @@ class JobStore:
             "status": "PENDING",
             "tasks": tasks,
         }
-        with _LOCK:
+        with self._exclusive():
             self._write(state)
         return state
 
     def update_task(self, task_id: str, **fields) -> dict:
-        with _LOCK:
+        with self._exclusive():
             state = self.load() or {}
             for t in state.get("tasks", []):
                 if t["id"] == task_id:
@@ -88,7 +117,7 @@ class JobStore:
             return state
 
     def set_status(self, status: str) -> dict:
-        with _LOCK:
+        with self._exclusive():
             state = self.load() or {}
             state["status"] = status
             state["updated_at"] = datetime.now(timezone.utc).isoformat()
