@@ -53,15 +53,39 @@ def load() -> dict:
     return cfg
 
 
+def resolve(force_discover: bool = False) -> dict:
+    """Config effective : le fichier vérifié prime sur une redécouverte.
+
+    Une redécouverte non sondée reclasserait les modèles par simple préférence
+    de nom et pourrait réélire un modèle fantôme écarté par `discover --probe`.
+    Le travail de vérification déjà payé ne doit pas être jeté à chaque commande.
+    """
+    cfg = load()
+    if not force_discover and cfg.get("workers") and cfg.get("providers"):
+        cfg["source"] = str(CONFIG_PATH)
+        return cfg
+    cfg = discover()
+    cfg["source"] = "découverte à chaud"
+    return cfg
+
+
 def save(cfg: dict) -> Path:
     CONFIG_PATH.parent.mkdir(parents=True, exist_ok=True)
     CONFIG_PATH.write_text(json.dumps(cfg, indent=2, ensure_ascii=False) + "\n")
     return CONFIG_PATH
 
 
-def discover(verbose: bool = False) -> dict:
-    """Sonde réellement chaque candidat et construit une config vérifiée."""
-    from .providers import build_provider
+def discover(
+    verbose: bool = False, probe: bool = False, probe_tokens: int = 300
+) -> dict:
+    """Sonde réellement chaque candidat et construit une config vérifiée.
+
+    `probe=True` va plus loin : il exige une INFÉRENCE réussie pour retenir un
+    modèle. Un serveur peut lister des modèles qu'il ne sait pas charger
+    (constat : LM Studio :1234 liste 4 modèles et n'en charge aucun) — la seule
+    preuve acceptable est une réponse non vide.
+    """
+    from .providers import Timeouts, build_provider  # noqa: F401 (utilisé si probe)
 
     cfg = load()
     providers, found = {}, []
@@ -76,10 +100,41 @@ def discover(verbose: bool = False) -> dict:
             continue
         if not models:
             continue
-        providers[alias] = {"kind": kind, "base_url": url, "models": models}
-        found.append((alias, models))
+        usable = models
+        if probe:
+            t = Timeouts(connect=5, first_token=180, idle=60, request=300)
+            pr = build_provider(kind, url, t)
+            usable = []
+            for m in models:
+                if "embed" in m.lower():
+                    continue
+                r = pr.chat(
+                    m,
+                    [{"role": "user", "content": "Dis simplement: OK"}],
+                    max_tokens=probe_tokens,
+                    temperature=0,
+                )
+                if verbose:
+                    print(f"       probe {m:38s} {r.status}")
+                if r.ok:
+                    usable.append(m)
+            if not usable:
+                if verbose:
+                    print(
+                        f"  [!!] {alias:14s} {url:28s} liste des modèles mais "
+                        f"aucun ne répond → écarté"
+                    )
+                continue
+
+        providers[alias] = {
+            "kind": kind,
+            "base_url": url,
+            "models": usable,
+            "probed": probe,
+        }
+        found.append((alias, usable))
         if verbose:
-            print(f"  [OK] {alias:14s} {url:28s} {len(models)} modèle(s)")
+            print(f"  [OK] {alias:14s} {url:28s} {len(usable)} modèle(s) utilisable(s)")
 
     cfg["providers"] = providers
     cfg["workers"] = _assign_workers(found)
@@ -93,7 +148,9 @@ def _assign_workers(found: list[tuple[str, list[str]]]) -> dict:
     workers = {}
     prefer = {
         "lmstudio": ["qwen/qwen3.5-9b", "qwen/qwen2.5-coder-14b"],
-        "lmstudio_m6": ["qwen/qwen3.5-9b"],
+        # M6 : deepseek répond réellement, qwen3.5-9b consomme tout son budget
+        # en raisonnement et renvoie un contenu vide (mesuré le 13/08/2026).
+        "lmstudio_m6": ["deepseek/deepseek-r1-0528-qwen3-8b", "qwen/qwen3.5-9b"],
         "lmstudio_m1": ["qwen/qwen3.5-9b"],
         "ollama": ["gemma3:4b", "llama3.2", "qwen2.5:1.5b", "qwen2.5:0.5b"],
     }

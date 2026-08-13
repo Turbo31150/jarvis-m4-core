@@ -16,7 +16,7 @@ from .dispatcher import DualDispatcher, aggregate
 
 
 def _cfg(args):
-    cfg = cfgmod.discover() if getattr(args, "discover", True) else cfgmod.load()
+    cfg = cfgmod.resolve(force_discover=getattr(args, "rediscover", False))
     if not cfg.get("workers"):
         print(
             "BLOCKED: aucun worker disponible. Lance `jarvis-dual doctor`.",
@@ -37,7 +37,7 @@ def cmd_doctor(args):
 
 
 def cmd_discover(args):
-    cfg = cfgmod.discover(verbose=True)
+    cfg = cfgmod.discover(verbose=True, probe=args.probe)
     if args.save:
         p = cfgmod.save(cfg)
         print(f"config écrite: {p}")
@@ -194,6 +194,12 @@ def build_parser():
     )
     sub = p.add_subparsers(dest="cmd", required=True)
 
+    # Commun aux commandes qui exécutent : la config vérifiée prime ;
+    # --rediscover force une nouvelle sonde des backends.
+    common = argparse.ArgumentParser(add_help=False)
+    common.add_argument("--rediscover", action="store_true",
+                        help="ignorer dual/config.json et resonder les backends")
+
     d = sub.add_parser("doctor", help="diagnostic global")
     d.add_argument("--fast", action="store_true", help="sans test d'inférence réel")
     d.add_argument("--json", action="store_true")
@@ -201,14 +207,20 @@ def build_parser():
 
     d = sub.add_parser("discover", help="sonde les backends et propose A/B")
     d.add_argument("--save", action="store_true", help="écrire dual/config.json")
+    d.add_argument(
+        "--probe",
+        action="store_true",
+        help="exiger une inférence réussie (écarte les modèles fantômes)",
+    )
     d.set_defaults(func=cmd_discover)
 
     sub.add_parser("models", help="liste les modèles réellement exposés").set_defaults(
         func=cmd_models
     )
-    sub.add_parser("workers", help="santé des workers").set_defaults(func=cmd_workers)
+    sub.add_parser("workers", parents=[common],
+               help="santé des workers").set_defaults(func=cmd_workers)
 
-    d = sub.add_parser("run", help="exécute une demande")
+    d = sub.add_parser("run", parents=[common], help="exécute une demande")
     d.add_argument("prompt")
     d.add_argument(
         "-m",
@@ -229,11 +241,11 @@ def build_parser():
     d.add_argument("--json", action="store_true")
     d.set_defaults(func=cmd_run)
 
-    d = sub.add_parser("test", help="test DUAL réel (preuve de concurrence)")
+    d = sub.add_parser("test", parents=[common], help="test DUAL réel (preuve de concurrence)")
     d.add_argument("--max-tokens", type=int, default=120)
     d.set_defaults(func=cmd_test)
 
-    d = sub.add_parser("benchmark", help="solo A, solo B, puis A+B")
+    d = sub.add_parser("benchmark", parents=[common], help="solo A, solo B, puis A+B")
     d.add_argument("--max-tokens", type=int, default=160)
     d.add_argument("--json", action="store_true")
     d.set_defaults(func=cmd_benchmark)
@@ -257,7 +269,7 @@ def build_parser():
     d.add_argument("--act", action="store_true", help="marquer RECOVERABLE")
     d.set_defaults(func=cmd_watchdog)
 
-    d = sub.add_parser("recover", help="reprend un job interrompu")
+    d = sub.add_parser("recover", parents=[common], help="reprend un job interrompu")
     d.add_argument("job_id")
     d.add_argument("--max-tokens", type=int, default=400)
     d.set_defaults(func=cmd_recover)

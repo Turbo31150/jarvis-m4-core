@@ -25,7 +25,7 @@ def _sep(ch="─"):
 
 
 def snapshot(probe: bool = True) -> dict:
-    cfg = cfgmod.discover() if probe else cfgmod.load()
+    cfg = cfgmod.resolve(force_discover=probe)
     jobs = cp.list_jobs()
     active = [j for j in jobs if j["status"] in ("RUNNING", "PENDING")]
     last = jobs[0] if jobs else None
