@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Entrée unique du JARVIS DUAL ORCHESTRATOR.
+exec python3 -m dual.cli "$@"
