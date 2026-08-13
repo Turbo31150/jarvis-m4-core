@@ -410,6 +410,16 @@ class OllamaProvider(Provider):
 PROVIDERS = {"lmstudio": LMStudioProvider, "ollama": OllamaProvider}
 
 
+def _register_cli_providers():
+    """Providers pilotés par un binaire local (import tardif : dépendance inverse)."""
+    from .providers_cli import AgyProvider
+
+    PROVIDERS.setdefault("agy", AgyProvider)
+
+
+_register_cli_providers()
+
+
 def build_provider(
     kind: str, base_url: str, timeouts: Timeouts | None = None
 ) -> Provider:

@@ -21,6 +21,8 @@ CANDIDATES = [
     ("ollama", "http://127.0.0.1:11434"),
     ("lmstudio_m6", "http://10.42.0.1:1234"),
     ("lmstudio_m1", "http://192.168.0.250:1234"),
+    # Worker CLI : pas d'URL, mais un binaire authentifié dans le PATH.
+    ("agy", "cli://agy"),
 ]
 
 DEFAULTS = {
@@ -90,7 +92,9 @@ def discover(
     cfg = load()
     providers, found = {}, []
     for alias, url in CANDIDATES:
-        kind = "ollama" if alias.startswith("ollama") else "lmstudio"
+        kind = ("agy" if alias == "agy"
+                else "ollama" if alias.startswith("ollama")
+                else "lmstudio")
         try:
             p = build_provider(kind, url)
             models = p.discover_models()
@@ -153,6 +157,9 @@ def _assign_workers(found: list[tuple[str, list[str]]]) -> dict:
         "lmstudio_m6": ["deepseek/deepseek-r1-0528-qwen3-8b", "qwen/qwen3.5-9b"],
         "lmstudio_m1": ["qwen/qwen3.5-9b"],
         "ollama": ["gemma3:4b", "llama3.2", "qwen2.5:1.5b", "qwen2.5:0.5b"],
+        # agy : Flash low = le plus rapide, suffisant pour un worker.
+        "agy": ["gemini-3.7-flash-low", "gemini-3.6-flash-low",
+                "gpt-oss-120b-medium"],
     }
 
     def pick(alias, models):

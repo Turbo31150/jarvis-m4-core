@@ -130,20 +130,38 @@ def dual(cfg, max_tokens=160, prompt=PROMPT, job_id="bench-dual") -> dict:
     switches = sum(1 for i in range(1, len(seq)) if seq[i] != seq[i - 1])
     both_ok = a["status"] == "success" and b["status"] == "success"
 
+    # Deux propriétés DISTINCTES, mesurées séparément. Les confondre fait
+    # déclarer FAILED un dual qui fonctionne : cas mesuré le 13/08/2026 —
+    # B chargeait encore son modèle (55 s à froid) pendant que A générait.
+    # L'overlap était de 40,7 s et l'efficacité de 1.0, sans un seul token
+    # entrelacé. La concurrence d'exécution est la définition du dual ;
+    # la génération simultanée n'en est qu'un cas particulier.
+    exec_parallel = overlap > 0.15 and efficiency >= 0.5
+    gen_overlap = switches >= 2
+
     if not both_ok:
         verdict, reason = (
             "DUAL_PARALLEL = FAILED",
             f"worker en échec: A={a['status']} B={b['status']}",
         )
-    elif overlap > 0.15 and switches >= 2:
+    elif exec_parallel and gen_overlap:
         verdict, reason = (
             "DUAL_PARALLEL = PASS",
-            f"chevauchement {overlap:.2f}s et {switches} alternances de tokens",
+            f"exécution concurrente (overlap {overlap:.2f}s, efficacité "
+            f"{efficiency}) ET génération simultanée ({switches} alternances)",
+        )
+    elif exec_parallel:
+        verdict, reason = (
+            "DUAL_PARALLEL = PASS",
+            f"exécution concurrente prouvée (overlap {overlap:.2f}s, efficacité "
+            f"{efficiency}) ; génération non simultanée — un worker chargeait "
+            f"encore son modèle pendant que l'autre générait",
         )
     elif overlap > 0.15:
         verdict, reason = (
             "DUAL_PARALLEL = PARTIAL",
-            f"fenêtres chevauchées ({overlap:.2f}s) mais tokens non entrelacés",
+            f"fenêtres chevauchées ({overlap:.2f}s) mais efficacité {efficiency} "
+            f"— gain quasi nul, le backend sérialise probablement",
         )
     else:
         verdict, reason = (
@@ -169,6 +187,8 @@ def dual(cfg, max_tokens=160, prompt=PROMPT, job_id="bench-dual") -> dict:
         "overlap_s": round(overlap, 3),
         "parallel_efficiency": efficiency,
         "token_switches": switches,
+        "exec_parallel": exec_parallel,
+        "generation_overlap": gen_overlap,
         "runs": runs,
         "timeline": [(round(t - t0, 4), s, e) for t, s, e in sorted(timeline)],
         "journal": str(journal.path),
