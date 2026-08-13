@@ -133,7 +133,11 @@ def run(probe_inference: bool = True) -> list[dict]:
     )
 
     # --- providers --------------------------------------------------------
+    # Sonde tous les backends pour l'inventaire...
     discovered = cfgmod.discover()
+    # ...mais les workers testés sont ceux RÉELLEMENT configurés : diagnostiquer
+    # une config que le système n'utilise pas donnerait un doctor menteur.
+    effective = cfgmod.resolve()
     if not discovered["providers"]:
         out.append(
             _check(
@@ -155,7 +159,8 @@ def run(probe_inference: bool = True) -> list[dict]:
         )
 
     # --- workers + preuve d'inférence ------------------------------------
-    workers = discovered.get("workers", {})
+    workers = effective.get("workers", {})
+    known = {**discovered.get("providers", {}), **effective.get("providers", {})}
     if len(workers) < 2:
         out.append(
             _check(
@@ -169,7 +174,14 @@ def run(probe_inference: bool = True) -> list[dict]:
         )
     t = Timeouts(**cfg.get("timeouts", {}))
     for slot, spec in workers.items():
-        pcfg = discovered["providers"][spec["provider"]]
+        pcfg = known.get(spec["provider"])
+        if not pcfg:
+            out.append(_check(f"{slot}", ERR,
+                              f"provider {spec['provider']} introuvable",
+                              cause="config référence un backend absent",
+                              impact="worker inutilisable",
+                              action="jarvis-dual discover --probe --save"))
+            continue
         label = f"{slot} ({spec['provider']}/{spec['model']})"
         if not probe_inference:
             out.append(_check(label, UNK, "inférence non testée (--fast)"))
