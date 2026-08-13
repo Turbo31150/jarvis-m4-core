@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+# pre-commit — bloque tout commit qui introduit un secret.
+# Portée : UNIQUEMENT le contenu indexé (git diff --cached), pas le disque.
+# Contournement volontaire : git commit --no-verify (à n'utiliser qu'en connaissance de cause).
+set -uo pipefail
+
+fail=0
+red()  { printf '\033[31m%s\033[0m\n' "$*"; }
+warn() { printf '\033[33m%s\033[0m\n' "$*"; }
+
+# --- 1. Noms de fichiers interdits à l'indexation ---------------------------
+# Motifs alignés sur .gitignore : un fichier ajouté en force (git add -f) passerait sinon.
+banned='(^|/)(\.env($|\..*)|secrets\.env|.*\.pem$|.*\.key$|.*\.p12$|.*\.pfx$|id_rsa($|\..*)|id_ed25519($|\..*)|\.netrc$|.*service[-_]?account.*\.json$)'
+staged_names=$(git diff --cached --name-only --diff-filter=AM)
+offending_names=$(printf '%s\n' "$staged_names" | grep -nE "$banned" || true)
+if [ -n "$offending_names" ]; then
+  red "⛔ COMMIT BLOQUÉ — fichier(s) sensible(s) indexé(s) :"
+  printf '%s\n' "$offending_names" | sed 's/^/   /'
+  echo "   → git restore --staged <fichier>  (et vérifier .gitignore)"
+  fail=1
+fi
+
+# --- 2. Valeurs de secrets dans le contenu indexé ---------------------------
+# Motifs à VALEUR longue seulement : un nom de variable (API_KEY=) ne bloque pas,
+# sinon le hook devient du bruit et se fait désactiver — c'est le mode d'échec courant.
+patterns='sk-[A-Za-z0-9]{20,}'
+patterns+='|ghp_[A-Za-z0-9]{20,}'
+patterns+='|github_pat_[A-Za-z0-9_]{30,}'
+patterns+='|gho_[A-Za-z0-9]{20,}'
+patterns+='|AKIA[0-9A-Z]{16}'
+patterns+='|-----BEGIN [A-Z ]*PRIVATE KEY-----'
+patterns+='|xox[baprs]-[A-Za-z0-9-]{10,}'
+patterns+='|AIza[0-9A-Za-z_-]{35}'
+patterns+='|[0-9]{9,10}:AA[A-Za-z0-9_-]{33}'
+patterns+='|glpat-[A-Za-z0-9_-]{20,}'
+patterns+='|sk_live_[A-Za-z0-9]{20,}'
+
+hits=""
+while IFS= read -r f; do
+  [ -n "$f" ] || continue
+  # -I : ignore les binaires. On lit la version INDEXÉE, pas celle du disque.
+  found=$(git show ":$f" 2>/dev/null | grep -nIE "$patterns" || true)
+  [ -n "$found" ] && hits+="$f"$'\n'$(printf '%s\n' "$found" | sed 's/^/     /')$'\n'
+done <<< "$staged_names"
+
+if [ -n "$hits" ]; then
+  red "⛔ COMMIT BLOQUÉ — valeur de secret détectée dans le contenu indexé :"
+  # Les valeurs sont masquées : ne pas recopier un secret dans un log de terminal.
+  printf '%s\n' "$hits" | sed -E "s/($patterns)/[VALEUR MASQUÉE]/g" | sed 's/^/   /'
+  echo "   → RÉVOQUER la clé d'abord, puis la retirer de l'index."
+  fail=1
+fi
+
+if [ "$fail" -ne 0 ]; then
+  echo
+  warn "Contournement (à justifier) : git commit --no-verify"
+  exit 1
+fi
+
+exit 0
