@@ -65,7 +65,16 @@ des solos (28,4 s) de la durée exacte du plus court — efficacité 1.0.
 
 ## 3. Problèmes rencontrés et réparés
 
-### P1 — Modèle fantôme (critique)
+### P1 — « Modèle fantôme » : diagnostic d'abord faux, puis élucidé (critique)
+
+> **Mise à jour après debug systématique.** La cause réelle n'est pas un modèle
+> défectueux : LM Studio, sur 4 Go de VRAM, ne sert **qu'un modèle à la fois**
+> et ne décharge pas le résident → `cudaMalloc failed: out of memory` sur les
+> compute buffers. `/api/v0/models` le prouve (`coder-14b state=loaded`, les
+> autres `not-loaded`), et le modèle chargé répond parfaitement.
+> Corrigé par `loaded_models()` + sélection du modèle résident.
+> Le récit ci-dessous est celui de l'investigation initiale, conservé tel quel.
+
 
 `qwen/qwen3.5-9b` figure dans `/v1/models` et échoue au chargement
 (`HTTP 400 — Error loading model`). Trouvé par `doctor` dès le premier

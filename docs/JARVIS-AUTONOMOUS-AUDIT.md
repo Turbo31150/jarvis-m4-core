@@ -40,7 +40,7 @@ Sondés par `jarvis-dual discover` (aucun port supposé) :
 CLI `lms` **absente** du PATH (seul le binaire GUI `lm-studio` existe) : toute la
 découverte passe donc par l'API HTTP, pas par la CLI.
 
-### Modèle fantôme confirmé
+### « Modèle fantôme » — diagnostic initial, puis cause réelle
 
 `qwen/qwen3.5-9b` est listé par `/v1/models` mais renvoie à l'inférence :
 
@@ -48,9 +48,27 @@ découverte passe donc par l'API HTTP, pas par la CLI.
 HTTP 400 — Failed to load model "qwen/qwen3.5-9b". Error: Error loading model.
 ```
 
-**Un modèle listé n'est pas un modèle disponible.** C'est le premier problème
-réel trouvé par le diagnostic, et la raison pour laquelle `model_status()` ne
-renvoie jamais `AVAILABLE` comme preuve de fonctionnement.
+Premier diagnostic : « modèle fantôme ». **Il était incomplet.** Le log serveur
+(`~/.lmstudio/server-logs/2026-08/2026-08-13.1.log`) donne la vraie cause :
+
+```
+ggml_backend_cuda_buffer_type_alloc_buffer: allocating 1288.70 MiB on device 0:
+    cudaMalloc failed: out of memory
+graph_reserve: failed to allocate compute buffers
+llama_init_from_model: failed to initialize the context
+```
+
+`/api/v0/models` confirme : `qwen2.5-coder-14b` est **`state=loaded`** (3386 MiB
+de VRAM sur 4096), les trois autres `not-loaded`. LM Studio **ne décharge pas le
+modèle résident** avant d'en charger un autre, et les compute buffers réclament
+1,3 Go pour `n_ctx=32768` / `n_parallel=4`.
+
+**Conclusion corrigée : aucun modèle n'est cassé.** Le backend n'en sert qu'un à
+la fois. Le modèle chargé répond normalement (vérifié : `success`, ttft 15,7 s).
+D'où `loaded_models()` et une sélection qui vise le résident.
+
+Cela reste vrai : **un modèle listé n'est pas un modèle disponible** — mais la
+raison est l'état de chargement, pas un défaut du modèle.
 
 ## 3. Structure du dépôt
 

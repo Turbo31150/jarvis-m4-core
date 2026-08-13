@@ -105,8 +105,9 @@ modèle fantôme, HTTP 200 vide, silence, retry, reprise après crash).
 
 | Symptôme | Cause probable | Que faire |
 |---|---|---|
-| `model_unavailable` alors que le modèle est listé | modèle fantôme : LM Studio ne parvient pas à le charger | recharger le modèle dans l'interface LM Studio ; vérifier la VRAM |
-| `empty_response` | modèle en mode *thinking* dont tout le budget passe en raisonnement | augmenter `--max-tokens`, ou choisir un modèle non-thinking |
+| `model_unavailable` alors que le modèle est listé | le backend sert **un seul modèle à la fois** : celui demandé n'est pas le résident, et il n'y a plus de VRAM pour les compute buffers | `curl :1234/api/v0/models` pour voir lequel est `loaded` ; viser celui-là, ou décharger l'autre dans l'interface LM Studio |
+| `reasoning_only` | modèle en mode *thinking* : tout le budget part en raisonnement | couper le raisonnement (`think=False` sur Ollama, `no_think=True` sur LM Studio) ou augmenter `--max-tokens` |
+| `empty_response` | HTTP 200 mais **ni** contenu **ni** raisonnement | vérifier le backend : c'est une vraie anomalie, pas un modèle qui réfléchit |
 | `timeout_first_token` | le modèle charge à froid (constaté : 14 s sur `gemma3:4b`) | augmenter `timeouts.first_token` dans `dual/config.json` |
 | `DUAL_PARALLEL = BLOCKED` | un seul backend joignable | démarrer Ollama ou un second LM Studio |
 | `BLOCKED: aucun worker` | aucun backend ne répond | `jarvis-dual doctor` pour la cause exacte |
