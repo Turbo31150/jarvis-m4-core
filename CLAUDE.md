@@ -40,7 +40,17 @@ personnelle ici** : ni élève, ni famille, ni prospect.
 ./bin/jarvis-dual test            # preuve de parallélisme mesurée
 ./bin/jarvis-board status         # état du corpus et des experts
 jarvis-audit run --target . --mode deep --profile full
+requestly-ask --list              # liste des endpoints IA Requestly (ChatGPT, Gemini, Perplexity)
+requestly-ask gemini "<prompt>"   # délégation rapide Gemini 2.0 via Requestly
+requestly-ask chatgpt "<prompt>"  # délégation rapide ChatGPT via Requestly
+requestly-ask perplexity "<p>"    # recherche web / deep search Perplexity Sonar
 ```
+
+## Connecteurs & Boosters Disponibles
+- **`requestly-ask`** (`~/.local/bin/requestly-ask`) : Connecteur direct CLI
+- **`requestly-jarvis`** (MCP) : Pilotage et exécution des collections API Requestly
+- **`ia-web-jarvis`** (MCP) : Routage direct LLM Web (ChatGPT, Gemini, Perplexity) + navigation CDP
+- **`jarvis-board-mcp`** (MCP) : Requêtes Board OS, consensus et Bibliothèque Vivante
 
 ## Workflow
 Écrire le résultat dans `REPORT.md`, tenir `TODO.md` à jour, ne jamais déclarer
