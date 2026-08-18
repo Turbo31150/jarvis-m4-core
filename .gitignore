@@ -102,3 +102,8 @@ n8n/database.sqlite*
 windows_recovery/
 voice_dataset/wav/
 _backups/
+
+# Campagne LinkedIn — artefacts volumineux et brouillons nominatifs (2026-08-18)
+campagnes/*/video/frames/
+campagnes/*/drafts/
+campagnes/*/video/*.png

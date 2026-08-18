@@ -28,6 +28,18 @@ if [ -z "$GEMINI_BIN" ] || [ ! -x "$GEMINI_BIN" ]; then
   exit 127
 fi
 
+# --- Repli clé API (ajouté 2026-08-18) ---------------------------------------
+# L'OAuth Google One reste prioritaire (0 token facturé). Si le CLI réclame
+# GEMINI_API_KEY, on la charge depuis le coffre local plutôt que d'échouer.
+if [ -z "${GEMINI_API_KEY:-}" ]; then
+  for _cf in "$HOME/.config/jarvis/secrets.env" "$HOME/.config/jarvis-webapp.env"; do
+    [ -f "$_cf" ] || continue
+    _k="$(grep -E '^GEMINI_API_KEY=' "$_cf" 2>/dev/null | head -1 | cut -d= -f2- | tr -d '"'"'"'' | tr -d ' ')"
+    if [ -n "$_k" ]; then export GEMINI_API_KEY="$_k"; break; fi
+  done
+  unset _cf _k
+fi
+
 MODELE=(-m gemini-3.7-flash)
 if [ "${1:-}" = "--flash" ] || [ "${1:-}" = "--3.7" ]; then
   MODELE=(-m gemini-3.7-flash)
