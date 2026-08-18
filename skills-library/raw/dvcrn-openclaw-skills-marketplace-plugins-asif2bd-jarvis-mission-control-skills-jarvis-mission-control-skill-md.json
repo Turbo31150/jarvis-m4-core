@@ -1,0 +1,11 @@
+{
+  "id": "dvcrn-openclaw-skills-marketplace-plugins-asif2bd-jarvis-mission-control-skills-jarvis-mission-control-skill-md",
+  "name": "jarvis-mission-control",
+  "author": "dvcrn",
+  "description": "Set up JARVIS Mission Control v2.0.4 \u2014 a free, open-source AI agent coordination hub. Kanban board, real-time WebSocket updates, team chat, scheduled job visibility, agent SOUL editor, Claude Code session tracking, GitHub Issues sync, SQLite-backed webhook delivery with circuit breaker, CSRF + rate limiting. Fork the repo, start the server, open the dashboard. No cloud account required. Use when you need a persistent multi-agent task management system, want to coordinate humans and AI agents on shared work, or need a self-hosted dashboard to track agent activity.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/dvcrn/openclaw-skills-marketplace/tree/main/plugins/asif2bd--jarvis-mission-control/skills/jarvis-mission-control",
+  "skillUrl": "https://skillsmp.com/creators/dvcrn/openclaw-skills-marketplace/plugins-asif2bd-jarvis-mission-control-skills-jarvis-mission-control",
+  "stars": 24,
+  "updatedAt": 1773565995
+}

@@ -1,0 +1,11 @@
+{
+  "id": "google-gemini-gemini-cli-tools-gemini-cli-bot-gemini-skills-critique-skill-md",
+  "name": "critique",
+  "author": "google-gemini",
+  "description": "Expertise in auditing and fixing repository scripts and GitHub Actions workflows to ensure technical robustness and security.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/google-gemini/gemini-cli/tree/main/tools/gemini-cli-bot/.gemini/skills/critique",
+  "skillUrl": "https://skillsmp.com/creators/google-gemini/gemini-cli/tools-gemini-cli-bot-gemini-skills-critique",
+  "stars": 106351,
+  "updatedAt": 1778618229
+}

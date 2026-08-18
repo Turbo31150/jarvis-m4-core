@@ -1,0 +1,11 @@
+{
+  "id": "huggingface-diffusers-ai-skills-diffusers-cli-skill-md",
+  "name": "diffusers-cli",
+  "author": "huggingface",
+  "description": "Use when the user wants to run a diffusers pipeline from a terminal (one-off generation, batch jobs, smoke-testing a new model), run on HF Sandbox hardware via `--remote`, introspect a pipeline's input schema before calling it, or attach a LoRA at inference time. Prefer this over writing ad-hoc Python scripts for generation tasks.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/huggingface/diffusers/tree/main/.ai/skills/diffusers-cli",
+  "skillUrl": "https://skillsmp.com/creators/huggingface/diffusers/ai-skills-diffusers-cli",
+  "stars": 34228,
+  "updatedAt": 1784719964
+}

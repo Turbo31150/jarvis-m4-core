@@ -1,0 +1,11 @@
+{
+  "id": "juliusbrussee-caveman-skills-caveman-compress-skill-md",
+  "name": "caveman-compress",
+  "author": "JuliusBrussee",
+  "description": "Compress natural language memory files (CLAUDE.md, todos, preferences) into caveman format to save input tokens. Preserves all technical substance, code, URLs, and structure. Compressed version overwrites the original file. Human-readable backup saved as FILE.original.md. Trigger: /caveman-compress FILEPATH or \"compress memory file\"",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/JuliusBrussee/caveman/tree/main/skills/caveman-compress",
+  "skillUrl": "https://skillsmp.com/creators/juliusbrussee/caveman/skills-caveman-compress",
+  "stars": 95647,
+  "updatedAt": 1784592059
+}

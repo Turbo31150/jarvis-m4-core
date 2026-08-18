@@ -1,0 +1,3598 @@
+[
+ {
+  "command": "ouvre le dashboard",
+  "type": "url",
+  "action": "http://127.0.0.1:8082",
+  "source": "voice_commands"
+ },
+ {
+  "command": "ouvre mon espace prof",
+  "type": "url",
+  "action": "http://127.0.0.1:7777",
+  "source": "voice_commands"
+ },
+ {
+  "command": "ouvre lumen",
+  "type": "url",
+  "action": "http://127.0.0.1:9743",
+  "source": "voice_commands"
+ },
+ {
+  "command": "ouvre gmail",
+  "type": "url",
+  "action": "https://mail.google.com",
+  "source": "voice_commands"
+ },
+ {
+  "command": "ouvre le drive",
+  "type": "url",
+  "action": "https://drive.google.com",
+  "source": "voice_commands"
+ },
+ {
+  "command": "ouvre eduscol",
+  "type": "url",
+  "action": "https://eduscol.education.fr",
+  "source": "voice_commands"
+ },
+ {
+  "command": "ouvre onde",
+  "type": "url",
+  "action": "https://si1d.ac-toulouse.fr",
+  "source": "voice_commands"
+ },
+ {
+  "command": "ouvre le terminal",
+  "type": "shell",
+  "action": "gnome-terminal",
+  "source": "voice_commands"
+ },
+ {
+  "command": "ouvre les fichiers",
+  "type": "shell",
+  "action": "nautilus ~/Documents",
+  "source": "voice_commands"
+ },
+ {
+  "command": "capture ecran",
+  "type": "shell",
+  "action": "gnome-screenshot -i",
+  "source": "voice_commands"
+ },
+ {
+  "command": "temperature gpu",
+  "type": "shell",
+  "action": "notify-send \"GPU\" \"$(nvidia-smi --query-gpu=temperature.gpu,memory.used --format=csv,noheader)\"",
+  "source": "voice_commands"
+ },
+ {
+  "command": "redemarre whisper",
+  "type": "shell",
+  "action": "systemctl --user restart jarvis-whisper.service",
+  "source": "voice_commands"
+ },
+ {
+  "command": "formule de politesse",
+  "type": "text",
+  "action": "Je vous prie d'agréer, Madame, Monsieur, l'expression de mes salutations distinguées.",
+  "source": "voice_commands"
+ },
+ {
+  "command": "signature",
+  "type": "text",
+  "action": "Claire Domingues\nProfesseure des écoles",
+  "source": "voice_commands"
+ },
+ {
+  "command": "mon mail pro",
+  "type": "text",
+  "action": "claire.domingues@ac-toulouse.fr",
+  "source": "voice_commands"
+ },
+ {
+  "command": "montre la demo",
+  "type": "shell",
+  "action": "xdg-open ~/labo/demo.mp4",
+  "source": "voice_commands"
+ },
+ {
+  "command": "montre le benchmark",
+  "type": "shell",
+  "action": "xdg-open ~/Vidéos/bench-small-20260630-061726.mp4",
+  "source": "voice_commands"
+ },
+ {
+  "command": "ouvre le catalogue",
+  "type": "shell",
+  "action": "xdg-open ~/labo/JARVIS-INC/zero-token/command_list.md",
+  "source": "voice_commands"
+ },
+ {
+  "command": "ouvre le cahier d'echange",
+  "type": "shell",
+  "action": "xdg-open ~/jarvis/scripts/transcription/CAHIER_ECHANGE.md",
+  "source": "voice_commands"
+ },
+ {
+  "command": "lance l'audit",
+  "type": "shell",
+  "action": "gnome-terminal -- bash -c 'bash ~/labo/bibliotheque/series/audit-cascade.sh; echo; read -p \"Entrée pour fermer…\"'",
+  "source": "voice_commands"
+ },
+ {
+  "command": "verifie la session",
+  "type": "shell",
+  "action": "gnome-terminal -- bash -c 'bash ~/labo/bibliotheque/series/session-verify.sh; echo; read -p \"Entrée pour fermer…\"'",
+  "source": "voice_commands"
+ },
+ {
+  "command": "deploy socle",
+  "type": "shell",
+  "action": "docker stack deploy -c ~/jarvis/stacks/00-infra/docker-compose.yml jarvis",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "redis ping",
+  "type": "shell",
+  "action": "docker run --rm --network jarvis-bus redis:7-alpine redis-cli -h redis -a \"$REDIS_PASSWORD\" ping",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "secret redis",
+  "type": "shell",
+  "action": "sops -d ~/jarvis/secrets-vault/infra.enc.env",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "deploy data",
+  "type": "shell",
+  "action": "docker stack deploy -c ~/jarvis/stacks/30-data/docker-compose.yml data",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "pg ready",
+  "type": "shell",
+  "action": "docker run --rm --network jarvis-bus postgres:15-alpine pg_isready -h postgres -U jarvis -d jarvis_agents",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "psql",
+  "type": "shell",
+  "action": "docker run --rm -it --network jarvis-bus -e PGPASSWORD=$PG postgres:15-alpine psql -h postgres -U jarvis jarvis_agents",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "deploy sites",
+  "type": "shell",
+  "action": "docker stack deploy -c ~/jarvis/stacks/50-business/docker-compose.yml business --with-registry-auth",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "build+push site",
+  "type": "shell",
+  "action": "docker build -t localhost:5000/50-business/<nom>:latest <dir> && docker push localhost:5000/50-business/<nom>:latest",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "backup n8n",
+  "type": "shell",
+  "action": "docker run --rm -v docker_jarvis-n8n-data:/d -v ~/backups:/b alpine tar czf /b/n8n-$(date +%F).tgz -C /d .",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "catalog",
+  "type": "shell",
+  "action": "curl -s --max-time 5 http://127.0.0.1:5000/v2/_catalog",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "etat",
+  "type": "shell",
+  "action": "docker stack ls; docker service ls",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "index sql",
+  "type": "shell",
+  "action": "sqlite3 ~/jarvis/stacks/jarvis-index.db \".tables\"",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "audit",
+  "type": "shell",
+  "action": "bash ~/jarvis/scripts/sec-audit.sh",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "coffre",
+  "type": "shell",
+  "action": "sops ~/jarvis/secrets-vault/<fichier>.enc.env",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "swarm noeuds",
+  "type": "shell",
+  "action": "docker node ls",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "etat global",
+  "type": "shell",
+  "action": "docker stack ls && docker service ls",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "services jarvis",
+  "type": "shell",
+  "action": "docker stack services jarvis",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "ps jarvis",
+  "type": "shell",
+  "action": "docker stack ps jarvis --no-trunc",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "logs redis",
+  "type": "shell",
+  "action": "docker service logs -f --tail 100 jarvis_redis",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "logs registry",
+  "type": "shell",
+  "action": "docker service logs -f --tail 100 jarvis_registry",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "logs portainer",
+  "type": "shell",
+  "action": "docker service logs --tail 100 jarvis_portainer",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "redis secret",
+  "type": "shell",
+  "action": "REDIS_PASSWORD=$(sops -d ~/jarvis/secrets-vault/infra.enc.env | grep REDIS_PASSWORD | cut -d= -f2)",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "redis info",
+  "type": "shell",
+  "action": "docker run --rm --network jarvis-bus redis:7-alpine redis-cli -h redis -a \"$REDIS_PASSWORD\" info server",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "redis memoire",
+  "type": "shell",
+  "action": "docker run --rm --network jarvis-bus redis:7-alpine redis-cli -h redis -a \"$REDIS_PASSWORD\" info memory",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "redis clients",
+  "type": "shell",
+  "action": "docker run --rm --network jarvis-bus redis:7-alpine redis-cli -h redis -a \"$REDIS_PASSWORD\" client list",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "redis monitor",
+  "type": "shell",
+  "action": "docker run --rm --network jarvis-bus redis:7-alpine redis-cli -h redis -a \"$REDIS_PASSWORD\" monitor",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "registry catalog",
+  "type": "shell",
+  "action": "curl -s --max-time 5 http://127.0.0.1:5000/v2/_catalog",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "registry tags",
+  "type": "shell",
+  "action": "curl -s http://127.0.0.1:5000/v2/50-business/alkymia-site/tags/list",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "registry gc",
+  "type": "shell",
+  "action": "CID=$(docker ps -qf name=jarvis_registry) && docker exec $CID registry garbage-collect /etc/docker/registry/config.yml",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "secrets list",
+  "type": "shell",
+  "action": "docker secret ls",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "edit coffre",
+  "type": "shell",
+  "action": "sops ~/jarvis/secrets-vault/infra.enc.env",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "rotate redis_pass",
+  "type": "shell",
+  "action": "sops -d ~/jarvis/secrets-vault/infra.enc.env | grep REDIS_PASSWORD | cut -d= -f2 | tr -d '\\n' | docker secret create redis_pass_v2 - && echo 'puis MAJ compose -> redis_pass_v2'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "audit fuites",
+  "type": "shell",
+  "action": "gitleaks detect --source ~/jarvis --no-banner",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "backup redis",
+  "type": "shell",
+  "action": "docker run --rm -v jarvis_redis_data:/d -v ~/backups:/b alpine tar czf /b/redis-$(date +%F).tgz -C /d .",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "backup registry",
+  "type": "shell",
+  "action": "docker run --rm -v jarvis_registry_data:/d -v ~/backups:/b alpine tar czf /b/registry-$(date +%F).tgz -C /d .",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "backup portainer",
+  "type": "shell",
+  "action": "docker run --rm -v jarvis_portainer_data:/d -v ~/backups:/b alpine tar czf /b/portainer-$(date +%F).tgz -C /d .",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "redeploy redis",
+  "type": "shell",
+  "action": "docker service update --force jarvis_redis",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "scale registry",
+  "type": "shell",
+  "action": "docker service scale jarvis_registry=1",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "inspect health",
+  "type": "shell",
+  "action": "docker service ps jarvis_redis --format '{{.Name}} {{.CurrentState}} {{.Error}}'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "join token",
+  "type": "shell",
+  "action": "docker swarm join-token manager",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "reseau bus",
+  "type": "shell",
+  "action": "docker network inspect jarvis-bus --format '{{range .Containers}}{{.Name}} {{end}}'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "ports exposes",
+  "type": "shell",
+  "action": "docker service ls --format '{{.Name}} {{.Ports}}' | grep -v '^.* $'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "index tables",
+  "type": "shell",
+  "action": "sqlite3 ~/jarvis/stacks/jarvis-index.db '.tables'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "index commands",
+  "type": "shell",
+  "action": "sqlite3 ~/jarvis/stacks/jarvis-index.db 'SELECT entity,label,cmd FROM commands ORDER BY entity'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "prune images",
+  "type": "shell",
+  "action": "docker image prune -af --filter 'until=168h'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "df docker",
+  "type": "shell",
+  "action": "docker system df -v",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "ollama up",
+  "type": "shell",
+  "action": "curl -s --max-time 3 http://127.0.0.1:11434/api/tags | jq -r '.models[].name'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "ollama list",
+  "type": "shell",
+  "action": "ollama list",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "ollama ps",
+  "type": "shell",
+  "action": "ollama ps",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "ollama pull",
+  "type": "shell",
+  "action": "ollama pull gemma3:4b",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "ollama run test",
+  "type": "shell",
+  "action": "ollama run qwen2.5:7b 'Reponds OK en un mot'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "ollama rm",
+  "type": "shell",
+  "action": "ollama rm qwen3:1.7b",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "ollama gen api",
+  "type": "shell",
+  "action": "curl -s http://127.0.0.1:11434/api/generate -d '{\"model\":\"gemma3:4b\",\"prompt\":\"ping\",\"stream\":false}' | jq -r .response",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "lms status",
+  "type": "shell",
+  "action": "~/.lmstudio/bin/lms status",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "lms ps",
+  "type": "shell",
+  "action": "~/.lmstudio/bin/lms ps",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "lms ls",
+  "type": "shell",
+  "action": "~/.lmstudio/bin/lms ls",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "lms load",
+  "type": "shell",
+  "action": "~/.lmstudio/bin/lms load qwen/qwen3.5-9b",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "lms unload",
+  "type": "shell",
+  "action": "~/.lmstudio/bin/lms unload --all",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "lms server",
+  "type": "shell",
+  "action": "~/.lmstudio/bin/lms server start --port 1234",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "lm local models",
+  "type": "shell",
+  "action": "curl -s http://127.0.0.1:1234/v1/models | jq -r '.data[].id'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "cluster M1 ping",
+  "type": "shell",
+  "action": "curl -s --max-time 2 http://192.168.1.85:1234/v1/models | jq -r '.data[].id'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "cluster M2 ping",
+  "type": "shell",
+  "action": "curl -s --max-time 2 http://192.168.1.26:1234/v1/models | jq -r '.data[].id'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "health all",
+  "type": "shell",
+  "action": "for u in 127.0.0.1:11434/api/tags 127.0.0.1:1234/v1/models 192.168.1.85:1234/v1/models 192.168.1.26:1234/v1/models; do printf '%s ' \"$u\"; curl -s --max-time 2 \"http://$u\" >/dev/null && echo UP || echo DOWN; done",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "ask fast",
+  "type": "shell",
+  "action": "bash ~/jarvis/scripts/lm-ask.sh --fast 'Resume en 3 points: ...'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "ask reason",
+  "type": "shell",
+  "action": "bash ~/jarvis/scripts/lm-ask.sh --reason 'Debug logique: ...'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "ask big",
+  "type": "shell",
+  "action": "bash ~/jarvis/scripts/lm-ask.sh --big 'Refactor ce code: ...'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "ask cloud",
+  "type": "shell",
+  "action": "bash ~/jarvis/scripts/lm-ask.sh --cloud 'Tache complexe'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "ask piped",
+  "type": "shell",
+  "action": "cat /chemin/fichier.txt | bash ~/jarvis/scripts/lm-ask.sh 'Resume ce contenu'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "gemini ask",
+  "type": "shell",
+  "action": "bash ~/jarvis/scripts/gemini-ask.sh 'Question best-quality'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "gemini flash",
+  "type": "shell",
+  "action": "bash ~/jarvis/scripts/gemini-ask.sh --flash 'Question rapide'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "router task",
+  "type": "shell",
+  "action": "bash ~/jarvis/scripts/model_router.sh reasoning 'Analyse ce bug' M4",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "usage log",
+  "type": "shell",
+  "action": "sqlite3 ~/jarvis/cowork_engine.db 'SELECT ts,model,backend,task_type,latency_ms FROM model_usage_log ORDER BY ts DESC LIMIT 20;'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "latency stats",
+  "type": "shell",
+  "action": "sqlite3 ~/jarvis/cowork_engine.db 'SELECT backend,COUNT(*),ROUND(AVG(latency_ms)) FROM model_usage_log GROUP BY backend;'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "cloud key check",
+  "type": "shell",
+  "action": "test -s ~/.ollama/cloud_api_key && echo 'cloud key OK' || echo 'cloud key MANQUANTE'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "thermal watch",
+  "type": "shell",
+  "action": "watch -n2 'sensors 2>/dev/null | grep -iE \"package|tctl\" ; ollama ps'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "thermal gov",
+  "type": "shell",
+  "action": "setsid bash ~/jarvis/scripts/m4-thermal-governor.sh &",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "load latency bench",
+  "type": "shell",
+  "action": "t=$(date +%s%3N); curl -s http://127.0.0.1:11434/api/generate -d '{\"model\":\"gemma3:4b\",\"prompt\":\"ok\",\"stream\":false}' >/dev/null; echo \"$(( $(date +%s%3N)-t )) ms\"",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "ollama port busy",
+  "type": "shell",
+  "action": "ss -ltnp | grep -E ':11434|:1234'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "ollama restart",
+  "type": "shell",
+  "action": "systemctl --user restart ollama 2>/dev/null || pkill -f 'ollama serve'; nohup ollama serve >/tmp/ollama.log 2>&1 &",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "ollama logs",
+  "type": "shell",
+  "action": "journalctl --user -u ollama -n 50 --no-pager 2>/dev/null || tail -n 50 /tmp/ollama.log",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "backup models",
+  "type": "shell",
+  "action": "tar czf ~/backups/ollama-models-$(date +%F).tgz -C ~/.ollama models",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "disk models",
+  "type": "shell",
+  "action": "du -sh ~/.ollama/models ~/.lmstudio/models 2>/dev/null",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "n8n etat conteneur",
+  "type": "shell",
+  "action": "docker ps --filter name=jarvis-n8n --format 'table {{.Names}}\\t{{.Status}}\\t{{.Ports}}'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "n8n logs live",
+  "type": "shell",
+  "action": "docker logs -f --tail 100 jarvis-n8n",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "n8n redemarrer",
+  "type": "shell",
+  "action": "docker restart jarvis-n8n",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "n8n version",
+  "type": "shell",
+  "action": "docker exec jarvis-n8n n8n --version",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "n8n liste commandes",
+  "type": "shell",
+  "action": "docker exec jarvis-n8n n8n --help",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "n8n audit securite",
+  "type": "shell",
+  "action": "docker exec jarvis-n8n n8n audit",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "n8n export workflows",
+  "type": "shell",
+  "action": "docker exec jarvis-n8n n8n export:workflow --all --output=/home/node/.n8n/backup-workflows.json",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "n8n export credentials",
+  "type": "shell",
+  "action": "docker exec jarvis-n8n n8n export:credentials --all --decrypted=false --output=/home/node/.n8n/backup-creds.json",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "n8n import workflows",
+  "type": "shell",
+  "action": "docker exec jarvis-n8n n8n import:workflow --separate --input=/home/node/.n8n/backup-workflows.json",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "n8n executer workflow",
+  "type": "shell",
+  "action": "docker exec jarvis-n8n n8n execute --id=<WORKFLOW_ID>",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "n8n batch",
+  "type": "shell",
+  "action": "docker exec jarvis-n8n n8n execute-batch --ids=<ID1,ID2>",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "n8n copie backup hote",
+  "type": "shell",
+  "action": "docker cp jarvis-n8n:/home/node/.n8n/backup-workflows.json /home/pamerys/jarvis/stacks/20-automation/backup-workflows-$(date +%F).json",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "n8n API health",
+  "type": "shell",
+  "action": "curl -s http://localhost:5678/healthz | jq .",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "n8n API workflows actifs",
+  "type": "shell",
+  "action": "curl -s -H \"X-N8N-API-KEY: $N8N_API_KEY\" http://localhost:5678/api/v1/workflows?active=true | jq '.data[].name'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "n8n declenche webhook",
+  "type": "shell",
+  "action": "curl -s -X POST http://localhost:5678/webhook/<PATH> -H 'Content-Type: application/json' -d '{\"source\":\"cli-test\"}'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "redis cles bull",
+  "type": "shell",
+  "action": "docker exec $(docker ps -qf name=jarvis_redis) redis-cli -a \"$(cat /run/secrets/redis_pass)\" --scan --pattern 'bull:*' | head -30",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "redis longueur file",
+  "type": "shell",
+  "action": "docker exec $(docker ps -qf name=jarvis_redis) redis-cli -a \"$(cat /run/secrets/redis_pass)\" LLEN bull:jobs:wait",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "redis jobs echoues",
+  "type": "shell",
+  "action": "docker exec $(docker ps -qf name=jarvis_redis) redis-cli -a \"$(cat /run/secrets/redis_pass)\" ZCARD bull:jobs:failed",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "redis purge file",
+  "type": "shell",
+  "action": "docker exec $(docker ps -qf name=jarvis_redis) redis-cli -a \"$(cat /run/secrets/redis_pass)\" DEL bull:jobs:wait",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "browseros ouvrir page",
+  "type": "shell",
+  "action": "page=$(browseros-cli open --json https://www.education.gouv.fr | jq -r .page) ; echo $page",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "browseros snapshot",
+  "type": "shell",
+  "action": "browseros-cli -p \"$page\" snapshot",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "browseros lire liens",
+  "type": "shell",
+  "action": "browseros-cli -p \"$page\" read --links",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "browseros lister onglets",
+  "type": "shell",
+  "action": "browseros-cli tabs",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "delegue resume local",
+  "type": "shell",
+  "action": "bash /home/pamerys/jarvis/scripts/lm-ask.sh \"Resume en 3 puces ce payload de workflow: $(cat /tmp/exec.json)\"",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "index executions",
+  "type": "shell",
+  "action": "sqlite3 /home/pamerys/jarvis/stacks/jarvis-index.db \"SELECT name FROM sqlite_master WHERE type='table';\"",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "trace execution sql",
+  "type": "shell",
+  "action": "sqlite3 /home/pamerys/jarvis/stacks/jarvis-index.db \"INSERT INTO automation_log(ts,workflow,status) VALUES(datetime('now'),'<WF>','ok');\"",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "controle secrets",
+  "type": "shell",
+  "action": "gitleaks detect --no-git -s /home/pamerys/jarvis/stacks/20-automation/ -v",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "dechiffre secret",
+  "type": "shell",
+  "action": "sops -d /home/pamerys/jarvis/secrets-vault/telegram.enc.yaml",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "notif telegram",
+  "type": "shell",
+  "action": "curl -s -X POST \"https://api.telegram.org/bot$(sops -d --extract '[\"bot_token\"]' /home/pamerys/jarvis/secrets-vault/telegram.enc.yaml)/sendMessage\" -d chat_id=$CHAT_ID -d text='n8n: workflow KO'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "check mail imap",
+  "type": "shell",
+  "action": "python3 -c \"import imaplib,os; m=imaplib.IMAP4_SSL('imap.gmail.com'); m.login('miningexpert31@gmail.com',os.environ['IMAP_PASS']); m.select('INBOX'); print(m.search(None,'UNSEEN'))\"",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "swarm services",
+  "type": "shell",
+  "action": "docker service ls",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "deploy stack auto",
+  "type": "shell",
+  "action": "docker stack deploy -c /home/pamerys/jarvis/stacks/20-automation/docker-compose.yml automation",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "n8n stats memoire",
+  "type": "shell",
+  "action": "docker stats --no-stream jarvis-n8n",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "portainer ouvrir",
+  "type": "shell",
+  "action": "xdg-open http://localhost:9000",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "service état",
+  "type": "shell",
+  "action": "docker service ls --filter name=data_postgres",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "service détail",
+  "type": "shell",
+  "action": "docker service ps data_postgres --no-trunc",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "logs postgres",
+  "type": "shell",
+  "action": "docker service logs -f --tail 100 data_postgres",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "psql console",
+  "type": "shell",
+  "action": "docker run --rm -it --network jarvis-bus -e PGPASSWORD=\"$(sops -d ~/jarvis/secrets-vault/infra.enc.env | grep -E '^(PG|POSTGRES_PASSWORD)=' | cut -d= -f2-)\" postgres:15-alpine psql -h postgres -U jarvis jarvis_agents",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "liste tables pg",
+  "type": "shell",
+  "action": "docker run --rm --network jarvis-bus -e PGPASSWORD=$PG postgres:15-alpine psql -h postgres -U jarvis -d jarvis_agents -c '\\dt'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "taille base pg",
+  "type": "shell",
+  "action": "docker run --rm --network jarvis-bus -e PGPASSWORD=$PG postgres:15-alpine psql -h postgres -U jarvis -d jarvis_agents -c \"SELECT pg_size_pretty(pg_database_size('jarvis_agents'));\"",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "connexions actives",
+  "type": "shell",
+  "action": "docker run --rm --network jarvis-bus -e PGPASSWORD=$PG postgres:15-alpine psql -h postgres -U jarvis -d jarvis_agents -c 'SELECT pid,usename,state,query FROM pg_stat_activity;'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "dump pg",
+  "type": "shell",
+  "action": "docker run --rm --network jarvis-bus -e PGPASSWORD=$PG -v ~/backups:/b postgres:15-alpine sh -c 'pg_dump -h postgres -U jarvis -Fc jarvis_agents > /b/jarvis_agents-$(date +%F).dump'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "restore pg",
+  "type": "shell",
+  "action": "docker run --rm --network jarvis-bus -e PGPASSWORD=$PG -v ~/backups:/b postgres:15-alpine sh -c 'pg_restore -h postgres -U jarvis -d jarvis_agents --clean /b/jarvis_agents-2026-06-28.dump'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "backup volume pg",
+  "type": "shell",
+  "action": "docker run --rm -v data_jarvis_postgres_data:/d -v ~/backups:/b alpine tar czf /b/pg-vol-$(date +%F).tgz -C /d .",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "inspect volume pg",
+  "type": "shell",
+  "action": "docker volume inspect data_jarvis_postgres_data",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "rotation secret pg",
+  "type": "shell",
+  "action": "printf '%s' \"$NEW_PG_PASS\" | docker secret create pg_pass_v2 - && echo 'puis mettre à jour le compose et redeploy'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "déchiffrer secret",
+  "type": "shell",
+  "action": "sops -d ~/jarvis/secrets-vault/infra.enc.env",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "index commandes data",
+  "type": "shell",
+  "action": "sqlite3 ~/jarvis/stacks/jarvis-index.db \"SELECT label,command FROM commands WHERE entity='30-data';\"",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "inventaire sqlite",
+  "type": "shell",
+  "action": "find /home/pamerys -name '*.db' -printf '%s\\t%p\\n' 2>/dev/null | sort -rn | head -30",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "intégrité sqlite",
+  "type": "shell",
+  "action": "sqlite3 ~/jarvis/planning.db 'PRAGMA integrity_check;'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "schéma planning",
+  "type": "shell",
+  "action": "sqlite3 ~/jarvis/planning.db '.schema'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "backup sqlite live",
+  "type": "shell",
+  "action": "sqlite3 ~/jarvis/rdv.db \".backup '/home/pamerys/backups/rdv-$(date +%F).db'\"",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "vacuum sqlite",
+  "type": "shell",
+  "action": "sqlite3 ~/jarvis/jarvis/rag_index.db 'VACUUM;'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "export csv sqlite",
+  "type": "shell",
+  "action": "sqlite3 -header -csv ~/jarvis/planning.db 'SELECT * FROM sqlite_master;' > ~/backups/planning-export.csv",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "chiffrer sqlite",
+  "type": "shell",
+  "action": "docker run --rm -v ~/jarvis:/w -w /w nouchka/sqlcipher sh -c \"sqlcipher cours.db \\\"PRAGMA key='clef'; ATTACH DATABASE 'cours.enc.db' AS enc KEY 'clef'; SELECT sqlcipher_export('enc'); DETACH DATABASE enc;\\\"\"",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "audit fuite dumps",
+  "type": "shell",
+  "action": "gitleaks detect --no-git --source ~/backups -v",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "redis ping (bus)",
+  "type": "shell",
+  "action": "docker run --rm --network jarvis-bus redis:7-alpine redis-cli -h redis -a \"$REDIS_PASSWORD\" ping",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "pinecone index stats",
+  "type": "shell",
+  "action": "echo 'via MCP: mcp__plugin_pinecone_pinecone__describe-index-stats (index RAG)'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "pinecone liste index",
+  "type": "shell",
+  "action": "echo 'via MCP: mcp__plugin_pinecone_pinecone__list-indexes'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "diag global data",
+  "type": "shell",
+  "action": "docker stack services data && docker service ps data_postgres",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "redeploy postgres",
+  "type": "shell",
+  "action": "docker service update --force data_postgres",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "shell conteneur pg",
+  "type": "shell",
+  "action": "docker exec -it $(docker ps -qf name=data_postgres) sh",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Statut services voix",
+  "type": "shell",
+  "action": "systemctl --user status jarvis-whisper jarvis-lumen bdqt-http jarvis-vocal-health --no-pager",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Demarrer pile vocale",
+  "type": "shell",
+  "action": "systemctl --user start jarvis-whisper jarvis-lumen bdqt-http jarvis-vocal-health",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Redemarrer Whisper",
+  "type": "shell",
+  "action": "systemctl --user restart jarvis-whisper.service",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Logs Whisper live",
+  "type": "shell",
+  "action": "journalctl --user -u jarvis-whisper.service -f -n 80",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Logs Lumen hub",
+  "type": "shell",
+  "action": "journalctl --user -u jarvis-lumen.service -n 100 --no-pager",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Health BDQT",
+  "type": "shell",
+  "action": "curl -s http://127.0.0.1:8790/health | python3 -m json.tool",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Health Lumen",
+  "type": "shell",
+  "action": "curl -s http://127.0.0.1:8788/health",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Test STT Whisper",
+  "type": "shell",
+  "action": "curl -s -X POST http://127.0.0.1:8789/transcribe -F 'file=@/home/pamerys/jarvis/voice_dataset/wav/voice_00220.wav' -F 'language=fr'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Synthese TTS Piper",
+  "type": "shell",
+  "action": "echo 'Bonjour, la classe va bien commencer.' | /home/pamerys/.local/bin/piper -m /home/pamerys/jarvis/models/piper/fr_FR-siwis-medium.onnx -f /tmp/tts_test.wav",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Lire le wav TTS",
+  "type": "shell",
+  "action": "ffmpeg -i /tmp/tts_test.wav -f wav - 2>/dev/null | aplay -q",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Convertir audio 16kHz mono",
+  "type": "shell",
+  "action": "ffmpeg -y -i /tmp/in.m4a -ar 16000 -ac 1 -c:a pcm_s16le /tmp/in16k.wav",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Stats BDQT (SQLite)",
+  "type": "shell",
+  "action": "sqlite3 /home/pamerys/IA/Core/jarvis/db/transcription_quality.db 'SELECT name FROM sqlite_master WHERE type=\"table\";'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Lexique metier BDQT",
+  "type": "shell",
+  "action": "sqlite3 /home/pamerys/IA/Core/jarvis/db/transcription_quality.db 'SELECT term,weight FROM lexicon ORDER BY weight DESC LIMIT 30;'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Ajouter correction phonetique",
+  "type": "shell",
+  "action": "curl -s -X POST http://127.0.0.1:8790/correction -H 'Content-Type: application/json' -d '{\"wrong\":\"des cole\",\"right\":\"ecole\"}'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Reconstruire le lexique",
+  "type": "shell",
+  "action": "python3 /home/pamerys/jarvis/scripts/transcription/bdqt_build_lexicon.py",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Generer prompt initial Whisper",
+  "type": "shell",
+  "action": "python3 /home/pamerys/jarvis/scripts/transcription/bdqt_gen_prompt.py",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Importer corrections",
+  "type": "shell",
+  "action": "python3 /home/pamerys/jarvis/scripts/transcription/bdqt_import_corrections.py",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Benchmark qualite",
+  "type": "shell",
+  "action": "python3 /home/pamerys/jarvis/scripts/transcription/bdqt_bench.py",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Extraire audio dataset",
+  "type": "shell",
+  "action": "python3 /home/pamerys/jarvis/scripts/transcription/bdqt_extract_audio.py",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Fine-tune BDQT",
+  "type": "shell",
+  "action": "python3 /home/pamerys/jarvis/scripts/transcription/bdqt_finetune.py",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Compter dataset vocal",
+  "type": "shell",
+  "action": "ls /home/pamerys/jarvis/voice_dataset/wav/*.wav | wc -l",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Sauvegarde base qualite",
+  "type": "shell",
+  "action": "sqlite3 /home/pamerys/IA/Core/jarvis/db/transcription_quality.db \".backup '/home/pamerys/jarvis/backups/bdqt_$(date +%F).db'\"",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Sauvegarde modeles Piper",
+  "type": "shell",
+  "action": "tar czf /home/pamerys/jarvis/backups/piper_$(date +%F).tar.gz -C /home/pamerys/jarvis/models piper",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Ports vocaux ouverts",
+  "type": "shell",
+  "action": "ss -tlnp | grep -E ':(8789|8788|8790|7777)'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Health monitor failover",
+  "type": "shell",
+  "action": "journalctl --user -u jarvis-vocal-health.service -n 50 --no-pager",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Bus redis vocal",
+  "type": "shell",
+  "action": "redis-cli -h 127.0.0.1 PING && redis-cli -h 127.0.0.1 SUBSCRIBE voice.events",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Logs widget vocal",
+  "type": "shell",
+  "action": "tail -n 60 /home/pamerys/jarvis/logs/voice_widget.log",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Secrets Lumen",
+  "type": "shell",
+  "action": "sops -d /home/pamerys/jarvis/secrets-vault/secrets.env 2>/dev/null | grep -i -E 'token|key' | sed 's/=.*/=***/'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Modeles Ollama dispo",
+  "type": "shell",
+  "action": "curl -s http://127.0.0.1:11434/api/tags | python3 -c 'import sys,json;[print(m[\"name\"]) for m in json.load(sys.stdin)[\"models\"]]'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Modeles LM Studio",
+  "type": "shell",
+  "action": "curl -s http://127.0.0.1:1234/v1/models | python3 -m json.tool | head -30",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Reload daemon user",
+  "type": "shell",
+  "action": "systemctl --user daemon-reload",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Activer au boot",
+  "type": "shell",
+  "action": "systemctl --user enable jarvis-whisper jarvis-lumen bdqt-http jarvis-vocal-health",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Espace disque dataset",
+  "type": "shell",
+  "action": "du -sh /home/pamerys/jarvis/voice_dataset /home/pamerys/jarvis/models/piper /home/pamerys/jarvis/voice_logs",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Etat stack business",
+  "type": "shell",
+  "action": "docker stack services business",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Vue globale Swarm",
+  "type": "shell",
+  "action": "docker stack ls && docker service ls",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Build+push alkymia",
+  "type": "shell",
+  "action": "docker build -t localhost:5000/50-business/alkymia-site:latest /home/pamerys/alkymia-communication/site-v2 && docker push localhost:5000/50-business/alkymia-site:latest",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Build+push delmas",
+  "type": "shell",
+  "action": "docker build -t localhost:5000/50-business/delmas-site:latest /home/pamerys/jarvis-delmas-site && docker push localhost:5000/50-business/delmas-site:latest",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Update alkymia (rolling)",
+  "type": "shell",
+  "action": "docker service update --image localhost:5000/50-business/alkymia-site:latest --with-registry-auth business_alkymia-site",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Update delmas (rolling)",
+  "type": "shell",
+  "action": "docker service update --image localhost:5000/50-business/delmas-site:latest --with-registry-auth business_delmas-site",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Redemarrage force alkymia",
+  "type": "shell",
+  "action": "docker service update --force business_alkymia-site",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Redemarrage force delmas",
+  "type": "shell",
+  "action": "docker service update --force business_delmas-site",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Health alkymia",
+  "type": "shell",
+  "action": "curl -s -o /dev/null -w '%{http_code}\\n' --max-time 4 http://127.0.0.1:8086/",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Health delmas",
+  "type": "shell",
+  "action": "curl -s -o /dev/null -w '%{http_code}\\n' --max-time 4 http://127.0.0.1:8085/",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Logs alkymia (suivi)",
+  "type": "shell",
+  "action": "docker service logs -f --tail 100 business_alkymia-site",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Logs delmas (suivi)",
+  "type": "shell",
+  "action": "docker service logs -f --tail 100 business_delmas-site",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Taches alkymia",
+  "type": "shell",
+  "action": "docker service ps --no-trunc business_alkymia-site",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Taches delmas",
+  "type": "shell",
+  "action": "docker service ps --no-trunc business_delmas-site",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Catalog registry",
+  "type": "shell",
+  "action": "curl -s --max-time 5 http://127.0.0.1:5000/v2/_catalog",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Tags image alkymia",
+  "type": "shell",
+  "action": "curl -s --max-time 5 http://127.0.0.1:5000/v2/50-business/alkymia-site/tags/list",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Tags image delmas",
+  "type": "shell",
+  "action": "curl -s --max-time 5 http://127.0.0.1:5000/v2/50-business/delmas-site/tags/list",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Scale alkymia",
+  "type": "shell",
+  "action": "docker service scale business_alkymia-site=2",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Inspect ports alkymia",
+  "type": "shell",
+  "action": "docker service inspect business_alkymia-site --format '{{json .Endpoint.Ports}}'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Backup sources sites",
+  "type": "shell",
+  "action": "tar czf ~/backups/business-sites-$(date +%F).tgz -C /home/pamerys alkymia-communication/site-v2 jarvis-delmas-site",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Backup images registry",
+  "type": "shell",
+  "action": "docker save localhost:5000/50-business/alkymia-site:latest localhost:5000/50-business/delmas-site:latest | gzip > ~/backups/business-images-$(date +%F).tgz",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Restore image",
+  "type": "shell",
+  "action": "docker load < ~/backups/business-images-$(date +%F).tgz",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Diff sources delmas",
+  "type": "shell",
+  "action": "git -C /home/pamerys/jarvis-delmas-site status -s && git -C /home/pamerys/jarvis-delmas-site log --oneline -5",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Test image en local",
+  "type": "shell",
+  "action": "docker run --rm -p 8099:80 localhost:5000/50-business/alkymia-site:latest",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Verif reseau bus",
+  "type": "shell",
+  "action": "docker network inspect jarvis-bus --format '{{range .Containers}}{{.Name}} {{end}}'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Nettoyage images obsoletes",
+  "type": "shell",
+  "action": "docker image prune -f && docker builder prune -f",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Lecture compose",
+  "type": "shell",
+  "action": "cat ~/jarvis/stacks/50-business/docker-compose.yml",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Index SQL business",
+  "type": "shell",
+  "action": "sqlite3 ~/jarvis/stacks/jarvis-index.db \"SELECT * FROM commands WHERE entity LIKE '%business%'\"",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Secret registry/infra",
+  "type": "shell",
+  "action": "sops -d ~/jarvis/secrets-vault/infra.enc.env",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Rollback service",
+  "type": "shell",
+  "action": "docker service rollback business_alkymia-site",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Suppression stack",
+  "type": "shell",
+  "action": "docker stack rm business",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Portainer UI",
+  "type": "shell",
+  "action": "xdg-open http://127.0.0.1:9000 2>/dev/null || echo 'http://127.0.0.1:9000'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "audit red-team",
+  "type": "shell",
+  "action": "bash ~/jarvis/scripts/sec-audit.sh",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "audit -> rapport",
+  "type": "shell",
+  "action": "bash ~/jarvis/scripts/sec-audit.sh | tee ~/jarvis/stacks/90-secrets-git/reports/audit-$(date +%F-%H%M).log",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "diff vs audit avant",
+  "type": "shell",
+  "action": "diff <(bash ~/jarvis/scripts/sec-audit.sh) ~/jarvis/scripts/sec-audit-AVANT.txt",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "lire secret coffre",
+  "type": "shell",
+  "action": "SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt sops -d ~/jarvis/secrets-vault/secrets.enc.env",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "editer secret",
+  "type": "shell",
+  "action": "SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt sops ~/jarvis/secrets-vault/infra.enc.env",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "chiffrer nouveau fichier",
+  "type": "shell",
+  "action": "SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt sops -e -i ~/jarvis/secrets-vault/nouveau.enc.env",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "injecter REDIS_PASSWORD",
+  "type": "shell",
+  "action": "export REDIS_PASSWORD=$(SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt sops -d ~/jarvis/secrets-vault/infra.enc.env | grep -E '^REDIS_PASSWORD=' | cut -d= -f2-)",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "rotation cle redis-pass",
+  "type": "shell",
+  "action": "SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt sops -d ~/jarvis/secrets-vault/infra.enc.env | grep -E '^REDIS_PASSWORD=' | cut -d= -f2- | docker secret create redis_pass_v2 -",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "verif cle age perms",
+  "type": "shell",
+  "action": "stat -c '%a %U %n' ~/.config/sops/age/keys.txt",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "durcir cle age",
+  "type": "shell",
+  "action": "chmod 600 ~/.config/sops/age/keys.txt",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "empreinte cle publique",
+  "type": "shell",
+  "action": "age-keygen -y ~/.config/sops/age/keys.txt",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "backup cle hors-ligne",
+  "type": "shell",
+  "action": "cp ~/.config/sops/age/keys.txt /media/$USER/USB/age-keys-$(date +%F).txt && chmod 600 /media/$USER/USB/age-keys-$(date +%F).txt",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "verif sops.yaml",
+  "type": "shell",
+  "action": "cat ~/jarvis/secrets-vault/.sops.yaml",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "lister docker secrets",
+  "type": "shell",
+  "action": "docker secret ls",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "inspect secret (meta)",
+  "type": "shell",
+  "action": "docker secret inspect pg_pass --format '{{.Spec.Name}} cree {{.CreatedAt}}'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "qui consomme pg_pass",
+  "type": "shell",
+  "action": "docker service ls -q | xargs -I{} docker service inspect {} --format '{{.Spec.Name}} {{range .Spec.TaskTemplate.ContainerSpec.Secrets}}{{.SecretName}} {{end}}' | grep pg_pass",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "installer gitleaks",
+  "type": "shell",
+  "action": "curl -sSL https://github.com/gitleaks/gitleaks/releases/latest/download/gitleaks_linux_x64.tar.gz | tar -xz -C ~/.local/bin gitleaks && gitleaks version",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "scan repo gitleaks",
+  "type": "shell",
+  "action": "gitleaks detect --source ~/jarvis --no-banner --redact -v",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "scan staging (pre-push)",
+  "type": "shell",
+  "action": "gitleaks protect --staged --source ~/jarvis --no-banner --redact",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "gitleaks via docker",
+  "type": "shell",
+  "action": "docker run --rm -v ~/jarvis:/repo zricethezav/gitleaks:latest detect -s /repo --no-banner --redact",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "hook pre-commit",
+  "type": "shell",
+  "action": "printf '#!/usr/bin/env bash\\ngitleaks protect --staged --redact --no-banner || { echo \"FUITE detectee, commit bloque\"; exit 1; }\\n' > ~/jarvis/.git/hooks/pre-commit && chmod +x ~/jarvis/.git/hooks/pre-commit",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "revue avant GO push",
+  "type": "shell",
+  "action": "git -C ~/jarvis status -s && git -C ~/jarvis diff --staged --stat",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "verif aucun clair stage",
+  "type": "shell",
+  "action": "git -C ~/jarvis diff --staged --name-only | grep -E '\\.env$|keys\\.txt|\\.key$' && echo 'STOP secret en clair' || echo 'OK rien en clair'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "push sur GO",
+  "type": "shell",
+  "action": "git -C ~/jarvis push origin sites-2026-refonte",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "verif gitignore coffre",
+  "type": "shell",
+  "action": "cd ~/jarvis/secrets-vault && git check-ignore -v secrets.enc.env keys.txt test.env 2>&1; cat .gitignore",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "fichiers traques sensibles",
+  "type": "shell",
+  "action": "git -C ~/jarvis ls-files | grep -E '\\.env$|keys\\.txt|\\.key$|credentials'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "cles SSH sans passphrase",
+  "type": "shell",
+  "action": "for k in ~/.ssh/id_*; do [[ $k == *.pub ]] && continue; ssh-keygen -y -P '' -f \"$k\" >/dev/null 2>&1 && echo \"NUE: $k\"; done",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "durcir .env trouves",
+  "type": "shell",
+  "action": "find ~ -maxdepth 4 -name '*.env' ! -name '*.enc.env' -exec chmod 600 {} \\; -print",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "chercher tokens clairs",
+  "type": "shell",
+  "action": "grep -rIlE 'ghp_[A-Za-z0-9]{20,}|api[_-]?key=|password=' ~/jarvis --exclude-dir=.git --exclude='*.enc.env'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "inventaire commandes SQL",
+  "type": "shell",
+  "action": "sqlite3 ~/jarvis/stacks/jarvis-index.db \"SELECT label,cmd FROM commands WHERE stack LIKE '%secret%';\"",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "dechiffrer backup fuite",
+  "type": "shell",
+  "action": "SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt sops -d ~/jarvis/secrets-vault/leaked-repos-backup.enc",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "verif integrite coffre",
+  "type": "shell",
+  "action": "for f in ~/jarvis/secrets-vault/*.enc.env; do SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt sops -d \"$f\" >/dev/null 2>&1 && echo \"OK $f\" || echo \"KO $f\"; done",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "audit gh auth",
+  "type": "shell",
+  "action": "gh auth status 2>&1 | grep -E 'Logged in|Token scopes'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "derniers commits secrets",
+  "type": "shell",
+  "action": "git -C ~/jarvis log --oneline -10 -- secrets-vault/",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Etat service webapp",
+  "type": "shell",
+  "action": "systemctl --user status jarvis-webapp.service",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Redemarrer webapp",
+  "type": "shell",
+  "action": "systemctl --user restart jarvis-webapp.service",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Logs webapp live",
+  "type": "shell",
+  "action": "journalctl --user -u jarvis-webapp.service -f -n 50",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Health PWA",
+  "type": "shell",
+  "action": "curl -s http://127.0.0.1:7777/api/status | python3 -m json.tool",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Test HTTPS Android",
+  "type": "shell",
+  "action": "curl -sk https://127.0.0.1:8443/manifest.json",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Planning du jour",
+  "type": "shell",
+  "action": "curl -s http://127.0.0.1:7777/api/planning | python3 -m json.tool",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Ajouter un cours",
+  "type": "shell",
+  "action": "curl -s -X POST http://127.0.0.1:7777/api/planning -H 'Content-Type: application/json' -d '{\"jour\":\"lundi\",\"heure\":\"08:30\",\"duree\":\"45min\",\"titre\":\"Lecture CP\",\"salle\":\"Classe 2\"}'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Liste RDV API",
+  "type": "shell",
+  "action": "curl -s http://127.0.0.1:7777/api/rdv | python3 -m json.tool",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Ajouter un RDV",
+  "type": "shell",
+  "action": "curl -s -X POST http://127.0.0.1:7777/api/rdv -H 'Content-Type: application/json' -d '{\"titre\":\"RDV parents Lucas\",\"date\":\"2026-07-02\",\"heure_debut\":\"17:00\",\"heure_fin\":\"17:20\",\"type\":\"parents\"}'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Supprimer un RDV",
+  "type": "shell",
+  "action": "curl -s -X DELETE http://127.0.0.1:7777/api/rdv/1",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Liste to-do",
+  "type": "shell",
+  "action": "curl -s http://127.0.0.1:7777/api/todo | python3 -m json.tool",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Ajouter une tache",
+  "type": "shell",
+  "action": "curl -s -X POST http://127.0.0.1:7777/api/todo -H 'Content-Type: application/json' -d '{\"titre\":\"Preparer eval maths\",\"categorie\":\"ecole\",\"priorite\":\"haute\",\"deadline\":\"2026-07-01\"}'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Cocher tache faite",
+  "type": "shell",
+  "action": "curl -s -X PATCH http://127.0.0.1:7777/api/todo/1 -H 'Content-Type: application/json' -d '{\"statut\":\"done\"}'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "RDV du jour (SQL)",
+  "type": "shell",
+  "action": "sqlite3 -box /home/pamerys/jarvis/rdv.db \"SELECT heure_debut,titre,type FROM rdv WHERE date=date('now') ORDER BY heure_debut;\"",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Cours du jour (SQL)",
+  "type": "shell",
+  "action": "sqlite3 -box /home/pamerys/jarvis/planning.db \"SELECT heure,duree,titre,salle FROM cours WHERE lower(jour)=lower(strftime('%w','now')) ORDER BY heure;\"",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Taches urgentes (SQL)",
+  "type": "shell",
+  "action": "sqlite3 -box /home/pamerys/jarvis/todo.db \"SELECT priorite,titre,deadline FROM todo WHERE statut!='done' ORDER BY deadline;\"",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Inventaire bases",
+  "type": "shell",
+  "action": "sqlite3 /home/pamerys/jarvis/planning.db '.tables'; sqlite3 /home/pamerys/jarvis/rdv.db '.tables'; sqlite3 /home/pamerys/jarvis/todo.db '.tables'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Integrite SQLite",
+  "type": "shell",
+  "action": "for d in planning rdv todo notes; do echo \"== $d ==\"; sqlite3 /home/pamerys/jarvis/$d.db 'PRAGMA integrity_check;'; done",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Sauvegarde quotidienne",
+  "type": "shell",
+  "action": "mkdir -p ~/jarvis/backups/ecole_$(date +%F) && for d in planning rdv todo notes; do sqlite3 /home/pamerys/jarvis/$d.db \".backup '$HOME/jarvis/backups/ecole_$(date +%F)/$d.db'\"; done && echo OK",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Export RDV CSV",
+  "type": "shell",
+  "action": "sqlite3 -header -csv /home/pamerys/jarvis/rdv.db 'SELECT * FROM rdv ORDER BY date;' > ~/jarvis/backups/rdv_$(date +%F).csv && echo exporte",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Dictee vocale RDV/note",
+  "type": "shell",
+  "action": "curl -s -X POST http://127.0.0.1:7777/api/voice-record -F audio=@/tmp/note.wav | python3 -m json.tool",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Test Whisper STT",
+  "type": "shell",
+  "action": "curl -s http://127.0.0.1:8789/health || curl -sk https://127.0.0.1:8789/health",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Lancer widget vocal",
+  "type": "shell",
+  "action": "DISPLAY=:0 python3 /home/pamerys/jarvis/scripts/voice_widget.py &",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Rituel matin n8n",
+  "type": "shell",
+  "action": "curl -s -X POST http://127.0.0.1:5678/webhook/assistant-matin | python3 -m json.tool",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Etat n8n",
+  "type": "shell",
+  "action": "docker ps --filter name=n8n --format '{{.Names}} {{.Status}} {{.Ports}}'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Logs n8n",
+  "type": "shell",
+  "action": "docker logs --tail 50 jarvis-n8n",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Resume cours (local)",
+  "type": "shell",
+  "action": "bash ~/jarvis/scripts/lm-ask.sh \"Resume en 5 points pour des CE1 ce texte: $(cat ~/Documents/Cours/Fiches-cours/*.txt 2>/dev/null | head -c 4000)\"",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Redaction Gemini",
+  "type": "shell",
+  "action": "bash ~/jarvis/scripts/gemini-ask.sh \"Redige un mot aux parents pour annoncer une sortie scolaire jeudi\"",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Lister fiches de cours",
+  "type": "shell",
+  "action": "find /home/pamerys/Documents/Cours -type f \\( -name '*.pdf' -o -name '*.docx' -o -name '*.odt' \\) | sort",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Ouvrir PWA navigateur",
+  "type": "shell",
+  "action": "DISPLAY=:0 xdg-open http://127.0.0.1:7777/ &",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Ports services ecole",
+  "type": "shell",
+  "action": "ss -tlnp 2>/dev/null | grep -E ':7777|:8443|:8789|:5678'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Activer webapp au boot",
+  "type": "shell",
+  "action": "systemctl --user enable jarvis-webapp.service && systemctl --user daemon-reload",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Notes recentes (SQL)",
+  "type": "shell",
+  "action": "sqlite3 -box /home/pamerys/jarvis/notes.db 'SELECT * FROM notes ORDER BY rowid DESC LIMIT 10;'",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "Restaurer une base",
+  "type": "shell",
+  "action": "cp ~/jarvis/backups/ecole_$(date +%F)/rdv.db /home/pamerys/jarvis/rdv.db && systemctl --user restart jarvis-webapp.service",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "backup volume",
+  "type": "shell",
+  "action": "docker run --rm -v <volume>:/d:ro alpine tar czf - -C /d . | age -r $(age-keygen -y ~/.config/sops/age/keys.txt) > ~/jarvis/backups/vol-<volume>-$(date +%F).tar.gz.age",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "restore volume",
+  "type": "shell",
+  "action": "age -d -i ~/.config/sops/age/keys.txt <backup>.age | docker run --rm -i -v <volume>:/d alpine tar xzf - -C /d",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "backup tous volumes",
+  "type": "shell",
+  "action": "for v in $(docker volume ls -q | grep -E \"n8n|registry|redis|portainer|postgres\"); do docker run --rm -v $v:/d:ro alpine tar czf - -C /d . | age -r $PUB > ~/jarvis/backups/vol-$v-$(date +%F).tar.gz.age; done",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "backup postgres",
+  "type": "shell",
+  "action": "docker exec $(docker ps -qf name=postgres) pg_dump -U jarvis jarvis_agents | age -r $PUB > ~/jarvis/backups/pg-$(date +%F).sql.age",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "backup coffre",
+  "type": "shell",
+  "action": "tar czf - -C ~/jarvis secrets-vault | age -r $PUB > ~/jarvis/backups/coffre-$(date +%F).tar.gz.age",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "lister backups",
+  "type": "shell",
+  "action": "ls -lh ~/jarvis/backups/*.age",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "detecter boucle domino (RAM saturee lm-ask empiles)",
+  "type": "shell",
+  "action": "free -h | awk \"NR==2{print \\$7}\"; echo \"lm-ask:\"; pgrep -fc lm-ask.sh; echo \"domino:\"; pgrep -fc domino/service.py; ps -eo pid,etime,args | grep -E \"[J]ARVIS DOMINO\" | head",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "couper boucle domino + cowork (stop --user + mask durable)",
+  "type": "shell",
+  "action": "systemctl --user stop jarvis-domino jarvis-cowork-loop jarvis-cowork-dispatcher; systemctl --user mask jarvis-domino jarvis-cowork-loop jarvis-cowork-dispatcher; free -h | awk \"NR==2{print \\\"RAM dispo:\\\",\\$7}\"",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "documents ouvrir/éditer",
+  "type": "shell",
+  "action": "/api/file, /api/file-content, /api/file-save",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "sauvegarde auto",
+  "type": "shell",
+  "action": "/api/backup",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "dashboard admin",
+  "type": "shell",
+  "action": "/api/admin/etat",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "intégrations API",
+  "type": "shell",
+  "action": "/api/integrations/etat",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "moteur adaptatif",
+  "type": "shell",
+  "action": "/api/adaptatif/note, /api/adaptatif/actualiser",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "conflits créneaux EDT",
+  "type": "shell",
+  "action": "/api/edt/creneaux",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "commandes & budget",
+  "type": "shell",
+  "action": "/api/commandes/budget, /api/commandes/generer",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "PWA installable",
+  "type": "shell",
+  "action": "manifest.json + sw.js + bouton Installer",
+  "source": "jarvis-index.db"
+ },
+ {
+  "command": "linkedin site",
+  "type": "web",
+  "action": "linkedin",
+  "source": "anchor:linkedin"
+ },
+ {
+  "command": "linkedin url",
+  "type": "web",
+  "action": "https://www.linkedin.com/feed/",
+  "source": "anchor:linkedin"
+ },
+ {
+  "command": "linkedin captured",
+  "type": "web",
+  "action": "2026-06-08",
+  "source": "anchor:linkedin"
+ },
+ {
+  "command": "linkedin cost",
+  "type": "web",
+  "action": "linkedin",
+  "source": "anchor:linkedin"
+ },
+ {
+  "command": "linkedin logged_in_check",
+  "type": "web",
+  "action": "img.global-nav__me-photo, button.global-nav__primary-link-me-menu-trigger",
+  "source": "anchor:linkedin"
+ },
+ {
+  "command": "linkedin iframe",
+  "type": "web",
+  "action": "linkedin",
+  "source": "anchor:linkedin"
+ },
+ {
+  "command": "linkedin anchors",
+  "type": "web",
+  "action": "linkedin",
+  "source": "anchor:linkedin"
+ },
+ {
+  "command": "linkedin validated",
+  "type": "web",
+  "action": "2026-05-28 urn:li:share:7465847765454008320",
+  "source": "anchor:linkedin"
+ },
+ {
+  "command": "linkedin engine",
+  "type": "web",
+  "action": "/home/pamerys/jarvis/mirra-local/publish_engine.py",
+  "source": "anchor:linkedin"
+ },
+ {
+  "command": "passcerfa site",
+  "type": "web",
+  "action": "passcerfa",
+  "source": "anchor:passcerfa"
+ },
+ {
+  "command": "passcerfa url",
+  "type": "web",
+  "action": "https://passcerfa.netlify.app",
+  "source": "anchor:passcerfa"
+ },
+ {
+  "command": "passcerfa captured",
+  "type": "web",
+  "action": "auto",
+  "source": "anchor:passcerfa"
+ },
+ {
+  "command": "passcerfa cost",
+  "type": "web",
+  "action": "passcerfa",
+  "source": "anchor:passcerfa"
+ },
+ {
+  "command": "passcerfa html_bytes",
+  "type": "web",
+  "action": 50,
+  "source": "anchor:passcerfa"
+ },
+ {
+  "command": "passcerfa anchors_count",
+  "type": "web",
+  "action": "passcerfa",
+  "source": "anchor:passcerfa"
+ },
+ {
+  "command": "passcerfa anchors",
+  "type": "web",
+  "action": "passcerfa",
+  "source": "anchor:passcerfa"
+ },
+ {
+  "command": "alkymia_os site",
+  "type": "web",
+  "action": "alkymia_os",
+  "source": "anchor:alkymia_os"
+ },
+ {
+  "command": "alkymia_os url",
+  "type": "web",
+  "action": "https://alkymia-os.netlify.app",
+  "source": "anchor:alkymia_os"
+ },
+ {
+  "command": "alkymia_os captured",
+  "type": "web",
+  "action": "auto",
+  "source": "anchor:alkymia_os"
+ },
+ {
+  "command": "alkymia_os cost",
+  "type": "web",
+  "action": "alkymia_os",
+  "source": "anchor:alkymia_os"
+ },
+ {
+  "command": "alkymia_os html_bytes",
+  "type": "web",
+  "action": 122509,
+  "source": "anchor:alkymia_os"
+ },
+ {
+  "command": "alkymia_os anchors_count",
+  "type": "web",
+  "action": 74,
+  "source": "anchor:alkymia_os"
+ },
+ {
+  "command": "alkymia_os anchors",
+  "type": "web",
+  "action": [
+   {
+    "selector": "a[href='#contact']",
+    "href": "#contact",
+    "text": "Contact"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/claude-code-mastery-m2']",
+    "href": "https://franckdelmas.gumroad.com/l/claude-code-mastery-m2",
+    "text": "Acheter Module 2 — 177 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/claude-code-mastery-m3']",
+    "href": "https://franckdelmas.gumroad.com/l/claude-code-mastery-m3",
+    "text": "Acheter Module 3 — 597 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/ia-fondamentaux-2026']",
+    "href": "https://franckdelmas.gumroad.com/l/ia-fondamentaux-2026",
+    "text": "Acheter — 39 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/prompt-engineering']",
+    "href": "https://franckdelmas.gumroad.com/l/prompt-engineering",
+    "text": "Acheter — 39 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/vibe-coding']",
+    "href": "https://franckdelmas.gumroad.com/l/vibe-coding",
+    "text": "Acheter — 39 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/ia-no-code']",
+    "href": "https://franckdelmas.gumroad.com/l/ia-no-code",
+    "text": "Acheter — 39 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/ia-productivite']",
+    "href": "https://franckdelmas.gumroad.com/l/ia-productivite",
+    "text": "Acheter — 39 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/copilot-github']",
+    "href": "https://franckdelmas.gumroad.com/l/copilot-github",
+    "text": "Acheter — 39 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/github-cicd']",
+    "href": "https://franckdelmas.gumroad.com/l/github-cicd",
+    "text": "Acheter — 39 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/claude-code-pro']",
+    "href": "https://franckdelmas.gumroad.com/l/claude-code-pro",
+    "text": "Acheter — 49 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/cursor-vscode']",
+    "href": "https://franckdelmas.gumroad.com/l/cursor-vscode",
+    "text": "Acheter — 49 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/ia-marketing']",
+    "href": "https://franckdelmas.gumroad.com/l/ia-marketing",
+    "text": "Acheter — 49 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/ia-education']",
+    "href": "https://franckdelmas.gumroad.com/l/ia-education",
+    "text": "Acheter — 49 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/pgvector-sql']",
+    "href": "https://franckdelmas.gumroad.com/l/pgvector-sql",
+    "text": "Acheter — 49 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/n8n-masterclass']",
+    "href": "https://franckdelmas.gumroad.com/l/n8n-masterclass",
+    "text": "Acheter — 49 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/ia-code-review']",
+    "href": "https://franckdelmas.gumroad.com/l/ia-code-review",
+    "text": "Acheter — 49 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/mistral-local']",
+    "href": "https://franckdelmas.gumroad.com/l/mistral-local",
+    "text": "Acheter — 49 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/docker-ia']",
+    "href": "https://franckdelmas.gumroad.com/l/docker-ia",
+    "text": "Acheter — 49 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/gemini-cli-masterclass']",
+    "href": "https://franckdelmas.gumroad.com/l/gemini-cli-masterclass",
+    "text": "Acheter — 59 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/api-openai']",
+    "href": "https://franckdelmas.gumroad.com/l/api-openai",
+    "text": "Acheter — 59 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/deepseek-open']",
+    "href": "https://franckdelmas.gumroad.com/l/deepseek-open",
+    "text": "Acheter — 59 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/fastapi-ia']",
+    "href": "https://franckdelmas.gumroad.com/l/fastapi-ia",
+    "text": "Acheter — 59 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/ia-ecommerce']",
+    "href": "https://franckdelmas.gumroad.com/l/ia-ecommerce",
+    "text": "Acheter — 59 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/ia-rh']",
+    "href": "https://franckdelmas.gumroad.com/l/ia-rh",
+    "text": "Acheter — 59 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/ia-freelance']",
+    "href": "https://franckdelmas.gumroad.com/l/ia-freelance",
+    "text": "Acheter — 59 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/react-ia']",
+    "href": "https://franckdelmas.gumroad.com/l/react-ia",
+    "text": "Acheter — 59 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/lumen-multilang']",
+    "href": "https://franckdelmas.gumroad.com/l/lumen-multilang",
+    "text": "Acheter — 59 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/ai-freelance-automation']",
+    "href": "https://franckdelmas.gumroad.com/l/ai-freelance-automation",
+    "text": "Acheter — 59 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/automatisation-business']",
+    "href": "https://franckdelmas.gumroad.com/l/automatisation-business",
+    "text": "Acheter — 69 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/claude-api-avance']",
+    "href": "https://franckdelmas.gumroad.com/l/claude-api-avance",
+    "text": "Acheter — 69 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/ia-devops']",
+    "href": "https://franckdelmas.gumroad.com/l/ia-devops",
+    "text": "Acheter — 69 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/elasticsearch-ia']",
+    "href": "https://franckdelmas.gumroad.com/l/elasticsearch-ia",
+    "text": "Acheter — 69 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/monitoring-ia']",
+    "href": "https://franckdelmas.gumroad.com/l/monitoring-ia",
+    "text": "Acheter — 69 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/ia-juridique']",
+    "href": "https://franckdelmas.gumroad.com/l/ia-juridique",
+    "text": "Acheter — 69 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/jarvis-voice-ptt']",
+    "href": "https://franckdelmas.gumroad.com/l/jarvis-voice-ptt",
+    "text": "Acheter — 69 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/weaviate-chroma']",
+    "href": "https://franckdelmas.gumroad.com/l/weaviate-chroma",
+    "text": "Acheter — 69 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/ia-cloud-gcp']",
+    "href": "https://franckdelmas.gumroad.com/l/ia-cloud-gcp",
+    "text": "Acheter — 79 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/agents-vocaux']",
+    "href": "https://franckdelmas.gumroad.com/l/agents-vocaux",
+    "text": "Acheter — 79 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/llms-locaux-lm-studio-ollama']",
+    "href": "https://franckdelmas.gumroad.com/l/llms-locaux-lm-studio-ollama",
+    "text": "Acheter — 79 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/trading-ia']",
+    "href": "https://franckdelmas.gumroad.com/l/trading-ia",
+    "text": "Acheter — 79 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/mcp-protocol']",
+    "href": "https://franckdelmas.gumroad.com/l/mcp-protocol",
+    "text": "Acheter — 79 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/crewai-autogen']",
+    "href": "https://franckdelmas.gumroad.com/l/crewai-autogen",
+    "text": "Acheter — 79 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/multimodal-ia']",
+    "href": "https://franckdelmas.gumroad.com/l/multimodal-ia",
+    "text": "Acheter — 79 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/langchain-ia']",
+    "href": "https://franckdelmas.gumroad.com/l/langchain-ia",
+    "text": "Acheter — 79 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/ia-sante']",
+    "href": "https://franckdelmas.gumroad.com/l/ia-sante",
+    "text": "Acheter — 79 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/ia-healthcare']",
+    "href": "https://franckdelmas.gumroad.com/l/ia-healthcare",
+    "text": "Acheter — 79 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/jarvis-cowork-qa']",
+    "href": "https://franckdelmas.gumroad.com/l/jarvis-cowork-qa",
+    "text": "Acheter — 79 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/jarvis-mcp-toolkit']",
+    "href": "https://franckdelmas.gumroad.com/l/jarvis-mcp-toolkit",
+    "text": "Acheter — 79 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/ia-finance']",
+    "href": "https://franckdelmas.gumroad.com/l/ia-finance",
+    "text": "Acheter — 89 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/kubernetes-ia']",
+    "href": "https://franckdelmas.gumroad.com/l/kubernetes-ia",
+    "text": "Acheter — 89 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/mlops']",
+    "href": "https://franckdelmas.gumroad.com/l/mlops",
+    "text": "Acheter — 89 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/rag-vectordb']",
+    "href": "https://franckdelmas.gumroad.com/l/rag-vectordb",
+    "text": "Acheter — 89 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/rust-ia']",
+    "href": "https://franckdelmas.gumroad.com/l/rust-ia",
+    "text": "Acheter — 89 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/mexc-futures-api']",
+    "href": "https://franckdelmas.gumroad.com/l/mexc-futures-api",
+    "text": "Acheter — 89 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/jarvis-domino-engine']",
+    "href": "https://franckdelmas.gumroad.com/l/jarvis-domino-engine",
+    "text": "Acheter — 89 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/ia-cybersec']",
+    "href": "https://franckdelmas.gumroad.com/l/ia-cybersec",
+    "text": "Acheter — 99 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/agents-autonomes-mcp']",
+    "href": "https://franckdelmas.gumroad.com/l/agents-autonomes-mcp",
+    "text": "Acheter — 99 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/llm-finetuning']",
+    "href": "https://franckdelmas.gumroad.com/l/llm-finetuning",
+    "text": "Acheter — 99 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/jarvis-cluster-gpu']",
+    "href": "https://franckdelmas.gumroad.com/l/jarvis-cluster-gpu",
+    "text": "Acheter — 99 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/openclaw-gateway']",
+    "href": "https://franckdelmas.gumroad.com/l/openclaw-gateway",
+    "text": "Acheter — 99 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/tradeoracle']",
+    "href": "https://franckdelmas.gumroad.com/l/tradeoracle",
+    "text": "Acheter — 99 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/jarvis-architecture']",
+    "href": "https://franckdelmas.gumroad.com/l/jarvis-architecture",
+    "text": "Acheter — 129 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/jarvis-os-cluster-complet']",
+    "href": "https://franckdelmas.gumroad.com/l/jarvis-os-cluster-complet",
+    "text": "Acheter — 149 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/pack-complet-jarvis-os']",
+    "href": "https://franckdelmas.gumroad.com/l/pack-complet-jarvis-os",
+    "text": "Acheter le Pack — 399 €"
+   },
+   {
+    "selector": "a[href='mailto:franckdelmas00@gmail.com?subject=[AlkymIA-OS] Demande de RDV&body=Bonjour Franck,%0A%0AJe souhaite réserver un créneau pour :%0A[ ] Démo gratuite 30 min%0A[ ] Session formation%0A[ ] Session partage d'écran%0A[ ] Démarrage projet%0A%0ADates et horaires qui me conviendraient :%0A%0AMon projet en quelques mots :%0A%0ACordialement,']",
+    "href": "mailto:franckdelmas00@gmail.com?subject=[AlkymIA-OS] Demande de RDV&body=Bonjour Franck,%0A%0AJe souhaite réserver un créneau pour :%0A[ ] Démo gratuite 30 min%0A[ ] Session formation%0A[ ] Session partage d'écran%0A[ ] Démarrage projet%0A%0ADates et horaires qui me conviendraient :%0A%0AMon projet en quelques mots :%0A%0ACordialement,",
+    "text": "✉️ Envoyer un email de RDV"
+   },
+   {
+    "selector": "form"
+   },
+   {
+    "selector": "#website",
+    "id": "website",
+    "name": "website",
+    "type": "text"
+   },
+   {
+    "selector": "#name",
+    "id": "name",
+    "type": "text"
+   },
+   {
+    "selector": "#email",
+    "id": "email",
+    "type": "email"
+   },
+   {
+    "selector": "#service",
+    "id": "service"
+   },
+   {
+    "selector": "#budget",
+    "id": "budget",
+    "type": "text"
+   },
+   {
+    "selector": "#message",
+    "id": "message"
+   },
+   {
+    "selector": "button",
+    "type": "submit",
+    "text": "Envoyer la demande ✉️"
+   }
+  ],
+  "source": "anchor:alkymia_os"
+ },
+ {
+  "command": "example_com id",
+  "type": "web",
+  "action": "example_com",
+  "source": "anchor:example_com"
+ },
+ {
+  "command": "example_com url",
+  "type": "web",
+  "action": "https://example.com",
+  "source": "anchor:example_com"
+ },
+ {
+  "command": "example_com captured",
+  "type": "web",
+  "action": "2026-06-07",
+  "source": "anchor:example_com"
+ },
+ {
+  "command": "example_com cost",
+  "type": "web",
+  "action": "example_com",
+  "source": "anchor:example_com"
+ },
+ {
+  "command": "example_com elements_count",
+  "type": "web",
+  "action": "example_com",
+  "source": "anchor:example_com"
+ },
+ {
+  "command": "example_com elements",
+  "type": "web",
+  "action": "example_com",
+  "source": "anchor:example_com"
+ },
+ {
+  "command": "jarvis_delmas site",
+  "type": "web",
+  "action": "jarvis_delmas",
+  "source": "anchor:jarvis_delmas"
+ },
+ {
+  "command": "jarvis_delmas url",
+  "type": "web",
+  "action": "https://jarvis-delmas.netlify.app",
+  "source": "anchor:jarvis_delmas"
+ },
+ {
+  "command": "jarvis_delmas captured",
+  "type": "web",
+  "action": "auto",
+  "source": "anchor:jarvis_delmas"
+ },
+ {
+  "command": "jarvis_delmas cost",
+  "type": "web",
+  "action": "jarvis_delmas",
+  "source": "anchor:jarvis_delmas"
+ },
+ {
+  "command": "jarvis_delmas html_bytes",
+  "type": "web",
+  "action": 122582,
+  "source": "anchor:jarvis_delmas"
+ },
+ {
+  "command": "jarvis_delmas anchors_count",
+  "type": "web",
+  "action": 74,
+  "source": "anchor:jarvis_delmas"
+ },
+ {
+  "command": "jarvis_delmas anchors",
+  "type": "web",
+  "action": [
+   {
+    "selector": "a[href='#contact']",
+    "href": "#contact",
+    "text": "Contact"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/claude-code-mastery-m2']",
+    "href": "https://franckdelmas.gumroad.com/l/claude-code-mastery-m2",
+    "text": "Acheter Module 2 — 177 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/claude-code-mastery-m3']",
+    "href": "https://franckdelmas.gumroad.com/l/claude-code-mastery-m3",
+    "text": "Acheter Module 3 — 597 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/ia-fondamentaux-2026']",
+    "href": "https://franckdelmas.gumroad.com/l/ia-fondamentaux-2026",
+    "text": "Acheter — 39 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/prompt-engineering']",
+    "href": "https://franckdelmas.gumroad.com/l/prompt-engineering",
+    "text": "Acheter — 39 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/vibe-coding']",
+    "href": "https://franckdelmas.gumroad.com/l/vibe-coding",
+    "text": "Acheter — 39 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/ia-no-code']",
+    "href": "https://franckdelmas.gumroad.com/l/ia-no-code",
+    "text": "Acheter — 39 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/ia-productivite']",
+    "href": "https://franckdelmas.gumroad.com/l/ia-productivite",
+    "text": "Acheter — 39 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/copilot-github']",
+    "href": "https://franckdelmas.gumroad.com/l/copilot-github",
+    "text": "Acheter — 39 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/github-cicd']",
+    "href": "https://franckdelmas.gumroad.com/l/github-cicd",
+    "text": "Acheter — 39 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/claude-code-pro']",
+    "href": "https://franckdelmas.gumroad.com/l/claude-code-pro",
+    "text": "Acheter — 49 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/cursor-vscode']",
+    "href": "https://franckdelmas.gumroad.com/l/cursor-vscode",
+    "text": "Acheter — 49 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/ia-marketing']",
+    "href": "https://franckdelmas.gumroad.com/l/ia-marketing",
+    "text": "Acheter — 49 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/ia-education']",
+    "href": "https://franckdelmas.gumroad.com/l/ia-education",
+    "text": "Acheter — 49 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/pgvector-sql']",
+    "href": "https://franckdelmas.gumroad.com/l/pgvector-sql",
+    "text": "Acheter — 49 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/n8n-masterclass']",
+    "href": "https://franckdelmas.gumroad.com/l/n8n-masterclass",
+    "text": "Acheter — 49 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/ia-code-review']",
+    "href": "https://franckdelmas.gumroad.com/l/ia-code-review",
+    "text": "Acheter — 49 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/mistral-local']",
+    "href": "https://franckdelmas.gumroad.com/l/mistral-local",
+    "text": "Acheter — 49 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/docker-ia']",
+    "href": "https://franckdelmas.gumroad.com/l/docker-ia",
+    "text": "Acheter — 49 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/gemini-cli-masterclass']",
+    "href": "https://franckdelmas.gumroad.com/l/gemini-cli-masterclass",
+    "text": "Acheter — 59 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/api-openai']",
+    "href": "https://franckdelmas.gumroad.com/l/api-openai",
+    "text": "Acheter — 59 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/deepseek-open']",
+    "href": "https://franckdelmas.gumroad.com/l/deepseek-open",
+    "text": "Acheter — 59 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/fastapi-ia']",
+    "href": "https://franckdelmas.gumroad.com/l/fastapi-ia",
+    "text": "Acheter — 59 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/ia-ecommerce']",
+    "href": "https://franckdelmas.gumroad.com/l/ia-ecommerce",
+    "text": "Acheter — 59 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/ia-rh']",
+    "href": "https://franckdelmas.gumroad.com/l/ia-rh",
+    "text": "Acheter — 59 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/ia-freelance']",
+    "href": "https://franckdelmas.gumroad.com/l/ia-freelance",
+    "text": "Acheter — 59 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/react-ia']",
+    "href": "https://franckdelmas.gumroad.com/l/react-ia",
+    "text": "Acheter — 59 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/lumen-multilang']",
+    "href": "https://franckdelmas.gumroad.com/l/lumen-multilang",
+    "text": "Acheter — 59 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/ai-freelance-automation']",
+    "href": "https://franckdelmas.gumroad.com/l/ai-freelance-automation",
+    "text": "Acheter — 59 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/automatisation-business']",
+    "href": "https://franckdelmas.gumroad.com/l/automatisation-business",
+    "text": "Acheter — 69 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/claude-api-avance']",
+    "href": "https://franckdelmas.gumroad.com/l/claude-api-avance",
+    "text": "Acheter — 69 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/ia-devops']",
+    "href": "https://franckdelmas.gumroad.com/l/ia-devops",
+    "text": "Acheter — 69 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/elasticsearch-ia']",
+    "href": "https://franckdelmas.gumroad.com/l/elasticsearch-ia",
+    "text": "Acheter — 69 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/monitoring-ia']",
+    "href": "https://franckdelmas.gumroad.com/l/monitoring-ia",
+    "text": "Acheter — 69 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/ia-juridique']",
+    "href": "https://franckdelmas.gumroad.com/l/ia-juridique",
+    "text": "Acheter — 69 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/jarvis-voice-ptt']",
+    "href": "https://franckdelmas.gumroad.com/l/jarvis-voice-ptt",
+    "text": "Acheter — 69 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/weaviate-chroma']",
+    "href": "https://franckdelmas.gumroad.com/l/weaviate-chroma",
+    "text": "Acheter — 69 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/ia-cloud-gcp']",
+    "href": "https://franckdelmas.gumroad.com/l/ia-cloud-gcp",
+    "text": "Acheter — 79 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/agents-vocaux']",
+    "href": "https://franckdelmas.gumroad.com/l/agents-vocaux",
+    "text": "Acheter — 79 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/llms-locaux-lm-studio-ollama']",
+    "href": "https://franckdelmas.gumroad.com/l/llms-locaux-lm-studio-ollama",
+    "text": "Acheter — 79 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/trading-ia']",
+    "href": "https://franckdelmas.gumroad.com/l/trading-ia",
+    "text": "Acheter — 79 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/mcp-protocol']",
+    "href": "https://franckdelmas.gumroad.com/l/mcp-protocol",
+    "text": "Acheter — 79 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/crewai-autogen']",
+    "href": "https://franckdelmas.gumroad.com/l/crewai-autogen",
+    "text": "Acheter — 79 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/multimodal-ia']",
+    "href": "https://franckdelmas.gumroad.com/l/multimodal-ia",
+    "text": "Acheter — 79 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/langchain-ia']",
+    "href": "https://franckdelmas.gumroad.com/l/langchain-ia",
+    "text": "Acheter — 79 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/ia-sante']",
+    "href": "https://franckdelmas.gumroad.com/l/ia-sante",
+    "text": "Acheter — 79 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/ia-healthcare']",
+    "href": "https://franckdelmas.gumroad.com/l/ia-healthcare",
+    "text": "Acheter — 79 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/jarvis-cowork-qa']",
+    "href": "https://franckdelmas.gumroad.com/l/jarvis-cowork-qa",
+    "text": "Acheter — 79 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/jarvis-mcp-toolkit']",
+    "href": "https://franckdelmas.gumroad.com/l/jarvis-mcp-toolkit",
+    "text": "Acheter — 79 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/ia-finance']",
+    "href": "https://franckdelmas.gumroad.com/l/ia-finance",
+    "text": "Acheter — 89 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/kubernetes-ia']",
+    "href": "https://franckdelmas.gumroad.com/l/kubernetes-ia",
+    "text": "Acheter — 89 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/mlops']",
+    "href": "https://franckdelmas.gumroad.com/l/mlops",
+    "text": "Acheter — 89 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/rag-vectordb']",
+    "href": "https://franckdelmas.gumroad.com/l/rag-vectordb",
+    "text": "Acheter — 89 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/rust-ia']",
+    "href": "https://franckdelmas.gumroad.com/l/rust-ia",
+    "text": "Acheter — 89 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/mexc-futures-api']",
+    "href": "https://franckdelmas.gumroad.com/l/mexc-futures-api",
+    "text": "Acheter — 89 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/jarvis-domino-engine']",
+    "href": "https://franckdelmas.gumroad.com/l/jarvis-domino-engine",
+    "text": "Acheter — 89 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/ia-cybersec']",
+    "href": "https://franckdelmas.gumroad.com/l/ia-cybersec",
+    "text": "Acheter — 99 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/agents-autonomes-mcp']",
+    "href": "https://franckdelmas.gumroad.com/l/agents-autonomes-mcp",
+    "text": "Acheter — 99 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/llm-finetuning']",
+    "href": "https://franckdelmas.gumroad.com/l/llm-finetuning",
+    "text": "Acheter — 99 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/jarvis-cluster-gpu']",
+    "href": "https://franckdelmas.gumroad.com/l/jarvis-cluster-gpu",
+    "text": "Acheter — 99 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/openclaw-gateway']",
+    "href": "https://franckdelmas.gumroad.com/l/openclaw-gateway",
+    "text": "Acheter — 99 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/tradeoracle']",
+    "href": "https://franckdelmas.gumroad.com/l/tradeoracle",
+    "text": "Acheter — 99 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/jarvis-architecture']",
+    "href": "https://franckdelmas.gumroad.com/l/jarvis-architecture",
+    "text": "Acheter — 129 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/jarvis-os-cluster-complet']",
+    "href": "https://franckdelmas.gumroad.com/l/jarvis-os-cluster-complet",
+    "text": "Acheter — 149 €"
+   },
+   {
+    "selector": "a[href='https://franckdelmas.gumroad.com/l/pack-complet-jarvis-os']",
+    "href": "https://franckdelmas.gumroad.com/l/pack-complet-jarvis-os",
+    "text": "Acheter le Pack — 399 €"
+   },
+   {
+    "selector": "a[href='mailto:franckdelmas00@gmail.com?subject=[JARVIS OS] Demande de RDV&body=Bonjour Franck,%0A%0AJe souhaite réserver un créneau pour :%0A[ ] Démo gratuite 30 min%0A[ ] Session formation%0A[ ] Session partage d'écran%0A[ ] Démarrage projet%0A%0ADates et horaires qui me conviendraient :%0A%0AMon projet en quelques mots :%0A%0ACordialement,']",
+    "href": "mailto:franckdelmas00@gmail.com?subject=[JARVIS OS] Demande de RDV&body=Bonjour Franck,%0A%0AJe souhaite réserver un créneau pour :%0A[ ] Démo gratuite 30 min%0A[ ] Session formation%0A[ ] Session partage d'écran%0A[ ] Démarrage projet%0A%0ADates et horaires qui me conviendraient :%0A%0AMon projet en quelques mots :%0A%0ACordialement,",
+    "text": "✉️ Envoyer un email de RDV"
+   },
+   {
+    "selector": "form"
+   },
+   {
+    "selector": "#website",
+    "id": "website",
+    "name": "website",
+    "type": "text"
+   },
+   {
+    "selector": "#name",
+    "id": "name",
+    "type": "text"
+   },
+   {
+    "selector": "#email",
+    "id": "email",
+    "type": "email"
+   },
+   {
+    "selector": "#service",
+    "id": "service"
+   },
+   {
+    "selector": "#budget",
+    "id": "budget",
+    "type": "text"
+   },
+   {
+    "selector": "#message",
+    "id": "message"
+   },
+   {
+    "selector": "button",
+    "type": "submit",
+    "text": "Envoyer la demande ✉️"
+   }
+  ],
+  "source": "anchor:jarvis_delmas"
+ },
+ {
+  "command": "github_turbo site",
+  "type": "web",
+  "action": "github_turbo",
+  "source": "anchor:github_turbo"
+ },
+ {
+  "command": "github_turbo url",
+  "type": "web",
+  "action": "https://github.com/Turbo31150",
+  "source": "anchor:github_turbo"
+ },
+ {
+  "command": "github_turbo captured",
+  "type": "web",
+  "action": "auto",
+  "source": "anchor:github_turbo"
+ },
+ {
+  "command": "github_turbo cost",
+  "type": "web",
+  "action": "github_turbo",
+  "source": "anchor:github_turbo"
+ },
+ {
+  "command": "github_turbo html_bytes",
+  "type": "web",
+  "action": 230933,
+  "source": "anchor:github_turbo"
+ },
+ {
+  "command": "github_turbo anchors_count",
+  "type": "web",
+  "action": 50,
+  "source": "anchor:github_turbo"
+ },
+ {
+  "command": "github_turbo anchors",
+  "type": "web",
+  "action": [
+   {
+    "selector": "a[href='#start-of-content']",
+    "href": "#start-of-content",
+    "text": "Skip to content"
+   },
+   {
+    "selector": "button[aria-label='Toggle navigation']",
+    "type": "button",
+    "aria": "Toggle navigation",
+    "text": "Toggle navigation"
+   },
+   {
+    "selector": "a[aria-label='Homepage']",
+    "aria": "Homepage",
+    "href": "/"
+   },
+   {
+    "selector": "a[href='/login?return_to=https%3A%2F%2Fgithub.com%2FTurbo31150']",
+    "href": "/login?return_to=https%3A%2F%2Fgithub.com%2FTurbo31150",
+    "text": "Sign in"
+   },
+   {
+    "selector": "#icon-button-7c81b8cf-b474-4fd8-bda7-7a442762d77f",
+    "id": "icon-button-7c81b8cf-b474-4fd8-bda7-7a442762d77f",
+    "type": "button"
+   },
+   {
+    "selector": "a[href='https://github.com/security/advanced-security/secret-protection']",
+    "href": "https://github.com/security/advanced-security/secret-protection",
+    "text": "Secret protection Stop leaks before they start"
+   },
+   {
+    "selector": "a[href='https://github.com/enterprise/startups']",
+    "href": "https://github.com/enterprise/startups",
+    "text": "Startups"
+   },
+   {
+    "selector": "button[aria-label='Search or jump to…']",
+    "type": "button",
+    "aria": "Search or jump to…",
+    "text": "Search or jump to..."
+   },
+   {
+    "selector": "input[name='type']",
+    "name": "type",
+    "type": "hidden"
+   },
+   {
+    "selector": "#query-builder-test-form",
+    "id": "query-builder-test-form"
+   },
+   {
+    "selector": "#query-builder-test",
+    "id": "query-builder-test",
+    "name": "query-builder-test",
+    "type": "text"
+   },
+   {
+    "selector": "#query-builder-test-clear-button",
+    "id": "query-builder-test-clear-button",
+    "type": "button"
+   },
+   {
+    "selector": "button[aria-label='Close']",
+    "type": "button",
+    "aria": "Close"
+   },
+   {
+    "selector": "#code-search-feedback-form",
+    "id": "code-search-feedback-form",
+    "action": "/search/feedback"
+   },
+   {
+    "selector": "input[name='authenticity_token']",
+    "name": "authenticity_token",
+    "type": "hidden"
+   },
+   {
+    "selector": "#feedback",
+    "id": "feedback",
+    "name": "feedback"
+   },
+   {
+    "selector": "#include_email",
+    "id": "include_email",
+    "name": "include_email",
+    "type": "checkbox",
+    "aria": "Include my email address so I can be contacted"
+   },
+   {
+    "selector": "button",
+    "type": "submit",
+    "text": "Submit feedback"
+   },
+   {
+    "selector": "#custom-scopes-dialog-form",
+    "id": "custom-scopes-dialog-form",
+    "action": "/search/custom_scopes"
+   },
+   {
+    "selector": "#custom_scope_id",
+    "id": "custom_scope_id",
+    "name": "custom_scope_id",
+    "type": "hidden"
+   },
+   {
+    "selector": "#custom_scope_name",
+    "id": "custom_scope_name",
+    "name": "custom_scope_name",
+    "type": "text"
+   },
+   {
+    "selector": "input",
+    "type": "hidden"
+   },
+   {
+    "selector": "#custom_scope_query",
+    "id": "custom_scope_query",
+    "name": "custom_scope_query",
+    "type": "text"
+   },
+   {
+    "selector": "a[href='/signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F%3Cuser-name%3E&source=header']",
+    "href": "/signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F%3Cuser-name%3E&source=header",
+    "text": "Sign up"
+   },
+   {
+    "selector": "#icon-button-b9e82b4c-e3a6-445b-934c-e716adc3be8b",
+    "id": "icon-button-b9e82b4c-e3a6-445b-934c-e716adc3be8b",
+    "type": "button"
+   },
+   {
+    "selector": "#icon-button-96c0fe55-e39a-47c8-b493-2012a97b6d16",
+    "id": "icon-button-96c0fe55-e39a-47c8-b493-2012a97b6d16",
+    "type": "button"
+   },
+   {
+    "selector": "button[aria-label='Dismiss this message']",
+    "type": "button",
+    "aria": "Dismiss this message"
+   },
+   {
+    "selector": "#dialog-show-dialog-cc9d72f7-6aaf-4df9-aac7-2eb373d299c8",
+    "id": "dialog-show-dialog-cc9d72f7-6aaf-4df9-aac7-2eb373d299c8",
+    "type": "button",
+    "text": "Block or report user"
+   },
+   {
+    "selector": "form",
+    "action": "/settings/blocked_users"
+   },
+   {
+    "selector": "input[name='login']",
+    "name": "login",
+    "type": "hidden"
+   },
+   {
+    "selector": "input[name='return_to']",
+    "name": "return_to",
+    "type": "hidden"
+   },
+   {
+    "selector": "#new-block-note-from-sidebar",
+    "id": "new-block-note-from-sidebar",
+    "name": "note"
+   },
+   {
+    "selector": "a[href='/contact/report-abuse?report=Turbo31150+%28user%29']",
+    "href": "/contact/report-abuse?report=Turbo31150+%28user%29",
+    "text": "Report abuse"
+   },
+   {
+    "selector": "#user-content--alkymia--startup-ia--systèmes-distribués-souverains",
+    "id": "user-content--alkymia--startup-ia--systèmes-distribués-souverains",
+    "aria": "Permalink: 🔮 ALKYMIA — Startup IA & Systèmes Distribués Souverains",
+    "href": "#-alkymia--startup-ia--systèmes-distribués-souverains"
+   },
+   {
+    "selector": "#user-content--jarvis-os--infrastructure-ia-on-premise",
+    "id": "user-content--jarvis-os--infrastructure-ia-on-premise",
+    "aria": "Permalink: ⚡ JARVIS OS — Infrastructure IA On-Premise",
+    "href": "#-jarvis-os--infrastructure-ia-on-premise"
+   },
+   {
+    "selector": "#user-content--applications-alkymia",
+    "id": "user-content--applications-alkymia",
+    "aria": "Permalink: 🚀 Applications ALKYMIA",
+    "href": "#-applications-alkymia"
+   },
+   {
+    "selector": "#user-content--services-alkymia",
+    "id": "user-content--services-alkymia",
+    "aria": "Permalink: 💼 Services ALKYMIA",
+    "href": "#-services-alkymia"
+   },
+   {
+    "selector": "#user-content--stack-technique",
+    "id": "user-content--stack-technique",
+    "aria": "Permalink: 🔧 Stack Technique",
+    "href": "#-stack-technique"
+   },
+   {
+    "selector": "#143148692",
+    "id": "143148692",
+    "href": "https://gist.github.com/Turbo31150/b84c7be2bbb2fa9551721ba2315799e4",
+    "text": "Performance Analyzer - Hardware + Fi..."
+   },
+   {
+    "selector": "#143144771",
+    "id": "143144771",
+    "href": "https://gist.github.com/Turbo31150/c17d5e6ec935e284f652c5a785865810",
+    "text": "APPEL API - UTILISATION MODEL SELECT..."
+   },
+   {
+    "selector": "#143145660",
+    "id": "143145660",
+    "href": "https://gist.github.com/Turbo31150/c7d57d8439cd8461bddfc34b69b6a453",
+    "text": "Ponderation Dynamique Multi-IA V2 - ..."
+   },
+   {
+    "selector": "#143146149",
+    "id": "143146149",
+    "href": "https://gist.github.com/Turbo31150/e77539baa64a776c883b4bf82cec1758",
+    "text": "Machine Orchestrator - Auto-detect h..."
+   },
+   {
+    "selector": "#143145664",
+    "id": "143145664",
+    "href": "https://gist.github.com/Turbo31150/ee3d0638b9b6ea2b1397317c3e348c9f",
+    "text": "Script Test Distribution Massive Mul..."
+   },
+   {
+    "selector": "#143145661",
+    "id": "143145661",
+    "href": "https://gist.github.com/Turbo31150/f42ce0c8c361f681814f66bd4020c90e",
+    "text": "Resultats Tests Massifs Distribution..."
+   },
+   {
+    "selector": "a[href='/contact']",
+    "href": "/contact",
+    "text": "contact support"
+   },
+   {
+    "selector": "a[aria-label='Please reload this page']",
+    "aria": "Please reload this page",
+    "text": "Please reload this page"
+   },
+   {
+    "selector": "a[aria-label='GitHub Homepage']",
+    "aria": "GitHub Homepage",
+    "href": "https://github.com"
+   },
+   {
+    "selector": "a[href='https://support.github.com?tags=dotcom-footer']",
+    "href": "https://support.github.com?tags=dotcom-footer",
+    "text": "Contact"
+   },
+   {
+    "selector": "button[aria-label='Dismiss error']",
+    "type": "button",
+    "aria": "Dismiss error"
+   },
+   {
+    "selector": "button[aria-label='Close dialog']",
+    "type": "button",
+    "aria": "Close dialog"
+   }
+  ],
+  "source": "anchor:github_turbo"
+ },
+ {
+  "command": "clone",
+  "type": "action",
+  "action": "clone",
+  "source": "actions_index"
+ },
+ {
+  "command": "boot",
+  "type": "action",
+  "action": "boot",
+  "source": "actions_index"
+ },
+ {
+  "command": "uuid",
+  "type": "action",
+  "action": "uuid",
+  "source": "actions_index"
+ },
+ {
+  "command": "fstab",
+  "type": "action",
+  "action": "fstab",
+  "source": "actions_index"
+ },
+ {
+  "command": "grub",
+  "type": "action",
+  "action": "grub",
+  "source": "actions_index"
+ },
+ {
+  "command": "ssd",
+  "type": "action",
+  "action": "ssd",
+  "source": "actions_index"
+ },
+ {
+  "command": "usb",
+  "type": "action",
+  "action": "usb",
+  "source": "actions_index"
+ },
+ {
+  "command": "chroot",
+  "type": "action",
+  "action": "chroot",
+  "source": "actions_index"
+ },
+ {
+  "command": "mount",
+  "type": "action",
+  "action": "mount",
+  "source": "actions_index"
+ },
+ {
+  "command": "snap",
+  "type": "action",
+  "action": "snap",
+  "source": "actions_index"
+ },
+ {
+  "command": "install",
+  "type": "action",
+  "action": "install",
+  "source": "actions_index"
+ },
+ {
+  "command": "npm",
+  "type": "action",
+  "action": "npm",
+  "source": "actions_index"
+ },
+ {
+  "command": "nmcli",
+  "type": "action",
+  "action": "nmcli",
+  "source": "actions_index"
+ },
+ {
+  "command": "connection",
+  "type": "action",
+  "action": "connection",
+  "source": "actions_index"
+ },
+ {
+  "command": "sudo",
+  "type": "action",
+  "action": "sudo",
+  "source": "actions_index"
+ },
+ {
+  "command": "dd",
+  "type": "action",
+  "action": "dd",
+  "source": "actions_index"
+ },
+ {
+  "command": "curl",
+  "type": "action",
+  "action": "curl",
+  "source": "actions_index"
+ },
+ {
+  "command": "fssl",
+  "type": "action",
+  "action": "fssl",
+  "source": "actions_index"
+ },
+ {
+  "command": "bash",
+  "type": "action",
+  "action": "bash",
+  "source": "actions_index"
+ },
+ {
+  "command": "home",
+  "type": "action",
+  "action": "home",
+  "source": "actions_index"
+ },
+ {
+  "command": "turb",
+  "type": "action",
+  "action": "turb",
+  "source": "actions_index"
+ },
+ {
+  "command": "python3",
+  "type": "action",
+  "action": "python3",
+  "source": "actions_index"
+ },
+ {
+  "command": "apt",
+  "type": "action",
+  "action": "apt",
+  "source": "actions_index"
+ },
+ {
+  "command": "umount",
+  "type": "action",
+  "action": "umount",
+  "source": "actions_index"
+ },
+ {
+  "command": "network",
+  "type": "action",
+  "action": "network",
+  "source": "actions_index"
+ },
+ {
+  "command": "routes",
+  "type": "action",
+  "action": "routes",
+  "source": "actions_index"
+ },
+ {
+  "command": "eno2",
+  "type": "action",
+  "action": "eno2",
+  "source": "actions_index"
+ },
+ {
+  "command": "networkmanager",
+  "type": "action",
+  "action": "networkmanager",
+  "source": "actions_index"
+ },
+ {
+  "command": "dns",
+  "type": "action",
+  "action": "dns",
+  "source": "actions_index"
+ },
+ {
+  "command": "metric",
+  "type": "action",
+  "action": "metric",
+  "source": "actions_index"
+ },
+ {
+  "command": "interface",
+  "type": "action",
+  "action": "interface",
+  "source": "actions_index"
+ },
+ {
+  "command": "conflit",
+  "type": "action",
+  "action": "conflit",
+  "source": "actions_index"
+ },
+ {
+  "command": "route",
+  "type": "action",
+  "action": "route",
+  "source": "actions_index"
+ },
+ {
+  "command": "systemctl",
+  "type": "action",
+  "action": "systemctl",
+  "source": "actions_index"
+ },
+ {
+  "command": "run",
+  "type": "action",
+  "action": "run",
+  "source": "actions_index"
+ },
+ {
+  "command": "antigravity",
+  "type": "action",
+  "action": "antigravity",
+  "source": "actions_index"
+ },
+ {
+  "command": "mcp",
+  "type": "action",
+  "action": "mcp",
+  "source": "actions_index"
+ },
+ {
+  "command": "econnrefused",
+  "type": "action",
+  "action": "econnrefused",
+  "source": "actions_index"
+ },
+ {
+  "command": "18789",
+  "type": "action",
+  "action": "18789",
+  "source": "actions_index"
+ },
+ {
+  "command": "openclaw",
+  "type": "action",
+  "action": "openclaw",
+  "source": "actions_index"
+ },
+ {
+  "command": "swarm",
+  "type": "action",
+  "action": "swarm",
+  "source": "actions_index"
+ },
+ {
+  "command": "overlay",
+  "type": "action",
+  "action": "overlay",
+  "source": "actions_index"
+ },
+ {
+  "command": "brew",
+  "type": "action",
+  "action": "brew",
+  "source": "actions_index"
+ },
+ {
+  "command": "contenu",
+  "type": "action",
+  "action": "contenu",
+  "source": "actions_index"
+ },
+ {
+  "command": "redige et publie",
+  "type": "action",
+  "action": "redige et publie",
+  "source": "actions_index"
+ },
+ {
+  "command": "genere et poste",
+  "type": "action",
+  "action": "genere et poste",
+  "source": "actions_index"
+ },
+ {
+  "command": "campagne",
+  "type": "action",
+  "action": "campagne",
+  "source": "actions_index"
+ },
+ {
+  "command": "post auto",
+  "type": "action",
+  "action": "post auto",
+  "source": "actions_index"
+ },
+ {
+  "command": "publie",
+  "type": "action",
+  "action": "publie",
+  "source": "actions_index"
+ },
+ {
+  "command": "poste",
+  "type": "action",
+  "action": "poste",
+  "source": "actions_index"
+ },
+ {
+  "command": "social",
+  "type": "action",
+  "action": "social",
+  "source": "actions_index"
+ },
+ {
+  "command": "reseaux",
+  "type": "action",
+  "action": "reseaux",
+  "source": "actions_index"
+ },
+ {
+  "command": "linkedin",
+  "type": "action",
+  "action": "linkedin",
+  "source": "actions_index"
+ },
+ {
+  "command": "instagram",
+  "type": "action",
+  "action": "instagram",
+  "source": "actions_index"
+ },
+ {
+  "command": "threads",
+  "type": "action",
+  "action": "threads",
+  "source": "actions_index"
+ },
+ {
+  "command": "tiktok",
+  "type": "action",
+  "action": "tiktok",
+  "source": "actions_index"
+ },
+ {
+  "command": "youtube",
+  "type": "action",
+  "action": "youtube",
+  "source": "actions_index"
+ },
+ {
+  "command": "omnichannel",
+  "type": "action",
+  "action": "omnichannel",
+  "source": "actions_index"
+ },
+ {
+  "command": "test",
+  "type": "action",
+  "action": "test",
+  "source": "actions_index"
+ },
+ {
+  "command": "tdd",
+  "type": "action",
+  "action": "tdd",
+  "source": "actions_index"
+ },
+ {
+  "command": "docker",
+  "type": "action",
+  "action": "docker",
+  "source": "actions_index"
+ },
+ {
+  "command": "service",
+  "type": "action",
+  "action": "service",
+  "source": "actions_index"
+ },
+ {
+  "command": "git",
+  "type": "action",
+  "action": "git",
+  "source": "actions_index"
+ },
+ {
+  "command": "push",
+  "type": "action",
+  "action": "push",
+  "source": "actions_index"
+ },
+ {
+  "command": "scale",
+  "type": "action",
+  "action": "scale",
+  "source": "actions_index"
+ },
+ {
+  "command": "example_com",
+  "type": "action",
+  "action": "example_com",
+  "source": "actions_index"
+ },
+ {
+  "command": "login",
+  "type": "action",
+  "action": "login",
+  "source": "actions_index"
+ },
+ {
+  "command": "user",
+  "type": "action",
+  "action": "user",
+  "source": "actions_index"
+ },
+ {
+  "command": "pass",
+  "type": "action",
+  "action": "pass",
+  "source": "actions_index"
+ },
+ {
+  "command": "btn-login",
+  "type": "action",
+  "action": "btn-login",
+  "source": "actions_index"
+ },
+ {
+  "command": "link-dash",
+  "type": "action",
+  "action": "link-dash",
+  "source": "actions_index"
+ },
+ {
+  "command": "btn-action",
+  "type": "action",
+  "action": "btn-action",
+  "source": "actions_index"
+ },
+ {
+  "command": "se",
+  "type": "action",
+  "action": "se",
+  "source": "actions_index"
+ },
+ {
+  "command": "dashboard",
+  "type": "action",
+  "action": "dashboard",
+  "source": "actions_index"
+ },
+ {
+  "command": "exporter",
+  "type": "action",
+  "action": "exporter",
+  "source": "actions_index"
+ }
+]

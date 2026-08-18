@@ -1,0 +1,11 @@
+{
+  "id": "ccxt-ccxt-agents-skills-binance-agentic-wallet-skill-md",
+  "name": "binance-agentic-wallet",
+  "author": "ccxt",
+  "description": "Use when the user mentions connect/disconnect wallet, sign in, sign out, web3 wallet, wallet address,\ncheck balance, how much crypto do I have, send BNB/USDT/crypto, transfer tokens, swap tokens,\nbuy/sell token, DEX trade, limit order, market order, cancel order, get a quote, transaction history,\nwallet settings, daily limit, slippage, MEV protection, supported chains, available networks,\nprediction market, predict.fun, YES/NO market, place a prediction,\nredeem winnings, claim payout, prediction portfolio, prediction PnL,\nx402 payment, HTTP 402 Payment Required, pay a known x402 API,\ncheck approvals, view token approvals, revoke approval, manage approvals,\nwallet approvals, authorization management, token authorization,\nDeFi protocols, DeFi position, DeFi portfolio, staking, liquidity pool, LP, yield farming,\nhealth factor, APY, TVL, DeFi investment, DeFi deposit, DeFi redeem, DeFi stake, DeFi unstake,\nadd liquidity, remove liquidity, claim rewards, claim fees,\nor any on-chain wallet operation.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ccxt/ccxt/tree/master/.agents/skills/binance-agentic-wallet",
+  "skillUrl": "https://skillsmp.com/creators/ccxt/ccxt/agents-skills-binance-agentic-wallet",
+  "stars": 43527,
+  "updatedAt": 1783926573
+}

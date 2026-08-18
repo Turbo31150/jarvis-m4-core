@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-optional-skills-mlops-training-trl-fine-tuning-skill-md",
+  "name": "fine-tuning-with-trl",
+  "author": "NousResearch",
+  "description": "TRL: SFT, DPO, GRPO, RLOO reward modeling for LLM RLHF.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/optional-skills/mlops/training/trl-fine-tuning",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/optional-skills-mlops-training-trl-fine-tuning",
+  "stars": 225204,
+  "updatedAt": 1784906285
+}

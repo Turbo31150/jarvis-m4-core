@@ -1,0 +1,11 @@
+{
+  "id": "thedaviddias-front-end-checklist-skills-scheduler-yield-skill-md",
+  "name": "scheduler-yield",
+  "author": "thedaviddias",
+  "description": "Use when reviewing JavaScript that performs synchronous loops over large datasets, recursive tree traversals, or bulk DOM updates that may exceed 50 ms on mid-range devices.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedaviddias/Front-End-Checklist/tree/main/skills/scheduler-yield",
+  "skillUrl": "https://skillsmp.com/creators/thedaviddias/front-end-checklist/skills-scheduler-yield",
+  "stars": 73416,
+  "updatedAt": 1780091646
+}

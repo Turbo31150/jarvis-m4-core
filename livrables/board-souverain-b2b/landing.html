@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AlkymIA Council — Conseil d'experts IA local, traçable et anti-hallucination</title>
+<meta name="description" content="Un conseil d'experts IA déployé chez vous, sur vos données sensibles. Réponses sourcées, journal rejouable, zéro fuite cloud. Conforme RGPD et EU AI Act. Pour dirigeants, DSI, cabinets et collectivités.">
+<style>
+  :root{
+    --bg:#f6f7f9;
+    --surface:#ffffff;
+    --surface-2:#eef1f5;
+    --ink:#12151b;
+    --ink-soft:#414a58;
+    --ink-mute:#6a7484;
+    --line:#dce1e8;
+    --brand:#1f4b8f;
+    --brand-ink:#153567;
+    --accent:#0f766e;
+    --gold:#9a7b2e;
+    --danger:#a8321f;
+    --radius:16px;
+    --maxw:1140px;
+    --shadow:0 1px 2px rgba(16,22,34,.04),0 12px 32px -18px rgba(16,22,34,.22);
+    --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --bg:#0c0f14;
+      --surface:#141922;
+      --surface-2:#1b2230;
+      --ink:#eef2f7;
+      --ink-soft:#c1cad6;
+      --ink-mute:#8a95a6;
+      --line:#28303d;
+      --brand:#6f9fe6;
+      --brand-ink:#a9c6f2;
+      --accent:#4cc7b8;
+      --gold:#d3b25f;
+      --danger:#e0765f;
+      --shadow:0 1px 2px rgba(0,0,0,.4),0 18px 44px -22px rgba(0,0,0,.7);
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+  body{
+    margin:0;font-family:var(--font);background:var(--bg);color:var(--ink);
+    line-height:1.6;font-size:17px;-webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  h1,h2,h3{line-height:1.2;letter-spacing:-.02em;margin:0 0 .5em;font-weight:680}
+  h1{font-size:clamp(2.1rem,5vw,3.4rem)}
+  h2{font-size:clamp(1.6rem,3.4vw,2.3rem);margin-top:0}
+  h3{font-size:1.15rem;letter-spacing:-.01em}
+  p{margin:0 0 1rem;color:var(--ink-soft)}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:.5em;font-size:.78rem;font-weight:640;
+    letter-spacing:.09em;text-transform:uppercase;color:var(--brand-ink);
+    background:var(--surface-2);border:1px solid var(--line);
+    padding:.4em .85em;border-radius:100px;
+  }
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block}
+  section{padding:clamp(56px,8vw,104px) 0}
+  .lede{font-size:1.18rem;color:var(--ink-soft);max-width:62ch}
+  .muted{color:var(--ink-mute)}
+  .btn{
+    display:inline-flex;align-items:center;gap:.55em;justify-content:center;
+    font-weight:640;font-size:1rem;padding:.9em 1.5em;border-radius:12px;
+    border:1px solid transparent;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease,background .15s ease;
+  }
+  .btn:hover{text-decoration:none;transform:translateY(-1px)}
+  .btn-primary{background:var(--brand);color:#fff;box-shadow:var(--shadow)}
+  .btn-primary:hover{background:var(--brand-ink)}
+  .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+  .btn-ghost:hover{background:var(--surface-2)}
+  :focus-visible{outline:3px solid var(--brand);outline-offset:2px;border-radius:8px}
+
+  /* Header */
+  header.nav{position:sticky;top:0;z-index:40;backdrop-filter:saturate(140%) blur(10px);
+    background:color-mix(in srgb,var(--bg) 82%,transparent);border-bottom:1px solid var(--line)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .brand{display:flex;align-items:center;gap:.6em;font-weight:700;letter-spacing:-.01em;color:var(--ink)}
+  .brand .mark{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--brand),var(--accent));
+    display:grid;place-items:center;color:#fff;font-size:.85rem;font-weight:700}
+  .nav-links{display:flex;gap:1.6rem;align-items:center}
+  .nav-links a{color:var(--ink-soft);font-size:.95rem;font-weight:520}
+  .nav-links a:hover{color:var(--ink);text-decoration:none}
+  @media(max-width:860px){.nav-links{display:none}}
+
+  /* Hero */
+  .hero{padding-top:clamp(48px,6vw,80px);position:relative;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+  @media(max-width:940px){.hero-grid{grid-template-columns:1fr;gap:40px}}
+  .hero h1{margin-top:.5rem}
+  .hero .cta-row{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.8rem}
+  .trust-row{display:flex;gap:1.4rem;flex-wrap:wrap;margin-top:2.4rem;padding-top:1.6rem;border-top:1px solid var(--line)}
+  .trust-row div{font-size:.9rem;color:var(--ink-mute)}
+  .trust-row strong{display:block;color:var(--ink);font-size:1.05rem;font-weight:660;letter-spacing:-.01em}
+  .panel{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:26px;box-shadow:var(--shadow)}
+  .panel h3{margin-bottom:1rem;display:flex;align-items:center;gap:.5em}
+  .qa{border-top:1px solid var(--line);padding:14px 0;font-size:.95rem}
+  .qa:first-of-type{border-top:0;padding-top:0}
+  .qa .q{color:var(--ink-mute);font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.35em}
+  .qa .a{color:var(--ink);font-weight:500}
+  .cite{display:inline-block;font-size:.72rem;color:var(--accent);border:1px solid var(--line);
+    border-radius:6px;padding:.05em .5em;margin:.2em .2em 0 0;background:var(--surface-2)}
+
+  /* problem band */
+  .band{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  @media(max-width:820px){.cols3{grid-template-columns:1fr}}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow)}
+  .band .card{background:var(--surface-2)}
+  .card .ic{width:40px;height:40px;border-radius:10px;background:var(--surface-2);display:grid;place-items:center;
+    margin-bottom:14px;font-size:1.2rem}
+  .band .card .ic{background:var(--surface)}
+
+  /* table */
+  .tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+  table{width:100%;border-collapse:collapse;min-width:640px;background:var(--surface)}
+  th,td{text-align:left;padding:16px 20px;border-bottom:1px solid var(--line);font-size:.96rem;vertical-align:top}
+  thead th{font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-mute);font-weight:640;background:var(--surface-2)}
+  tbody th{font-weight:600;color:var(--ink)}
+  td.ok{color:var(--accent);font-weight:560}
+  td.no{color:var(--danger)}
+  tr:last-child td,tr:last-child th{border-bottom:0}
+  .col-brand{color:var(--brand);font-weight:660}
+
+  /* pricing */
+  .cols3.pricing{align-items:stretch}
+  .price{display:flex;flex-direction:column}
+  .price.feature{border-color:var(--brand);box-shadow:0 0 0 1px var(--brand),var(--shadow)}
+  .price .tag{font-size:.78rem;font-weight:640;letter-spacing:.05em;text-transform:uppercase;color:var(--brand-ink)}
+  .price .amount{font-size:1.9rem;font-weight:720;letter-spacing:-.02em;color:var(--ink);margin:.3em 0 .1em}
+  .price .amount small{font-size:.9rem;font-weight:500;color:var(--ink-mute)}
+  .price ul{list-style:none;padding:0;margin:1.1rem 0 1.6rem;flex:1}
+  .price li{padding:.45em 0 .45em 1.6em;position:relative;font-size:.94rem;color:var(--ink-soft);border-top:1px solid var(--line)}
+  .price li:first-child{border-top:0}
+  .price li::before{content:"";position:absolute;left:0;top:.95em;width:8px;height:8px;border-radius:50%;
+    background:var(--accent)}
+  .badge{display:inline-block;background:var(--brand);color:#fff;font-size:.72rem;font-weight:640;
+    padding:.2em .7em;border-radius:100px;margin-left:.5em;vertical-align:middle}
+
+  /* sectors */
+  .cols4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  @media(max-width:900px){.cols4{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.cols4{grid-template-columns:1fr}}
+  .sector{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px}
+  .sector h3{font-size:1rem}
+  .sector p{font-size:.9rem;margin:0}
+
+  /* security list */
+  .sec-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  @media(max-width:820px){.sec-grid{grid-template-columns:1fr}}
+  .checklist{list-style:none;padding:0;margin:0}
+  .checklist li{position:relative;padding:.55em 0 .55em 1.9em;border-top:1px solid var(--line);font-size:.96rem;color:var(--ink-soft)}
+  .checklist li:first-child{border-top:0}
+  .checklist li::before{content:"✓";position:absolute;left:0;top:.55em;color:var(--accent);font-weight:700}
+
+  /* faq */
+  details{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin-bottom:12px;overflow:hidden}
+  details[open]{box-shadow:var(--shadow)}
+  summary{cursor:pointer;padding:20px 22px;font-weight:600;color:var(--ink);list-style:none;
+    display:flex;justify-content:space-between;align-items:center;gap:1em}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";font-size:1.4rem;color:var(--ink-mute);font-weight:400;line-height:1}
+  details[open] summary::after{content:"–"}
+  details .body{padding:0 22px 20px;color:var(--ink-soft);font-size:.96rem}
+
+  /* final cta */
+  .final{background:linear-gradient(135deg,var(--brand-ink),var(--brand));color:#fff;border-radius:var(--radius);
+    padding:clamp(36px,6vw,64px);text-align:center;box-shadow:var(--shadow)}
+  .final h2{color:#fff}
+  .final p{color:rgba(255,255,255,.85);max-width:60ch;margin-inline:auto}
+  .final .btn-primary{background:#fff;color:var(--brand-ink)}
+  .final .btn-primary:hover{background:#eef1f5}
+  .final .btn-ghost{color:#fff;border-color:rgba(255,255,255,.4)}
+  .final .btn-ghost:hover{background:rgba(255,255,255,.12)}
+  .placeholder{color:var(--gold);font-weight:600}
+
+  footer{padding:44px 0 60px;border-top:1px solid var(--line);color:var(--ink-mute);font-size:.88rem}
+  .foot-in{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+  .lead-list{color:var(--ink-mute);font-size:.86rem;margin-top:.4rem}
+  .section-head{max-width:66ch;margin-bottom:44px}
+  .kicker{color:var(--brand-ink);font-weight:640;font-size:.85rem;letter-spacing:.05em;text-transform:uppercase;margin-bottom:.6em}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <div class="brand"><span class="mark">B</span> AlkymIA Council</div>
+    <nav class="nav-links" aria-label="Navigation principale">
+      <a href="#concept">Le principe</a>
+      <a href="#difference">Différence</a>
+      <a href="#formules">Formules</a>
+      <a href="#secteurs">Secteurs</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact" class="btn btn-primary" style="padding:.55em 1.1em">Demander un audit</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow"><span class="dot"></span> Souverain · RGPD · EU AI Act</span>
+      <h1>Le conseil d'experts IA qui reste dans vos murs — et qui cite ses sources.</h1>
+      <p class="lede">Les assistants IA grand public hallucinent, oublient d'où vient l'information et exposent vos données au cloud. <strong>AlkymIA Council</strong> déploie un conseil d'experts spécialisés directement sur votre infrastructure : chaque réponse est sourcée, chaque décision est journalisée et rejouable, aucune donnée ne sort.</p>
+      <div class="cta-row">
+        <a href="#contact" class="btn btn-primary">Demander un audit d'entrée →</a>
+        <a href="#difference" class="btn btn-ghost">Voir la différence</a>
+      </div>
+      <div class="trust-row">
+        <div><strong>100 % local</strong>Aucune donnée envoyée à un tiers</div>
+        <div><strong>Traçable</strong>Citations + journal rejouable</div>
+        <div><strong>Anti-hallucination</strong>Pas de source, pas de réponse</div>
+      </div>
+    </div>
+    <aside class="panel" aria-label="Exemple de réponse sourcée">
+      <h3><span class="dot" style="background:var(--brand)"></span> Réponse d'expert, sourcée</h3>
+      <div class="qa">
+        <div class="q">Question du comité</div>
+        <div class="a">« Quelle est notre exposition contractuelle sur les clauses de réversibilité fournisseurs ? »</div>
+      </div>
+      <div class="qa">
+        <div class="q">Réponse du board (expert Juridique + Achats)</div>
+        <div class="a">Trois contrats sur douze ne prévoient pas de clause de réversibilité explicite. Recommandation : les prioriser au prochain avenant.
+          <div style="margin-top:.5em">
+            <span class="cite">contrat-2024-07.pdf · §12</span>
+            <span class="cite">registre-achats · ligne 314</span>
+            <span class="cite">politique-SI · v3</span>
+          </div>
+        </div>
+      </div>
+      <p class="muted" style="font-size:.82rem;margin:1rem 0 0">Chaque affirmation renvoie à un extrait vérifiable de votre corpus. Le raisonnement complet est conservé dans un journal rejouable.</p>
+    </aside>
+  </div>
+</section>
+
+<!-- PROBLEM / CONCEPT -->
+<section class="band" id="concept">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Ce que c'est</div>
+      <h2>Un conseil d'administration d'experts IA, hébergé chez vous.</h2>
+      <p class="lede">AlkymIA Council n'est pas un chatbot de plus. C'est un ensemble d'experts virtuels spécialisés par domaine — juridique, finance, technique, conformité, métier — qui délibèrent sur vos propres documents, s'appuient sur une base de connaissances vectorisée de votre organisation, et rendent un avis argumenté et sourcé.</p>
+    </div>
+    <div class="cols3">
+      <div class="card">
+        <div class="ic">🧠</div>
+        <h3>Des experts, pas un modèle unique</h3>
+        <p>Plusieurs profils d'experts sont interrogés selon la question. Ils croisent leurs analyses et signalent leurs désaccords plutôt que de lisser un faux consensus.</p>
+      </div>
+      <div class="card">
+        <div class="ic">📚</div>
+        <h3>Votre corpus, indexé et gouverné</h3>
+        <p>Base de connaissances vectorisée (~18 000 chunks indexés, corpus en croissance continue) construite sur vos documents. La recherche est sémantique et citée, jamais inventée.</p>
+      </div>
+      <div class="card">
+        <div class="ic">🔒</div>
+        <h3>Aucune fuite, aucune dépendance</h3>
+        <p>Modèles et données restent sur votre matériel. Pas d'API externe, pas d'entraînement sur vos données, pas de verrou fournisseur. Vous restez propriétaire de bout en bout.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIFFERENCE TABLE -->
+<section id="difference">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Le différenciateur</div>
+      <h2>Conseil sourcé et rejouable vs. IA générative grand public.</h2>
+      <p class="lede">La question n'est pas « l'IA sait-elle répondre ? » mais « pouvez-vous prouver, tracer et défendre la réponse devant un comité, un régulateur ou un juge ? »</p>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Critère</th>
+            <th scope="col">ChatGPT / IA cloud grand public</th>
+            <th scope="col" class="col-brand">AlkymIA Council</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Localisation des données</th>
+            <td class="no">Envoyées vers des serveurs tiers, souvent hors UE</td>
+            <td class="ok">100 % sur votre infrastructure, aucune sortie réseau</td>
+          </tr>
+          <tr>
+            <th scope="row">Sources des réponses</th>
+            <td class="no">Réponses non sourcées, hallucinations possibles</td>
+            <td class="ok">Chaque affirmation citée depuis votre corpus vérifiable</td>
+          </tr>
+          <tr>
+            <th scope="row">Traçabilité</th>
+            <td class="no">Boîte noire, raisonnement non conservé</td>
+            <td class="ok">Journal rejouable : qui, quoi, quelles sources, quand</td>
+          </tr>
+          <tr>
+            <th scope="row">Conformité RGPD / EU AI Act</th>
+            <td class="no">Transfert de données, base légale fragile</td>
+            <td class="ok">Traitement local, minimisation, auditabilité native</td>
+          </tr>
+          <tr>
+            <th scope="row">Expertise</th>
+            <td class="no">Modèle généraliste unique</td>
+            <td class="ok">Conseil pluridisciplinaire qui expose ses désaccords</td>
+          </tr>
+          <tr>
+            <th scope="row">Dépendance fournisseur</th>
+            <td class="no">Verrou API, tarif et disponibilité subis</td>
+            <td class="ok">Vous possédez le système, réversibilité totale</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="muted" style="font-size:.85rem;margin-top:1rem">Comparaison à visée pédagogique. Les fonctionnalités des solutions cloud évoluent ; l'axe structurant reste la souveraineté et la traçabilité de bout en bout.</p>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="band" id="formules">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Formules</div>
+      <h2>Un engagement clair, à la hauteur d'un actif stratégique.</h2>
+      <p class="lede">Trois niveaux, du pilote encadré au déploiement souverain complet. Les fourchettes ci-dessous sont indicatives et affinées lors de l'audit d'entrée selon votre volume documentaire, vos contraintes de sécurité et votre infrastructure.</p>
+    </div>
+    <div class="cols3 pricing">
+      <div class="card price">
+        <span class="tag">Licence annuelle</span>
+        <div class="amount">1 500 – 3 000 € <small>/ an</small></div>
+        <p class="muted" style="font-size:.9rem;margin:0">Le board en fonctionnement continu sur votre parc, mises à jour incluses.</p>
+        <ul>
+          <li>Conseil d'experts IA en local, illimité en usage interne</li>
+          <li>Base de connaissances vectorisée sur vos documents</li>
+          <li>Citations et journal rejouable sur chaque réponse</li>
+          <li>Mises à jour des modèles et des experts</li>
+          <li>Support standard <span class="placeholder">[SLA]</span></li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost">Demander un devis</a>
+      </div>
+      <div class="card price feature">
+        <span class="tag">Déploiement & souveraineté <span class="badge">Le plus demandé</span></span>
+        <div class="amount">18 000 – 20 000 € <small>/ projet</small></div>
+        <p class="muted" style="font-size:.9rem;margin:0">Installation complète, sur mesure, sur votre infrastructure sécurisée.</p>
+        <ul>
+          <li>Cadrage, architecture et installation on-premise</li>
+          <li>Ingestion et vectorisation de votre corpus documentaire</li>
+          <li>Paramétrage des experts par domaine métier</li>
+          <li>Durcissement sécurité, cloisonnement, gouvernance des accès</li>
+          <li>Formation des équipes et transfert de compétences</li>
+          <li>Garantie de bon fonctionnement <span class="placeholder">[GARANTIE]</span></li>
+        </ul>
+        <a href="#contact" class="btn btn-primary">Cadrer le déploiement</a>
+      </div>
+      <div class="card price">
+        <span class="tag">Audit & consultation</span>
+        <div class="amount">1 500 € <small>· audit d'entrée</small></div>
+        <p class="muted" style="font-size:.9rem;margin:0">Le point de départ recommandé, déductible en cas de déploiement.</p>
+        <ul>
+          <li>Audit d'entrée : cas d'usage, corpus, risques, faisabilité</li>
+          <li>Feuille de route de souveraineté chiffrée</li>
+          <li>Consultation expert : <strong>500 – 750 € / jour</strong></li>
+          <li>Accompagnement ponctuel ou récurrent</li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost">Réserver l'audit</a>
+      </div>
+    </div>
+    <p class="muted" style="font-size:.85rem;margin-top:1.4rem">Prix HT, positionnés au marché. Le périmètre exact (nombre d'experts, volume de corpus, niveau de sécurité) est arrêté à l'issue de l'audit d'entrée.</p>
+  </div>
+</section>
+
+<!-- SECTORS -->
+<section id="secteurs">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Cas d'usage par secteur</div>
+      <h2>Là où les données sont sensibles et la traçabilité obligatoire.</h2>
+    </div>
+    <div class="cols4">
+      <div class="sector">
+        <h3>Cabinets juridiques & conseil</h3>
+        <p>Analyse de contrats, recherche dans les dossiers clients, notes argumentées — sans jamais exposer le secret professionnel.</p>
+      </div>
+      <div class="sector">
+        <h3>Collectivités & secteur public</h3>
+        <p>Instruction de dossiers, marchés publics, réponses aux administrés, appuyées sur les délibérations et fondées en droit.</p>
+      </div>
+      <div class="sector">
+        <h3>Santé & médico-social</h3>
+        <p>Exploitation de protocoles et référentiels internes sur données de santé, en environnement strictement cloisonné.</p>
+      </div>
+      <div class="sector">
+        <h3>Finance, assurance & DSI</h3>
+        <p>Conformité, gestion des risques, documentation interne — avec la piste d'audit qu'exigent régulateurs et comités.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECURITY / PREREQUIS -->
+<section class="band">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Prérequis & sécurité</div>
+      <h2>Conçu pour passer une revue DSI et RSSI.</h2>
+      <p class="lede">AlkymIA Council s'installe dans votre périmètre, selon vos règles. Voici ce que le système garantit et ce que le déploiement suppose.</p>
+    </div>
+    <div class="sec-grid">
+      <div class="card">
+        <h3>Ce que le système garantit</h3>
+        <ul class="checklist">
+          <li>Traitement 100 % local, aucune donnée transmise à un tiers</li>
+          <li>Aucun entraînement de modèle externe sur vos données</li>
+          <li>Journal d'audit rejouable de chaque requête et réponse</li>
+          <li>Gouvernance des accès et cloisonnement par périmètre</li>
+          <li>Réversibilité : vous conservez données, index et modèles</li>
+          <li>Alignement RGPD (minimisation, auditabilité) et EU AI Act</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Ce que le déploiement suppose</h3>
+        <ul class="checklist">
+          <li>Un serveur ou poste dédié dimensionné (spécifié à l'audit)</li>
+          <li>Un corpus documentaire à ingérer et à structurer</li>
+          <li>Un référent interne pour le cadrage et les accès</li>
+          <li>Une validation sécurité conjointe avec votre DSI / RSSI</li>
+          <li>Une phase de recette avant mise en production</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Questions fréquentes</div>
+      <h2>Ce que demandent les dirigeants et les DSI.</h2>
+    </div>
+    <details>
+      <summary>Nos données quittent-elles vraiment jamais notre infrastructure ?</summary>
+      <div class="body">Non. Les modèles d'IA et la base de connaissances vectorisée s'exécutent sur votre propre matériel, dans votre réseau. Aucune requête, aucun document et aucun index ne transitent vers un service externe. C'est la différence de fond avec une IA cloud.</div>
+    </details>
+    <details>
+      <summary>Comment évitez-vous les hallucinations ?</summary>
+      <div class="body">Le board répond à partir de votre corpus et cite systématiquement ses sources. Lorsqu'aucune source pertinente n'est trouvée, il le dit plutôt que d'inventer. La règle est simple : pas de source vérifiable, pas d'affirmation. Le raisonnement reste consultable dans le journal rejouable.</div>
+    </details>
+    <details>
+      <summary>Est-ce compatible RGPD et EU AI Act ?</summary>
+      <div class="body">L'architecture a été pensée pour cela : traitement local, minimisation des données, piste d'audit native et absence de transfert vers des tiers. AlkymIA Council facilite votre mise en conformité, sans se substituer à votre analyse juridique — que nous documentons avec vous lors du cadrage.</div>
+    </details>
+    <details>
+      <summary>Combien de temps pour être opérationnel ?</summary>
+      <div class="body">Le point de départ est l'audit d'entrée. Le déploiement souverain complet est ensuite planifié selon le volume de votre corpus et vos contraintes de sécurité. Le calendrier précis est arrêté avec votre équipe à l'issue de l'audit.</div>
+    </details>
+    <details>
+      <summary>Que se passe-t-il si nous voulons internaliser ou changer d'outil plus tard ?</summary>
+      <div class="body">Vous conservez la pleine propriété de vos données, de votre index vectoriel et des modèles déployés. La réversibilité est totale : aucun verrou propriétaire, aucune dépendance à une API externe. Vous n'êtes pas prisonnier du fournisseur.</div>
+    </details>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section id="contact">
+  <div class="wrap">
+    <div class="final">
+      <h2>Commencez par un audit d'entrée.</h2>
+      <p>Une demi-journée pour cartographier vos cas d'usage, votre corpus et vos exigences de souveraineté — et repartir avec une feuille de route chiffrée. L'audit d'entrée est à 1 500 €, déductible en cas de déploiement.</p>
+      <div class="cta-row" style="justify-content:center;margin-top:1.8rem">
+        <a href="mailto:[CONTACT-EMAIL]" class="btn btn-primary">Prendre rendez-vous →</a>
+        <a href="mailto:[CONTACT-EMAIL]" class="btn btn-ghost">Demander un devis</a>
+      </div>
+      <p class="lead-list" style="color:rgba(255,255,255,.7);margin-top:1.4rem">Référence client : <span class="placeholder" style="color:#fff">[RÉFÉRENCE-CLIENT]</span> · Coordonnées : <span class="placeholder" style="color:#fff">[CONTACT-EMAIL]</span></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-in">
+    <div class="brand"><span class="mark">B</span> AlkymIA Council</div>
+    <div>Conseil d'experts IA local, traçable et anti-hallucination · RGPD · EU AI Act · Propulsé par la technologie JARVIS OS.</div>
+  </div>
+</footer>
+
+</body>
+</html>

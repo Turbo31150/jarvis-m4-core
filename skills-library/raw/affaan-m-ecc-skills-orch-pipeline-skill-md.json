@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-orch-pipeline-skill-md",
+  "name": "orch-pipeline",
+  "author": "affaan-m",
+  "description": "Shared orchestration engine for the orch-* skill family. Defines the gated Research-Plan-TDD-Review-Commit pipeline, the size classifier, the agent map, and the two human gates that the orch-* operation skills delegate to. Not usually invoked directly.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/orch-pipeline",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-orch-pipeline",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

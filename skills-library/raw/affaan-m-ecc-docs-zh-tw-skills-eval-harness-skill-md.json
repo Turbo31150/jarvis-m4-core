@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-zh-tw-skills-eval-harness-skill-md",
+  "name": "eval-harness",
+  "author": "affaan-m",
+  "description": "Formal evaluation framework for Claude Code sessions implementing eval-driven development (EDD) principles",
+  "contentLanguage": "zh",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/zh-TW/skills/eval-harness",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-zh-tw-skills-eval-harness",
+  "stars": 237500,
+  "updatedAt": 1771578690
+}

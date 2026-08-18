@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-optional-skills-mcp-fastmcp-skill-md",
+  "name": "fastmcp",
+  "author": "NousResearch",
+  "description": "Build, test, and deploy Python MCP servers.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/optional-skills/mcp/fastmcp",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/optional-skills-mcp-fastmcp",
+  "stars": 225204,
+  "updatedAt": 1784904845
+}

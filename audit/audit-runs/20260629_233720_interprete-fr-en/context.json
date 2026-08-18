@@ -1,0 +1,18 @@
+{
+  "topic": "interprete-FR-EN",
+  "client": "",
+  "url": "",
+  "profile": "tech",
+  "mode": "fast",
+  "target": "/home/pamerys/IA/Research/lumen-transcription-multilangue",
+  "agents": [
+    "tech"
+  ],
+  "waves": [
+    "local"
+  ],
+  "max_tokens": 800,
+  "web": false,
+  "started": "2026-06-29T23:37:20",
+  "outdir": "/home/pamerys/jarvis/audit/audit-runs/20260629_233720_interprete-fr-en"
+}

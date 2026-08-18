@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-kiro-skills-agentic-engineering-skill-md",
+  "name": "agentic-engineering",
+  "author": "affaan-m",
+  "description": "Operate as an agentic engineer using eval-first execution, decomposition, and cost-aware model routing. Use when AI agents perform most implementation work and humans enforce quality and risk controls.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/.kiro/skills/agentic-engineering",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/kiro-skills-agentic-engineering",
+  "stars": 237500,
+  "updatedAt": 1774833678
+}

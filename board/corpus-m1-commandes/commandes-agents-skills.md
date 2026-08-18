@@ -1,0 +1,444 @@
+# Commandes M1 — agents-skills
+
+## A QUOI CA SERT
+
+Gestion des agents, skills et serveurs MCP de Claude Code. Lister ce qui est installe, verifier une configuration, lancer un driver de skill.
+
+## COMMANDES REELLEMENT EXECUTEES
+
+Extraites de 1840 sessions Claude Code sur M1, triees par frequence.
+Un chemin en /home/turbo ou une IP 192.168.0.10 doit etre reecrit avant rejeu sur M4.
+
+- (7x) `cd /home/turbo/.claude/projects/-home-turbo-jarvis/f503a673-a340-4712-8abd-b933e4d372b3/tool-results/ && ls -la && (which pdftotext || pip list 2>/dev/null | grep -i pdf)`
+- (6x) `bash /home/turbo/.claude/hooks/qa/hook-qa-demarrage.sh`
+- (4x) `bash .claude/skills/run-jarvis-demarrage/demarrage.sh`
+- (3x) `cd /home/turbo/jarvis && bash .claude/skills/run-jarvis-demarrage/demarrage.sh`
+- (3x) `cd /home/turbo/.claude/projects/-home-turbo-jarvis/f503a673-a340-4712-8abd-b933e4d372b3/tool-results/ && ls -la *.pdf && (which pdftotext || pip list 2>/dev/null | grep -i pdf)`
+- (3x) `./.claude/skills/run-jarvis-sql-backup/driver.sh --no-mirror 2>&1 | tail -40`
+- (2x) `timeout 300 bash /home/turbo/.claude/skills/cli_skill_audit/driver.sh 2>&1 | tail -4`
+- (2x) `ls /home/turbo/.claude/skills/ 2>/dev/null | head -20; echo "---"; find /home/turbo/.claude -name "SKILL.md" 2>/dev/null | head -5`
+- (2x) `cd /home/turbo/jarvis ; timeout 120 ./.claude/skills/run-jarvis-sql-backup/driver.sh --list 2>&1 | tail -25`
+- (2x) `bash /home/turbo/.claude/skills/cli_skill_audit/driver.sh 2>&1 | tail -8`
+- (2x) `bash /home/turbo/.claude/hooks/qa/hook-qa-demarrage.sh 2>&1 | tail -5`
+- (2x) `bash .claude/skills/run-jarvis-demarrage/demarrage.sh 2>&1`
+- (2x) `bash .claude/skills/cli_skill_audit/driver.sh 2>&1 | tail -8`
+- (1x) `~/jarvis/.claude/skills/run-board/driver.sh smoke 2>&1 | tail -30`
+- (1x) `wc -l ~/.claude/jarvis-alarms.log 2>/dev/null; tail -15 ~/.claude/jarvis-alarms.log 2>/dev/null; echo "==="; grep -c "$(date '+%F')" ~/.claude/jarvis-alarms.log 2>/dev/null`
+- (1x) `tmux send-keys -t autoagent 'exit' Enter; sleep 3; tmux kill-session -t autoagent 2>/dev/null; mkdir -p /home/turbo/AutoAgent/.claude/skills/run-autoagent`
+- (1x) `timeout 900 bash /home/turbo/.claude/plugins/local/jarvis-os/skills/cascade-deploy/scripts/deploy-cascade.sh 2>&1 | grep -vE "Permission" | tail -25`
+- (1x) `timeout 90 /home/turbo/.claude/skills/run-rem-node/driver.sh check 2>&1 | tail -30`
+- (1x) `timeout 90 ./.claude/skills/run-jarvis-sql-backup/driver.sh --list 2>&1 | tail -30`
+- (1x) `timeout 600 bash /home/turbo/.claude/skills/cli_skill_audit/driver.sh 2>&1 | tail -4`
+- (1x) `timeout 600 bash /home/turbo/.claude/skills/cli_skill_audit/driver.sh 2>&1 | tail -3 ; echo "--- nouveaux fichiers de la session non commités ---" ; git status --porcelain bin/registre-installations.py bin/cascade-micro-actions.py bin/cherche.py bin/registre-sujets.py 2>/dev/null | sed 's/^/  /'`
+- (1x) `timeout 600 bash /home/turbo/.claude/skills/cli_skill_audit/driver.sh 2>&1 | tail -3`
+- (1x) `timeout 600 bash /home/turbo/.claude/skills/cli_skill_audit/driver.sh 2>&1 | tail -15`
+- (1x) `timeout 600 bash .claude/skills/cli_skill_audit/driver.sh 2>&1 | tail -15`
+- (1x) `timeout 580 bash .claude/skills/run-jarvis-audit/smoke.sh 2>&1 | tail -35`
+- (1x) `timeout 400 ~/jarvis/.claude/skills/run-board/driver.sh smoke 2>&1 | sed -n '1,12p;/^4\./,/^6\./p;/^7\./,/^8\./p;/SMOKE/p'; echo "exit=${PIPESTATUS[0]}"`
+- (1x) `timeout 400 bash /home/turbo/.claude/plugins/local/jarvis-os/skills/cascade-deploy/scripts/deploy-cascade.sh --dry-run 2>&1 | tail -45`
+- (1x) `timeout 400 /home/turbo/jarvis/.claude/skills/run-lms-multimodele/driver.sh reparer "hermes-2-pro-mistral-7b" 2>&1 | tail -8`
+- (1x) `timeout 300 strings -a /usr/lib/browseros/browseros 2>/dev/null | grep -E "^browseros: " | grep -iE "skip|remote|cdp|devtools|debug|mcp|port|disab" | sort -u`
+- (1x) `timeout 300 python3 bin/skills-doctor.py --root ~/jarvis/.claude/skills --engine claude-code --verbose 2>&1 | head -70`
+- (1x) `timeout 300 python3 bin/skills-doctor.py --root ~/jarvis/.claude/skills --engine claude-code --verbose 2>&1 | head -40`
+- (1x) `timeout 300 bash /home/turbo/.claude/skills/cli_skill_content/driver.sh "De 40000 a 150000 skills en une soiree : la moisson multi-cycle JARVIS expliquee" --reseau linkedin 2>&1 | tail -4`
+- (1x) `timeout 300 bash /home/turbo/.claude/skills/cli_skill_audit/driver.sh 2>&1 | tail -12`
+- (1x) `timeout 300 bash /home/turbo/.claude/plugins/local/jarvis-os/skills/cascade-deploy/scripts/deploy-cascade.sh --dry-run 2>&1 | tail -30`
+- (1x) `timeout 260 bash .claude/skills/cli_skill_audit/driver.sh >/dev/null 2>&1; R=$(ls -t ~/jarvis/audit/audit-local-*.md | head -1); sed -n '/## 3. Triggers/,/^## 4/p' "$R" | head -8`
+- (1x) `timeout 200 bash /home/turbo/.claude/plugins/local/jarvis-os/skills/cascade-deploy/scripts/deploy-cascade.sh --dry-run 2>&1 | grep -vE "Permission" | tail -14`
+- (1x) `timeout 200 bash /home/turbo/.claude/plugins/local/jarvis-os/skills/cascade-deploy/scripts/deploy-cascade.sh --dry-run 2>&1 | grep -E "OK|FAIL|WARN" | head -12`
+- (1x) `timeout 200 /home/turbo/jarvis/.claude/skills/run-board/driver.sh smoke 2>&1 | tail -20`
+- (1x) `timeout 200 ../.claude/skills/run-board/driver.sh smoke 2>&1 | tail -14`
+- (1x) `timeout 180 env DISPLAY=:0 bash .claude/skills/run-jarvis-planning-widget/driver.sh all 2>&1 | tail -14`
+- (1x) `timeout 180 bash ~/jarvis/.claude/skills/run-lms-multimodele/driver.sh smoke 2>&1 | tail -14; echo "rc=$?"`
+- (1x) `timeout 180 ./.claude/skills/run-board/driver.sh smoke 2>&1 | tail -40`
+- (1x) `timeout 120 python3 ~/jarvis/bin/skillmp-pipeline.py start source 2>&1 | tail -1; nohup bash /home/turbo/.claude/plugins/local/jarvis-os/skills/cascade-deploy/scripts/deploy-cascade.sh > ~/jarvis/logs/cascade-deploy-run.log 2>&1 & disown; echo "deploy detache pid $!"`
+- (1x) `timeout 120 python3 /home/turbo/.claude/skills/run-jarvis-lms-watchdog/driver.py --probe 2>&1 | tail -15`
+- (1x) `timeout 120 bash ~/.claude/skills/run-jarvis-sql-backup/driver.sh --list 2>&1 | tail -25`
+- (1x) `timeout 120 bash /home/turbo/jarvis/.claude/skills/run-board/driver.sh status 2>&1 | tail -12`
+- (1x) `timeout 120 bash /home/turbo/jarvis/.claude/skills/run-board/driver.sh smoke 2>&1 | grep -E "^[0-9]\.|✓|✗|!|SMOKE|contrat-gama2|chunks" | tail -40; echo "rc=${PIPESTATUS[0]}"`
+- (1x) `timeout 115 bash ~/jarvis/.claude/skills/run-planning-autogen/driver.sh 2>&1 | tail -12 || python3 ~/jarvis/bin/jarvis-planning-cli 2>&1 | tail -8`
+- (1x) `timeout 110 bash /home/turbo/jarvis/.claude/skills/run-jarvis-demarrage/demarrage.sh 2>&1 | tail -22`
+- (1x) `ss -ltnp 2>/dev/null | grep -Ei 'node|python|bun' | head -40; echo "=== total RSS procs MCP ==="; ps -eo rss,args 2>/dev/null | grep -Ei 'mcp|modelcontext' | grep -v grep | awk '{s+=$1; n++} END{printf "%d procs, %.2f Go RSS cumulé\n", n, s/1048576}'`
+- (1x) `sleep 6; OUT=$PWD /home/turbo/.claude/skills/run-rem-node/driver.sh win 2>&1 | tail -6`
+- (1x) `sed -n '66,84p' ~/.claude/skills/run-jarvis-sql-backup/driver.sh`
+- (1x) `sed -n '58,66p' /home/turbo/.claude/plugins/local/jarvis-os/skills/cascade-deploy/scripts/deploy-cascade.sh`
+- (1x) `sed -n '43,50p' /home/turbo/.claude/skills/cli_skill_audit/driver.sh`
+- (1x) `sed -n '24,32p;230,240p' ../.claude/skills/run-board/driver.sh`
+- (1x) `sed -n '215,235p' ~/jarvis/.claude/skills/run-jarvis-sql-backup/driver.sh`
+- (1x) `sed -n '20,39p' /home/turbo/jarvis/bin/build-short-916.sh; echo "=== driver yt ==="; grep -nE 'case|usage|Usage|\)' /home/turbo/.claude/skills/cli_skill_youtube/driver.sh | head -15; echo "=== ingest-external usage ==="; grep -nE 'add_parser|choices' /home/turbo/jarvis/bin/ingest-external.py | head -10`
+- (1x) `sed -n '160,210p' /home/turbo/Bureau/workflow-gestion/agents/m2_detecteur/agent.py`
+- (1x) `sed -n '14,18p' ~/jarvis/.claude/skills/run-jarvis-autoheal/jarvis_autoheal.sh`
+- (1x) `sed -n '110,135p' .claude/skills/run-jarvis-sql-backup/driver.sh`
+- (1x) `sed -n '105,122p' /home/turbo/.claude/plugins/local/jarvis-os/skills/cascade-deploy/scripts/deploy-cascade.sh`
+- (1x) `sed -n '1,60p' ~/.claude/skills/run-planning-autogen/SKILL.md 2>/dev/null ; echo "==========================================" ; ls ~/.claude/skills/run-planning-autogen/ 2>/dev/null`
+- (1x) `sed -n '1,60p' ~/.claude/skills/run-planning-autogen/SKILL.md 2>/dev/null`
+- (1x) `sed -n '1,60p' /home/turbo/jarvis/.claude/skills/run-jarvis-sql-backup/SKILL.md`
+- (1x) `sed -n '1,60p' /home/turbo/.claude/skills/run-rem-node/SKILL.md`
+- (1x) `sed -n '1,25p' ~/.claude/skills/run-jarvis-sql-backup/driver.sh`
+- (1x) `python3 /home/turbo/jarvis/.claude/skills/run-jarvis-lms-watchdog/driver.py --json 2>&1`
+- (1x) `python3 /home/turbo/jarvis/.claude/skills/run-jarvis-llm-health/driver.py`
+- (1x) `python3 /home/turbo/.claude/skills/run-jarvis-lms-watchdog/driver.py --help 2>&1 | head -15`
+- (1x) `python3 -c " ; import re ; t=open('/home/turbo/.claude/agents/architect-guardian.md').read() ; m=re.match(r'^---\n(.*?)\n---',t,re.S); assert m ; d=re.search(r'description:\s*(.*?)(?=\n[a-zA-Z_]+:|\Z)',m.group(1),re.S) ; print('frontmatter OK ·',len(d.group(1)),'car ·',d.group(1)[:90])"`
+- (1x) `python3 -c " ; import json,pathlib ; d=json.loads(pathlib.Path('/home/turbo/jarvis/.claude/skills/run-jarvis-autoheal/skill-triggers.json').read_text()) ; t=d['triggers']; print('type:',type(t).__name__,'| n=',len(t)) ; print(json.dumps(t[0],ensure_ascii=False)[:300])"`
+- (1x) `python3 -c " ; import json,pathlib ; d=json.loads(pathlib.Path('/home/turbo/jarvis/.claude/skills/run-jarvis-autoheal/skill-triggers.json').read_text()) ; ks=[k for k in d if k!='_comment'] ; print('cles:',len(ks),'| 3 premieres:',ks[:3]) ; print('valeur type:',type(d[ks[0]]).__name__) ; print(json.dumps({ks[0]:d[ks[0]]},ensure_ascii=False)[:300])"`
+- (1x) `python3 -c " ; import json,os ; p=os.path.expanduser('~/.claude/settings.json') ; s=json.load(open(p)) ; h=s.get('hooks',{}) ; for ev,lst in h.items(): ;     print('##',ev) ;     for e in lst: ;         for hk in e.get('hooks',[]): ;             print('   type=',hk.get('type'),'|',str(hk.get('command'))[:110]) ; "`
+- (1x) `python3 -c " ; import json ; for f in ['/home/turbo/.mcp.json','/home/turbo/.config/Claude/claude_desktop_config.json']: ;     d=json.load(open(f)) ;     s=d.get('mcpServers',d) ;     print('===',f,len(s)) ;     for k,v in sorted(s.items()): ;         cmd=v.get('command','') ;         args=v.get('args',[]) ;         url=v.get('url','') ;         print(f'{k}\t{cmd} {\" \".join(str(a) for a in args)[:110]}\t{url}') ; "`
+- (1x) `python3 -c " ; import json ; d=json.load(open('/home/turbo/jarvis/.claude/skills/run-jarvis-autoheal/skill-triggers.json')) ; print('clés racine:', list(d)) ; for k,v in d.items(): ;     if isinstance(v,(dict,list)) and k not in ('_comment',): ;         print(f'--- {k} ({type(v).__name__}, {len(v)}) ---') ;         s=json.dumps(v,ensure_ascii=False,indent=2) ;         print(s[:700]) ; "`
+- (1x) `python3 -c " ; import json ; d=json.load(open('/home/turbo/.mcp.json')) ; s=d.get('mcpServers',{}) ; print('COUNT',len(s)) ; for k,v in s.items(): ;     print(k,'||',v.get('command',v.get('type','?')),'||',' '.join(v.get('args',[]))[:220],'||URL:',v.get('url','')) ; "`
+- (1x) `python3 -c " ; import json ; d=json.load(open('/home/turbo/.claude/settings.json')) ; for h in d.get('hooks',{}).get('UserPromptSubmit',[]): ;     for x in h.get('hooks',[]): ;         print(' →', x.get('command','')[:130]) ; "`
+- (1x) `python3 -c " ; import json ; d = json.load(open('/home/turbo/.claude/plugins/local/skillsmp/manifeste.json')) ; print(len(d), 'entrées manifeste') ; paths = set() ; for slug, v in d.items(): ;     for p in v['chemins']: ;         if 'plugins/local/skillsmp' in p: ;             paths.add(p) ; print(len(paths), 'chemins uniques claude') ; for p in sorted(paths): ;     print(p) ; "`
+- (1x) `python3 - <<'EOF' ; import json, pathlib ; p = pathlib.Path("/home/turbo/jarvis/.claude/skills/run-jarvis-autoheal/skill-triggers.json") ; d = json.loads(p.read_text()) ; ex = next((k for k in d if k.startswith("run-") and k != "run-lms-multimodele"), None) ; print("exemple existant:", ex, "->", json.dumps(d[ex], ensure_ascii=False)[:260]) ; EOF`
+- (1x) `ps -eo pid,rss,etimes,args 2>/dev/null | grep -Ei 'mcp|modelcontext' | grep -v grep | head -60`
+- (1x) `ps -eo pid,rss,args 2>/dev/null | grep -Ei 'mcp|modelcontext' | grep -v grep | awk '{pid=$1; rss=$2; $1="";$2=""; cmd=$0; gsub(/^ +/,"",cmd); n[cmd]++; r[cmd]+=rss; p[cmd]=p[cmd]" "pid} END{for(c in n) printf "%d\t%d\t%s\t%s\n", n[c], r[c], p[c], c}' | sort -rn -k1 | head -40`
+- (1x) `printf '%s\n' '- [incident_clipboard_prompt_replay.md](incident_clipboard_prompt_replay.md) — prompts répétés ❯ = collage clipboard rassis (pas le vocal) ; purger xclip, dedupe hook en défense' >> /home/turbo/.claude/projects/-home-turbo/memory/MEMORY.md && tail -1 /home/turbo/.claude/projects/-home-turbo/memory/MEMORY.md`
+- (1x) `pgrep -af 'mcp_server' | grep -i web_api; grep -o '"web-api"[^}]*{[^}]*}' ~/.mcp.json ~/.claude.json 2>/dev/null | head; python3 -c "import json;d=json.load(open('/home/turbo/.claude.json'));print(json.dumps(d.get('mcpServers',{}).get('web-api','absent'),indent=1))" 2>/dev/null`
+- (1x) `mkdir -p /home/turbo/jarvis/artifacts/e1-20260806 ; bash .claude/skills/run-jarvis-autochain/driver.sh dry "analyse E1 innovante donnees SQL cluster corpus biblio methodologie sensibilite" 2>&1 | tail -35`
+- (1x) `mkdir -p /home/turbo/jarvis/.claude/skills/run-m1-memory-tuning && echo "OK"; command -v stress-ng bc numfmt 2>/dev/null; echo "---"; bash --version | head -1`
+- (1x) `mkdir -p /home/turbo/jarvis/.claude/skills/run-board && echo ok`
+- (1x) `mkdir -p /home/turbo/.claude/plans 2>/dev/null && echo ok`
+- (1x) `ls ~/jarvis/bin/ 2>/dev/null | grep -iE 'tool|responses|call' ; echo "--- grep v1/responses dans le repo ---"; grep -rl 'v1/responses' ~/jarvis --include='*.sh' --include='*.py' 2>/dev/null | head -5; echo "--- board ---"; ls -la ~/jarvis/board/ 2>/dev/null | head -8; ls ~/.claude/skills/ | grep -i board`
+- (1x) `ls ~/jarvis/.claude/skills/run-planning-app/ 2>/dev/null; grep -nE "screenshot|driver|smoke" ~/jarvis/.claude/skills/run-planning-app/SKILL.md 2>/dev/null | head -8`
+- (1x) `ls ~/jarvis/.claude/skills/run-jarvis-sql-backup/driver.sh && timeout 1500 bash ~/jarvis/.claude/skills/run-jarvis-sql-backup/driver.sh 2>&1 | tail -25`
+- (1x) `ls ~/.claude/skills/run-jarvis-sql-backup/ 2>/dev/null; ls ~/.claude/skills/run-jarvis-backup-multi-db/ 2>/dev/null | head`
+- (1x) `ls ~/.claude/skills/ 2>/dev/null | head -20`
+- (1x) `ls ~/.claude/skills 2>/dev/null | head -30; echo "---PLUGINS---"; find ~/.claude -name "SKILL.md" 2>/dev/null | head -20`
+- (1x) `ls ~/.claude/projects/-home-turbo/memory/reference_deux_swarms* 2>/dev/null && echo "--- contenu ---" && head -12 ~/.claude/projects/-home-turbo/memory/reference_deux_swarms*.md 2>/dev/null | grep -viE '^\s*$' | head -10 || echo "MÉMOIRE ABSENTE — L10 ne l'a pas écrite"`
+- (1x) `ls ~/.claude/agents/ 2>/dev/null | grep -xE 'explorer\.md|backend\.md|security\.md|tester\.md|reviewer\.md'; echo "---"; ls ~/.claude/agents/ | wc -l; ls ~/.claude/commands/ 2>/dev/null | grep -i orchestr`
+- (1x) `ls ~/.claude/agents/ 2>/dev/null | grep -i youtube; head -12 ~/.claude/agents/youtube-team-dispatcher.md 2>/dev/null; ls ~/.claude/agents/ | wc -l`
+- (1x) `ls /home/turbo/jarvis/docs/superpowers/plans/ 2>/dev/null | tail -3; ls /home/turbo/jarvis/.claude/skills/ | grep -iE 'short|mirra' ; grep -m1 -A3 'Usage\|usage\|## Run' /home/turbo/jarvis/.claude/skills/run-jarvis-short/SKILL.md 2>/dev/null | head -6; ls /home/turbo/jarvis-core/integrations/mirra-local/ 2>/dev/null | head -8; ls /home/turbo/IA/Core/jarvis 2>/dev/null | grep -i mirra`
+- (1x) `ls /home/turbo/jarvis/bin/ | grep -iE 'lms|lm-|watchdog|probe|wait' ; echo "---"; ls /home/turbo/jarvis/.claude/skills/run-jarvis-lms-watchdog/ 2>/dev/null`
+- (1x) `ls /home/turbo/jarvis/bin/ | grep -iE 'demo|scene|widget-video|tts|capture|record' ; echo "=== skills video ==="; ls /home/turbo/.claude/skills/ 2>/dev/null | grep -iE 'video|short|youtube|reel|tiktok|media'; echo "=== mirra video ==="; ls /home/turbo/jarvis/bin/ | wc -l; grep -rl 'ffmpeg' /home/turbo/jarvis/bin/ 2>/dev/null | head -20`
+- (1x) `ls /home/turbo/jarvis/.claude/skills/run-planning-autogen/ 2>/dev/null | head; echo "---cascade---"; ls /home/turbo/jarvis/.claude/skills/cascade-massive/ 2>/dev/null | head -4`
+- (1x) `ls /home/turbo/jarvis/.claude/skills/run-m6-tampon/ 2>/dev/null; echo "--- convention driver (extrait) ---"; head -25 /home/turbo/jarvis/.claude/skills/run-m6-tampon/driver.sh 2>/dev/null`
+- (1x) `ls /home/turbo/jarvis/.claude/skills/run-jarvis-audit/ 2>/dev/null && grep -m1 '^description:' /home/turbo/jarvis/.claude/skills/run-jarvis-audit/SKILL.md 2>/dev/null`
+- (1x) `ls /home/turbo/jarvis/.claude/skills/ | head -40; echo "---"; cat /home/turbo/jarvis/.claude/skills/run-jarvis-autochain/SKILL.md 2>/dev/null | head -40`
+- (1x) `ls /home/turbo/jarvis/.claude/skills/ 2>/dev/null | grep -iE "qc|publi|mirra|carousel"; echo "---AGENTS---"; ls /home/turbo/.claude/agents/ 2>/dev/null | grep -iE "qc|publi|mirra"; echo "---MIRRA SCRIPTS---"; find /home/turbo/jarvis -maxdepth 3 \( -iname "*mirra*" -o -iname "*carousel*" -o -iname "*caption*" \) 2>/dev/null | head -30`
+- (1x) `ls /home/turbo/.claude/skills/run-cluster-audit/; echo "=== cibles déclarées ==="; grep -oE '192\.168\.[0-9]+\.[0-9]+|100\.[0-9]+\.[0-9]+\.[0-9]+|M[0-9]|remjarvis|jarvis-dva' /home/turbo/.claude/skills/run-cluster-audit/*.md /home/turbo/.claude/skills/run-cluster-audit/* 2>/dev/null | sort -u | head -12`
+- (1x) `ls /home/turbo/.claude/skills/cli_skill_youtube/driver.sh 2>/dev/null && echo EXISTE || echo ABSENT`
+- (1x) `ls /home/turbo/.claude/skills/ 2>/dev/null | head -30; echo "---"; head -12 /home/turbo/.claude/skills/*/SKILL.md 2>/dev/null | head -60`
+- (1x) `ls /home/turbo/.claude/settings.json 2>/dev/null && grep -oE '"(toolSearch|deferred|maxMcpTools|mcpToolSearch)[^,]*' /home/turbo/.claude/settings.json 2>/dev/null | head -20; echo "---"; grep -rl "ToolSearch\|deferred tool" /home/turbo/.claude/ 2>/dev/null | head -5`
+- (1x) `ls /home/turbo/.claude/projects/-home-turbo-jarvis/memory/ | wc -l; ls /home/turbo/.claude/projects/-home-turbo-jarvis/memory/feedback_*.md | wc -l; ls /home/turbo/.claude/projects/-home-turbo-jarvis/memory/project_*.md | wc -l; ls /home/turbo/.claude/projects/-home-turbo-jarvis/memory/reference_*.md | wc -l`
+- (1x) `ls /home/turbo/.claude/projects/ | head -30; echo "--- nb projets:"; ls /home/turbo/.claude/projects/ | wc -l; echo "--- nb jsonl:"; find /home/turbo/.claude/projects/ -name '*.jsonl' | wc -l; echo "--- taille:"; du -sh /home/turbo/.claude/projects/`
+- (1x) `ls /home/turbo/.claude/plugins/local/skillsmp/skills/ | wc -l; ls /home/turbo/.claude/plugins/local/skillsmp/skills/`
+- (1x) `ls /home/turbo/.claude/plugins/local/jarvis-os/skills/cascade-deploy/ 2>/dev/null; find /home/turbo/.claude/plugins/local/jarvis-os/skills/cascade-deploy -name "*.sh" 2>/dev/null | head -3; echo "---"; ls -d /home/turbo/Workspaces 2>/dev/null || echo "/home/turbo/Workspaces ABSENT"`
+- (1x) `ls /home/turbo/.claude/agents/*.md 2>/dev/null | wc -l; echo "---plugins---"; ls /home/turbo/.claude/plugins/*/agents/*.md 2>/dev/null | wc -l; echo "---plugins deep---"; find /home/turbo/.claude/plugins -path '*/agents/*.md' 2>/dev/null | wc -l`
+- (1x) `ls .claude/skills/ 2>/dev/null | head -60; echo "--- content-perf ---"; ls -la bin/ 2>/dev/null | grep -i -E "content|perf" ; echo "--- git ---"; git log --oneline -1 --name-only`
+- (1x) `ls -la ~/prompts/AGENT_ARCHITECTE_JARVIS.md 2>/dev/null ; wc -l ~/prompts/AGENT_ARCHITECTE_JARVIS.md 2>/dev/null ; echo "=== sections ===" ; grep -E '^#{1,3} ' ~/prompts/AGENT_ARCHITECTE_JARVIS.md 2>/dev/null | head -40 ; echo "=== skill ===" ; cat ~/.claude/skills/architecte-jarvis/SKILL.md 2>/dev/null | head -30`
+- (1x) `ls -la ~/jarvis/audit/ 2>/dev/null | head -30; echo "--- scripts ---"; ls -la ~/jarvis/scripts/jarvis-audit.sh ~/jarvis/scripts/deepresearch_audit.py 2>/dev/null; echo "--- config ---"; find ~/jarvis ~/.claude/skills -maxdepth 3 -iname "AUDIT_CONFIG*" 2>/dev/null; echo "--- skill audit-mode ---"; ls -la ~/.claude/skills/audit-mode/ 2>/dev/null; ls -la ~/.claude/skills/run-jarvis-audit/ 2>/dev/null`
+- (1x) `ls -la ~/.notebooklm* ~/.config/notebooklm* 2>/dev/null | head -20 ; find /home/turbo -maxdepth 4 -iname '*notebooklm*' -not -path '*/node_modules/*' 2>/dev/null | head -20 ; echo "--- bridge ---" ; grep -rl "notebooklm" /home/turbo/.claude/*.json /home/turbo/.claude.json 2>/dev/null | head -3`
+- (1x) `ls -la /home/turbo/passcerfa-app/.claude/skills/run-passcerfa-app/ 2>&1 | head`
+- (1x) `ls -la /home/turbo/jarvis/scripts/ 2>/dev/null | grep -i "backup\|sauveg\|snapshot\|mirror\|sync" ; echo "=== FIND ==="; find /home/turbo/jarvis /home/turbo/jarvis-linux /home/turbo/Workspaces/jarvis-linux /home/turbo/.claude/skills -maxdepth 4 -iname "*backup*" -not -path "*/node_modules/*" -not -path "*/.git/*" 2>/dev/null | head -60`
+- (1x) `ls -la /home/turbo/jarvis/data/notebooklm/ 2>/dev/null | head -20 ; echo "=== library json ===" ; find /home/turbo/.local/share/notebooklm-mcp /home/turbo/.config/notebooklm-mcp -type f 2>/dev/null | head -10 ; echo "=== valise ===" ; ls /home/turbo/jarvis/.valises/jv-dg-notebooklm 2>/dev/null | head`
+- (1x) `ls -la /home/turbo/jarvis/.claude/skills/run-jarvis-lms-watchdog/ 2>/dev/null; echo "---driver---"; head -80 /home/turbo/jarvis/.claude/skills/run-jarvis-lms-watchdog/driver.py 2>/dev/null`
+- (1x) `ls -la /home/turbo/jarvis/.claude/skills/run-jarvis-cascade-ingest/ 2>&1; echo "---FIND---"; find /home/turbo -name "*cascade*ingest*" -not -path "*/node_modules/*" 2>/dev/null | head -30`
+- (1x) `ls -la /home/turbo/.mcp.json /home/turbo/.claude.json /home/turbo/.claude/settings.json 2>&1; echo "---SIZES---"; wc -c /home/turbo/.mcp.json /home/turbo/.claude/settings.json 2>&1`
+- (1x) `ls -la /home/turbo/.claude/skills/run-cluster-audit/ 2>/dev/null; echo "---SKILLMD---"; cat /home/turbo/.claude/skills/run-cluster-audit/SKILL.md 2>/dev/null | head -60`
+- (1x) `ls -la /home/turbo/.claude/skills/cli_skill_audit/ 2>/dev/null; echo "--- autres emplacements ---"; find /home/turbo/.claude/skills/cli_skill_audit /home/turbo/jarvis-linux/.claude/skills/cli_skill_audit /home/turbo/jarvis/.claude/skills/cli_skill_audit -name "driver.sh" 2>/dev/null`
+- (1x) `ls -la /home/turbo/.claude/skills/cli_skill_audit/ 2>&1 | head`
+- (1x) `ls -d /home/turbo/passcerfa-app 2>&1; ls /home/turbo/passcerfa-app/.claude/skills/ 2>&1 | head; echo "--- fence lang deepsearch"; sed -n '48,58p' /home/turbo/jarvis/.claude/skills/run-jarvis-deepsearch/SKILL.md`
+- (1x) `ls -d /home/turbo/.local/lib/node_modules/supergateway/dist/index.js 2>&1; docker service inspect jarvis_prod_antigravity-mcp --format '{{json .Spec.TaskTemplate.ContainerSpec.Hosts}}'; docker service ps jarvis_prod_antigravity-mcp --format '{{.CurrentState}}' | head -2`
+- (1x) `ls -d /home/turbo/.claude/skills/*/ 2>/dev/null | wc -l; ls -d /home/turbo/jarvis/.claude/skills/*/ 2>/dev/null | wc -l; echo "--- noms locaux (extrait) ---"; ls /home/turbo/.claude/skills/ 2>/dev/null | head -5; echo "--- total SKILL.md locaux ---"; find /home/turbo/.claude/skills /home/turbo/jarvis/.claude/skills -name 'SKILL.md' 2>/dev/null | wc -l`
+- (1x) `ls -d /home/turbo/.cache/claude-cli-nodejs/*/ 2>/dev/null | head; echo "---"; find /home/turbo/.cache/claude-cli-nodejs -maxdepth 2 -name 'mcp-logs-*' -type d 2>/dev/null | head -60`
+- (1x) `ls -R ~/.claude/skills/skillmp/ 2>/dev/null | head -20; echo "=== bin skillmp ==="; which skillmp 2>/dev/null; ls ~/jarvis/bin/ 2>/dev/null | grep -i skill; echo "=== base skillsmp ? ==="; find ~/jarvis ~/labo -maxdepth 3 -iname "*skillsmp*" -o -maxdepth 3 -iname "*skillmp*" 2>/dev/null | head -10`
+- (1x) `ls -1 ~/jarvis/.claude/skills/run-jarvis-sql-backup/ 2>/dev/null; echo "---"; ls ~/jarvis/scripts/*backup*.sh ~/jarvis/bin/*backup* 2>/dev/null | head -8`
+- (1x) `ls -1 /home/turbo/.claude/agents/*.md | xargs -n1 basename | sed -n '100,130p'; echo "=== agents omega fichiers ==="; ls -1 /home/turbo/.claude/agents/ | grep -i omega; echo "=== agents cowork fichiers ==="; ls -1 /home/turbo/.claude/agents/ | grep -i cowork`
+- (1x) `ls -1 /home/turbo/.claude/agents/*.md 2>/dev/null | xargs -n1 basename | tail -55; echo "=== PROJET jarvis ==="; ls -1 /home/turbo/jarvis/.claude/agents/*.md 2>/dev/null | xargs -n1 basename`
+- (1x) `ls -1 /home/turbo/.claude/agents/*.md 2>/dev/null | wc -l; echo "--"; ls -1 /home/turbo/.claude/agents/ 2>/dev/null | head -100; echo "===PROJET==="; ls -1 /home/turbo/jarvis/.claude/agents/ 2>/dev/null | head -100`
+- (1x) `kill 44879 79642 1937253; sleep 2; pgrep -af 'web_api/mcp_server' || echo "aucun processus — tués"`
+- (1x) `jq -r '.mcpServers | to_entries[] | select(.key|test("jarvis-m1|jarvis-m2|jarvis-ol1|jarvis-linux-ol1")) | "\(.key)\t\(.value.env // {} | tostring)"' /home/turbo/.mcp.json`
+- (1x) `jq '.hooks.UserPromptSubmit' ~/.claude/settings.json`
+- (1x) `head -60 /home/turbo/.claude/agents/qc-publication-agent.md; echo "===== MIRRA-LOCAL DIR ====="; ls -la /home/turbo/jarvis/mirra-local/ | head -30`
+- (1x) `head -40 /home/turbo/.claude/skills/run-cluster-audit/driver.sh | grep -E '^#|usage|NODES|MACHINES' | head -15; grep -n -E '^(NODES|MACHINES|HOSTS)=' /home/turbo/.claude/skills/run-cluster-audit/driver.sh | head -3`
+- (1x) `head -30 /home/turbo/.claude/hooks/biblio-sql-route.sh`
+- (1x) `head -20 /home/turbo/jarvis/bin/jarvis-media; echo "=== skill demo-video ==="; ls /home/turbo/.claude/skills/run-jarvis-demo-video/; head -15 /home/turbo/.claude/skills/run-jarvis-demo-video/SKILL.md 2>/dev/null; echo "=== cli_skill_youtube ==="; ls /home/turbo/.claude/skills/cli_skill_youtube/`
+- (1x) `head -16 /home/turbo/.gemini/skills/thesis-figure-skill/SKILL.md; echo '@@@@@@'; head -16 /home/turbo/jarvis-cowork/skills/e1/SKILL.md`
+- (1x) `head -12 /home/turbo/.claude/plugins/local/jarvis-os/agents/jarvis-web-pilot.md; echo '...'; grep -c '' /home/turbo/.claude/plugins/local/jarvis-os/agents/jarvis-web-pilot.md`
+- (1x) `grep -rn -e '/home/turbo/jarvis-linux/scripts/' -e 'Workspaces/jarvis-linux/scripts/' -e 'jarvis-linux-repo' -e 'jarvis-linux/infra/scripts/tools/jarvis-boot' /home/turbo/.claude/skills /home/turbo/.claude/plugins /home/turbo/.claude/agents /home/turbo/.claude/commands 2>/dev/null | head -200`
+- (1x) `grep -rn 'ventilo\|fan\|GPU2\|gpu2' /home/turbo/.claude/projects/-home-turbo/memory/feedback_gpu2_ventilo_mort_ne_pas_activer.md 2>&1 | head -20`
+- (1x) `grep -rn 'infra/scripts/tools/jarvis-boot-sequencer.sh' /home/turbo/.claude/plugins/local/jarvis-os/skills/boot-sequencer/SKILL.md 2>/dev/null | head; echo "---"; grep -n 'scripts/jarvis-boot-sequencer.sh' /home/turbo/.claude/plugins/local/jarvis-os/skills/boot-sequencer/SKILL.md 2>/dev/null`
+- (1x) `grep -rn "mnt/backup-os\|backup-os" /home/turbo/jarvis/scripts /home/turbo/jarvis/bin /home/turbo/.claude/skills /etc/systemd/system /home/turbo/.config/systemd 2>/dev/null | head -30 ; echo "=== storage dir ==="; ls -la /mnt/jarvis-data/storage 2>&1 | head -20 ; echo "=== boot-repair dir ==="; ls -lat /home/turbo/jarvis/backups/boot-repair-20260806/ 2>&1 | head -20`
+- (1x) `grep -rln "notify-send" ~/jarvis/scripts ~/jarvis/bin ~/jarvis-linux/scripts ~/.claude/hooks 2>/dev/null | head -30`
+- (1x) `grep -rhoE '([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}' /home/turbo/.claude/skills /var/lib/misc/dnsmasq.leases /var/lib/dhcp/*.leases /var/lib/NetworkManager 2>/dev/null | sort -u | head; echo ---; grep -riE 'wakeonlan|etherwake|magic' /home/turbo/jarvis/scripts/*.sh 2>/dev/null | head -20; echo ---; ls /home/turbo/.claude/skills 2>/dev/null | grep -i wol`
+- (1x) `grep -rEoh 'mcp__github-mcp-server__[a-z_]+' /home/turbo/.claude.json /home/turbo/.claude/settings*.json 2>/dev/null | sort -u | wc -l; echo "---repo tool registration count---"; timeout 60 bash -c 'gh api -X GET search/code -f q="repo:github/github-mcp-server toolsets" --jq ".total_count"' 2>/dev/null || echo "gh search unavailable"`
+- (1x) `grep -q 'feedback_board_biblio' ~/.claude/projects/-home-turbo/memory/MEMORY.md || sed -i '/^## Feedback \/ règles/a - [feedback_board_biblio_systematique.md](feedback_board_biblio_systematique.md) — TOUT passe par le board + bibliothèque vivante avant de calculer' ~/.claude/projects/-home-turbo/memory/MEMORY.md; echo idx-ok`
+- (1x) `grep -oE '\-\-(no-mirror|dry-run|sqlite-only|postgres-only|list|restore|help)' .claude/skills/run-jarvis-sql-backup/driver.sh | sort -u | tr '\n' ' '`
+- (1x) `grep -oE "port [0-9]{4}|:[0-9]{4}\b|http.server [0-9]+" /home/turbo/jarvis-delmas-site/.claude/skills/run-jarvis-delmas-site/SKILL.md 2>/dev/null | sort -u | head -5 ; echo "--- alkymia ---" ; grep -oE "port \*?\*?[0-9]{4}|http.server [0-9]+" /home/turbo/alkymia-site/.claude/skills/run-jarvis-delmas-site/SKILL.md 2>/dev/null | sort -u | head -3`
+- (1x) `grep -oE "(python3|bash) [~/][^ ]*\.(py|sh)[^|]*" /home/turbo/jarvis/.claude/skills/run-planning-autogen/SKILL.md 2>/dev/null | head -5`
+- (1x) `grep -o '"[^"]*100\.124\.108\.88[^"]*"' ~/.openclaw/agents/jarvis-auto-scaler/agent/models.json | head -3; echo "=== endpoint réel des 180 agents ==="; python3 -c " ; import json ; d=json.load(open('/home/turbo/.openclaw/openclaw.json')) ; s=json.dumps(d) ; import re ; for m in sorted(set(re.findall(r'https?://[0-9a-zA-Z\.\-]+:\d+', s))): print(' ', m) ; " 2>/dev/null | head -8`
+- (1x) `grep -nE 'repo_dir=' ~/jarvis/.claude/skills/run-jarvis-sql-backup/driver.sh | head -2; RD=$(grep -oE 'repo_dir="[^"]*"' ~/jarvis/.claude/skills/run-jarvis-sql-backup/driver.sh | head -1 | cut -d'"' -f2); echo "repo_dir brut: $RD"; ls -d ~/jarvis/backups/*repo* ~/backups/*repo* /mnt/jarvis-data/backups/*repo* 2>/dev/null | head -3`
+- (1x) `grep -nE 'SONDE|sonde|script|\.py|\.sh|chemin' ~/.claude/agents/box-docsis-operator.md | head -8; echo "==="; docker ps --format '{{.Names}}\t{{.Ports}}' | grep -iE 'browseros|9108'`
+- (1x) `grep -nE "screenshot|smoke|driver|capture" ~/jarvis/.claude/skills/run-jarvis-planning-widget/SKILL.md | head -8; ls ~/jarvis/.claude/skills/run-jarvis-planning-widget/`
+- (1x) `grep -nE "^#|usage|Usage|case |\)$" ~/.claude/skills/run-jarvis-sql-backup/driver.sh 2>/dev/null | head -25`
+- (1x) `grep -nE "PG_CONTAINER|grep -i postgres|docker ps" .claude/skills/run-jarvis-sql-backup/driver.sh | head -8`
+- (1x) `grep -nE "GPU_TEMP|8[0-9]|9[0-9]|-ge|threshold|SEUIL" /home/turbo/.claude/hooks/jarvis-auto-trigger-check.sh 2>/dev/null | grep -iE "gpu|temp|8[0-9]|9[0-9]" | head -10`
+- (1x) `grep -nE "ERRORS=|ERRORS\+|expected|GPU_EXPECTED|-lt|-ge" /home/turbo/.claude/plugins/local/jarvis-os/skills/cascade-deploy/scripts/deploy-cascade.sh | head -14`
+- (1x) `grep -nE "BACKUP_DIR|REPO|cd " ~/jarvis/.claude/skills/run-jarvis-sql-backup/driver.sh | head -8`
+- (1x) `grep -n 'incident_health_checker_masked_services_loop' /home/turbo/.claude/projects/-home-turbo/memory/MEMORY.md`
+- (1x) `grep -n 'anydesk\|AnyDesk' /home/turbo/.claude/projects/-home-turbo/memory/reference_node_rem_linux.md`
+- (1x) `grep -n 'TESTS' ../.claude/skills/run-board/driver.sh`
+- (1x) `grep -n 'LOG_FILE=' /home/turbo/.claude/plugins/local/jarvis-os/skills/cascade-deploy/scripts/deploy-cascade.sh | head -2`
+- (1x) `grep -n '"model"' /home/turbo/.claude/settings.json /home/turbo/.claude/settings.local.json /home/turbo/.claude/projects/-home-turbo/settings.json 2>/dev/null`
+- (1x) `grep -n "check_whitelist_compliance" ~/.claude/skills/resubmit-pipeline/SKILL.md | head -5`
+- (1x) `grep -n "PG_CONTAINER\|postgres" .claude/skills/run-jarvis-sql-backup/driver.sh | head -25`
+- (1x) `grep -n "8899\|planning-widget" /home/turbo/jarvis/.claude/skills/run-jarvis-autoheal/jarvis_autoheal.sh 2>/dev/null | head -30`
+- (1x) `grep -iE "occupation|creator|docs|section" ~/.claude/skills/run-skillsmp/SKILL.md 2>/dev/null | head -6 || echo "(skill absent du disque ou sans mention des sections)"`
+- (1x) `grep -c 'skillsmp-route' /home/turbo/.claude/settings.json || echo "0 occurrence — faux positif de ma détection"`
+- (1x) `grep -Hm1 '^description:' ~/.claude/skills/run-anydesk-mesh/SKILL.md ~/.claude/skills/run-m6-share/SKILL.md 2>/dev/null; echo "=== rem existant? ==="; ls -d ~/.claude/skills/*rem* ~/.claude/skills/*anydesk* 2>/dev/null; echo "=== structure m6-share ==="; ls -la ~/.claude/skills/run-m6-share/`
+- (1x) `grep -Hm1 '^description:' /home/turbo/.claude/skills/*/SKILL.md 2>/dev/null | grep -iE 'cluster|biblio|sync|noeud|nœud' | head -6; echo "=== skills cluster/biblio existants ==="; ls -d /home/turbo/.claude/skills/*cluster* /home/turbo/.claude/skills/*biblio* /home/turbo/jarvis/.claude/skills/*cluster* /home/turbo/jarvis/.claude/skills/*biblio* 2>/dev/null`
+- (1x) `grep -E '([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}|192\.168\.1\.(26|113)' /home/turbo/jarvis/.claude/skills/run-anydesk-mesh/mesh-registry.txt /home/turbo/jarvis/.claude/skills/run-anydesk-mesh/anydesk_mesh.sh /home/turbo/jarvis/.claude/skills/run-jarvis-launchers/jarvis_launchers.sh 2>/dev/null | head -40`
+- (1x) `grep -A30 -i 'wol\|wake' /home/turbo/.claude/skills/wol-cluster-recovery-via-rdp/SKILL.md 2>/dev/null | head -50`
+- (1x) `git status -sb | head -3 && git log --oneline -3; echo "=== HOOK QA ==="; bash /home/turbo/.claude/hooks/qa/hook-qa-demarrage.sh 2>&1 | tail -5`
+- (1x) `git status --porcelain -- cli/ tests/ .claude/agents/ docs/superpowers/ 2>&1`
+- (1x) `gh api "repos/0juano/agent-skills/contents/yahoo-finance" --jq '.[] | "\(.type)\t\(.size)\t\(.name)"' 2>&1 | head -8`
+- (1x) `for s in run-planning-autogen jarvis-planning run-jarvis-cli run-jarvis-dominos run-jarvis-planning-widget jarvis-dominos; do f=$(find ~/.claude -path "*$s/SKILL.md" 2>/dev/null | grep -v _deleted | head -1); echo "=== $s -> $f ==="; head -30 "$f" 2>/dev/null; echo; done`
+- (1x) `for s in run-planning-autogen jarvis-planning run-jarvis-cli run-jarvis-dominos jarvis-dominos run-jarvis-planning-widget; do f=$(find ~/.claude -name SKILL.md -path "*$s*" 2>/dev/null | grep -v _deleted | head -1); echo "$s -> $f"; done`
+- (1x) `for s in run-planning-autogen jarvis-planning jarvis-dominos run-jarvis-dominos run-jarvis-planning-widget run-jarvis-cli; do echo "========== $s =========="; sed -n '1,45p' /home/turbo/jarvis/.claude/skills/$s/SKILL.md; echo; done`
+- (1x) `for s in run-jarvis-sql-backup run-backup-control run-jarvis-n8n-backup run-jarvis-backup-multi-db; do echo "############ $s"; head -60 /home/turbo/.claude/skills/$s/SKILL.md 2>&1; done`
+- (1x) `for s in run-biblio-filler run-jarvis-demo-video run-jarvis-planning-widget; do printf "%-28s " "$s"; grep -m1 '^description:' ~/jarvis/.claude/skills/$s/SKILL.md 2>/dev/null | cut -c14-100 || echo "PAS DE LIGNE description:"; done`
+- (1x) `for f in explorer backend security tester reviewer; do python3 -c " ; import re ; t=open('/home/turbo/.claude/agents/$f.md').read() ; m=re.match(r'^---\n(.*?)\n---',t,re.S) ; assert m, 'frontmatter absent' ; fm=m.group(1) ; for k in ('name:','description:','tools:','model:','effort:'): ;     assert k in fm, f'clé manquante: {k}' ; print('$f: OK')"; done; mkdir -p ~/.claude/reports && echo "reports/ prêt"`
+- (1x) `for f in /home/turbo/.claude.json /home/turbo/.claude/.mcp.json /home/turbo/jarvis/.mcp.json /home/turbo/.config/Claude/claude_desktop_config.json /home/turbo/.claude/settings.json /home/turbo/.claude/settings.local.json /home/turbo/jarvis/.claude/settings.local.json; do if [ -f "$f" ]; then echo "=== $f ($(stat -c%s "$f") o) ==="; fi; done`
+- (1x) `for f in $(find ~/.claude/plugins/local/jarvis-os/skills -name SKILL.md 2>/dev/null | head -3); do echo "=== $f"; awk '/^---$/{n++; next} n==1{print} n==2{exit}' "$f"; done; echo "=== ANTHROPIC-AUTHORED (superpowers/artifact-design etc)"; find ~/.claude -path "*artifact-design*" -name "SKILL.md" -o -path "*dataviz*" -name "SKILL.md" 2>/dev/null | head`
+- (1x) `for d in ~/.claude/skills ~/jarvis/.claude/skills ~/.openclaw/skills; do echo "=== $d"; ls -1 "$d" 2>/dev/null | wc -l; done`
+- (1x) `for d in jarvis-delmas-site alkymia-site jarvis-delmas-tunnel jarvis-website-from-m5; do ;   s=$(ls -d /home/turbo/$d/.claude/skills/*/ 2>/dev/null | head -1) ;   [ -n "$s" ] && { echo "##### $d → $(basename $s)"; grep -nE "http.server|serve|npx|python3 -m" "$s/SKILL.md" 2>/dev/null | head -2; } ; done`
+- (1x) `for d in jarvis jarvis-zero-token jarvis-cowork jarvis-machines-private alkymia; do ;   p=/home/turbo/$d ;   echo "### $d" ;   ls $p/.claude/skills/ 2>/dev/null | head -6 | tr '\n' ' '; echo ; done ; echo "=== cowork.py ? ==="; ls -la /home/turbo/jarvis-cowork/cowork.py 2>&1 | head -2 ; echo "=== ag ? ==="; file /home/turbo/jarvis-zero-token/ag 2>/dev/null; ls /home/turbo/jarvis-zero-token/ag 2>/dev/null`
+- (1x) `for d in AutoAgent alkymia jarvis-linux passcerfa-app github-social-automation; do echo "== $d =="; ls /home/turbo/$d/.claude/skills/ 2>/dev/null || echo "(pas de skills)"; done; echo '--- AutoAgent contenu ---'; ls /home/turbo/AutoAgent | head -15; head -30 /home/turbo/AutoAgent/README.md 2>/dev/null`
+- (1x) `for D in run-jarvis-sql-backup run-jarvis-n8n-backup; do ;   echo "═══ $D ═══" ;   grep -oE '^\s+(backup|run|smoke|push|mirror|status|restore|verify|all)[a-z-]*\)' ~/.claude/skills/$D/driver.sh 2>/dev/null | tr -d ' )' | sort -u | tr '\n' ' ' ;   echo; grep -m1 -A3 "Usage\|usage()" ~/.claude/skills/$D/driver.sh 2>/dev/null | head -4 ; done`
+- (1x) `find /home/turbo/jarvis/.claude/skills -maxdepth 2 -name "SKILL.md" | head -3 | while read f; do echo "--- $f ---"; head -15 "$f"; echo; done`
+- (1x) `find /home/turbo/jarvis/.claude -iname '*content*perf*' 2>/dev/null; echo "--- agent ---"; ls -la /home/turbo/jarvis/.claude/agents/content-perf-harvester.md 2>&1; echo "--- refs code ---"; grep -rn "content_perf\|content-perf" /home/turbo/jarvis --include=*.md --include=*.sh --include=*.py --include=*.json -l --exclude-dir=data --exclude-dir=.git --exclude-dir=__pycache__ 2>/dev/null | head -20`
+- (1x) `find /home/turbo/jarvis -maxdepth 3 -name '.mcp.json' -not -path '*/node_modules/*' 2>/dev/null; echo "---autres---"; ls -la /home/turbo/.mcp.json 2>/dev/null`
+- (1x) `find /home/turbo -maxdepth 6 -path '*skills/cascade-massive*' -o -maxdepth 6 -name 'cascade-massive*' -not -path '*/data/*' 2>/dev/null | head ; echo "--- contenu si présent ---" ; ls -la ~/.claude/skills/cascade-massive/ /home/turbo/jarvis/.claude/skills/cascade-massive/ 2>/dev/null`
+- (1x) `find / -name SKILL.md \( -path "*run-planning-autogen*" -o -path "*jarvis-planning*" -o -path "*run-jarvis-cli*" -o -path "*/jarvis-dominos/*" -o -path "*run-jarvis-dominos*" -o -path "*run-jarvis-planning-widget*" \) 2>/dev/null | grep -v _deleted | head -20`
+- (1x) `export DISPLAY=:0 ; echo "=== CLIPBOARD actuel ==="; timeout 3 xclip -o -selection clipboard 2>/dev/null | head -4; echo "---"; timeout 3 xclip -o -selection primary 2>/dev/null | head -4 ; echo; echo "=== prompt-dedupe.sh (pourquoi il n'a pas bloqué) ==="; cat /home/turbo/.claude/hooks/prompt-dedupe.sh 2>/dev/null | head -30`
+- (1x) `exec bash .claude/skills/run-jarvis-sql-backup/driver.sh 2>&1`
+- (1x) `echo "fichiers réels (md/txt) sous prompts/prompts :"; find /home/turbo/prompts/prompts -maxdepth 3 -type f \( -name '*.md' -o -name '*.txt' \) 2>/dev/null | wc -l ; echo "index JSON annonce : 694 (généré 2026-07-08)" ; echo "--- plugin portant gpu-ops ---"; ls -d /home/turbo/.claude/plugins/local/*/skills/gpu-ops 2>/dev/null`
+- (1x) `echo "===SKILLS==="; ls -la ~/.claude/skills/ 2>/dev/null | grep -iE "planning|domino|todo|audit|biblio|cascade|autogen"; echo "===DOMINOS==="; ls -la /home/turbo/jarvis/dominos-compiled/dominos/ 2>/dev/null; ls -la /home/turbo/jarvis/bin/dominos 2>/dev/null`
+- (1x) `echo "=== état notifications GNOME AVANT ===" ; gsettings get org.gnome.desktop.notifications show-banners ; gsettings get org.gnome.desktop.notifications show-in-lock-screen ; echo "=== apps les plus bavardes (notify-send récents) ===" ; ps aux | grep -c "[n]otify-send"  ; grep -rIl "notify-send" ~/jarvis/bin ~/jarvis/scripts ~/.claude/hooks 2>/dev/null | head -8 | sed 's|/home/turbo|~|'`
+- (1x) `echo "=== volumes candidats ===" ; du -sh ~/.claude/projects/ ~/.claude/history/ ~/.claude/todos/ 2>/dev/null ; du -sh ~/.claude/projects/*/ 2>/dev/null | sort -rh | head -8 ; echo "=== fichiers > 100M ===" ; find ~/.claude ~/jarvis -maxdepth 4 -type f -size +100M 2>/dev/null | head -10 ; echo "=== nb sessions jsonl ===" ; find ~/.claude/projects -name "*.jsonl" 2>/dev/null | wc -l`
+- (1x) `echo "=== tests existants ==="; ls -1 test_*.py 2>/dev/null; echo; echo "=== ce que le smoke execute ==="; grep -n "test_\|unittest\|python3 -m" ../.claude/skills/run-board/driver.sh | head -8`
+- (1x) `echo "=== telegram alerter ===" ; cat /home/turbo/Bureau/workflow-gestion/integrations/telegram/alerter.py ; echo "=== redaction generator ===" ; cat /home/turbo/Bureau/workflow-gestion/core/redaction/generator.py ; echo "=== m3_validateur agent ===" ; cat /home/turbo/Bureau/workflow-gestion/agents/m3_validateur/agent.py`
+- (1x) `echo "=== plugins cache ==="; ls -1d /home/turbo/.claude/plugins/cache/*/*/ 2>/dev/null | sed 's|/home/turbo/.claude/plugins/cache/||' ; echo "=== total plugins declares ==="; python3 -c "import json;d=json.load(open('/home/turbo/.claude/plugins/installed_plugins.json'));print(len(d['plugins']));print('\n'.join(sorted(d['plugins'])))"`
+- (1x) `echo "=== installed_plugins.json ==="; cat /home/turbo/.claude/plugins/installed_plugins.json 2>/dev/null | head -80 ; echo; echo "=== marketplaces ==="; ls -1 /home/turbo/.claude/plugins/marketplaces/ 2>/dev/null ; echo "=== local ==="; ls -1 /home/turbo/.claude/plugins/local/ 2>/dev/null`
+- (1x) `echo "=== infra browse (\$B) presente ? ==="; ls ~/.claude/skills/gstack/browse/src/browse-client.ts 2>/dev/null && echo "  SDK present" || echo "  SDK ABSENT"; ls ~/.claude/skills/gstack/bin/ 2>/dev/null | head -3 || echo "  bin gstack absent"; echo; echo "=== variantes skillify au catalogue ==="; timeout 90 python3 ~/jarvis/bin/skillmp.py search "skillify" -n 6 2>&1 | tail -8`
+- (1x) `echo "=== gstack installe ? ==="; ls -d ~/.claude/skills/gstack 2>/dev/null && ls ~/.claude/skills/gstack | head -8 || echo "  REPERTOIRE gstack ABSENT"; echo; echo "=== le binaire browse existe-t-il ailleurs ? ==="; command -v gstack browse 2>/dev/null; find ~/.claude/skills -maxdepth 3 -name "browse-client.ts" 2>/dev/null | head -2 || true; echo "(fin)"`
+- (1x) `echo "=== driver skill sql-backup (entete) ==="; head -30 ~/jarvis/.claude/skills/run-jarvis-sql-backup/driver.sh 2>/dev/null ; echo; echo "=== actions du driver ==="; grep -nE "git push|gh repo|scp |rm -|DEST=|REPO=" ~/jarvis/.claude/skills/run-jarvis-sql-backup/driver.sh 2>/dev/null | head -12`
+- (1x) `echo "=== dossiers skillsmp ==="; find ~ -maxdepth 4 -iname "*skillsmp*" -o -maxdepth 4 -iname "*skillmp*" 2>/dev/null | grep -v "\.git/" | head -30 ; echo "=== skill skillmp ==="; ls -la ~/.claude/skills/skillmp/ 2>/dev/null ; echo "=== data ==="; ls -la ~/labo/skillsmp/ ~/skillsmp/ 2>/dev/null | head -40`
+- (1x) `echo "=== crash-loop domino-mcp ==="; docker service ls 2>&1 | head -20; echo "--- logs domino-mcp ---"; docker logs --tail 8 jarvis_prod_domino-mcp.1.p837fjhjzxosbg0gt2310hhnh 2>&1 | head -15; echo "--- logs telegram ---"; docker logs --tail 8 jarvis_prod_jarvis-telegram.1.p3ov34rb0fpcolpade52mk9j0 2>&1 | head -15`
+- (1x) `echo "=== canon ==="; head -5 /home/turbo/.claude/agents/omega-voice-agent.md ; echo "=== plugin ==="; head -5 /home/turbo/.claude/plugins/local/jarvis-os/agents/omega-voice-agent.md ; echo "=== diff ==="; diff <(head -8 /home/turbo/.claude/agents/omega-voice-agent.md) <(head -8 /home/turbo/.claude/plugins/local/jarvis-os/agents/omega-voice-agent.md)`
+- (1x) `echo "=== USER SKILLS ==="; ls -1 /home/turbo/.claude/skills/ 2>/dev/null | wc -l; ls -1 /home/turbo/.claude/skills/ 2>/dev/null ; echo "=== PROJ SKILLS ==="; ls -1 /home/turbo/jarvis/.claude/skills/ 2>/dev/null | wc -l; ls -1 /home/turbo/jarvis/.claude/skills/ 2>/dev/null`
+- (1x) `echo "=== PLUGINS DIR ==="; ls -1 /home/turbo/.claude/plugins/ 2>/dev/null ; echo "=== COMMANDS ==="; ls -1 /home/turbo/.claude/commands/ 2>/dev/null | head -60; echo "-- count:"; ls -1 /home/turbo/.claude/commands/ 2>/dev/null | wc -l`
+- (1x) `echo "=== M1: mon ID AnyDesk ==="; anydesk --get-id 2>/dev/null; echo "=== registre mesh ==="; cat ~/jarvis/.claude/skills/run-anydesk-mesh/mesh-registry.txt 2>/dev/null | head -20`
+- (1x) `echo "=== Le driver gere-t-il PLUSIEURS containers Postgres ? ===" ; grep -n 'postgres' .claude/skills/run-jarvis-sql-backup/driver.sh 2>/dev/null | grep -iE 'head -1|head -n 1|PG_CONTAINER|for |grep -i' | head -12`
+- (1x) `echo "=== LOGS antigravity-mcp ==="; docker service logs jarvis_prod_antigravity-mcp --tail 25 2>&1 | head -30; echo "=== spec ==="; docker service inspect jarvis_prod_antigravity-mcp --format '{{json .Spec.TaskTemplate.ContainerSpec.Command}} {{json .Spec.TaskTemplate.ContainerSpec.Args}} {{json .Spec.Mode}}' 2>&1`
+- (1x) `echo "=== LOG BRUT complet 90s (séquence exacte) ===" ; docker service logs jarvis_prod_antigravity-mcp --since 90s 2>&1 | sed 's/.*| //' | tail -40`
+- (1x) `echo "=== Contenu du dossier skill ==="; ls -la /home/turbo/jarvis/.claude/skills/veille-createurs/ 2>&1 ; echo "" ; echo "=== Existence des 3 fichiers ===" ; for f in veille.py chaines.json SKILL.md; do ;   if [ -f "/home/turbo/jarvis/.claude/skills/veille-createurs/$f" ]; then echo "OK: $f"; else echo "MANQUANT: $f"; fi ; done`
+- (1x) `echo "=== CONTAINERS POSTGRES ==="; docker ps --format '{{.Names}}\t{{.Image}}' 2>/dev/null | grep -iE "postgres|db" | head ; echo; echo "=== le driver n'en prend-il qu'un ? ==="; grep -nE "head -1|head -n 1|grep -i postgres" ~/jarvis/.claude/skills/run-jarvis-sql-backup/driver.sh 2>/dev/null | head -4`
+- (1x) `echo "=== COMBIEN DE COPIES DU SKILL.md ? ==="; find /home/turbo -name SKILL.md -path '*boot-sequencer*' 2>/dev/null | while read f; do printf "%-75s %s\n" "$f" "$(grep -c 'scripts/tools/jarvis-boot-sequencer' "$f" 2>/dev/null) ref(s) perimee(s)"; done`
+- (1x) `echo "### bloc 2 — lancement du driver"; time bash .claude/skills/run-cluster-audit/driver.sh 2>&1 | head -4`
+- (1x) `docker service update \ ;   --env-add NODE_OPTIONS=--max-old-space-size=512 \ ;   --limit-memory 768M \ ;   --reserve-memory 128M \ ;   jarvis_prod_antigravity-mcp 2>&1 | tail -5`
+- (1x) `docker service update --force jarvis_prod_antigravity-mcp 2>&1 | tail -2`
+- (1x) `docker service update --force --detach=false jarvis_prod_antigravity-mcp 2>&1 | tail -5 ; echo "=== etat apres relance ==="; sleep 5; docker service ls --format '{{.Name}} {{.Replicas}}' | grep antigravity; docker service ps jarvis_prod_antigravity-mcp --format '{{.CurrentState}}' | head -2`
+- (1x) `docker service inspect jarvis_prod_antigravity-mcp \ ;  --format '  Command: {{.Spec.TaskTemplate.ContainerSpec.Command}} ;   Args   : {{.Spec.TaskTemplate.ContainerSpec.Args}} ;   Dir    : {{.Spec.TaskTemplate.ContainerSpec.Dir}} ;   Mounts : {{range .Spec.TaskTemplate.ContainerSpec.Mounts}}{{.Source}}->{{.Target}} {{end}}' 2>/dev/null`
+- (1x) `docker inspect ghcr.io/github/github-mcp-server --format 'ENTRYPOINT={{json .Config.Entrypoint}} CMD={{json .Config.Cmd}}' 2>&1; echo "--- version ---"; docker run --rm ghcr.io/github/github-mcp-server --version 2>&1 | head -5`
+- (1x) `d=$PWD; while :; do ;   grep -Hm1 '^description:' "$d"/.claude/skills/*/SKILL.md 2>/dev/null | grep -iE 'audit|deep research' | head -3 ;   [ -e "$d/.git" ] || [ "$d" = / ] && break ;   d=$(dirname "$d") ; done`
+- (1x) `crontab -l 2>/dev/null | grep -iE "cascade|micro-action|skillsmp|biblio" | head; echo "=== systemd user ==="; grep -rl "cascade-micro-actions\|skillmp-cascade\|jarvis-autochain" /home/turbo/.config/systemd/user/ /etc/systemd/system/ 2>/dev/null | head; echo "=== hooks ==="; grep -rn "cascade-micro-actions\|--executer" /home/turbo/.claude/settings.json /home/turbo/.claude/hooks/ 2>/dev/null | head`
+- (1x) `cp -a ~/jarvis/.claude/skills/run-jarvis-autoheal/jarvis_autoheal.sh ~/jarvis/.claude/skills/run-jarvis-autoheal/jarvis_autoheal.sh.bak-20260806-m6`
+- (1x) `cp -a /home/turbo/.claude/plugins/local/jarvis-turbo/skills/performance-tuning/SKILL.md /home/turbo/.claude/plugins/local/jarvis-turbo/skills/performance-tuning/SKILL.md.bak-$(date +%Y%m%d-%H%M%S) && ls -1 /home/turbo/.claude/plugins/local/jarvis-turbo/skills/performance-tuning/`
+- (1x) `chmod +x ~/jarvis/bin/skillsmp-harvest.py; cd ~/jarvis && timeout 280 python3 bin/skillsmp-harvest.py run --max-requests 12 --keywords "AI agents,MCP,Claude Code,Gemini CLI,Jarvis OS" 2>&1 | grep -vE 'DOUBLE|RTX|═|║|─|open term|Lancement' | tail -20`
+- (1x) `chmod +x bin/skills-doctor.py && timeout 300 python3 bin/skills-doctor.py --root ~/jarvis/.claude/skills --engine claude-code 2>&1 | head -60`
+- (1x) `chmod +x /home/turbo/jarvis/.claude/skills/run-lms-multimodele/driver.sh && bash -n /home/turbo/jarvis/.claude/skills/run-lms-multimodele/driver.sh && echo "SYNTAXE OK" && timeout 120 /home/turbo/jarvis/.claude/skills/run-lms-multimodele/driver.sh smoke 2>&1 | tail -30; echo "rc=$?"`
+- (1x) `chmod +x /home/turbo/jarvis/.claude/skills/run-gpu-bench/smoke.sh ; bash /home/turbo/jarvis/.claude/skills/run-gpu-bench/smoke.sh`
+- (1x) `chmod +x /home/turbo/jarvis/.claude/skills/run-board/driver.sh && /home/turbo/jarvis/.claude/skills/run-board/driver.sh smoke; echo "EXIT=$?"`
+- (1x) `chmod +x /home/turbo/jarvis/.claude/skills/run-atomes-logiques/driver.sh ; cd /home/turbo/jarvis ; bash .claude/skills/run-atomes-logiques/driver.sh 2>&1 | tail -30 ; echo "EXIT=$?"`
+- (1x) `chmod +x /home/turbo/jarvis-linux/.claude/skills/run-jarvis-linux/smoke.sh && bash /home/turbo/jarvis-linux/.claude/skills/run-jarvis-linux/smoke.sh`
+- (1x) `chmod +x /home/turbo/AutoAgent/.claude/skills/run-autoagent/driver.sh && D=/home/turbo/AutoAgent/.claude/skills/run-autoagent/driver.sh && $D start && $D status`
+- (1x) `chmod +x /home/turbo/.claude/skills/run-swarm-persistance/driver.sh && bash /home/turbo/.claude/skills/run-swarm-persistance/driver.sh --list 2>&1`
+- (1x) `chmod +x /home/turbo/.claude/skills/run-rem-node/driver.sh && /home/turbo/.claude/skills/run-rem-node/driver.sh check 2>&1`
+- (1x) `chmod +x /home/turbo/.claude/skills/run-cascade-guard/driver.sh && bash /home/turbo/.claude/skills/run-cascade-guard/driver.sh --check 2>&1`
+- (1x) `chmod +x /home/turbo/.claude/hooks/skillsmp-route.sh ; echo '{"prompt":"je veux automatiser ma prospection linkedin et generer des factures"}' \ ;   | bash /home/turbo/.claude/hooks/skillsmp-route.sh ; echo "--- test prompt neutre (doit rendre {}) ---" ; echo '{"prompt":"ok merci"}' | bash /home/turbo/.claude/hooks/skillsmp-route.sh`
+- (1x) `chmod +x .claude/skills/run-m6-tampon/driver.sh 2>/dev/null; timeout 120 bash .claude/skills/run-m6-tampon/driver.sh smoke 2>&1 | tail -35`
+- (1x) `chmod +x .claude/skills/run-m6-tampon/driver.sh && bash .claude/skills/run-m6-tampon/driver.sh smoke 2>&1 | tail -50`
+- (1x) `chmod +x .claude/skills/run-m1-memory-tuning/driver.sh && bash -n .claude/skills/run-m1-memory-tuning/driver.sh && echo "SYNTAXE OK" && ./.claude/skills/run-m1-memory-tuning/driver.sh audit 2>&1 | tail -60`
+- (1x) `cd ~/jarvis/bin ; python3 skillmp.py install yahoo-finance --cible claude 2>&1 | tail -3 ; echo "=== contenu installé ===" ; ls -la ~/.claude/plugins/local/skillsmp/skills/yahoo-finance/ 2>/dev/null | tail -8`
+- (1x) `cd ~/jarvis/backups/sql-repo 2>/dev/null || cd $(grep -oE "/[a-z/.-]*sql-?backups?[a-z/-]*" ~/jarvis/.claude/skills/run-jarvis-sql-backup/driver.sh | head -1) 2>/dev/null; pwd; git rev-parse --show-toplevel 2>/dev/null`
+- (1x) `cd ~/jarvis/.claude/skills/run-m6-tampon && timeout 200 ./driver.sh smoke 2>&1 | tail -35`
+- (1x) `cd ~/jarvis-sql-backups && git log --oneline -1; git status --short | head -3; echo "---"; bash -n /home/turbo/.claude/plugins/local/jarvis-os/skills/cascade-deploy/scripts/deploy-cascade.sh && echo "deploy-cascade SYNTAXE OK"`
+- (1x) `cd ~/jarvis && python3 orchestrator/registry_build.py 2>&1 | tail -1; ls ~/.claude/agents/ | grep -E 'youtube|content-perf'`
+- (1x) `cd ~/jarvis && python3 -c "import ast;ast.parse(open('bin/skillsmp-harvest.py').read());print('syntaxe OK')" && timeout 280 python3 bin/skillsmp-harvest.py run --max-requests 10 --keywords "AI agents,MCP,Claude Code,Jarvis OS" 2>&1 | grep -E '^\[|HARVEST|COLLECTED|NEXT|QUOTA|START' | tail -16`
+- (1x) `cd ~/jarvis && python3 - <<'PY' ; import json ; p='.claude/settings.json' ; d=json.load(open(p)) ; d['hooks']['PostToolUse'][0]['hooks'][0]['command']='"$CLAUDE_PROJECT_DIR"/.claude/hooks/format-file.sh --profile jarvis' ; json.dump(d,open(p,'w'),indent=2) ; print("settings mis à jour") ; PY ; jq empty .claude/settings.json && echo "JSON OK"`
+- (1x) `cd ~/jarvis && ls package.json pyproject.toml pytest.ini go.mod 2>/dev/null; ls .github/workflows/ 2>/dev/null | head -5; mkdir -p .claude/hooks scripts .github/workflows`
+- (1x) `cd ~/jarvis && chmod +x .claude/skills/run-jarvis-dominos/smoke.sh && bash .claude/skills/run-jarvis-dominos/smoke.sh; echo "EXIT=$?"`
+- (1x) `cd ~/Bureau/workflow-gestion && echo "--- agent.py context ---" && sed -n '185,215p' agents/m2_detecteur/agent.py 2>/dev/null; echo "--- server.py context ---" && sed -n '340,365p' api/server.py 2>/dev/null`
+- (1x) `cd ~/.claude/plugins/local/skillsmp/skills ; tot=0; bad=0 ; for d in */; do s="${d%/}"; tot=$((tot+1)) ;   n=$(grep -m1 "^name:" "$d/SKILL.md" | sed 's/^name: *//') ;   { [ ${#n} -gt 64 ] || [ "$n" != "$s" ] || echo "$n" | grep -qiE "claude|anthropic" || echo "$n" | grep -qE "^-|-$|--|[^a-z0-9-]"; } && { bad=$((bad+1)); echo "  ✗ $n"; } ; done ; echo "conformes: $((tot-bad))/$tot"`
+- (1x) `cd /tmp && timeout 60 /home/turbo/.claude/skills/run-rem-node/driver.sh accept 2>&1 | tail -25`
+- (1x) `cd /tmp && ls -la /home/turbo/.claude/skills/run-rem-node/ && echo "=== FRONTMATTER ===" && head -4 /home/turbo/.claude/skills/run-rem-node/SKILL.md | cut -c1-120 && echo "=== VERIF check ===" && /home/turbo/.claude/skills/run-rem-node/driver.sh 2>&1 | tail -6`
+- (1x) `cd /tmp && head -c 200 pk.md; echo; ls -la pk.md; for d in agents commands hooks mcps skills settings; do n=$(gh api "repos/davila7/claude-code-templates/git/trees/main?recursive=1" --jq "[.tree[]|select(.path|startswith(\"cli-tool/components/$d/\"))|select(.type==\"blob\")]|length" 2>/dev/null); echo "$d=$n"; done`
+- (1x) `cd /tmp && gh api repos/punkpeye/awesome-mcp-servers/contents/README.md --jq '.content' | base64 -d > pk.md; grep -oE "https://github.com/[A-Za-z0-9._-]+/[A-Za-z0-9._-]+" pk.md | sort -u | wc -l; gh api repos/davila7/claude-code-templates/contents/cli-tool/components --jq '.[]|"\(.name) \(.type)"' 2>/dev/null | head`
+- (1x) `cd /tmp && for r in davila7/claude-code-templates modelcontextprotocol/servers punkpeye/awesome-mcp-servers wong2/awesome-mcp-servers; do gh api repos/$r --jq '"\(.full_name) stars=\(.stargazers_count) pushed=\(.pushed_at)"' 2>/dev/null || echo "$r NOT FOUND"; done`
+- (1x) `cd /home/turbo/jarvis; grep -rln "SKILL.md\|frontmatter\|^---" scripts/*.py bin/*.py cli/*.py 2>/dev/null | head -20; echo "=== ecriture yaml/md par fstring ==="; grep -rnE 'write\(f"---|f"""---|"---\\n"|allowed-tools' scripts/ bin/ cli/ --include=*.py 2>/dev/null | head -30`
+- (1x) `cd /home/turbo/jarvis; grep -Hm1 '^description:' .claude/skills/*/SKILL.md 2>/dev/null | grep -iE 'ram|swap|zram|memo|vram|gpu|tuning|perf|sysctl' ; echo "--- noms contenant memory/ram/swap ---"; ls .claude/skills/ | grep -iE 'mem|ram|swap|zram|tun|perf|gpu'; echo "--- total skills ---"; ls .claude/skills/ | wc -l`
+- (1x) `cd /home/turbo/jarvis/.claude/skills/veille-createurs && time python3 veille.py --smoke 2>&1 ; echo "=== EXIT CODE: $? ==="`
+- (1x) `cd /home/turbo/jarvis/.claude/skills/veille-createurs && diff -u /dev/null /dev/null >/dev/null; git -C /home/turbo/jarvis diff --no-index /dev/null veille.py > /dev/null 2>&1; echo "pas de repo git ici, affichage manuel des sections modifiées" ; grep -n "n_ignorees\|top_repos\|nom_safe\|bloc_safe" veille.py`
+- (1x) `cd /home/turbo/jarvis/.claude/skills/veille-createurs && date; time python3 veille.py --smoke; echo "EXIT_CODE=$?"`
+- (1x) `cd /home/turbo/jarvis/.claude/skills/run-m6-share && timeout 180 ./driver.sh all 2>&1 | tail -45`
+- (1x) `cd /home/turbo/jarvis/.claude/skills/run-m6-share && ./driver.sh all 2>&1`
+- (1x) `cd /home/turbo/jarvis/.claude/skills/run-board && ./driver.sh smoke 2>&1 | sed 's/\x1b\[[0-9;]*m//g'; echo "EXIT=${PIPESTATUS[0]}"`
+- (1x) `cd /home/turbo/jarvis/.claude/skills ; timeout 60 bash run-atomes-logiques/driver.sh 2>&1 | head -8 ; echo "--- CLI reellement pilotees ---" ; grep -ohE "[a-z-]+\.py" run-logique-atomes/driver.sh run-atomes-logiques/driver.sh | sort -u`
+- (1x) `cd /home/turbo/jarvis/.claude/skills ; for d in run-atomes-logiques run-logique-atomes; do ;   echo "═══ $d" ;   head -12 $d/driver.sh 2>/dev/null | grep -E "^#" | head -6 ;   echo "  -- sous-commandes :" ;   grep -oE "^\s+[a-z|-]+\)" $d/driver.sh 2>/dev/null | tr -d ' )' | head -6 ; done ; echo "═══ test : tournent-ils ? ===" ; timeout 60 bash run-logique-atomes/driver.sh 2>&1 | head -6; echo "rc=$?"`
+- (1x) `cd /home/turbo/jarvis/.claude/skills && grep -n -E "^\s*spec\s" run-jarvis-deepsearch/SKILL.md | head -3; echo "--- passcerfa"; ls -d ~/.claude/skills/run-passcerfa-app ~/jarvis/.claude/skills/run-passcerfa-app 2>&1; grep -rn "cdp-shot" run-passe-partout/SKILL.md | head -3`
+- (1x) `cd /home/turbo/jarvis/.claude/skills && grep -n "socat-ag-9002" run-antigravity-jarvis/SKILL.md | head -4; echo "--- dept/vivants"; grep -n -E "^\s*(dept|vivants|tout|nature)\b" run-passe-partout/SKILL.md run-planning-context-capture/SKILL.md | head -6`
+- (1x) `cd /home/turbo/jarvis/.claude/skills && grep -n "jarvis/.claude/skills/run-jarvis-demarrage" run-jarvis-launchers/SKILL.md | head -5; echo "--- socat-ag"; grep -n "^socat-ag-9002" run-antigravity-jarvis/SKILL.md | head -3; echo "--- dept"; grep -n "^dept" run-passe-partout/SKILL.md | head -3; echo "--- vivants"; grep -n "^vivants" run-passe-partout/SKILL.md | head -3`
+- (1x) `cd /home/turbo/jarvis ; timeout 400 bash .claude/skills/run-board/driver.sh smoke 2>&1 | tail -30; echo "exit=$?"`
+- (1x) `cd /home/turbo/jarvis ; timeout 300 bash .claude/skills/run-logique-atomes/driver.sh etat 2>&1 | tail -14; echo "exit=$?" ; ls -d /home/turbo/Bureau/artifacts 2>/dev/null || echo "  (Bureau/artifacts absent)"`
+- (1x) `cd /home/turbo/jarvis ; timeout 300 bash .claude/skills/run-jarvis-cascade-ingest/smoke.sh 2>&1 | tail -10 ; echo "rc=$?"`
+- (1x) `cd /home/turbo/jarvis ; timeout 120 ./.claude/skills/run-jarvis-sql-backup/driver.sh --list 2>&1 | tail -30`
+- (1x) `cd /home/turbo/jarvis ; python3 - <<'PY' ; import json ; d=json.load(open(".claude/skills/run-jarvis-autoheal/skill-triggers.json")) ; t=d["triggers"]; print("version",d["version"],"· triggers:",type(t).__name__,len(t)) ; k=list(t)[0] if isinstance(t,dict) else 0 ; print(json.dumps(t[k] if isinstance(t,dict) else t[0],ensure_ascii=False,indent=1)[:500]) ; print("--- cle exemple:",k) ; PY`
+- (1x) `cd /home/turbo/jarvis ; python3 - ".claude/skills/run-jarvis-autoheal/skill-triggers.json" <<'PY' ; import json,sys ; d=json.load(open(sys.argv[1])) ; t=d["triggers"] ; print("type triggers:", type(t).__name__, "| n =", len(t)) ; print("élément [0] :", json.dumps(t[0], ensure_ascii=False)[:300]) ; PY`
+- (1x) `cd /home/turbo/jarvis ; nohup bash .claude/skills/run-jarvis-n8n-backup/driver.sh --no-mirror > ~/.local/share/jarvis-n8n-backup-20260806.log 2>&1 & ; echo "n8n PID=$!" ; sleep 20; tail -6 ~/.local/share/jarvis-n8n-backup-20260806.log`
+- (1x) `cd /home/turbo/jarvis ; mkdir -p ~/.local/share ; nohup ./.claude/skills/run-jarvis-sql-backup/driver.sh --no-mirror > ~/.local/share/jarvis-sql-backup-20260805.log 2>&1 & ; echo "PID=$!"`
+- (1x) `cd /home/turbo/jarvis ; ls .claude/skills/run-planning-autogen/ 2>/dev/null ; grep -m1 '^description:' .claude/skills/run-planning-autogen/SKILL.md 2>/dev/null | cut -c1-200 ; echo "--- driver ? ---"; ls .claude/skills/run-planning-autogen/*.sh .claude/skills/run-planning-autogen/*.py 2>/dev/null`
+- (1x) `cd /home/turbo/jarvis ; grep -nE "http.server [0-9]+|port \*\*[0-9]+|listen [0-9]+" /home/turbo/jarvis-delmas-site/.claude/skills/run-jarvis-delmas-site/SKILL.md 2>/dev/null | head -3 ; grep -nE "http.server [0-9]+" /home/turbo/alkymia-site/.claude/skills/run-jarvis-delmas-site/SKILL.md 2>/dev/null | head -2`
+- (1x) `cd /home/turbo/jarvis ; grep -nE "PG_CONTAINER|postgres|SQLITE_DBS=|docker ps" .claude/skills/run-jarvis-sql-backup/driver.sh | head -20`
+- (1x) `cd /home/turbo/jarvis ; grep -nE "DO_MIRROR|no-mirror|MIRROR=" .claude/skills/run-jarvis-sql-backup/driver.sh | head -8`
+- (1x) `cd /home/turbo/jarvis ; grep -nE "192\.168\.1\.113|M5_HOST|M5_KEY|jarvis_ed25519" .claude/skills/run-jarvis-sql-backup/driver.sh .claude/skills/run-jarvis-sql-backup/SKILL.md 2>/dev/null | head -10 | cut -c1-150`
+- (1x) `cd /home/turbo/jarvis ; echo "=== agent produit — lecture ===" ; head -14 .claude/agents/logique-conteneurs.md`
+- (1x) `cd /home/turbo/jarvis ; chmod +x .claude/skills/run-logique-atomes/test_reconstruction.sh ; echo "########## TEST AVANT FIX — doit echouer" ; timeout 500 bash .claude/skills/run-logique-atomes/test_reconstruction.sh 2>&1 | tail -14; echo "exit=$?"`
+- (1x) `cd /home/turbo/jarvis ; chmod +x .claude/skills/run-logique-atomes/driver.sh ; bash -n .claude/skills/run-logique-atomes/driver.sh && echo "syntaxe OK" ; echo "########## DRIVER — smoke reel" ; timeout 560 bash .claude/skills/run-logique-atomes/driver.sh smoke 2>&1 | tail -26; echo "exit=$?"`
+- (1x) `cd /home/turbo/jarvis ; chmod +x .claude/skills/run-jarvis-autochain/driver.sh ; bash -n .claude/skills/run-jarvis-autochain/driver.sh && echo "syntaxe driver OK" ; echo ; timeout 500 bash .claude/skills/run-jarvis-autochain/driver.sh smoke 2>&1 | tail -40`
+- (1x) `cd /home/turbo/jarvis ; bash -n .claude/skills/run-jarvis-sql-backup/driver.sh && echo "syntaxe OK" ; timeout 100 ./.claude/skills/run-jarvis-sql-backup/driver.sh --list 2>&1 | grep -E "skillsmp|Postgres|jv-infra|jarvis_prod"`
+- (1x) `cd /home/turbo/jarvis ; bash -n .claude/skills/run-jarvis-autochain/driver.sh && echo "syntaxe OK" ; timeout 550 bash .claude/skills/run-jarvis-autochain/driver.sh smoke 2>&1 | tail -28`
+- (1x) `cd /home/turbo/jarvis ; T=.claude/skills/run-jarvis-autoheal/skill-triggers.json ; python3 - "$T" <<'PY' ; import json,sys ; d=json.load(open(sys.argv[1])) ; print("type:",type(d).__name__,"n:",len(d)) ; if isinstance(d,dict): ;     k=list(d)[0]; print("exemple cle:",k); print(json.dumps({k:d[k]},ensure_ascii=False)[:400]) ; else: ;     print(json.dumps(d[0],ensure_ascii=False)[:400]) ; PY`
+- (1x) `cd /home/turbo/jarvis ; ./.claude/skills/run-jarvis-sql-backup/driver.sh --no-mirror 2>&1 | tail -60`
+- (1x) `cd /home/turbo/jarvis ; ./.claude/skills/run-jarvis-sql-backup/driver.sh --list 2>&1 | tail -20`
+- (1x) `cd /home/turbo/jarvis 2>/dev/null || cd ~ ; bash ~/.claude/skills/cli_skill_audit/driver.sh 2>&1 | tail -12 | sed 's/^/  /'`
+- (1x) `cd /home/turbo/jarvis && timeout 900 ~/jarvis/.claude/skills/run-board/driver.sh ask rag-retrieval "Faut-il finir de vectoriser les 69000 chunks restants, ou la voie lexicale BM25 suffit-elle ?"`
+- (1x) `cd /home/turbo/jarvis && timeout 900 ./.claude/skills/run-board/driver.sh ask inference-locale "Comment eviter la famine de VRAM quand plusieurs modeles coexistent ?" 2>&1 | tail -26`
+- (1x) `cd /home/turbo/jarvis && timeout 800 ./.claude/skills/run-board/driver.sh ask inference-locale "Comment eviter la famine de VRAM quand plusieurs modeles coexistent sur une meme machine ?" 2>&1 | tail -26`
+- (1x) `cd /home/turbo/jarvis && timeout 420 bash .claude/skills/run-jarvis-deepsearch/driver.sh all 2>&1 | tail -45`
+- (1x) `cd /home/turbo/jarvis && timeout 300 bash .claude/skills/cli_skill_audit/driver.sh 2>&1 | tail -12`
+- (1x) `cd /home/turbo/jarvis && timeout 240 bash .claude/skills/run-jarvis-deepsearch/driver.sh frontiers 2>&1 | tail -30; echo "=== code retour = ${PIPESTATUS[0]:-?} ==="`
+- (1x) `cd /home/turbo/jarvis && timeout 180 bash .claude/skills/run-jarvis-cli/smoke.sh 2>&1 | tail -25; echo "=== code retour = ${PIPESTATUS[0]:-?} ==="`
+- (1x) `cd /home/turbo/jarvis && timeout 180 ./.claude/skills/run-m1-memory-tuning/driver.sh audit 2>&1 | tail -45`
+- (1x) `cd /home/turbo/jarvis && timeout 1200 ./.claude/skills/run-board/driver.sh ask inference-locale "Deux modeles sont charges simultanement sur LM Studio M1 et se partagent 5 GPU dont trois sans ventilation active. Quels garde-fous concrets pour les exploiter en parallele sans faire tomber la machine ?" 2>&1 | tail -70`
+- (1x) `cd /home/turbo/jarvis && timeout 120 bash .claude/skills/run-jarvis-cascade-ingest/smoke.sh 2>&1 | tail -7`
+- (1x) `cd /home/turbo/jarvis && timeout 1100 ./.claude/skills/run-board/driver.sh ask inference-locale "Comment repartir plusieurs modeles sur des GPU heterogenes sans famine de VRAM ?" 2>&1 | tail -40`
+- (1x) `cd /home/turbo/jarvis && exec bash .claude/skills/run-jarvis-sql-backup/driver.sh 2>&1`
+- (1x) `cd /home/turbo/jarvis && bash .claude/skills/run-jarvis-sql-backup/driver.sh --list 2>&1 | tail -25`
+- (1x) `cd /home/turbo/jarvis && bash .claude/skills/run-jarvis-demarrage/demarrage.sh 2>&1 | tail -80`
+- (1x) `cd /home/turbo/jarvis && bash .claude/skills/run-jarvis-demarrage/demarrage.sh 2>&1 | tail -60`
+- (1x) `cd /home/turbo/jarvis && bash .claude/skills/run-jarvis-demarrage/demarrage.sh 2>&1`
+- (1x) `cd /home/turbo/jarvis && bash .claude/skills/run-jarvis-autochain/driver.sh status 2>&1 | head -25; echo "=== garde-fous ==="; uptime | grep -oE "load average.*"; free -m | awk '/Mem:/{printf "RAM %.0f%%\n",$3/$2*100}'; /usr/bin/nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader | sort -rn | head -1`
+- (1x) `cd /home/turbo/jarvis && bash .claude/skills/run-jarvis-autochain/driver.sh smoke 2>&1 | tail -40`
+- (1x) `cd /home/turbo/jarvis && DISPLAY=:0 bash .claude/skills/run-jarvis-planning-widget/driver.sh all 2>&1 | tail -25`
+- (1x) `cd /home/turbo/jarvis && ./.claude/skills/run-jarvis-sql-backup/driver.sh 2>&1 | tail -30`
+- (1x) `cd /home/turbo/Workspaces/jarvis-linux; echo "--- ls /home/turbo/jarvis-linux ---"; ls -ld /home/turbo/jarvis-linux 2>&1; echo "--- realpath ---"; realpath /home/turbo/jarvis-linux 2>&1; echo; echo "--- domino-mcp + telegram section ---"; sed -n '255,345p' infra/docker/docker-compose.swarm.yml`
+- (1x) `cd /home/turbo/.claude/skills/pptx-generator && ls; echo "--- brands:"; ls brands 2>&1 | head; echo "--- grep tmp/gen"; grep -n "\.tmp/gen.py" SKILL.md | head -3; echo "--- grep brand.json"; grep -n "brands/template" SKILL.md | head -3; echo "=== builder-smoke-test"; ls /home/turbo/.claude/skills/builder-smoke-test/`
+- (1x) `cd /home/turbo/.claude/skills && grep -n "ops-setup-preflight" setup/SKILL.md | head -3; echo "--- with"; grep -nE "^\s*with\s" asr-transcribe-to-text/SKILL.md | head -2; echo "--- assert"; grep -nE "^\s*assert\s" timesfm-forecasting/SKILL.md | head -2; echo "--- lms"; which lms; grep -nE "^\s*lms\s" xvfb-headless-gui-restart/SKILL.md | head -2`
+- (1x) `cd /home/turbo/.claude/skills && for f in $(find . -name SKILL.md | head -60); do awk '/^---$/{c++; next} c==1 && /^[a-zA-Z_-]+:/{print $1}' "$f"; done | sort | uniq -c | sort -rn`
+- (1x) `cd /home/turbo/.claude/projects/-home-turbo/memory ; sed -n '30,36p' MEMORY.md ; echo "--- l'ancienne fiche existe-t-elle encore ? ---" ; ls -la reference_cluster_mapping_verified_20260618.md 2>/dev/null && head -3 reference_cluster_mapping_verified_20260618.md`
+- (1x) `cd /home/turbo/.claude/projects/-home-turbo-jarvis/memory/ && wc -c feedback_*.md | tail -3; echo "---MTIME RANGE---"; ls -la --time-style=+%Y-%m-%d feedback_*.md | awk '{print $6}' | sort | uniq -c`
+- (1x) `cd /home/turbo/.claude/projects/-home-turbo-jarvis/memory/ && for f in feedback_*.md; do echo "════════ FICHIER: $f ════════"; cat "$f"; echo; done`
+- (1x) `cd /home/turbo/.claude/projects/-home-turbo-jarvis/memory ; grep -n "browseros146" MEMORY.md | head -2`
+- (1x) `cd /home/turbo/.claude/projects/-home-turbo-jarvis/memory 2>/dev/null && for f in feedback_m1_gpu_topology_cuda_remap.md feedback_gpu_tous_en_ligne_regle_definitive.md feedback_rescan_pci_efface_compute_mode.md feedback_gpu_crash_gsp_aspm.md; do echo "########## $f"; cat "$f" 2>/dev/null | head -40; echo; done`
+- (1x) `cd /home/turbo/.claude/projects/-home-turbo-jarvis/memory && ls -la --time-style=+%Y-%m-%d_%H:%M feedback_*.md | awk '{print $6}' | sort | tail -3 && echo "--- fiches modifiees aujourd'hui apres 13h (doit etre vide) ---" && find . -name 'feedback_*.md' -newermt "2026-08-06 13:00" | head`
+- (1x) `cd /home/turbo/.claude/projects/-home-turbo-jarvis/memory && grep -n "feedback_nct6687_dkms_installe_non_charge" MEMORY.md`
+- (1x) `cd /home/turbo/.claude/projects/-home-turbo-jarvis && ls -S *.jsonl | head -5; echo "---"; f=$(ls -S *.jsonl | head -1); echo "FICHIER: $f"; head -c 3000 "$f"`
+- (1x) `cd /home/turbo/.claude/plugins/local/skillsmp/skills/ ; grep -rn -B2 -A2 'sansec\.io\|theaicareerlab\.com\|sliccy\.ai\|modelscope\.cn\|hf-mirror\.com\|aiworkskills\.cn' */SKILL.md`
+- (1x) `cd /home/turbo/.claude/plugins/local/skillsmp/skills/ ; for f in */SKILL.md; do ;   echo "== $f ==" ;   awk '/^---$/{c++; next} c==1 && /^(name|description):/' "$f" | fold -w 200 ;   echo ; done`
+- (1x) `cd /home/turbo/.claude/plugins/local/skillsmp/skills/ ; echo "=== Nombre de SKILL.md ===" ; find . -maxdepth 2 -iname "SKILL.md" | wc -l ; echo "=== Total fichiers dans l'arbre ===" ; find . -type f | wc -l ; echo "=== Types de fichiers ===" ; find . -type f | sed -E 's/.*\.//' | sort | uniq -c | sort -rn ; echo "=== Skills sans SKILL.md ===" ; for d in */; do ;   [ -f "$d/SKILL.md" ] || echo "MANQUANT: $d" ; done`
+- (1x) `cd /home/turbo/.claude/plugins/local/skillsmp/skills/ ; echo "### upload/send file contents pattern ===" ; grep -rniE 'curl.*-F |curl.*--data.*@|upload.*credential|exfiltrat|send.*cookie|steal' */SKILL.md ; echo "### stealth browsing context ===" ; grep -n -B3 -A3 'stealth' skills-active-research/SKILL.md 2>/dev/null | head -40`
+- (1x) `cd /home/turbo/.claude/plugins/local/skillsmp/skills/ ; echo "### tous les domaines référencés (hors github.com/skillsmp.com/npm) ===" ; grep -rohE 'https?://[a-zA-Z0-9._-]+' */SKILL.md | sed -E 's#https?://##' | sort -u | grep -viE '^(github\.com|raw\.githubusercontent\.com|npmjs\.com|www\.npmjs\.com|skillsmp\.com|nodejs\.org|localhost)'`
+- (1x) `cd /home/turbo/.claude/plugins/local/skillsmp/skills/ ; echo "### Frontmatter — champs présents (hors name/description) ===" ; for f in */SKILL.md; do ;   awk '/^---$/{c++; next} c==1' "$f" | grep -Ev '^(name|description):' | grep -E '^[a-zA-Z_-]+:' | sed "s#^#$f: #" ; done`
+- (1x) `cd /home/turbo/.claude/plugins/cache/claude-plugins-official/sourcegraph ; ls -R . 2>/dev/null | head -20 ; echo "=== declaration MCP du plugin ===" ; find . -name "*.json" -maxdepth 2 2>/dev/null | head -5 | while read f; do echo "--- $f"; head -c 600 "$f"; echo; done`
+- (1x) `cd /home/turbo/.claude/agents ; echo "=== un squad type ===" ; head -20 squad-data-chercheur.md ; echo "..." ; echo "=== taille des 45 squads ===" ; ls -l squad-*.md 2>/dev/null | awk '{s+=$5; n++} END {printf "  %d fichiers, moyenne %d octets\n", n, s/n}'`
+- (1x) `cd /home/turbo/.claude 2>/dev/null; for f in $(find /home/turbo/.claude/plugins /home/turbo/.claude/skills -name SKILL.md 2>/dev/null | head -400); do awk 'BEGIN{n=0} /^---[[:space:]]*$/{n++; if(n==2) exit; next} n==1 && /^[a-zA-Z_-]+:/{print $1}' "$f"; done | sort | uniq -c | sort -rn | head -25`
+- (1x) `cd /home/turbo/.cache/claude-cli-nodejs/-home-turbo; ls -la mcp-logs-comet mcp-logs-jarvis-agents 2>&1 | head -30; echo "=== count files ==="; find . -type f | head -20; echo "total files:"; find . -type f | wc -l`
+- (1x) `cd /home/turbo ; sed -n '10,30p' .claude/skills/cluster-ops/SKILL.md ; echo "..." ; grep -nE "192\.168\.1\.[0-9]+" .claude/skills/cluster-ops/SKILL.md | head -8 | cut -c1-150`
+- (1x) `cd /home/turbo ; python3 - <<'EOF' ; import json ; for f in [".claude/.mcp.json",".mcp.json"]: ;     d=json.load(open(f)) ;     for name,cfg in d.get("mcpServers",{}).items(): ;         env=cfg.get("env",{}) ;         hits={k:v for k,v in env.items() if isinstance(v,str) and "1234" in v} ;         if hits: print(f"{f} :: {name} -> {hits}") ; EOF`
+- (1x) `cd /home/turbo ; for f in /home/turbo/.mcp.json /home/turbo/.claude/.mcp.json /home/turbo/.config/Claude/claude_desktop_config.json; do echo "### $f"; jq -r '.mcpServers | to_entries[] | "\(.key)\t\(.value.command // .value.url // "")\t\((.value.args//[])|join(" "))"' "$f" 2>/dev/null; echo; done ; echo "### md5 des 2 .mcp.json"; md5sum /home/turbo/.mcp.json /home/turbo/.claude/.mcp.json`
+- (1x) `cd /home/turbo ; echo "=== [F2] logique de routage de biblio-sql-route.sh ===" ; grep -nE 'bloc\.sh|grep|awk|head -|MOTS|stoplist|prompt' .claude/hooks/biblio-sql-route.sh 2>/dev/null | head -20 ; echo ; echo "=== [F3] le repli OU de bloc.sh (fix memorise) ===" ; grep -nE 'repli|OU|fallback|score|match' jarvis/bin/bloc.sh 2>/dev/null | head -15`
+- (1x) `cd /home/turbo && timeout 260 bash .claude/skills/cli_skill_audit/driver.sh 2>&1 | tail -8`
+- (1x) `cd /home/turbo && timeout 200 bash /home/turbo/.claude/skills/run-cluster-audit/driver.sh 2>&1 | tail -20`
+- (1x) `cd /home/turbo && timeout 120 claude mcp list 2>&1 | grep -vE 'DOUBLE SESSION|RTX|Lancement|═|║|─|open terminal' | tail -70`
+- (1x) `cd /home/turbo && ls ~/.claude/plugins/; echo "--- local:"; ls ~/.claude/plugins/local 2>/dev/null; echo "--- marketplaces:"; ls ~/.claude/plugins/marketplaces 2>/dev/null | head; echo "--- config"; ls ~/.claude/plugins/*.json 2>/dev/null; cat ~/.claude/plugins/config.json 2>/dev/null | head -40`
+- (1x) `cd /home/turbo && ls -1 ~/.claude/skills | head -20; echo "---"; find ~/.claude/skills -maxdepth 2 -name SKILL.md | wc -l; find ~/jarvis/.claude/skills -maxdepth 2 -name SKILL.md | wc -l; find ~/.openclaw/skills -maxdepth 2 -name SKILL.md | wc -l; echo "--- deleted?"; ls -d ~/.claude/skills/_deleted 2>/dev/null; ls -d ~/.openclaw/skills/_deleted 2>/dev/null`
+- (1x) `cd /home/turbo && for n in sql-memory-reader telegram-ops voice-first-operator file-log-reader; do echo "=== $n"; find ~/.openclaw/skills ~/.claude/skills ~/jarvis/.claude/skills ~/.claude/plugins -maxdepth 6 -path "*/$n/SKILL.md" 2>/dev/null | while read f; do printf "%8d  %s\n" $(wc -c <"$f") "$f"; done; done`
+- (1x) `cd /home/turbo && echo "=== compare-prices desc"; head -4 ~/.claude/plugins/local/jarvis-os/skills/compare-prices/SKILL.md; echo "--- openclaw:"; head -4 ~/.openclaw/skills/compare-prices/SKILL.md; echo; echo "=== blog diff (skillsmp vs .claude/skills)"; diff <(cat ~/.claude/skills/blog/SKILL.md) <(cat ~/.openclaw/skills/blog/SKILL.md) | head -30`
+- (1x) `cat ~/.claude/projects/-home-turbo/memory/project_jarvis_os.md 2>/dev/null`
+- (1x) `cat ~/.claude/projects/-home-turbo/memory/project_changeip_vpn_antiblocage.md 2>/dev/null | head -30; echo "===WG==="; sudo -n wg show 2>/dev/null || ls /etc/wireguard/ 2>/dev/null`
+- (1x) `cat ~/.claude/plugins/cache/claude-plugins-official/superpowers/5.1.0/skills/requesting-code-review/code-reviewer.md 2>/dev/null | head -60`
+- (1x) `cat ~/.claude/hooks/keyword-auto-detect.sh 2>/dev/null | head -60; echo "...[$(wc -l < ~/.claude/hooks/keyword-auto-detect.sh) lignes]"`
+- (1x) `cat /home/turbo/jarvis-linux/docs/ARCHITECTURE-DISQUES-M1.md; echo "=========== MEMORY"; cat /home/turbo/.claude/projects/-home-turbo-jarvis/memory/reference_disk_architecture_m1.md 2>&1; echo "=========== CLONES"; cat /home/turbo/.claude/projects/-home-turbo-jarvis/memory/feedback_disques_clones_uuid_dupliques.md 2>&1`
+- (1x) `cat /home/turbo/.local/share/notebooklm-mcp/library.json 2>/dev/null | head -50 ; echo "=== files ===" ; ls /home/turbo/jarvis/data/notebooklm/NotebookLM_files/ 2>/dev/null | head -20 ; echo "=== doc utilisation (têtes de section) ===" ; grep -E '^#{1,3} ' /home/turbo/jarvis/data/notebooklm-utilisation-complete.md 2>/dev/null | head -30`
+- (1x) `cat /home/turbo/.claude/projects/-home-turbo/memory/project_omcs_compression.md 2>/dev/null | head -25 ; echo "=== MATRICE VECTORIELLE ==="; find /home/turbo -maxdepth 5 -name "01-MATRICE-VECTORIELLE.md" 2>/dev/null | head -3`
+- (1x) `cat /home/turbo/.claude/projects/-home-turbo-jarvis/memory/reference_hdmi_overscan_underscan.md 2>/dev/null; echo "=== autostart ==="; ls ~/.config/autostart/ 2>/dev/null; grep -rl -i "viewport\|overscan\|underscan" ~/.config/autostart/ ~/bin ~/jarvis/bin 2>/dev/null | head`
+- (1x) `cat /home/turbo/.claude/projects/-home-turbo-jarvis/memory/feedback_whisper_stt_voice_loop.md 2>/dev/null`
+- (1x) `cat /home/turbo/.claude/projects/-home-turbo-jarvis/memory/feedback_video_pipeline_audio_traps.md 2>/dev/null; echo "=== ytdlp ==="; cat /home/turbo/.claude/projects/-home-turbo-jarvis/memory/feedback_ytdlp_apt_perime_et_simulate.md 2>/dev/null`
+- (1x) `cat /home/turbo/.claude/projects/-home-turbo-jarvis/memory/feedback_nct6687_dkms_installe_non_charge.md 2>/dev/null | head -50`
+- (1x) `bash ~/jarvis/.claude/skills/run-m6-tampon/driver.sh smoke 2>&1 | tail -20; echo "exit=$?"`
+- (1x) `bash ~/jarvis/.claude/skills/run-jarvis-autoheal/jarvis_autoheal.sh 2>&1 | tail -8`
+- (1x) `bash /home/turbo/jarvis/.claude/skills/run-m6-tampon/driver.sh smoke 2>&1 | tail -35`
+- (1x) `bash /home/turbo/jarvis/.claude/skills/run-jarvis-sql-backup/driver.sh 2>&1 | tail -12`
+- (1x) `bash /home/turbo/jarvis/.claude/skills/run-jarvis-n8n-backup/driver.sh 2>&1 | tail -8`
+- (1x) `bash /home/turbo/jarvis/.claude/skills/run-jarvis-autochain/driver.sh status 2>&1 | tail -20`
+- (1x) `bash /home/turbo/jarvis/.claude/skills/run-jarvis-autochain/driver.sh smoke 2>&1 | tail -35`
+- (1x) `bash /home/turbo/jarvis/.claude/skills/run-cluster-audit/driver.sh`
+- (1x) `bash /home/turbo/.claude/skills/run-swarm-persistance/driver.sh --dry-run jarvis-full-stack_prometheus /prometheus 2>&1`
+- (1x) `bash /home/turbo/.claude/skills/cli_skill_audit/driver.sh 2>&1 | tail -6`
+- (1x) `bash /home/turbo/.claude/skills/cli_skill_audit/driver.sh 2>&1 | tail -5 && ls -t /home/turbo/jarvis/audit/audit-local-*.md | head -1 | xargs cat | sed -n '1,45p'`
+- (1x) `bash /home/turbo/.claude/skills/cli_skill_audit/driver.sh 2>&1 | tail -4`
+- (1x) `bash /home/turbo/.claude/skills/cli_skill_audit/driver.sh 2>&1 | tail -3 ; grep -A4 "### Failed units" $(ls -t /home/turbo/jarvis/audit/audit-local-*.md | head -1) ; tr '\r' '\n' < /home/turbo/jarvis/artifacts/e1-20260806/clone-backup-os.log 2>/dev/null | tail -1`
+- (1x) `bash /home/turbo/.claude/skills/cli_skill_audit/driver.sh 2>&1 | tail -20`
+- (1x) `bash /home/turbo/.claude/skills/cli_skill_audit/driver.sh 2>&1 | tail -10`
+- (1x) `bash /home/turbo/.claude/hooks/qa/hook-qa-demarrage.sh 2>&1 | tail -8; echo "--- exit=$? ---"`
+- (1x) `bash /home/turbo/.claude/hooks/qa/hook-qa-demarrage.sh 2>&1 | tail -4; echo "rc=$?"`
+- (1x) `bash /home/turbo/.claude/hooks/qa/hook-qa-demarrage.sh 2>&1 | tail -20; echo "EXIT=$?"`
+- (1x) `bash /home/turbo/.claude/hooks/qa/hook-qa-demarrage.sh 2>&1 | tail -20; echo "---exit:$?"`
+- (1x) `bash /home/turbo/.claude/hooks/qa/hook-qa-demarrage.sh 2>&1 | tail -15; echo "exit=$?"`
+- (1x) `bash /home/turbo/.claude/hooks/qa/hook-qa-demarrage.sh 2>&1 | tail -15`
+- (1x) `bash /home/turbo/.claude/hooks/qa/hook-qa-demarrage.sh 2>&1 | tail -10`
+- (1x) `bash .claude/skills/run-planning-context-capture/driver.sh teams 2>&1 | head -20`
+- (1x) `bash .claude/skills/run-planning-context-capture/driver.sh smoke 2>&1 | tail -6`
+- (1x) `bash .claude/skills/run-planning-context-capture/driver.sh smoke 2>&1 | tail -12`
+- (1x) `bash .claude/skills/run-m6-tampon/driver.sh drain 8 2>&1 | tail -30`
+- (1x) `bash .claude/skills/run-jarvis-demarrage/demarrage.sh 2>&1 | tail -80`
+- (1x) `bash .claude/skills/run-jarvis-cascade-ingest/smoke.sh 2>&1 | tail -7`
+- (1x) `bash .claude/skills/run-jarvis-autochain/driver.sh run "analyse statistique sensibilite robustesse corpus donnees cluster" 2>&1 | tail -30`
+- (1x) `bash .claude/skills/run-gpu-bench/smoke.sh 2>&1 | tail -6`
+- (1x) `bash .claude/skills/cli_skill_audit/driver.sh 2>&1 | tail -6`
+- (1x) `bash .claude/skills/cli_skill_audit/driver.sh 2>&1 | tail -20`
+- (1x) `bash -n /home/turbo/.claude/skills/run-rem-node/driver.sh && echo "SYNTAXE_OK"; /home/turbo/.claude/skills/run-rem-node/driver.sh register 2>&1`
+- (1x) `bash -n .claude/skills/run-jarvis-sql-backup/driver.sh && echo "SYNTAXE OK"; grep -n "postgres_all.sql" .claude/skills/run-jarvis-sql-backup/driver.sh`
+- (1x) `bash -n .claude/skills/run-jarvis-sql-backup/driver.sh && echo "SYNTAXE OK"; ./.claude/skills/run-jarvis-sql-backup/driver.sh --dry-run --postgres-only 2>&1 | tail -20`
+- (1x) `bash -n .claude/skills/run-cluster-audit/driver.sh && timeout 260 bash .claude/skills/run-cluster-audit/driver.sh >/dev/null 2>&1; R=$(ls -t ~/jarvis/audit/cluster-audit-*.md | head -1); echo "rapport: $R"; sed -n '/Bibliothèque vivante/,/^## Légende/p' "$R" | head -4`
+- (1x) `bash -n .claude/skills/run-cluster-audit/driver.sh && timeout 260 bash .claude/skills/run-cluster-audit/driver.sh 2>&1 | sed -n '/Nœud/,/rem-android/p'`
+- (1x) `bash -n .claude/skills/run-cluster-audit/driver.sh && timeout 260 bash .claude/skills/run-cluster-audit/driver.sh 2>&1 | sed -n '/Nœud/,/^$/p' | head -8`
+- (1x) `bash -n .claude/skills/run-cluster-audit/driver.sh && echo "syntaxe OK" && timeout 260 bash .claude/skills/run-cluster-audit/driver.sh 2>&1 | tail -22`
+- (1x) `OUT=$PWD /home/turbo/.claude/skills/run-rem-node/driver.sh shot 2>&1 | tail -3`
+- (1x) `OUT=$PWD /home/turbo/.claude/skills/run-rem-node/driver.sh connect 2>&1 | tail -8`
+- (1x) `OUT=$PWD /home/turbo/.claude/skills/run-rem-node/driver.sh accept 2>&1`
+- (1x) `M=~/.claude/plugins/local/skillsmp/manifeste.json ; python3 -c "import json;d=json.load(open('$M'));print('manifeste valide:',len(d),'entrées')" 2>&1 ; echo "-- processus écrivant le manifeste en concurrence ? --" ; pgrep -af "skillmp.py sync-jarvis" | wc -l ; pgrep -af "skillmp.py" | grep -v grep | head -3`
+- (1x) `F=~/.claude/plugins/local/skillsmp/skills/yahoo-finance/scripts/yf ; ls -l "$F" | awk '{print $5" octets"}'; head -3 "$F" ; echo "=== réinstallation complète (annexes incluses) ===" ; cd ~/jarvis/bin && python3 skillmp.py sync-jarvis --seuil 2 --limite 400 2>&1 | tail -3`
+- (1x) `D=~/jarvis/.claude/skills/run-m6-tampon/driver.sh; ls -la $D 2>/dev/null && bash $D status 2>&1 | tail -25 || echo "driver tampon introuvable"`
+- (1x) `D=~/jarvis/.claude/skills/run-jarvis-n8n-backup/driver.sh ; ls -la "$D" 2>/dev/null && timeout 120 bash "$D" --list 2>&1 | tail -15 || echo "driver n8n absent"`
+- (1x) `D=/home/turbo/AutoAgent/.claude/skills/run-autoagent/driver.sh; $D stop; sleep 2; $D start && $D ask "Nomme une couleur primaire, un seul mot." ; $D stop`
+- (1x) `D=/home/turbo/AutoAgent/.claude/skills/run-autoagent/driver.sh; $D stop >/dev/null 2>&1; $D start && $D status && $D ask "Quelle est la capitale de la France ? Réponds en un mot."`
+- (1x) `D=/home/turbo/AutoAgent/.claude/skills/run-autoagent/driver.sh; $D start && $D status && $D ask "Quelle est la capitale de la France ? Réponds en un mot." && $D stop`
+- (1x) `D=/home/turbo/AutoAgent/.claude/skills/run-autoagent/driver.sh; $D ask "Combien font 6 fois 7 ? Réponds en un mot." && $D status`
+- (1x) `D=/home/turbo/.claude/plugins/local/jarvis-os/agents ; for a in dev security trading docs system analysis voice; do ;   f="$D/omega-$a-agent.md" ;   if [ -f "$f" ]; then ;     t=$(grep -oP '^tools:\s*\K.*' "$f" 2>/dev/null | head -1 | cut -c1-42) ;     printf "  ✓ omega-%-9s %4d lignes  outils: %s\n" "$a" "$(wc -l <"$f")" "${t:-non déclarés}" ;   else printf "  ✗ omega-%-9s ABSENT\n" "$a"; fi ; done`
+- (1x) `/usr/bin/nvidia-smi --query-gpu=index,name,temperature.gpu,utilization.gpu,power.draw --format=csv,noheader ; echo "--- charge ---"; uptime | grep -oE "load average.*" ; echo "--- consommateurs GPU ---"; /usr/bin/nvidia-smi --query-compute-apps=pid,used_memory --format=csv,noheader | head -6 ; echo "--- agents/bench actifs ---"; pgrep -cf "bench-par|python3"; ps -eo pcpu,comm --sort=-pcpu | head -6`
+- (1x) `/home/turbo/jarvis/.claude/skills/run-board/driver.sh >/dev/null 2>&1; echo "usage_exit=$?"; /home/turbo/jarvis/.claude/skills/run-board/driver.sh bidon >/dev/null 2>&1; echo "unknown_exit=$?"; echo "--- gpu ---"; nvidia-smi --query-gpu=index,name,temperature.gpu,fan.speed --format=csv,noheader 2>&1`
+- (1x) `/home/turbo/AutoAgent/.claude/skills/run-autoagent/driver.sh capture | tail -15`
+- (1x) `/home/turbo/.claude/skills/run-rem-node/driver.sh win 2>&1 | tail -6`
+- (1x) `/home/turbo/.claude/skills/run-rem-node/driver.sh console 2>&1`
+- (1x) `/home/turbo/.claude/skills/run-rem-node/driver.sh connect 2>&1 | tail -6`
+- (1x) `/home/turbo/.claude/skills/run-rem-node/driver.sh check 2>&1 | tail -30`
+- (1x) `/home/turbo/.claude/skills/run-rem-node/driver.sh check 2>&1 | tail -25`
+- (1x) `/home/turbo/.claude/skills/run-rem-node/driver.sh check 2>&1 | head -30`
+- (1x) `/home/turbo/.claude/skills/run-rem-node/driver.sh accept 2>&1 | tail -7`
+- (1x) `./.claude/skills/run-m1-memory-tuning/driver.sh verify 2>&1 | tail -6; echo "=== BENCH (prudent: 3G/10s) ==="; ./.claude/skills/run-m1-memory-tuning/driver.sh bench 3G 10 2>&1 | tail -30`
+- (1x) `./.claude/skills/run-m1-memory-tuning/driver.sh rollback 2>&1 | tail -8; echo "=== usage invalide ==="; ./.claude/skills/run-m1-memory-tuning/driver.sh nimportequoi 2>&1 | head -5; echo "RC=$?"`
+- (1x) `./.claude/skills/run-m1-memory-tuning/driver.sh conflicts 2>&1 | tail -40; echo "RC=$?"`
+- (1x) `./.claude/skills/run-jarvis-sql-backup/driver.sh 2>&1 | tail -40`
+- (1x) `./.claude/skills/run-jarvis-sql-backup/driver.sh --list 2>&1 | tail -30`
+- (1x) `./.claude/skills/run-jarvis-sql-backup/driver.sh --list 2>&1 | tail -25`
+- (1x) `./.claude/skills/run-jarvis-sql-backup/driver.sh --dry-run 2>&1 | tail -40`

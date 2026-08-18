@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruflo-agents-skills-agentdb-memory-patterns-skill-md",
+  "name": "agentdb-memory-patterns",
+  "author": "ruvnet",
+  "description": "Implement persistent memory patterns for AI agents using AgentDB. Includes session memory, long-term storage, pattern learning, and context management. Use when building stateful agents, chat systems, or intelligent assistants.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/ruflo/tree/main/.agents/skills/agentdb-memory-patterns",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruflo/agents-skills-agentdb-memory-patterns",
+  "stars": 66991,
+  "updatedAt": 1770485431
+}

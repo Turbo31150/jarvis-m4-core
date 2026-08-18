@@ -7,8 +7,8 @@ mkdir -p /tmp/jarvis_logs
 
 declare -A MCP_ENDPOINTS=(
   ["ollama-local"]="http://127.0.0.1:11434/api/tags"
-  ["lmstudio-m1"]="http://192.168.1.85:1234/v1/models"
-  ["lmstudio-m2"]="http://192.168.1.26:1234/v1/models"
+  ["lmstudio-m1"]="http://127.0.0.1:1234/v1/models"
+  ["lmstudio-m2"]="http://127.0.0.1:18800/v1/models"
   ["redis-local"]="127.0.0.1:6379"
 )
 

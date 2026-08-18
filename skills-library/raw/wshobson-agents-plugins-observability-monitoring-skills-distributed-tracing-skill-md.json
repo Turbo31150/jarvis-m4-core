@@ -1,0 +1,11 @@
+{
+  "id": "wshobson-agents-plugins-observability-monitoring-skills-distributed-tracing-skill-md",
+  "name": "distributed-tracing",
+  "author": "wshobson",
+  "description": "Implement distributed tracing with Jaeger and Tempo to track requests across microservices and identify performance bottlenecks. Use when debugging microservices, analyzing request flows, or implementing observability for distributed systems.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/wshobson/agents/tree/main/plugins/observability-monitoring/skills/distributed-tracing",
+  "skillUrl": "https://skillsmp.com/creators/wshobson/agents/plugins-observability-monitoring-skills-distributed-tracing",
+  "stars": 38472,
+  "updatedAt": 1779452301
+}

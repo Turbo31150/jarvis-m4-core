@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruview-plugins-ruview-skills-ruview-quickstart-skill-md",
+  "name": "ruview-quickstart",
+  "author": "ruvnet",
+  "description": "Onboarding and first-run for RuView (WiFi-DensePose) \u2014 Docker demo with simulated data, repo build, and the fastest path to a live sensing dashboard. Use when someone is new to RuView or wants the shortest path to \"it works on my machine\".",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/RuView/tree/main/plugins/ruview/skills/ruview-quickstart",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruview/plugins-ruview-skills-ruview-quickstart",
+  "stars": 88440,
+  "updatedAt": 1778535556
+}

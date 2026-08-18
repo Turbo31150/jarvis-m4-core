@@ -11,6 +11,7 @@ Endpoints :
 Non-régression : si bdqt_core/la base manquent, /correct renvoie le texte inchangé.
 """
 
+import hmac
 import json
 import os
 import subprocess

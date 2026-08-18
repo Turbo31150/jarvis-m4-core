@@ -1,0 +1,11 @@
+{
+  "id": "github-awesome-copilot-skills-copilot-cli-quickstart-skill-md",
+  "name": "copilot-cli-quickstart",
+  "author": "github",
+  "description": "Use this skill when someone wants to learn GitHub Copilot CLI from scratch. Offers interactive step-by-step tutorials with separate Developer and Non-Developer tracks, plus on-demand Q&A. Just say \"start tutorial\" or ask a question! Note: This skill targets GitHub Copilot CLI specifically and uses CLI-specific tools (ask_user, sql, fetch_copilot_cli_documentation).",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/github/awesome-copilot/tree/main/skills/copilot-cli-quickstart",
+  "skillUrl": "https://skillsmp.com/creators/github/awesome-copilot/skills-copilot-cli-quickstart",
+  "stars": 37423,
+  "updatedAt": 1770928426
+}

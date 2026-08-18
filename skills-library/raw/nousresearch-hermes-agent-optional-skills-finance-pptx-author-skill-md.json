@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-optional-skills-finance-pptx-author-skill-md",
+  "name": "pptx-author",
+  "author": "NousResearch",
+  "description": "Build PowerPoint decks headless with python-pptx.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/optional-skills/finance/pptx-author",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/optional-skills-finance-pptx-author",
+  "stars": 225204,
+  "updatedAt": 1784866036
+}

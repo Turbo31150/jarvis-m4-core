@@ -1,0 +1,11 @@
+{
+  "id": "kellyvv-phoneclaw-packages-inferencekit-skills-mlx-swift-lm-skill-md",
+  "name": "swift-mlx-lm",
+  "author": "kellyvv",
+  "description": "MLX Swift LM - Run LLMs and VLMs on Apple Silicon using MLX. Covers local inference, streaming, wired memory coordination, tool calling, LoRA fine-tuning, embeddings, and model porting.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/kellyvv/PhoneClaw/tree/main/Packages/InferenceKit/skills/mlx-swift-lm",
+  "skillUrl": "https://skillsmp.com/creators/kellyvv/phoneclaw/packages-inferencekit-skills-mlx-swift-lm",
+  "stars": 1194,
+  "updatedAt": 1775411637
+}

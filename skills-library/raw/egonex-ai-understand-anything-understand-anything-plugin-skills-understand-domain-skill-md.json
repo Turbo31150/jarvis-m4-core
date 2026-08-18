@@ -1,0 +1,11 @@
+{
+  "id": "egonex-ai-understand-anything-understand-anything-plugin-skills-understand-domain-skill-md",
+  "name": "understand-domain",
+  "author": "Egonex-AI",
+  "description": "Extract business domain knowledge from a codebase and generate an interactive domain flow graph. Works standalone (lightweight scan) or derives from an existing /understand knowledge graph.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Egonex-AI/Understand-Anything/tree/main/understand-anything-plugin/skills/understand-domain",
+  "skillUrl": "https://skillsmp.com/creators/egonex-ai/understand-anything/understand-anything-plugin-skills-understand-domain",
+  "stars": 77428,
+  "updatedAt": 1784278641
+}

@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-safety-guard-skill-md",
+  "name": "safety-guard",
+  "author": "affaan-m",
+  "description": "Use this skill to prevent destructive operations when working on production systems or running agents autonomously.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/safety-guard",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-safety-guard",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

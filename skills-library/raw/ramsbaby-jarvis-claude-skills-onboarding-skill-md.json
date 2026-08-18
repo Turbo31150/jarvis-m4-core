@@ -1,0 +1,11 @@
+{
+  "id": "ramsbaby-jarvis-claude-skills-onboarding-skill-md",
+  "name": "onboarding",
+  "author": "Ramsbaby",
+  "description": "Jarvis \ucd08\uae30 \uc124\uce58 \uc628\ubcf4\ub529 \ub9c8\ubc95\uc0ac. Discord \ubd07 \ud1a0\ud070\u00b7Claude API \ud0a4 \ub4f1 \ud544\uc218 \ud658\uacbd\ubcc0\uc218\ub97c \ub2e8\uacc4\ubcc4\ub85c \uc218\uc9d1\ud558\uace0,\n\uc790\ub3d9/\uc218\ub3d9 \uc5c5\ub370\uc774\ud2b8 \uc815\ucc45\uc744 \uc124\uc815\ud558\uba70, \uc804\uc6a9 \uc5c5\ub370\uc774\ud2b8 \uc54c\ub9bc \ucc44\ub110(\ud83d\ude80jarvis-update)\uc744 \uc0dd\uc131\ud569\ub2c8\ub2e4.\n\uc644\ub8cc \uc2dc \ubd07\uc774 \uc989\uc2dc \uae30\ub3d9\ub429\ub2c8\ub2e4.",
+  "contentLanguage": "ko",
+  "githubUrl": "https://github.com/Ramsbaby/jarvis/tree/main/.claude/skills/onboarding",
+  "skillUrl": "https://skillsmp.com/creators/ramsbaby/jarvis/claude-skills-onboarding",
+  "stars": 13,
+  "updatedAt": 1776733472
+}

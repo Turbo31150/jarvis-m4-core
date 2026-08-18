@@ -1,0 +1,11 @@
+{
+  "id": "nexu-io-open-design-skills-brand-extract-skill-md",
+  "name": "brand-extract",
+  "author": "nexu-io",
+  "description": "Extract a complete Brand Kit from a live website by driving the in-app\nbrowser. Use when a brand-extraction project opens with a site in the Browser\ntab, or when the user asks to \"extract a brand\", \"pull the brand from <url>\",\n\"get the colors/fonts/logo from this site\", or build a brand/design system\nfrom a reference website. Pairs with the agent-browser tool for measurement\nand pauses for the user when an anti-bot wall blocks the page.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/nexu-io/open-design/tree/main/skills/brand-extract",
+  "skillUrl": "https://skillsmp.com/creators/nexu-io/open-design/skills-brand-extract",
+  "stars": 83535,
+  "updatedAt": 1782825749
+}

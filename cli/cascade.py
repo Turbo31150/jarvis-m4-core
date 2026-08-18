@@ -5,6 +5,7 @@ Lazy-load, single-pass, SQL-driven tool orchestration.
 """
 
 import json
+import os
 import re
 import sqlite3
 import subprocess
@@ -12,7 +13,13 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
-DB_PATH = "/home/pamerys/jarvis/jarvis_master.db"
+# Le chemin historique /home/turbo/… est mort depuis la migration vers
+# /home/pamerys : sqlite3 levait « unable to open database file » et resolve()
+# plantait à chaque appel. ~/jarvis/jarvis_master.db est un lien vers la base
+# réelle de /storage — c'est le chemin qu'utilisent déjà les autres scripts.
+DB_PATH = os.environ.get(
+    "JARVIS_MASTER_DB", str(Path.home() / "jarvis" / "jarvis_master.db")
+)
 
 # Tokens trop génériques à ignorer lors du matching
 STOP_WORDS = {
@@ -34,12 +41,16 @@ STOP_WORDS = {
 
 
 class CascadeEngine:
-    def __init__(self, db_path: str = DB_PATH):
+    def __init__(self, db_path: str = DB_PATH, max_depth: int = 5):
         self.db_path = db_path
+        self.max_depth = max_depth
         # Rien d'autre chargé au __init__ — lazy total
 
     def _conn(self) -> sqlite3.Connection:
-        conn = sqlite3.connect(self.db_path)
+        # WAL : un seul écrivain à la fois sur une base très sollicitée,
+        # il faut attendre au lieu d'échouer sur "database is locked".
+        conn = sqlite3.connect(self.db_path, timeout=120)
+        conn.execute("PRAGMA busy_timeout=120000")
         conn.row_factory = sqlite3.Row
         return conn
 
@@ -102,7 +113,7 @@ class CascadeEngine:
             while queue:
                 tool, depth = queue.pop(0)
                 name = tool["name"]
-                if name in visited or depth > 4:
+                if name in visited or depth > self.max_depth:
                     continue
                 visited.add(name)
 
@@ -259,7 +270,7 @@ class CascadeEngine:
 
         # model via lm-ask.sh
         if "lm-ask.sh" in loader or "ollama run" in loader:
-            script = "/home/pamerys/jarvis/scripts/lm-ask.sh"
+            script = "/home/turbo/jarvis/scripts/lm-ask.sh"
             if not Path(script).exists():
                 return "", f"lm-ask.sh not found at {script}"
             try:
@@ -298,13 +309,15 @@ class CascadeEngine:
         if category == "cli":
             parts = loader.split()
             try:
+                # Execute with the query if provided, otherwise fallback to help
+                cmd = parts + [query] if query else parts[:2] + ["--help"]
                 r = subprocess.run(
-                    parts[:2] + ["--help"],
+                    cmd,
                     capture_output=True,
                     text=True,
-                    timeout=5,
+                    timeout=15,
                 )
-                return r.stdout.strip()[:200] or "(no help)", r.stderr.strip()[:100]
+                return r.stdout.strip()[:1000] or "(no output)", r.stderr.strip()[:500]
             except Exception as e:
                 return "", str(e)
 
@@ -312,9 +325,9 @@ class CascadeEngine:
         return f"[{category}] loader={loader} — no executor defined", ""
 
     def _node_from_loader(self, loader: str) -> str:
-        if "192.168.1.85" in loader or "M1" in loader:
+        if "192.168.0.10" in loader or "M1" in loader:
             return "M1"
-        if "192.168.1.26" in loader or "M2" in loader:
+        if "127.0.0.1" in loader or "M2" in loader:
             return "M2"
         if "ollama" in loader or "OL1" in loader:
             return "OL1"
@@ -333,9 +346,12 @@ if __name__ == "__main__":
     p.add_argument("query", nargs="+", help="Query text")
     p.add_argument("--dry-run", action="store_true")
     p.add_argument("--db", default=DB_PATH)
+    p.add_argument(
+        "--max-depth", type=int, default=5, help="Max depth for cascade planning"
+    )
     args = p.parse_args()
 
-    engine = CascadeEngine(args.db)
+    engine = CascadeEngine(args.db, max_depth=args.max_depth)
     q = " ".join(args.query)
 
     if args.action == "resolve":

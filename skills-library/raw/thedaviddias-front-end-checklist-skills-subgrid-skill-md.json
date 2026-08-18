@@ -1,0 +1,11 @@
+{
+  "id": "thedaviddias-front-end-checklist-skills-subgrid-skill-md",
+  "name": "subgrid",
+  "author": "thedaviddias",
+  "description": "Use when reviewing card grid layouts with misaligned content areas, or any nested grid where child items need to align with sibling cards' corresponding sections without JavaScript intervention.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedaviddias/Front-End-Checklist/tree/main/skills/subgrid",
+  "skillUrl": "https://skillsmp.com/creators/thedaviddias/front-end-checklist/skills-subgrid",
+  "stars": 73416,
+  "updatedAt": 1780091646
+}

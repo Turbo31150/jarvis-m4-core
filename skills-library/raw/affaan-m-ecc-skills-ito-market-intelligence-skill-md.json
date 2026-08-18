@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-ito-market-intelligence-skill-md",
+  "name": "ito-market-intelligence",
+  "author": "affaan-m",
+  "description": "Research prediction-market events, venues, underliers, liquidity, and news context for It\u00f4 basket workflows. Use for read-only market intelligence, API-gated It\u00f4 exploration, and source-grounded prediction-market briefings without investment advice or live trading.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/ito-market-intelligence",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-ito-market-intelligence",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

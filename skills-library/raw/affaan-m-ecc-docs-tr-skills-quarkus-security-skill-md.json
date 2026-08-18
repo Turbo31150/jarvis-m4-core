@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-tr-skills-quarkus-security-skill-md",
+  "name": "quarkus-security",
+  "author": "affaan-m",
+  "description": "Quarkus Security best practices for authentication, authorization, JWT/OIDC, RBAC, input validation, CSRF, secrets management, and dependency security.",
+  "contentLanguage": "tur",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/tr/skills/quarkus-security",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-tr-skills-quarkus-security",
+  "stars": 237500,
+  "updatedAt": 1780819528
+}

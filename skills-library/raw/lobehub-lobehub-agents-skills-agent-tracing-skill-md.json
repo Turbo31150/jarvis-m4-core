@@ -1,0 +1,11 @@
+{
+  "id": "lobehub-lobehub-agents-skills-agent-tracing-skill-md",
+  "name": "agent-tracing",
+  "author": "lobehub",
+  "description": "Agent tracing CLI for execution snapshots. Use for agent-tracing, traces, snapshots, LLM call inspection, context engine data, agent step analysis, execution debugging, or pulling remote/production traces (\"\u62c9\u7ebf\u4e0a tracing\") by operation id. Also the first stop for debugging agent tool calls \u2014 wrong or missing tool_calls, unexpected tool arguments or results, which tools were available at a step, or why a tool ran where it did.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/lobehub/lobehub/tree/canary/.agents/skills/agent-tracing",
+  "skillUrl": "https://skillsmp.com/creators/lobehub/lobehub/agents-skills-agent-tracing",
+  "stars": 81243,
+  "updatedAt": 1783438822
+}

@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-healthcare-phi-compliance-skill-md",
+  "name": "healthcare-phi-compliance",
+  "author": "affaan-m",
+  "description": "Protected Health Information (PHI) and Personally Identifiable Information (PII) compliance patterns for healthcare applications. Covers data classification, access control, audit trails, encryption, and common leak vectors.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/healthcare-phi-compliance",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-healthcare-phi-compliance",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

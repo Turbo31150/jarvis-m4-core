@@ -1,0 +1,11 @@
+{
+  "id": "google-gemini-gemini-cli-tools-gemini-cli-bot-gemini-skills-prs-skill-md",
+  "name": "prs",
+  "author": "google-gemini",
+  "description": "Expertise in managing the Git and GitHub Pull Request lifecycle, including staging changes, generating PR descriptions, and branch management.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/google-gemini/gemini-cli/tree/main/tools/gemini-cli-bot/.gemini/skills/prs",
+  "skillUrl": "https://skillsmp.com/creators/google-gemini/gemini-cli/tools-gemini-cli-bot-gemini-skills-prs",
+  "stars": 106351,
+  "updatedAt": 1778618229
+}

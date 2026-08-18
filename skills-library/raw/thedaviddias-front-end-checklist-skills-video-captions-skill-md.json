@@ -1,0 +1,11 @@
+{
+  "id": "thedaviddias-front-end-checklist-skills-video-captions-skill-md",
+  "name": "video-captions",
+  "author": "thedaviddias",
+  "description": "Use when applies to all `<video>` elements and third-party video embeds (YouTube, Vimeo) where the page owner controls the content. Prerecorded videos require `.vtt` caption files via `<track>`. For videos embedded via `<iframe>`, check that the video platform captions are enabled. Audio-only content requires transcripts instead (SC 1.2.1). Video-only content (no audio) requires a text alternative or audio description instead (SC 1.2.3).",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedaviddias/Front-End-Checklist/tree/main/skills/video-captions",
+  "skillUrl": "https://skillsmp.com/creators/thedaviddias/front-end-checklist/skills-video-captions",
+  "stars": 73416,
+  "updatedAt": 1780111799
+}

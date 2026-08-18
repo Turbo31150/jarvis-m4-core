@@ -1,0 +1,11 @@
+{
+  "id": "nexu-io-open-design-skills-reference-design-contract-skill-md",
+  "name": "reference-design-contract",
+  "author": "nexu-io",
+  "description": "Turn vague taste, screenshots, URLs, product notes, or \"make it feel like this\"\nreferences into a grounded DESIGN.md plus an implementation handoff. Use it\nbefore prototypes, decks, redesigns, or image remix work when the user needs\na reusable visual direction rather than a one-off prompt.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/nexu-io/open-design/tree/main/skills/reference-design-contract",
+  "skillUrl": "https://skillsmp.com/creators/nexu-io/open-design/skills-reference-design-contract",
+  "stars": 83535,
+  "updatedAt": 1780379586
+}

@@ -1,0 +1,13 @@
+name = "jarvis-omega"
+main = "src/index.js"
+compatibility_date = "2025-11-01"
+
+# Sous-domaine workers.dev : l'URL finale sera
+#   https://jarvis-omega.<ton-sous-domaine>.workers.dev/mcp
+workers_dev = true
+
+# Les 4 valeurs sensibles ne sont PAS ici : elles se posent par
+#   npx wrangler secret put OMEGA_PUBLIC_TOKEN
+#   npx wrangler secret put ORIGIN_URL
+#   npx wrangler secret put ORIGIN_BASIC
+#   npx wrangler secret put ORIGIN_TOKEN

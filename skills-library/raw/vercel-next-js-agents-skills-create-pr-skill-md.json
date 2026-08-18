@@ -1,0 +1,11 @@
+{
+  "id": "vercel-next-js-agents-skills-create-pr-skill-md",
+  "name": "create-pr",
+  "author": "vercel",
+  "description": "Create Git branches, commits, pushes, and GitHub pull requests for Next.js. Use when the user asks to create a branch, commit current changes, open a PR or draft PR, publish a pull request, or recover from gh pr create / PR template issues. Covers .github/pull_request_template.md, --body formatting, codex/ branch names, and Codex app git directives.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/vercel/next.js/tree/canary/.agents/skills/create-pr",
+  "skillUrl": "https://skillsmp.com/creators/vercel/next.js/agents-skills-create-pr",
+  "stars": 141334,
+  "updatedAt": 1783708072
+}

@@ -1,0 +1,11 @@
+{
+  "id": "microsoft-vscode-github-skills-author-contributions-skill-md",
+  "name": "author-contributions",
+  "author": "microsoft",
+  "description": "Identify all files a specific author contributed to on a branch vs its upstream, tracing code through renames. Use when asked who edited what, what code an author contributed, or to audit authorship before a merge. This skill should be run as a subagent \u2014 it performs many git operations and returns a concise table.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/microsoft/vscode/tree/main/.github/skills/author-contributions",
+  "skillUrl": "https://skillsmp.com/creators/microsoft/vscode/github-skills-author-contributions",
+  "stars": 188283,
+  "updatedAt": 1771337679
+}

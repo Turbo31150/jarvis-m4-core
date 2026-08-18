@@ -1,0 +1,11 @@
+{
+  "id": "thedaviddias-front-end-checklist-skills-type-only-imports-skill-md",
+  "name": "type-only-imports",
+  "author": "thedaviddias",
+  "description": "Use when auditing import statements in TypeScript files, setting up a new TypeScript project, or investigating unexpected bundle inclusions from type-only dependencies.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedaviddias/Front-End-Checklist/tree/main/skills/type-only-imports",
+  "skillUrl": "https://skillsmp.com/creators/thedaviddias/front-end-checklist/skills-type-only-imports",
+  "stars": 73416,
+  "updatedAt": 1780091646
+}

@@ -22,6 +22,11 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/gemini-session-logger.sh" 2>/dev/null || true
 
+# --- Headless : gemini-cli 0.47 bloque (RC=55) hors dossier "trusted" en non-interactif.
+# Auth = api-key (~/.gemini/.env GEMINI_API_KEY) ; on lève la barrière trust pour MCP/cron/scripts.
+# cf. https://geminicli.com/docs/cli/trusted-folders/#headless-and-automated-environments
+export GEMINI_CLI_TRUST_WORKSPACE=true
+
 # --- Session registry ---
 bash /home/pamerys/.jarvis/session-start.sh gemini-cli $$ 2>/dev/null &
 
@@ -42,8 +47,9 @@ while [[ "${1:-}" == --* ]]; do
   case "$1" in
     --short)       FORCE_SHORT=true; shift ;;
     --long)        FORCE_LONG=true; shift ;;
-    --pro)         MODEL="gemini-2.5-pro"; shift ;;
-    --flash)       MODEL="gemini-2.5-flash"; shift ;;
+    --pro)         MODEL="gemini-3.1-pro-preview"; shift ;;
+    --flash)       MODEL="gemini-3.7-flash"; shift ;;
+    --lite)        MODEL="gemini-3.5-flash-lite"; shift ;;
     --model)       MODEL="$2"; shift 2 ;;
     --via)         VIA="$2"; shift 2 ;;
     --json)        JSON_OUT=true; shift ;;
@@ -58,9 +64,10 @@ done
 # --- Prompt ---
 PROMPT="${*:-}"
 [[ -t 0 ]] || PROMPT="$(cat)${PROMPT:+ }${PROMPT}"
-PROMPT="${PROMPT// /}"  # trim leading/trailing
+PROMPT="${PROMPT#"${PROMPT%%[![:space:]]*}"}"  # trim leading
+PROMPT="${PROMPT%"${PROMPT##*[![:space:]]}"}"   # trim trailing (préserve espaces internes)
 if [[ -z "$PROMPT" ]]; then
-  echo "Usage: gemini-smart.sh [--short|--long|--flash|--pro] \"prompt\"" >&2
+  echo "Usage: gemini-smart.sh [--short|--long|--flash|--pro|--lite] \"prompt\"" >&2
   exit 1
 fi
 
@@ -68,22 +75,38 @@ PROMPT_LEN=${#PROMPT}
 
 # --- Auto-select model / timeout ---
 if [[ -z "$MODEL" ]]; then
-  if $FORCE_LONG || [[ $PROMPT_LEN -gt 500 ]]; then
-    MODEL="gemini-2.5-pro"
+  if $FORCE_LONG || [[ $PROMPT_LEN -gt 800 ]]; then
+    MODEL="gemini-3.1-pro-preview"
     # Dégrader vers flash si l'heure courante a un mauvais historique
     HOUR_QUALITY=$(gemini_best_hours 2>/dev/null || echo "unknown")
     if [[ "$HOUR_QUALITY" == "bad" ]]; then
-      MODEL="gemini-2.5-flash"
+      MODEL="gemini-3.7-flash"
       echo "[gemini-smart] heure défavorable→flash" >&2
     fi
   else
-    MODEL="gemini-2.5-flash"
+    MODEL="gemini-3.7-flash"
   fi
 fi
-$FORCE_LONG && MODEL="gemini-2.5-pro"
-$FORCE_SHORT && MODEL="gemini-2.5-flash"
+$FORCE_LONG && MODEL="gemini-3.1-pro-preview"
+$FORCE_SHORT && MODEL="gemini-3.5-flash-lite"
 
 [[ "$MODEL" == *pro* ]] && TIMEOUT=$TIMEOUT_PRO || TIMEOUT=$TIMEOUT_FLASH
+
+# --- SÉCURITÉ : --yolo (auto-approve outils) seulement pour prompts de confiance ---
+# Les sources réseau (lumen/whisperflow/telegram/linkedin/cli-stdin) sont NON fiables :
+# auto-exécuter des outils sur un prompt distant = bypass de permission (escalade).
+# Seul l'opérateur local (--via direct|cli) ou GEMINI_TRUSTED_PROMPT=1 active --yolo.
+case "$VIA" in
+  direct|cli) TRUSTED=1 ;;
+  *)          TRUSTED=0 ;;
+esac
+[[ "${GEMINI_TRUSTED_PROMPT:-0}" == "1" ]] && TRUSTED=1
+if [[ "$TRUSTED" == "1" ]]; then
+  YOLO_FLAG=(--yolo)
+else
+  YOLO_FLAG=()
+  echo "[gemini-smart] --via=$VIA non fiable → --yolo désactivé (sécurité, pas d'auto-exec d'outils)" >&2
+fi
 
 # --- Log start ---
 if $DO_LOG && command -v gemini_log_start &>/dev/null; then
@@ -101,7 +124,7 @@ trap _cleanup EXIT
 
 # Lance Gemini avec timeout strict
 set +e
-timeout "$TIMEOUT" gemini --prompt "$PROMPT" --yolo --model "$MODEL" \
+timeout --kill-after=10 "$TIMEOUT" gemini --prompt "$PROMPT" "${YOLO_FLAG[@]}" --model "$MODEL" \
   >"$TMPOUT" 2>"$TMPERR"
 EXIT=$?
 set -e
@@ -114,7 +137,7 @@ ERR=$(cat "$TMPERR" 2>/dev/null || true)
 if [[ $EXIT -eq 124 ]]; then
   STATUS="hung"
   ERROR_MSG="timeout_${TIMEOUT}s"
-elif echo "$ERR$OUT" | grep -qiE "QUOTA_EXHAUSTED|exhausted your capacity|capacity.related"; then
+elif echo "$ERR$OUT" | grep -qiE "QUOTA_EXHAUSTED|RESOURCE_EXHAUSTED|exhausted your capacity|No capacity available|capacity.related|\b429\b"; then
   STATUS="quota"
   ERROR_MSG="quota_exhausted"
 elif echo "$ERR$OUT" | grep -qiE "^Error:|UNAVAILABLE|503|overloaded"; then
@@ -128,31 +151,46 @@ fi
 # --- Fallback si nécessaire ---
 if [[ "$STATUS" != "ok" ]] && $FALLBACK; then
   case "$STATUS" in
-    hung|quota)
-      # Pro bloqué → essayer flash
-      if [[ "$MODEL" == *pro* ]]; then
-        echo "[gemini-pro-${STATUS}→flash]" >&2
+    hung|quota|error)
+      # Flash bloqué (429 / No capacity) → essayer pro (capacité distincte côté Google)
+      if [[ "$MODEL" == *flash* ]]; then
+        echo "[gemini-flash-${STATUS}→pro]" >&2
         set +e
-        timeout "$TIMEOUT_FLASH" gemini --prompt "$PROMPT" --yolo --model "gemini-2.5-flash" \
+        timeout --kill-after=10 "$TIMEOUT_PRO" gemini --prompt "$PROMPT" "${YOLO_FLAG[@]}" --model "gemini-3.1-pro-preview" \
           >"$TMPOUT" 2>"$TMPERR"
         EXIT=$?
         set -e
         OUT=$(grep -v "^YOLO mode" "$TMPOUT" 2>/dev/null || true)
         ERR=$(cat "$TMPERR" 2>/dev/null || true)
-        if [[ $EXIT -eq 0 ]] && ! echo "$OUT" | grep -qiE "QUOTA_EXHAUSTED|Error:"; then
+        if [[ $EXIT -eq 0 ]] && ! echo "$ERR$OUT" | grep -qiE "QUOTA_EXHAUSTED|No capacity available|Error:"; then
           STATUS="ok"
-          MODEL="gemini-2.5-flash"
+          MODEL="gemini-3.1-pro-preview"
         fi
       fi
-      # Flash aussi bloqué → antigravity → lm-ask
+      # Pro bloqué → essayer flash
+      if [[ "$STATUS" != "ok" && "$MODEL" == *pro* ]]; then
+        echo "[gemini-pro-${STATUS}→flash]" >&2
+        set +e
+        timeout --kill-after=10 "$TIMEOUT_FLASH" gemini --prompt "$PROMPT" "${YOLO_FLAG[@]}" --model "gemini-3.7-flash" \
+          >"$TMPOUT" 2>"$TMPERR"
+        EXIT=$?
+        set -e
+        OUT=$(grep -v "^YOLO mode" "$TMPOUT" 2>/dev/null || true)
+        ERR=$(cat "$TMPERR" 2>/dev/null || true)
+        if [[ $EXIT -eq 0 ]] && ! echo "$ERR$OUT" | grep -qiE "QUOTA_EXHAUSTED|No capacity available|Error:"; then
+          STATUS="ok"
+          MODEL="gemini-3.7-flash"
+        fi
+      fi
+      # Tout Gemini bloqué → antigravity → lm-ask (cluster local)
       if [[ "$STATUS" != "ok" ]]; then
-        echo "[gemini-quota→antigravity]" >&2
+        echo "[gemini-${STATUS}→antigravity]" >&2
         OUT=$(bash "$SCRIPT_DIR/antigravity-ask.sh" "$PROMPT" 2>/dev/null) || OUT=""
         if [[ -n "$OUT" ]]; then
           STATUS="ok"
           MODEL="antigravity"
         else
-          echo "[gemini-quota→lm-ask]" >&2
+          echo "[gemini-${STATUS}→lm-ask]" >&2
           OUT=$(bash "$SCRIPT_DIR/lm-ask.sh" "$PROMPT" 2>/dev/null) || OUT=""
           [[ -n "$OUT" ]] && STATUS="ok" && MODEL="lm-local"
         fi

@@ -1,0 +1,11 @@
+{
+  "id": "kubesphere-kubesphere-skills-kubesphere-devops-tenant-skill-md",
+  "name": "kubesphere-devops-tenant",
+  "author": "kubesphere",
+  "description": "Use when operating KubeSphere DevOps as a namespace-scoped tenant with limited permissions, without cluster-admin access, or when accessing DevOps through KubeSphere APIs only",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/kubesphere/kubesphere/tree/master/skills/kubesphere-devops-tenant",
+  "skillUrl": "https://skillsmp.com/creators/kubesphere/kubesphere/skills-kubesphere-devops-tenant",
+  "stars": 17017,
+  "updatedAt": 1774838084
+}

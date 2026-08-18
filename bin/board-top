@@ -1,0 +1,117 @@
+#!/usr/bin/env python3
+"""
+board-top — Grand Conseil de la Table Ronde JARVIS OS (8 Experts Spécialisés).
+Délibération parallèle multi-agents à 0-Token avec citations FTS5 et arbitrage unifié.
+"""
+
+import sys
+import os
+import json
+import sqlite3
+import urllib.request
+from concurrent.futures import ThreadPoolExecutor
+from datetime import datetime
+
+# Couleurs ANSI
+G = "\033[92m"
+Y = "\033[93m"
+R = "\033[91m"
+B = "\033[94m"
+C = "\033[96m"
+M = "\033[95m"
+BOLD = "\033[1m"
+DIM = "\033[2m"
+RESET = "\033[0m"
+
+HOME = os.path.expanduser("~")
+BIBLIO_DB = os.path.join(HOME, ".claude/bibliotheque/bibliotheque.db")
+BOARD_DB = os.path.join(HOME, "jarvis/board/board.db")
+OLLAMA_URL = "http://127.0.0.1:11434/api/generate"
+MODEL = os.environ.get("BOARD_MODEL", "gemma3:4b")
+
+# LES 7 EXPERTS DU GRAND CONSEIL + 1 ARBITRE
+EXPERTS = [
+    {"id": "archi",   "icon": "🏛️", "name": "L'Architecte Cluster",   "role": "Modularité, topologie M4/M1, 0-dette et pérennité."},
+    {"id": "finops",  "icon": "⚡", "name": "L'Arbitre 0-Token",      "role": "0 coût API, calculs locaux déterministes, GPU local."},
+    {"id": "sec",     "icon": "🛡️", "name": "L'Expert Sécurité",     "role": "Zero-trust, étanchéité conteneurs, protection des secrets."},
+    {"id": "swarm",   "icon": "🤖", "name": "L'Expert Swarms IA",     "role": "Orchestration multi-agents, OpenClaw, MCP & context-hygiene."},
+    {"id": "data",    "icon": "📊", "name": "L'Ingénieur Data & RAG", "role": "SQLite FTS5, embeddings 768dim, PostgreSQL Swarm."},
+    {"id": "vocal",   "icon": "🎙️", "name": "L'Expert Vocal & Media", "role": "WhisperFlow temps réel, ASR sans latence, multimodal."},
+    {"id": "biz",     "icon": "💼", "name": "Le Stratège Business",   "role": "Monétisation B2B, Factur-X 2026, ROI client et closing."}
+]
+
+def search_citations(query, limit=4):
+    citations = []
+    if os.path.exists(BIBLIO_DB):
+        try:
+            with sqlite3.connect(BIBLIO_DB) as c:
+                terms = ' OR '.join([w for w in query.split() if len(w) > 2][:4])
+                if terms:
+                    rows = c.execute("SELECT bloc_id, source, mots_cles, action FROM blocs WHERE blocs MATCH ? LIMIT ?", (terms, limit)).fetchall()
+                    for r in rows:
+                        citations.append({"id": r[0], "source": r[1], "action": r[3][:90]})
+        except Exception:
+            pass
+    return citations
+
+def query_llm(prompt, system_prompt, max_tokens=100):
+    payload = {
+        "model": MODEL,
+        "prompt": f"System: {system_prompt}\n\nContexte:\n{prompt}",
+        "stream": False,
+        "options": {"num_predict": max_tokens, "temperature": 0.25}
+    }
+    try:
+        req = urllib.request.Request(OLLAMA_URL, data=json.dumps(payload).encode(), headers={"Content-Type": "application/json"})
+        with urllib.request.urlopen(req, timeout=90) as resp:
+            data = json.loads(resp.read().decode())
+            return data.get("response", "").strip()
+    except Exception as e:
+        return f"Recommandation locale : privilégier l'approche souveraine et robuste (Erreur: {e})"
+
+def main():
+    query = " ".join(sys.argv[1:]) if len(sys.argv) > 1 else "Comment accélérer la valeur opérationnelle et le déploiement des agents JARVIS ?"
+    
+    print(f"\n{BOLD}{C}╔══════════════════════════════════════════════════════════════════════════════╗{RESET}")
+    print(f"{BOLD}{C}║         🏛️  GRAND CONSEIL DE LA TABLE RONDE JARVIS (7 AGENTS IA + 1 ARBITRE)║{RESET}")
+    print(f"{BOLD}{C}║         Inférence Locale 0-Token  ·  Délibération Parallèle & Citations FTS5 ║{RESET}")
+    print(f"{BOLD}{C}╚══════════════════════════════════════════════════════════════════════════════╝{RESET}")
+    print(f"{BOLD}📌 QUESTION AU CONSEIL : {Y}{query}{RESET}\n")
+
+    citations = search_citations(query)
+    ctx_text = "\n".join([f"- [{c['id']}] ({c['source']}) : {c['action']}" for c in citations]) if citations else "Corpus standard JARVIS."
+
+    def consult(expert):
+        sys_p = f"Tu es {expert['name']} ({expert['role']}). Donne ta recommandation stratégique en 1-2 phrases percutantes et actionnables en français (35 mots max)."
+        user_p = f"Sujet : {query}\n\nCitations :\n{ctx_text}"
+        ans = query_llm(user_p, sys_p, max_tokens=80)
+        return expert, ans
+
+    with ThreadPoolExecutor(max_workers=7) as executor:
+        results = list(executor.map(consult, EXPERTS))
+
+    print(f"{BOLD}🗣️  DÉLIBÉRATION DES 7 AGENTS EXPERTS DU GRAND CONSEIL :{RESET}")
+    print(f"{DIM}──────────────────────────────────────────────────────────────────────────────{RESET}")
+    expert_texts = []
+    for exp, ans in results:
+        print(f"{BOLD}{exp['icon']} {exp['name']:<25} {DIM}({exp['role']}){RESET} :")
+        print(f"   {ans}\n")
+        expert_texts.append(f"{exp['name']}: {ans}")
+
+    # Synthèse & Consensus de l'Arbitre Suprême
+    print(f"{DIM}──────────────────────────────────────────────────────────────────────────────{RESET}")
+    print(f"{BOLD}⚖️  ARBITRAGE SUPRÊME & PLAN D'ACTION IMMÉDIAT :{RESET}")
+    arb_sys = "Tu es l'Arbitre Suprême du Grand Conseil. Synthétise la décision finale en 2 phrases concrètes et indique le score de consensus (ex: Consensus 98%)."
+    arb_user = f"Sujet : {query}\n\nAvis des 7 agents experts :\n" + "\n".join(expert_texts)
+    verdict = query_llm(arb_user, arb_sys, max_tokens=100)
+    print(f"   👉 {G}{BOLD}{verdict}{RESET}\n")
+
+    # Affichage des citations de preuves
+    if citations:
+        print(f"{BOLD}📚 BASE DE PREUVES & CITATIONS FTS5 (0-TOKEN) :{RESET}")
+        for c in citations:
+            print(f"   🔗 {M}[{c['id']}]{RESET} {DIM}({c['source']}){RESET} $\\rightarrow$ {c['action']}")
+    print(f"{DIM}──────────────────────────────────────────────────────────────────────────────{RESET}\n")
+
+if __name__ == "__main__":
+    main()

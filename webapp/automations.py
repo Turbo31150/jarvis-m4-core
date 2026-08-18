@@ -315,7 +315,8 @@ def _route_mail_dynamique():
     mail_data = None
     try:
         result = ai_local.generate(
-            user=user, system=system, max_tokens=600, cache=False
+            # prénom + infos de l'élève dans le mail aux parents → ne sort pas du foyer
+            user=user, system=system, max_tokens=600, cache=False, nominatif=True
         )
         import json
 
@@ -487,7 +488,10 @@ def _build_mail(conn, type_, eleve_id):
     try:
         import json as _json
 
-        res = ai_local.generate(user=user, system=system, max_tokens=600, cache=False)
+        # prénom, niveau et besoins de l'élève → ne sort pas du foyer
+        res = ai_local.generate(
+            user=user, system=system, max_tokens=600, cache=False, nominatif=True
+        )
         txt = res["text"].strip()
         if txt.startswith("```"):
             txt = txt.split("```")[1]

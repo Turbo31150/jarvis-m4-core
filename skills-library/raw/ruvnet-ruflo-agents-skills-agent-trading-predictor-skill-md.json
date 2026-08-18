@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruflo-agents-skills-agent-trading-predictor-skill-md",
+  "name": "agent-trading-predictor",
+  "author": "ruvnet",
+  "description": "Agent skill for trading-predictor - invoke with $agent-trading-predictor",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/ruflo/tree/main/.agents/skills/agent-trading-predictor",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruflo/agents-skills-agent-trading-predictor",
+  "stars": 66991,
+  "updatedAt": 1770485792
+}

@@ -1,0 +1,11 @@
+{
+  "id": "microsoft-vscode-github-skills-unit-tests-skill-md",
+  "name": "unit-tests",
+  "author": "microsoft",
+  "description": "Use when running unit tests in the VS Code repo. Covers the runTests tool, scripts/test.sh (macOS/Linux) and scripts/test.bat (Windows), and their supported arguments for filtering, globbing, and debugging tests.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/microsoft/vscode/tree/main/.github/skills/unit-tests",
+  "skillUrl": "https://skillsmp.com/creators/microsoft/vscode/github-skills-unit-tests",
+  "stars": 188283,
+  "updatedAt": 1774752539
+}

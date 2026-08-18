@@ -1,0 +1,11 @@
+{
+  "id": "prisma-prisma-skills-prisma-next-runtime-skill-md",
+  "name": "prisma-next-runtime",
+  "author": "prisma",
+  "description": "Wire the Prisma Next runtime \u2014 `db.ts` setup using `postgres<Contract>(...)` from `@internal/postgres/runtime`, `sqlite<Contract>(...)` from `@internal/sqlite/runtime`, or `mongo<Contract>(...)` from `@internal/mongo/runtime`; middleware composition (telemetry from `@internal/middleware-telemetry`; lints and budgets), `DATABASE_URL` config, per-environment branching, switching between Postgres, SQLite, and Mongo fa\u00e7ades. Use for db.ts, postgres(), sqlite(), mongo(), middleware, telemetry, lints, budgets, DATABASE_URL, .env, connection pool, poolOptions, dev vs prod config, transactions, db.transaction, read replicas, multi-database, script won't exit, hangs, close connection, db.end, db.close, pool.end, [Symbol.asyncDispose], await using.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/prisma/prisma/tree/main/skills/prisma-next-runtime",
+  "skillUrl": "https://skillsmp.com/creators/prisma/prisma/skills-prisma-next-runtime",
+  "stars": 47525,
+  "updatedAt": 1785766101
+}

@@ -1,0 +1,11 @@
+{
+  "id": "posthog-posthog-products-signals-skills-signals-scout-ai-observability-skill-md",
+  "name": "signals-scout-ai-observability",
+  "author": "PostHog",
+  "description": "Signals scout for PostHog AI observability. Watches LLM traces for cost, latency, error, volume, and eval-performance regressions, sliced by the dimensions it discovers over time, and files each validated regression as a report in the inbox.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/PostHog/posthog/tree/master/products/signals/skills/signals-scout-ai-observability",
+  "skillUrl": "https://skillsmp.com/creators/posthog/posthog/products-signals-skills-signals-scout-ai-observability",
+  "stars": 37496,
+  "updatedAt": 1785376562
+}

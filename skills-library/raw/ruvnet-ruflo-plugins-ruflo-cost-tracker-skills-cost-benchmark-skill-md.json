@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruflo-plugins-ruflo-cost-tracker-skills-cost-benchmark-skill-md",
+  "name": "cost-benchmark",
+  "author": "ruvnet",
+  "description": "Run the corpus benchmark \u2014 booster locally, optional Gemini/Sonnet/Opus baselines \u2014 and persist a verifiable measured-vs-claimed table",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/ruflo/tree/main/plugins/ruflo-cost-tracker/skills/cost-benchmark",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruflo/plugins-ruflo-cost-tracker-skills-cost-benchmark",
+  "stars": 66991,
+  "updatedAt": 1777952152
+}

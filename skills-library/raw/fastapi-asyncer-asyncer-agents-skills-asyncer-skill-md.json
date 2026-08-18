@@ -1,0 +1,11 @@
+{
+  "id": "fastapi-asyncer-asyncer-agents-skills-asyncer-skill-md",
+  "name": "asyncer",
+  "author": "fastapi",
+  "description": "Use Asyncer correctly in Python code that mixes async functions, blocking sync functions, worker threads, or concurrent async tasks. Use when choosing between Asyncer, AnyIO, and asyncio patterns; replacing asyncio.gather, AnyIO task groups, to_thread/from_thread calls, or anyio.run wrappers; using asyncer.create_task_group(), TaskGroup.soonify(), SoonValue, asyncify(), syncify(), or runnify(); or avoiding common Asyncer mistakes.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/fastapi/asyncer/tree/main/asyncer/.agents/skills/asyncer",
+  "skillUrl": "https://skillsmp.com/creators/fastapi/asyncer/asyncer-agents-skills-asyncer",
+  "stars": 2481,
+  "updatedAt": 1782393488
+}

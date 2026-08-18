@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-laravel-plugin-discovery-skill-md",
+  "name": "laravel-plugin-discovery",
+  "author": "affaan-m",
+  "description": "Discover and evaluate Laravel packages via LaraPlugins.io MCP. Use when the user wants to find plugins, check package health, or assess Laravel/PHP compatibility.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/laravel-plugin-discovery",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-laravel-plugin-discovery",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La symétrie axiale — Maths CM1</title>
+<style>
+@page{size:A4;margin:12mm}
+*{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;color:#222;margin:0;font-size:12px;line-height:1.5}
+h1{color:#6a1b9a;font-size:23px;margin:0 0 2px}
+.sub{color:#666;font-size:12px;margin:0 0 12px}
+h2{color:#4a148c;font-size:15px;border-left:5px solid #ab47bc;padding-left:8px;margin:14px 0 6px}
+.lecon{background:#f3e5f5;border-radius:8px;padding:10px 14px;margin:8px 0}
+.voc{background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:8px 12px;font-size:11px}
+.voc b{color:#ef6c00}
+.schema{text-align:center;font-size:40px;margin:10px 0;letter-spacing:6px}
+.exo{border:1px solid #e1bee7;border-radius:8px;padding:8px 12px;margin:8px 0}
+.exo .niv{font-size:10px;color:#6a1b9a;font-weight:700}
+.retenir{background:#e8f5e9;border-left:5px solid #66bb6a;border-radius:6px;padding:8px 12px;margin:10px 0}
+.quiz{border-top:1px dashed #bbb;margin-top:12px;padding-top:8px;font-size:11px}
+.foot{margin-top:14px;font-size:9px;color:#999;text-align:center}
+
+/* mise en page complémentaire */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0}
+.schema-box{border:2px dashed #ab47bc;border-radius:8px;padding:10px;text-align:center;background:#faf0ff}
+.schema-svg{display:block;margin:0 auto}
+.exo-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.exo-soutien{border-color:#a5d6a7;background:#f1f8f1}
+.exo-standard{border-color:#e1bee7;background:#faf0ff}
+.exo-appro{border-color:#ffcc80;background:#fff8f0}
+.niv-soutien{color:#388e3c}
+.niv-appro{color:#e65100}
+table.voc-table{width:100%;border-collapse:collapse}
+table.voc-table td{padding:2px 6px;vertical-align:top}
+table.voc-table td:first-child{width:38%;font-weight:700;color:#ef6c00}
+.ligne-axe{border-top:2px dashed #ab47bc;width:60%;margin:4px auto}
+.quiz ol{margin:4px 0;padding-left:18px}
+.quiz li{margin-bottom:3px}
+.bo-tag{display:inline-block;background:#ede7f6;color:#6a1b9a;border-radius:4px;font-size:10px;padding:1px 6px;font-weight:700;margin-left:4px}
+</style>
+</head>
+<body>
+
+<h1>La symétrie axiale</h1>
+<p class="sub">
+  <strong>Objectif :</strong> Reconnaître, tracer et utiliser un axe de symétrie dans des figures planes.
+  <span class="bo-tag">Géométrie &amp; espace — Cycle 3 B.O. 2023</span>
+</p>
+<p class="sub" style="margin-top:-8px">
+  <strong>Compétence B.O. :</strong> Reconnaître et utiliser la symétrie axiale pour compléter une figure ou vérifier qu'une figure est symétrique par rapport à une droite.
+</p>
+
+<!-- ===== LECON ===== -->
+<h2>&#128218; La leçon</h2>
+<div class="lecon">
+  <p>Deux figures sont <strong>symétriques par rapport à un axe</strong> (une droite) si, en pliant la feuille sur cet axe, les deux figures se superposent exactement.</p>
+  <p>La droite de pliage s'appelle l'<strong>axe de symétrie</strong> (ou <strong>axe</strong>).</p>
+  <p>Le point <strong>image</strong> d'un point A par rapport à un axe est le point A' tel que :</p>
+  <ul style="margin:4px 0 6px 16px">
+    <li>l'axe est la <strong>médiatrice</strong> du segment [AA'] ;</li>
+    <li>[AA'] est <strong>perpendiculaire</strong> à l'axe ;</li>
+    <li>A et A' sont à <strong>égale distance</strong> de l'axe.</li>
+  </ul>
+  <p style="margin:0">Une figure peut avoir <strong>0, 1 ou plusieurs axes de symétrie</strong>.</p>
+</div>
+
+<!-- ===== SCHEMA ===== -->
+<div class="schema-box" style="margin:8px 0">
+  <div style="font-size:13px;font-weight:700;color:#6a1b9a;margin-bottom:4px">Schéma — axe vertical &amp; points symétriques</div>
+  <svg class="schema-svg" width="340" height="130" viewBox="0 0 340 130" xmlns="http://www.w3.org/2000/svg" style="font-family:'Segoe UI',Arial,sans-serif;font-size:13px">
+    <!-- axe -->
+    <line x1="170" y1="10" x2="170" y2="120" stroke="#ab47bc" stroke-width="2.5" stroke-dasharray="6,3"/>
+    <text x="176" y="18" fill="#6a1b9a" font-weight="700">axe</text>
+    <!-- Point A -->
+    <circle cx="80" cy="65" r="5" fill="#e64a19"/>
+    <text x="60" y="62" fill="#e64a19" font-weight="700">A</text>
+    <!-- Point A' -->
+    <circle cx="260" cy="65" r="5" fill="#e64a19"/>
+    <text x="265" y="62" fill="#e64a19" font-weight="700">A'</text>
+    <!-- segment AA' -->
+    <line x1="80" y1="65" x2="260" y2="65" stroke="#e64a19" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <!-- cotes égales -->
+    <line x1="125" y1="58" x2="125" y2="72" stroke="#555" stroke-width="1.2"/>
+    <line x1="215" y1="58" x2="215" y2="72" stroke="#555" stroke-width="1.2"/>
+    <text x="118" y="84" fill="#555" font-size="10">d</text>
+    <text x="210" y="84" fill="#555" font-size="10">d</text>
+    <!-- angle droit -->
+    <rect x="170" y="65" width="8" height="8" fill="none" stroke="#6a1b9a" stroke-width="1.5"/>
+    <!-- figure gauche (maison simple) -->
+    <polygon points="35,110 35,80 55,60 75,80 75,110" fill="none" stroke="#7b1fa2" stroke-width="1.8"/>
+    <!-- figure droite (miroir) -->
+    <polygon points="305,110 305,80 285,60 265,80 265,110" fill="none" stroke="#7b1fa2" stroke-width="1.8" stroke-dasharray="5,3"/>
+    <text x="20" y="125" fill="#7b1fa2" font-size="10">figure</text>
+    <text x="268" y="125" fill="#7b1fa2" font-size="10">image</text>
+  </svg>
+  <div style="font-size:10px;color:#888;margin-top:2px">AA' &#x27C2; axe &nbsp;|&nbsp; A et A' à égale distance <em>d</em> de l'axe</div>
+</div>
+
+<!-- ===== VOCABULAIRE ===== -->
+<div class="voc">
+  <strong style="color:#ef6c00;font-size:12px">&#128218; Vocabulaire</strong>
+  <table class="voc-table" style="margin-top:4px">
+    <tr><td>Axe de symétrie</td><td>Droite de pliage : les deux parties se superposent exactement.</td></tr>
+    <tr><td>Figure symétrique</td><td>Figure qui peut être superposée à son image par pliage sur l'axe.</td></tr>
+    <tr><td>Point image (A')</td><td>Le correspondant d'un point A de l'autre côté de l'axe.</td></tr>
+    <tr><td>Médiatrice</td><td>Droite perpendiculaire au milieu d'un segment.</td></tr>
+    <tr><td>Équidistant</td><td>À égale distance de l'axe.</td></tr>
+    <tr><td>Perpendiculaire</td><td>Qui forme un angle droit (90°) avec une droite.</td></tr>
+  </table>
+</div>
+
+<!-- ===== EXERCICES ===== -->
+<h2>&#9999;&#65039; Exercices</h2>
+<div class="exo-grid">
+
+  <!-- SOUTIEN -->
+  <div class="exo exo-soutien">
+    <div class="niv niv-soutien">&#11088; Soutien</div>
+    <p style="margin:4px 0 6px"><strong>Exercice 1 — Vrai ou Faux ?</strong></p>
+    <p style="font-size:11px;margin:0 0 4px">Entoure <strong>V</strong> (vrai) ou <strong>F</strong> (faux).</p>
+    <ol style="font-size:11px;margin:0;padding-left:16px">
+      <li>Un carré a 4 axes de symétrie. &nbsp; <strong>V &nbsp; F</strong></li>
+      <li>Un triangle quelconque a toujours 1 axe de symétrie. &nbsp; <strong>V &nbsp; F</strong></li>
+      <li>Lorsqu'on plie sur l'axe, les deux parties se superposent. &nbsp; <strong>V &nbsp; F</strong></li>
+      <li>La lettre <strong>A</strong> a un axe de symétrie vertical. &nbsp; <strong>V &nbsp; F</strong></li>
+    </ol>
+    <p style="font-size:10px;color:#888;margin:6px 0 0">&#128161; Aide : plie ou utilise un miroir.</p>
+  </div>
+
+  <!-- STANDARD -->
+  <div class="exo exo-standard">
+    <div class="niv">&#11088;&#11088; Standard</div>
+    <p style="margin:4px 0 6px"><strong>Exercice 2 — Complète la figure</strong></p>
+    <p style="font-size:11px;margin:0 0 4px">Trace le symétrique de chaque point par rapport à l'axe (droite verticale au centre).</p>
+    <!-- grille simplifiée -->
+    <svg width="200" height="120" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:4px auto;font-family:'Segoe UI',Arial;font-size:10px">
+      <!-- grille -->
+      <defs><pattern id="g" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M10 0H0V10" fill="none" stroke="#ddd" stroke-width="0.5"/></pattern></defs>
+      <rect width="200" height="120" fill="url(#g)"/>
+      <!-- axe -->
+      <line x1="100" y1="0" x2="100" y2="120" stroke="#ab47bc" stroke-width="2" stroke-dasharray="5,3"/>
+      <!-- points à gauche -->
+      <circle cx="60" cy="30" r="4" fill="#e64a19"/><text x="65" y="28" fill="#e64a19">A</text>
+      <circle cx="40" cy="60" r="4" fill="#1565c0"/><text x="45" y="58" fill="#1565c0">B</text>
+      <circle cx="70" cy="90" r="4" fill="#2e7d32"/><text x="75" y="88" fill="#2e7d32">C</text>
+      <!-- zone image (pointillés) -->
+      <rect x="101" y="0" width="99" height="120" fill="#faf0ff" fill-opacity="0.4"/>
+      <text x="130" y="115" fill="#ab47bc" font-size="9">Zone image</text>
+    </svg>
+    <p style="font-size:10px;color:#888;margin:2px 0 0">Place A', B', C' puis relie les points pour former la figure complète.</p>
+  </div>
+
+  <!-- APPROFONDISSEMENT -->
+  <div class="exo exo-appro">
+    <div class="niv niv-appro">&#11088;&#11088;&#11088; Approfondissement</div>
+    <p style="margin:4px 0 6px"><strong>Exercice 3 — Axe oblique</strong></p>
+    <p style="font-size:11px;margin:0 0 4px">L'axe de symétrie est la diagonale D du rectangle ci-dessous. Le point P est donné.</p>
+    <svg width="200" height="110" viewBox="0 0 200 110" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:4px auto;font-family:'Segoe UI',Arial;font-size:10px">
+      <defs><pattern id="g2" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M10 0H0V10" fill="none" stroke="#ddd" stroke-width="0.5"/></pattern></defs>
+      <rect width="200" height="110" fill="url(#g2)"/>
+      <!-- rectangle -->
+      <rect x="20" y="20" width="160" height="70" fill="none" stroke="#999" stroke-width="1"/>
+      <!-- diagonale = axe -->
+      <line x1="20" y1="20" x2="180" y2="90" stroke="#ab47bc" stroke-width="2" stroke-dasharray="5,3"/>
+      <text x="155" y="18" fill="#6a1b9a" font-size="9">Axe D</text>
+      <!-- point P -->
+      <circle cx="50" cy="75" r="4" fill="#e64a19"/>
+      <text x="55" y="73" fill="#e64a19">P</text>
+      <!-- zone P' à trouver -->
+      <text x="130" y="45" fill="#888" font-size="9">P' = ?</text>
+    </svg>
+    <ol style="font-size:11px;margin:2px 0;padding-left:16px">
+      <li>Trace la perpendiculaire à D passant par P.</li>
+      <li>Mesure la distance de P à D.</li>
+      <li>Place P', le symétrique de P, de l'autre côté.</li>
+    </ol>
+    <p style="font-size:10px;color:#e65100;margin:4px 0 0">&#128161; Utilise équerre et compas.</p>
+  </div>
+
+</div>
+
+<!-- ===== A RETENIR ===== -->
+<div class="retenir">
+  <strong>&#9989; À retenir</strong>
+  <ul style="margin:4px 0;padding-left:18px">
+    <li>L'<strong>axe de symétrie</strong> est la droite sur laquelle on plie : les deux parties se <strong>superposent exactement</strong>.</li>
+    <li>Le segment [AA'] est <strong>perpendiculaire</strong> à l'axe et l'axe coupe [AA'] en son <strong>milieu</strong>.</li>
+    <li>A et A' sont à <strong>égale distance</strong> de l'axe.</li>
+    <li>Exemples de figures avec axes de symétrie :
+      carré (4 axes) · rectangle (2 axes) · triangle équilatéral (3 axes) · cercle (infini).</li>
+  </ul>
+</div>
+
+<!-- ===== QUIZ ===== -->
+<div class="quiz">
+  <strong>&#10067; Quiz — Réponds sans regarder la leçon !</strong>
+  <ol>
+    <li>Qu'est-ce qu'un axe de symétrie ? <em>(donne ta définition en 1 phrase)</em>
+      <br><span style="display:inline-block;border-bottom:1px solid #ccc;width:90%;margin-top:2px">&nbsp;</span>
+    </li>
+    <li>Combien d'axes de symétrie possède un rectangle non-carré ?
+      <br><span style="display:inline-block;border-bottom:1px solid #ccc;width:40%;margin-top:2px">&nbsp;</span>
+    </li>
+    <li>Le segment [MM'] est perpendiculaire à l'axe. M est à 3&nbsp;cm de l'axe. À quelle distance de l'axe se trouve M' ?
+      <br><span style="display:inline-block;border-bottom:1px solid #ccc;width:40%;margin-top:2px">&nbsp;</span>
+    </li>
+  </ol>
+</div>
+
+<div class="foot">Pousseline — bibliothèque de supports · maths CM1</div>
+
+</body>
+</html>

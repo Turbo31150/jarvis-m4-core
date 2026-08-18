@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-skills-mlops-inference-llama-cpp-skill-md",
+  "name": "llama-cpp",
+  "author": "NousResearch",
+  "description": "llama.cpp local GGUF inference + HF Hub model discovery.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/skills/mlops/inference/llama-cpp",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/skills-mlops-inference-llama-cpp",
+  "stars": 225204,
+  "updatedAt": 1778275660
+}

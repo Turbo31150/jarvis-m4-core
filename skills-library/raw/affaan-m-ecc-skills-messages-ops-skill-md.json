@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-messages-ops-skill-md",
+  "name": "messages-ops",
+  "author": "affaan-m",
+  "description": "Evidence-first live messaging workflow for ECC. Use when the user wants to read texts or DMs, recover a recent one-time code, inspect a thread before replying, or prove which message source was actually checked.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/messages-ops",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-messages-ops",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

@@ -1,0 +1,11 @@
+{
+  "id": "memi-design-design-skills-skills-multi-agent-skill-md",
+  "name": "multi-agent",
+  "author": "memi-design",
+  "description": "Orchestrate multiple Claude instances on Figma canvas with box widgets, coordinated handoffs, error recovery",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/memi-design/design-skills/tree/main/skills/multi-agent",
+  "skillUrl": "https://skillsmp.com/creators/memi-design/design-skills/skills-multi-agent",
+  "stars": 7,
+  "updatedAt": 1784151737
+}

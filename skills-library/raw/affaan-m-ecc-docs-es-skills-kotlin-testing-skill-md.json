@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-es-skills-kotlin-testing-skill-md",
+  "name": "kotlin-testing",
+  "author": "affaan-m",
+  "description": "Patrones de pruebas Kotlin con Kotest, MockK, pruebas de coroutines, pruebas basadas en propiedades y cobertura con Kover. Sigue la metodolog\u00eda TDD con pr\u00e1cticas idiom\u00e1ticas de Kotlin.",
+  "contentLanguage": "es",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/es/skills/kotlin-testing",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-es-skills-kotlin-testing",
+  "stars": 237500,
+  "updatedAt": 1780810002
+}

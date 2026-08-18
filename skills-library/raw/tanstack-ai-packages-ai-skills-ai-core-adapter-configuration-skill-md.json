@@ -1,0 +1,11 @@
+{
+  "id": "tanstack-ai-packages-ai-skills-ai-core-adapter-configuration-skill-md",
+  "name": "ai-core-adapter-configuration",
+  "author": "TanStack",
+  "description": "Provider adapter selection and configuration: openaiText, anthropicText, geminiText, ollamaText, grokText, groqText, openRouterText, bedrockText, byteplusText, openaiCompatible. Per-model type safety with modelOptions, reasoning/thinking configuration, runtime adapter switching, extendAdapter() for custom models, createModel(). Generic OpenAI-compatible providers (DeepSeek, Together, Fireworks, etc.) via openaiCompatible({ baseURL, apiKey, models }) from @tanstack/ai-openai/compatible. API key env vars: OPENAI_API_KEY, ANTHROPIC_API_KEY, GOOGLE_API_KEY/GEMINI_API_KEY, XAI_API_KEY, GROQ_API_KEY, OPENROUTER_API_KEY, OLLAMA_HOST, BEDROCK_API_KEY (or AWS_BEARER_TOKEN_BEDROCK). BytePlus needs TWO keys: ARK_API_KEY (ModelArk \u2014 chat/video/image) and BYTEPLUS_VOICE_API_KEY (Seed Speech \u2014 TTS/transcription); neither is a fallback for the other.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/TanStack/ai/tree/main/packages/ai/skills/ai-core/adapter-configuration",
+  "skillUrl": "https://skillsmp.com/creators/tanstack/ai/packages-ai-skills-ai-core-adapter-configuration",
+  "stars": 2957,
+  "updatedAt": 1785666787
+}

@@ -1,0 +1,11 @@
+{
+  "id": "posthog-posthog-products-warehouse-sources-skills-tuning-incremental-sync-config-skill-md",
+  "name": "tuning-incremental-sync-config",
+  "author": "PostHog",
+  "description": "Change the sync configuration of an existing data warehouse schema \u2014 switch sync_type, pick a different incremental_field, set primary_key_columns, choose cdc_table_mode, or change sync_frequency. Use when the user asks \"switch my orders table from full refresh to incremental\", \"this table is syncing too slowly / too frequently\", \"I need to pick a different incremental column\", \"set up CDC for this Postgres table\", or when diagnosis of a failing sync pointed to an incremental-field or PK misconfiguration.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/PostHog/posthog/tree/master/products/warehouse_sources/skills/tuning-incremental-sync-config",
+  "skillUrl": "https://skillsmp.com/creators/posthog/posthog/products-warehouse-sources-skills-tuning-incremental-sync-config",
+  "stars": 37496,
+  "updatedAt": 1781696660
+}

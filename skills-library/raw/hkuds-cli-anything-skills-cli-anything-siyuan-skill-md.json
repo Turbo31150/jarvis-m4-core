@@ -1,0 +1,11 @@
+{
+  "id": "hkuds-cli-anything-skills-cli-anything-siyuan-skill-md",
+  "name": "cli-anything-siyuan",
+  "author": "HKUDS",
+  "description": "SiYuan (\u601d\u6e90\u7b14\u8bb0) CLI \u2014 manage notebooks, documents, blocks, and search your knowledge base from the terminal.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/HKUDS/CLI-Anything/tree/main/skills/cli-anything-siyuan",
+  "skillUrl": "https://skillsmp.com/creators/hkuds/cli-anything/skills-cli-anything-siyuan",
+  "stars": 46608,
+  "updatedAt": 1781055520
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><title>Étiquettes-mots (GS)</title><style>
+@page { size: A4; margin: 12mm; }
+* { box-sizing: border-box; }
+body { font-family: 'Segoe UI','Helvetica Neue',Arial,sans-serif; color:#222; margin:0; }
+.page { page-break-after: always; padding: 4mm; }
+.page:last-child { page-break-after: auto; }
+h1 { color:#2e7d32; font-size:24px; margin:0 0 4px; }
+h2 { color:#1b5e20; font-size:16px; margin:10px 0 6px; }
+.sub { color:#666; font-size:12px; margin:0 0 14px; }
+.consigne { background:#f1f8e9; border-left:5px solid #8bc34a; padding:8px 12px; font-size:13px; border-radius:6px; margin-bottom:12px; }
+.foot { margin-top:14px; font-size:10px; color:#999; text-align:center; }
+/* étiquettes lettres */
+.lettres { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
+.lettre { width:78px; height:96px; border:3px dashed #66bb6a; border-radius:10px; display:flex; align-items:center; justify-content:center;
+  font-size:60px; font-weight:800; color:#2e7d32; background:#fafffa; }
+/* cartes fruits */
+.cartes { display:flex; flex-wrap:wrap; gap:14px; justify-content:center; }
+.carte { width:165px; border:3px solid #66bb6a; border-radius:14px; padding:10px; text-align:center; background:#fff; }
+.carte .fruits { font-size:34px; line-height:1.1; min-height:80px; }
+.carte .chiffre { font-size:46px; font-weight:800; color:#ef6c00; }
+.de { display:inline-grid; grid-template-columns:repeat(3,14px); grid-template-rows:repeat(3,14px); gap:3px; margin-top:4px; }
+.de span { width:14px; height:14px; border-radius:50%; }
+.de .on { background:#333; }
+/* cycle de vie */
+.cycle { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+.etape { width:150px; height:170px; border:3px solid #aed581; border-radius:14px; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#fff; }
+.etape .ico { font-size:54px; }
+.etape .lbl { margin-top:8px; font-size:15px; font-weight:700; color:#1b5e20; }
+.etape .num { width:26px;height:26px;border:2px solid #ef6c00;border-radius:50%;color:#ef6c00;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:14px;margin-top:6px;}
+/* frise jours */
+table.frise { width:100%; border-collapse:collapse; }
+table.frise th, table.frise td { border:2px solid #c5e1a5; padding:10px; text-align:center; font-size:15px; }
+table.frise th { background:#66bb6a; color:#fff; }
+table.frise td .f { font-size:30px; }
+/* papillon */
+.papillon-wrap { text-align:center; }
+.axe { border-left:3px dashed #ef6c00; height:0; }
+.pap { font-size:150px; }
+/* graphisme */
+.bande { border:2px solid #c5e1a5; border-radius:8px; height:54px; margin:10px 0; display:flex; align-items:center; padding:0 10px;
+  background:repeating-linear-gradient(90deg,#fff,#fff 38px,#f1f8e9 38px,#f1f8e9 40px); font-size:30px; color:#8bc34a; letter-spacing:6px; overflow:hidden; }
+.start { font-size:26px; margin-right:8px; }
+/* grille eval */
+table.grille { width:100%; border-collapse:collapse; font-size:12px; }
+table.grille th, table.grille td { border:1px solid #cfe8c9; padding:6px 8px; }
+table.grille th { background:#66bb6a; color:#fff; text-align:left; }
+table.grille td.code { text-align:center; width:42px; }
+.legende { font-size:11px; color:#555; margin-top:8px; }
+/* affiche */
+.affiche { text-align:center; }
+.affiche .big { font-size:40px; color:#2e7d32; font-weight:800; margin:10px 0; }
+.affiche .papillons { font-size:60px; }
+.materiel li { margin:4px 0; font-size:13px; }
+</style></head><body>
+<div class="page"><h1>Étiquettes-mots à légender</h1><p class="sub">Langage écrit (GS) · associer chaque mot à son image</p>
+<div class="consigne">🔤 Place chaque étiquette-mot sous la bonne image (étapes du cycle, jours de la semaine).</div>
+<div class="lettres" style="justify-content:flex-start"><div class="lettre" style="width:auto;min-width:120px;height:54px;font-size:24px;padding:0 12px;border-style:solid">ŒUF</div><div class="lettre" style="width:auto;min-width:120px;height:54px;font-size:24px;padding:0 12px;border-style:solid">CHENILLE</div><div class="lettre" style="width:auto;min-width:120px;height:54px;font-size:24px;padding:0 12px;border-style:solid">CHRYSALIDE</div><div class="lettre" style="width:auto;min-width:120px;height:54px;font-size:24px;padding:0 12px;border-style:solid">PAPILLON</div><div class="lettre" style="width:auto;min-width:120px;height:54px;font-size:24px;padding:0 12px;border-style:solid">LUNDI</div><div class="lettre" style="width:auto;min-width:120px;height:54px;font-size:24px;padding:0 12px;border-style:solid">MARDI</div><div class="lettre" style="width:auto;min-width:120px;height:54px;font-size:24px;padding:0 12px;border-style:solid">MERCREDI</div><div class="lettre" style="width:auto;min-width:120px;height:54px;font-size:24px;padding:0 12px;border-style:solid">JEUDI</div><div class="lettre" style="width:auto;min-width:120px;height:54px;font-size:24px;padding:0 12px;border-style:solid">VENDREDI</div></div></div>
+<div class="foot">La chenille qui fait des trous — atelier maternelle MS/GS · à plastifier</div></body></html>

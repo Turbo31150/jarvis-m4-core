@@ -1,0 +1,11 @@
+{
+  "id": "google-gemini-gemini-cli-tools-caretaker-agent-cloudrun-triage-worker-gemini-skills-spec-generator-skill-md",
+  "name": "spec-generator",
+  "author": "google-gemini",
+  "description": "Generates a structured Workable Spec JSON to guide a Developer Worker.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/google-gemini/gemini-cli/tree/main/tools/caretaker-agent/cloudrun/triage-worker/.gemini/skills/spec_generator",
+  "skillUrl": "https://skillsmp.com/creators/google-gemini/gemini-cli/tools-caretaker-agent-cloudrun-triage-worker-gemini-skills-spec-generator",
+  "stars": 106351,
+  "updatedAt": 1783460232
+}

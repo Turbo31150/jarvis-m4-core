@@ -1,0 +1,11 @@
+{
+  "id": "fastapi-full-stack-fastapi-template-agents-skills-library-skills-skill-md",
+  "name": "library-skills",
+  "author": "fastapi",
+  "description": "Use Library Skills to discover, install, refresh, repair, check, and manage agent skills from installed packages.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/fastapi/full-stack-fastapi-template/tree/master/.agents/skills/library-skills",
+  "skillUrl": "https://skillsmp.com/creators/fastapi/full-stack-fastapi-template/agents-skills-library-skills",
+  "stars": 44595,
+  "updatedAt": 1782479952
+}

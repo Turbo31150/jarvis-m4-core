@@ -1,0 +1,11 @@
+{
+  "id": "thedotmack-claude-mem-openclaw-skills-make-plan-skill-md",
+  "name": "make-plan",
+  "author": "thedotmack",
+  "description": "Create a detailed, phased implementation plan with documentation discovery. Use when asked to plan a feature, task, or multi-step implementation \u2014 especially before executing with do-plan.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedotmack/claude-mem/tree/main/openclaw/skills/make-plan",
+  "skillUrl": "https://skillsmp.com/creators/thedotmack/claude-mem/openclaw-skills-make-plan",
+  "stars": 89499,
+  "updatedAt": 1771219802
+}

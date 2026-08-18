@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-ja-jp-skills-deployment-patterns-skill-md",
+  "name": "deployment-patterns",
+  "author": "affaan-m",
+  "description": "Kubernetes\u3001Docker\u3001Vercel\u3001\u30af\u30e9\u30a6\u30c9\u30d7\u30ed\u30d0\u30a4\u30c0\u30fc\u306b\u304a\u3051\u308b\u30c7\u30d7\u30ed\u30a4\u30e1\u30f3\u30c8\u30d1\u30bf\u30fc\u30f3\u3068\u6226\u7565\u3002\u30d6\u30eb\u30fc\u30b0\u30ea\u30fc\u30f3\u3001\u30ab\u30ca\u30ea\u30a2\u3001\u30ed\u30fc\u30ea\u30f3\u30b0\u30c7\u30d7\u30ed\u30a4\u30e1\u30f3\u30c8\u3001\u30bc\u30ed\u30c0\u30a6\u30f3\u30bf\u30a4\u30e0\u30a2\u30c3\u30d7\u30b0\u30ec\u30fc\u30c9\u3002",
+  "contentLanguage": "ja",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/ja-JP/skills/deployment-patterns",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-ja-jp-skills-deployment-patterns",
+  "stars": 237500,
+  "updatedAt": 1778999500
+}

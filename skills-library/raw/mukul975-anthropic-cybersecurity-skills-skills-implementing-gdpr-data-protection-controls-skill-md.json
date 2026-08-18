@@ -1,0 +1,11 @@
+{
+  "id": "mukul975-anthropic-cybersecurity-skills-skills-implementing-gdpr-data-protection-controls-skill-md",
+  "name": "implementing-gdpr-data-protection-controls",
+  "author": "mukul975",
+  "description": "Implements GDPR (EU 2016/679) technical and organizational measures \u2014 privacy by design/default, DPIAs, data subject rights management, 72-hour breach notification, and cross-border transfer mechanisms (SCCs, BCRs, adequacy). Use when designing or auditing GDPR controls, building a DPIA, handling data subject access/erasure requests, or assessing cross-border data transfers.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/mukul975/Anthropic-Cybersecurity-Skills/tree/main/skills/implementing-gdpr-data-protection-controls",
+  "skillUrl": "https://skillsmp.com/creators/mukul975/anthropic-cybersecurity-skills/skills-implementing-gdpr-data-protection-controls",
+  "stars": 27260,
+  "updatedAt": 1785688333
+}

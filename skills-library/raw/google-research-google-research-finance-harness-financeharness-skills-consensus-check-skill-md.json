@@ -1,0 +1,11 @@
+{
+  "id": "google-research-google-research-finance-harness-financeharness-skills-consensus-check-skill-md",
+  "name": "consensus-check",
+  "author": "google-research",
+  "description": "Summarize the sell-side view on an equity \u2014 analyst price targets, forward EPS/revenue estimates and ratings \u2014 and corroborate it against recent guidance and estimate revisions from the web.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/google-research/google-research/tree/master/finance_harness/financeharness/skills/consensus-check",
+  "skillUrl": "https://skillsmp.com/creators/google-research/google-research/finance-harness-financeharness-skills-consensus-check",
+  "stars": 38471,
+  "updatedAt": 1784763548
+}

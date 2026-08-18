@@ -1,0 +1,11 @@
+{
+  "id": "davila7-claude-code-templates-cli-tool-components-skills-development-fastapi-pro-skill-md",
+  "name": "fastapi-pro",
+  "author": "davila7",
+  "description": "Build high-performance async APIs with FastAPI, SQLAlchemy 2.0, and Pydantic V2. Master microservices, WebSockets, and modern Python async patterns.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/fastapi-pro",
+  "skillUrl": "https://skillsmp.com/creators/davila7/claude-code-templates/cli-tool-components-skills-development-fastapi-pro",
+  "stars": 30096,
+  "updatedAt": 1775344090
+}

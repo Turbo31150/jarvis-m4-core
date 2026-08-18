@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-skills-python-debugpy-skill-md",
+  "name": "python-debugpy",
+  "author": "openclaw",
+  "description": "Debug Python with pdb, breakpoint(), post-mortem inspection, and debugpy remote attach.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/skills/python-debugpy",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/skills-python-debugpy",
+  "stars": 385119,
+  "updatedAt": 1779015391
+}

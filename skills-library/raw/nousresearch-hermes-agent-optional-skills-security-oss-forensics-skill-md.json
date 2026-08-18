@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-optional-skills-security-oss-forensics-skill-md",
+  "name": "oss-forensics",
+  "author": "NousResearch",
+  "description": "Supply chain investigation, evidence recovery, and forensic analysis for GitHub repositories.\nCovers deleted commit recovery, force-push detection, IOC extraction, multi-source evidence\ncollection, hypothesis formation/validation, and structured forensic reporting.\nInspired by RAPTOR's 1800+ line OSS Forensics system.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/optional-skills/security/oss-forensics",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/optional-skills-security-oss-forensics",
+  "stars": 225204,
+  "updatedAt": 1778275660
+}

@@ -1,0 +1,28 @@
+---
+id: joellewis-finance-skills-plugins-wealth-management-skills-fixed-income-sovereign-skill-md
+name: "fixed-income-sovereign"
+author: "JoelLewis"
+repository: "https://github.com/JoelLewis/finance_skills/tree/main/plugins/wealth-management/skills/fixed-income-sovereign"
+skill_url: "https://skillsmp.com/creators/joellewis/finance_skills/plugins-wealth-management-skills-fixed-income-sovereign"
+stars: 161
+verified: false
+quality_score: 100
+security_score: 90
+status: "SAFE"
+collected_at: "2026-08-07T17:30:19.227227"
+---
+
+# Résumé
+Analyze US Treasury securities and interest rate risk: bond pricing, yield curve construction, duration, convexity, TIPS, and forward/spot rate analysis. Use when the user asks about Treasury bonds, yield curve construction, interest rate risk, duration, convexity, TIPS, or breakeven inflation rates. Also trigger when users mention 'T-bills', 'T-notes', 'bond pricing', 'yield to maturity', 'inverted yield curve', 'forward rates', 'spot rates', 'DV01', 'real yields', or ask how bonds react to interest rate changes.
+
+# Objectif
+Skill d'automatisation/intégration pour fixed-income-sovereign.
+
+# Déclencheurs d’utilisation
+Mots-clés associés: fixed-income-sovereign, JoelLewis
+
+# Procédure
+Consulter le dépôt source: https://github.com/JoelLewis/finance_skills/tree/main/plugins/wealth-management/skills/fixed-income-sovereign
+
+# Adaptation Gemini CLI / Claude Code / Jarvis OS
+Incorpore ce skill en suivant la structure d'appel native du repository source.

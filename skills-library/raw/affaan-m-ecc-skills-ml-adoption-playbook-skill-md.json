@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-ml-adoption-playbook-skill-md",
+  "name": "ml-adoption-playbook",
+  "author": "affaan-m",
+  "description": "End-to-end methodology for AI agents and software engineers to add machine learning algorithms to existing non-ML codebases. Covers problem framing, data readiness, architectural decoupling, and baseline model integration.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/ml-adoption-playbook",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-ml-adoption-playbook",
+  "stars": 237500,
+  "updatedAt": 1781192366
+}

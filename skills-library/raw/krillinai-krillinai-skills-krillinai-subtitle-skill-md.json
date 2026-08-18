@@ -1,0 +1,11 @@
+{
+  "id": "krillinai-krillinai-skills-krillinai-subtitle-skill-md",
+  "name": "krillinai-subtitle",
+  "author": "krillinai",
+  "description": "Use when generating subtitles with KrillinAI CLI from a YouTube link, Bilibili/local video, or existing media, including platform caption download, Whisper fallback, translation, bilingual SRT, and short vertical subtitle output.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/krillinai/KrillinAI/tree/master/skills/krillinai-subtitle",
+  "skillUrl": "https://skillsmp.com/creators/krillinai/krillinai/skills-krillinai-subtitle",
+  "stars": 10643,
+  "updatedAt": 1780055677
+}

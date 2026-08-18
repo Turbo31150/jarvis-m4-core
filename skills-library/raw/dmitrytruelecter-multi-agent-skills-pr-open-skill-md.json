@@ -1,0 +1,11 @@
+{
+  "id": "dmitrytruelecter-multi-agent-skills-pr-open-skill-md",
+  "name": "pr-open",
+  "author": "DmitryTrueLecter",
+  "description": "Open a pull request from a source branch to a destination branch. Routes by VCS host (GitHub / Bitbucket) derived from the git remote URL, not by the issue tracker. Returns the PR URL on success or an error on failure. Invocation: /dma:pr-open <source-branch> <destination-branch> <title> [workspace-path:<path>] [remote:<name>] [description:<text>].",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/DmitryTrueLecter/multi-agent/tree/main/skills/pr-open",
+  "skillUrl": "https://skillsmp.com/creators/dmitrytruelecter/multi-agent/skills-pr-open",
+  "stars": 0,
+  "updatedAt": 1780839651
+}

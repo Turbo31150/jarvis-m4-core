@@ -1,0 +1,11 @@
+{
+  "id": "microsoft-aspire-agents-skills-azdo-internal-skill-md",
+  "name": "azdo-internal",
+  "author": "microsoft",
+  "description": "Expert knowledge for triggering, monitoring, and validating changes to the Aspire internal Azure DevOps pipeline (microsoft-aspire, definition 1602) on dnceng/internal. Use when asked to trigger an internal/AzDO build, check pipeline/build status, push to the internal mirror, or validate eng/ pipeline (eng/pipelines/azure-pipelines.yml / release pipeline) changes for the microsoft/aspire repository.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/microsoft/aspire/tree/main/.agents/skills/azdo-internal",
+  "skillUrl": "https://skillsmp.com/creators/microsoft/aspire/agents-skills-azdo-internal",
+  "stars": 6203,
+  "updatedAt": 1781150786
+}

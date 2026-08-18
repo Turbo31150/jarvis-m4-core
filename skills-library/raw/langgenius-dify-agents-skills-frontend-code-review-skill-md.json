@@ -1,0 +1,11 @@
+{
+  "id": "langgenius-dify-agents-skills-frontend-code-review-skill-md",
+  "name": "frontend-code-review",
+  "author": "langgenius",
+  "description": "Use only when the user explicitly requests a review or audit of frontend code under `web/` or `packages/dify-ui/`. Supports pending-change, file-focused, and pasted-diff reviews. Do not use for implementation-only requests, diagnosis without review intent, or backend-only code.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/langgenius/dify/tree/main/.agents/skills/frontend-code-review",
+  "skillUrl": "https://skillsmp.com/creators/langgenius/dify/agents-skills-frontend-code-review",
+  "stars": 151304,
+  "updatedAt": 1785046417
+}

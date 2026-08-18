@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-peekaboo-skills-peekaboo-skill-md",
+  "name": "peekaboo",
+  "author": "openclaw",
+  "description": "Use Peekaboo for macOS desktop automation, screenshots, visual UI maps, native accessibility inspection, app/window/menu/dialog control, native app and browser chrome control, browser-page MCP tooling, MCP diagnostics, and Peekaboo repo validation. Use when Codex needs current macOS UI state, direct desktop control, privacy-aware live smoke tests, or changes to the Peekaboo repository.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/Peekaboo/tree/main/skills/peekaboo",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/peekaboo/skills-peekaboo",
+  "stars": 4961,
+  "updatedAt": 1782288712
+}

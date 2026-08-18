@@ -1,0 +1,11 @@
+{
+  "id": "madappgang-claudish-skills-claudish-usage-skill-md",
+  "name": "claudish-usage",
+  "author": "MadAppGang",
+  "description": "CRITICAL - Guide for using Claudish CLI ONLY through sub-agents to run Claude Code with any AI model (OpenRouter, Gemini, OpenAI, local models). NEVER run Claudish directly in main context unless user explicitly requests it. Use when user mentions external AI models, Claudish, OpenRouter, Gemini, OpenAI, Ollama, or alternative models. Includes mandatory sub-agent delegation patterns, agent selection guide, file-based instructions, and strict rules to prevent context window pollution.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/MadAppGang/claudish/tree/main/skills/claudish-usage",
+  "skillUrl": "https://skillsmp.com/creators/madappgang/claudish/skills-claudish-usage",
+  "stars": 960,
+  "updatedAt": 1770601776
+}

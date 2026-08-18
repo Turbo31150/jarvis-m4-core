@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-agents-skills-slacrawl-skill-md",
+  "name": "slacrawl",
+  "author": "openclaw",
+  "description": "Slack archive: search, sync freshness, threads/DMs, SQL counts, and Slacrawl repo work.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/.agents/skills/slacrawl",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/agents-skills-slacrawl",
+  "stars": 385119,
+  "updatedAt": 1779016703
+}

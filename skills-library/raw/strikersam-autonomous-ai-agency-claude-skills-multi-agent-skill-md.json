@@ -1,0 +1,11 @@
+{
+  "id": "strikersam-autonomous-ai-agency-claude-skills-multi-agent-skill-md",
+  "name": "multi-agent",
+  "author": "strikersam",
+  "description": "Multi-agent team coordination \u2014 task delegation, shared state, and inter-agent communication",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/strikersam/autonomous-ai-agency/tree/master/.claude/skills/multi-agent",
+  "skillUrl": "https://skillsmp.com/creators/strikersam/autonomous-ai-agency/claude-skills-multi-agent",
+  "stars": 7,
+  "updatedAt": 1783861393
+}

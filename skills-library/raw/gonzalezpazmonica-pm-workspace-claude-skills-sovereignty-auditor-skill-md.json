@@ -1,0 +1,11 @@
+{
+  "id": "gonzalezpazmonica-pm-workspace-claude-skills-sovereignty-auditor-skill-md",
+  "name": "sovereignty-auditor",
+  "author": "gonzalezpazmonica",
+  "description": "Usar cuando se audita el grado de dependencia cognitiva del equipo respecto a herramientas de IA.",
+  "contentLanguage": "es",
+  "githubUrl": "https://github.com/gonzalezpazmonica/pm-workspace/tree/main/.claude/skills/sovereignty-auditor",
+  "skillUrl": "https://skillsmp.com/creators/gonzalezpazmonica/pm-workspace/claude-skills-sovereignty-auditor",
+  "stars": 44,
+  "updatedAt": 1779901182
+}

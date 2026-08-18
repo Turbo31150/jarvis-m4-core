@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruflo-plugins-ruflo-migrations-skills-migrate-create-skill-md",
+  "name": "migrate-create",
+  "author": "ruvnet",
+  "description": "Create a new sequentially numbered database migration with up/down SQL files",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/ruflo/tree/main/plugins/ruflo-migrations/skills/migrate-create",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruflo/plugins-ruflo-migrations-skills-migrate-create",
+  "stars": 66991,
+  "updatedAt": 1784257589
+}

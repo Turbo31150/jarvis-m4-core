@@ -1,0 +1,11 @@
+{
+  "id": "langchain-ai-deepagents-examples-content-builder-agent-skills-social-media-skill-md",
+  "name": "social-media",
+  "author": "langchain-ai",
+  "description": "Drafts engaging social media posts, writes hooks, suggests hashtags, creates thread structures, and generates companion images. Use when the user asks to write a LinkedIn post, tweet, Twitter/X thread, social media caption, social post, or repurpose content for social platforms.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/langchain-ai/deepagents/tree/main/examples/content-builder-agent/skills/social-media",
+  "skillUrl": "https://skillsmp.com/creators/langchain-ai/deepagents/examples-content-builder-agent-skills-social-media",
+  "stars": 27307,
+  "updatedAt": 1773720926
+}

@@ -1,0 +1,11 @@
+{
+  "id": "posthog-posthog-products-warehouse-sources-skills-diagnosing-failed-warehouse-syncs-skill-md",
+  "name": "diagnosing-failed-warehouse-syncs",
+  "author": "PostHog",
+  "description": "Diagnose why a data warehouse sync is failing and recommend the right recovery action. Use when the user asks \"why isn't my Stripe/Postgres/Hubspot sync working?\", \"this table has been stuck for hours\", \"the data in the warehouse looks wrong\", or wants to troubleshoot a specific source or schema. Covers source-level vs schema-level failures, stuck Running states, credential and schema-drift errors, incremental-field misconfig, CDC prerequisite failures, and the cancel / reload / resync / delete-data recovery actions.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/PostHog/posthog/tree/master/products/warehouse_sources/skills/diagnosing-failed-warehouse-syncs",
+  "skillUrl": "https://skillsmp.com/creators/posthog/posthog/products-warehouse-sources-skills-diagnosing-failed-warehouse-syncs",
+  "stars": 37496,
+  "updatedAt": 1781696660
+}

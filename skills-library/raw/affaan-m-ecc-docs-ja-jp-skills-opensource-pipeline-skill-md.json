@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-ja-jp-skills-opensource-pipeline-skill-md",
+  "name": "opensource-pipeline",
+  "author": "affaan-m",
+  "description": "\u30aa\u30fc\u30d7\u30f3\u30bd\u30fc\u30b9\u30d1\u30a4\u30d7\u30e9\u30a4\u30f3: \u30d7\u30e9\u30a4\u30d9\u30fc\u30c8\u30d7\u30ed\u30b8\u30a7\u30af\u30c8\u3092\u30d5\u30a9\u30fc\u30af\u3001\u30b5\u30cb\u30bf\u30a4\u30ba\u3057\u3001\u5b89\u5168\u306a\u516c\u958b\u30ea\u30ea\u30fc\u30b9\u306e\u305f\u3081\u306b\u30d1\u30c3\u30b1\u30fc\u30b8\u5316\u3059\u308b\u30023\u3064\u306e\u30a8\u30fc\u30b8\u30a7\u30f3\u30c8\uff08\u30d5\u30a9\u30fc\u30ab\u30fc\u3001\u30b5\u30cb\u30bf\u30a4\u30b6\u30fc\u3001\u30d1\u30c3\u30b1\u30fc\u30b8\u30e3\u30fc\uff09\u3092\u9023\u9396\u3055\u305b\u308b\u3002\u30c8\u30ea\u30ac\u30fc: '/opensource'\u3001'open source this'\u3001'make this public'\u3001'prepare for open source'\u3002",
+  "contentLanguage": "ja",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/ja-JP/skills/opensource-pipeline",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-ja-jp-skills-opensource-pipeline",
+  "stars": 237500,
+  "updatedAt": 1778999500
+}

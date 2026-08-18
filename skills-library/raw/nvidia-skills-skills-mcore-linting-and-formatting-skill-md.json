@@ -1,0 +1,11 @@
+{
+  "id": "nvidia-skills-skills-mcore-linting-and-formatting-skill-md",
+  "name": "mcore-linting-and-formatting",
+  "author": "NVIDIA",
+  "description": "Linting and formatting for Megatron-LM. Covers running autoformat.sh, tools (ruff, black, isort, pylint, mypy), and code style rules.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NVIDIA/skills/tree/main/skills/mcore-linting-and-formatting",
+  "skillUrl": "https://skillsmp.com/creators/nvidia/skills/skills-mcore-linting-and-formatting",
+  "stars": 2787,
+  "updatedAt": 1780095890
+}

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L'addition posée avec retenue — Maths CE2</title>
+<style>
+@page{size:A4;margin:12mm}*{box-sizing:border-box}body{font-family:'Segoe UI',Arial,sans-serif;color:#222;margin:0;font-size:12px;line-height:1.5}
+h1{color:#6a1b9a;font-size:23px;margin:0 0 2px}.sub{color:#666;font-size:12px;margin:0 0 12px}
+h2{color:#4a148c;font-size:15px;border-left:5px solid #ab47bc;padding-left:8px;margin:14px 0 6px}
+.lecon{background:#f3e5f5;border-radius:8px;padding:10px 14px;margin:8px 0}
+.voc{background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:8px 12px;font-size:11px}
+.voc b{color:#ef6c00}.schema{text-align:center;font-size:40px;margin:10px 0;letter-spacing:6px}
+.exo{border:1px solid #e1bee7;border-radius:8px;padding:8px 12px;margin:8px 0}.exo .niv{font-size:10px;color:#6a1b9a;font-weight:700}
+.retenir{background:#e8f5e9;border-left:5px solid #66bb6a;border-radius:6px;padding:8px 12px;margin:10px 0}
+.quiz{border-top:1px dashed #bbb;margin-top:12px;padding-top:8px;font-size:11px}
+.foot{margin-top:14px;font-size:9px;color:#999;text-align:center}
+
+/* Compléments mise en page */
+.cols{display:flex;gap:12px}.col{flex:1}
+table.pose{border-collapse:collapse;margin:6px auto;font-size:15px;font-family:monospace}
+table.pose td{padding:2px 6px;text-align:right}
+table.pose tr.trait td{border-top:2px solid #4a148c}
+table.pose tr.retenue td{font-size:9px;color:#e53935;text-align:right}
+.label-col{font-size:9px;color:#666;text-align:center;font-style:italic}
+.exemple-box{background:#ede7f6;border-radius:6px;padding:8px 12px;margin:6px 0;display:inline-block}
+.step{counter-increment:step;margin:3px 0}
+.step::before{content:counter(step)". ";font-weight:700;color:#6a1b9a}
+ol.steps{list-style:none;padding:0;counter-reset:step}
+.lig-rep{border-bottom:1px solid #bbb;display:inline-block;min-width:60px;margin-left:4px}
+</style>
+</head>
+<body>
+
+<h1>L'addition posée avec retenue</h1>
+<p class="sub">
+  <strong>Objectif :</strong> Poser et calculer une addition avec retenue en colonnes.<br>
+  <strong>Compétence B.O. :</strong> Calculer avec des nombres entiers — utiliser des techniques opératoires de l'addition (programme cycles 2, B.O. n°31 du 30 juillet 2020).
+</p>
+
+<!-- =============== LEÇON =============== -->
+<h2>Leçon</h2>
+<div class="lecon">
+  <p>
+    Quand on <strong>pose une addition</strong>, on écrit les nombres les uns sous les autres en alignant les <strong>unités</strong> sous les unités, les <strong>dizaines</strong> sous les dizaines et les <strong>centaines</strong> sous les centaines. On calcule toujours <strong>de droite à gauche</strong>.
+  </p>
+  <div class="cols">
+    <div class="col">
+      <p><strong>Quand la somme d'une colonne dépasse 9</strong>, on ne peut pas écrire deux chiffres dans une seule case. On écrit le <strong>chiffre des unités</strong> du résultat et on <strong>retient</strong> le chiffre des dizaines pour l'ajouter à la colonne suivante (à gauche). C'est la <strong>retenue</strong>.</p>
+      <ol class="steps">
+        <li class="step">J'aligne les chiffres par ordre de valeur (U, D, C).</li>
+        <li class="step">Je commence par les <strong>unités</strong> : j'additionne.</li>
+        <li class="step">Si la somme ≥ 10 : j'écris les unités, je <strong>retiens</strong> 1 dizaine.</li>
+        <li class="step">Je passe aux <strong>dizaines</strong> : j'ajoute la retenue.</li>
+        <li class="step">Je recommence pour les <strong>centaines</strong>.</li>
+      </ol>
+    </div>
+    <div class="col" style="text-align:center">
+      <p><em>Exemple :</em> <strong>247 + 165</strong></p>
+      <table class="pose">
+        <tr class="retenue"><td></td><td>1</td><td>1</td><td></td></tr>
+        <tr><td></td><td>2</td><td>4</td><td>7</td></tr>
+        <tr class="trait"><td>+</td><td>1</td><td>6</td><td>5</td></tr>
+        <tr><td></td><td>4</td><td>1</td><td>2</td></tr>
+      </table>
+      <p style="font-size:10px;color:#555">
+        7+5=12 → j'écris <b>2</b>, retenue <b>1</b><br>
+        4+6+1=11 → j'écris <b>1</b>, retenue <b>1</b><br>
+        2+1+1=4 → j'écris <b>4</b>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- =============== SCHÉMA =============== -->
+<h2>Schéma</h2>
+<div class="schema">
+  ➡️ C &nbsp; D &nbsp; U
+</div>
+<div style="text-align:center;font-size:11px;color:#555;margin-bottom:6px">
+  On additionne toujours de droite à gauche : <strong>U → D → C</strong><br>
+  <span style="color:#e53935">🔺 retenue</span> = le « 1 » qu'on passe à la colonne de gauche quand la somme dépasse 9
+</div>
+<div class="schema" style="font-size:22px;letter-spacing:2px">
+  <span style="color:#6a1b9a">●●●●●●●●●● → 1 dizaine + 0 unité</span>
+</div>
+
+<!-- =============== VOCABULAIRE =============== -->
+<h2>Vocabulaire</h2>
+<div class="voc">
+  <b>Addend</b> → chaque nombre qu'on additionne (ex. 247 et 165 sont les deux <b>termes</b> de l'addition).<br>
+  <b>Somme</b> → le résultat de l'addition (ex. 412).<br>
+  <b>Retenue</b> → le « 1 » dizaine qu'on reporte à la colonne suivante quand la somme d'une colonne ≥ 10.<br>
+  <b>Unités (U)</b> → chiffre tout à droite.<br>
+  <b>Dizaines (D)</b> → chiffre du milieu (nombre d'unités groupées par 10).<br>
+  <b>Centaines (C)</b> → chiffre le plus à gauche (nombre de groupes de 100).<br>
+  <b>Poser une opération</b> → écrire les nombres en colonnes pour calculer.
+</div>
+
+<!-- =============== EXERCICES =============== -->
+<h2>Exercices</h2>
+
+<!-- SOUTIEN -->
+<div class="exo">
+  <span class="niv">⭐ SOUTIEN — Je m'entraîne pas à pas</span>
+  <p><strong>Ex. 1 — </strong> Complète l'addition posée. Les cases grisées t'aident à t'aligner.</p>
+  <div class="cols">
+    <div class="col" style="text-align:center">
+      <table class="pose" style="background:#fce4ec;border-radius:4px">
+        <tr class="retenue"><td></td><td style="color:#e53935">__</td><td></td></tr>
+        <tr><td></td><td>3</td><td>8</td></tr>
+        <tr class="trait"><td>+</td><td>4</td><td>5</td></tr>
+        <tr><td></td><td><span class="lig-rep"></span></td><td><span class="lig-rep"></span></td></tr>
+      </table>
+      <p style="font-size:10px">38 + 45 = <span class="lig-rep"></span></p>
+    </div>
+    <div class="col" style="text-align:center">
+      <table class="pose" style="background:#fce4ec;border-radius:4px">
+        <tr class="retenue"><td></td><td style="color:#e53935">__</td><td></td></tr>
+        <tr><td></td><td>5</td><td>6</td></tr>
+        <tr class="trait"><td>+</td><td>2</td><td>7</td></tr>
+        <tr><td></td><td><span class="lig-rep"></span></td><td><span class="lig-rep"></span></td></tr>
+      </table>
+      <p style="font-size:10px">56 + 27 = <span class="lig-rep"></span></p>
+    </div>
+    <div class="col" style="text-align:center">
+      <table class="pose" style="background:#fce4ec;border-radius:4px">
+        <tr class="retenue"><td></td><td style="color:#e53935">__</td><td></td></tr>
+        <tr><td></td><td>6</td><td>9</td></tr>
+        <tr class="trait"><td>+</td><td>1</td><td>4</td></tr>
+        <tr><td></td><td><span class="lig-rep"></span></td><td><span class="lig-rep"></span></td></tr>
+      </table>
+      <p style="font-size:10px">69 + 14 = <span class="lig-rep"></span></p>
+    </div>
+  </div>
+  <p style="font-size:10px;color:#888">💡 Aide : commence par les unités. Si la somme ≥ 10, note la retenue en rouge au-dessus des dizaines.</p>
+</div>
+
+<!-- STANDARD -->
+<div class="exo">
+  <span class="niv">⭐⭐ STANDARD — Je pose et je calcule</span>
+  <p><strong>Ex. 2 — </strong> Pose et calcule ces additions sur le quadrillage ci-dessous. N'oublie pas la retenue !</p>
+  <div class="cols">
+    <div class="col">
+      <p>a) 354 + 278 = <span class="lig-rep" style="min-width:80px"></span></p>
+      <p>b) 463 + 189 = <span class="lig-rep" style="min-width:80px"></span></p>
+      <p>c) 507 + 296 = <span class="lig-rep" style="min-width:80px"></span></p>
+    </div>
+    <div class="col">
+      <!-- Quadrillage simulé pour poser les calculs -->
+      <div style="border:1px solid #ce93d8;border-radius:4px;padding:4px;height:90px;background:repeating-linear-gradient(white,white 18px,#e1bee7 18px,#e1bee7 19px);"></div>
+      <p style="font-size:9px;color:#888;text-align:center">Zone de calcul posé</p>
+    </div>
+  </div>
+  <p><strong>Ex. 3 — </strong> Résous le problème : La bibliothèque de l'école a <strong>348 livres</strong> en français et <strong>175 livres</strong> en anglais. Combien de livres y a-t-il au total ?</p>
+  <p style="font-size:10px">Calcul : <span class="lig-rep" style="min-width:200px"></span> &nbsp; Réponse : Il y a <span class="lig-rep" style="min-width:60px"></span> livres.</p>
+</div>
+
+<!-- APPROFONDISSEMENT -->
+<div class="exo">
+  <span class="niv">⭐⭐⭐ APPROFONDISSEMENT — Je vais plus loin</span>
+  <p><strong>Ex. 4 — </strong> Pose et calcule (doubles retenues possibles) :</p>
+  <p>a) 678 + 459 = <span class="lig-rep" style="min-width:80px"></span> &nbsp;&nbsp; b) 847 + 376 = <span class="lig-rep" style="min-width:80px"></span> &nbsp;&nbsp; c) 999 + 1 = <span class="lig-rep" style="min-width:80px"></span></p>
+  <p><strong>Ex. 5 — </strong> Trouve le chiffre manquant :</p>
+  <div class="cols">
+    <div class="col" style="text-align:center">
+      <table class="pose">
+        <tr><td></td><td>3</td><td>□</td><td>6</td></tr>
+        <tr class="trait"><td>+</td><td>2</td><td>4</td><td>8</td></tr>
+        <tr><td></td><td>6</td><td>1</td><td>4</td></tr>
+      </table>
+    </div>
+    <div class="col" style="text-align:center">
+      <table class="pose">
+        <tr><td></td><td>□</td><td>5</td><td>7</td></tr>
+        <tr class="trait"><td>+</td><td>1</td><td>□</td><td>6</td></tr>
+        <tr><td></td><td>4</td><td>3</td><td>3</td></tr>
+      </table>
+    </div>
+    <div class="col">
+      <p style="font-size:10px;color:#888;margin-top:16px">💡 Aide : raisonne depuis les unités et utilise la retenue pour trouver le chiffre manquant.</p>
+    </div>
+  </div>
+</div>
+
+<!-- =============== À RETENIR =============== -->
+<h2>À retenir</h2>
+<div class="retenir">
+  ✅ On pose l'addition en alignant <strong>U sous U, D sous D, C sous C</strong>.<br>
+  ✅ On calcule toujours en commençant par les <strong>unités</strong> (droite → gauche).<br>
+  ✅ Si la somme d'une colonne est ≥ 10 : on écrit le chiffre des <strong>unités</strong> et on <strong>retient 1</strong> à la colonne suivante.<br>
+  ✅ On n'oublie jamais d'<strong>ajouter la retenue</strong> à la colonne des dizaines (ou des centaines).<br>
+  ✅ La <strong>retenue</strong> vaut toujours <strong>1</strong> (on ne peut retenir que 1 dizaine ou 1 centaine à la fois).
+</div>
+
+<!-- =============== QUIZ =============== -->
+<div class="quiz">
+  <strong>🎯 Quiz rapide — Vrai ou Faux ?</strong>
+  <p>
+    <strong>Q1.</strong> Pour poser 253 + 68, j'écris 68 sous 253 en alignant le 8 sous le 3.
+    &nbsp;→ Vrai / Faux &nbsp; <span class="lig-rep" style="min-width:40px"></span>
+  </p>
+  <p>
+    <strong>Q2.</strong> Dans l'addition posée de 147 + 85, les unités donnent 7+5=12 donc j'écris 12 dans la case unités.
+    &nbsp;→ Vrai / Faux &nbsp; <span class="lig-rep" style="min-width:40px"></span>
+  </p>
+  <p>
+    <strong>Q3.</strong> La retenue vaut toujours 1 et s'ajoute à la colonne <em>de droite</em>.
+    &nbsp;→ Vrai / Faux &nbsp; <span class="lig-rep" style="min-width:40px"></span>
+  </p>
+  <p style="font-size:9px;color:#888"><em>Réponses : Q1 Vrai · Q2 Faux (on écrit 2 et on retient 1) · Q3 Faux (on l'ajoute à la colonne de gauche)</em></p>
+</div>
+
+<div class="foot">Pousseline — bibliothèque de supports · maths CE2</div>
+
+</body>
+</html>

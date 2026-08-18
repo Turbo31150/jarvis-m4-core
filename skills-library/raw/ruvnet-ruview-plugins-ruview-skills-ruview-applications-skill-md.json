@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruview-plugins-ruview-skills-ruview-applications-skill-md",
+  "name": "ruview-applications",
+  "author": "ruvnet",
+  "description": "Run RuView sensing applications \u2014 presence/occupancy, breathing & heart rate, activity & fall detection, 17-keypoint pose estimation (WiFlow), sleep monitoring & apnea screening, environment mapping, Mass Casualty Assessment (MAT), and the 3D point-cloud fusion demo. Use when someone wants to actually *do* something with a working RuView setup.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/RuView/tree/main/plugins/ruview/skills/ruview-applications",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruview/plugins-ruview-skills-ruview-applications",
+  "stars": 88440,
+  "updatedAt": 1778535556
+}

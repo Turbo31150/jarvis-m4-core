@@ -1,0 +1,11 @@
+{
+  "id": "jerry-ai-dev-modular-rag-mcp-server-github-skills-setup-skill-md",
+  "name": "setup",
+  "author": "jerry-ai-dev",
+  "description": "Interactive project setup wizard. From a clean codebase, guides user through provider selection (OpenAI/Azure/DeepSeek/Ollama/Qwen/Gemini/etc.), API key configuration, dependency installation, config generation, and launches the dashboard. If user selects an unimplemented provider, auto-scaffolds the provider code following the plugin architecture. Auto-diagnoses and fixes startup failures with up to 3 retry rounds. Use when user says 'setup', 'set up', 'configure', 'init project', '\u521d\u59cb\u5316', '\u73af\u5883\u914d\u7f6e', '\u9879\u76ee\u914d\u7f6e', 'first run', 'get started', 'quick start', or wants to configure and launch the project from scratch.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/jerry-ai-dev/MODULAR-RAG-MCP-SERVER/tree/main/.github/skills/setup",
+  "skillUrl": "https://skillsmp.com/creators/jerry-ai-dev/modular-rag-mcp-server/github-skills-setup",
+  "stars": 1063,
+  "updatedAt": 1772776861
+}

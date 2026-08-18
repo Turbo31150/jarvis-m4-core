@@ -1,0 +1,11 @@
+{
+  "id": "everyinc-compound-engineering-plugin-skills-lfg-skill-md",
+  "name": "lfg",
+  "author": "EveryInc",
+  "description": "Run the full autonomous shipping pipeline end-to-end, hands-off with no check-ins: plan, implement, review and fix, commit, push a branch, open a PR, and watch CI to green. Use only when the user explicitly asks to build or ship something autonomously all the way to an open PR, or invokes lfg directly \u2014 it pushes and opens a PR without stopping. Not for in-the-loop work where the user reviews each step: use ce-plan to plan, ce-work to implement a plan, ce-debug to fix a bug, or ce-commit-push-pr to commit and open a PR for existing changes.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/EveryInc/compound-engineering-plugin/tree/main/skills/lfg",
+  "skillUrl": "https://skillsmp.com/creators/everyinc/compound-engineering-plugin/skills-lfg",
+  "stars": 23809,
+  "updatedAt": 1784864228
+}

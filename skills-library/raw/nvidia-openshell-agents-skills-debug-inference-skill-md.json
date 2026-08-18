@@ -1,0 +1,11 @@
+{
+  "id": "nvidia-openshell-agents-skills-debug-inference-skill-md",
+  "name": "debug-inference",
+  "author": "NVIDIA",
+  "description": "Debug why inference.local, direct external inference, or supervisor-only system inference is failing. Use when the user cannot reach a local model server, has provider base URL issues, sees inference verification failures, hits protocol mismatches, or needs to diagnose inference on local vs remote gateways. Trigger keywords - debug inference, inference.local, system inference, sandbox-system, local inference, ollama, vllm, sglang, trtllm, NIM, inference failing, model server unreachable, failed to verify inference endpoint, host.openshell.internal.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NVIDIA/OpenShell/tree/main/.agents/skills/debug-inference",
+  "skillUrl": "https://skillsmp.com/creators/nvidia/openshell/agents-skills-debug-inference",
+  "stars": 7974,
+  "updatedAt": 1784645663
+}

@@ -1,0 +1,203 @@
+# Commandes M1 — git-versions
+
+## A QUOI CA SERT
+
+Historique et etat du code. Voir les commits, comparer des versions, verifier ce qui n'est pas pousse, inspecter un fichier a une date.
+
+## COMMANDES REELLEMENT EXECUTEES
+
+Extraites de 1840 sessions Claude Code sur M1, triees par frequence.
+Un chemin en /home/turbo ou une IP 192.168.0.10 doit etre reecrit avant rejeu sur M4.
+
+- (2x) `git log --oneline -5 -- infra/docker/docker-compose.swarm.yml 2>&1 | head -20`
+- (2x) `git diff src/com/jarvis/dictee/BulleService.java`
+- (2x) `git diff -- src/com/jarvis/dictee/MoteurWhisper.java`
+- (2x) `cd ~/jarvis-sql-backups && exec git push origin HEAD 2>&1`
+- (2x) `cd /mnt/jarvis-data/labo && exec git push origin HEAD 2>&1`
+- (1x) `{ which jarvis 2>/dev/null; ls ~/jarvis/bin/jarvis 2>/dev/null; bash ~/jarvis/bin/jarvis doctor 2>/dev/null | head -5 || python3 ~/jarvis/cli/jarvis_master.py --help 2>/dev/null | head -5 || echo "jarvis doctor: à vérifier"; cd ~/jarvis && git status --short | wc -l; git branch --show-current; } 2>&1 | grep -vE 'DOUBLE|RTX|═|║|─{9,}|open|Lancement|Écran|duplicate|no ' | head -8`
+- (1x) `wc -l /home/turbo/Workspaces/jarvis-linux/infra/docker/docker-compose.swarm.yml; echo "---git status---"; git status --porcelain -- infra/docker/docker-compose.swarm.yml; git log --oneline -5`
+- (1x) `until ! pgrep -f 'git-lfs pre-push' >/dev/null 2>&1; do sleep 30; done ; cd ~/jarvis-sql-backups && git status -sb 2>/dev/null | head -1 ; tail -3 ~/.local/share/jarvis-sql-backup-run2.log`
+- (1x) `sed -n '75,115p;1240,1290p' /usr/src/nct6687d-1/nct6687.c; echo "=== dkms status ==="; dkms status 2>/dev/null; echo "=== live sysfs ==="; for f in /sys/class/hwmon/hwmon*/name; do echo "$f: $(cat $f)"; done 2>/dev/null; echo "=== git of /usr/src ==="; ls -la /var/lib/dkms/nct6687d/ 2>/dev/null`
+- (1x) `python3 tests/test_sonde_doctor.py 2>&1 | tail -5; echo "--- git status des 3 fichiers ---"; git status --short bin/sonde-doctor.py tests/test_sonde_doctor.py etc/sondes.json; echo "(vide = tout est commite)"`
+- (1x) `python3 tests/test_gpu_bench.py -v 2>&1 | tail -16 && echo "=== git status ===" && git status --short bin/ tests/ docs/`
+- (1x) `pgrep -af 'git-lfs|git push' | head -3 | cut -c1-100 ; echo "--- taille poussée ---" ; cd ~/jarvis-sql-backups 2>/dev/null && git status -sb 2>/dev/null | head -2 ; echo "--- dernier commit local vs distant ---" ; cd ~/jarvis-sql-backups 2>/dev/null && git log --oneline -1 2>/dev/null`
+- (1x) `ls /home/turbo/jarvis/cli/content_perf/ /home/turbo/jarvis/tests/content_perf/ 2>&1; git branch --list 'feat/content-perf*'; grep -c '\- \[x\]' docs/superpowers/plans/2026-08-02-content-perf-engine.md || true`
+- (1x) `ls -la bin/sonde-doctor.py etc/sondes.json tests/test_sonde_doctor.py 2>&1; echo "=== git status ==="; git status --short bin/sonde-doctor.py etc/sondes.json tests/test_sonde_doctor.py`
+- (1x) `ls -la && git status && git branch --show-current`
+- (1x) `ls -la && echo "---SRC---" && ls -la src/com/jarvis/dictee/ && echo "---TRACKED---" && git ls-files`
+- (1x) `ls -d /home/turbo/jarvis-sql-backups/full_* 2>/dev/null | wc -l; echo "--- 10 plus anciens ---"; ls -d /home/turbo/jarvis-sql-backups/full_* 2>/dev/null | sort | head -10; echo "--- .git du repo backup ---"; du -sh /home/turbo/jarvis-sql-backups/.git 2>/dev/null`
+- (1x) `kill 2997851 2>/dev/null; sleep 3 ; echo "=== pushs restants ===" ; pgrep -af 'git push origin' | grep -v bash | head -3 ; echo "=== débit après ===" ; a=$(awk '/enp42s0/{print $10}' /proc/net/dev); sleep 8; b=$(awk '/enp42s0/{print $10}' /proc/net/dev) ; echo "  $(( (b-a)/1024 )) Ko en 8 s"`
+- (1x) `grep -n 'antigravity' /home/turbo/Workspaces/jarvis-core/docker/nginx.conf; echo "--- git jarvis-core ---"; git -C /home/turbo/Workspaces/jarvis-core status --porcelain | head -5; git -C /home/turbo/Workspaces/jarvis-core log -1 --format='%h %s'`
+- (1x) `git status --short | head -20 && echo "---LOG---" && git log --oneline -5`
+- (1x) `git status --short 2>&1 | grep -i -E "content|perf" | head -40`
+- (1x) `git status --short && git branch --show-current && ls -R --ignore=build --ignore='*.apk' | head -60`
+- (1x) `git status --short && echo "=== usages occupe ===" && grep -n 'occupe' src/com/jarvis/dictee/*.java && echo "=== git log ===" && git log --oneline -3`
+- (1x) `git status --porcelain bin/simuler-logique.py; git ls-files --error-unmatch bin/simuler-logique.py 2>&1 | tail -1; grep -c "parcours\|lru_cache\|locked" bin/simuler-logique.py`
+- (1x) `git status --porcelain 2>/dev/null | wc -l && echo "---MODIFIED NON-DATA---" && git status --porcelain | grep -v '^.. data/' | head -100`
+- (1x) `git status --porcelain -- bin/biblio-ingest-sql.sh bin/biblio-porte-qualite.sh cli/biblio_cycle.py 2>&1`
+- (1x) `git status`
+- (1x) `git show d39a11c5cec782a55716ebd96d7df447990bc09f`
+- (1x) `git show 6ab555e4 -- bin/biblio-ingest-sql.sh 2>&1 | head -30`
+- (1x) `git show 219d18f243 --stat | head -30 && echo "=====HUNKS SWARM=====" && git show 219d18f243 -- infra/docker/docker-compose.swarm.yml`
+- (1x) `git show --stat 9e50555 && echo "=== REGLAGES ===" && grep -n "moteurEstWhisper\|horsLigne\|urlTranscription" src/com/jarvis/dictee/Reglages.java`
+- (1x) `git show --stat 6ab555e4 2>&1 | head -30`
+- (1x) `git show --stat 6ab555e4 -- bin/biblio-ingest-sql.sh bin/biblio-porte-qualite.sh cli/biblio_cycle.py 2>&1 | tail -20`
+- (1x) `git show --stat --format='%h %an %ad%n%s%n%n%b' fa09391 | head -30; echo "=== annule() présent dans fa09391 ? ==="; git show fa09391:src/com/jarvis/dictee/MoteurWhisper.java | grep -n 'public void annule\|enregistreEtTranscrit\|Dictée interrompue\|occupe' | head`
+- (1x) `git rev-parse --is-inside-work-tree && git branch --show-current && git log --oneline -3; echo "---JARVIS---"; git -C /home/turbo/jarvis rev-parse --is-inside-work-tree 2>&1`
+- (1x) `git push origin main 2>&1 | tail -6`
+- (1x) `git log -p b9a148d6f1 -- infra/docker/docker-compose.swarm.yml | grep OPENCLAW_GATEWAY_TOKEN`
+- (1x) `git log -p b9a148d6f1 -- infra/docker/docker-compose.swarm.yml | grep -c OPENCLAW_GATEWAY_TOKEN`
+- (1x) `git log --stat --oneline -5 -- . | head -80`
+- (1x) `git log --oneline HEAD~5..HEAD 2>&1 | head -10`
+- (1x) `git log --oneline -8 && echo "---FILES---" && git diff --stat main...HEAD 2>/dev/null | tail -30`
+- (1x) `git log --oneline -5; echo "--- fichiers de mon commit ---"; git show --stat --oneline HEAD | head; echo "--- RelanceAuDemarrage ---"; git log --oneline -2 -- src/com/jarvis/dictee/RelanceAuDemarrage.java`
+- (1x) `git log --oneline -5 && echo "=== status ===" && git status --short && echo "=== diff non commité sur MoteurWhisper ===" && git diff --stat -- src/com/jarvis/dictee/MoteurWhisper.java`
+- (1x) `git log --oneline -5 && echo "=== SHOW ===" && git show 9e50555`
+- (1x) `git log --oneline -5 && echo "=== BRANCHES ===" && git branch -a && echo "=== SHOW ===" && git show 8ca10ae5dc2a99a142e1c2b695bb7e98c80fc385`
+- (1x) `git log --oneline -5 && echo "---BRANCH---" && git branch -a && echo "---STATUS---" && git status --short`
+- (1x) `git log --oneline -5 && echo "---" && git status --short bin/gpu-bench.py tests/test_gpu_bench.py && echo "--- contenu du dernier commit:" && git show --stat HEAD | head -20`
+- (1x) `git log --oneline -4 && echo "--- mon diff final ---" && git show e1b2d1e --stat --format='%H'| tail -3`
+- (1x) `git log --oneline -3 && python3 -m pytest tests/content_perf/ -v 2>&1 | tail -8`
+- (1x) `git log --oneline -3 && echo "=== STAT ===" && git show --stat 29436fd && echo "=== DIFF ===" && git show 29436fd`
+- (1x) `git log --oneline -3 && echo "---TODO---" && ls -la data/TODO_DYNAMIQUE.json ~/jarvis-linux/contexte-maximal/ 2>&1 | head -20`
+- (1x) `git log --oneline -3 && echo "---" && git status --short`
+- (1x) `git log --oneline -12 && echo "=== DIFF ===" && git diff 8ff1aba..29436fd -- src/com/jarvis/dictee/BulleService.java`
+- (1x) `git log --oneline -- infra/docker/docker-compose.swarm.yml | head`
+- (1x) `git log --name-status -5 --oneline 2>&1 | head -80`
+- (1x) `git log --format='%H%n%s%n---' 29c1bfec~1..6d414434 2>&1 | head -40; echo "=== STAT ==="; git log --format='%h %s' --stat 29c1bfec~1..6d414434 2>&1 | head -60`
+- (1x) `git log --all -p -S '39e644f27a91f82025d9d57c82434b0c565c580649472679' --oneline | head -40`
+- (1x) `git log --all -p -S '39e644f27a91f82025d9d57c82434b0c565c580649472679' --all | head -100`
+- (1x) `git log --all --oneline -S39e644f27a91f82025d9d57c82434b0c565c580649472679 -- infra/docker/docker-compose.swarm.yml | head -20`
+- (1x) `git log --all --oneline -S"39e644f27a91f82025d9d57c82434b0c565c580649472679" -- infra/docker/docker-compose.swarm.yml 2>&1 | head -20`
+- (1x) `git log --all --oneline -5 -- bin/biblio-ingest-sql.sh bin/biblio-porte-qualite.sh cli/biblio_cycle.py 2>&1`
+- (1x) `git log --all --oneline -- infra/docker/docker-compose.swarm.yml | head -20`
+- (1x) `git log --all --oneline -- bin/biblio-ingest-sql.sh 2>&1 | head -5`
+- (1x) `git diff HEAD~1 -- bin/biblio-ingest-sql.sh 2>&1 | head -100`
+- (1x) `git diff --stat; echo "=== hunks occupe dans MoteurWhisper ==="; git diff src/com/jarvis/dictee/MoteurWhisper.java | grep -n -B6 -A6 'occupe'`
+- (1x) `git diff --stat HEAD 2>&1 | tail -30`
+- (1x) `git diff --stat 6d4bf694..HEAD | tail -20; echo "---LS---"; ls -la /home/turbo/jarvis/bin/ | grep -iE "content|perf|harvest" ; ls -la /home/turbo/jarvis/tools/ 2>/dev/null | grep -iE "content|perf" ; find /home/turbo/jarvis -maxdepth 3 -iname "*content*perf*" -o -maxdepth 3 -iname "*perf*engine*" 2>/dev/null | head -20`
+- (1x) `git diff --stat 35bde025..6d414434 && echo '---' && git show 6d414434 --stat | head -20 && echo '---' && git ls-tree 6d414434 -- etc/ && echo '---' && ls -la etc/sondes.json 2>&1 && git status --porcelain -- etc/sondes.json`
+- (1x) `git diff --cached -- bin/biblio-ingest-sql.sh bin/biblio-porte-qualite.sh cli/biblio_cycle.py 2>&1 | head -50`
+- (1x) `git diff`
+- (1x) `git branch --show-current && ls bin/sonde-doctor.py tests/test_sonde_doctor.py etc/sondes.json 2>&1 | head -20`
+- (1x) `git branch --show-current && ls bin/ | grep -i -E 'content|perf|video|short' ; echo "---"; find /home/turbo/jarvis -maxdepth 3 -iname '*content*perf*' -o -maxdepth 3 -iname '*perf*content*' 2>/dev/null | head -20`
+- (1x) `git branch --show-current && ls -la bin/gpu-bench.py tests/test_gpu_bench.py 2>&1 | head -5 && ls tests/ 2>&1 | head -20`
+- (1x) `git add docs/protocole-bascule-topologie-gpu.md && git commit -m "docs(gpu-bench): protocole de bascule de topologie" -q && git log -1 --format="%H %s" && git branch --show-current`
+- (1x) `git add bin/sonde-doctor.py tests/test_sonde_doctor.py etc/sondes.json && git commit -q -m "feat(sonde-doctor): registre reel de 4 sondes et CLI verifier/lister" && git log --oneline -5`
+- (1x) `git add bin/sonde-doctor.py tests/test_sonde_doctor.py && git commit -q -m "feat(sonde-doctor): registre declaratif refusant les injections non reversibles" && git log --oneline -1`
+- (1x) `git add bin/sonde-doctor.py tests/test_sonde_doctor.py && git commit -q -m "feat(sonde-doctor): lecture du verdict, sonde injoignable = malade" && git log --oneline -1`
+- (1x) `git add bin/sonde-doctor.py tests/test_sonde_doctor.py && git commit -q -m "feat(sonde-doctor): injection reversible, defaire garanti dans le finally" && git log --oneline -1`
+- (1x) `git add bin/sonde-doctor.py tests/test_sonde_doctor.py && git commit -q -m "feat(sonde-doctor): cycle de verification et cinq verdicts" && git log --oneline -1`
+- (1x) `git add bin/gpu-bench.py tests/test_gpu_bench.py && git commit -q -m "feat(gpu-bench): serie de repetitions avec echauffement non stocke" 2>&1 | tail -2 && git log --oneline -1`
+- (1x) `git add bin/gpu-bench.py tests/test_gpu_bench.py && git commit -q -m "feat(gpu-bench): schema de stockage des mesures" && git log --oneline -1`
+- (1x) `git add bin/gpu-bench.py tests/test_gpu_bench.py && git commit -q -m "feat(gpu-bench): mesure unitaire avec capture d'erreur" 2>&1 | tail -3 && git log --oneline -1`
+- (1x) `git add bin/gpu-bench.py tests/test_gpu_bench.py && git commit -q -m "feat(gpu-bench): mediane et IC95 par bootstrap" 2>&1 | tail -2 && git log --oneline -1`
+- (1x) `git add bin/gpu-bench.py tests/test_gpu_bench.py && git commit -q -m "feat(gpu-bench): comparaison appariee entre topologies" 2>&1 | tail -2 && git log --oneline -1`
+- (1x) `git add bin/gpu-bench.py tests/test_gpu_bench.py && git commit -q -m "feat(gpu-bench): CLI mesurer/comparer/etat" 2>&1 | tail -2 && git log --oneline -3`
+- (1x) `git -C ~/jarvis-linux ls-files | wc -l; echo "--- taille du contenu suivi:"; git -C ~/jarvis-linux ls-files -z | du -ch --files0-from=- 2>/dev/null | tail -1`
+- (1x) `git -C ~/Bureau/JARVIS-OMEGA diff -- devis-facturation-electronique-ATSD.md | grep -E '^[+-]' | grep -v '^[+-][+-]' | head -8`
+- (1x) `git -C /home/turbo/labo remote -v 2>&1 | head -5`
+- (1x) `git -C /home/turbo/labo remote -v`
+- (1x) `git -C /home/turbo/jarvis-cowork status --short src/cowork_dispatcher.py ; git -C /home/turbo/jarvis-cowork diff --stat src/cowork_dispatcher.py`
+- (1x) `git -C /home/turbo/jarvis show eabfb8b7 2>&1 | head -200`
+- (1x) `git -C /home/turbo/jarvis show eabfb8b7`
+- (1x) `git -C /home/turbo/Workspaces/jarvis-linux show 0231b8fec1 --stat && echo "=====DIFF=====" && git -C /home/turbo/Workspaces/jarvis-linux show 0231b8fec1`
+- (1x) `git -C /home/turbo/Workspaces/jarvis-linux log --oneline 7325cfbb4a..0231b8fec1 2>&1 | head -20; echo "=== DIFF ==="; git -C /home/turbo/Workspaces/jarvis-linux diff 7325cfbb4a..0231b8fec1 -- infra/docker/docker-compose.swarm.yml`
+- (1x) `for c in a9ebd5a eb7c67b fd4ea43; do echo "===== $c ====="; git show --stat $c | head -40; done`
+- (1x) `find . -name "*.java" | head -50 && echo "=== STATUS ===" && git status --short && git branch -a`
+- (1x) `echo "=== working tree vs HEAD ==="; git status --short; echo "=== diff fichier travail vs commit 29436fd ==="; git diff 29436fd -- src/com/jarvis/dictee/BulleService.java | head -20; echo "(vide = identique)"; echo "=== cumul 8ff1aba..29436fd : fichiers touches ==="; git diff --stat 8ff1aba 29436fd`
+- (1x) `echo "=== reflog ===" && git reflog --date=short | head -20 && echo "=== stash ===" && git stash list && echo "=== all refs ===" && git log --all --oneline | head -20 && echo "=== dangling commits ===" && git fsck --lost-found 2>/dev/null | head -20 && echo "=== build dir ===" && find build -maxdepth 3 | head -40`
+- (1x) `echo "=== gitignore ===" && cat .gitignore && echo "=== grep debuggable/test in tracked ===" && git grep -n -iE "debuggable|test|banc|essai|DEBUG_" -- . || echo "(aucun)" ; echo "=== history of manifest ===" && git log --oneline -- AndroidManifest.xml && echo "=== full diff master..HEAD stat ===" && git diff --stat master..HEAD`
+- (1x) `echo "=== backups actifs ==="; pgrep -fc "run-jarvis-sql-backup/driver.sh" ; cd ~/jarvis-sql-backups 2>/dev/null && echo "commits non poussés: $(git rev-list --count origin/main..HEAD 2>/dev/null)" && git log --oneline -2 ; echo "=== push en cours ? ==="; pgrep -fa "git.*push|git-lfs" | head -3 || echo "aucun push actif"`
+- (1x) `echo "=== GPU (alerte 84C) ==="; nvidia-smi --query-gpu=index,temperature.gpu,fan.speed,utilization.gpu,compute_mode --format=csv,noheader 2>/dev/null ; echo "=== commits de la branche ==="; cd /home/turbo/jarvis/apps/s9-dictee && git log --oneline master..HEAD | head -6 ; echo "=== non commité ==="; git status --short | head -5`
+- (1x) `echo "=== FILES TOUCHED ===" && git show --stat 8ca10ae && echo "=== TREE ===" && ls -R src/ && echo "=== IMPLEMENTS Retour ===" && grep -rn "Retour\|surEtat\|surTexte\|surErreur" src/ --include=*.java | grep -v MoteurWhisper.java`
+- (1x) `echo "=== BACKUP : abouti ? ===" ; cd ~/jarvis-sql-backups 2>/dev/null ; pgrep -f "git push" >/dev/null && echo "  push actif" || { [ -z "$(git status -sb|grep -o devant)" ] && echo "  ✓ SYNCHRONISÉ" || echo "  devant $(git status -sb|grep -oE 'devant [0-9]+' )"; } ; git log --oneline origin/main -1 2>/dev/null | sed 's/^/  distant: /'`
+- (1x) `du -sh ~/jarvis/backups/* 2>/dev/null | sort -rh | head -6; echo "--- doublons avec le repo git ? ---"; du -sh ~/jarvis-sql-backups 2>/dev/null`
+- (1x) `date; stat -c '%y %n' src/com/jarvis/dictee/MoteurWhisper.java src/com/jarvis/dictee/BulleService.java; echo "--- BulleService appelle-t-il annule() ? ---"; grep -n "annule()\|envoiEnCours" src/com/jarvis/dictee/BulleService.java | head; echo "--- le blob d'avant mes edits existe-t-il ? ---"; git cat-file -t b59748b 2>&1 | head -2`
+- (1x) `cd ~/jarvis/planning-app 2>/dev/null || exit 0 ; L=$(git rev-parse HEAD 2>/dev/null); R=$(git rev-parse origin/main 2>/dev/null) ; [ "$L" = "$R" ] && echo "✅ planning-app SYNCHRONISÉ ($L) — rien à pusher" || echo "⚠️ divergence" ; echo "modifs non commitées: $(git status --porcelain 2>/dev/null | wc -l) · visibilité: $(gh repo view Turbo31150/planning-app --json visibility -q .visibility 2>/dev/null)"`
+- (1x) `cd ~/jarvis/planning-app 2>/dev/null ; echo "=== les 4 changements à pousser ===" ; git status --short 2>/dev/null ; echo "" ; echo "=== ce que le repo contient déjà (complétude) ===" ; echo "bin/: $(ls bin/ 2>/dev/null | wc -l) fichiers | systemd/: $(ls systemd/ 2>/dev/null | wc -l) unités" ; ls *.md 2>/dev/null | head ; echo "=== dernier commit poussé ===" ; git log --oneline -1 2>/dev/null`
+- (1x) `cd ~/jarvis-sql-backups ; pgrep -c -f "git push origin" 2>/dev/null | xargs echo "  pushes actifs :" ; git fetch origin main -q 2>&1 | tail -1 ; git status -sb 2>/dev/null | head -1 | sed 's/^/  /'`
+- (1x) `cd ~/jarvis-sql-backups ; echo "=== push synchrone, erreur visible (timeout 240s) ===" ; timeout 240 git push origin HEAD 2>&1 | tail -12 | sed 's/^/  /' ; echo "  exit: ${PIPESTATUS[0]}" ; echo "=== état après ===" ; git status -sb | head -1 | sed 's/^/  /'`
+- (1x) `cd ~/jarvis-sql-backups ; # tuer d'éventuels pushes concurrents résiduels d'abord ; pkill -f "git push origin" 2>/dev/null; sleep 2 ; git fetch origin main -q 2>&1 | tail -1 ; git rebase origin/main 2>&1 | tail -1 | sed 's/^/  /' ; exec git push origin HEAD 2>&1`
+- (1x) `cd ~/jarvis-sql-backups 2>/dev/null ; if pgrep -f "git push" >/dev/null; then ;   r1=$(cat /sys/class/net/enp42s0/statistics/tx_bytes); sleep 5; r2=$(cat /sys/class/net/enp42s0/statistics/tx_bytes) ;   echo "  push actif — $(( (r2-r1)/1024 )) Ko/5s" ; else ;   [ -z "$(git status -sb|grep -o devant)" ] && echo "  ✓ SYNCHRONISÉ" || echo "  devant, push mort — $(git status -sb|grep -oE 'devant [0-9]+')" ; fi`
+- (1x) `cd ~/jarvis-sql-backups && timeout 3000 git push origin main 2>&1 | tail -4`
+- (1x) `cd ~/jarvis-n8n-workflows ; git log --oneline -2 ; NO_PROXY='*' no_proxy='*' timeout 300 git push origin main 2>&1 | tail -3`
+- (1x) `cd ~/jarvis-linux && git ls-files -z | du -ch --files0-from=- 2>/dev/null | tail -1; echo "--- 5 plus gros fichiers suivis:"; git ls-files | xargs -d'\n' du -h 2>/dev/null | sort -rh | head -5`
+- (1x) `cd ~/jarvis ; timeout 550 git push --force code jarvis-core-clean 2>&1 | tail -12 ; echo "PUSH_RC=${PIPESTATUS[0]}"`
+- (1x) `cd ~/jarvis ; pgrep -f "git push code" | wc -l | xargs echo "push process restants:" ; git check-attr filter -- "infra/opt/opt_downloads/LM-Studio/lm-studio"`
+- (1x) `cd ~/jarvis ; echo "commits à pusher: $(git rev-list --count code/jarvis-core-clean..HEAD 2>/dev/null || echo '?')" ; timeout 550 git push code jarvis-core-clean 2>&1 | tail -8; echo "PUSH_RC=${PIPESTATUS[0]}"`
+- (1x) `cd ~/jarvis ; echo "=== force-push jarvis-core-clean → code (historique réécrit, 551Mo) ===" ; timeout 550 git push --force code jarvis-core-clean 2>&1 | tail -12 ; echo "PUSH_RC=${PIPESTATUS[0]}"`
+- (1x) `cd ~/jarvis && python3 -m pytest tests/content_perf/test_harvest.py -v; rc=$?; [ $rc -eq 0 ] && git add cli/content_perf/harvest.py && git commit -q --amend --no-edit && echo T1-VERT-AMENDÉ; exit $rc`
+- (1x) `cd ~/jarvis && python3 -m pytest tests/content_perf/test_harvest.py -v 2>&1 | tail -3 && git add cli/content_perf/ tests/content_perf/ && git commit -q -m "feat(content-perf): harvest GitHub -> sources.json (gh CLI, 0 clone) ;  ; Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>" && echo COMMIT-T1-OK`
+- (1x) `cd ~/jarvis && python3 -m pytest tests/content_perf/ 2>&1 | tail -1; git log --oneline feat/autoapi-enrichment-ssrf..HEAD | wc -l; git rev-parse --git-dir; git rev-parse --git-common-dir`
+- (1x) `cd ~/jarvis && python3 -m pytest tests/content_perf/ -v 2>&1 | tail -3; rc=${PIPESTATUS[0]} ; if [ $rc -eq 0 ]; then ;   git add cli/content_perf/__main__.py tests/content_perf/test_cli.py && git commit -q -m "feat(content-perf): CLI bout-en-bout, chemins prod, smoke reel ;  ; Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>" && echo T4-VERT-COMMITÉ ; fi; exit $rc`
+- (1x) `cd ~/jarvis && python3 -m pytest --version 2>&1 | head -1; git checkout -b feat/content-perf-engine 2>&1 | tail -1; mkdir -p cli/content_perf tests/content_perf; touch cli/content_perf/__init__.py tests/content_perf/__init__.py`
+- (1x) `cd ~/jarvis && git rev-parse 29c1bfec^ && git log --oneline 29c1bfec^..6d414434 -- bin/sonde-doctor.py tests/test_sonde_doctor.py sondes.json | cat; git diff --stat 29c1bfec^..6d414434 -- bin/sonde-doctor.py tests/test_sonde_doctor.py | tail -3; ls ~/jarvis/sondes.json ~/jarvis/bin/sonde-doctor.py 2>&1`
+- (1x) `cd ~/jarvis && git log --oneline -12 && git status --short | grep -v '^A ' | head -10`
+- (1x) `cd ~/Workspaces/jarvis-linux ; timeout 300 git push -u origin fix/watchdog-chemins-morts-logs-honnetes 2>&1 | tail -6 ; echo "=== verification ==="; git status -sb 2>/dev/null | head -2`
+- (1x) `cd ~/Bureau/workflow-gestion && git diff -- integrations/telegram/alerter.py docker/Dockerfile`
+- (1x) `cd ~/Bureau/workflow-gestion && git diff -- integrations/telegram/alerter.py`
+- (1x) `cd ~/Bureau/JARVIS-Presentation-Entreprise/PROSPECTION/STACK-assistant-gen 2>/dev/null && git rev-parse --show-toplevel 2>&1 || echo "DIR_NOT_FOUND"`
+- (1x) `cd ~/Bureau/JARVIS-Presentation-Entreprise && grep -rniE '961|928|1435|[46] GPU|1000 agents' --include='*.html' --include='*.md' --include='*.js' presentation-commerciale.html index.html app.js PROSPECTION/01-linkedin-profil.md; echo "exit=$?" ; echo "---git status---" ; git status --short 2>/dev/null | head -20 ; echo "---git diff stat---" ; git diff --stat 2>/dev/null`
+- (1x) `cd ~/Bureau/JARVIS-Presentation-Entreprise && git status --short | head -20`
+- (1x) `cd ~/Bureau/JARVIS-Presentation-Entreprise && git show --stat 181c8b70 | head -20`
+- (1x) `cd ~/Bureau/JARVIS-Presentation-Entreprise && echo "=== git log master ===" && git log --oneline -3 master && echo "=== unpushed ===" && git log origin/master..master --oneline | head -5 && echo "=== branch fix exists? ===" && git branch -a | grep -i qa-bench`
+- (1x) `cd ~/Bureau/JARVIS-OMEGA && git diff README.md devis-facturation-electronique-ATSD.md`
+- (1x) `cd ~/Bureau/JARVIS-OMEGA && git diff README.md ; echo "=== résiduel gonflé ===" ; grep -rniE '961|1435|6 GPU' README.md devis-facturation-electronique-ATSD.md`
+- (1x) `cd /mnt/jarvis-data/labo ; git status --short 2>/dev/null | head -18 ; echo "=== contrôle : rien de sensible ni de volumineux ? ===" ; git add -A 2>/dev/null ; git diff --cached --name-only | grep -iE '\.(db|sqlite|bak|env|pem|key)$|_backups|secret' | head -5 || echo "OK — rien de sensible" ; echo "fichiers: $(git diff --cached --name-only | wc -l)"`
+- (1x) `cd /mnt/jarvis-data/labo ; git stash push -q -m "artefacts pipeline (rebase 2)" 2>&1 | tail -1 ; git fetch origin main -q 2>&1 | tail -1 ; echo "  distant est maintenant : $(git rev-parse --short origin/main)" ; git rebase origin/main 2>&1 | tail -2 ; git push origin HEAD 2>&1 | tail -3 ; echo "--- restauration artefacts ---" ; git stash pop 2>&1 | tail -2 ; echo "--- état final ---" ; git status -sb | head -1`
+- (1x) `cd /mnt/jarvis-data/labo ; git stash push -m "artefacts pipeline en cours (rebase biblio)" 2>&1 | tail -2 ; echo "=== rebase ===" ; git pull --rebase origin main 2>&1 | tail -4 ; echo "=== push ===" ; git push origin HEAD 2>&1 | tail -3 ; echo "=== restauration des artefacts ===" ; git stash pop 2>&1 | tail -4`
+- (1x) `cd /mnt/jarvis-data/labo ; git stash -q 2>/dev/null ; git fetch origin main -q 2>&1 | tail -1 ; git rebase origin/main 2>&1 | tail -2 | sed 's/^/  /' ; git stash pop -q 2>/dev/null ; exec git push origin HEAD 2>&1`
+- (1x) `cd /mnt/jarvis-data/labo ; git fetch origin main -q 2>&1 | tail -2 ; echo "=== divergence ===" ; git log --oneline HEAD..origin/main | head -5 | sed 's/^/  distant: /' ; git log --oneline origin/main..HEAD | head -3 | sed 's/^/  local  : /' ; echo "=== rebase ===" ; git pull --rebase origin main 2>&1 | tail -6`
+- (1x) `cd /mnt/jarvis-data/labo ; git -c user.email="backup@m1" -c user.name="M1 Biblio Backup" pull --rebase -q origin main 2>&1 | tail -4 ; echo "après rebase: $(git status -sb | head -1)" ; git push origin main 2>&1 | tail -4`
+- (1x) `cd /mnt/jarvis-data/labo ; NO_PROXY='*' no_proxy='*' timeout 240 git push origin main 2>&1 | tail -5 ; echo "=== état ===" ; NO_PROXY='*' no_proxy='*' git fetch -q origin 2>&1|tail -1; git status -sb | head -1 ; git log --oneline -1 origin/main 2>/dev/null`
+- (1x) `cd /home/turbo/m1-repos/jarvis-master-orchestrateur && git log --oneline -3 2>/dev/null; echo "--- bin ---"; ls -la bin/ 2>/dev/null | tail -n +2 | awk '{print $1,$5,$9}'; echo "--- docs ---"; ls docs/ 2>/dev/null; echo "--- README (30 lignes) ---"; head -35 README.md`
+- (1x) `cd /home/turbo/jarvis; git ls-files -s bin/sonde-doctor.py etc/sondes.json tests/test_sonde_doctor.py; echo "=== signal ? ==="; grep -n "signal" bin/sonde-doctor.py tests/test_sonde_doctor.py || echo "aucune occurrence de signal"`
+- (1x) `cd /home/turbo/jarvis; echo "=== commit1 impl ==="; git show 29c1bfec:bin/sonde-doctor.py | head -20; echo; echo "=== imports par commit ==="; for c in 29c1bfec febb9fd0 f01eb3f7 53feaab8 6d414434; do echo "-- $c"; git show $c:bin/sonde-doctor.py | grep -n '^import\|^from'; done`
+- (1x) `cd /home/turbo/jarvis/apps/s9-dictee ; until [ -n "$(git log --oneline master..HEAD 2>/dev/null)" ]; do sleep 10; done ; echo "=== commit T1 détecté ==="; git log --oneline master..HEAD | head -3`
+- (1x) `cd /home/turbo/jarvis/apps/s9-dictee ; git status --short | head; git branch --show-current ; git checkout -q -b dictee-ameliorations && echo "branche: $(git branch --show-current)"`
+- (1x) `cd /home/turbo/jarvis/apps/s9-dictee ; echo "=== commits sur la branche ==="; git log --oneline master..HEAD 2>/dev/null | head ; echo "=== fichiers modifiés ==="; git status --short | head ; echo "=== APK ==="; ls -la jarvis-dictee.apk 2>/dev/null | awk '{print $5, $6, $7, $8}'`
+- (1x) `cd /home/turbo/jarvis/apps/s9-dictee ; echo "=== commits branche ==="; git log --oneline master..HEAD 2>/dev/null | head ; echo "=== diff en cours ==="; git diff --stat | tail -3 ; echo "=== APK (heure) ==="; date -r jarvis-dictee.apk '+%H:%M:%S' 2>/dev/null; date '+maintenant %H:%M:%S'`
+- (1x) `cd /home/turbo/jarvis/apps/s9-dictee ; echo "=== commits T1 ==="; git log --oneline master..HEAD ; echo; echo "=== fichiers du commit ==="; git show --stat --format="%H%n%s" HEAD | head -12 ; echo "=== reste non commité ==="; git status --short`
+- (1x) `cd /home/turbo/jarvis/apps/s9-dictee ; echo "=== commit ? ==="; git log --oneline master..HEAD 2>/dev/null | head -2 || echo "(aucun)" ; echo "=== diff stat ==="; git diff --stat | tail -2 ; echo "=== agents actifs ==="; pgrep -fc "claude" 2>/dev/null`
+- (1x) `cd /home/turbo/jarvis/apps/s9-dictee && git status --short && git branch --show-current && ls -R src AndroidManifest.xml 2>/dev/null | head -50 && ls`
+- (1x) `cd /home/turbo/jarvis/apps/s9-dictee && git status && git branch --show-current && ls -la`
+- (1x) `cd /home/turbo/jarvis/apps/s9-dictee && git show 12c1cce0341cb5abe30ea969c71fff1fa9b9e287`
+- (1x) `cd /home/turbo/jarvis/apps/s9-dictee && git show --stat --format='%H %an%n%s' 8ca10ae && echo "=== 5 derniers commits ===" && git log --oneline -5`
+- (1x) `cd /home/turbo/jarvis/apps/s9-dictee && git rev-parse --show-toplevel && git branch --show-current && git add AndroidManifest.xml src/com/jarvis/dictee/RelanceAuDemarrage.java && git status --short`
+- (1x) `cd /home/turbo/jarvis/apps/s9-dictee && git diff -- src/com/jarvis/dictee/MoteurWhisper.java src/com/jarvis/dictee/Reglages.java`
+- (1x) `cd /home/turbo/jarvis/apps/s9-dictee && git diff -- src/com/jarvis/dictee/BulleService.java`
+- (1x) `cd /home/turbo/jarvis/apps/s9-dictee && git diff -- AndroidManifest.xml && echo "=== NOUVEAU FICHIER ===" && cat src/com/jarvis/dictee/RelanceAuDemarrage.java && echo "=== STATUS ===" && git status --short`
+- (1x) `cd /home/turbo/jarvis-sql-backups ; timeout 420 git push origin main 2>&1 | tail -12`
+- (1x) `cd /home/turbo/jarvis-sql-backups ; timeout 120 git fetch origin 2>&1 | tail -3 ; echo "--- après fetch ---" ; echo "local : $(git rev-parse --short HEAD)" ; echo "origin: $(git rev-parse --short origin/main 2>/dev/null)" ; git status -sb 2>&1 | head -2 ; echo ; echo "--- commits en avance (non poussés) ---" ; git log origin/main..HEAD --oneline 2>&1 | head -5`
+- (1x) `cd /home/turbo/jarvis-sql-backups ; n=$(pgrep -f 'git.push' 2>/dev/null | wc -l); echo "pushs restants : $n" ; ls .git/*.lock .git/lfs/*.lock 2>/dev/null || echo "locks : aucun" ; git status -sb 2>&1 | head -2 ; echo "local : $(git rev-parse --short HEAD) | origin : $(git rev-parse --short origin/main 2>/dev/null)"`
+- (1x) `cd /home/turbo/jarvis-sql-backups ; for p in $(pgrep -f 'git.push' 2>/dev/null); do kill -9 "$p" 2>/dev/null; done ; sleep 3 ; echo "pushs restants : $(pgrep -f 'git.push' 2>/dev/null | wc -l)" ; echo "dépôt sain : $(git status -sb 2>&1 | head -1)" ; echo "objets LFS en attente : $(git lfs ls-files 2>/dev/null | wc -l)"`
+- (1x) `cd /home/turbo/jarvis-sql-backups ; echo "pushs : $(pgrep -cf 'git.push' 2>/dev/null || echo 0)" ; git status -sb 2>&1 | head -1 ; git fsck --no-progress --connectivity-only 2>&1 | head -3 || echo "  (fsck OK)"`
+- (1x) `cd /home/turbo/jarvis-sql-backups ; echo "=== push : avancement ===" ; echo "  local : $(git rev-parse --short HEAD) | origin: $(git rev-parse --short origin/main 2>/dev/null)" ; pgrep -c -f 'git push origin' 2>/dev/null | xargs -I{} echo "  pushs actifs : {}" ; a=$(awk '/enp42s0/{print $10}' /proc/net/dev); sleep 6; b=$(awk '/enp42s0/{print $10}' /proc/net/dev) ; echo "  débit : $(( (b-a)/1024/6 )) Ko/s"`
+- (1x) `cd /home/turbo/jarvis-sql-backups 2>/dev/null && { echo "=== git log ==="; git log --oneline -5 2>/dev/null; echo "=== remote/ahead ==="; git status -sb 2>/dev/null | head -3; git rev-list --count @{u}..HEAD 2>/dev/null | sed 's/^/commits non poussés: /'; echo "=== dernier fetch ==="; ls -l .git/FETCH_HEAD .git/refs/remotes/origin/* 2>/dev/null | head -5; }`
+- (1x) `cd /home/turbo/jarvis-linux && git ls-files | awk -F/ '{print $1}' | sort -u | while read -r d; do ;   sz=$(git ls-files -z -- "$d" | du -cb --files0-from=- 2>/dev/null | tail -1 | cut -f1) ;   n=$(git ls-files -- "$d" | wc -l) ;   printf "%10.1f Mo  %6d fichiers  %s\n" "$((sz))e-6" "$n" "$d" 2>/dev/null || printf "%s %s %s\n" "$sz" "$n" "$d" ; done 2>/dev/null | sort -rn | head -18`
+- (1x) `cd /home/turbo/jarvis ; git commit --dry-run 2>&1 | head -20`
+- (1x) `cd /home/turbo/jarvis ; echo "=== push jarvis-core-clean → code (privé) ===" ; echo "commits en avance: $(git rev-list --count code/jarvis-core-clean..HEAD 2>/dev/null || echo '?')" ; git push code jarvis-core-clean 2>&1 | tail -15 ; echo "PUSH_RC=$?"`
+- (1x) `cd /home/turbo/jarvis ; echo "=== PUSH (hook git-lfs contourne : 0 fichier LFS, gitleaks a valide 3x) ===" ; timeout 900 git push --no-verify -u code feat/content-perf-engine 2>&1 | tail -8`
+- (1x) `cd /home/turbo/Workspaces/jarvis-linux; echo "=== fichiers du commit auto 219d18f243 ==="; git --no-pager show --stat --oneline 219d18f243 | head -15`
+- (1x) `cd /home/turbo/Workspaces/jarvis-linux; echo "=== COMMIT AUTO 219d18f243 (stat global) ==="; git show --stat 219d18f243 | head -40; echo; echo "=== 219d18f243 sur le compose ==="; git show 219d18f243 -- infra/docker/docker-compose.swarm.yml; echo "=== 0231b8fec1 stat global ==="; git show --stat 0231b8fec1 | head -40`
+- (1x) `cd /home/turbo/Workspaces/jarvis-linux ; timeout 180 git push origin HEAD 2>&1 | tail -4; echo "exit=$?"`
+- (1x) `cd /home/turbo/Workspaces/jarvis-linux ; git --no-pager log --oneline -5 -- infra/docker/docker-compose.swarm.yml ; echo "=== status ===" ; git status --porcelain | head -20 ; echo "=== HEAD version des zones concernées ===" ; git --no-pager show HEAD:infra/docker/docker-compose.swarm.yml | sed -n '1,20p;36,45p' | cat -n`
+- (1x) `cd /home/turbo/Workspaces/jarvis-linux ; echo "branche : $(git branch --show-current)" ; timeout 60 gh api repos/Turbo31150/jarvis-linux/contents/REPORT-LOGIQUES-2026-08-06.md?ref=fix/watchdog-chemins-morts-logs-honnetes --jq '.html_url, .size' 2>&1 | head -3`
+- (1x) `cd /home/turbo/Workspaces/jarvis-linux 2>/dev/null && { git remote -v 2>/dev/null | head -2; git status --short 2>/dev/null | wc -l | xargs echo "fichiers modifies:"; ls | head -8; }`
+- (1x) `cd /home/turbo/Workspaces/jarvis-linux 2>/dev/null && git rev-parse --show-toplevel && for p in cx jai-agent jarvis-monitor jarvis-wave jarvis-hub; do echo "===== $p ====="; git log --all --diff-filter=D --name-only --pretty=format:'%h|%ad|%s' --date=short -- "*$p*" 2>/dev/null | head -25; echo; done`
+- (1x) `cd /home/turbo/Workspaces/jarvis-linux && echo "=== objets git contenant ces noms ===" && git rev-list --all --objects 2>/dev/null | grep -E '(/|^)(cx|cx\.sh|cx\.py|jai-agent(\.sh)?|jarvis-monitor\.py|jarvis-wave\.sh|jarvis-hub\.sh)$' | sort -u -k2 | head -40`
+- (1x) `cd /home/turbo/Bureau/workflow-gestion && echo "=== diff docker-compose.yml ===" && git diff docker/docker-compose.yml ; echo "=== diff docker-compose.isolated.yml ===" && git diff docker/docker-compose.isolated.yml ; echo "=== diff api/server.py (short) ===" && git diff --stat api/server.py ; echo "=== untracked new files ===" && git status --short | grep '^??'`
+- (1x) `cd /home/turbo/Bureau/JARVIS-Presentation-Entreprise && git add PROSPECTION/01-linkedin-profil.md presentation-commerciale.html presentation-commerciale.pdf && git status --short | head -20 && git commit --no-edit 2>&1 | tail -20`
+- (1x) `cd /home/turbo/Bureau/JARVIS-Presentation-Entreprise && echo "=== git log final ===" && git log --oneline -4 && echo "=== git status final ===" && git status --short && echo "=== confirm no origin push happened ===" && git log --oneline origin/master..master | head -5`
+- (1x) `cd /home/turbo/Bureau/JARVIS-Presentation-Entreprise && echo "=== FILES CHANGED IN fix BRANCH vs master ===" && git diff --stat master...fix/qa-bench-real-harness | tail -60 && echo "=== diff for locally modified files (working tree vs HEAD) ===" && git diff --stat HEAD`
+- (1x) `cd /home/turbo/Bureau/JARVIS-Presentation-Entreprise && echo "=== BRANCH ===" && git branch --show-current && echo "=== STATUS ===" && git status && echo "=== LOG master..fix ===" && git log --oneline master..fix/qa-bench-real-harness 2>&1 && echo "=== fix commit check ===" && git log --oneline -1 19ca4fb9 2>&1 && echo "=== BRANCHES LIST ===" && git branch -a`
+- (1x) `cd /home/turbo/Bureau/JARVIS-Presentation-Entreprise && MERGE_SHA=$(git rev-parse --short HEAD) && echo "MERGE_SHA=$MERGE_SHA" && git log --oneline -3 && echo "=== git status after merge ===" && git status --short && echo "=== locate STACK-assistant-gen dir ===" && find . -maxdepth 3 -iname "STACK-assistant-gen" -type d`
+- (1x) `cd /home/turbo/AutoAgent && cat pyproject.toml setup.cfg 2>/dev/null | head -60; echo '--- entry points ---'; grep -rn 'console_scripts\|\[project.scripts\]' pyproject.toml setup.cfg 2>/dev/null; echo '--- cli ---'; ls autoagent/ | head -20; git log --oneline -3 2>/dev/null; git status --short 2>/dev/null | head -5`
+- (1x) `cd /home/turbo && grep -rIl --exclude-dir=node_modules --exclude-dir=.git "holding_index\|library_series" ~/jarvis ~/labo ~/IA ~/jarvis-linux ~/.claude 2>/dev/null | head -30`
+- (1x) `cd $(git rev-parse --show-toplevel 2>/dev/null || pwd) && git log --all --oneline -- infra/docker/docker-compose.swarm.yml | head -20`
+- (1x) `cd "/home/turbo/Bureau/AIDE MICRO ENTREPRISE" && git remote -v 2>&1 | head -3; git log --oneline -3 2>&1; git status --short 2>&1 | head -8; echo "=== index ==="; cat index; echo "=== PREUVE FINAL ==="; find "PREUVE FINAL" DEPOT_INPI -type f 2>/dev/null | head -20`
+- (1x) `cat /proc/loadavg; echo "--- diff ---"; git diff --stat bin/simuler-logique.py`
+- (1x) `bash -c 'set -a; . /home/turbo/jarvis-linux/.env; set +a; echo "SOURCING RC=$?"; echo "TELEGRAM_TOKEN set: ${TELEGRAM_TOKEN:+oui} (len ${#TELEGRAM_TOKEN})"; echo "TELEGRAM_CHAT=$TELEGRAM_CHAT"' 2>&1 | tail -5; echo "=== .env dans git ? ==="; git -C /home/turbo/Workspaces/jarvis-linux check-ignore -v .env 2>&1; git -C /home/turbo/Workspaces/jarvis-linux ls-files --error-unmatch .env 2>&1 | tail -1`
+- (1x) `R=~/jarvis-sql-backups; cd $R && git status --short | head; echo "———"; ls | head; git log --oneline -2`
+- (1x) `P=/home/turbo/teamwork_projects/appliance_assistant_prive ; echo "=== test_qa_bench.py — ce qui est verrouillé ===" ; grep -n 'def test\|assert' $P/tests/test_qa_bench.py | head -25 ; echo "  (lignes: $(wc -l < $P/tests/test_qa_bench.py))" ; echo ; echo "=== état git du projet ===" ; cd $P && git status --short 2>/dev/null | head -5; git log --oneline -3 2>/dev/null`

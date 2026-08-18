@@ -1,0 +1,11 @@
+{
+  "id": "kcns008-cluster-agent-swarm-skills-skill-md",
+  "name": "kubernetes",
+  "author": "kcns008",
+  "description": "Kubernetes & OpenShift Platform Agent Swarm \u2014 A coordinated multi-agent system for cluster operations. Includes Orchestrator (Jarvis), Cluster Ops (Atlas), GitOps (Flow), Security (Shield), Observability (Pulse), Artifacts (Cache), and Developer Experience (Desk). Pure instruction-based skill \u2014 no executable scripts.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/kcns008/cluster-agent-swarm-skills",
+  "skillUrl": "https://skillsmp.com/creators/kcns008/cluster-agent-swarm-skills/skill",
+  "stars": 25,
+  "updatedAt": 1776271465
+}

@@ -1,0 +1,11 @@
+{
+  "id": "hkuds-cli-anything-skills-cli-anything-intelwatch-skill-md",
+  "name": "cli-anything-intelwatch",
+  "author": "HKUDS",
+  "description": "Zero friction. Full context. Competitive intelligence, M&A due diligence, and OSINT directly from your terminal. Uses Node.js/npx.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/HKUDS/CLI-Anything/tree/main/skills/cli-anything-intelwatch",
+  "skillUrl": "https://skillsmp.com/creators/hkuds/cli-anything/skills-cli-anything-intelwatch",
+  "stars": 46608,
+  "updatedAt": 1776507178
+}

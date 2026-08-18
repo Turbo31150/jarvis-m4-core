@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-skills-software-development-dogfood-skill-md",
+  "name": "dogfood",
+  "author": "NousResearch",
+  "description": "Exploratory QA of web apps: find bugs, evidence, reports.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/skills/software-development/dogfood",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/skills-software-development-dogfood",
+  "stars": 225204,
+  "updatedAt": 1784861154
+}

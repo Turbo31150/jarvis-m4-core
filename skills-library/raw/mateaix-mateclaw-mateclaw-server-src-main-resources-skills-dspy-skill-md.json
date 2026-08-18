@@ -1,0 +1,11 @@
+{
+  "id": "mateaix-mateclaw-mateclaw-server-src-main-resources-skills-dspy-skill-md",
+  "name": "dspy",
+  "author": "mateaix",
+  "description": "DSPy: declarative LM programs, auto-optimize prompts, RAG.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/mateaix/mateclaw/tree/dev/mateclaw-server/src/main/resources/skills/dspy",
+  "skillUrl": "https://skillsmp.com/creators/mateaix/mateclaw/mateclaw-server-src-main-resources-skills-dspy",
+  "stars": 818,
+  "updatedAt": 1777646363
+}

@@ -1,0 +1,11 @@
+{
+  "id": "chatboxai-chatbox-scripts-session-rag-eval-skill-md",
+  "name": "session-rag-eval",
+  "author": "chatboxai",
+  "description": "Run and debug Chatbox session attachment RAG model evaluation with synthetic and real long-file fixtures.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/chatboxai/chatbox/tree/main/scripts/session-rag-eval",
+  "skillUrl": "https://skillsmp.com/creators/chatboxai/chatbox/scripts-session-rag-eval",
+  "stars": 41302,
+  "updatedAt": 1781053012
+}

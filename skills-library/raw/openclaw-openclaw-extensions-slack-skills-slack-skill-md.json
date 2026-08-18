@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-extensions-slack-skills-slack-skill-md",
+  "name": "slack",
+  "author": "openclaw",
+  "description": "Slack messaging workflows through OpenClaw's message tool.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/extensions/slack/skills/slack",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/extensions-slack-skills-slack",
+  "stars": 385119,
+  "updatedAt": 1785803460
+}

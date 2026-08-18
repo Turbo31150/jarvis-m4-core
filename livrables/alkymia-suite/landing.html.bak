@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AlkymIA Suite — Vos applications IA souveraines, livrées en container</title>
+<meta name="description" content="La suite d'applications AlkymIA (Pousseline, PassCerfa, Transcription, TradeOracle, Phone Mouse) livrée en container. Local-first, RGPD, support humain. App seule, bundle ou entreprise.">
+<style>
+  :root {
+    --bg: #f7f5f0;
+    --bg-elevated: #ffffff;
+    --bg-alt: #efece4;
+    --ink: #1a1a1a;
+    --ink-soft: #4a4a4a;
+    --ink-faint: #6f6f6f;
+    --line: #e0dcd2;
+    --accent: #2f5d50;
+    --accent-ink: #ffffff;
+    --gold: #b08d57;
+    --focus: #2b6cb0;
+    --radius: 14px;
+    --maxw: 1120px;
+    --font: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  [data-theme="dark"] {
+    --bg: #10130f;
+    --bg-elevated: #191d17;
+    --bg-alt: #1e231c;
+    --ink: #eef1ea;
+    --ink-soft: #c4c9be;
+    --ink-faint: #929888;
+    --line: #2c322a;
+    --accent: #6fb8a3;
+    --accent-ink: #10130f;
+    --gold: #d4b483;
+    --focus: #7ab7f0;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation: none !important; transition: none !important; }
+  }
+  body { margin: 0; font-family: var(--sans); background: var(--bg); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, .serif { font-family: var(--font); font-weight: 600; letter-spacing: -0.01em; }
+  h1 { font-size: clamp(2.3rem, 5vw, 3.9rem); line-height: 1.08; margin: 0 0 .5em; }
+  h2 { font-size: clamp(1.7rem, 3.5vw, 2.6rem); line-height: 1.15; margin: 0 0 .6em; }
+  h3 { font-size: 1.2rem; margin: 0 0 .4em; }
+  p { margin: 0 0 1em; color: var(--ink-soft); }
+  a { color: var(--accent); }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+  .eyebrow { font-family: var(--sans); font-size: .8rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); margin: 0 0 1.2em; }
+  a.btn, button.btn { display: inline-block; font-family: var(--sans); font-size: 1rem; font-weight: 600; padding: 15px 30px; border-radius: 100px; text-decoration: none; cursor: pointer; border: 1.5px solid transparent; transition: transform .15s ease, box-shadow .15s ease; }
+  .btn-primary { background: var(--accent); color: var(--accent-ink); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(47,93,80,.3); }
+  .btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+  .btn-ghost:hover { border-color: var(--accent); }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 6px; }
+  header.top { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  .navbar { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; max-width: var(--maxw); margin: 0 auto; }
+  .brand { font-family: var(--font); font-weight: 600; font-size: 1.3rem; letter-spacing: -.02em; text-decoration: none; color: var(--ink); }
+  .brand span { color: var(--gold); }
+  .nav-actions { display: flex; align-items: center; gap: 14px; }
+  .theme-toggle { background: var(--bg-alt); border: 1px solid var(--line); color: var(--ink); width: 42px; height: 42px; border-radius: 100px; cursor: pointer; font-size: 1.1rem; line-height: 1; }
+  .nav-cta { display: none; }
+  @media (min-width: 720px) { .nav-cta { display: inline-block; } }
+  section { padding: clamp(64px, 9vw, 120px) 0; }
+  .hero { padding-top: clamp(56px, 8vw, 96px); }
+  .hero-grid { display: grid; gap: 48px; grid-template-columns: 1fr; align-items: center; }
+  @media (min-width: 920px) { .hero-grid { grid-template-columns: 1.15fr .85fr; gap: 64px; } }
+  .hero p.lead { font-size: 1.2rem; max-width: 36ch; }
+  .hero-cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 2em; }
+  .hero-note { margin-top: 1.6em; font-size: .9rem; color: var(--ink-faint); }
+  .avatar-slot { background: var(--bg-alt); border: 1px dashed var(--line); border-radius: var(--radius); aspect-ratio: 4/5; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 24px; color: var(--ink-faint); }
+  .avatar-slot .ph { font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; }
+  .avatar-slot .nm { font-family: var(--font); font-size: 1.15rem; color: var(--ink); margin-top: 12px; }
+  .avatar-slot .rl { font-size: .85rem; }
+  .trust { background: var(--bg-alt); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 28px 0; }
+  .trust-row { display: flex; flex-wrap: wrap; gap: 14px 32px; align-items: center; justify-content: center; font-size: .9rem; color: var(--ink-soft); }
+  .trust-row strong { color: var(--ink); }
+  .pill { display: inline-flex; align-items: center; gap: 8px; background: var(--bg-elevated); border: 1px solid var(--line); border-radius: 100px; padding: 8px 16px; }
+  .grid { display: grid; gap: 24px; grid-template-columns: 1fr; }
+  @media (min-width: 700px) { .grid.cols-3 { grid-template-columns: repeat(3, 1fr); } .grid.cols-2 { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 900px) { .grid.cols-5 { grid-template-columns: repeat(5, 1fr); } }
+  .card { background: var(--bg-elevated); border: 1px solid var(--line); border-radius: var(--radius); padding: 30px; }
+  .card.app { padding: 24px; }
+  .card .ico { width: 44px; height: 44px; border-radius: 12px; background: var(--bg-alt); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 18px; }
+  .card.app .ico { margin-bottom: 14px; }
+  .card.app h3 { font-size: 1.05rem; }
+  .card.app p { font-size: .92rem; margin-bottom: 0; }
+  .lead-in { max-width: 62ch; margin-bottom: 3rem; }
+  .lead-in p { font-size: 1.1rem; }
+  .offer { background: var(--bg-alt); }
+  .offer-card { background: var(--bg-elevated); border: 1px solid var(--line); border-radius: var(--radius); padding: 36px; display: flex; flex-direction: column; }
+  .offer-card.featured { border-color: var(--accent); box-shadow: 0 12px 40px rgba(0,0,0,.06); }
+  .tag { display: inline-block; font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, transparent); border-radius: 100px; padding: 4px 12px; margin-bottom: 1em; align-self: flex-start; }
+  .price { font-family: var(--font); font-size: 2.3rem; color: var(--ink); line-height: 1; margin: .2em 0; }
+  .price small { font-size: 1rem; color: var(--ink-faint); font-family: var(--sans); }
+  ul.check { list-style: none; padding: 0; margin: 1.4em 0; flex: 1; }
+  ul.check li { position: relative; padding-left: 30px; margin-bottom: 14px; color: var(--ink-soft); }
+  ul.check li::before { content: "—"; position: absolute; left: 0; color: var(--gold); font-weight: 700; }
+  .note-honest { background: color-mix(in srgb, var(--gold) 12%, transparent); border: 1px solid color-mix(in srgb, var(--gold) 40%, transparent); border-radius: var(--radius); padding: 20px 24px; margin-top: 40px; font-size: .95rem; color: var(--ink-soft); }
+  .note-honest strong { color: var(--ink); }
+  .founder-grid { display: grid; gap: 40px; grid-template-columns: 1fr; align-items: center; }
+  @media (min-width: 860px) { .founder-grid { grid-template-columns: .8fr 1.2fr; } }
+  blockquote { margin: 0; font-family: var(--font); font-size: 1.5rem; line-height: 1.4; color: var(--ink); }
+  .sig { margin-top: 1.4em; font-size: .95rem; color: var(--ink-faint); font-family: var(--sans); }
+  .sig strong { color: var(--ink); }
+  .cta-band { background: var(--accent); color: var(--accent-ink); text-align: center; }
+  .cta-band h2, .cta-band p { color: var(--accent-ink); }
+  .cta-band p { opacity: .9; max-width: 46ch; margin-left: auto; margin-right: auto; }
+  .cta-band .btn-primary { background: var(--accent-ink); color: var(--accent); }
+  .cta-band .btn-primary:hover { box-shadow: 0 8px 24px rgba(0,0,0,.25); }
+  details { border-bottom: 1px solid var(--line); padding: 22px 0; }
+  details summary { cursor: pointer; font-family: var(--font); font-size: 1.2rem; color: var(--ink); list-style: none; display: flex; justify-content: space-between; gap: 16px; align-items: center; }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::after { content: "+"; font-size: 1.5rem; color: var(--gold); transition: transform .2s; }
+  details[open] summary::after { transform: rotate(45deg); }
+  details p { margin-top: 1em; }
+  footer.foot { border-top: 1px solid var(--line); padding: 48px 0; font-size: .9rem; color: var(--ink-faint); }
+  .foot-grid { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; }
+  .badge { display: inline-block; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-faint); border: 1px solid var(--line); border-radius: 100px; padding: 4px 12px; margin: 0 6px 6px 0; }
+  .skip { position: absolute; left: -999px; top: 0; background: var(--accent); color: #fff; padding: 10px 16px; border-radius: 8px; z-index: 100; }
+  .skip:focus { left: 16px; top: 16px; }
+</style>
+</head>
+<body>
+<a href="#main" class="skip">Aller au contenu</a>
+<header class="top">
+  <div class="navbar">
+    <a href="#" class="brand">Alkym<span>IA</span> Suite</a>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" aria-label="Basculer thème clair / sombre" title="Thème clair / sombre">◑</button>
+      <a href="#demo" class="btn btn-primary nav-cta">Demander une démo</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Suite d'applications IA · Local-first · RGPD</p>
+        <h1>Des applications qui travaillent pour vous — et qui gardent vos données chez vous.</h1>
+        <p class="lead">AlkymIA Suite réunit nos applications métier réelles, livrées en container et prêtes à l'emploi. Pas de cloud imposé, pas de fuite de données, un vrai humain au bout du fil.</p>
+        <div class="hero-cta">
+          <a href="#apps" class="btn btn-primary">Voir la suite</a>
+          <a href="#demo" class="btn btn-ghost">Demander une démo</a>
+        </div>
+        <p class="hero-note">À partir de 29 € l'application · Bundle Suite complet · Formule entreprise sur mesure.</p>
+      </div>
+      <div>
+        <div class="avatar-slot" role="img" aria-label="Emplacement réservé au portrait du fondateur">
+          <span class="ph">[AVATAR-FONDATEUR]</span>
+          <span class="nm">Franck Delmas</span>
+          <span class="rl">Fondateur AlkymIA</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST -->
+  <div class="trust">
+    <div class="wrap trust-row">
+      <span class="pill">🏆 <strong>Lauréat Airia 2026</strong></span>
+      <span class="pill">🐧 <strong>Éprouvé sur Linux</strong></span>
+      <span class="pill">🇪🇺 <strong>RGPD &amp; local-first</strong></span>
+      <span class="pill">☎️ Support <strong>par téléphone</strong></span>
+    </div>
+  </div>
+
+  <!-- PROBLÈME -->
+  <section id="probleme">
+    <div class="wrap">
+      <div class="lead-in">
+        <p class="eyebrow">Le problème</p>
+        <h2>Les outils IA du marché sont pratiques — jusqu'à ce que vous lisiez les conditions.</h2>
+        <p>Abonnements qui s'empilent, données qui partent dans le cloud, outils qui ne se parlent pas. Pour un professionnel ou une équipe, chaque nouvel outil est une dépendance de plus.</p>
+      </div>
+      <div class="grid cols-3">
+        <div class="card">
+          <div class="ico">💸</div>
+          <h3>Des abonnements qui s'accumulent</h3>
+          <p>Un outil par tâche, une facture par mois : le coût grimpe et la valeur reste diluée entre dix services que vous ne maîtrisez pas.</p>
+        </div>
+        <div class="card">
+          <div class="ico">📤</div>
+          <h3>Vos données servent d'autres</h3>
+          <p>Transcriptions, documents, échanges clients : la plupart des applications IA envoient tout dans un cloud tiers, souvent hors d'Europe.</p>
+        </div>
+        <div class="card">
+          <div class="ico">🧩</div>
+          <h3>Des outils qui ne s'assemblent pas</h3>
+          <p>Chaque app vit dans son coin. Aucun socle commun, aucune souveraineté, aucune cohérence — juste une collection d'abonnements.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPS -->
+  <section id="apps" class="offer">
+    <div class="wrap">
+      <div class="lead-in">
+        <p class="eyebrow">Les applications</p>
+        <h2>Des apps réelles, pensées pour un usage concret.</h2>
+        <p>Chaque application de la Suite répond à un besoin précis et tourne en local. Vous prenez celles qui vous servent — une seule, ou tout le bundle.</p>
+      </div>
+      <div class="grid cols-5">
+        <div class="card app">
+          <div class="ico">🎓</div>
+          <h3>Pousseline / Academy</h3>
+          <p>Assistant pédagogique pour enseignants : préparations, différenciation, communication.</p>
+        </div>
+        <div class="card app">
+          <div class="ico">📋</div>
+          <h3>PassCerfa</h3>
+          <p>Aide au remplissage et au suivi des démarches administratives et formulaires Cerfa.</p>
+        </div>
+        <div class="card app">
+          <div class="ico">🎙️</div>
+          <h3>Transcription</h3>
+          <p>Retranscription audio locale, précise, avec vocabulaire métier — sans envoi cloud.</p>
+        </div>
+        <div class="card app">
+          <div class="ico">📈</div>
+          <h3>TradeOracle</h3>
+          <p>Outil d'analyse et d'aide à la décision pour le suivi de marchés financiers.</p>
+        </div>
+        <div class="card app">
+          <div class="ico">🖱️</div>
+          <h3>Phone Mouse</h3>
+          <p>Pilotez votre poste depuis votre téléphone : souris, saisie, contrôle à distance.</p>
+        </div>
+      </div>
+      <div class="note-honest">
+        <strong>Transparence sur les plateformes.</strong> Nos applications sont éprouvées et prouvées sur <strong>Linux</strong>. Les versions <strong>container Windows</strong> et les <strong>companions APK Android</strong> sont sur notre feuille de route (« à finaliser ») : nous les annonçons comme une roadmap, pas comme un acquis. Nous préférons vous le dire clairement plutôt que de sur-promettre.
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMULES -->
+  <section id="formules">
+    <div class="wrap">
+      <div class="lead-in">
+        <p class="eyebrow">Les formules</p>
+        <h2>Trois façons d'adopter la Suite.</h2>
+        <p>De l'application isolée au déploiement d'entreprise, vous montez en puissance à votre rythme.</p>
+      </div>
+      <div class="grid cols-3">
+        <div class="offer-card">
+          <span class="tag">Découverte</span>
+          <h3>Application seule</h3>
+          <div class="price">29 – 149 € <small>/ app</small></div>
+          <ul class="check">
+            <li>Une application de la Suite au choix</li>
+            <li>Installation locale, container prêt à l'emploi</li>
+            <li>Mises à jour de l'application</li>
+            <li>Support par e-mail</li>
+          </ul>
+          <a href="#demo" class="btn btn-ghost">Choisir une app</a>
+        </div>
+        <div class="offer-card featured">
+          <span class="tag">Le plus complet</span>
+          <h3>Bundle Suite</h3>
+          <div class="price">Bundle <small>tarif dégressif</small></div>
+          <ul class="check">
+            <li>Toutes les applications de la Suite</li>
+            <li>Socle commun local-first, cohérent</li>
+            <li>Mises à jour de l'ensemble incluses</li>
+            <li>Support prioritaire, dont téléphone</li>
+          </ul>
+          <a href="#demo" class="btn btn-primary">Demander le bundle</a>
+        </div>
+        <div class="offer-card">
+          <span class="tag">Sur mesure</span>
+          <h3>Entreprise</h3>
+          <div class="price">Sur devis</div>
+          <ul class="check">
+            <li>Déploiement multi-postes / multi-équipes</li>
+            <li>Intégration à votre infrastructure</li>
+            <li>Passerelle vers <a href="#">AlkymIA Sovereign</a> (IA on-premise)</li>
+            <li>Accompagnement et support dédiés</li>
+          </ul>
+          <a href="#demo" class="btn btn-ghost">Parler à l'équipe</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIFFÉRENCIATEUR + FOUNDER -->
+  <section id="difference" class="offer">
+    <div class="wrap">
+      <div class="lead-in">
+        <p class="eyebrow">Ce qui nous distingue</p>
+        <h2>Souverain, cohérent, et porté par un humain.</h2>
+        <p>Là où d'autres empilent des services cloud, nous livrons un socle local que vous possédez, et un accompagnement où l'on répond vraiment.</p>
+      </div>
+      <div class="founder-grid">
+        <div>
+          <div class="avatar-slot" role="img" aria-label="Emplacement réservé au portrait du fondateur">
+            <span class="ph">[AVATAR-FONDATEUR]</span>
+            <span class="nm">Franck Delmas</span>
+            <span class="rl">Fondateur AlkymIA</span>
+          </div>
+        </div>
+        <div>
+          <blockquote>« Chaque application de la Suite est née d'un besoin réel, pas d'un cahier des charges marketing. Je les fais tourner en local parce que vos données valent mieux qu'un cloud loué — et je laisse un numéro de téléphone parce qu'un logiciel sans humain derrière, ce n'est pas un service. »</blockquote>
+          <p class="sig"><strong>Franck Delmas</strong> — Fondateur AlkymIA</p>
+          <div style="margin-top:1.5em;">
+            <span class="badge">Local-first</span>
+            <span class="badge">Container</span>
+            <span class="badge">RGPD</span>
+            <span class="badge">Support humain</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PREUVE -->
+  <section id="preuve">
+    <div class="wrap">
+      <div class="lead-in">
+        <p class="eyebrow">La preuve</p>
+        <h2>Un savoir-faire déjà en production.</h2>
+      </div>
+      <div class="grid cols-3">
+        <div class="card">
+          <div class="ico">🏆</div>
+          <h3>Lauréat Airia 2026</h3>
+          <p>AlkymIA a été distingué au concours Airia 2026, une reconnaissance de la solidité de son approche IA souveraine.</p>
+        </div>
+        <div class="card">
+          <div class="ico">🏛️</div>
+          <h3>Des mairies déjà équipées</h3>
+          <p>Nos solutions sont utilisées par des mairies en SaaS souverain (de 290 à 890 €/mois). Des outils qui tournent en vrai, sur des besoins réels.</p>
+        </div>
+        <div class="card">
+          <div class="ico">🧱</div>
+          <h3>Des produits qui se vendent</h3>
+          <p>Nos applications sont commercialisées — un produit vendu 750 € en fait partie — portées par un portefeuille d'environ 75 dépôts logiciels. <span style="color:var(--ink-faint)">[À CONFIRMER]</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <section class="cta-band" id="demo">
+    <div class="wrap">
+      <p class="eyebrow" style="color:var(--accent-ink);opacity:.85;">Passons à l'action</p>
+      <h2>Voyez la Suite en action.</h2>
+      <p>Demandez une démo : nous vous montrons les applications qui correspondent à vos besoins, en local, sans engagement.</p>
+      <div style="margin-top:2em; display:flex; gap:14px; flex-wrap:wrap; justify-content:center;">
+        <a href="mailto:contact@alkymia.example?subject=Demande%20de%20démo%20AlkymIA%20Suite" class="btn btn-primary">Demander une démo</a>
+        <a href="tel:+33000000000" class="btn btn-ghost" style="color:var(--accent-ink);border-color:rgba(255,255,255,.4);">☎️ Nous appeler</a>
+      </div>
+      <p style="margin-top:1.4em;font-size:.85rem;">Un interlocuteur humain vous répond — pas un chatbot.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap" style="max-width:820px;">
+      <div class="lead-in">
+        <p class="eyebrow">Questions fréquentes</p>
+        <h2>Vos questions avant de vous lancer.</h2>
+      </div>
+      <details open>
+        <summary>Les applications fonctionnent-elles vraiment en local, sans cloud ?</summary>
+        <p>Oui. La Suite AlkymIA est livrée en container et tourne sur votre machine ou votre serveur. Vos données — transcriptions, documents, échanges — restent chez vous. C'est le principe local-first, au cœur de notre approche RGPD.</p>
+      </details>
+      <details>
+        <summary>Est-ce compatible Windows et Android ?</summary>
+        <p>Soyons transparents : nos applications sont prouvées et éprouvées sur Linux. Les versions container Windows et les companions APK Android sont sur notre feuille de route et en cours de finalisation. Nous vous indiquons clairement l'état réel de chaque plateforme avant tout achat.</p>
+      </details>
+      <details>
+        <summary>Puis-je n'acheter qu'une seule application ?</summary>
+        <p>Bien sûr. La formule « application seule » (de 29 à 149 € selon l'app) vous permet de commencer par un seul outil. Vous pourrez ensuite passer au bundle Suite si vos besoins grandissent, à tarif dégressif.</p>
+      </details>
+      <details>
+        <summary>Quelle différence entre AlkymIA Suite et AlkymIA Sovereign ?</summary>
+        <p>La Suite, ce sont des applications métier prêtes à l'emploi, idéales pour un professionnel ou une équipe. Sovereign, c'est le déploiement d'une IA souveraine complète sur votre infrastructure d'entreprise. La formule Entreprise de la Suite fait le pont vers Sovereign quand vos besoins deviennent stratégiques.</p>
+      </details>
+      <details>
+        <summary>Que se passe-t-il si j'ai besoin d'aide ?</summary>
+        <p>Selon votre formule, vous bénéficiez d'un support par e-mail, prioritaire, ou téléphone. Dans tous les cas, un humain vous répond. Pas de file de tickets anonyme, pas de chatbot en boucle.</p>
+      </details>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <div class="brand" style="font-size:1.15rem;">Alkym<span style="color:var(--gold);">IA</span> Suite</div>
+      <p style="margin-top:.6em;max-width:36ch;">Applications IA souveraines, local-first, RGPD. Conçues et accompagnées par Franck Delmas.</p>
+    </div>
+    <div>
+      <span class="badge">🐧 Linux prouvé</span>
+      <span class="badge">🏆 Airia 2026</span><br>
+      <p style="margin-top:.8em;">© 2026 AlkymIA. Page de présentation — aucune donnée collectée ici.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var btn = document.getElementById('themeToggle');
+    try {
+      var saved = localStorage.getItem('alkymia-theme');
+      if (saved) root.setAttribute('data-theme', saved);
+      else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) root.setAttribute('data-theme', 'dark');
+    } catch (e) {}
+    btn.addEventListener('click', function () {
+      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('alkymia-theme', next); } catch (e) {}
+    });
+  })();
+</script>
+</body>
+</html>

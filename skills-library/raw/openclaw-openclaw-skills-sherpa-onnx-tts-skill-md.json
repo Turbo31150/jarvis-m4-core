@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-skills-sherpa-onnx-tts-skill-md",
+  "name": "sherpa-onnx-tts",
+  "author": "openclaw",
+  "description": "Local text-to-speech via sherpa-onnx (offline, no cloud)",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/skills/sherpa-onnx-tts",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/skills-sherpa-onnx-tts",
+  "stars": 385119,
+  "updatedAt": 1779015027
+}

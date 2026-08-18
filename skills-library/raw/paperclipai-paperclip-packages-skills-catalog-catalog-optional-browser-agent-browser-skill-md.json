@@ -1,0 +1,11 @@
+{
+  "id": "paperclipai-paperclip-packages-skills-catalog-catalog-optional-browser-agent-browser-skill-md",
+  "name": "agent-browser",
+  "author": "paperclipai",
+  "description": "Drive a real browser to inspect or interact with a web page or app \u2014 navigate, take screenshots, read console and network, fill simple forms \u2014 for verification tasks, not unattended automation.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/paperclipai/paperclip/tree/master/packages/skills-catalog/catalog/optional/browser/agent-browser",
+  "skillUrl": "https://skillsmp.com/creators/paperclipai/paperclip/packages-skills-catalog-catalog-optional-browser-agent-browser",
+  "stars": 75602,
+  "updatedAt": 1779989631
+}

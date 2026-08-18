@@ -1,0 +1,11 @@
+{
+  "id": "bmad-code-org-bmad-method-src-core-skills-bmad-deep-recon-skill-md",
+  "name": "bmad-deep-recon",
+  "author": "bmad-code-org",
+  "description": "Decision-grade research, three ways: draft a deep-research prompt for the user to run in their own tool (ChatGPT, Gemini, Grok, Perplexity, \u2026), process a finished research report \u2014 file it, distill a succinct cited summary with metadata that downstream skills consume without reprocessing \u2014 or run the research here through web fan-out. Shipped type packs: market, domain, technical, competitive, user-voice, academic-lit \u2014 plus a select shape for choose-between decisions and custom types via overrides. Use when the user says \"deep recon\", \"research this\", \"draft a research prompt\", \"process this research report\", \"market research\", \"domain research\", \"technical research\", \"competitor research\", \"literature review\", or \"help me choose between\".",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/bmad-code-org/BMAD-METHOD/tree/main/src/core-skills/bmad-deep-recon",
+  "skillUrl": "https://skillsmp.com/creators/bmad-code-org/bmad-method/src-core-skills-bmad-deep-recon",
+  "stars": 51475,
+  "updatedAt": 1784774964
+}

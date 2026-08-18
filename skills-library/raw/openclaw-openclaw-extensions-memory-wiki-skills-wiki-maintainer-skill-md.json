@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-extensions-memory-wiki-skills-wiki-maintainer-skill-md",
+  "name": "wiki-maintainer",
+  "author": "openclaw",
+  "description": "Maintain the OpenClaw memory wiki vault with deterministic pages, managed blocks, and source-backed updates.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/extensions/memory-wiki/skills/wiki-maintainer",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/extensions-memory-wiki-skills-wiki-maintainer",
+  "stars": 385119,
+  "updatedAt": 1775548584
+}

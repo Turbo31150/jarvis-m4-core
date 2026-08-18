@@ -1,0 +1,11 @@
+{
+  "id": "posthog-posthog-agents-skills-analyzing-insights-across-teams-skill-md",
+  "name": "analyzing-insights-across-teams",
+  "author": "PostHog",
+  "description": "Analyze PostHog insights, dashboards, or teams beyond the current project by querying the prod Postgres replicas synced into the dogfood data warehouse (US project 2, \"PostHog App + Website\"). Use when asked to analyze insights across all teams or projects, another team's insights, or fleet-wide insight/dashboard usage \u2014 cases where `system.insights` only returns the current project's rows and the agent would otherwise report the data as inaccessible. Covers the synced table names for US and EU and the column-verification workflow.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/PostHog/posthog/tree/master/.agents/skills/analyzing-insights-across-teams",
+  "skillUrl": "https://skillsmp.com/creators/posthog/posthog/agents-skills-analyzing-insights-across-teams",
+  "stars": 37496,
+  "updatedAt": 1784042271
+}

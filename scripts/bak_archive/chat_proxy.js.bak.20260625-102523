@@ -1,0 +1,186 @@
+#!/usr/bin/env node
+// JARVIS Chat Proxy → ROUTEUR LLM UNIFIÉ multi-backend (cascade failover)
+// Source de vérité unique = ~/.openclaw/openclaw.json (mêmes providers/clés qu'OpenClaw).
+// Exposé 0.0.0.0:18800 → utilisable par TOUT le cluster + pipelines :
+//   - /v1/chat/completions + /v1/models  (OpenAI-compat : Claude Code/ccr, Gemini CLI, Lumenflow, agents)
+//   - /chat  (legacy {text} : Telegram bots, orchestrateur vocal)
+// Cascade : essaie chaque backend dans l'ordre, passe au suivant sur erreur réseau OU réponse vide.
+
+const http = require('http');
+const https = require('https');
+const fs = require('fs');
+const os = require('os');
+const path = require('path');
+
+const OC_CONFIG = process.env.OPENCLAW_CONFIG || path.join(os.homedir(), '.openclaw/openclaw.json');
+
+// ── Construire la cascade de backends depuis openclaw.json (fallback si illisible) ──
+function loadBackends() {
+  let providers = {};
+  try {
+    providers = JSON.parse(fs.readFileSync(OC_CONFIG, 'utf8')).models.providers || {};
+  } catch (e) {
+    console.error('[proxy] openclaw.json illisible, défauts hardcodés:', e.message);
+  }
+  const pick = (name) => {
+    const p = providers[name];
+    if (!p || !p.models || !p.models.length) return null;
+    return { name, baseUrl: p.baseUrl.replace(/\/$/, ''), apiKey: p.apiKey || '', api: p.api, modelId: p.models[0].id };
+  };
+  // Ordre = latence locale rapide d'abord → qualité/fiabilité ensuite. Override via env BACKEND_ORDER.
+  // gemma3:4b (non-reasoning, ~1-2s) répond vite pour l'interactif ; lmstudio-m1 qwen3.5-9b = qualité ; cloud = fiabilité.
+  const order = (process.env.BACKEND_ORDER || 'ollama,lmstudio-m1,ollama-cloud,lmstudio-m2,gemini').split(',').map(s => s.trim());
+  const built = order.map(pick).filter(Boolean);
+  // Modèles explicites : rapides/non-vides (évite le budget thinking gaspillé des reasoners)
+  for (const b of built) {
+    if (b.name === 'ollama') b.modelId = process.env.OLLAMA_MODEL || 'gemma3:4b';
+    if (b.name === 'lmstudio-m1' || b.name === 'lmstudio-m2') b.modelId = 'qwen/qwen3.5-9b';
+    if (b.name === 'ollama-cloud') b.modelId = 'gpt-oss:120b';
+    if (b.name === 'gemini') b.modelId = 'gemini-2.5-flash';
+    // Normaliser : OpenAI-compat exige /v1 (ollama local expose /v1/chat/completions ; baseUrl config = :11434 nu)
+    if (b.api !== 'google-generative-ai' && !/\/v\d+$/.test(b.baseUrl)) b.baseUrl += '/v1';
+  }
+  return built.length ? built : [{ name: 'ollama', baseUrl: 'http://127.0.0.1:11434/v1', apiKey: '', api: 'ollama', modelId: 'qwen3:1.7b' }];
+}
+
+let BACKENDS = loadBackends();
+console.log('[proxy] cascade:', BACKENDS.map(b => `${b.name}/${b.modelId}`).join(' → '));
+
+// ── Appel d'un backend (OpenAI chat/completions ou Gemini). Résout {text} ou rejette. ──
+function callBackend(b, messages, maxTokens) {
+  return new Promise((resolve, reject) => {
+    let urlStr, payload, headers = { 'Content-Type': 'application/json' };
+    if (b.api === 'google-generative-ai') {
+      // Gemini REST : génération via :generateContent
+      urlStr = `${b.baseUrl}/models/${b.modelId}:generateContent?key=${b.apiKey}`;
+      const contents = messages.map(m => ({ role: m.role === 'assistant' ? 'model' : 'user', parts: [{ text: m.content }] }));
+      payload = JSON.stringify({ contents, generationConfig: { maxOutputTokens: maxTokens } });
+    } else {
+      urlStr = `${b.baseUrl}/chat/completions`;
+      if (b.apiKey) headers['Authorization'] = `Bearer ${b.apiKey}`;
+      payload = JSON.stringify({ model: b.modelId, messages, max_tokens: maxTokens, stream: false });
+    }
+    const url = new URL(urlStr);
+    const lib = url.protocol === 'https:' ? https : http;
+    const opts = { hostname: url.hostname, port: url.port || (url.protocol === 'https:' ? 443 : 80),
+      path: url.pathname + url.search, method: 'POST', headers, timeout: 90000 };
+    headers['Content-Length'] = Buffer.byteLength(payload);
+    const r = lib.request(opts, (resp) => {
+      let data = '';
+      resp.on('data', d => data += d);
+      resp.on('end', () => {
+        try {
+          const j = JSON.parse(data);
+          let text;
+          if (b.api === 'google-generative-ai') {
+            text = j.candidates?.[0]?.content?.parts?.map(p => p.text).join('') || '';
+          } else {
+            const msg = j.choices?.[0]?.message || {};
+            text = msg.content || msg.reasoning_content || '';
+          }
+          if (resp.statusCode >= 400 || !text || !text.trim()) return reject(new Error(`${b.name} vide/HTTP${resp.statusCode}`));
+          resolve({ text, model: `${b.name}/${b.modelId}` });
+        } catch (e) { reject(new Error(`${b.name} parse: ${e.message}`)); }
+      });
+    });
+    r.on('error', e => reject(new Error(`${b.name}: ${e.message}`)));
+    r.on('timeout', () => { r.destroy(); reject(new Error(`${b.name}: timeout`)); });
+    r.write(payload); r.end();
+  });
+}
+
+// ── Log local de la cascade domino (best-effort, non bloquant, jamais d'erreur) ──
+const LOG_PATH = process.env.CASCADE_LOG || path.join(os.homedir(), 'jarvis/data/llm_cascade_log.jsonl');
+function logCascade(entry) { try { fs.appendFile(LOG_PATH, JSON.stringify(entry) + '\n', () => {}); } catch (_) {} }
+
+// ── Cascade : premier backend qui répond non-vide gagne. Logue la décision en local. ──
+async function route(messages, maxTokens, via) {
+  const errs = [];
+  const t0 = Date.now();
+  for (const b of BACKENDS) {
+    try {
+      const r = await callBackend(b, messages, maxTokens);
+      logCascade({ ts: new Date().toISOString(), via: via || 'chat', served: r.model, ms: Date.now() - t0, ok: true, tried: errs.length, chars: (r.text || '').length });
+      return r;
+    } catch (e) { errs.push(`${b.name}:${e.message}`); }
+  }
+  logCascade({ ts: new Date().toISOString(), via: via || 'chat', served: null, ms: Date.now() - t0, ok: false, tried: errs.length, errs });
+  throw new Error('tous backends KO: ' + errs.join(' | '));
+}
+
+const server = http.createServer((req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', '*');
+  if (req.method === 'OPTIONS') { res.writeHead(204); res.end(); return; }
+
+  if (req.url === '/health' || req.url === '/') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ status: 'ok', proxy: 'JARVIS-unified-router', cascade: BACKENDS.map(b => b.name) }));
+    return;
+  }
+
+  // OpenAI : liste de modèles (le hub expose un modèle logique "jarvis-auto" + chaque backend)
+  if (req.url === '/v1/models' && req.method === 'GET') {
+    const models = [{ id: 'jarvis-auto', object: 'model', owned_by: 'jarvis' }]
+      .concat(BACKENDS.map(b => ({ id: `${b.name}/${b.modelId}`, object: 'model', owned_by: b.name })));
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ object: 'list', data: models }));
+    return;
+  }
+
+  if ((req.url === '/chat' || req.url === '/v1/chat/completions') && req.method === 'POST') {
+    let body = '';
+    req.on('data', d => body += d);
+    req.on('end', async () => {
+      let payload;
+      try { payload = JSON.parse(body); } catch (e) { payload = { messages: [{ role: 'user', content: body }] }; }
+      const messages = payload.messages || [{ role: 'user', content: payload.text || payload.content || body }];
+      const maxTokens = payload.max_tokens || 4096;  // reasoning models : >2k sinon content vide
+      const openaiFmt = req.url === '/v1/chat/completions';
+      try {
+        const { text, model } = await route(messages, maxTokens, openaiFmt ? 'v1/chat' : 'chat');
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        if (openaiFmt) {
+          res.end(JSON.stringify({ id: 'chatcmpl-jarvis', object: 'chat.completion', model,
+            choices: [{ index: 0, message: { role: 'assistant', content: text }, finish_reason: 'stop' }] }));
+        } else {
+          res.end(JSON.stringify({ text, model }));
+        }
+      } catch (e) {
+        res.writeHead(502, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: e.message, text: 'LLM indisponible (cascade épuisée)' }));
+      }
+    });
+    return;
+  }
+
+  // Ollama natif : /api/chat → {message:{content}} ; /api/generate → {response}
+  if ((req.url === '/api/chat' || req.url === '/api/generate') && req.method === 'POST') {
+    let body = '';
+    req.on('data', d => body += d);
+    req.on('end', async () => {
+      let p; try { p = JSON.parse(body); } catch (e) { p = {}; }
+      const isGen = req.url === '/api/generate';
+      const messages = p.messages || [{ role: 'user', content: p.prompt || p.text || body }];
+      try {
+        const { text, model } = await route(messages, p.max_tokens || (p.options && p.options.num_predict) || 4096, isGen ? 'api/generate' : 'api/chat');
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        const base = { model, created_at: new Date().toISOString(), done: true, done_reason: 'stop' };
+        res.end(JSON.stringify(isGen ? { ...base, response: text } : { ...base, message: { role: 'assistant', content: text } }));
+      } catch (e) {
+        res.writeHead(502, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: e.message }));
+      }
+    });
+    return;
+  }
+
+  res.writeHead(200, { 'Content-Type': 'application/json' });
+  res.end(JSON.stringify({ status: 'JARVIS Unified Router', routes: ['/v1/chat/completions', '/v1/models', '/api/chat', '/api/generate', '/chat', '/health'] }));
+});
+
+// Recharge la cascade à chaud sur SIGHUP (après édition openclaw.json)
+process.on('SIGHUP', () => { BACKENDS = loadBackends(); console.log('[proxy] cascade rechargée:', BACKENDS.map(b => b.name).join(' → ')); });
+
+const LISTEN_PORT = process.env.PORT || 18800;
+server.listen(LISTEN_PORT, '0.0.0.0', () => console.log('JARVIS Unified Router on 0.0.0.0:' + LISTEN_PORT));

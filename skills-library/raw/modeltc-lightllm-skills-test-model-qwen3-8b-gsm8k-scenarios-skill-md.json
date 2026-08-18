@@ -1,0 +1,11 @@
+{
+  "id": "modeltc-lightllm-skills-test-model-qwen3-8b-gsm8k-scenarios-skill-md",
+  "name": "test-model-qwen3-8b-gsm8k-scenarios",
+  "author": "ModelTC",
+  "description": "LightLLM Qwen3-8B GSM8K multi-scenario regression: seven isolated api_server configs (baseline, fp8w8a8 quant, tpsp mix, tpsp with dp2 and dp prefill balance, cpu cache, int8kv on top of cpu cache, disk cache with LIGHTLLM_DISK_CACHE_PROMPT_LIMIT_LENGTH). Each scenario then lm_eval gsm8k batch 500. Scenarios 5\u20137 run lm_eval twice for cache hit. Per-scenario LOG_DIR, server.log, eval logs, summary.txt. Default MODEL_DIR /mtc/models/qwen3-8b; DISK_CACHE_DIR /mtc/test/tmp/ for scenario 7; ask user if paths invalid. Fixed HTTP port 8089 (not configurable). nvidia-smi GPUs, port listen not health, clear proxies and no_proxy.",
+  "contentLanguage": "zh",
+  "githubUrl": "https://github.com/ModelTC/LightLLM/tree/main/skills/test_model/qwen3-8b-gsm8k-scenarios",
+  "skillUrl": "https://skillsmp.com/creators/modeltc/lightllm/skills-test-model-qwen3-8b-gsm8k-scenarios",
+  "stars": 4207,
+  "updatedAt": 1785403513
+}

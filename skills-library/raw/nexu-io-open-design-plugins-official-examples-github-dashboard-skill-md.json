@@ -1,0 +1,11 @@
+{
+  "id": "nexu-io-open-design-plugins-official-examples-github-dashboard-skill-md",
+  "name": "github-dashboard",
+  "author": "nexu-io",
+  "description": "GitHub repository analytics dashboard \u2014 stars, forks, contributors,\nissues, pull requests, recent activity, and top contributors. Use when\nthe brief asks for a GitHub repo dashboard, open-source growth report,\nrepository health page, or GitHub analytics view.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/nexu-io/open-design/tree/main/plugins/_official/examples/github-dashboard",
+  "skillUrl": "https://skillsmp.com/creators/nexu-io/open-design/plugins-official-examples-github-dashboard",
+  "stars": 83535,
+  "updatedAt": 1784018637
+}

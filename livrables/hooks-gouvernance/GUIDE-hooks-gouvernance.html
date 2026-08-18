@@ -1,0 +1,137 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Guide d&#x27;installation &amp; mise en place — hooks-gouvernance</title><style>
+body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;max-width:820px;
+margin:0 auto;padding:40px 28px;color:#1a1a2e;line-height:1.6}
+h1{font-size:2em;border-bottom:3px solid #4361ee;padding-bottom:.3em;color:#3a0ca3}
+h2{color:#3a0ca3;border-bottom:1px solid #e0e0f0;padding-bottom:.2em;margin-top:1.6em}
+h3{color:#4361ee}code{background:#f2f2fa;padding:2px 5px;border-radius:4px;font-size:.9em}
+pre{background:#1a1a2e;color:#e0e0f0;padding:14px;border-radius:8px;overflow-x:auto}
+pre code{background:none;color:inherit}table{border-collapse:collapse;width:100%}
+td,th{border:1px solid #ddd;padding:8px}th{background:#4361ee;color:#fff}
+blockquote{border-left:4px solid #4361ee;margin:0;padding-left:16px;color:#555}
+.cover{text-align:center;padding:30px 0 10px;border-bottom:2px dashed #4361ee;margin-bottom:24px}
+.cover .badge{display:inline-block;background:#3a0ca3;color:#fff;padding:6px 16px;
+border-radius:20px;font-size:.85em;letter-spacing:1px}
+.sep{margin:40px 0;border:none;border-top:2px dashed #ccd}
+</style></head><body>
+<div class="cover"><span class="badge">GUIDE D'INSTALLATION</span>
+<h1 style="border:none">hooks-gouvernance</h1>
+<p>Présentation · Installation / mise en place · Usage</p></div>
+<h1>Présentation</h1>
+<h1 id="fiche-de-vente-hooks-gouvernance">Fiche de vente — hooks-gouvernance</h1>
+<blockquote>
+<p>Prix PROPOSÉ, à valider par Franck (pack de hooks).</p>
+</blockquote>
+<h2 id="accroche">Accroche</h2>
+<p>Trois hooks qui rendent votre Claude Code plus sûr : il ne surchauffe plus, il
+ne boucle plus, et il répond mieux grâce à votre base locale — sans un token.</p>
+<h2 id="le-probleme">Le problème</h2>
+<p>Un agent IA local qui tourne en continu peut faire chauffer la machine, se
+bloquer en boucle sur un hook mal écrit, ou répondre sans connaître votre contexte.</p>
+<h2 id="la-solution">La solution</h2>
+<p>Ce pack livre trois hooks éprouvés et <strong>fail-safe</strong> :
+- <strong>thermal-guard</strong> suspend l'exécution quand le CPU dépasse le seuil ;
+- <strong>stop-validation</strong> rappelle vos TODO/tests sans jamais bloquer ;
+- <strong>cache-board-lookup</strong> injecte des extraits de votre base SQLite avant chaque
+  prompt (SQL avant inférence = 0 token).</p>
+<h2 id="ce-que-vous-recevez">Ce que vous recevez</h2>
+<ul>
+<li>3 hooks Bash prêts à copier + README d'installation <code>settings.json</code></li>
+</ul>
+<h2 id="points-forts">Points forts</h2>
+<ul>
+<li>Fail-safe absolu (une erreur = laisse passer)</li>
+<li>Anti-boucle « Operation stopped by hook »</li>
+<li>0-token, lecture pure</li>
+</ul>
+<h2 id="prix">Prix</h2>
+<p><strong>29 € — paiement unique</strong> [PROPOSÉ, à valider].</p>
+<h2 id="cible">Cible</h2>
+<p>Utilisateurs avancés de Claude Code / agents IA locaux.</p>
+<hr class="sep"><h1>Prise en main</h1>
+<h1 id="hooks-gouvernance">hooks-gouvernance</h1>
+<p>Trois hooks Claude Code prêts à l'emploi pour gouverner un poste de travail IA
+local : garde thermique, validation de fin de tâche non bloquante, et injection
+de contexte SQL avant inférence (0-token). Tous <strong>fail-safe</strong> : en cas d'erreur,
+ils laissent toujours passer.</p>
+<h2 id="contenu">Contenu</h2>
+<pre><code>hooks/thermal-guard.sh       # PreToolUse : bloque si le CPU dépasse le seuil thermique
+hooks/stop-validation.sh     # Stop : rappelle TODO/tests manquants, ne bloque JAMAIS
+hooks/cache-board-lookup.sh  # UserPromptSubmit : injecte des extraits SQL FTS5 pertinents
+README.md / LICENSE.txt
+</code></pre>
+<h2 id="installation">Installation</h2>
+<p>Copiez les hooks dans <code>~/.claude/hooks/</code> et déclarez-les dans
+<code>~/.claude/settings.json</code> :</p>
+<pre><code class="language-json">{
+  &quot;hooks&quot;: {
+    &quot;PreToolUse&quot;:      [{&quot;hooks&quot;:[{&quot;type&quot;:&quot;command&quot;,&quot;command&quot;:&quot;~/.claude/hooks/thermal-guard.sh&quot;}]}],
+    &quot;Stop&quot;:            [{&quot;hooks&quot;:[{&quot;type&quot;:&quot;command&quot;,&quot;command&quot;:&quot;~/.claude/hooks/stop-validation.sh&quot;}]}],
+    &quot;UserPromptSubmit&quot;:[{&quot;hooks&quot;:[{&quot;type&quot;:&quot;command&quot;,&quot;command&quot;:&quot;~/.claude/hooks/cache-board-lookup.sh&quot;}]}]
+  }
+}
+</code></pre>
+<p><code>chmod +x hooks/*.sh</code>.</p>
+<h2 id="detail-des-hooks">Détail des hooks</h2>
+<ul>
+<li><strong>thermal-guard</strong> : lit <code>/sys/class/thermal</code>, bloque (exit 2) au-delà du seuil
+  (90 °C par défaut, ajustable dans le script). Fail-safe : toute erreur → passe.</li>
+<li><strong>stop-validation</strong> : rappelle (sans jamais bloquer) les TODO ouverts et les
+  <code>.py</code> modifiés sans test. Anti-réentrance + respect de <code>stop_hook_active</code> :
+  aucune boucle « Operation stopped by hook ».</li>
+<li><strong>cache-board-lookup</strong> : cherche dans une base SQLite FTS5 des extraits
+  pertinents au prompt et les injecte en contexte. Lecture seule, 0 inférence.
+  Adaptez le chemin <code>DB=</code> en tête de script à votre base.</li>
+</ul>
+<h2 id="securite">Sécurité</h2>
+<p>Aucun secret. Lecture pure de fichiers système / SQLite en lecture seule.</p>
+<hr class="sep"><h1>Dossier complet — installation & usage</h1>
+<h1 id="dossier-complet-pack-gouvernance-claude-code">DOSSIER COMPLET — Pack Gouvernance Claude Code</h1>
+<blockquote>
+<p>Dossier self-contained. Source : Notion (Naming, Board prix packs, Présentations, Preuves). Aucun secret dans ce dossier.</p>
+</blockquote>
+<h2 id="nom-commercial-tagline">Nom commercial &amp; tagline</h2>
+<p><strong>Pack Gouvernance Claude Code</strong> (cœur : Hooks de gouvernance) — « Utilisez Claude Code de façon cadrée, sûre et souveraine. »
+Le vaisseau amiral côté dev de La Fabrique AlkymIA. (Nom technique : hooks-gouvernance.)</p>
+<h2 id="cible">Cible</h2>
+<p>Développeurs, makers et enseignants self-hosters qui utilisent Claude Code et veulent des garde-fous concrets : anti-surchauffe, anti-boucle, filtre destructif, cadrage.</p>
+<h2 id="probleme">Problème</h2>
+<p>Un assistant de code sans garde-fous peut lancer des boucles, exécuter des commandes destructrices ou faire surchauffer la machine ; on veut un cadre prêt à l'emploi, pas à écrire soi-même.</p>
+<h2 id="promesse">Promesse</h2>
+<p>Un ensemble de hooks fail-safe qui cadrent Claude Code : garde thermique matérielle, anti-boucle Stop, filtre des commandes destructrices, dédup vocale — plus les briques Stop-Cycles, Checkpoint sécurisé et Snapshot avant test.</p>
+<h2 id="ce-qui-est-inclus-fichiers-reels-de-ce-dossier">Ce qui est inclus (fichiers réels de ce dossier)</h2>
+<ul>
+<li><code>hooks/</code> — hooks fail-safe (dont <code>thermal-guard.sh</code>, garde thermique 0-token lecture pure de /sys)</li>
+<li><code>README.md</code> — installation + usage</li>
+<li><code>FICHE-VENTE.md</code> — argumentaire</li>
+<li><code>LICENSE.txt</code> — licence propriétaire</li>
+<li>Bundle Pack Gouvernance = hooks + <code>stop-cycles-m4</code> + <code>checkpoint-securise</code> + <code>snapshot-avant-test-prod</code> (briques livrées dans leurs dossiers respectifs).</li>
+</ul>
+<h2 id="differenciateur">Différenciateur</h2>
+<p>Qualité industrielle, fail-safe, garde thermique matérielle réelle, anti-boucle Stop — tout local, épaulé par un humain joignable. Meilleur ratio valeur/effort du catalogue.</p>
+<h2 id="preuves-reelles-honnetes">Preuves réelles (honnêtes)</h2>
+<ul>
+<li>Testé sur la machine M4 (garde thermique, anti-boucle) — driver réel, pas une maquette.</li>
+<li>Plus de 160 dépôts de code, infra locale souveraine — capacité de production démontrée.</li>
+<li>[À CONFIRMER] Témoignage + STAT d'adoption.</li>
+</ul>
+<h2 id="offre-prix-cta">Offre, prix &amp; CTA</h2>
+<ul>
+<li>Bundle hooks seul : <strong>49 € (intro 39 €)</strong>.</li>
+<li><strong>Pack Gouvernance Claude Code : 79 €</strong> (valeur à l'unité ~120 €).
+CTA : « Je cadre mon Claude Code ».
+Canal : Gumroad / systeme.io.</li>
+</ul>
+<h2 id="landing">Landing</h2>
+<p>Pas de landing dédiée dans ce dossier (à produire pour le bundle 79 €).</p>
+<h2 id="placeholders-honnetes-restants">Placeholders honnêtes restants</h2>
+<ul>
+<li>RGPD PARTIEL : ajouter une garde secret/PII au PreToolUse avant de promettre un « RGPD complet » — ne PAS survendre.</li>
+<li>Témoignage + statistique d'adoption.</li>
+<li>Landing bundle 79 € à produire.</li>
+<li>Contact support dans <code>LICENSE.txt</code>.</li>
+</ul>
+<hr class="sep"><p style="text-align:center;color:#888;font-size:.85em">
+Document généré pour livraison (zip / systeme.io). JARVIS OS — livrables.</p>
+</body></html>

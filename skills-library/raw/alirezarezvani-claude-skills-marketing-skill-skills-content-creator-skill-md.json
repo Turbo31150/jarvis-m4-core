@@ -1,0 +1,11 @@
+{
+  "id": "alirezarezvani-claude-skills-marketing-skill-skills-content-creator-skill-md",
+  "name": "content-creator",
+  "author": "alirezarezvani",
+  "description": "Deprecated redirect skill that routes legacy 'content creator' requests to the correct specialist. Use when a user invokes 'content creator', asks to write a blog post, article, guide, or brand voice analysis (routes to content-production), or asks to plan content, build a topic cluster, or create a content calendar (routes to content-strategy). Does not handle requests directly \u2014 identifies user intent and redirects to content-production for writing/SEO/brand-voice tasks or content-strategy for planning tasks.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/alirezarezvani/claude-skills/tree/main/marketing-skill/skills/content-creator",
+  "skillUrl": "https://skillsmp.com/creators/alirezarezvani/claude-skills/marketing-skill-skills-content-creator",
+  "stars": 23780,
+  "updatedAt": 1777755080
+}

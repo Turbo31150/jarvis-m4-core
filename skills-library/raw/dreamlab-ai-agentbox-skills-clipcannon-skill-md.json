@@ -1,0 +1,11 @@
+{
+  "id": "dreamlab-ai-agentbox-skills-clipcannon-skill-md",
+  "name": "clipcannon",
+  "author": "DreamLab-AI",
+  "description": "Local-GPU video understanding and editing via MCP \u2014 analyse footage, find the best moments, cut highlight reels, add captions, render platform-ready clips (TikTok/Reels/ Shorts/YouTube), clone voices, lip-sync avatars, generate music, and run a real-time voice agent. Use when the user says \"edit this video\", \"find the best moments\", \"create a highlight reel\", \"add captions\", \"clone voice\", \"lip sync\", \"render for TikTok\", or \"talk to Jarvis\". Not for plain format conversion (ffmpeg-processing), image generation (comfyui), or meeting capture (echoloop).",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/DreamLab-AI/agentbox/tree/main/skills/clipcannon",
+  "skillUrl": "https://skillsmp.com/creators/dreamlab-ai/agentbox/skills-clipcannon",
+  "stars": 18,
+  "updatedAt": 1785242387
+}

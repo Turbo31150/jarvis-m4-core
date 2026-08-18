@@ -1,0 +1,11 @@
+{
+  "id": "hkuds-cli-anything-skills-cli-anything-rms-skill-md",
+  "name": "cli-anything-rms",
+  "author": "HKUDS",
+  "description": "Teltonika RMS device management and monitoring CLI",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/HKUDS/CLI-Anything/tree/main/skills/cli-anything-rms",
+  "skillUrl": "https://skillsmp.com/creators/hkuds/cli-anything/skills-cli-anything-rms",
+  "stars": 46608,
+  "updatedAt": 1776507178
+}

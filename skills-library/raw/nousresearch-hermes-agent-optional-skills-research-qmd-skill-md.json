@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-optional-skills-research-qmd-skill-md",
+  "name": "qmd",
+  "author": "NousResearch",
+  "description": "Hybrid local search over notes, docs, and transcripts.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/optional-skills/research/qmd",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/optional-skills-research-qmd",
+  "stars": 225204,
+  "updatedAt": 1784904845
+}

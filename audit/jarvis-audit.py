@@ -108,23 +108,66 @@ def load_config():
     }
 
 
+def _ollama_ol1(full, max_tokens, model="gemma3:4b"):
+    """Fallback direct Ollama local 127.0.0.1:11434 (UP même quand M1/M2 down)."""
+    import urllib.request
+
+    body = json.dumps(
+        {
+            "model": model,
+            "prompt": full,
+            "stream": False,
+            "options": {
+                "temperature": 0.3,
+                "num_predict": int(max_tokens),
+                "num_gpu": 0,
+            },
+        }
+    ).encode()
+    req = urllib.request.Request(
+        "http://127.0.0.1:11434/api/generate",
+        data=body,
+        headers={"Content-Type": "application/json"},
+    )
+    with urllib.request.urlopen(req, timeout=240) as resp:
+        return json.load(resp).get("response", "").strip()
+
+
 def ask_cascade(system, prompt, max_tokens=1500):
-    """Délègue l'analyse à la cascade locale (lm-ask.sh)."""
-    if not os.path.exists(LM_ASK):
-        return "[cascade indisponible : lm-ask.sh absent]"
+    """Cascade 0-token : lm-ask.sh (cluster/cloud) → fallback Ollama OL1 local."""
     full = f"{system}\n\n=== CONTEXTE ===\n{prompt}"
-    try:
-        r = subprocess.run(
-            ["bash", LM_ASK, "--max", str(max_tokens), full],
-            capture_output=True,
-            text=True,
-            timeout=180,
-        )
-        return r.stdout.strip() or f"[cascade vide] {r.stderr.strip()[:120]}"
-    except subprocess.TimeoutExpired:
-        return "[cascade timeout]"
-    except Exception as e:
-        return f"[cascade erreur: {e}]"
+    out = ""
+    # 0) poste isolé (M1/M2 éteints) : AUDIT_FORCE_OLLAMA=1 -> Ollama direct, on saute
+    #    lm-ask.sh qui sinon perd jusqu'à 180s à sonder le cluster mort.
+    if os.environ.get("AUDIT_FORCE_OLLAMA") == "1":
+        try:
+            return _ollama_ol1(full, max_tokens) or "[cascade vide : OL1]"
+        except Exception as e:
+            return f"[cascade indisponible : OL1 KO ({e})]"
+    # 1) lm-ask.sh (M1/M2 + cloud) si présent
+    if os.path.exists(LM_ASK):
+        try:
+            r = subprocess.run(
+                # lm-ask.sh prend le PROMPT en $1 : lui passer "--max 1500"
+                # faisait répondre le modèle à la question « --max », d'où des
+                # rapports d'audit entiers hors sujet (2026-08-15).
+                ["bash", LM_ASK, full],
+                capture_output=True,
+                text=True,
+                timeout=180,
+            )
+            out = r.stdout.strip()
+        except subprocess.TimeoutExpired:
+            out = ""
+        except Exception:
+            out = ""
+    # 2) Fallback Ollama local si vide (cas poste isolé : M1/M2 down)
+    if not out:
+        try:
+            out = _ollama_ol1(full, max_tokens)
+        except Exception as e:
+            return f"[cascade indisponible : lm-ask vide + OL1 KO ({e})]"
+    return out or "[cascade vide : aucun backend n'a répondu]"
 
 
 def run_dir(target, topic):
@@ -360,27 +403,38 @@ def phase_scan_web(ctx):
                 f"site ✓ '{out['site'].get('title', '')[:50]}' "
                 f"sections={det} sitemap={len(out['site'].get('sitemap_urls', []))}",
             )
-    # GitHub via gh (si dispo et client = user github)
-    if client:
-        try:
-            r = subprocess.run(
-                [
-                    "gh",
-                    "api",
-                    f"users/{client}/repos?per_page=10",
-                    "--jq",
-                    '.[] | .name + " — " + (.description // "")',
-                ],
-                capture_output=True,
-                text=True,
-                timeout=20,
-            )
-            if r.returncode == 0:
-                out["github"]["repos"] = [l for l in r.stdout.strip().split("\n") if l][
-                    :10
-                ]
-        except Exception:
-            pass
+    # GitHub via gh.
+    # 2026-08-15 : l'ancienne version interrogeait users/<client>/repos avec
+    # client="JARVIS OS" (un nom commercial, pas un login) → 404 silencieux, d'où
+    # « github repos: 0 » alors que le compte en contient 174. Et cet endpoint
+    # n'expose JAMAIS les dépôts privés — or ils le sont presque tous ici.
+    # `gh repo list` utilise le compte authentifié : privés inclus.
+    try:
+        r = subprocess.run(
+            [
+                "gh",
+                "repo",
+                "list",
+                "--limit",
+                "30",
+                "--json",
+                "name,description,visibility,pushedAt",
+                "--jq",
+                '.[] | .name + " [" + .visibility + "] " + .pushedAt[:10]'
+                ' + " — " + (.description // "")',
+            ],
+            capture_output=True,
+            text=True,
+            timeout=45,
+        )
+        if r.returncode == 0 and r.stdout.strip():
+            out["github"]["repos"] = [l for l in r.stdout.strip().split("\n") if l]
+        else:
+            out["github"]["error"] = (r.stderr or "gh repo list sans résultat").strip()[
+                :200
+            ]
+    except Exception as e:
+        out["github"]["error"] = f"gh indisponible : {e}"
     out["note"] = (
         "LinkedIn nécessite un connecteur authentifié (à brancher : MCP LinkedIn). "
         "Web search large : passer par la cascade/WebSearch en amont."
@@ -493,17 +547,159 @@ def cmd_run(a):
 
 def cmd_scan_local(a):
     cfg = load_config()
-    ctx = phase_init(a.target, None, None, "tech", "fast", cfg)
+    ctx = (
+        load_ctx(a.run)
+        if getattr(a, "run", "")
+        else phase_init(a.target, None, None, "tech", "fast", cfg)
+    )
     r = phase_scan_local(ctx, cfg)
-    print(json.dumps(r, ensure_ascii=False, indent=2))
+    if getattr(a, "run", ""):
+        save_json(a.run, "audit_scan_local.json", r)
+        log("WAVE1", c(f"→ {a.run}/audit_scan_local.json", "g"))
+    else:
+        print(json.dumps(r, ensure_ascii=False, indent=2))
     return 0
 
 
 def cmd_scan_web(a):
     cfg = load_config()
-    ctx = phase_init(".", a.topic, a.client, "business", "standard", cfg, a.url)
+    if getattr(a, "run", ""):
+        ctx = load_ctx(a.run)
+        if getattr(a, "url", ""):
+            ctx["url"] = a.url
+        if getattr(a, "client", ""):
+            ctx["client"] = a.client
+    else:
+        ctx = phase_init(".", a.topic, a.client, "business", "standard", cfg, a.url)
     r = phase_scan_web(ctx)
-    print(json.dumps(r, ensure_ascii=False, indent=2))
+    if getattr(a, "run", ""):
+        save_json(a.run, "audit_scan_web.json", r)
+        log("WAVE2", c(f"→ {a.run}/audit_scan_web.json", "g"))
+    else:
+        print(json.dumps(r, ensure_ascii=False, indent=2))
+    return 0
+
+
+# ─────────────── chaînage par run-dir (phases discrètes, email §3-9) ───────────────
+def load_ctx(run):
+    p = Path(run) / "context.json"
+    if not p.exists():
+        sys.exit(
+            c(f"[erreur] pas de context.json dans {run} — lance d'abord 'init'", "r")
+        )
+    return json.loads(p.read_text())
+
+
+def save_json(run, name, obj):
+    (Path(run) / name).write_text(json.dumps(obj, ensure_ascii=False, indent=2))
+
+
+def cmd_init(a):
+    """Phase 0 — prépare le run-dir + contexte partagé (chaînable)."""
+    cfg = load_config()
+    ctx = phase_init(a.target, a.topic, a.client, a.profile, a.mode, cfg, a.url)
+    outdir = run_dir(a.target, a.topic)
+    ctx["outdir"] = str(outdir)
+    save_json(outdir, "context.json", ctx)
+    log("INIT", c(f"run prêt → {outdir}", "g"))
+    print(outdir)
+    return 0
+
+
+def cmd_multi_agents(a):
+    """Phase 3 — agents spécialisés sur le contexte d'un run (cascade 0-token)."""
+    cfg = load_config()
+    run = Path(a.run)
+    ctx = load_ctx(run)
+    if a.agents:
+        ctx["agents"] = [x.strip() for x in a.agents.split(",") if x.strip()]
+    slp, swp = run / "audit_scan_local.json", run / "audit_scan_web.json"
+    scan_local = (
+        json.loads(slp.read_text()) if slp.exists() else phase_scan_local(ctx, cfg)
+    )
+    scan_web = json.loads(swp.read_text()) if swp.exists() else {}
+    reports = phase_multi_agents(ctx, cfg, scan_local, scan_web)
+    for agent, txt in reports.items():
+        (run / f"audit_{agent}.md").write_text(f"# Audit {agent}\n\n{txt}\n")
+    save_json(run, "reports.json", reports)
+    log("DONE", c(f"{len(reports)} rapports agents → {run}", "g"))
+    return 0
+
+
+def cmd_report(a):
+    """Phase 4 — fusionne scans + rapports agents en RAPPORT.md."""
+    cfg = load_config()
+    run = Path(a.run)
+    ctx = load_ctx(run)
+    slp, swp, rp, tp = (
+        run / "audit_scan_local.json",
+        run / "audit_scan_web.json",
+        run / "reports.json",
+        run / "TODO.md",
+    )
+    scan_local = (
+        json.loads(slp.read_text()) if slp.exists() else phase_scan_local(ctx, cfg)
+    )
+    scan_web = json.loads(swp.read_text()) if swp.exists() else {}
+    reports = json.loads(rp.read_text()) if rp.exists() else {}
+    joined = "\n\n".join(f"### Agent {k}\n{v}" for k, v in reports.items())
+    todo = tp.read_text().split("\n", 2)[-1] if tp.exists() else ""
+    path = write_reports(ctx, scan_local, scan_web, reports, joined, todo, run)
+    log("DONE", c(f"Rapport → {path}", "g"))
+    return 0
+
+
+def cmd_todo(a):
+    """Phase 5 — TODO exécutable priorisée depuis les rapports agents."""
+    run = Path(a.run)
+    ctx = load_ctx(run)
+    rp = run / "reports.json"
+    if not rp.exists():
+        sys.exit(c("[erreur] pas de reports.json — lance d'abord 'multi-agents'", "r"))
+    _, todo = phase_synth(ctx, json.loads(rp.read_text()), run)
+    (run / "TODO.md").write_text("# TODO Audit\n\n" + todo)
+    log("DONE", c(f"TODO → {run / 'TODO.md'}", "g"))
+    print(todo)
+    return 0
+
+
+def cmd_cascade(a):
+    """Phase 6 — ré-audit partiel (followup) vs un run précédent → ADDENDUM."""
+    prev = Path(a.previous)
+    ctx = load_ctx(prev)
+    target = Path(a.target or ctx["target"])
+    log("CASCADE", f"followup de {prev.name} sur {target}")
+    changed = []
+    if (target / ".git").exists():
+        try:
+            r = subprocess.run(
+                ["git", "-C", str(target), "diff", "--name-only", "HEAD~5", "HEAD"],
+                capture_output=True,
+                text=True,
+                timeout=10,
+            )
+            changed = [l for l in r.stdout.strip().split("\n") if l][:40]
+        except Exception:
+            pass
+    prev_rpt = (
+        (prev / "RAPPORT.md").read_text()[:4000]
+        if (prev / "RAPPORT.md").exists()
+        else ""
+    )
+    addendum = ask_cascade(
+        "Tu es auditeur de suivi. À partir de l'ancien rapport + la liste des fichiers modifiés, "
+        "produis un ADDENDUM concis : ✅ fait / 🔄 en cours / ⛔ bloqué / 🆕 nouvelles opportunités. "
+        "10 lignes max. FR.",
+        f"FICHIERS MODIFIÉS:\n{chr(10).join(changed) or '(aucun changement git détecté)'}"
+        f"\n\nANCIEN RAPPORT:\n{prev_rpt}",
+        1200,
+    )
+    stamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    out = prev / f"ADDENDUM_{stamp}.md"
+    out.write_text(
+        f"# Addendum d'audit (followup)\n> base : {prev.name} · {len(changed)} fichiers changés\n\n{addendum}\n"
+    )
+    log("DONE", c(f"Addendum → {out}", "g"))
     return 0
 
 
@@ -526,12 +722,45 @@ def main():
     pr.set_defaults(func=cmd_run)
     ps = sub.add_parser("scan-local", help="Wave 1 seule")
     ps.add_argument("--target", default=".")
+    ps.add_argument("--run", default="", help="run-dir où persister (chaînage)")
     ps.set_defaults(func=cmd_scan_local)
     pw = sub.add_parser("scan-web", help="Wave 2 seule (site + GitHub)")
     pw.add_argument("--url", default="", help="site à fetcher")
     pw.add_argument("--client", default="", help="user GitHub")
     pw.add_argument("--topic", default="")
+    pw.add_argument("--run", default="", help="run-dir où persister (chaînage)")
     pw.set_defaults(func=cmd_scan_web)
+    # Phase 0 — init (prépare le run-dir)
+    pi = sub.add_parser("init", help="Phase 0 — prépare run-dir + contexte")
+    pi.add_argument("--target", default=".")
+    pi.add_argument("--topic", default="")
+    pi.add_argument("--client", default="")
+    pi.add_argument(
+        "--profile",
+        default="full",
+        choices=["tech", "business", "souverainete", "ops", "full", "b2b"],
+    )
+    pi.add_argument("--mode", default="standard", choices=["fast", "standard", "deep"])
+    pi.add_argument("--url", default="")
+    pi.set_defaults(func=cmd_init)
+    # Phase 3 — multi-agents
+    pm = sub.add_parser("multi-agents", help="Phase 3 — agents spécialisés (cascade)")
+    pm.add_argument("--run", required=True, help="run-dir (cf. init)")
+    pm.add_argument("--agents", default="", help="override: tech,business,legal,ops")
+    pm.set_defaults(func=cmd_multi_agents)
+    # Phase 4 — report
+    prp = sub.add_parser("report", help="Phase 4 — fusionne en RAPPORT.md")
+    prp.add_argument("--run", required=True)
+    prp.set_defaults(func=cmd_report)
+    # Phase 5 — todo
+    pt = sub.add_parser("todo", help="Phase 5 — TODO exécutable priorisée")
+    pt.add_argument("--run", required=True)
+    pt.set_defaults(func=cmd_todo)
+    # Phase 6 — cascade (followup)
+    pc = sub.add_parser("cascade", help="Phase 6 — ré-audit partiel (followup)")
+    pc.add_argument("--previous", required=True, help="run-dir précédent")
+    pc.add_argument("--target", default="", help="cible (défaut: celle du run)")
+    pc.set_defaults(func=cmd_cascade)
     a = p.parse_args()
     sys.exit(a.func(a))
 

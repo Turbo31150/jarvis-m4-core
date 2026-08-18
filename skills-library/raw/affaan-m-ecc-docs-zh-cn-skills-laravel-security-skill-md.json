@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-zh-cn-skills-laravel-security-skill-md",
+  "name": "laravel-security",
+  "author": "affaan-m",
+  "description": "Laravel \u5b89\u5168\u6700\u4f73\u5b9e\u8df5\uff0c\u6db5\u76d6\u8ba4\u8bc1/\u6388\u6743\u3001\u9a8c\u8bc1\u3001CSRF\u3001\u6279\u91cf\u8d4b\u503c\u3001\u6587\u4ef6\u4e0a\u4f20\u3001\u5bc6\u94a5\u7ba1\u7406\u3001\u901f\u7387\u9650\u5236\u548c\u5b89\u5168\u90e8\u7f72\u3002",
+  "contentLanguage": "zh",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/zh-CN/skills/laravel-security",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-zh-cn-skills-laravel-security",
+  "stars": 237500,
+  "updatedAt": 1774068958
+}

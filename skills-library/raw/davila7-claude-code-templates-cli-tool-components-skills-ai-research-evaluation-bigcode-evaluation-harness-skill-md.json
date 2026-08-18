@@ -1,0 +1,11 @@
+{
+  "id": "davila7-claude-code-templates-cli-tool-components-skills-ai-research-evaluation-bigcode-evaluation-harness-skill-md",
+  "name": "evaluating-code-models",
+  "author": "davila7",
+  "description": "Evaluates code generation models across HumanEval, MBPP, MultiPL-E, and 15+ benchmarks with pass@k metrics. Use when benchmarking code models, comparing coding abilities, testing multi-language support, or measuring code generation quality. Industry standard from BigCode Project used by HuggingFace leaderboards.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/evaluation-bigcode-evaluation-harness",
+  "skillUrl": "https://skillsmp.com/creators/davila7/claude-code-templates/cli-tool-components-skills-ai-research-evaluation-bigcode-evaluation-harness",
+  "stars": 30096,
+  "updatedAt": 1767882269
+}

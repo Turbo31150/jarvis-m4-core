@@ -1,0 +1,11 @@
+{
+  "id": "elementalsouls-claude-bughunter-skills-hunt-subdomain-skill-md",
+  "name": "hunt-subdomain",
+  "author": "elementalsouls",
+  "description": "Hunting skill for subdomain takeover vulnerabilities. Includes modern provider fingerprints \u2014 Microsoft Azure DevOps `cloudapp.azure.com` regional-pool re-issue (1-click OAuth ATO via wildcard `reply_to`, Binary Security), Zendesk help-desk takeover \u2192 email interception \u2192 password reset chain (0xprial writeup), Vercel `cname.vercel-dns.com` deleted-project takeover, plus general Fastly CDN service re-attach and S3 dangling-bucket cookie-scope techniques. Use when hunting subdomain takeover \u2014 emphasis on ATO-chain primitives (OAuth `redirect_uri`, cookie-domain, email DNS).",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/elementalsouls/Claude-BugHunter/tree/main/skills/hunt-subdomain",
+  "skillUrl": "https://skillsmp.com/creators/elementalsouls/claude-bughunter/skills-hunt-subdomain",
+  "stars": 3288,
+  "updatedAt": 1780845346
+}

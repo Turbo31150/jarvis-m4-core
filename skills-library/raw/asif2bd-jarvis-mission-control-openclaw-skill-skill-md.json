@@ -1,0 +1,11 @@
+{
+  "id": "asif2bd-jarvis-mission-control-openclaw-skill-skill-md",
+  "name": "jarvis-mission-control",
+  "author": "Asif2BD",
+  "description": "Jarvis Mission Control for OpenCLAW AIS v2.1.1 \u2014 self-hosted command center for OpenCLAW AI systems. Kanban board, real-time chat, OpenClaw Sessions, live cost metrics, Claude Code session tracking, GitHub Issues sync, webhook delivery monitoring, CLI console, agent SOUL editor, and a full Matrix-themed dashboard.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Asif2BD/JARVIS-Mission-Control-OpenClaw/tree/main/skill",
+  "skillUrl": "https://skillsmp.com/creators/asif2bd/jarvis-mission-control-openclaw/skill--d5a94bf5",
+  "stars": 36,
+  "updatedAt": 1782117838
+}

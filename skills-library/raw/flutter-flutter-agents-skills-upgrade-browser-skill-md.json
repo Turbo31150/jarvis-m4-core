@@ -1,0 +1,11 @@
+{
+  "id": "flutter-flutter-agents-skills-upgrade-browser-skill-md",
+  "name": "upgrade-browser",
+  "author": "flutter",
+  "description": "Upgrade browser versions (Chrome or Firefox) in the Flutter Web Engine and/or Framework tests. Use when asked to roll or upgrade Chrome or Firefox to a newer version.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/flutter/flutter/tree/master/.agents/skills/upgrade-browser",
+  "skillUrl": "https://skillsmp.com/creators/flutter/flutter/agents-skills-upgrade-browser",
+  "stars": 178163,
+  "updatedAt": 1776193932
+}

@@ -1,0 +1,11 @@
+{
+  "id": "posthog-posthog-agents-skills-monitoring-ingestion-pipeline-skill-md",
+  "name": "monitoring-ingestion-pipeline",
+  "author": "PostHog",
+  "description": "Guide for using the Grafana MCP to monitor and diagnose the Node.js ingestion pipeline workers in production. Use when investigating event lag, drops, pipeline errors, person/group processing, Kafka consumer health, Redis, Postgres, ClickHouse downstream health, or any ingestion worker question. Covers prod-us and prod-eu environments.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/PostHog/posthog/tree/master/.agents/skills/monitoring-ingestion-pipeline",
+  "skillUrl": "https://skillsmp.com/creators/posthog/posthog/agents-skills-monitoring-ingestion-pipeline",
+  "stars": 37496,
+  "updatedAt": 1785444387
+}

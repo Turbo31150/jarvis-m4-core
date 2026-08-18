@@ -1,0 +1,11 @@
+{
+  "id": "copilotkit-copilotkit-examples-showcases-reskinnable-demo-claude-skills-reskin-skill-md",
+  "name": "reskin",
+  "author": "CopilotKit",
+  "description": "Author a NEW skin for the reskinnable-demo app. A skin is a self-contained domain plugin under src/skins/<id>/ that implements the frozen `Skin` contract (src/shell/skin-contract.ts) to swap the app's entire experience \u2014 brand, theme, layout, pages, tools, data, and agent. Use when the user says \"add a skin\", \"create a skin\", \"new skin\", \"reskin the app\", \"make a <domain> skin\", or wants the app re-themed as a new product. Do NOT use for editing the shell itself (src/shell/**), the shared token vocabulary (src/app/globals.css), or the two shipped skins unless explicitly asked.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/CopilotKit/CopilotKit/tree/main/examples/showcases/reskinnable-demo/.claude/skills/reskin",
+  "skillUrl": "https://skillsmp.com/creators/copilotkit/copilotkit/examples-showcases-reskinnable-demo-claude-skills-reskin",
+  "stars": 36444,
+  "updatedAt": 1785803101
+}

@@ -1,0 +1,125 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Guide d&#x27;installation &amp; mise en place — n8n-mcp</title><style>
+body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;max-width:820px;
+margin:0 auto;padding:40px 28px;color:#1a1a2e;line-height:1.6}
+h1{font-size:2em;border-bottom:3px solid #4361ee;padding-bottom:.3em;color:#3a0ca3}
+h2{color:#3a0ca3;border-bottom:1px solid #e0e0f0;padding-bottom:.2em;margin-top:1.6em}
+h3{color:#4361ee}code{background:#f2f2fa;padding:2px 5px;border-radius:4px;font-size:.9em}
+pre{background:#1a1a2e;color:#e0e0f0;padding:14px;border-radius:8px;overflow-x:auto}
+pre code{background:none;color:inherit}table{border-collapse:collapse;width:100%}
+td,th{border:1px solid #ddd;padding:8px}th{background:#4361ee;color:#fff}
+blockquote{border-left:4px solid #4361ee;margin:0;padding-left:16px;color:#555}
+.cover{text-align:center;padding:30px 0 10px;border-bottom:2px dashed #4361ee;margin-bottom:24px}
+.cover .badge{display:inline-block;background:#3a0ca3;color:#fff;padding:6px 16px;
+border-radius:20px;font-size:.85em;letter-spacing:1px}
+.sep{margin:40px 0;border:none;border-top:2px dashed #ccd}
+</style></head><body>
+<div class="cover"><span class="badge">GUIDE D'INSTALLATION</span>
+<h1 style="border:none">n8n-mcp</h1>
+<p>Présentation · Installation / mise en place · Usage</p></div>
+<h1>Présentation</h1>
+<h1 id="fiche-de-vente-n8n-mcp">Fiche de vente — n8n-mcp</h1>
+<blockquote>
+<p>Prix PROPOSÉ, à valider par Franck (dev-tool + doc).</p>
+</blockquote>
+<h2 id="accroche">Accroche</h2>
+<p>Pilotez vos workflows n8n depuis votre assistant IA — lister, inspecter,
+déclencher — sans jamais exposer votre jeton.</p>
+<h2 id="le-probleme">Le problème</h2>
+<p>Connecter un agent IA à n8n oblige d'habitude à écrire du glue-code fragile et à
+manipuler des jetons à la main.</p>
+<h2 id="la-solution">La solution</h2>
+<p>n8n-mcp fournit 3 outils MCP prêts à brancher (<code>list_workflows</code>,
+<code>get_workflow</code>, <code>trigger_workflow</code>). Stdlib Python seule, jeton lu dans
+l'environnement, gestion d'erreurs actionnable : n8n éteint ou jeton invalide
+renvoient un message clair au lieu de planter.</p>
+<h2 id="ce-que-vous-recevez">Ce que vous recevez</h2>
+<ul>
+<li>Le module <code>n8n.py</code> (MCP + CLI)</li>
+<li>Le guide <code>BRANCHER-N8N-MCP.md</code></li>
+</ul>
+<h2 id="points-forts">Points forts</h2>
+<ul>
+<li>0 dépendance tierce</li>
+<li>Aucun secret en dur, jamais journalisé</li>
+<li>Déclenchement webhook prod + fallback mode test</li>
+</ul>
+<h2 id="prix">Prix</h2>
+<p><strong>49 € — paiement unique</strong> [PROPOSÉ, à valider].</p>
+<h2 id="cible">Cible</h2>
+<p>Automaticiens, intégrateurs, makers qui veulent connecter n8n à un agent IA
+local.</p>
+<hr class="sep"><h1>Prise en main</h1>
+<h1 id="n8n-mcp">n8n-mcp</h1>
+<p>Outils MCP (et CLI) pour piloter une instance <strong>n8n locale</strong> : lister les
+workflows, lire leur détail, déclencher un workflow par webhook. Stdlib Python
+uniquement, aucun secret en dur.</p>
+<h2 id="contenu">Contenu</h2>
+<pre><code>n8n.py                 # les 3 outils : list_workflows / get_workflow / trigger_workflow
+BRANCHER-N8N-MCP.md    # guide de branchement MCP
+README.md / FICHE-VENTE.md / LICENSE.txt
+</code></pre>
+<h2 id="installation">Installation</h2>
+<p>Aucune dépendance tierce (urllib/json).</p>
+<pre><code class="language-bash">export N8N_BASE_URL=&quot;http://127.0.0.1:5678&quot;   # défaut
+export N8N_API_KEY=&quot;&lt;jeton&gt;&quot;                   # Settings &gt; n8n API (jamais loggé)
+</code></pre>
+<h2 id="usage-cli">Usage CLI</h2>
+<pre><code class="language-bash">python3 n8n.py list
+python3 n8n.py get &lt;workflow_id&gt;
+python3 n8n.py trigger &lt;chemin-webhook&gt; --payload '{&quot;cle&quot;:&quot;valeur&quot;}'
+</code></pre>
+<h2 id="branchement-mcp">Branchement MCP</h2>
+<p>Voir <code>BRANCHER-N8N-MCP.md</code> — les 3 fonctions sont directement exposables comme
+outils MCP.</p>
+<h2 id="securite">Sécurité</h2>
+<ul>
+<li>Le jeton <code>N8N_API_KEY</code> est lu dans l'environnement, jamais écrit ni journalisé.</li>
+<li>Aucune exception ne remonte : n8n injoignable/refusé → dict d'erreur
+  actionnable (<code>{"ok": false, "error": ..., "hint": ...}</code>).</li>
+</ul>
+<hr class="sep"><h1>Dossier complet — installation & usage</h1>
+<h1 id="dossier-complet-essence-alkymia-n8n-mcp">DOSSIER COMPLET — Essence AlkymIA : n8n MCP</h1>
+<blockquote>
+<p>Dossier self-contained. Source : Notion (Naming, Board prix packs, Présentations, Preuves). Aucun secret dans ce dossier (le jeton <code>N8N_API_KEY</code> est lu dans l'environnement, jamais écrit ni journalisé).</p>
+</blockquote>
+<h2 id="nom-commercial-tagline">Nom commercial &amp; tagline</h2>
+<p><strong>Les Essences AlkymIA — n8n MCP</strong> — « Pilotez votre n8n depuis votre assistant IA. »
+Brique à la carte de La Fabrique AlkymIA. (Nom technique : n8n-mcp.)</p>
+<h2 id="cible">Cible</h2>
+<p>Makers et TPE techniques qui utilisent n8n et veulent le piloter (lister, déclencher, diagnostiquer des workflows) depuis un assistant IA via MCP, en local.</p>
+<h2 id="probleme">Problème</h2>
+<p>Passer par l'UI n8n pour chaque opération est lent ; on veut brancher n8n à son assistant IA sans exposer ses identifiants au cloud.</p>
+<h2 id="promesse">Promesse</h2>
+<p>Un serveur MCP prêt à brancher qui expose vos workflows n8n à votre assistant, avec les identifiants lus en local et jamais journalisés.</p>
+<h2 id="ce-qui-est-inclus-fichiers-reels-de-ce-dossier">Ce qui est inclus (fichiers réels de ce dossier)</h2>
+<ul>
+<li><code>n8n.py</code> — serveur/bridge MCP n8n</li>
+<li><code>BRANCHER-N8N-MCP.md</code> — guide de branchement</li>
+<li><code>README.md</code> — usage</li>
+<li><code>FICHE-VENTE.md</code> — argumentaire</li>
+<li><code>LICENSE.txt</code> — licence propriétaire</li>
+</ul>
+<h2 id="differenciateur">Différenciateur</h2>
+<p>Exécution locale + jeton lu dans l'environnement (jamais stocké), curation métier FR + support humain — là où les templates génériques sont gratuits mais non accompagnés.</p>
+<h2 id="preuves-reelles-honnetes">Preuves réelles (honnêtes)</h2>
+<ul>
+<li>Plus de 160 dépôts de code, infra locale souveraine — capacité de production démontrée.</li>
+<li>[À CONFIRMER] Témoignage + STAT d'adoption.</li>
+</ul>
+<h2 id="offre-prix-cta">Offre, prix &amp; CTA</h2>
+<p><strong>59 €</strong> — paiement unique (ancrage Essences). Note board : différencier par curation métier FR + support pour tenir le prix.
+CTA : « Je commence par une Essence ».
+Canal : Gumroad.</p>
+<h2 id="landing">Landing</h2>
+<p>Pas de landing dédiée (brique à la carte).</p>
+<h2 id="placeholders-honnetes-restants">Placeholders honnêtes restants</h2>
+<ul>
+<li>Témoignage + statistique d'adoption.</li>
+<li>Argument de différenciation (curation FR + support) à expliciter dans la fiche.</li>
+<li>Contact support dans <code>LICENSE.txt</code>.</li>
+</ul>
+<hr class="sep"><p style="text-align:center;color:#888;font-size:.85em">
+Document généré pour livraison (zip / systeme.io). JARVIS OS — livrables.</p>
+</body></html>

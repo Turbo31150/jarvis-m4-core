@@ -1,0 +1,11 @@
+{
+  "id": "lobehub-lobehub-agents-skills-typescript-skill-md",
+  "name": "typescript",
+  "author": "lobehub",
+  "description": "LobeHub TypeScript style and type-safety guide. Use when editing TS/TSX/MTS, fixing types, choosing interface vs type, avoiding any/object, import type, async flow, or ts-expect-error.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/lobehub/lobehub/tree/canary/.agents/skills/typescript",
+  "skillUrl": "https://skillsmp.com/creators/lobehub/lobehub/agents-skills-typescript",
+  "stars": 81243,
+  "updatedAt": 1785300120
+}

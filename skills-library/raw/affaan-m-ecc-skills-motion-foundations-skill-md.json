@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-motion-foundations-skill-md",
+  "name": "motion-foundations",
+  "author": "affaan-m",
+  "description": "Motion tokens, spring presets, performance rules, device adaptation, accessibility enforcement, and SSR safety for React / Next.js using motion/react. Foundation layer \u2014 all other motion skills depend on this.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/motion-foundations",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-motion-foundations",
+  "stars": 237500,
+  "updatedAt": 1778564825
+}

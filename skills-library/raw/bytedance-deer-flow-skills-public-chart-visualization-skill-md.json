@@ -1,0 +1,11 @@
+{
+  "id": "bytedance-deer-flow-skills-public-chart-visualization-skill-md",
+  "name": "chart-visualization",
+  "author": "bytedance",
+  "description": "This skill should be used when the user wants to visualize data. It intelligently selects the most suitable chart type from 26 available options, extracts parameters based on detailed specifications, and generates a chart image using a JavaScript script.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/bytedance/deer-flow/tree/main/skills/public/chart-visualization",
+  "skillUrl": "https://skillsmp.com/creators/bytedance/deer-flow/skills-public-chart-visualization",
+  "stars": 79272,
+  "updatedAt": 1776924374
+}

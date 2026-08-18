@@ -1,0 +1,22 @@
+LICENCE PROPRIÉTAIRE — AlkymIA Sovereign
+Copyright (c) 2026 La Fabrique AlkymIA. Tous droits réservés.
+
+1. OCTROI DE LICENCE
+   L'achat confère une licence personnelle, non exclusive et non
+   transférable d'utilisation des fichiers fournis, pour l'usage
+   professionnel ou personnel de l'acquéreur.
+2. RESTRICTIONS
+   Sauf autorisation écrite : ni revente, redistribution, publication,
+   sous-licence, location, ni retrait des mentions de propriété, ni
+   diffusion sur un dépôt public ou une place de marché tierce.
+3. ABSENCE DE GARANTIE
+   Produit fourni « en l'état », sans garantie. L'éditeur n'est pas
+   responsable des dommages liés à l'utilisation ou l'impossibilité
+   d'utiliser le produit.
+4. DONNÉES & SOUVERAINETÉ
+   Le produit s'exécute localement. Aucune donnée n'est transmise à
+   l'éditeur, seul l'acquéreur reste responsable de sa conformité RGPD.
+5. SUPPORT
+   Régi par l'offre commerciale associée à l'achat.
+
+Contact / support : [PLACEHOLDER — à compléter par l'éditeur]

@@ -1,0 +1,11 @@
+{
+  "id": "mukul975-anthropic-cybersecurity-skills-skills-performing-nist-csf-maturity-assessment-skill-md",
+  "name": "performing-nist-csf-maturity-assessment",
+  "author": "mukul975",
+  "description": "Conduct a NIST Cybersecurity Framework (CSF) 2.0 maturity assessment across the six core Functions (Govern, Identify, Protect, Detect, Respond, Recover), scoring organizational posture against the four Implementation Tiers (Partial, Risk-Informed, Repeatable, Adaptive) and producing an improvement roadmap. Use when benchmarking an organization's cybersecurity program maturity or preparing a CSF-based gap analysis and remediation plan.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/mukul975/Anthropic-Cybersecurity-Skills/tree/main/skills/performing-nist-csf-maturity-assessment",
+  "skillUrl": "https://skillsmp.com/creators/mukul975/anthropic-cybersecurity-skills/skills-performing-nist-csf-maturity-assessment",
+  "stars": 27260,
+  "updatedAt": 1785688333
+}

@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruview-harness-ruview-claude-skills-onboard-skill-md",
+  "name": "onboard",
+  "author": "ruvnet",
+  "description": "Zero-to-sensing path picker for RuView (WiFi-DensePose) \u2014 pick docker-demo, repo-build, or live-esp32 and run the next concrete step.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/RuView/tree/main/harness/ruview/.claude/skills/onboard",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruview/harness-ruview-claude-skills-onboard",
+  "stars": 88440,
+  "updatedAt": 1783012275
+}

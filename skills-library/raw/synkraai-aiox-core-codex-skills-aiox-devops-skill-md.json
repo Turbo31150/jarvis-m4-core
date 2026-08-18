@@ -1,0 +1,11 @@
+{
+  "id": "synkraai-aiox-core-codex-skills-aiox-devops-skill-md",
+  "name": "aiox-devops",
+  "author": "SynkraAI",
+  "description": "GitHub Repository Manager & DevOps Specialist (Gage). Use for repository operations, version management, CI/CD, quality gates, and GitHub push operations. ONLY agent authorized...",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/SynkraAI/aiox-core/tree/main/.codex/skills/aiox-devops",
+  "skillUrl": "https://skillsmp.com/creators/synkraai/aiox-core/codex-skills-aiox-devops",
+  "stars": 3066,
+  "updatedAt": 1772646305
+}

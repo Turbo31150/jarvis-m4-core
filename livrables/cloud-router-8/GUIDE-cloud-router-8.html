@@ -1,0 +1,131 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Guide d&#x27;installation &amp; mise en place — cloud-router-8</title><style>
+body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;max-width:820px;
+margin:0 auto;padding:40px 28px;color:#1a1a2e;line-height:1.6}
+h1{font-size:2em;border-bottom:3px solid #4361ee;padding-bottom:.3em;color:#3a0ca3}
+h2{color:#3a0ca3;border-bottom:1px solid #e0e0f0;padding-bottom:.2em;margin-top:1.6em}
+h3{color:#4361ee}code{background:#f2f2fa;padding:2px 5px;border-radius:4px;font-size:.9em}
+pre{background:#1a1a2e;color:#e0e0f0;padding:14px;border-radius:8px;overflow-x:auto}
+pre code{background:none;color:inherit}table{border-collapse:collapse;width:100%}
+td,th{border:1px solid #ddd;padding:8px}th{background:#4361ee;color:#fff}
+blockquote{border-left:4px solid #4361ee;margin:0;padding-left:16px;color:#555}
+.cover{text-align:center;padding:30px 0 10px;border-bottom:2px dashed #4361ee;margin-bottom:24px}
+.cover .badge{display:inline-block;background:#3a0ca3;color:#fff;padding:6px 16px;
+border-radius:20px;font-size:.85em;letter-spacing:1px}
+.sep{margin:40px 0;border:none;border-top:2px dashed #ccd}
+</style></head><body>
+<div class="cover"><span class="badge">GUIDE D'INSTALLATION</span>
+<h1 style="border:none">cloud-router-8</h1>
+<p>Présentation · Installation / mise en place · Usage</p></div>
+<h1>Présentation</h1>
+<h1 id="fiche-de-vente-cloud-router-8">Fiche de vente — cloud-router-8</h1>
+<blockquote>
+<p>Prix PROPOSÉ, à valider par Franck (cohérent avec les scripts/dev-tools 39 €).</p>
+</blockquote>
+<h2 id="accroche">Accroche</h2>
+<p>Traitez des centaines de prompts en parallèle sur le cloud Ollama gratuit —
+sans surchauffer votre machine, sans jamais exposer une clé.</p>
+<h2 id="le-probleme">Le problème</h2>
+<p>Un modèle local, c'est lent et ça chauffe dès qu'on enchaîne les prompts. Les
+clés cloud, elles, se gaspillent quand on les utilise une par une.</p>
+<h2 id="la-solution">La solution</h2>
+<p>cloud-router-8 répartit automatiquement votre file de prompts sur jusqu'à 8 clés
+Ollama Cloud, en parallèle, avec rotation intelligente : clé saturée = clé
+suivante, clé morte = retirée. Sortie JSONL idempotente : le batch reprend
+exactement où il s'est arrêté.</p>
+<h2 id="ce-que-vous-recevez">Ce que vous recevez</h2>
+<ul>
+<li>Le routeur Python (aucune dépendance, stdlib seule)</li>
+<li>Documentation détaillée (<code>CLOUD-ROUTER-8.md</code>)</li>
+<li>Mode <code>--selftest</code> pour vérifier vos clés d'un coup</li>
+</ul>
+<h2 id="points-forts">Points forts</h2>
+<ul>
+<li>0 chaleur machine (tout est déporté)</li>
+<li>Sécurité clé : jamais en dur, jamais affichée</li>
+<li>Idempotent, retry backoff, workers configurables</li>
+</ul>
+<h2 id="prix">Prix</h2>
+<p><strong>39 € — paiement unique</strong> [PROPOSÉ, à valider].</p>
+<h2 id="cible">Cible</h2>
+<p>Développeurs, indépendants et makers qui génèrent du contenu en volume via IA.</p>
+<hr class="sep"><h1>Prise en main</h1>
+<h1 id="cloud-router-8">cloud-router-8</h1>
+<p>Routeur round-robin fan-out qui traite une <strong>liste de prompts en parallèle</strong> en
+répartissant la charge sur plusieurs clés API Ollama Cloud (une clé par worker).
+100 % déporté sur ollama.com → zéro inférence locale, zéro chaleur machine.</p>
+<h2 id="contenu">Contenu</h2>
+<pre><code>cloud-router-8.py     # le routeur (stdlib Python uniquement)
+CLOUD-ROUTER-8.md     # documentation détaillée
+README.md / FICHE-VENTE.md / LICENSE.txt
+</code></pre>
+<h2 id="installation">Installation</h2>
+<p>Aucune dépendance tierce (stdlib Python 3.11+).</p>
+<pre><code class="language-bash">chmod +x cloud-router-8.py
+</code></pre>
+<p>Fournissez vos clés par <strong>variable d'environnement</strong> ou fichier hors-git (jamais
+en dur) :</p>
+<pre><code class="language-bash">export OLLAMA_CLOUD_KEYS=&quot;cle1,cle2,cle3&quot;      # séparées par virgule/espace/ligne
+# ou : ~/.ollama/cloud_keys  (une clé par ligne)
+</code></pre>
+<h2 id="usage">Usage</h2>
+<pre><code class="language-bash"># Selftest : 1 mini-appel par clé → qui répond (200/401/429)
+python3 cloud-router-8.py --selftest
+
+# Batch parallèle idempotent (reprend là où il s'est arrêté)
+python3 cloud-router-8.py --prompts prompts.txt --out results.jsonl --workers 8
+
+# Via stdin
+echo -e &quot;prompt A\nprompt B&quot; | python3 cloud-router-8.py --out out.jsonl
+</code></pre>
+<h2 id="securite">Sécurité</h2>
+<ul>
+<li>Aucune clé n'est écrite en dur ni affichée : les logs ne montrent que
+  l'index de clé (<code>key#0..N</code>).</li>
+<li>Rotation automatique : clé morte (401/403) retirée, backoff sur 429/5xx.</li>
+<li>RGPD : ne pas router de données nominatives (voir <code>CLOUD-ROUTER-8.md</code>).</li>
+</ul>
+<hr class="sep"><h1>Dossier complet — installation & usage</h1>
+<h1 id="dossier-complet-essence-alkymia-cloud-router-8">DOSSIER COMPLET — Essence AlkymIA : Cloud Router 8</h1>
+<blockquote>
+<p>Dossier self-contained. Source : Notion (Naming, Board prix packs, Présentations, Preuves). Aucun secret dans ce dossier (les clés sont lues dans l'environnement / fichiers hors dossier, jamais stockées ici).</p>
+</blockquote>
+<h2 id="nom-commercial-tagline">Nom commercial &amp; tagline</h2>
+<p><strong>Les Essences AlkymIA — Cloud Router 8</strong> — « Six briques malignes pour démarrer petit. »
+Une des briques à la carte de La Fabrique AlkymIA. (Nom technique : cloud-router-8.)</p>
+<h2 id="cible">Cible</h2>
+<p>Makers, indépendants et self-hosters techniques qui veulent router intelligemment leurs requêtes LLM (multi-clés Ollama Cloud) sans dépendance ni surcoût.</p>
+<h2 id="probleme">Problème</h2>
+<p>Jongler entre plusieurs clés/quotas cloud à la main est fragile ; on veut une porte d'entrée abordable, utile immédiatement, sans tout acheter d'un coup.</p>
+<h2 id="promesse">Promesse</h2>
+<p>Une brique autonome qui règle un besoin précis : router vos appels sur plusieurs clés avec repli automatique, en gardant vos clés chez vous.</p>
+<h2 id="ce-qui-est-inclus-fichiers-reels-de-ce-dossier">Ce qui est inclus (fichiers réels de ce dossier)</h2>
+<ul>
+<li><code>cloud-router-8.py</code> — routeur multi-clés avec fallback</li>
+<li><code>CLOUD-ROUTER-8.md</code> — documentation d'usage</li>
+<li><code>README.md</code> — installation</li>
+<li><code>FICHE-VENTE.md</code> — argumentaire</li>
+<li><code>LICENSE.txt</code> — licence propriétaire</li>
+</ul>
+<h2 id="differenciateur">Différenciateur</h2>
+<p>Brique qui reste chez vous (clés lues en local, jamais transmises à l'éditeur) + composable avec les autres Essences, épaulée par un humain joignable.</p>
+<h2 id="preuves-reelles-honnetes">Preuves réelles (honnêtes)</h2>
+<ul>
+<li>Plus de 160 dépôts de code, infra locale souveraine — capacité de production démontrée.</li>
+<li>[À CONFIRMER] STAT : brique la plus adoptée / témoignage.</li>
+</ul>
+<h2 id="offre-prix-cta">Offre, prix &amp; CTA</h2>
+<p><strong>49 €</strong> — paiement unique (ancrage consumer Essences 19–89 €).
+CTA : « Je commence par une Essence ».
+Canal : Gumroad.</p>
+<h2 id="landing">Landing</h2>
+<p>Pas de landing dédiée (brique à la carte).</p>
+<h2 id="placeholders-honnetes-restants">Placeholders honnêtes restants</h2>
+<ul>
+<li>Témoignage + statistique d'adoption.</li>
+<li>Contact support dans <code>LICENSE.txt</code>.</li>
+</ul>
+<hr class="sep"><p style="text-align:center;color:#888;font-size:.85em">
+Document généré pour livraison (zip / systeme.io). JARVIS OS — livrables.</p>
+</body></html>

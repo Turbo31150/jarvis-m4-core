@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-skills-github-github-code-review-skill-md",
+  "name": "github-code-review",
+  "author": "NousResearch",
+  "description": "Review PRs: diffs, inline comments via gh or REST.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/skills/github/github-code-review",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/skills-github-github-code-review",
+  "stars": 225204,
+  "updatedAt": 1785124766
+}

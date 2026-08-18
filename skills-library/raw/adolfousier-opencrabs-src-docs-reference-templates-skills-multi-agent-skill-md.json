@@ -1,0 +1,11 @@
+{
+  "id": "adolfousier-opencrabs-src-docs-reference-templates-skills-multi-agent-skill-md",
+  "name": "multi-agent",
+  "author": "adolfousier",
+  "description": "Orchestrate a task across multiple AI models/providers. Define a team of agents with different roles, providers, and models. Each agent handles a phase (planning, execution, auditing, etc.) and results are combined. (/multi-agent, orchestrate, multi-model, team)",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/adolfousier/opencrabs/tree/main/src/docs/reference/templates/skills/multi-agent",
+  "skillUrl": "https://skillsmp.com/creators/adolfousier/opencrabs/src-docs-reference-templates-skills-multi-agent",
+  "stars": 845,
+  "updatedAt": 1781751665
+}

@@ -1,0 +1,757 @@
+#!/usr/bin/env python3
+"""
+JARVIS Telegram LLM Router
+==========================
+Branche plusieurs bots Telegram sur les backends LLM du cluster (LM Studio M1 +
+Ollama local + Ollama Cloud), un cerveau par bot, avec routage intelligent.
+
+Config (secrets hors git) : ~/.config/jarvis/telegram_bots.json
+  - mode "ollama"  : tape toujours le même modèle Ollama local/cloud
+  - mode "auto"    : routeur — choisit le backend selon l'intent du message
+
+Chaque bot = 1 thread long-polling getUpdates. Mémoire courte par chat_id.
+Commandes : /start  /reset  /model
+"""
+
+import json
+import os
+import re
+import time
+import shlex
+import shutil
+import threading
+import logging
+import subprocess  # noqa: F401  (utilisé par tts_ogg)
+import tempfile  # noqa: F401  (utilisé par tts_ogg/download)
+from collections import defaultdict, deque
+from urllib.parse import quote
+
+import requests
+
+CONFIG_PATH = os.path.expanduser("~/.config/jarvis/telegram_bots.json")
+LOG_PATH = os.path.expanduser("~/.local/share/jarvis-telegram-router.log")
+TG_API = "https://api.telegram.org/bot{token}/{method}"
+
+os.makedirs(os.path.dirname(LOG_PATH), exist_ok=True)
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(threadName)s] %(message)s",
+    handlers=[logging.FileHandler(LOG_PATH), logging.StreamHandler()],
+)
+log = logging.getLogger("router")
+
+with open(CONFIG_PATH) as f:
+    CFG = json.load(f)
+
+OLLAMA_URL = CFG.get("ollama_url", "http://127.0.0.1:11434/api/chat")
+LMSTUDIO_URL = CFG.get("lmstudio_url", "http://192.168.1.85:1234/v1/chat/completions")
+HISTORY_LEN = int(CFG.get("history_len", 8))
+
+# Vocal
+STT_URL = CFG.get("stt_url", "http://127.0.0.1:9743/v1/audio/transcriptions")
+STT_MODEL = CFG.get("stt_model", "whisper-large-v3-turbo")
+STT_LANGUAGE = CFG.get("stt_language", "fr")
+STT_PROMPT = CFG.get("stt_prompt", "")
+STT_TEMPERATURE = float(CFG.get("stt_temperature", 0))
+STT_CORRECT = bool(CFG.get("stt_correct", True))
+PIPER_BIN = CFG.get("piper_bin", os.path.expanduser("~/.local/bin/piper"))
+PIPER_MODEL = CFG.get(
+    "piper_model", os.path.expanduser("~/.config/jarvis/piper/fr_FR-siwis-medium.onnx")
+)
+TTS_MAX_CHARS = int(CFG.get("tts_max_chars", 800))
+
+# Historique court par (bot_username, chat_id)
+HISTORY = defaultdict(lambda: deque(maxlen=HISTORY_LEN))
+# Sortie vocale forcée même sur entrée texte (toggle /voice par chat)
+VOICE_FORCED = defaultdict(bool)
+
+THINK_RE = re.compile(r"<think>.*?</think>", re.DOTALL | re.IGNORECASE)
+
+
+# ---------------------------------------------------------------- backends
+def call_ollama(model, messages, timeout=180):
+    """Ollama /api/chat (modèle local ou :cloud)."""
+    r = requests.post(
+        OLLAMA_URL,
+        json={"model": model, "stream": False, "messages": messages},
+        timeout=timeout,
+    )
+    r.raise_for_status()
+    return r.json()["message"]["content"]
+
+
+def call_lmstudio(messages, timeout=120):
+    """LM Studio M1 (OpenAI-compatible)."""
+    r = requests.post(
+        LMSTUDIO_URL,
+        json={
+            "model": "local",
+            "stream": False,
+            "messages": messages,
+            "max_tokens": 2048,
+        },
+        timeout=timeout,
+    )
+    r.raise_for_status()
+    return r.json()["choices"][0]["message"]["content"]
+
+
+def lmstudio_up():
+    try:
+        base = LMSTUDIO_URL.rsplit("/chat/completions", 1)[0]
+        return requests.get(base + "/models", timeout=3).ok
+    except Exception:
+        return False
+
+
+# ---------------------------------------------------------------- routage auto
+CODE_KW = re.compile(
+    r"\b(code|python|bash|script|fonction|bug|erreur|debug|regex|sql|api|classe|compile)\b",
+    re.I,
+)
+REASON_KW = re.compile(
+    r"\b(pourquoi|explique|compare|analyse|raisonn|d[ée]montre|strat[ée]gie|architecture)\b",
+    re.I,
+)
+CLOUD_KW = re.compile(
+    r"\b(r[ée]sume|synth[èe]se|document|long|article|rapport|traduis)\b", re.I
+)
+
+
+def route_auto(text):
+    """Retourne (label, callable) selon l'intent. Fallback Ollama si LM Studio down."""
+    long_msg = len(text) > 1500
+    # Question web / temps-réel (météo, actu, prix) → accès web RÉEL, pas un LLM aveugle
+    if (R_WEB.search(text) or METEO_RE.search(text)) and not R_SYS.search(text):
+        return ("web:réel", lambda m: web_answer(m[-1]["content"]))
+    if CLOUD_KW.search(text) or long_msg:
+        return (
+            "cloud:kimi-k2.5",
+            lambda m: call_ollama("kimi-k2.5:cloud", m, timeout=240),
+        )
+    if CODE_KW.search(text) or REASON_KW.search(text):
+        return ("ollama:deepseek-r1:7b", lambda m: call_ollama("deepseek-r1:7b", m))
+    if lmstudio_up():
+        return ("lmstudio:M1-9b", call_lmstudio)
+    return ("ollama:gemma3:4b", lambda m: call_ollama("gemma3:4b", m))
+
+
+# ---------------------------------------------------------------- mode AGENT (actions réelles M1)
+JARVIS_DIR = os.path.expanduser("~/jarvis")
+SCRIPTS_DIR = os.path.join(JARVIS_DIR, "scripts")
+ACTION_TIMEOUT = int(CFG.get("action_timeout", 600))
+ACTION_PREFIX = re.compile(
+    r"^(gemini|gem|claude|cc|claw|openclaw|oc|agent)\s*:\s*(.*)$", re.I | re.S
+)
+
+# ---- routage AUTOMATIQUE du mode agent vers le backend optimal (0-token d'abord) ----
+R_WEB = re.compile(
+    r"\b(cherche|recherche|google|internet|sur le web|sur le net|en ligne|actualit|"
+    r"news|nouvelles|m[ée]t[ée]o|cours d|prix d|combien co[ûu]te|qui est|c'est qui|"
+    r"derni[èe]res?|tendance|wikip[ée]dia)\b",
+    re.I,
+)
+# Signaux d'action « système / compte / code » → exige Claude Code (FS + MCP + agents)
+R_SYS = re.compile(
+    r"\b(fichier|service|systemd|git|gpu|vram|docker|mail|e-?mail|gmail|courriel|"
+    r"linkedin|instagram|calendrier|agenda|drive|notion|d[ée]ploie|commit|push|log|"
+    r"script|code|coder|d[ée]bogue|debug|compile|ouvre|lance|red[ée]marre|installe|"
+    r"bug|fonction|classe|refactor|fix|corrige le bug|test unitaire|impl[ée]mente|"
+    r"cluster|\bm1\b|\bm2\b|\bm5\b|backup|notification)\b"
+    # ou toute référence à un fichier de code (extension) → c'est une tâche de dev
+    r"|\b[\w./-]+\.(py|js|ts|tsx|jsx|sh|json|ya?ml|md|c|cpp|h|go|rs|html|css|sql)\b",
+    re.I,
+)
+# Tâche purement textuelle/conversationnelle → Ollama local (gratuit)
+R_LIGHT = re.compile(
+    r"^\s*(r[ée]sume|synth[ée]tise|reformule|traduis|traduit|classe|corrige|"
+    r"explique|d[ée]finis|donne[\s-]?moi la d[ée]finition)\b",
+    re.I,
+)
+R_OC = re.compile(r"\b(openclaw|sandbox|conteneuris|agent conteneur)\b", re.I)
+
+
+def auto_route(body):
+    """Sans préfixe → backend optimal. Cascade 0-token : OpenClaw (agents explicites),
+    Gemini (web), Ollama (texte léger), défaut Claude Code (code + MCP + sous-agents)."""
+    if R_OC.search(body):
+        return ("openclaw", None)
+    if (R_WEB.search(body) or METEO_RE.search(body)) and not R_SYS.search(body):
+        return (
+            "web",
+            None,
+        )  # météo→wttr.in / web général→claude -p (Gemini CLI bloque)
+    if R_LIGHT.search(body) and not R_SYS.search(body) and len(body) < 400:
+        mdl = "deepseek-r1:7b" if REASON_KW.search(body) else "gemma3:4b"
+        return ("ollama", mdl)
+    return ("claude", None)
+
+
+def _run(cmd, timeout, cwd=None):
+    """Exécute une commande, renvoie stdout (ou stderr en secours)."""
+    try:
+        p = subprocess.run(
+            cmd, capture_output=True, text=True, timeout=timeout, cwd=cwd
+        )
+    except subprocess.TimeoutExpired:
+        return f"⏱️ Délai dépassé ({timeout}s)."
+    out = (p.stdout or "").strip()
+    err = (p.stderr or "").strip()
+    if p.returncode != 0 and err:
+        out = (out + "\n⚠️ " + err).strip() if out else "⚠️ " + err
+    return out or err or "(aucune sortie)"
+
+
+# ---- accès web RÉEL (répond directement, jamais "voici la commande") --------
+METEO_RE = re.compile(
+    r"\b(m[ée]t[ée]o|temp[ée]rature|pleut|pluie|il fait (chaud|froid|beau)|"
+    r"quel temps|temps qu'il fait|fait[- ]il (chaud|froid))\b",
+    re.I,
+)
+CITY_RE = re.compile(
+    r"\b(?:à|a|de|du|pour|sur|en)\s+([A-ZÉÈÀ][\wàâäéèêëïîôöùûüç' -]{1,28})", re.I
+)
+
+
+def weather_answer(text):
+    """Météo réelle via wttr.in (gratuit, instantané). Ville détectée ou géo-IP."""
+    m = CITY_RE.search(text)
+    city = m.group(1).strip(" .,?!") if m else ""
+    city = re.sub(
+        r"\s*(aujourd'?hui|maintenant|demain|ce soir|ce matin|cet?\s+\w+)\s*$",
+        "",
+        city,
+        flags=re.I,
+    ).strip()
+    fmt = "%l: %c %t (ressenti %f), vent %w, humidité %h"
+    url = f"https://wttr.in/{quote(city)}?format={quote(fmt)}&lang=fr&m"
+    try:
+        r = requests.get(url, timeout=12, headers={"User-Agent": "curl/8"})
+        if r.ok and r.text.strip() and "Unknown" not in r.text:
+            return "🌤️ " + r.text.strip()
+    except Exception as e:
+        log.warning("wttr.in échec: %s", e)
+    return None
+
+
+def web_answer(text):
+    """Question web → réponse directe. Météo = wttr.in ; sinon Claude Code (-p)
+    qui a WebSearch natif et RÉPOND (au lieu de renvoyer une commande)."""
+    if METEO_RE.search(text):
+        w = weather_answer(text)
+        if w:
+            return w
+    prompt = (
+        "Tu as accès au web. Réponds directement, factuellement et brièvement à "
+        "cette demande, en français. Ne renvoie JAMAIS une commande à exécuter, "
+        "donne la réponse finale elle-même.\n\n" + text
+    )
+    out = _run(
+        ["claude", "-p", prompt, "--dangerously-skip-permissions"],
+        ACTION_TIMEOUT,
+        cwd=JARVIS_DIR,
+    )
+    return f"🌐 {out}"
+
+
+def run_action(text):
+    """Exécute une vraie action sur M1. Préfixe optionnel `xxx:` choisit le backend,
+    défaut = Claude Code. Ex : 'gemini: …', 'claw: …', 'agent: devops …'."""
+    body = (text or "").strip()
+    # Intent "ouvre un Claude Code visible sur M1" (vocal ou texte, préfixe terminal:)
+    low = body.lower()
+    if low.startswith(("terminal:", "term:", "écran:", "ecran:")):
+        return open_claude_terminal(body.split(":", 1)[1])
+    if OPEN_TERMINAL_RE.search(body):
+        return open_claude_terminal(body)
+    backend, agent_id, model = "claude", None, None
+    m = ACTION_PREFIX.match(body)
+    if m:
+        kw = m.group(1).lower()
+        body = m.group(2).strip()
+        if kw in ("gemini", "gem"):
+            backend = "gemini"
+        elif kw in ("claude", "cc"):
+            backend = "claude"
+        elif kw == "agent":
+            backend = "openclaw"
+            parts = body.split(None, 1)
+            # agent_id strictement validé (alnum/_/-, ≤32) — sinon ignoré (→ "main"),
+            # empêche l'injection d'arguments via --agent (sécu 2026-06-25)
+            if len(parts) == 2 and re.fullmatch(r"[a-zA-Z0-9_-]{1,32}", parts[0]):
+                agent_id, body = parts[0], parts[1]
+        else:  # claw / openclaw / oc
+            backend = "openclaw"
+    else:
+        # AUCUN préfixe → routage automatique vers le backend optimal
+        backend, model = auto_route(body)
+    if not body:
+        return "⚠️ Action vide."
+    log.info("run_action → backend=%s model=%s : %.60s", backend, model, body)
+    if backend == "web":
+        return web_answer(body)
+    if backend == "ollama":
+        try:
+            ans = clean(call_ollama(model, [{"role": "user", "content": body}]))
+            return f"⚡ [Ollama {model}] {ans or '(réponse vide)'}"
+        except Exception as e:
+            log.warning("ollama route fail (%s) → fallback Claude Code", e)
+            backend = "claude"
+    if backend == "gemini":
+        raw = _run(
+            [
+                "bash",
+                os.path.join(SCRIPTS_DIR, "gemini-ask.sh"),
+                "--json",
+                "--via",
+                "telegram",
+                "--",  # fin des options : body ne peut pas être interprété comme flag
+                body,
+            ],
+            ACTION_TIMEOUT,
+            cwd=JARVIS_DIR,
+        )
+        try:
+            return (
+                json.loads(raw).get("output") or raw
+            ).strip() or "(aucune sortie Gemini)"
+        except Exception:
+            return raw
+    if backend == "openclaw":
+        cmd = ["openclaw", "agent", "-m", body, "--json", "--agent", agent_id or "main"]
+        raw = _run(cmd, ACTION_TIMEOUT, cwd=JARVIS_DIR)
+        try:
+            j = json.loads(raw)
+            parts = [p.get("text", "") for p in j.get("result", {}).get("payloads", [])]
+            txt = "\n".join(t for t in parts if t).strip()
+            return txt or j.get("summary") or raw
+        except Exception:
+            return raw
+    # défaut : Claude Code non-interactif, actions autorisées dans ~/jarvis
+    return _run(
+        ["claude", "-p", body, "--dangerously-skip-permissions"],
+        ACTION_TIMEOUT,
+        cwd=JARVIS_DIR,
+    )
+
+
+# ---- ouverture d'un Claude Code INTERACTIF visible sur l'écran M1 ----------
+# Env GUI : le service tourne en --user, on force DISPLAY/XAUTHORITY pour atteindre :0
+GUI_ENV = {**os.environ, "DISPLAY": os.environ.get("DISPLAY", ":0")}
+if "XAUTHORITY" not in GUI_ENV:
+    _xa = os.path.expanduser("~/.Xauthority")
+    if os.path.exists(_xa):
+        GUI_ENV["XAUTHORITY"] = _xa
+
+# Intent "ouvre un terminal Claude Code" (distinct de "ouvre l'app X" → tâche)
+OPEN_TERMINAL_RE = re.compile(
+    r"(ouvr|lanc|d[ée]marr|affich|montr|open|start)\w*\s+"
+    r"(un\s+|le\s+|une\s+)?"
+    r"(claude\s*code|terminal|console|claude\b|cc\b)",
+    re.I,
+)
+# Retire la directive d'ouverture pour ne garder que la tâche à confier à Claude
+STRIP_OPEN_RE = re.compile(
+    r"^.*?(claude\s*code|terminal|console|claude|cc)\s*"
+    r"(et\s+|puis\s+|pour\s+|afin\s+de\s+|sur\s+m1\s+|sur\s+l'?[ée]cran\s+)?",
+    re.I,
+)
+
+
+def open_claude_terminal(text=""):
+    """Ouvre un Claude Code interactif dans un terminal GUI sur le bureau M1.
+    La tâche dictée (s'il en reste après la directive d'ouverture) est passée
+    en prompt initial. --dangerously-skip-permissions pour agir sans blocage."""
+    task = STRIP_OPEN_RE.sub("", text or "", count=1).strip(" .,:;-")
+    # nettoie les résidus en tête (locatifs / conjonctions) : "sur m1", "et", "puis"…
+    task = re.sub(
+        r"^((et|puis|alors|ensuite|sur\s+m1|sur\s+l'?[ée]cran|sur\s+le\s+bureau"
+        r"|sur\s+la\s+machine|et\s+)\s*)+",
+        "",
+        task,
+        flags=re.I,
+    ).strip(" .,:;-")
+    inner = f"cd {shlex.quote(JARVIS_DIR)}; exec claude --dangerously-skip-permissions"
+    if task:
+        inner += f" {shlex.quote(task)}"
+    candidates = [
+        ["gnome-terminal", "--title", "Claude Code · M1", "--", "bash", "-lc", inner],
+        ["kitty", "--title", "Claude Code · M1", "bash", "-lc", inner],
+        ["alacritty", "-t", "Claude Code · M1", "-e", "bash", "-lc", inner],
+        ["xterm", "-T", "Claude Code · M1", "-e", "bash", "-lc", inner],
+    ]
+    for cmd in candidates:
+        if not shutil.which(cmd[0]):
+            continue
+        try:
+            subprocess.Popen(
+                cmd,
+                env=GUI_ENV,
+                cwd=JARVIS_DIR,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                start_new_session=True,
+            )
+            extra = f"\n📝 Tâche confiée : « {task} »" if task else ""
+            return f"🖥️ Claude Code ouvert sur l'écran M1 ({cmd[0]}).{extra}"
+        except Exception as e:
+            log.warning("open terminal %s échec: %s", cmd[0], e)
+    return "⚠️ Aucun terminal GUI lançable (DISPLAY :0 indisponible ?)."
+
+
+def backend_for(bot, text):
+    if bot["mode"] == "agent":
+        return ("agent:M1", lambda m: run_action(m[-1]["content"]))
+    if bot["mode"] == "auto":
+        return route_auto(text)
+    model = bot.get("model", "gemma3:4b")
+    return (f"ollama:{model}", lambda m: call_ollama(model, m))
+
+
+# ---------------------------------------------------------------- telegram io
+def tg(token, method, **params):
+    url = TG_API.format(token=token, method=method)
+    try:
+        return requests.post(url, json=params, timeout=60).json()
+    except Exception as e:
+        log.warning("tg %s err: %s", method, e)
+        return {}
+
+
+def send(token, chat_id, text):
+    # Telegram limite à 4096 chars
+    for i in range(0, len(text) or 1, 4000):
+        tg(token, "sendMessage", chat_id=chat_id, text=text[i : i + 4000] or "(vide)")
+
+
+def clean(content):
+    return THINK_RE.sub("", content).strip()
+
+
+# ---------------------------------------------------------------- vocal (STT/TTS)
+def download_tg_file(token, file_id):
+    """Télécharge un fichier Telegram (voice note .oga) → chemin local."""
+    info = tg(token, "getFile", file_id=file_id).get("result", {})
+    fpath = info.get("file_path")
+    if not fpath:
+        return None
+    url = f"https://api.telegram.org/file/bot{token}/{fpath}"
+    r = requests.get(url, timeout=60)
+    r.raise_for_status()
+    suffix = os.path.splitext(fpath)[1] or ".oga"
+    tmp = tempfile.NamedTemporaryFile(delete=False, suffix=suffix)
+    tmp.write(r.content)
+    tmp.close()
+    return tmp.name
+
+
+def transcribe(audio_path):
+    """STT via Whisper OpenAI-compatible. Langue forcée + glossaire + temp 0 pour
+    une transcription fidèle des noms propres (Jarvis, Mirra, Ollama…)."""
+    data = {"model": STT_MODEL, "temperature": str(STT_TEMPERATURE)}
+    if STT_LANGUAGE:
+        data["language"] = STT_LANGUAGE
+    if STT_PROMPT:
+        data["prompt"] = STT_PROMPT  # biaise Whisper vers ce vocabulaire
+    with open(audio_path, "rb") as f:
+        r = requests.post(STT_URL, files={"file": f}, data=data, timeout=120)
+    r.raise_for_status()
+    text = (r.json().get("text") or "").strip()
+    return correct_transcript(text) if STT_CORRECT else text
+
+
+# Corrections déterministes rapides (noms propres mal entendus) — zéro latence
+TRANSCRIPT_FIXES = [
+    (re.compile(r"\bjarv(is|ie|y|i)s?\b", re.I), "Jarvis"),
+    (re.compile(r"\bmir+a\b", re.I), "Mirra"),
+    (re.compile(r"\bo+l+ama\b", re.I), "Ollama"),
+    (re.compile(r"\bturbo+s+e?\b", re.I), "Turbosse"),
+    (re.compile(r"\bwhisp?er\b", re.I), "Whisper"),
+    (re.compile(r"\bclust[ée]r?\b", re.I), "cluster"),
+    (re.compile(r"\bpaipeur\b", re.I), "Piper"),
+    (re.compile(r"\bgpu\b", re.I), "GPU"),
+]
+
+
+def correct_transcript(text):
+    """Corrige les noms propres récurrents par regex (instantané, sans LLM)."""
+    for rx, repl in TRANSCRIPT_FIXES:
+        text = rx.sub(repl, text)
+    return text
+
+
+# Symboles/émojis et ponctuation décorative à effacer pour une lecture vocale propre
+_TTS_EMOJI = re.compile(
+    "[\U0001f000-\U0001faff\U00002600-\U000027bf\U0001f1e6-\U0001f1ff←-⇿⌀-⏿️‍]"
+)
+# Caractères que Piper épelle ou qui cassent la prosodie (markdown, tableaux, attributions…)
+_TTS_NOISE = re.compile(r"[*#`_~|>\^\[\]{}<>\\/=+—–•·●▸▪◦“”«»\"]")
+
+# Unités/symboles → forme PARLÉE (sinon Piper les épelle ou les perd). Ordre important :
+# les motifs composés (km/h) avant les simples (km). Appliqué AVANT le strip des symboles.
+_SPOKEN_UNITS = [
+    (re.compile(r"(\d)\s*°\s*C\b", re.I), r"\1 degrés"),
+    (re.compile(r"(\d)\s*°\s*F\b", re.I), r"\1 degrés Fahrenheit"),
+    (re.compile(r"°"), " degrés "),
+    (
+        re.compile(r"km\s*/\s*h\b", re.I),
+        " kilomètres heure",
+    ),  # 13km/h (pas de \b entre chiffre et k)
+    (re.compile(r"km\s*²", re.I), " kilomètres carrés"),
+    (re.compile(r"m\s*/\s*s\b", re.I), " mètres par seconde"),
+    (re.compile(r"(?<=\d)\s*km\b", re.I), " kilomètres"),  # 13km → 13 kilomètres
+    (re.compile(r"(\d)\s*%"), r"\1 pour cent"),
+    (re.compile(r"(\d)\s*h\s*(\d{2})\b"), r"\1 heures \2"),  # 14h30 → 14 heures 30
+    (re.compile(r"(\d)\s*h\b"), r"\1 heures"),  # 14h → 14 heures
+    (re.compile(r"(?<![\w])\+(\d)"), r"\1"),  # +28 → 28 (le + parasite en météo)
+    (re.compile(r"€"), " euros"),
+    (re.compile(r"\$"), " dollars"),
+    (re.compile(r"&"), " et "),
+]
+
+
+def _spoken_units(t):
+    for rx, repl in _SPOKEN_UNITS:
+        t = rx.sub(repl, t)
+    return t
+
+
+def sanitize_for_tts(text):
+    """Nettoie un texte pour la synthèse vocale : retire markdown, symboles, émojis,
+    URLs et puces ; ne garde que la ponctuation de souffle (. , ? !) que Piper ne
+    prononce pas mais qui rythme la lecture. Objectif : lecture claire, sans symbole épelé."""
+    t = _spoken_units(text)
+    t = re.sub(
+        r"\[([^\]\n]+)\]\(\s*\S+?\s*\)", r"\1", t
+    )  # liens markdown → garde le texte
+    t = re.sub(
+        r"(?:https?://|www\.)\S+", "", t
+    )  # URLs http/https/www (illisibles en vocal)
+    t = re.sub(r"`{1,3}[^`]*`{1,3}", " ", t)  # blocs/inline code
+    t = re.sub(r"\[[A-Za-z0-9/_-]+\]", " ", t)  # attributions type [OL/local]
+    t = _TTS_EMOJI.sub(" ", t)  # émojis / pictogrammes
+    t = re.sub(r"^\s*[-–—]\s+", "", t, flags=re.M)  # puces de liste en début de ligne
+    t = _TTS_NOISE.sub(" ", t)  # symboles markdown / décoratifs
+    t = re.sub(r"[():;]", " ", t)  # ponctuation lue/parasite
+    t = re.sub(r"-{2,}", " ", t)  # séparateurs de tableau / tirets décoratifs
+    t = t.replace("…", ".")  # points de suspension Unicode → point simple
+    t = re.sub(r"([.!?])\1+", r"\1", t)  # ponctuation répétée !!! ... ??? → simple
+    t = re.sub(
+        r"\s{2,}([.,?!])", r" \1", t
+    )  # un seul espace avant la ponctuation (préserve la prosodie)
+    t = re.sub(r"\n{2,}", ". ", t)  # paragraphes → pause longue
+    t = re.sub(r"\n", " ", t)  # sauts de ligne simples → souffle
+    t = re.sub(r"[ \t]+", " ", t)  # espaces multiples
+    return t.strip()
+
+
+def tts_ogg(text):
+    """Piper TTS → wav → ogg/opus (format voice Telegram). Retourne le chemin .ogg."""
+    snippet = sanitize_for_tts(text)[:TTS_MAX_CHARS]
+    wav = tempfile.NamedTemporaryFile(delete=False, suffix=".wav").name
+    ogg = wav[:-4] + ".ogg"
+    subprocess.run(
+        [PIPER_BIN, "-m", PIPER_MODEL, "-f", wav],
+        input=snippet.encode(),
+        check=True,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+    subprocess.run(
+        ["ffmpeg", "-y", "-i", wav, "-c:a", "libopus", "-b:a", "32k", ogg],
+        check=True,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+    os.unlink(wav)
+    return ogg
+
+
+def send_voice(token, chat_id, text):
+    """Génère et envoie un message vocal Telegram (fallback texte si échec)."""
+    try:
+        ogg = tts_ogg(text)
+        with open(ogg, "rb") as f:
+            requests.post(
+                TG_API.format(token=token, method="sendVoice"),
+                data={"chat_id": chat_id},
+                files={"voice": ("reponse.ogg", f, "audio/ogg")},
+                timeout=60,
+            )
+        os.unlink(ogg)
+        return True
+    except Exception as e:
+        log.warning("TTS/sendVoice échec: %s", e)
+        return False
+
+
+# ---------------------------------------------------------------- worker bot
+def handle_message(bot, msg):
+    chat_id = msg["chat"]["id"]
+    token = bot["token"]
+    key = (bot["username"], chat_id)
+
+    # --- garde-fou : bot d'action restreint aux chats autorisés ---
+    allowed = bot.get("allowed_chats")
+    # Mode agent = exécution réelle (claude/openclaw/gemini) → allowed_chats OBLIGATOIRE.
+    # Sans liste explicite de chats de confiance, on refuse toute action (sécu 2026-06-25).
+    if bot.get("mode") == "agent" and not allowed:
+        log.error(
+            "%s: mode agent SANS allowed_chats — action refusée (sécurité)", bot["name"]
+        )
+        return
+    if allowed and chat_id not in allowed:
+        log.warning("%s: chat_id %s NON autorisé — ignoré", bot["name"], chat_id)
+        return
+
+    # --- entrée vocale : voice note ou audio → STT ---
+    is_voice_in = False
+    voice = msg.get("voice") or msg.get("audio")
+    if voice:
+        is_voice_in = True
+        tg(token, "sendChatAction", chat_id=chat_id, action="typing")
+        try:
+            path = download_tg_file(token, voice["file_id"])
+            text = transcribe(path)
+            os.unlink(path)
+        except Exception as e:
+            send(token, chat_id, f"⚠️ Transcription impossible : {e}")
+            return
+        if not text:
+            send(token, chat_id, "🎤 (audio vide ou inaudible)")
+            return
+        send(token, chat_id, f"🎤 « {text} »")
+    else:
+        text = (msg.get("text") or "").strip()
+    if not text:
+        return
+
+    if text in ("/start", "/help"):
+        extra = ""
+        if bot.get("mode") == "agent":
+            extra = (
+                "\n\n🖥️ *Pilotage M1 par la voix* — exemples :\n"
+                "• « ouvre Claude Code et regarde mes mails »\n"
+                "• « ouvre Claude Code pour déboguer le router »\n"
+                "• « regarde mes notifications LinkedIn »\n"
+                "• « ouvre un terminal sur M1 »\n"
+                "Préfixes : `terminal:` (terminal visible) · `gemini:` · `claw:` · `agent: <id>`"
+            )
+        send(
+            token,
+            chat_id,
+            f"🤖 {bot['name']} — {bot['persona']}\n\n"
+            f"Backend : {bot.get('mode')} {bot.get('model', '(auto)')}\n"
+            f"🎙️ Envoie un vocal → je réponds en vocal."
+            f"{extra}\n"
+            f"Commandes : /reset · /model · /voice (forcer la réponse vocale on/off)",
+        )
+        return
+    if text == "/reset":
+        HISTORY[key].clear()
+        send(token, chat_id, "🧹 Historique effacé.")
+        return
+    if text == "/model":
+        label, _ = backend_for(bot, "ping")
+        send(token, chat_id, f"⚙️ Backend : {label}")
+        return
+    if text == "/voice":
+        VOICE_FORCED[key] = not VOICE_FORCED[key]
+        send(
+            token,
+            chat_id,
+            f"🔊 Réponse vocale forcée : {'ON' if VOICE_FORCED[key] else 'OFF'}",
+        )
+        return
+
+    tg(token, "sendChatAction", chat_id=chat_id, action="typing")
+    if bot.get("mode") == "agent":
+        send(token, chat_id, "⏳ Action en cours sur M1…")
+    label, fn = backend_for(bot, text)
+    HISTORY[key].append({"role": "user", "content": text})
+    messages = [{"role": "system", "content": bot["persona"]}] + list(HISTORY[key])
+    t0 = time.time()
+    try:
+        answer = clean(fn(messages))
+        if not answer:
+            answer = "(réponse vide du modèle)"
+        HISTORY[key].append({"role": "assistant", "content": answer})
+        log.info(
+            "%s chat=%s via %s %.1fs voice_in=%s",
+            bot["name"],
+            chat_id,
+            label,
+            time.time() - t0,
+            is_voice_in,
+        )
+    except Exception as e:
+        answer = f"⚠️ Backend {label} indisponible : {e}"
+        log.warning("%s FAIL via %s: %s", bot["name"], label, e)
+        send(token, chat_id, answer)
+        return
+
+    # --- sortie : vocale si entrée vocale OU /voice ON, sinon texte ---
+    if is_voice_in or VOICE_FORCED[key]:
+        tg(token, "sendChatAction", chat_id=chat_id, action="record_voice")
+        if not send_voice(token, chat_id, answer):
+            send(token, chat_id, answer)  # fallback texte
+        if len(answer) > TTS_MAX_CHARS:
+            send(token, chat_id, answer)  # texte complet en complément si tronqué
+    else:
+        send(token, chat_id, answer)
+
+
+def poll_bot(bot):
+    token = bot["token"]
+    me = tg(token, "getMe").get("result", {})
+    log.info(
+        "▶ %s branché sur @%s (mode=%s %s)",
+        bot["name"],
+        me.get("username", "?"),
+        bot["mode"],
+        bot.get("model", ""),
+    )
+    offset = None
+    while True:
+        try:
+            params = {"timeout": 50}
+            if offset is not None:
+                params["offset"] = offset
+            r = tg(token, "getUpdates", **params)
+            for upd in r.get("result", []):
+                offset = upd["update_id"] + 1
+                if "message" in upd:
+                    threading.Thread(
+                        target=handle_message, args=(bot, upd["message"]), daemon=True
+                    ).start()
+        except Exception as e:
+            log.warning("%s poll err: %s", bot["name"], e)
+            time.sleep(5)
+
+
+def main():
+    threads = []
+    for bot in CFG["bots"]:
+        # Sécurité : un bot en mode agent (actions réelles M1) DOIT déclarer
+        # allowed_chats non vide, sinon on refuse de le démarrer (sécu 2026-06-25).
+        if bot.get("mode") == "agent" and not bot.get("allowed_chats"):
+            log.error(
+                "⛔ %s: mode agent sans allowed_chats — bot NON démarré (sécurité)",
+                bot.get("name", "?"),
+            )
+            continue
+        t = threading.Thread(
+            target=poll_bot, args=(bot,), name=bot["name"], daemon=True
+        )
+        t.start()
+        threads.append(t)
+    log.info("JARVIS Telegram LLM Router démarré — %d bots", len(threads))
+    try:
+        while True:
+            time.sleep(3600)
+    except KeyboardInterrupt:
+        log.info("arrêt")
+
+
+if __name__ == "__main__":
+    main()

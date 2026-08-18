@@ -1,0 +1,11 @@
+{
+  "id": "github-awesome-copilot-skills-multi-stage-dockerfile-skill-md",
+  "name": "multi-stage-dockerfile",
+  "author": "github",
+  "description": "Create optimized multi-stage Dockerfiles for any language or framework",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/github/awesome-copilot/tree/main/skills/multi-stage-dockerfile",
+  "skillUrl": "https://skillsmp.com/creators/github/awesome-copilot/skills-multi-stage-dockerfile",
+  "stars": 37423,
+  "updatedAt": 1771904373
+}

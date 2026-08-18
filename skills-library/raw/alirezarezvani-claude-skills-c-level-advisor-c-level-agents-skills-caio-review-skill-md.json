@@ -1,0 +1,11 @@
+{
+  "id": "alirezarezvani-claude-skills-c-level-advisor-c-level-agents-skills-caio-review-skill-md",
+  "name": "caio-review",
+  "author": "alirezarezvani",
+  "description": "/cs:caio-review <plan> \u2014 Eval-demanding Chief AI Officer interrogation of any plan that involves AI: model selection, risk classification, cost economics, or AI hiring. Use when shipping an AI feature without an eval set, choosing between API, fine-tune, and self-hosted, or classifying a use case under the EU AI Act.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/alirezarezvani/claude-skills/tree/main/c-level-advisor/c-level-agents/skills/caio-review",
+  "skillUrl": "https://skillsmp.com/creators/alirezarezvani/claude-skills/c-level-advisor-c-level-agents-skills-caio-review",
+  "stars": 23780,
+  "updatedAt": 1781150321
+}

@@ -1,0 +1,11 @@
+{
+  "id": "f-prompts-chat-windsurf-skills-widget-generator-skill-md",
+  "name": "widget-generator",
+  "author": "f",
+  "description": "Generate customizable widget plugins for the prompts.chat feed system",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/f/prompts.chat/tree/main/.windsurf/skills/widget-generator",
+  "skillUrl": "https://skillsmp.com/creators/f/prompts.chat/windsurf-skills-widget-generator",
+  "stars": 166717,
+  "updatedAt": 1771521638
+}

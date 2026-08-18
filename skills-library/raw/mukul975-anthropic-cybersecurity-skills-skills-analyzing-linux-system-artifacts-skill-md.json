@@ -1,0 +1,11 @@
+{
+  "id": "mukul975-anthropic-cybersecurity-skills-skills-analyzing-linux-system-artifacts-skill-md",
+  "name": "analyzing-linux-system-artifacts",
+  "author": "mukul975",
+  "description": "Examine Linux system artifacts (auth logs, cron/systemd persistence, shell history, SSH keys, and system configuration) to uncover evidence of compromise, detect rootkits or backdoors, and reconstruct user/attacker activity. Use when investigating a compromised Linux server or workstation, hunting for persistence mechanisms, or scoping a Linux-based breach during incident response.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/mukul975/Anthropic-Cybersecurity-Skills/tree/main/skills/analyzing-linux-system-artifacts",
+  "skillUrl": "https://skillsmp.com/creators/mukul975/anthropic-cybersecurity-skills/skills-analyzing-linux-system-artifacts",
+  "stars": 27260,
+  "updatedAt": 1785688333
+}

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# JARVIS BOARD OS — Conseil d'Experts Local Souverain.
+# Chemins réécrits pour cette machine : l'original de M1 pointait vers
+# /home/pamerys/, inexistant ici.
+BASE="${JARVIS_BASE:-$HOME/jarvis}"
+PYTHONPATH="$BASE:${PYTHONPATH:-}" exec python3 "$BASE/board/board.py" "$@"

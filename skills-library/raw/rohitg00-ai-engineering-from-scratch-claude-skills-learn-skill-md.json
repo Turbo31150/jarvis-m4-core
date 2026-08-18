@@ -1,0 +1,11 @@
+{
+  "id": "rohitg00-ai-engineering-from-scratch-claude-skills-learn-skill-md",
+  "name": "learn",
+  "author": "rohitg00",
+  "description": "Interactive lesson tutor for the AI Engineering from Scratch curriculum. Reads LEARNING.md, fetches the next lesson, teaches it section by section in the terminal, quizzes at the end, and records progress. Works cloned or entirely over raw.githubusercontent.com \u2014 no setup required. Trigger phrases: \"next lesson\", \"teach me\", \"continue the course\", \"let's learn\", \"resume learning\"",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/.claude/skills/learn",
+  "skillUrl": "https://skillsmp.com/creators/rohitg00/ai-engineering-from-scratch/claude-skills-learn",
+  "stars": 45899,
+  "updatedAt": 1785704250
+}

@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-ja-jp-skills-cost-aware-llm-pipeline-skill-md",
+  "name": "cost-aware-llm-pipeline",
+  "author": "affaan-m",
+  "description": "LLM API\u306e\u4f7f\u7528\u91cf\u306e\u30b3\u30b9\u30c8\u6700\u9069\u5316\u30d1\u30bf\u30fc\u30f3 \u2014 \u30bf\u30b9\u30af\u306e\u8907\u96d1\u3055\u306b\u3088\u308b\u30e2\u30c7\u30eb\u30eb\u30fc\u30c6\u30a3\u30f3\u30b0\u3001\u4e88\u7b97\u8ffd\u8de1\u3001\u30ea\u30c8\u30e9\u30a4\u30ed\u30b8\u30c3\u30af\u3001\u30d7\u30ed\u30f3\u30d7\u30c8\u30ad\u30e3\u30c3\u30b7\u30f3\u30b0\u3002",
+  "contentLanguage": "ja",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/ja-JP/skills/cost-aware-llm-pipeline",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-ja-jp-skills-cost-aware-llm-pipeline",
+  "stars": 237500,
+  "updatedAt": 1778999500
+}

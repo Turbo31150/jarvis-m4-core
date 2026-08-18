@@ -1,0 +1,24 @@
+Dear client,
+
+Thank you for your interest! Here's our pricing structure:
+
+HOURLY RATES:
+- Senior Developer: €60-80/hour
+- Full Stack: €50-70/hour
+- Specialized (AI/ML): €80-120/hour
+
+PROJECT RATES:
+- Small Projects (< 40h): Fixed quote based on scope
+- Medium Projects (40-200h): €55/hour average
+- Large Projects (> 200h): Custom package with discounts
+
+WHAT'S INCLUDED:
+✓ Unlimited revisions during development
+✓ 30-day support after delivery
+✓ Code documentation and handover
+✓ Regular progress updates
+
+Would you like to schedule a call to discuss your specific needs?
+
+Best regards,
+JARVIS Development Team

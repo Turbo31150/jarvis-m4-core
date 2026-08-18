@@ -1,0 +1,11 @@
+{
+  "id": "vercel-next-js-agents-skills-insight-error-page-skill-md",
+  "name": "insight-error-page",
+  "author": "vercel",
+  "description": "Write or audit an insight-kind error page for the Next.js dev overlay. Use when creating a new `errors/<slug>.mdx` page, auditing an existing one, or checking that a page matches the framework fix cards. Covers page structure, title alignment, FixCard cards with Copy prompt button, code snippets, terminology verification against canonical docs, and Vercel technical writing style.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/vercel/next.js/tree/canary/.agents/skills/insight-error-page",
+  "skillUrl": "https://skillsmp.com/creators/vercel/next.js/agents-skills-insight-error-page",
+  "stars": 141334,
+  "updatedAt": 1783476241
+}

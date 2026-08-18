@@ -1,0 +1,11 @@
+{
+  "id": "bartekrozycki-multi-agent-github-skills-execute-mission-skill-md",
+  "name": "execute-mission",
+  "author": "bartekrozycki",
+  "description": "Use when initiating, managing, or continuing a multi-agent mission loop with Architect Planner, Worker Software Engineer, and Adversarial Validator agents.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/bartekrozycki/multi-agent/tree/master/.github/skills/execute-mission",
+  "skillUrl": "https://skillsmp.com/creators/bartekrozycki/multi-agent/github-skills-execute-mission",
+  "stars": 0,
+  "updatedAt": 1780873466
+}

@@ -1,0 +1,11 @@
+{
+  "id": "stirling-tools-stirling-pdf-claude-skills-feature-walkthrough-skill-md",
+  "name": "feature-walkthrough",
+  "author": "Stirling-Tools",
+  "description": "Explain the full logic and process of the current branch end-to-end so someone with no prior knowledge of the task can understand, review, and reproduce it. Scopes the change from the branch diff, traces the flow across every layer it touches (frontend tool/hook/component, Java controller/service/endpoint, Python engine, config, i18n, tests), and produces a self-contained walkthrough document with Mermaid diagrams (sequence/flow/architecture), annotated file map with clickable references, before/after behavior, screenshots where a UI is involved, a \"try it locally\" section, and edge cases/risks. Use when asked for a feature or branch walkthrough, \"explain what this branch does\", a design/logic writeup, PR reviewer onboarding, or a hand-off doc. Pass --html to also emit a rendered HTML version; --no-screens to skip screenshots.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Stirling-Tools/Stirling-PDF/tree/main/.claude/skills/feature-walkthrough",
+  "skillUrl": "https://skillsmp.com/creators/stirling-tools/stirling-pdf/claude-skills-feature-walkthrough",
+  "stars": 88793,
+  "updatedAt": 1783504015
+}

@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-kiro-skills-security-review-skill-md",
+  "name": "security-review",
+  "author": "affaan-m",
+  "description": "Use this skill when adding authentication, handling user input, working with secrets, creating API endpoints, or implementing payment/sensitive features. Provides comprehensive security checklist and patterns.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/.kiro/skills/security-review",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/kiro-skills-security-review",
+  "stars": 237500,
+  "updatedAt": 1774833678
+}

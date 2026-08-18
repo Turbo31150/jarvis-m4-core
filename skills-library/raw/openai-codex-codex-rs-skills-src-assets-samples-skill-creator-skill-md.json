@@ -1,0 +1,11 @@
+{
+  "id": "openai-codex-codex-rs-skills-src-assets-samples-skill-creator-skill-md",
+  "name": "skill-creator",
+  "author": "openai",
+  "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Codex's capabilities with specialized knowledge, workflows, or tool integrations.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openai/codex/tree/main/codex-rs/skills/src/assets/samples/skill-creator",
+  "skillUrl": "https://skillsmp.com/creators/openai/codex/codex-rs-skills-src-assets-samples-skill-creator",
+  "stars": 103817,
+  "updatedAt": 1773711371
+}

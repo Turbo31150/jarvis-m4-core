@@ -1,0 +1,11 @@
+{
+  "id": "github-awesome-copilot-skills-creating-oracle-to-postgres-migration-bug-report-skill-md",
+  "name": "creating-oracle-to-postgres-migration-bug-report",
+  "author": "github",
+  "description": "Creates structured bug reports for defects found during Oracle-to-PostgreSQL migration. Use when documenting behavioral differences between Oracle and PostgreSQL as actionable bug reports with severity, root cause, and remediation steps.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/github/awesome-copilot/tree/main/skills/creating-oracle-to-postgres-migration-bug-report",
+  "skillUrl": "https://skillsmp.com/creators/github/awesome-copilot/skills-creating-oracle-to-postgres-migration-bug-report",
+  "stars": 37423,
+  "updatedAt": 1773186366
+}

@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-angular-developer-skill-md",
+  "name": "angular-developer",
+  "author": "affaan-m",
+  "description": "Generates Angular code and provides architectural guidance. Trigger when creating projects, components, or services, or for best practices on reactivity (signals, linkedSignal, resource), forms, dependency injection, routing, SSR, accessibility (ARIA), animations, styling (component styles, Tailwind CSS), testing, or CLI tooling.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/angular-developer",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-angular-developer",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

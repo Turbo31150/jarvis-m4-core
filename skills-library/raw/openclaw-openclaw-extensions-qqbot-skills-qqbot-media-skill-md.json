@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-extensions-qqbot-skills-qqbot-media-skill-md",
+  "name": "qqbot-media",
+  "author": "openclaw",
+  "description": "QQBot rich media send and receive support. Use <qqmedia> tags only for explicit media send/view requests, treating inbound attachment paths as private current-conversation context.",
+  "contentLanguage": "zh",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/extensions/qqbot/skills/qqbot-media",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/extensions-qqbot-skills-qqbot-media",
+  "stars": 385119,
+  "updatedAt": 1783062178
+}

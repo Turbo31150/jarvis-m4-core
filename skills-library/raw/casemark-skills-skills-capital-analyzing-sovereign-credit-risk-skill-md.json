@@ -1,0 +1,11 @@
+{
+  "id": "casemark-skills-skills-capital-analyzing-sovereign-credit-risk-skill-md",
+  "name": "analyzing-sovereign-credit-risk",
+  "author": "CaseMark",
+  "description": "Evaluates sovereign creditworthiness with fiscal analysis, external vulnerability, political risk, and institutional quality assessment. Use when analyzing sovereign risk, assessing country credit, or evaluating government bond exposure.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/CaseMark/skills/tree/main/skills/capital/analyzing-sovereign-credit-risk",
+  "skillUrl": "https://skillsmp.com/creators/casemark/skills/skills-capital-analyzing-sovereign-credit-risk",
+  "stars": 29,
+  "updatedAt": 1776710484
+}

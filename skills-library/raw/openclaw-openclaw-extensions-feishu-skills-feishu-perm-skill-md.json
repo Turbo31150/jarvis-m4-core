@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-extensions-feishu-skills-feishu-perm-skill-md",
+  "name": "feishu-perm",
+  "author": "openclaw",
+  "description": "Feishu collaborator and permission workflows. Activate when the user explicitly asks to inspect or change sharing, permissions, or collaborators.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/extensions/feishu/skills/feishu-perm",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/extensions-feishu-skills-feishu-perm",
+  "stars": 385119,
+  "updatedAt": 1785803460
+}

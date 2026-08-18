@@ -1,0 +1,11 @@
+{
+  "id": "yeachan-heo-oh-my-claudecode-skills-ccg-skill-md",
+  "name": "ccg",
+  "author": "Yeachan-Heo",
+  "description": "Claude-Codex-Gemini tri-model orchestration via /ask codex + /ask antigravity (or gemini), then Claude synthesizes results",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Yeachan-Heo/oh-my-claudecode/tree/main/skills/ccg",
+  "skillUrl": "https://skillsmp.com/creators/yeachan-heo/oh-my-claudecode/skills-ccg",
+  "stars": 38323,
+  "updatedAt": 1782141974
+}

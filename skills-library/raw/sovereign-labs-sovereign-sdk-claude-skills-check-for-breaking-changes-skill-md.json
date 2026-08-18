@@ -1,0 +1,11 @@
+{
+  "id": "sovereign-labs-sovereign-sdk-claude-skills-check-for-breaking-changes-skill-md",
+  "name": "check-for-breaking-changes",
+  "author": "Sovereign-Labs",
+  "description": "Detect breaking changes by analyzing git diff against dev branch. Checks for state access changes in call/genesis handlers, state item ordering violations, and demo-rollup-schema.json changes.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Sovereign-Labs/sovereign-sdk/tree/dev/.claude/skills/check-for-breaking-changes",
+  "skillUrl": "https://skillsmp.com/creators/sovereign-labs/sovereign-sdk/claude-skills-check-for-breaking-changes",
+  "stars": 478,
+  "updatedAt": 1774548702
+}

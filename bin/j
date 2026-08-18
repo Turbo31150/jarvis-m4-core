@@ -4,7 +4,7 @@
 # ║  Usage: j [commande] [options]                               ║
 # ╚══════════════════════════════════════════════════════════════╝
 VERSION="3.2.0"
-JARVIS_HOME="${JARVIS_HOME:-/home/turbo/jarvis}"
+JARVIS_HOME="${JARVIS_HOME:-/home/pamerys/jarvis}"
 OL1="http://127.0.0.1:11434"
 
 _red()    { echo -e "\033[0;31m$*\033[0m"; }
@@ -164,8 +164,8 @@ cmd_routes() {
   echo "    M1 Ollama       → http://192.168.1.85:11434"
   echo ""
   echo "  MCP (Antigravity):"
-  echo "    jarvis-cluster  → python3 /home/turbo/jarvis/mcp/cluster_server.py"
-  echo "    jarvis-agents   → python3 /home/turbo/jarvis/mcp/agents_server.py"
+  echo "    jarvis-cluster  → python3 /home/pamerys/jarvis/mcp/cluster_server.py"
+  echo "    jarvis-agents   → python3 /home/pamerys/jarvis/mcp/agents_server.py"
   echo "    openclaw        → openclaw (binary)"
   echo "    redis           → npx @modelcontextprotocol/server-redis redis://localhost:6379"
 }

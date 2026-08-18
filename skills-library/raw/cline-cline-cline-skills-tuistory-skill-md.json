@@ -1,0 +1,11 @@
+{
+  "id": "cline-cline-cline-skills-tuistory-skill-md",
+  "name": "tuistory",
+  "author": "cline",
+  "description": "Drive and test terminal apps (especially the Cline CLI TUI in apps/cli) through tuistory \u2014 named background PTY sessions that agents can read, wait on, snapshot, screenshot, and type into. Like Playwright/tmux for terminals, with reactive waiting instead of blind `sleep`.\n\nUse this skill when you need to:\n- Manually test or reproduce bugs in the interactive Cline TUI (`bun run cli -i`) from a headless environment\n- Run a dev server or any long-lived/interactive process in the background without hanging your tool call\n- Write or extend Playwright-style e2e tests for the TUI (`bun run test:e2e:tuistory` in apps/cli)\n- Capture text snapshots or styled PNG screenshots of a TUI screen as evidence",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/cline/cline/tree/main/.cline/skills/tuistory",
+  "skillUrl": "https://skillsmp.com/creators/cline/cline/cline-skills-tuistory",
+  "stars": 65605,
+  "updatedAt": 1785543262
+}

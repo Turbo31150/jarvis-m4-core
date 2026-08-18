@@ -1,0 +1,11 @@
+{
+  "id": "github-awesome-copilot-skills-python-azure-iot-edge-modules-skill-md",
+  "name": "python-azure-iot-edge-modules",
+  "author": "github",
+  "description": "Build and operate Python Azure IoT Edge modules with robust messaging, deployment manifests, observability, and production readiness checks.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/github/awesome-copilot/tree/main/skills/python-azure-iot-edge-modules",
+  "skillUrl": "https://skillsmp.com/creators/github/awesome-copilot/skills-python-azure-iot-edge-modules",
+  "stars": 37423,
+  "updatedAt": 1777425342
+}

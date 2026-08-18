@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-agents-skills-telegram-crabbox-e2e-proof-skill-md",
+  "name": "telegram-crabbox-e2e-proof",
+  "author": "openclaw",
+  "description": "Use when reviewing, reproducing, or proving OpenClaw Telegram behavior with a real Telegram user on Crabbox, including PR review workflows that need an agent-controlled Telegram Desktop recording, TDLib user-driver commands, Convex-leased credentials, WebVNC observation, and motion-trimmed artifacts.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/.agents/skills/telegram-crabbox-e2e-proof",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/agents-skills-telegram-crabbox-e2e-proof",
+  "stars": 385119,
+  "updatedAt": 1785141186
+}

@@ -1,0 +1,11 @@
+{
+  "id": "sveltejs-svelte-agents-skills-performance-investigation-skill-md",
+  "name": "performance-investigation",
+  "author": "sveltejs",
+  "description": "Investigate performance regressions and find opportunities for optimization",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/sveltejs/svelte/tree/main/.agents/skills/performance-investigation",
+  "skillUrl": "https://skillsmp.com/creators/sveltejs/svelte/agents-skills-performance-investigation",
+  "stars": 87830,
+  "updatedAt": 1775152163
+}

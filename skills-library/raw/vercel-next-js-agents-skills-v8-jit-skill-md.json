@@ -1,0 +1,11 @@
+{
+  "id": "vercel-next-js-agents-skills-v8-jit-skill-md",
+  "name": "v8-jit",
+  "author": "vercel",
+  "description": "V8 JIT optimization patterns for writing high-performance JavaScript in Next.js server internals. Use when writing or reviewing hot-path code in app-render, stream-utils, routing, caching, or any per-request code path. Covers hidden classes / shapes, monomorphic call sites, inline caches, megamorphic deopt, closure allocation, array packing, and profiling with --trace-opt / --trace-deopt.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/vercel/next.js/tree/canary/.agents/skills/v8-jit",
+  "skillUrl": "https://skillsmp.com/creators/vercel/next.js/agents-skills-v8-jit",
+  "stars": 141334,
+  "updatedAt": 1778790575
+}

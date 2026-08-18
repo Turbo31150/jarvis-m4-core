@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-ecc-tools-cost-audit-skill-md",
+  "name": "ecc-tools-cost-audit",
+  "author": "affaan-m",
+  "description": "Evidence-first ECC Tools burn and billing audit workflow. Use when investigating runaway PR creation, quota bypass, premium-model leakage, duplicate jobs, or GitHub App cost spikes in the ECC Tools repo.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/ecc-tools-cost-audit",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-ecc-tools-cost-audit",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

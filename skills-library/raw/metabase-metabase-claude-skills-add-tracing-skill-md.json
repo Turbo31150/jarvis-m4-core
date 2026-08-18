@@ -1,0 +1,11 @@
+{
+  "id": "metabase-metabase-claude-skills-add-tracing-skill-md",
+  "name": "add-tracing",
+  "author": "metabase",
+  "description": "Add OpenTelemetry tracing spans to Clojure code following Metabase tracing conventions. Use when instrumenting backend code with trace coverage.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/metabase/metabase/tree/master/.claude/skills/add-tracing",
+  "skillUrl": "https://skillsmp.com/creators/metabase/metabase/claude-skills-add-tracing",
+  "stars": 48525,
+  "updatedAt": 1774514296
+}

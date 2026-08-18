@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-agents-skills-openclaw-test-performance-skill-md",
+  "name": "openclaw-test-performance",
+  "author": "openclaw",
+  "description": "Benchmark, diagnose, and optimize OpenClaw test and plugin-suite runtime, import hotspots, CPU/RSS, heap growth, and slow coverage paths.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/.agents/skills/openclaw-test-performance",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/agents-skills-openclaw-test-performance",
+  "stars": 385119,
+  "updatedAt": 1779701685
+}

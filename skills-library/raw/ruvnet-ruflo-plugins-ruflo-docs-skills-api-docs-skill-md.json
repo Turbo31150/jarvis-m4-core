@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruflo-plugins-ruflo-docs-skills-api-docs-skill-md",
+  "name": "api-docs",
+  "author": "ruvnet",
+  "description": "Generate API documentation from source code with JSDoc and OpenAPI support",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/ruflo/tree/main/plugins/ruflo-docs/skills/api-docs",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruflo/plugins-ruflo-docs-skills-api-docs",
+  "stars": 66991,
+  "updatedAt": 1784257589
+}

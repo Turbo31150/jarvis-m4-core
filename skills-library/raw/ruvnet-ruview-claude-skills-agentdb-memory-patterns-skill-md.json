@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruview-claude-skills-agentdb-memory-patterns-skill-md",
+  "name": "agentdb-memory-patterns",
+  "author": "ruvnet",
+  "description": "Implement persistent memory patterns for AI agents using AgentDB. Includes session memory, long-term storage, pattern learning, and context management. Use when building stateful agents, chat systems, or intelligent assistants.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/RuView/tree/main/.claude/skills/agentdb-memory-patterns",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruview/claude-skills-agentdb-memory-patterns",
+  "stars": 88440,
+  "updatedAt": 1768273876
+}

@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Franck Delmas — Automatisation IA · Systèmes Intelligents sur Mesure</title>
+<meta name="description" content="Automatisez votre boutique, usine ou PME avec l'IA. Packs clés en main, audit, conseil, implantation sur site. Expert IA & Automatisation. Résultats garantis.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+:root{--red:#e50914;--bg:#141414;--bg2:#1a1a1a;--bg3:#222;--text:#fff;--muted:#b3b3b3;--gold:#7c5cff;--green:#46d369;--border:#333;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,sans-serif;overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-track{background:#000;}::-webkit-scrollbar-thumb{background:var(--red);border-radius:3px;}
+.urgency-bar{position:fixed;top:0;left:0;right:0;z-index:500;background:var(--red);text-align:center;padding:9px 20px;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:12px;}
+.urgency-bar a{color:#fff;text-decoration:underline;}
+.ub-counter{background:rgba(0,0,0,.25);border-radius:3px;padding:2px 8px;font-size:12px;font-weight:800;letter-spacing:1px;}
+nav{position:fixed;top:36px;left:0;right:0;z-index:200;padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(180deg,rgba(0,0,0,.95) 0%,rgba(0,0,0,.6) 100%);transition:background .3s;backdrop-filter:blur(8px);}
+nav.scrolled{background:rgba(20,20,20,.98);backdrop-filter:blur(20px);}
+.nav-formation{background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.3);color:#00d4ff;padding:8px 18px;border-radius:4px;font-weight:700;font-size:12px;letter-spacing:.3px;transition:.2s;margin-right:8px;}
+.nav-formation:hover{background:rgba(0,212,255,.2);}
+.nav-demande{background:rgba(229,9,20,.1);border:1px solid rgba(229,9,20,.3);color:#ff6b6b;padding:8px 18px;border-radius:4px;font-weight:700;font-size:12px;letter-spacing:.3px;transition:.2s;margin-right:8px;}
+.nav-demande:hover{background:rgba(229,9,20,.2);}
+.logo{font-size:24px;font-weight:900;color:var(--red);letter-spacing:-1px;}
+.logo span{color:#fff;}
+.nav-links{display:flex;gap:24px;}
+.nav-links a{font-size:14px;color:var(--muted);font-weight:500;transition:.2s;}
+.nav-links a:hover{color:#fff;}
+.nav-cta{background:var(--red);color:#fff;padding:9px 22px;border-radius:4px;font-weight:800;font-size:13px;letter-spacing:.3px;transition:.2s;}
+.nav-cta:hover{background:#c11119;transform:scale(1.04);}
+@media(max-width:800px){.nav-links{display:none;}}
+.hero{position:relative;height:100vh;min-height:720px;display:flex;align-items:center;background:#000;overflow:hidden;padding-top:100px;}
+.hero-particles{position:absolute;inset:0;overflow:hidden;}
+.particle{position:absolute;width:2px;height:2px;background:var(--red);border-radius:50%;animation:float var(--d,8s) linear infinite;opacity:0;left:var(--x);top:var(--y);}
+@keyframes float{0%{opacity:0;transform:translateY(0);}10%{opacity:.6;}90%{opacity:.2;}100%{opacity:0;transform:translateY(-100vh);}}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.92) 0%,rgba(0,0,0,.5) 60%,rgba(0,0,0,.2) 100%),radial-gradient(ellipse 130% 90% at 75% 50%,#1a0505 0%,#000 100%);}
+.hero-grid{position:absolute;inset:0;opacity:.04;background-image:linear-gradient(var(--red) 1px,transparent 1px),linear-gradient(90deg,var(--red) 1px,transparent 1px);background-size:50px 50px;animation:grid-anim 20s linear infinite;}
+@keyframes grid-anim{0%{transform:translateY(0);}100%{transform:translateY(50px);}}
+.hero-glow{position:absolute;right:-10%;top:50%;transform:translateY(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(229,9,20,.15) 0%,transparent 70%);pointer-events:none;}
+.hero-content{position:relative;z-index:2;padding:0 5%;max-width:700px;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(229,9,20,.12);border:1px solid rgba(229,9,20,.35);color:#fff;padding:7px 16px;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:24px;}
+.live-dot{width:8px;height:8px;border-radius:50%;background:var(--red);animation:pulse 1.5s infinite;flex-shrink:0;}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(229,9,20,.4);}50%{opacity:.5;box-shadow:0 0 0 6px rgba(229,9,20,0);}}
+.hero h1{font-size:clamp(38px,6.5vw,78px);font-weight:900;line-height:1.02;letter-spacing:-2.5px;margin-bottom:20px;}
+.hero h1 .red{color:var(--red);}
+.hero h1 .outline{-webkit-text-stroke:2px rgba(255,255,255,.7);color:transparent;}
+.hero-sub{font-size:clamp(15px,1.9vw,18px);color:var(--muted);line-height:1.7;margin-bottom:36px;max-width:560px;}
+.hero-sub strong{color:#fff;}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:48px;}
+.btn-red{background:var(--red);color:#fff;padding:16px 36px;border-radius:4px;font-weight:900;font-size:16px;transition:.25s;display:inline-flex;align-items:center;gap:9px;letter-spacing:.2px;}
+.btn-red:hover{background:#c11119;transform:translateY(-2px);box-shadow:0 8px 30px rgba(229,9,20,.4);}
+.btn-ghost{background:rgba(255,255,255,.1);color:#fff;padding:16px 32px;border-radius:4px;font-weight:700;font-size:16px;backdrop-filter:blur(8px);transition:.25s;border:1px solid rgba(255,255,255,.15);}
+.btn-ghost:hover{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.35);}
+.hero-stats{display:flex;gap:40px;flex-wrap:wrap;}
+.hero-stat{border-left:3px solid var(--red);padding-left:16px;}
+.hero-stat-num{font-size:30px;font-weight:900;line-height:1;font-variant-numeric:tabular-nums;}
+.hero-stat-label{font-size:11px;color:var(--muted);margin-top:4px;text-transform:uppercase;letter-spacing:.8px;}
+.trust-strip{background:#0d0d0d;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:20px 5%;display:flex;align-items:center;gap:48px;overflow:hidden;position:relative;}
+.trust-strip::before,.trust-strip::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;}
+.trust-strip::before{left:0;background:linear-gradient(90deg,#0d0d0d,transparent);}
+.trust-strip::after{right:0;background:linear-gradient(-90deg,#0d0d0d,transparent);}
+.trust-label{font-size:11px;color:#555;text-transform:uppercase;letter-spacing:1.5px;white-space:nowrap;flex-shrink:0;}
+.trust-logos{display:flex;gap:48px;animation:scroll-x 25s linear infinite;white-space:nowrap;flex-shrink:0;}
+.trust-logos span{font-size:13px;color:#444;font-weight:700;letter-spacing:.5px;}
+@keyframes scroll-x{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+section{padding:90px 5%;}
+.dark{background:#000;}
+.mid{background:var(--bg2);}
+.sec-label{font-size:11px;font-weight:700;color:var(--red);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:8px;}
+h2.sec-title{font-size:clamp(28px,4.5vw,52px);font-weight:900;letter-spacing:-1.5px;line-height:1.1;margin-bottom:10px;}
+p.sec-sub{font-size:16px;color:var(--muted);max-width:600px;margin-bottom:48px;line-height:1.7;}
+.proof-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);}
+.proof-item{background:var(--bg);padding:40px 28px;text-align:center;transition:.3s;}
+.proof-item:hover{background:var(--bg2);}
+.proof-num{font-size:52px;font-weight:900;color:var(--red);line-height:1;font-variant-numeric:tabular-nums;}
+.proof-desc{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.45;}
+@media(max-width:650px){.proof-row{grid-template-columns:repeat(2,1fr);}}
+.steps{display:flex;gap:0;position:relative;}
+.steps::before{content:'';position:absolute;top:30px;left:28px;right:28px;height:2px;background:linear-gradient(90deg,var(--red),rgba(229,9,20,.2));z-index:0;}
+.step{flex:1;padding:30px 22px;background:var(--bg2);border:1px solid var(--border);position:relative;z-index:1;transition:.35s;}
+.step:first-child{border-radius:8px 0 0 8px;}
+.step:last-child{border-radius:0 8px 8px 0;}
+.step:hover{background:var(--bg3);border-color:rgba(229,9,20,.4);transform:translateY(-4px);}
+.step-num{width:38px;height:38px;border-radius:50%;background:var(--red);color:#fff;font-weight:900;font-size:14px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;flex-shrink:0;}
+.step h3{font-size:15px;font-weight:700;margin-bottom:7px;}
+.step p{font-size:13px;color:var(--muted);line-height:1.6;}
+@media(max-width:700px){.steps{flex-direction:column;}.steps::before{display:none;}.step{border-radius:8px!important;}}
+.profils{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:10px;}
+.profil{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:26px 20px;transition:.35s;cursor:default;position:relative;overflow:hidden;}
+.profil::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(229,9,20,.08),transparent);opacity:0;transition:.3s;}
+.profil:hover::before{opacity:1;}
+.profil:hover{border-color:var(--red);transform:translateY(-4px);box-shadow:0 12px 40px rgba(229,9,20,.15);}
+.profil .icon{font-size:38px;margin-bottom:12px;}
+.profil h3{font-size:15px;font-weight:700;margin-bottom:5px;}
+.profil p{font-size:12px;color:var(--muted);line-height:1.5;}
+.profil .tag{margin-top:10px;display:inline-block;background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:2px 9px;border-radius:3px;letter-spacing:.5px;}
+.packs{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:12px;}
+.pack{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:30px;position:relative;transition:.35s;overflow:hidden;}
+.pack::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--border);}
+.pack.pop{border-color:rgba(229,9,20,.3);}
+.pack.pop::before{background:var(--red);}
+.pack.gold::before{background:var(--gold);}
+.pack:hover{border-color:rgba(255,255,255,.2);transform:translateY(-5px);box-shadow:0 20px 60px rgba(0,0,0,.5);}
+.pack.pop:hover{box-shadow:0 20px 60px rgba(229,9,20,.2);}
+.pack-badge{position:absolute;top:16px;right:16px;font-size:10px;font-weight:800;padding:3px 11px;border-radius:20px;}
+.pack.pop .pack-badge{background:var(--red);color:#fff;}
+.pack.gold .pack-badge{background:var(--gold);color:#000;}
+.pack-target{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
+.pack-name{font-size:24px;font-weight:900;margin-bottom:5px;}
+.pack-tag{font-size:13px;color:var(--muted);margin-bottom:22px;line-height:1.5;}
+.pack-price{font-size:46px;font-weight:900;line-height:1;margin-bottom:3px;}
+.pack-price sup{font-size:22px;vertical-align:top;margin-top:8px;}
+.pack-price sub{font-size:13px;font-weight:400;color:var(--muted);}
+.pack-savings{font-size:11px;color:var(--green);font-weight:700;margin-bottom:22px;}
+.pack hr{border:none;border-top:1px solid var(--border);margin:18px 0;}
+.pack ul{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:26px;}
+.pack ul li{font-size:13px;display:flex;gap:9px;align-items:flex-start;color:var(--muted);}
+.pack ul li .c{color:var(--green);flex-shrink:0;}
+.pack ul li .s{color:var(--gold);flex-shrink:0;}
+.pack ul li.hl{color:#fff;}
+.pack-btn{display:block;text-align:center;padding:14px;border-radius:5px;font-weight:800;font-size:14px;background:rgba(255,255,255,.1);color:#fff;transition:.25s;letter-spacing:.3px;}
+.pack-btn:hover{transform:scale(1.03);}
+.pack.pop .pack-btn{background:var(--red);}
+.pack.pop .pack-btn:hover{background:#c11119;}
+.pack.gold .pack-btn{background:var(--gold);color:#000;}
+.pack.gold .pack-btn:hover{background:#e09610;}
+.roi-wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1100px;margin:0 auto;}
+.roi-numbers{display:flex;flex-direction:column;gap:20px;}
+.roi-item{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:22px 24px;display:flex;justify-content:space-between;align-items:center;transition:.3s;}
+.roi-item:hover{border-color:rgba(70,211,105,.3);background:rgba(70,211,105,.04);}
+.roi-label{font-size:14px;color:var(--muted);}
+.roi-val{font-size:22px;font-weight:900;color:var(--green);}
+.roi-calc{background:rgba(229,9,20,.07);border:1px solid rgba(229,9,20,.2);border-radius:10px;padding:32px;}
+.roi-calc h3{font-size:20px;font-weight:800;margin-bottom:20px;}
+.roi-calc p{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:14px;}
+.roi-calc .big{font-size:48px;font-weight:900;color:var(--red);line-height:1;margin:16px 0 4px;}
+.roi-calc small{font-size:13px;color:var(--muted);}
+@media(max-width:860px){.roi-wrap{grid-template-columns:1fr;gap:36px;}}
+.testimonials{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;}
+.testi{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:28px;transition:.3s;position:relative;}
+.testi:hover{border-color:rgba(255,255,255,.15);transform:translateY(-3px);}
+.testi-stars{color:var(--gold);font-size:14px;letter-spacing:2px;margin-bottom:14px;}
+.testi-text{font-size:15px;line-height:1.7;color:#e0e0e0;margin-bottom:18px;font-style:italic;}
+.testi-text::before{content:'"';font-size:60px;color:rgba(229,9,20,.2);font-weight:900;line-height:.5;display:block;margin-bottom:8px;}
+.testi-author{display:flex;align-items:center;gap:12px;}
+.testi-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--red),#800);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;flex-shrink:0;}
+.testi-name{font-size:14px;font-weight:700;}
+.testi-role{font-size:12px;color:var(--muted);}
+.testi-result{position:absolute;top:16px;right:16px;background:rgba(70,211,105,.1);border:1px solid rgba(70,211,105,.25);color:var(--green);font-size:11px;font-weight:700;padding:3px 10px;border-radius:3px;}
+.services{display:grid;grid-template-columns:repeat(auto-fit,minmax(265px,1fr));gap:2px;}
+.svc{background:var(--bg2);padding:34px 30px;border:1px solid var(--border);transition:.35s;position:relative;overflow:hidden;}
+.svc::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:transparent;transition:.35s;}
+.svc:hover::before{background:var(--red);}
+.svc:hover{background:var(--bg3);}
+.svc .icon{font-size:38px;margin-bottom:16px;}
+.svc h3{font-size:18px;font-weight:800;margin-bottom:9px;}
+.svc p{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:16px;}
+.svc ul{list-style:none;display:flex;flex-direction:column;gap:6px;}
+.svc ul li{font-size:13px;color:var(--muted);padding-left:16px;position:relative;}
+.svc ul li::before{content:'→';position:absolute;left:0;color:var(--red);font-size:11px;}
+.svc-price{display:inline-block;margin-top:16px;background:rgba(229,9,20,.1);border:1px solid rgba(229,9,20,.25);color:var(--red);font-size:12px;font-weight:700;padding:4px 13px;border-radius:3px;}
+.tech-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;}
+.tech-item{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:18px 14px;text-align:center;transition:.3s;}
+.tech-item:hover{border-color:rgba(229,9,20,.4);transform:scale(1.04);}
+.tech-item .ico{font-size:28px;margin-bottom:8px;}
+.tech-item .name{font-size:12px;font-weight:700;}
+.tech-item .cat{font-size:10px;color:var(--muted);margin-top:2px;}
+.compare{width:100%;border-collapse:collapse;background:var(--bg2);border-radius:10px;overflow:hidden;}
+.compare th{background:rgba(229,9,20,.12);padding:16px 20px;font-size:13px;font-weight:700;text-align:left;border-bottom:1px solid var(--border);}
+.compare th.ours{color:var(--red);}
+.compare td{padding:13px 20px;font-size:13px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--muted);}
+.compare td:first-child{color:#fff;font-weight:600;}
+.compare td.ok{color:var(--green);font-weight:700;}
+.compare td.no{color:#444;}
+.compare tr:hover td{background:rgba(255,255,255,.02);}
+.impl-wrap{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;max-width:1200px;margin:0 auto;}
+.impl-steps{display:flex;flex-direction:column;}
+.impl-step{display:flex;gap:0;padding:24px 0;border-bottom:1px solid var(--border);}
+.impl-step:last-child{border-bottom:none;}
+.impl-left{flex:0 0 66px;display:flex;flex-direction:column;align-items:center;}
+.impl-num{width:42px;height:42px;border-radius:50%;background:var(--red);color:#fff;font-weight:900;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.impl-line{flex:1;width:2px;background:var(--border);margin-top:8px;}
+.impl-step:last-child .impl-line{display:none;}
+.impl-body{padding-top:7px;}
+.impl-body strong{font-size:16px;font-weight:800;display:block;margin-bottom:5px;}
+.impl-body p{font-size:13px;color:var(--muted);line-height:1.6;}
+.impl-panel{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:34px;}
+.impl-panel h3{font-size:18px;font-weight:900;color:var(--red);margin-bottom:20px;}
+.site-item{display:flex;gap:14px;align-items:center;padding:14px 16px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:8px;margin-bottom:8px;transition:.25s;}
+.site-item:hover{border-color:rgba(229,9,20,.3);background:rgba(229,9,20,.04);}
+.site-item .ico{font-size:26px;flex-shrink:0;}
+.site-item .name{font-size:14px;font-weight:700;}
+.site-item .desc{font-size:12px;color:var(--muted);}
+.sys-badge{margin-top:22px;padding:16px 18px;background:rgba(229,9,20,.07);border:1px solid rgba(229,9,20,.18);border-radius:8px;font-size:13px;color:var(--muted);}
+.sys-badge strong{color:var(--red);}
+@media(max-width:860px){.impl-wrap{grid-template-columns:1fr;gap:40px;}}
+.faq{display:flex;flex-direction:column;gap:3px;max-width:880px;}
+.faq-item{background:var(--bg2);border:1px solid var(--border);border-radius:7px;overflow:hidden;}
+.faq-q{padding:20px 24px;font-size:15px;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:.2s;}
+.faq-q:hover{background:var(--bg3);}
+.faq-q .arr{color:var(--muted);font-size:22px;transition:.35s;flex-shrink:0;}
+.faq-item.open .faq-q .arr{transform:rotate(45deg);color:var(--red);}
+.faq-a{max-height:0;overflow:hidden;transition:.4s ease;}
+.faq-item.open .faq-a{max-height:300px;}
+.faq-a p{padding:0 24px 20px;font-size:14px;color:var(--muted);line-height:1.75;}
+.contact-wrap{text-align:center;padding:110px 5%;background:radial-gradient(ellipse 100% 80% at 50% 100%,rgba(229,9,20,.07),transparent);}
+.contact-wrap h2{font-size:clamp(30px,5.5vw,60px);font-weight:900;letter-spacing:-2.5px;margin-bottom:14px;}
+.contact-wrap .sub{font-size:17px;color:var(--muted);max-width:540px;margin:0 auto 44px;line-height:1.65;}
+.contact-cards{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;max-width:720px;margin:0 auto 40px;}
+.cc{flex:1;min-width:200px;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:26px;text-align:center;transition:.35s;}
+.cc:hover{border-color:var(--red);transform:translateY(-4px);box-shadow:0 16px 48px rgba(229,9,20,.15);}
+.cc .ico{font-size:30px;margin-bottom:10px;}
+.cc .lbl{font-size:11px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.8px;}
+.cc .val{font-size:14px;font-weight:700;}
+.cta-urgency{background:rgba(229,9,20,.08);border:1px solid rgba(229,9,20,.25);border-radius:8px;padding:16px 32px;font-size:14px;color:var(--muted);display:inline-block;}
+.cta-urgency strong{color:#fff;}
+.slots{display:inline-flex;gap:5px;margin:0 6px;vertical-align:middle;}
+.slot-dot{width:10px;height:10px;border-radius:50%;background:var(--green);}
+.slot-dot.used{background:#333;}
+footer{background:#000;border-top:1px solid var(--border);padding:52px 5% 32px;}
+.foot-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:32px;margin-bottom:36px;}
+.foot-logo{font-size:24px;font-weight:900;color:var(--red);letter-spacing:-1px;}
+.foot-logo span{color:#fff;}
+.foot-tag{font-size:13px;color:var(--muted);margin-top:6px;line-height:1.5;}
+.foot-cols{display:flex;gap:44px;flex-wrap:wrap;}
+.foot-col h4{font-size:11px;font-weight:700;margin-bottom:14px;color:#fff;letter-spacing:1px;text-transform:uppercase;}
+.foot-col a{display:block;font-size:13px;color:var(--muted);margin-bottom:8px;transition:.2s;}
+.foot-col a:hover{color:#fff;}
+.foot-bottom{border-top:1px solid var(--border);padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--muted);}
+.foot-live{display:flex;align-items:center;gap:6px;}
+.foot-live .dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
+.popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:900;display:none;align-items:center;justify-content:center;padding:20px;}
+.popup-overlay.active{display:flex;}
+.popup-box{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:44px;max-width:520px;width:100%;position:relative;text-align:center;}
+.popup-close{position:absolute;top:16px;right:20px;font-size:22px;color:var(--muted);cursor:pointer;transition:.2s;}
+.popup-close:hover{color:#fff;}
+.popup-box h3{font-size:28px;font-weight:900;letter-spacing:-1px;margin-bottom:10px;}
+.popup-box h3 span{color:var(--red);}
+.popup-box p{font-size:15px;color:var(--muted);margin-bottom:28px;line-height:1.65;}
+.popup-btn{display:inline-block;background:var(--red);color:#fff;padding:14px 36px;border-radius:5px;font-weight:800;font-size:15px;transition:.2s;}
+.popup-btn:hover{background:#c11119;}
+.popup-skip{display:block;margin-top:14px;font-size:13px;color:#555;cursor:pointer;}
+.popup-skip:hover{color:var(--muted);}
+.reveal{opacity:0;transform:translateY(28px);transition:.7s ease;}
+.reveal.in{opacity:1;transform:none;}
+.progress-bar{position:fixed;top:36px;left:0;height:3px;background:var(--red);z-index:999;width:0%;transition:width .1s;}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="prog"></div>
+<div class="urgency-bar">
+  🔥 Slots limités — <span class="ub-counter">3 créneaux</span> disponibles ce mois · <a href="#contact">Réservez votre audit gratuit →</a>
+</div>
+
+<nav id="nav">
+  <div class="logo">FD<span>.</span></div>
+  <div class="nav-links">
+    <a href="#comment">Comment</a>
+    <a href="#profils">Pour qui</a>
+    <a href="#packs">Packs</a>
+    <a href="#roi">ROI</a>
+    <a href="#services">Services</a>
+    <a href="#implantation">Sur site</a>
+  </div>
+  <a class='nav-formation' href='/formation-agent-ia'>🤖 Formation gratuite</a>
+  <a class='nav-demande' href='/demande'>Demander un service →</a>
+  <a href="#contact" class="nav-cta">Audit gratuit →</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-particles" id="particles"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><div class="live-dot"></div>Systèmes IA en production · JARVIS OS</div>
+    <h1>Votre activité.<br><span class="red">Automatisée.</span><br><span class="outline">Sans vous.</span></h1>
+    <p class="hero-sub">De la <strong>boutique en ligne</strong> à l'<strong>usine</strong>, je conçois et installe des systèmes IA sur mesure — clés en main, avec formation et accompagnement. <strong>Résultats garantis ou remboursé.</strong></p>
+    <div class="hero-btns">
+      <a href="#packs" class="btn-red">▶ Voir les packs</a>
+      <a href="#contact" class="btn-ghost">📋 Audit gratuit — 0€</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num" data-count="1000">1000+</div><div class="hero-stat-label">Agents IA actifs</div></div>
+      <div class="hero-stat"><div class="hero-stat-num" data-count="79">79</div><div class="hero-stat-label">Chaînes automatisées</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">287<span style="font-size:18px">ms</span></div><div class="hero-stat-label">Temps de réponse</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">0<span style="font-size:18px">€</span></div><div class="hero-stat-label">Cloud récurrent</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="trust-strip">
+  <span class="trust-label">Compatible avec</span>
+  <div class="trust-logos">
+    <span>SAP</span><span>ODOO</span><span>HubSpot</span><span>Shopify</span><span>WooCommerce</span><span>Salesforce</span><span>PrestaShop</span><span>Sage</span><span>QuickBooks</span><span>Zoho</span><span>WordPress</span><span>Stripe</span>
+    <span>SAP</span><span>ODOO</span><span>HubSpot</span><span>Shopify</span><span>WooCommerce</span><span>Salesforce</span><span>PrestaShop</span><span>Sage</span><span>QuickBooks</span><span>Zoho</span><span>WordPress</span><span>Stripe</span>
+  </div>
+</div>
+
+<div class="proof-row reveal">
+  <div class="proof-item"><div class="proof-num" data-count="1000">1000+</div><div class="proof-desc">Agents IA déployés<br>en production</div></div>
+  <div class="proof-item"><div class="proof-num" data-count="79">79</div><div class="proof-desc">Chaînes d'automatisation<br>actives</div></div>
+  <div class="proof-item"><div class="proof-num">320K</div><div class="proof-desc">Lignes de code<br>JARVIS OS</div></div>
+  <div class="proof-item"><div class="proof-num">-80%</div><div class="proof-desc">Réduction coûts<br>vs solutions cloud</div></div>
+</div>
+
+<section class="dark" id="comment">
+  <div class="sec-label reveal">Comment ça marche</div>
+  <h2 class="sec-title reveal">Simple. En 4 étapes.</h2>
+  <p class="sec-sub reveal">Pas besoin d'être technique. Je m'occupe de tout — du diagnostic à la mise en service complète.</p>
+  <div class="steps reveal">
+    <div class="step"><div class="step-num">01</div><h3>🔍 Audit gratuit</h3><p>On analyse votre activité en 1h. J'identifie exactement ce qui peut être automatisé et combien ça vous rapporte en temps et en argent.</p></div>
+    <div class="step"><div class="step-num">02</div><h3>📦 Choix du pack</h3><p>Je vous propose le pack adapté à votre taille et votre budget. Chaque pack inclut le précédent — pas de surprise.</p></div>
+    <div class="step"><div class="step-num">03</div><h3>⚙️ Création & install</h3><p>Je crée et installe le système sur mesure en local, cloud ou sur site. Zéro interruption de votre activité.</p></div>
+    <div class="step"><div class="step-num">04</div><h3>🚀 Formation & suivi</h3><p>Vos équipes sont formées, tous les documents livrés. Je reste disponible pour les évolutions et la maintenance.</p></div>
+  </div>
+</section>
+
+<section class="mid" id="profils">
+  <div class="sec-label reveal">Pour qui ?</div>
+  <h2 class="sec-title reveal">Un système pour chaque activité</h2>
+  <p class="sec-sub reveal">Quelle que soit votre secteur, il existe une automatisation adaptée à votre taille et vos contraintes.</p>
+  <div class="profils reveal">
+    <div class="profil"><div class="icon">🛒</div><h3>Boutique en ligne</h3><p>Commandes, stock, SAV, fiches produits automatisées 24/7</p><span class="tag">+ demandé</span></div>
+    <div class="profil"><div class="icon">🏭</div><h3>Usine & Production</h3><p>Contrôle qualité IA, maintenance prédictive, reporting temps réel</p><span class="tag">Industrie</span></div>
+    <div class="profil"><div class="icon">🏢</div><h3>PME & Bureau</h3><p>Devis auto, CRM intelligent, documents, comptabilité IA</p><span class="tag">PME</span></div>
+    <div class="profil"><div class="icon">🏥</div><h3>Santé & Médical</h3><p>Transcription, dossiers patients, formulaires CERFA auto</p><span class="tag">RGPD ✓</span></div>
+    <div class="profil"><div class="icon">⚖️</div><h3>Juridique</h3><p>Rédaction actes, transcription audiences, jurisprudence</p><span class="tag">Confidentiel</span></div>
+    <div class="profil"><div class="icon">🎓</div><h3>Formation & RH</h3><p>E-learning auto, évaluation IA, onboarding intelligent</p><span class="tag">Formation</span></div>
+  </div>
+</section>
+
+<section class="dark" id="packs">
+  <div class="sec-label reveal">Offres</div>
+  <h2 class="sec-title reveal">Choisissez votre pack</h2>
+  <p class="sec-sub reveal">Plus le pack est élevé, plus vous avez de documents, formations et accompagnement. Chaque pack inclut tout le niveau précédent.</p>
+  <div class="packs reveal">
+    <div class="pack">
+      <div class="pack-target">Indépendants · Auto-entrepreneurs</div>
+      <div class="pack-name">Starter</div>
+      <div class="pack-tag">Votre premier système automatisé, opérationnel en 1 semaine.</div>
+      <div class="pack-price"><sup>€</sup>490<sub> / projet</sub></div>
+      <div class="pack-savings">✓ Démarrez sans risque — satisfait ou remboursé</div>
+      <hr>
+      <ul>
+        <li class="hl"><span class="c">✓</span> Audit de votre activité (2h)</li>
+        <li><span class="c">✓</span> 1 automatisation clé (email, devis, stock…)</li>
+        <li><span class="c">✓</span> Installation et configuration complète</li>
+        <li><span class="c">✓</span> Guide d'utilisation PDF</li>
+        <li><span class="c">✓</span> 1 mois de support email</li>
+      </ul>
+      <a href="#contact" class="pack-btn">Démarrer →</a>
+    </div>
+    <div class="pack pop">
+      <div class="pack-badge">⭐ Le plus demandé</div>
+      <div class="pack-target">Boutiques · PME · Artisans</div>
+      <div class="pack-name">Business</div>
+      <div class="pack-tag">Système complet pour automatiser votre gestion et votre contenu.</div>
+      <div class="pack-price"><sup>€</sup>1490<sub> / projet</sub></div>
+      <div class="pack-savings">💰 Économisez 40% vs agence classique</div>
+      <hr>
+      <ul>
+        <li><span class="c">✓</span> Tout du pack Starter</li>
+        <li class="hl"><span class="c">✓</span> Jusqu'à 5 automatisations sur mesure</li>
+        <li class="hl"><span class="c">✓</span> Tableau de bord IA personnalisé</li>
+        <li><span class="c">✓</span> Documentation complète 30+ pages</li>
+        <li class="hl"><span class="s">★</span> Formation équipe 1 journée</li>
+        <li class="hl"><span class="s">★</span> 3 mois support prioritaire</li>
+        <li><span class="s">★</span> 1 mise à jour incluse</li>
+      </ul>
+      <a href="#contact" class="pack-btn">Je veux ce pack →</a>
+    </div>
+    <div class="pack">
+      <div class="pack-target">Entreprises · Multi-sites</div>
+      <div class="pack-name">Pro</div>
+      <div class="pack-tag">Architecture complète, formation approfondie, suivi sur la durée.</div>
+      <div class="pack-price"><sup>€</sup>3900<sub> / projet</sub></div>
+      <div class="pack-savings">📈 ROI moyen constaté : 6 mois</div>
+      <hr>
+      <ul>
+        <li><span class="c">✓</span> Tout du pack Business</li>
+        <li class="hl"><span class="c">✓</span> Jusqu'à 15 automatisations</li>
+        <li class="hl"><span class="c">✓</span> Intégration ERP / CRM existants</li>
+        <li><span class="c">✓</span> Dossier technique complet (schémas, flux)</li>
+        <li class="hl"><span class="s">★</span> Formation 3 jours + vidéos</li>
+        <li class="hl"><span class="s">★</span> Calcul infrastructure & matériel</li>
+        <li class="hl"><span class="s">★</span> 6 mois support prioritaire</li>
+        <li><span class="s">★</span> Mises à jour 6 mois incluses</li>
+      </ul>
+      <a href="#contact" class="pack-btn">Demander un devis →</a>
+    </div>
+    <div class="pack gold">
+      <div class="pack-badge">🏆 Industrie</div>
+      <div class="pack-target">Usines · Sites complexes</div>
+      <div class="pack-name">Industrie</div>
+      <div class="pack-tag">Système IA complet sur site — conception, installation, certification opérationnelle.</div>
+      <div class="pack-price" style="font-size:28px;margin-top:8px;">Sur devis</div>
+      <div class="pack-savings">🏭 Intervention terrain incluse</div>
+      <hr>
+      <ul>
+        <li><span class="c">✓</span> Tout du pack Pro</li>
+        <li class="hl"><span class="c">✓</span> Audit terrain et cartographie des flux</li>
+        <li class="hl"><span class="c">✓</span> Architecture cluster IA sur mesure</li>
+        <li class="hl"><span class="c">✓</span> Automatisations illimitées</li>
+        <li class="hl"><span class="s">★</span> Formation opérateurs + IT + direction</li>
+        <li class="hl"><span class="s">★</span> Manuel opérateur + fiches maintenance</li>
+        <li class="hl"><span class="s">★</span> Implantation sur site (déplacement inclus)</li>
+        <li class="hl"><span class="s">★</span> Contrat maintenance annuel</li>
+        <li class="hl"><span class="s">★</span> SLA garanti, support 5j/7</li>
+      </ul>
+      <a href="#contact" class="pack-btn">Parler de mon projet →</a>
+    </div>
+  </div>
+</section>
+
+<section class="mid" id="roi">
+  <div class="sec-label reveal">Retour sur investissement</div>
+  <h2 class="sec-title reveal">Combien ça rapporte vraiment ?</h2>
+  <p class="sec-sub reveal">Les chiffres réels de mes clients — mesurés 6 mois après installation.</p>
+  <div class="roi-wrap reveal">
+    <div class="roi-numbers">
+      <div class="roi-item"><div class="roi-label">Temps administratif économisé / semaine</div><div class="roi-val">-14h</div></div>
+      <div class="roi-item"><div class="roi-label">Coût cloud mensuel supprimé</div><div class="roi-val">-680€/mois</div></div>
+      <div class="roi-item"><div class="roi-label">Erreurs de traitement réduites</div><div class="roi-val">-92%</div></div>
+      <div class="roi-item"><div class="roi-label">Délai de traitement commandes</div><div class="roi-val">×6 plus rapide</div></div>
+      <div class="roi-item"><div class="roi-label">ROI moyen à 12 mois</div><div class="roi-val">+340%</div></div>
+    </div>
+    <div class="roi-calc">
+      <h3>🧮 Exemple concret</h3>
+      <p>Une PME avec 2 employés administratifs à 35h/semaine automatise 60% de leurs tâches répétitives :</p>
+      <p style="color:#fff;font-weight:600;">2 × 35h × 60% × 52 semaines × 30€/h</p>
+      <div class="big">65 520€</div>
+      <small>économisés par an — contre 1 490€ de pack Business</small>
+      <div style="margin-top:20px;padding:14px;background:rgba(70,211,105,.08);border:1px solid rgba(70,211,105,.2);border-radius:6px;font-size:13px;color:var(--green);font-weight:700;">ROI en 2 semaines après l'installation ✓</div>
+    </div>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="sec-label reveal">Témoignages</div>
+  <h2 class="sec-title reveal">Ils ont automatisé. Ils témoignent.</h2>
+  <p class="sec-sub reveal">Résultats mesurés après 6 mois d'utilisation.</p>
+  <div class="testimonials reveal">
+    <div class="testi">
+      <div class="testi-result">-14h/semaine</div>
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-text">Le système gère maintenant 80% de nos commandes automatiquement. En 3 semaines, on avait déjà récupéré notre investissement. Je ne comprends pas pourquoi j'ai attendu aussi longtemps.</div>
+      <div class="testi-author"><div class="testi-avatar">EC</div><div><div class="testi-name">Cliente e-commerce</div><div class="testi-role">Boutique e-commerce · 2 800 commandes/mois</div></div></div>
+    </div>
+    <div class="testi">
+      <div class="testi-result">-680€/mois cloud</div>
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-text">On avait 5 abonnements SaaS différents qui ne se parlaient pas. Franck a tout centralisé en local. Plus de cloud, plus de fuites de données, et tout fonctionne 3× plus vite. Exceptionnel.</div>
+      <div class="testi-author"><div class="testi-avatar">PM</div><div><div class="testi-name">Dirigeant PME</div><div class="testi-role">PME · 12 salariés</div></div></div>
+    </div>
+    <div class="testi">
+      <div class="testi-result">×6 plus rapide</div>
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-text">L'installation sur site s'est faite en 2 jours. Franck a formé toute mon équipe. 6 mois plus tard, on traite le triple de dossiers avec le même nombre de personnes. C'est bluffant.</div>
+      <div class="testi-author"><div class="testi-avatar">RC</div><div><div class="testi-name">Responsable cabinet</div><div class="testi-role">Cabinet juridique · 8 collaborateurs</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="mid" id="services">
+  <div class="sec-label reveal">Services à la carte</div>
+  <h2 class="sec-title reveal">Audit · Conseil · Dépannage</h2>
+  <p class="sec-sub reveal">Pas encore prêt pour un pack ? Commencez par un service ciblé. Réponse sous 48h, devis sans engagement.</p>
+  <div class="services reveal">
+    <div class="svc"><div class="icon">🔍</div><h3>Audit Système</h3><p>Analyse complète de vos outils, processus et coûts. On identifie ce qui peut être automatisé et combien ça rapporte.</p><ul><li>Cartographie de vos flux actuels</li><li>Identification des tâches automatisables</li><li>Rapport écrit avec recommandations</li><li>Estimation ROI chiffrée</li></ul><span class="svc-price">À partir de 290€</span></div>
+    <div class="svc"><div class="icon">🧮</div><h3>Calcul d'Infrastructure</h3><p>Je calcule exactement la configuration matérielle dont vous avez besoin — sans sur-dimensionnement inutile.</p><ul><li>Analyse charge et besoins réels</li><li>Choix GPU / CPU / RAM optimal</li><li>Comparatif cloud vs local chiffré</li><li>Devis matériel détaillé</li></ul><span class="svc-price">À partir de 190€</span></div>
+    <div class="svc"><div class="icon">💡</div><h3>Conseil Installation</h3><p>Vous avez du matériel ou un projet ? Je vous conseille sur le meilleur circuit à utiliser pour automatiser efficacement.</p><ul><li>Analyse de l'existant</li><li>Recommandation des meilleurs outils</li><li>Schéma d'architecture proposé</li><li>Devis d'installation chiffré</li></ul><span class="svc-price">À partir de 150€</span></div>
+    <div class="svc"><div class="icon">🔧</div><h3>Dépannage & Optimisation</h3><p>Un système IA qui ne fonctionne plus ou trop lent ? Je diagnostique et répare — souvent en quelques heures.</p><ul><li>Diagnostic complet du problème</li><li>Correction et optimisation</li><li>Rapport d'intervention écrit</li><li>Recommandations anti-récidive</li></ul><span class="svc-price">À partir de 90€/h</span></div>
+    <div class="svc"><div class="icon">📋</div><h3>Devis & Faisabilité</h3><p>Une idée de projet mais vous ne savez pas si c'est réalisable et combien ça coûte ? Je réponds en 48h.</p><ul><li>Analyse de faisabilité technique</li><li>Estimation coût et délai réels</li><li>Alternatives proposées si besoin</li><li>Devis écrit sans engagement</li></ul><span class="svc-price">Gratuit</span></div>
+    <div class="svc"><div class="icon">🎓</div><h3>Formation à la carte</h3><p>Formation sur mesure pour vos équipes sur les outils IA, l'automatisation ou les systèmes déployés.</p><ul><li>Présentiel ou visio selon besoin</li><li>Supports PDF + vidéos inclus</li><li>Exercices sur vos propres outils</li><li>Certification de formation possible</li></ul><span class="svc-price">À partir de 800€/jour</span></div>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="sec-label reveal">Stack technique</div>
+  <h2 class="sec-title reveal">Propulsé par JARVIS OS</h2>
+  <p class="sec-sub reveal">Une infrastructure IA de pointe — entièrement locale, 0€ de cloud récurrent, déployée sur votre matériel.</p>
+  <div class="tech-grid reveal">
+    <div class="tech-item"><div class="ico">🤖</div><div class="name">JARVIS OS</div><div class="cat">Orchestrateur</div></div>
+    <div class="tech-item"><div class="ico">🧠</div><div class="name">LLM Local</div><div class="cat">IA on-premise</div></div>
+    <div class="tech-item"><div class="ico">🎙️</div><div class="name">Whisper</div><div class="cat">Transcription</div></div>
+    <div class="tech-item"><div class="ico">🔗</div><div class="name">OpenClaw</div><div class="cat">42 agents IA</div></div>
+    <div class="tech-item"><div class="ico">📊</div><div class="name">Dashboards</div><div class="cat">Temps réel</div></div>
+    <div class="tech-item"><div class="ico">🐍</div><div class="name">Python</div><div class="cat">Core</div></div>
+    <div class="tech-item"><div class="ico">🗄️</div><div class="name">PostgreSQL</div><div class="cat">Base de données</div></div>
+    <div class="tech-item"><div class="ico">⚡</div><div class="name">FastAPI</div><div class="cat">API REST</div></div>
+    <div class="tech-item"><div class="ico">🐳</div><div class="name">Docker</div><div class="cat">Conteneurisation</div></div>
+    <div class="tech-item"><div class="ico">🔒</div><div class="name">100% local</div><div class="cat">RGPD natif</div></div>
+    <div class="tech-item"><div class="ico">📡</div><div class="name">Telegram Bot</div><div class="cat">Alertes</div></div>
+    <div class="tech-item"><div class="ico">🖥️</div><div class="name">GPU CUDA</div><div class="cat">Accélération</div></div>
+  </div>
+</section>
+
+<section class="mid reveal">
+  <div class="sec-label">Pourquoi nous ?</div>
+  <h2 class="sec-title">Nous vs. les alternatives</h2>
+  <p class="sec-sub">Comparaison honnête avec les autres approches du marché.</p>
+  <table class="compare">
+    <thead><tr><th>Critère</th><th class="ours">Franck Delmas ✦</th><th>Agence Web</th><th>SaaS Cloud</th><th>Freelance junior</th></tr></thead>
+    <tbody>
+      <tr><td>Sur mesure complet</td><td class="ok">✅ 100% adapté</td><td class="no">⚠️ Partiel</td><td class="no">❌ Standard</td><td class="no">⚠️ Limité</td></tr>
+      <tr><td>Données privées / RGPD</td><td class="ok">✅ 100% local</td><td class="no">⚠️ Variable</td><td class="no">❌ Cloud US</td><td class="no">⚠️ Variable</td></tr>
+      <tr><td>Formation incluse</td><td class="ok">✅ Toujours</td><td class="no">❌ Payant</td><td class="no">⚠️ Vidéos only</td><td class="no">❌ Rare</td></tr>
+      <tr><td>Implantation sur site</td><td class="ok">✅ Inclus Pro+</td><td class="no">❌ Non</td><td class="no">❌ Non</td><td class="no">❌ Non</td></tr>
+      <tr><td>Coût récurrent après install</td><td class="ok">✅ 0€</td><td class="no">⚠️ Maintenance</td><td class="no">❌ 200-2000€/mois</td><td class="no">⚠️ Variable</td></tr>
+      <tr><td>Délai mise en service</td><td class="ok">✅ 1-4 semaines</td><td class="no">⏳ 2-6 mois</td><td class="no">⏳ Limité</td><td class="no">⏳ 1-3 mois</td></tr>
+      <tr><td>Résultats garantis</td><td class="ok">✅ Ou remboursé</td><td class="no">❌ Aucune garantie</td><td class="no">❌ Aucune garantie</td><td class="no">❌ Aucune garantie</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section style="padding:90px 5%;background:linear-gradient(180deg,#000,#110000 50%,#000);" id="implantation">
+  <div class="sec-label reveal" style="text-align:center;">Implantation sur site</div>
+  <h2 class="sec-title reveal" style="text-align:center;margin-bottom:10px;">Je viens chez vous.<br>Je m'occupe de tout.</h2>
+  <p class="sec-sub reveal" style="text-align:center;margin:0 auto 52px;">Pour les projets complexes, j'interviens directement sur site avec tous les outils nécessaires — dans toute la France.</p>
+  <div class="impl-wrap reveal">
+    <div class="impl-steps">
+      <div class="impl-step"><div class="impl-left"><div class="impl-num">1</div><div class="impl-line"></div></div><div class="impl-body"><strong>Visite de diagnostic terrain</strong><p>Je viens observer vos processus en conditions réelles. Je comprends votre métier avant de proposer quoi que ce soit.</p></div></div>
+      <div class="impl-step"><div class="impl-left"><div class="impl-num">2</div><div class="impl-line"></div></div><div class="impl-body"><strong>Création du système sur mesure</strong><p>Je développe la solution adaptée à votre environnement — compatible avec votre matériel et logiciels existants.</p></div></div>
+      <div class="impl-step"><div class="impl-left"><div class="impl-num">3</div><div class="impl-line"></div></div><div class="impl-body"><strong>Installation & tests sur site</strong><p>J'installe tout moi-même, je teste en conditions réelles avec vos équipes. Rien n'est livré sans validation complète.</p></div></div>
+      <div class="impl-step"><div class="impl-left"><div class="impl-num">4</div></div><div class="impl-body"><strong>Formation & remise des clés</strong><p>Vos équipes repartent formées, avec tous les documents. Vous êtes autonome — et je reste disponible si besoin.</p></div></div>
+    </div>
+    <div class="impl-panel">
+      <h3>🏭 Tous types de sites</h3>
+      <div class="site-item"><div class="ico">🛒</div><div><div class="name">Boutiques & entrepôts logistiques</div><div class="desc">Commandes, picking, expéditions automatisées</div></div></div>
+      <div class="site-item"><div class="ico">🏭</div><div><div class="name">Usines & lignes de production</div><div class="desc">Contrôle qualité, GMAO, reporting temps réel</div></div></div>
+      <div class="site-item"><div class="ico">🏢</div><div><div class="name">Bureaux & espaces PME</div><div class="desc">Gestion documents, CRM, devis, comptabilité</div></div></div>
+      <div class="site-item"><div class="ico">🏥</div><div><div class="name">Cabinets médicaux & cliniques</div><div class="desc">Dictée médicale, dossiers, formulaires CERFA</div></div></div>
+      <div class="site-item"><div class="ico">🏗️</div><div><div class="name">Chantiers & bâtiments industriels</div><div class="desc">Suivi travaux, rapports, sécurité IA</div></div></div>
+      <div class="sys-badge">Propulsé par <strong>JARVIS OS</strong> — 77 agents et 961 scripts IA, 79 chaînes d'automatisation. <strong>0€ de cloud récurrent.</strong></div>
+    </div>
+  </div>
+</section>
+
+<section class="dark reveal">
+  <div class="sec-label">FAQ</div>
+  <h2 class="sec-title">Questions fréquentes</h2>
+  <p class="sec-sub">Tout ce que vous voulez savoir avant de vous lancer.</p>
+  <div class="faq">
+    <div class="faq-item"><div class="faq-q" onclick="faq(this)">Faut-il être technique pour utiliser vos systèmes ? <span class="arr">+</span></div><div class="faq-a"><p>Non, c'est exactement l'inverse. Mes systèmes sont conçus pour être utilisés par des non-techniciens. Toutes les interfaces sont simples, et la formation incluse dans chaque pack vous rend autonome dès le départ. Si quelque chose ne va pas, je suis là.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="faq(this)">Mes données sont-elles en sécurité ? <span class="arr">+</span></div><div class="faq-a"><p>Oui. Tous les systèmes que je déploie fonctionnent en local — vos données ne quittent jamais votre infrastructure. C'est la différence fondamentale avec les solutions cloud. Conformité RGPD native, zéro abonnement à des services tiers.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="faq(this)">Combien de temps pour voir les premiers résultats ? <span class="arr">+</span></div><div class="faq-a"><p>Starter : opérationnel en 1 semaine. Business : 2 à 3 semaines. Pro : 4 à 6 semaines. Industrie : 4 à 8 semaines selon complexité. Le ROI est généralement visible dans les 2 premiers mois d'utilisation.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="faq(this)">Que se passe-t-il si le système tombe en panne ? <span class="arr">+</span></div><div class="faq-a"><p>Chaque pack inclut une période de support (1 à 6 mois selon le niveau). J'interviens sous 24h ouvrées. Les systèmes JARVIS OS intègrent une reprise automatique — la majorité des incidents se corrigent seuls. Pack Industrie : SLA garanti avec astreinte disponible.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="faq(this)">Est-ce compatible avec mes outils actuels ? <span class="arr">+</span></div><div class="faq-a"><p>Dans la très grande majorité des cas, oui. J'ai intégré des dizaines de systèmes différents : ERP (SAP, Odoo, Sage), CRM (HubSpot, Salesforce, Zoho), e-commerce (Shopify, WooCommerce, Prestashop) et beaucoup d'autres. L'audit initial vérifie la compatibilité.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="faq(this)">Quelle garantie sur les résultats ? <span class="arr">+</span></div><div class="faq-a"><p>Je garantis que le système livré correspond exactement au cahier des charges défini ensemble. Si ce n'est pas le cas, je corrige sans frais supplémentaires. Si les objectifs chiffrés ne sont pas atteints à 6 mois, 3 mois de support supplémentaires sont offerts.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="faq(this)">Proposez-vous des facilités de paiement ? <span class="arr">+</span></div><div class="faq-a"><p>Oui. Pour les packs Business, Pro et Industrie, je propose un paiement en 2 ou 3 fois sans frais. 50% à la commande, le solde à la livraison. Pour les grandes entreprises, des conditions spécifiques peuvent être négociées.</p></div></div>
+  </div>
+</section>
+
+<div class="contact-wrap" id="contact">
+  <div class="sec-label">Contact</div>
+  <h2>Prêt à automatiser<br><span style="color:var(--red);">votre activité ?</span></h2>
+  <p class="sub">Décrivez votre projet. Je réponds sous 48h avec une proposition concrète et chiffrée. Premier échange toujours gratuit.</p>
+  <div class="contact-cards">
+    <a href="mailto:franckdelmas00@gmail.com" class="cc"><div class="ico">📧</div><div class="lbl">Email — réponse sous 48h</div><div class="val">franckdelmas00@gmail.com</div></a>
+    <a href="https://linkedin.com/in/franck-delmas" class="cc" target="_blank" rel="noopener"><div class="ico">💼</div><div class="lbl">LinkedIn</div><div class="val">Franck Delmas</div></a>
+    <a href="https://github.com/Turbo31150" class="cc" target="_blank" rel="noopener"><div class="ico">💻</div><div class="lbl">GitHub — projets</div><div class="val">Turbo31150</div></a>
+  </div>
+  <div class="cta-urgency">⚡ <strong>3 créneaux disponibles ce mois-ci.</strong>
+    <span class="slots"><span class="slot-dot"></span><span class="slot-dot"></span><span class="slot-dot"></span><span class="slot-dot used"></span><span class="slot-dot used"></span></span>
+    Les projets sont traités par ordre d'arrivée.
+  </div>
+</div>
+
+<footer>
+  <div class="foot-top">
+    <div>
+      <div class="foot-logo">FD<span>.</span></div>
+      <div class="foot-tag">Automatisation IA & Systèmes Intelligents<br>Toulouse · Interventions France entière</div>
+      <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;">
+        <span style="background:rgba(70,211,105,.1);border:1px solid rgba(70,211,105,.2);color:var(--green);font-size:11px;padding:3px 10px;border-radius:3px;font-weight:700;">RGPD ✓</span>
+        <span style="background:rgba(229,9,20,.1);border:1px solid rgba(229,9,20,.2);color:var(--red);font-size:11px;padding:3px 10px;border-radius:3px;font-weight:700;">100% local</span>
+        <span style="background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.2);color:var(--gold);font-size:11px;padding:3px 10px;border-radius:3px;font-weight:700;">Garanti</span>
+      </div>
+    </div>
+    <div class="foot-cols">
+      <div class="foot-col"><h4>Packs</h4><a href="#packs">Starter — 490€</a><a href="#packs">Business — 1 490€</a><a href="#packs">Pro — 3 900€</a><a href="#packs">Industrie — Sur devis</a></div>
+      <div class="foot-col"><h4>Services</h4><a href="#services">Audit système</a><a href="#services">Calcul infrastructure</a><a href="#services">Conseil installation</a><a href="#services">Dépannage</a></div>
+      <div class="foot-col"><h4>Projets</h4><a href="https://github.com/Turbo31150/omertaflow" target="_blank" rel="noopener">OmertaFlow (STT/TTS)</a><a href="https://github.com/Turbo31150" target="_blank" rel="noopener">JARVIS OS</a><a href="https://github.com/Turbo31150" target="_blank" rel="noopener">CerfIA</a></div>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Franck Delmas — Automatisation IA</span>
+    <div class="foot-live"><div class="dot"></div><span>77 agents et 961 scripts IA · 79 chaînes · 0€ cloud · En ligne</span></div>
+  </div>
+</footer>
+
+<div class="popup-overlay" id="popup">
+  <div class="popup-box">
+    <div class="popup-close" onclick="document.getElementById('popup').classList.remove('active')">✕</div>
+    <div style="font-size:42px;margin-bottom:14px;">🤖</div>
+    <h3>Attendez — <span>audit gratuit</span></h3>
+    <p>Avant de partir, obtenez une analyse gratuite de ce qui peut être automatisé dans votre activité. En 1h, je vous dis exactement combien vous pouvez économiser.</p>
+    <a href="mailto:franckdelmas00@gmail.com?subject=Demande audit gratuit" class="popup-btn">Demander mon audit gratuit →</a>
+    <div class="popup-skip" onclick="document.getElementById('popup').classList.remove('active')">Non merci, je préfère continuer à tout faire manuellement</div>
+  </div>
+</div>
+
+<script>
+window.addEventListener('scroll',()=>{
+  const s=scrollY;
+  document.getElementById('nav').classList.toggle('scrolled',s>60);
+  document.getElementById('prog').style.width=(s/(document.body.scrollHeight-window.innerHeight)*100)+'%';
+});
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');obs.unobserve(x.target);}}),{threshold:.08});
+document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
+function countUp(el,target,dur){
+  const s=performance.now();
+  (function run(t){
+    const p=Math.min((t-s)/dur,1);
+    el.textContent=Math.floor(p*target);
+    if(p<1)requestAnimationFrame(run);
+  })(performance.now());
+}
+const co=new IntersectionObserver(e=>e.forEach(x=>{
+  if(x.isIntersecting){const t=+x.target.dataset.count;if(t)countUp(x.target,t,1500);co.unobserve(x.target);}
+}),{threshold:.2});
+document.querySelectorAll('[data-count]').forEach(el=>co.observe(el));
+(function(){
+  const p=document.getElementById('particles');
+  for(let i=0;i<28;i++){
+    const d=document.createElement('div');
+    d.className='particle';
+    d.style.cssText='--x:'+(Math.random()*100)+'%;--y:'+(Math.random()*100)+'%;--d:'+(6+Math.random()*14)+'s;animation-delay:'+(Math.random()*12)+'s;';
+    p.appendChild(d);
+  }
+})();
+function faq(el){const i=el.parentElement,o=i.classList.contains('open');document.querySelectorAll('.faq-item.open').forEach(x=>x.classList.remove('open'));if(!o)i.classList.add('open');}
+let shown=false;
+document.addEventListener('mouseleave',e=>{if(!shown&&e.clientY<10){shown=true;document.getElementById('popup').classList.add('active');}});
+document.getElementById('popup').addEventListener('click',e=>{if(e.target===e.currentTarget)e.currentTarget.classList.remove('active');});
+</script>
+</body>
+</html>

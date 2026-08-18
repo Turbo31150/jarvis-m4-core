@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-agents-skills-unified-memory-skill-md",
+  "name": "unified-memory",
+  "author": "affaan-m",
+  "description": "Share durable, inspectable context and handoffs between Claude, Codex, Hermes, Cursor, OpenCode, and other agents through the local ECC Memory Vault. Use when an agent must save work state, transfer context, resume another agent's task, or search shared project knowledge.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/.agents/skills/unified-memory",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/agents-skills-unified-memory",
+  "stars": 237500,
+  "updatedAt": 1785059219
+}

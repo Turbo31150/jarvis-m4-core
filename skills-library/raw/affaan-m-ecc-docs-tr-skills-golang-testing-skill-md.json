@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-tr-skills-golang-testing-skill-md",
+  "name": "golang-testing",
+  "author": "affaan-m",
+  "description": "Table-driven testler, subtestler, benchmark'lar, fuzzing ve test coverage i\u00e7eren Go test desenleri. TDD metodolojisi ile idiomatic Go uygulamalar\u0131n\u0131 takip eder.",
+  "contentLanguage": "tur",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/tr/skills/golang-testing",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-tr-skills-golang-testing",
+  "stars": 237500,
+  "updatedAt": 1774219024
+}

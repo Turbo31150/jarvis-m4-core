@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-extensions-qqbot-skills-qqbot-remind-skill-md",
+  "name": "qqbot-remind",
+  "author": "openclaw",
+  "description": "QQBot scheduled reminders. Use only for explicit user requests to create, list, or cancel one-time or recurring QQ reminders; ask for missing time, content, or timezone before scheduling.",
+  "contentLanguage": "zh",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/extensions/qqbot/skills/qqbot-remind",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/extensions-qqbot-skills-qqbot-remind",
+  "stars": 385119,
+  "updatedAt": 1785803460
+}

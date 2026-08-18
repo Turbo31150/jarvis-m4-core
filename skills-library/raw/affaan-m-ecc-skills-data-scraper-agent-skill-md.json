@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-data-scraper-agent-skill-md",
+  "name": "data-scraper-agent",
+  "author": "affaan-m",
+  "description": "Build a fully automated AI-powered data collection agent for any public source \u2014 job boards, prices, news, GitHub, sports, anything. Runs on a schedule, enriches data with a free LLM (Gemini Flash), stores results in Notion/Sheets/Supabase, and learns from user feedback. Runs 100% free on GitHub Actions. Use when the user wants to monitor, collect, or track any public data automatically.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/data-scraper-agent",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-data-scraper-agent",
+  "stars": 237500,
+  "updatedAt": 1783580560
+}

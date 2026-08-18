@@ -1,0 +1,11 @@
+{
+  "id": "mukul975-anthropic-cybersecurity-skills-skills-auditing-kubernetes-rbac-privilege-escalation-skill-md",
+  "name": "auditing-kubernetes-rbac-privilege-escalation",
+  "author": "mukul975",
+  "description": "Find over-permissive RBAC roles and service-account token abuse paths in Kubernetes using kubectl auth can-i, rbac-police, kubectl-who-can, and rakkess during authorized cluster security reviews.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/mukul975/Anthropic-Cybersecurity-Skills/tree/main/skills/auditing-kubernetes-rbac-privilege-escalation",
+  "skillUrl": "https://skillsmp.com/creators/mukul975/anthropic-cybersecurity-skills/skills-auditing-kubernetes-rbac-privilege-escalation",
+  "stars": 27260,
+  "updatedAt": 1782148096
+}

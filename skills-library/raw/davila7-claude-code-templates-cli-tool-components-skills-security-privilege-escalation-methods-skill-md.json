@@ -1,0 +1,11 @@
+{
+  "id": "davila7-claude-code-templates-cli-tool-components-skills-security-privilege-escalation-methods-skill-md",
+  "name": "privilege-escalation-methods",
+  "author": "davila7",
+  "description": "This skill should be used when the user asks to \"escalate privileges\", \"get root access\", \"become administrator\", \"privesc techniques\", \"abuse sudo\", \"exploit SUID binaries\", \"Kerberoasting\", \"pass-the-ticket\", \"token impersonation\", or needs guidance on post-exploitation privilege escalation for Linux or Windows systems.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/security/privilege-escalation-methods",
+  "skillUrl": "https://skillsmp.com/creators/davila7/claude-code-templates/cli-tool-components-skills-security-privilege-escalation-methods",
+  "stars": 30096,
+  "updatedAt": 1769353274
+}

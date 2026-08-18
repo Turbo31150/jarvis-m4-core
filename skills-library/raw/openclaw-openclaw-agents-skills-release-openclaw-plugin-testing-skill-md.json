@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-agents-skills-release-openclaw-plugin-testing-skill-md",
+  "name": "release-openclaw-plugin-testing",
+  "author": "openclaw",
+  "description": "Plan and run pre-release OpenClaw plugin validation across bundled plugins, package artifacts, lifecycle commands, doctor/fix, config round-trip, gateway startup, SDK compatibility, Docker E2E, Package Acceptance, and Testbox proof.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/.agents/skills/release-openclaw-plugin-testing",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/agents-skills-release-openclaw-plugin-testing",
+  "stars": 385119,
+  "updatedAt": 1784771328
+}

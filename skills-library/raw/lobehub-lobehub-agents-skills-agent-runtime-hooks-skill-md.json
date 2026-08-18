@@ -1,0 +1,11 @@
+{
+  "id": "lobehub-lobehub-agents-skills-agent-runtime-hooks-skill-md",
+  "name": "agent-runtime-hooks",
+  "author": "lobehub",
+  "description": "Agent runtime lifecycle hooks. Use for before/after tool or step hooks, tool mocks, human intervention, sub-agent calls, context compression, evals, tracing, callAgent, or lifecycle events.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/lobehub/lobehub/tree/canary/.agents/skills/agent-runtime-hooks",
+  "skillUrl": "https://skillsmp.com/creators/lobehub/lobehub/agents-skills-agent-runtime-hooks",
+  "stars": 81243,
+  "updatedAt": 1780999766
+}

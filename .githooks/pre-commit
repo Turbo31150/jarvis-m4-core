@@ -11,8 +11,12 @@ warn() { printf '\033[33m%s\033[0m\n' "$*"; }
 # --- 1. Noms de fichiers interdits à l'indexation ---------------------------
 # Motifs alignés sur .gitignore : un fichier ajouté en force (git add -f) passerait sinon.
 banned='(^|/)(\.env($|\..*)|secrets\.env|.*\.pem$|.*\.key$|.*\.p12$|.*\.pfx$|id_rsa($|\..*)|id_ed25519($|\..*)|\.netrc$|.*service[-_]?account.*\.json$)'
+# Un modele n'est pas un secret : .env.example/.sample/.template ne contiennent
+# que des noms de variables. Les bloquer rendait le hook faux-positif, et un
+# hook qui crie a tort finit contourne par reflexe — donc desarme.
+allowlist='\.(example|sample|template|dist)$'
 staged_names=$(git diff --cached --name-only --diff-filter=AM)
-offending_names=$(printf '%s\n' "$staged_names" | grep -nE "$banned" || true)
+offending_names=$(printf '%s\n' "$staged_names" | grep -E "$banned" | grep -vE "$allowlist" || true)
 if [ -n "$offending_names" ]; then
   red "⛔ COMMIT BLOQUÉ — fichier(s) sensible(s) indexé(s) :"
   printf '%s\n' "$offending_names" | sed 's/^/   /'
@@ -39,7 +43,12 @@ hits=""
 while IFS= read -r f; do
   [ -n "$f" ] || continue
   # -I : ignore les binaires. On lit la version INDEXÉE, pas celle du disque.
-  found=$(git show ":$f" 2>/dev/null | grep -nIE "$patterns" || true)
+  # Les placeholders de documentation (sk-xxxxxxxx, ghp_XXXX, your-key-here,
+  # <token>) matchent les memes motifs que de vrais secrets. Les signaler noyait
+  # les vraies alertes : sur le blocage du 2026-08-18, 7 des 8 lignes citees
+  # etaient des exemples de docs importees.
+  found=$(git show ":$f" 2>/dev/null | grep -nIE "$patterns" \
+          | grep -viE '(x{4,}|X{4,}|your[-_]|my[-_]key|placeholder|replace[-_]?me|example|<[a-z_-]+>|\.\.\.|abc123|1234567890abcdef)' || true)
   [ -n "$found" ] && hits+="$f"$'\n'$(printf '%s\n' "$found" | sed 's/^/     /')$'\n'
 done <<< "$staged_names"
 

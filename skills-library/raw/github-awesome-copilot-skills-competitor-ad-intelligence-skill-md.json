@@ -1,0 +1,11 @@
+{
+  "id": "github-awesome-copilot-skills-competitor-ad-intelligence-skill-md",
+  "name": "competitor-ad-intelligence",
+  "author": "github",
+  "description": "Use this skill when the user asks to analyze, tear down, or reverse-engineer a competitor's paid ads. Trigger for prompts like \"what ads is [competitor] running\", \"tear down their ad strategy\", \"competitor ad analysis\", \"find ad angles we haven't tried\", or \"reverse-engineer their paid funnel\". Do not trigger for organic/SEO competitor research or website positioning analysis.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/github/awesome-copilot/tree/main/skills/competitor-ad-intelligence",
+  "skillUrl": "https://skillsmp.com/creators/github/awesome-copilot/skills-competitor-ad-intelligence",
+  "stars": 37423,
+  "updatedAt": 1784829087
+}

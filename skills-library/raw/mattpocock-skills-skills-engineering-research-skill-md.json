@@ -1,0 +1,11 @@
+{
+  "id": "mattpocock-skills-skills-engineering-research-skill-md",
+  "name": "research",
+  "author": "mattpocock",
+  "description": "Investigate a question against high-trust primary sources and capture the findings as a Markdown file in the repo. Use when the user wants a topic researched, docs or API facts gathered, or reading legwork delegated to a background agent.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/mattpocock/skills/tree/main/skills/engineering/research",
+  "skillUrl": "https://skillsmp.com/creators/mattpocock/skills/skills-engineering-research",
+  "stars": 202506,
+  "updatedAt": 1783943838
+}

@@ -1,0 +1,11 @@
+{
+  "id": "posthog-posthog-products-replay-skills-investigating-replay-skill-md",
+  "name": "investigating-replay",
+  "author": "PostHog",
+  "description": "Investigates a session recording by gathering metadata, person profile, same-session events, and linked error tracking issues in one pass. Use when a user provides a recording or session ID and wants to understand what happened \u2014 who the user was, what they did, what errors occurred, and whether there are related error tracking issues. Replaces the manual chain of session-recording-get, persons-retrieve, execute-sql, and query-error-tracking-issues-list.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/PostHog/posthog/tree/master/products/replay/skills/investigating-replay",
+  "skillUrl": "https://skillsmp.com/creators/posthog/posthog/products-replay-skills-investigating-replay",
+  "stars": 37496,
+  "updatedAt": 1785169736
+}

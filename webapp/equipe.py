@@ -266,8 +266,10 @@ def register(app):
                         "Utilise des points numérotés. Inclus : accueil, points de fond, "
                         "questions diverses, date de la prochaine réunion. Sois concis."
                     )
-                    texte = ai_local.generate(system, user)
-                    return jsonify({"texte": texte, "source": "ia"})
+                    # generate(user, system=...) : l'ordre était inversé, et la
+                    # fonction renvoie un dict — pas une chaîne.
+                    res = ai_local.generate(user, system=system)
+                    return jsonify({"texte": res["text"], "source": res["backend"]})
                 except Exception:
                     pass
 
@@ -330,8 +332,10 @@ def register(app):
                         "synthèse par point, décisions prises, actions à mener, "
                         "prochaine réunion, signature."
                     )
-                    texte = ai_local.generate(system, user)
-                    return jsonify({"texte": texte, "source": "ia"})
+                    # generate(user, system=...) : l'ordre était inversé, et la
+                    # fonction renvoie un dict — pas une chaîne.
+                    res = ai_local.generate(user, system=system)
+                    return jsonify({"texte": res["text"], "source": res["backend"]})
                 except Exception:
                     pass
 

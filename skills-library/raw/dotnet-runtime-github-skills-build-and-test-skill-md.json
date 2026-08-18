@@ -1,0 +1,11 @@
+{
+  "id": "dotnet-runtime-github-skills-build-and-test-skill-md",
+  "name": "build-and-test",
+  "author": "dotnet",
+  "description": "Build and test dotnet/runtime locally. Covers the mandatory baseline build, per-component build and test commands, Windows/PowerShell equivalents, running individual tests, and troubleshooting. USE FOR: any build or test invocation in this repo, and before making code changes under CCA. DO NOT USE FOR: CI pipeline triage (use ci-pipeline-monitor) or benchmarking (use performance-benchmark).",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/dotnet/runtime/tree/main/.github/skills/build-and-test",
+  "skillUrl": "https://skillsmp.com/creators/dotnet/runtime/github-skills-build-and-test",
+  "stars": 18123,
+  "updatedAt": 1785448057
+}

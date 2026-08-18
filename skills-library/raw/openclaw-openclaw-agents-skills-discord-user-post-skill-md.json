@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-agents-skills-discord-user-post-skill-md",
+  "name": "discord-user-post",
+  "author": "openclaw",
+  "description": "Post an approved message as the logged-in Discord user through the Discord desktop app. Use for release announcements or other direct user-authored Discord posts; not for OpenClaw channel sends, bots, webhooks, relays, agent sessions, or archive search.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/.agents/skills/discord-user-post",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/agents-skills-discord-user-post",
+  "stars": 385119,
+  "updatedAt": 1781515590
+}

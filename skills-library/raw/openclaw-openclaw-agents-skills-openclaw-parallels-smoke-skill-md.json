@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-agents-skills-openclaw-parallels-smoke-skill-md",
+  "name": "openclaw-parallels-smoke",
+  "author": "openclaw",
+  "description": "Prepare, snapshot, run, rerun, debug, or interpret OpenClaw Parallels guest install, onboarding, gateway smoke, and upgrade checks across macOS, Windows, and Linux.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/.agents/skills/openclaw-parallels-smoke",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/agents-skills-openclaw-parallels-smoke",
+  "stars": 385119,
+  "updatedAt": 1784096157
+}

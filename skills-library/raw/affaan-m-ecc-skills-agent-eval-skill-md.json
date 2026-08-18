@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-agent-eval-skill-md",
+  "name": "agent-eval",
+  "author": "affaan-m",
+  "description": "Head-to-head comparison of coding agents (Claude Code, Aider, Codex, etc.) on custom tasks with pass rate, cost, time, and consistency metrics",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/agent-eval",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-agent-eval",
+  "stars": 237500,
+  "updatedAt": 1784322829
+}

@@ -1,0 +1,11 @@
+{
+  "id": "nexu-io-open-design-plugins-official-examples-worker-visualizer-skill-md",
+  "name": "worker-visualizer",
+  "author": "nexu-io",
+  "description": "A real-time data/particle/simulation visualizer whose heavy compute runs in\na Web Worker (off the main thread), optionally sharing memory with the UI via\nSharedArrayBuffer, and renders to a canvas at 60fps. Produced as a single\nself-contained `index.html`. Use when the brief asks for a \"web worker\",\n\"simulation\", \"particle system\", \"physics\", \"off-main-thread\", \"fractal\",\n\"real-time compute\", or \"audio/data visualizer\". Open Design serves this in\npowered-preview mode so Workers and SharedArrayBuffer actually work.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/nexu-io/open-design/tree/main/plugins/_official/examples/worker-visualizer",
+  "skillUrl": "https://skillsmp.com/creators/nexu-io/open-design/plugins-official-examples-worker-visualizer",
+  "stars": 83535,
+  "updatedAt": 1784018637
+}

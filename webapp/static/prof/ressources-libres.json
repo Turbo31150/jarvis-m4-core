@@ -1,0 +1,247 @@
+[
+  {
+    "nom": "Éduscol — Histoire-géographie cycle 3",
+    "url": "https://eduscol.education.fr/260/histoire-geographie-cycle-3",
+    "matiere": "Histoire-Géo",
+    "type": "cours",
+    "description": "Ressources d'accompagnement officielles du programme (MEN) : fiches thématiques, points de programme, pistes didactiques."
+  },
+  {
+    "nom": "Édubase — Banque de scénarios pédagogiques (MEN)",
+    "url": "https://edubase.eduscol.education.fr/",
+    "matiere": "Toutes disciplines",
+    "type": "séquences",
+    "description": "Base nationale de scénarios validés par l'inspection, classés par discipline et niveau. Accès libre."
+  },
+  {
+    "nom": "Lumni Enseignement",
+    "url": "https://enseignants.lumni.fr/",
+    "matiere": "Toutes disciplines",
+    "type": "vidéo",
+    "description": "10 000+ ressources audiovisuelles indexées par niveau et discipline, sans publicité. Inscription pro requise."
+  },
+  {
+    "nom": "C'est pas sorcier (chaîne officielle)",
+    "url": "https://www.youtube.com/channel/UCENv8pH4LkzvuSV_qHIcslg",
+    "matiere": "Sciences-Histoire",
+    "type": "vidéo",
+    "description": "300+ épisodes France 3 : astronomie, géologie, biologie, histoire. Idéal pour amorcer une séquence."
+  },
+  {
+    "nom": "Fondation La main à la pâte",
+    "url": "https://fondation-lamap.org/",
+    "matiere": "Sciences",
+    "type": "séquences",
+    "description": "Séquences d'investigation scientifique clés en main cycles 1-2-3 (vivant, matière, énergie, environnement)."
+  },
+  {
+    "nom": "Vikidia — encyclopédie des 8-13 ans",
+    "url": "https://fr.vikidia.org/",
+    "matiere": "Toutes disciplines",
+    "type": "cours",
+    "description": "Encyclopédie en langage adapté au primaire/collège, licence CC BY-SA. 45 000+ articles."
+  },
+  {
+    "nom": "Gallica — Bibliothèque numérique BnF",
+    "url": "https://gallica.bnf.fr/",
+    "matiere": "Histoire",
+    "type": "images",
+    "description": "Millions de documents patrimoniaux numérisés (estampes, cartes, journaux). Domaine public, sources primaires."
+  },
+  {
+    "nom": "Classes BnF — dossiers pédagogiques",
+    "url": "https://classes.bnf.fr/dossiers.php",
+    "matiere": "Histoire",
+    "type": "cours",
+    "description": "80+ dossiers thématiques (Moyen Âge, Renaissance, Louis XIV…) avec iconographie analysée et questionnaires élèves."
+  },
+  {
+    "nom": "Édugéo — IGN cartographie pédagogique",
+    "url": "https://geoservices.ign.fr/edugeo",
+    "matiere": "Géographie",
+    "type": "cours",
+    "description": "Outil cartographique officiel IGN/MEN : photos aériennes, cartes topo, risques naturels."
+  },
+  {
+    "nom": "Géoportail — IGN",
+    "url": "https://www.geoportail.gouv.fr/",
+    "matiere": "Géographie",
+    "type": "cours",
+    "description": "Cartes et photos aériennes du territoire français, couches thématiques (relief, cadastre). Libre, sans inscription."
+  },
+  {
+    "nom": "Géoconfluences — ENS de Lyon",
+    "url": "https://geoconfluences.ens-lyon.fr/programmes/classes",
+    "matiere": "Géographie",
+    "type": "cours",
+    "description": "Articles et ressources organisés par programme (CP, CE1, cycle 3). DGESCO + ENS Lyon, accès libre."
+  },
+  {
+    "nom": "Wikimedia Commons",
+    "url": "https://commons.wikimedia.org/",
+    "matiere": "Toutes disciplines",
+    "type": "images",
+    "description": "Médiathèque mondiale sous licences libres (CC, domaine public) : photos, cartes, schémas, œuvres."
+  },
+  {
+    "nom": "L'Histoire par l'image",
+    "url": "https://histoire-image.org/",
+    "matiere": "Histoire",
+    "type": "images",
+    "description": "Analyse d'œuvres et documents iconographiques (1643–1945). Espace enseignants avec fiches d'exploitation."
+  },
+  {
+    "nom": "IGN — Ressources pédagogiques",
+    "url": "https://www.ign.fr/institut/ressources-pedagogiques",
+    "matiere": "Géographie",
+    "type": "cours",
+    "description": "Fiches activités : lire les cartes, utiliser Géoportail, repérer les reliefs. Primaire et secondaire."
+  },
+  {
+    "nom": "Réseau Canopé — Élémentaire Histoire-Géo",
+    "url": "https://www.reseau-canope.fr/ecole-elementaire/histoire-geographie.html",
+    "matiere": "Histoire-Géo",
+    "type": "séquences",
+    "description": "Ressources gratuites pour l'élémentaire : séquences, fiches, outils numériques TNI. Opérateur officiel du MEN."
+  },
+  {
+    "nom": "Mathador — calcul mental",
+    "url": "https://www.mathador.fr/",
+    "matiere": "Maths",
+    "type": "exercices",
+    "description": "Jeu de calcul mental (Canopé). Mode découverte gratuit, concours interclasses, fiches téléchargeables."
+  },
+  {
+    "nom": "Ortholud — exercices maths et français",
+    "url": "https://www.ortholud.com/",
+    "matiere": "Maths-Français",
+    "type": "exercices",
+    "description": "Exercices interactifs gratuits en ligne (orthographe, grammaire, conjugaison, calcul) pour le primaire."
+  },
+  {
+    "nom": "Activités artistiques cycle 1 (Primàbord)",
+    "url": "https://primabord.eduscol.education.fr/agir-s-exprimer-comprendre-a-travers-les-activites-artistiques",
+    "matiere": "Maternelle · Activités artistiques",
+    "type": "portail",
+    "description": "Arts visuels, sonores, spectacle vivant"
+  },
+  {
+    "nom": "Ressources maternelle — Agir, s'exprimer arts (PDF)",
+    "url": "https://eduscol.education.fr/document/13447/download",
+    "matiere": "Maternelle · Activités artistiques",
+    "type": "PDF",
+    "description": "Démarche SMOG, univers artistiques"
+  },
+  {
+    "nom": "Agir, s'exprimer, comprendre à travers l'activité physique",
+    "url": "https://eduscol.education.fr/111/agir-s-exprimer-comprendre-travers-l-activite-physique-cycle-1",
+    "matiere": "Maternelle · Activités physiques",
+    "type": "portail",
+    "description": "Parcours, jeux, équilibre, espace"
+  },
+  {
+    "nom": "Ressources EPS maternelle (PDF)",
+    "url": "https://eduscol.education.fr/document/13441/download",
+    "matiere": "Maternelle · Activités physiques",
+    "type": "PDF",
+    "description": "Agir dans l'espace, la durée, sur les objets"
+  },
+  {
+    "nom": "Explorer le monde du vivant, des objets et de la matière",
+    "url": "https://eduscol.education.fr/cid91997/explorer-le-monde-du-vivant-des-objets-et-de-la-matiere.html",
+    "matiere": "Maternelle · Explorer le monde",
+    "type": "portail",
+    "description": "Vivant, matière, objets MS/GS"
+  },
+  {
+    "nom": "Ressources maternelle — Explorer le monde (PDF)",
+    "url": "https://eduscol.education.fr/document/13516/download",
+    "matiere": "Maternelle · Explorer le monde",
+    "type": "PDF",
+    "description": "Progression détaillée"
+  },
+  {
+    "nom": "Construire les premiers outils pour structurer sa pensée (Primàbord)",
+    "url": "https://primabord.eduscol.education.fr/construire-les-premiers-outils-pour-structurer-sa-pensee",
+    "matiere": "Maternelle · Formes et grandeurs",
+    "type": "portail",
+    "description": "Formes, grandeurs, tri, motifs"
+  },
+  {
+    "nom": "Graphisme et écriture au cycle 1",
+    "url": "https://eduscol.education.fr/122/graphisme-et-ecriture-cycle-1",
+    "matiere": "Maternelle · Graphisme",
+    "type": "portail",
+    "description": "Geste graphique, lignes, motifs"
+  },
+  {
+    "nom": "Le graphisme à l'école maternelle",
+    "url": "https://eduscol.education.fr/document/13549/download",
+    "matiere": "Maternelle · Graphisme",
+    "type": "PDF",
+    "description": "Progression MS : tracés orientés"
+  },
+  {
+    "nom": "Mobiliser le langage dans toutes ses dimensions",
+    "url": "https://eduscol.education.fr/105/mobiliser-le-langage-dans-toutes-ses-dimensions",
+    "matiere": "Maternelle · Langage oral",
+    "type": "portail",
+    "description": "Oral, écrit, lexique, syntaxe MS/GS"
+  },
+  {
+    "nom": "Développement et structuration du langage oral et écrit — livret",
+    "url": "https://eduscol.education.fr/document/69031/download",
+    "matiere": "Maternelle · Langage écrit",
+    "type": "PDF",
+    "description": "Livret d'accompagnement cycle 1"
+  },
+  {
+    "nom": "Acquérir les premiers outils mathématiques — cycle 1",
+    "url": "https://eduscol.education.fr/2819/acquerir-les-premiers-outils-mathematiques-cycle-1",
+    "matiere": "Maternelle · Nombres",
+    "type": "portail",
+    "description": "Nombre, quantités, résolution de problèmes"
+  },
+  {
+    "nom": "Guide : La construction du nombre à l'école maternelle",
+    "url": "https://eduscol.education.fr/document/50924/download",
+    "matiere": "Maternelle · Nombres",
+    "type": "PDF",
+    "description": "Guide fondamental didactique du nombre"
+  },
+  {
+    "nom": "Primàbord — portail numérique 1er degré",
+    "url": "https://primabord.eduscol.education.fr/",
+    "matiere": "Maternelle · Numérique",
+    "type": "portail",
+    "description": "Séances, robots Bluebot, outils MS"
+  },
+  {
+    "nom": "Ressources langage — conscience phonologique",
+    "url": "https://eduscol.education.fr/document/288/download",
+    "matiere": "Maternelle · Phonologie",
+    "type": "PDF",
+    "description": "Syllabes, sons, comptines MS"
+  },
+  {
+    "nom": "Programme école maternelle (cycle 1) — BO 2026 n°19",
+    "url": "https://www.education.gouv.fr/bo/2026/Hebdo19/MENE2608627A",
+    "matiere": "Maternelle · Programme officiel",
+    "type": "texte officiel",
+    "description": "Programme en vigueur (langage + maths depuis rentrée 2025)"
+  },
+  {
+    "nom": "Guides fondamentaux pour l'enseignement",
+    "url": "https://eduscol.education.fr/3107/guides-fondamentaux-pour-l-enseignement",
+    "matiere": "Maternelle · Programme officiel",
+    "type": "portail",
+    "description": "Guides recherche-fondés (langage, nombre)"
+  },
+  {
+    "nom": "Indicateurs de progrès cycle 1",
+    "url": "https://eduscol.education.fr/document/5641/download",
+    "matiere": "Maternelle · Évaluation",
+    "type": "PDF",
+    "description": "Observables par domaine pour l'évaluation"
+  }
+]

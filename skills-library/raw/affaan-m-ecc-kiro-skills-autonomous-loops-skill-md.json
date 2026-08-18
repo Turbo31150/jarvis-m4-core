@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-kiro-skills-autonomous-loops-skill-md",
+  "name": "autonomous-loops",
+  "author": "affaan-m",
+  "description": "Patterns and architectures for autonomous Claude Code loops \u2014 from simple sequential pipelines to RFC-driven multi-agent DAG systems.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/.kiro/skills/autonomous-loops",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/kiro-skills-autonomous-loops",
+  "stars": 237500,
+  "updatedAt": 1780809997
+}

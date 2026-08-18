@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-deployment-patterns-skill-md",
+  "name": "deployment-patterns",
+  "author": "affaan-m",
+  "description": "Deployment workflows, CI/CD pipeline patterns, Docker containerization, health checks, rollback strategies, and production readiness checklists for web applications.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/deployment-patterns",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-deployment-patterns",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

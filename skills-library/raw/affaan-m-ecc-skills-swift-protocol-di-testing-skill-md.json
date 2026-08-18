@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-swift-protocol-di-testing-skill-md",
+  "name": "swift-protocol-di-testing",
+  "author": "affaan-m",
+  "description": "Protocol-based dependency injection for testable Swift code \u2014 mock file system, network, and external APIs using focused protocols and Swift Testing.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/swift-protocol-di-testing",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-swift-protocol-di-testing",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

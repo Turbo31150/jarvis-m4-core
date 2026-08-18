@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-skills-autonomous-ai-agents-computer-use-skill-md",
+  "name": "computer-use",
+  "author": "NousResearch",
+  "description": "Drive the user's desktop in the background \u2014 clicking, typing,\nscrolling, dragging \u2014 without stealing the cursor, keyboard focus,\nor switching virtual desktops / Spaces. Cross-platform: macOS,\nWindows, Linux. Works with any tool-capable model. Load this skill\nwhenever the `computer_use` tool is available.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/skills/autonomous-ai-agents/computer-use",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/skills-autonomous-ai-agents-computer-use",
+  "stars": 225204,
+  "updatedAt": 1785352777
+}

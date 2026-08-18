@@ -25,6 +25,22 @@ try:
 except Exception as _e:  # pragma: no cover
     print(f"[logiciels] module non chargé: {_e}")
 
+try:
+    import forge as _forge
+
+    _forge.register(app)
+except Exception as _e:  # pragma: no cover
+    print(f"[forge] module non chargé: {_e}")
+
+# ── Cascade 0-token (sonde les backends avant de router, garde-fou RGPD) ──
+try:
+    import cascade as _cascade
+
+    _cascade.register(app)
+    print("[JARVIS] Cascade 0-token chargée (/api/cascade, /api/cascade/status)")
+except Exception as _e:  # pragma: no cover
+    print(f"[cascade] module non chargé: {_e}")
+
 # ── Module Espace Prof (élèves, exercices différenciés, corrections, séquences) ──
 try:
     import prof_routes as _prof_routes
@@ -76,6 +92,7 @@ for _modname in (
     "integrations",
     "commandes",
     "barre_magique",
+    "histoire",
     "supports",
     "assistant",
     "registre",
@@ -120,8 +137,9 @@ PLANNING_DB = BASE / "planning.db"
 NOTES_DB = BASE / "webapp" / "notes.db"
 DOCUMENTS = Path("/home/pamerys/Documents")
 
-M1 = "http://192.168.1.85:1234"
-M2 = "http://192.168.1.26:1234"
+# Parc réel 2026-08-14 : M4 (ici) + M6 (câble direct, LM Studio 24/7) + Rémi (Tailscale).
+M6 = "http://10.42.0.230:1234"
+REMI = "http://100.113.121.61:11434"
 
 
 # ── helpers ────────────────────────────────────────────────────────────
@@ -156,14 +174,14 @@ init_notes_db()
 @app.route("/api/status")
 def api_status():
     result = {
-        "m1": {"status": "down", "latency_ms": None, "host": "192.168.1.85"},
-        "m2": {"status": "down", "latency_ms": None, "host": "192.168.1.26"},
+        "m6": {"status": "down", "latency_ms": None, "host": "10.42.0.230"},
+        "remi": {"status": "down", "latency_ms": None, "host": "100.113.121.61"},
         "gpu": {"temp": 0, "state": "UNKNOWN", "fan_rpm": 0},
         "timestamp": datetime.now().isoformat(),
     }
 
-    # Ping M1 with 1s timeout
-    for name, base in (("m1", M1), ("m2", M2)):
+    # Ping M6 puis Rémi, 1 s de timeout
+    for name, base in (("m6", M6), ("remi", REMI)):
         try:
             start = time.time()
             r = requests.get(f"{base}/v1/models", timeout=1)
@@ -299,7 +317,7 @@ def add_note():
 @app.route("/api/cluster")
 def api_cluster():
     result = {}
-    for name, base in (("M1", M1), ("M2", M2)):
+    for name, base in (("M6", M6), ("REMI", REMI)):
         try:
             r = requests.get(f"{base}/v1/models", timeout=3)
             models = [m["id"] for m in r.json().get("data", [])]
@@ -346,15 +364,15 @@ def jarvis_ask():
         "max_tokens": 2048,
     }
     try:
-        r = requests.post(f"{M2}/v1/chat/completions", json=payload, timeout=60)
+        r = requests.post(f"{M6}/v1/chat/completions", json=payload, timeout=60)
         answer = r.json()["choices"][0]["message"]["content"]
         return jsonify({"answer": answer, "model": model})
     except Exception:
-        # Fallback to M1
+        # Repli sur Rémi (Tailscale)
         try:
-            r = requests.post(f"{M1}/v1/chat/completions", json=payload, timeout=60)
+            r = requests.post(f"{REMI}/v1/chat/completions", json=payload, timeout=60)
             answer = r.json()["choices"][0]["message"]["content"]
-            return jsonify({"answer": answer, "model": model + " (M1)"})
+            return jsonify({"answer": answer, "model": model + " (Rémi)"})
         except Exception as e2:
             return jsonify({"error": str(e2)}), 503
 
@@ -780,7 +798,7 @@ def api_agents():
         },
         {
             "nom": "jarvis-router",
-            "desc": "Routeur multi-agents M1+M2 par mots-clés (transcription→IA)",
+            "desc": "Routeur multi-agents M6+Rémi par mots-clés (transcription→IA)",
             "cli": "python3 ~/jarvis/multiagent/jarvis-router.py",
             "categorie": "IA",
             "icon": "🔀",
@@ -902,12 +920,12 @@ def api_system():
     except Exception:
         _check("gpu_temp", False, "thermal JSON absent")
 
-    # Cluster M2 (quick check)
+    # LM Studio M6 (quick check)
     try:
-        r = requests.get(f"{M2}/v1/models", timeout=1)
-        _check("cluster_m2", r.status_code == 200, "UP")
+        r = requests.get(f"{M6}/v1/models", timeout=1)
+        _check("lmstudio_m6", r.status_code == 200, "UP")
     except Exception:
-        _check("cluster_m2", False, "DOWN")
+        _check("lmstudio_m6", False, "DOWN")
 
     # SQLite todo
     TODO_DB = BASE / "todo.db"

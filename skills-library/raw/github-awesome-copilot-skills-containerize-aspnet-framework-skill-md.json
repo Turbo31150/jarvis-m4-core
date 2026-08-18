@@ -1,0 +1,11 @@
+{
+  "id": "github-awesome-copilot-skills-containerize-aspnet-framework-skill-md",
+  "name": "containerize-aspnet-framework",
+  "author": "github",
+  "description": "Containerize an ASP.NET .NET Framework project by creating Dockerfile and .dockerfile files customized for the project.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/github/awesome-copilot/tree/main/skills/containerize-aspnet-framework",
+  "skillUrl": "https://skillsmp.com/creators/github/awesome-copilot/skills-containerize-aspnet-framework",
+  "stars": 37423,
+  "updatedAt": 1771904373
+}

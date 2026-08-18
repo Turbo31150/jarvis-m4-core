@@ -1,0 +1,11 @@
+{
+  "id": "nexu-io-open-design-plugins-official-examples-ve-terminal-mono-skill-md",
+  "name": "ve-terminal-mono",
+  "author": "nexu-io",
+  "description": "Open Design from the CLI: driving the full design workflow with the `od` command \u2014 scripted, composable, agent-ready. Built as a decision-grade AI literacy deck for developers, power users.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/nexu-io/open-design/tree/main/plugins/_official/examples/ve-terminal-mono",
+  "skillUrl": "https://skillsmp.com/creators/nexu-io/open-design/plugins-official-examples-ve-terminal-mono",
+  "stars": 83535,
+  "updatedAt": 1784018637
+}

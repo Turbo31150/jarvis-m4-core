@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-kiro-skills-cpp-coding-standards-skill-md",
+  "name": "cpp-coding-standards",
+  "author": "affaan-m",
+  "description": "C++ coding standards based on the C++ Core Guidelines (isocpp.github.io). Use when writing, reviewing, or refactoring C++ code to enforce modern, safe, and idiomatic practices.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/.kiro/skills/cpp-coding-standards",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/kiro-skills-cpp-coding-standards",
+  "stars": 237500,
+  "updatedAt": 1780809997
+}

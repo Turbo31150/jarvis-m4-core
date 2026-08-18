@@ -1,0 +1,11 @@
+{
+  "id": "thedaviddias-front-end-checklist-skills-llm-parsability-skill-md",
+  "name": "llm-parsability",
+  "author": "thedaviddias",
+  "description": "Use when auditing content pages for AI discoverability. Applies to any informational page intended to appear in AI-generated answers, search snippets, or knowledge base extraction.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedaviddias/Front-End-Checklist/tree/main/skills/llm-parsability",
+  "skillUrl": "https://skillsmp.com/creators/thedaviddias/front-end-checklist/skills-llm-parsability",
+  "stars": 73416,
+  "updatedAt": 1780091646
+}

@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-automation-audit-ops-skill-md",
+  "name": "automation-audit-ops",
+  "author": "affaan-m",
+  "description": "Evidence-first automation inventory and overlap audit workflow for ECC. Use when the user wants to know which jobs, hooks, connectors, MCP servers, or wrappers are live, broken, redundant, or missing before fixing anything.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/automation-audit-ops",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-automation-audit-ops",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

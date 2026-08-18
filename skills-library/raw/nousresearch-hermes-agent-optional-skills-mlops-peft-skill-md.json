@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-optional-skills-mlops-peft-skill-md",
+  "name": "peft-fine-tuning",
+  "author": "NousResearch",
+  "description": "Fine-tune large LLMs with LoRA on limited GPU memory.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/optional-skills/mlops/peft",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/optional-skills-mlops-peft",
+  "stars": 225204,
+  "updatedAt": 1784866036
+}

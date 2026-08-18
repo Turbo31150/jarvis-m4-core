@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-react-native-patterns-skill-md",
+  "name": "react-native-patterns",
+  "author": "affaan-m",
+  "description": "React Native and Expo app patterns \u2014 Expo Router navigation, state separation (server/client/route/form), TanStack Query data fetching with Zod, performant lists, NativeWind/StyleSheet styling, native APIs, and secure storage. Use when building or editing React Native / Expo screens, components, navigation, or data layers.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/react-native-patterns",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-react-native-patterns",
+  "stars": 237500,
+  "updatedAt": 1782786168
+}

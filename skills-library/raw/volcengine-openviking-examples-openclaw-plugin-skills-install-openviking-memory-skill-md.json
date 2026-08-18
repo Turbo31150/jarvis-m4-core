@@ -1,0 +1,11 @@
+{
+  "id": "volcengine-openviking-examples-openclaw-plugin-skills-install-openviking-memory-skill-md",
+  "name": "install-openviking-memory",
+  "author": "volcengine",
+  "description": "Install and configure the OpenViking long-term memory plugin for OpenClaw via natural conversation. Once installed, the plugin automatically captures important facts from chats and recalls relevant context before each reply (auto-capture + auto-recall, cross-session). Covers prerequisites check, plugin install through OpenClaw's plugin manager first, with ov-install only as a backup path, wizard-based configuration, slot activation, gateway restart, verification, plus multi-tenant root-key support, multi-instance, and uninstall. Trigger when the user says any of: \"install OpenViking\", \"set up memory\", \"configure memory plugin\", \"add long-term memory\", \"connect to OpenViking server\", \"RAG\", \"semantic memory\", \"\u5e2e\u6211\u88c5 OpenViking\", \"\u914d\u7f6e\u8bb0\u5fc6\u63d2\u4ef6\", \"\u5b89\u88c5\u8bb0\u5fc6\u529f\u80fd\", \"\u63a5\u5165 OpenViking\", \"\u6211\u6709\u4e00\u53f0 OpenViking \u670d\u52a1\u5668\". The user does NOT need to know any CLI commands \u2014 the agent runs everything and only asks for a few values. This skill assumes the OpenViking server is already running. If the server is not ready, the skill tells the user to con",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/volcengine/OpenViking/tree/main/examples/openclaw-plugin/skills/install-openviking-memory",
+  "skillUrl": "https://skillsmp.com/creators/volcengine/openviking/examples-openclaw-plugin-skills-install-openviking-memory",
+  "stars": 27909,
+  "updatedAt": 1783431304
+}

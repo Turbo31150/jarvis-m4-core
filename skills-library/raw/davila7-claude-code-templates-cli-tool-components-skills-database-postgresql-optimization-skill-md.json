@@ -1,0 +1,11 @@
+{
+  "id": "davila7-claude-code-templates-cli-tool-components-skills-database-postgresql-optimization-skill-md",
+  "name": "postgresql-optimization",
+  "author": "davila7",
+  "description": "PostgreSQL database optimization workflow for query tuning, indexing strategies, performance analysis, and production database management.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/database/postgresql-optimization",
+  "skillUrl": "https://skillsmp.com/creators/davila7/claude-code-templates/cli-tool-components-skills-database-postgresql-optimization",
+  "stars": 30096,
+  "updatedAt": 1775344090
+}

@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-agents-skills-video-editing-skill-md",
+  "name": "video-editing",
+  "author": "affaan-m",
+  "description": "AI-assisted video editing workflows for cutting, structuring, and augmenting real footage. Covers the full pipeline from raw capture through FFmpeg, Remotion, ElevenLabs, fal.ai, and final polish in Descript or CapCut. Use when the user wants to edit video, cut footage, create vlogs, or build video content.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/.agents/skills/video-editing",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/agents-skills-video-editing",
+  "stars": 237500,
+  "updatedAt": 1777428617
+}

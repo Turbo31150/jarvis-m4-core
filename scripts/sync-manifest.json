@@ -1,0 +1,16 @@
+{
+  "nodes": {
+    "M1": "turbo@192.168.0.10",
+    "M2": "turbo@127.0.0.1"
+  },
+  "files": [
+    "jarvis/integrations/mirr/local_mirra.py",
+    "jarvis/integrations/mirr/local_mirra_app.sh",
+    "jarvis/integrations/mirr/hub/server.py",
+    "jarvis/integrations/mirr/hub/static/index.html",
+    "jarvis/scripts/m5-dispatch.sh"
+  ],
+  "ssh_key": "~/.ssh/jarvis_cluster",
+  "lock_file": "/tmp/jarvis-sync.lock",
+  "timeout_s": 60
+}

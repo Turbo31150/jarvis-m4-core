@@ -1,0 +1,11 @@
+{
+  "id": "thedotmack-claude-mem-plugin-skills-knowledge-agent-skill-md",
+  "name": "knowledge-agent",
+  "author": "thedotmack",
+  "description": "Build and query AI-powered knowledge bases from claude-mem observations. Use when users want to create focused \"brains\" from their observation history, ask questions about past work patterns, or compile expertise on specific topics.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedotmack/claude-mem/tree/main/plugin/skills/knowledge-agent",
+  "skillUrl": "https://skillsmp.com/creators/thedotmack/claude-mem/plugin-skills-knowledge-agent",
+  "stars": 89499,
+  "updatedAt": 1775694620
+}

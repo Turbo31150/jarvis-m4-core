@@ -1,0 +1,11 @@
+{
+  "id": "calesthio-openmontage-claude-skills-ai-video-gen-skill-md",
+  "name": "ai-video-gen",
+  "author": "calesthio",
+  "description": "Generate AI videos from text prompts using multiple provider gateways. Use when: (1) Generating videos from text descriptions, (2) Creating AI-generated video clips for content production, (3) Image-to-video generation with a reference image, (4) Choosing between video generation providers (VEO, Kling, Sora, Runway, Seedance, MiniMax, Gemini Omni). Supports gateways: HeyGen API, fal.ai API, and the Gemini API (Gemini Omni Flash).",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/calesthio/OpenMontage/tree/main/.claude/skills/ai-video-gen",
+  "skillUrl": "https://skillsmp.com/creators/calesthio/openmontage/claude-skills-ai-video-gen",
+  "stars": 45016,
+  "updatedAt": 1783533657
+}

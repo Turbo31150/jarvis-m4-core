@@ -1,0 +1,11 @@
+{
+  "id": "trpc-trpc-packages-server-skills-middlewares-skill-md",
+  "name": "middlewares",
+  "author": "trpc",
+  "description": "Create and compose tRPC middleware with t.procedure.use(), extend context via opts.next({ ctx }), build reusable middleware with .concat() and .unstable_pipe(), define base procedures like publicProcedure and authedProcedure. Access raw input with getRawInput(). Logging, timing, OTEL tracing patterns.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/trpc/trpc/tree/main/packages/server/skills/middlewares",
+  "skillUrl": "https://skillsmp.com/creators/trpc/trpc/packages-server-skills-middlewares",
+  "stars": 40488,
+  "updatedAt": 1774697990
+}

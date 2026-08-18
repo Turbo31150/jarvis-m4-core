@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruflo-plugins-ruflo-cost-tracker-skills-cost-health-skill-md",
+  "name": "cost-health",
+  "author": "ruvnet",
+  "description": "Composite CI gate \u2014 runs cost-budget-check + cost-burn + cost-anomaly + cost-projection in parallel and surfaces a single combined health status with max exit code. The operationally-useful entry point \u2014 one shell-out covers all four alert ladders.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/ruflo/tree/main/plugins/ruflo-cost-tracker/skills/cost-health",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruflo/plugins-ruflo-cost-tracker-skills-cost-health",
+  "stars": 66991,
+  "updatedAt": 1781626235
+}

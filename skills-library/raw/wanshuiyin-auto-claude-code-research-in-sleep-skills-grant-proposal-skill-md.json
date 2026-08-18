@@ -1,0 +1,11 @@
+{
+  "id": "wanshuiyin-auto-claude-code-research-in-sleep-skills-grant-proposal-skill-md",
+  "name": "grant-proposal",
+  "author": "wanshuiyin",
+  "description": "Draft a structured grant proposal from research ideas and literature. Supports KAKENHI (Japan), NSF (US), NSFC (China, including \u9762\u4e0a/\u9752\u5e74/\u4f18\u9752/\u6770\u9752/\u6d77\u5916\u4f18\u9752/\u91cd\u70b9), ERC (EU), DFG (Germany), SNSF (Switzerland), ARC (Australia), NWO (Netherlands), and generic formats. Use when user says \"write grant\", \"grant proposal\", \"\u7533\u8acb\u66f8\", \"write KAKENHI\", \"\u79d1\u7814\u8cbb\", \"\u57fa\u91d1\u7533\u8bf7\", \"\u5199\u57fa\u91d1\", \"NSF proposal\", or wants to turn research ideas into a funding application.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep/tree/main/skills/grant-proposal",
+  "skillUrl": "https://skillsmp.com/creators/wanshuiyin/auto-claude-code-research-in-sleep/skills-grant-proposal",
+  "stars": 14221,
+  "updatedAt": 1784029583
+}

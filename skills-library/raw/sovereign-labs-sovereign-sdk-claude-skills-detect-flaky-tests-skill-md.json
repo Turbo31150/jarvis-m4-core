@@ -1,0 +1,11 @@
+{
+  "id": "sovereign-labs-sovereign-sdk-claude-skills-detect-flaky-tests-skill-md",
+  "name": "detect-flaky-tests",
+  "author": "Sovereign-Labs",
+  "description": "Identify flaky tests by comparing failures across multiple CI runs. Use when the user suspects flaky tests, sees intermittent failures, or wants to analyze test reliability.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Sovereign-Labs/sovereign-sdk/tree/dev/.claude/skills/detect-flaky-tests",
+  "skillUrl": "https://skillsmp.com/creators/sovereign-labs/sovereign-sdk/claude-skills-detect-flaky-tests",
+  "stars": 478,
+  "updatedAt": 1769514006
+}

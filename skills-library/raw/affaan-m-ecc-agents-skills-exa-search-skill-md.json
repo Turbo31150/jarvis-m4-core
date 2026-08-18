@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-agents-skills-exa-search-skill-md",
+  "name": "exa-search",
+  "author": "affaan-m",
+  "description": "Neural search via Exa MCP for web, code, and company research. Use when the user needs web search, code examples, company intel, people lookup, or AI-powered deep research with Exa's neural search engine.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/.agents/skills/exa-search",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/agents-skills-exa-search",
+  "stars": 237500,
+  "updatedAt": 1777428617
+}

@@ -1,0 +1,11 @@
+{
+  "id": "posthog-posthog-agents-skills-querying-local-postgres-skill-md",
+  "name": "querying-local-postgres",
+  "author": "PostHog",
+  "description": "Run read-only SQL against the local Postgres app database (SELECT, EXPLAIN, EXPLAIN ANALYZE on SELECT). Default local URL postgres://posthog:posthog@localhost:5432/posthog; else DATABASE_URL. Use when querying the local DB, inspecting tables, debugging data, or analyzing query plans. Mutations are strictly forbidden.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/PostHog/posthog/tree/master/.agents/skills/querying-local-postgres",
+  "skillUrl": "https://skillsmp.com/creators/posthog/posthog/agents-skills-querying-local-postgres",
+  "stars": 37496,
+  "updatedAt": 1782240382
+}

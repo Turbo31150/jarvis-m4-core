@@ -1,0 +1,11 @@
+{
+  "id": "warpdotdev-warp-resources-channel-gated-skills-dogfood-triage-vulnerabilities-skill-md",
+  "name": "triage-vulnerabilities",
+  "author": "warpdotdev",
+  "description": "Triage and remediate security vulnerabilities across Warp infrastructure. Checks Dependabot alerts (GitHub), GCP Artifact Registry container scanning, and Docker Scout for public images. Use when the user asks to check for vulnerabilities, triage CVEs, fix dependency issues, update base images, or remediate security alerts.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/warpdotdev/warp/tree/master/resources/channel-gated-skills/dogfood/triage-vulnerabilities",
+  "skillUrl": "https://skillsmp.com/creators/warpdotdev/warp/resources-channel-gated-skills-dogfood-triage-vulnerabilities",
+  "stars": 63937,
+  "updatedAt": 1777383813
+}

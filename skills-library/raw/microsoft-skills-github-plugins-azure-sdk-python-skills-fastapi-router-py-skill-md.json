@@ -1,0 +1,11 @@
+{
+  "id": "microsoft-skills-github-plugins-azure-sdk-python-skills-fastapi-router-py-skill-md",
+  "name": "fastapi-router-py",
+  "author": "microsoft",
+  "description": "Create FastAPI routers with CRUD operations, authentication dependencies, and proper response models. Use when building REST API endpoints, creating new routes, implementing CRUD operations, or adding authenticated endpoints in FastAPI applications.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/microsoft/skills/tree/main/.github/plugins/azure-sdk-python/skills/fastapi-router-py",
+  "skillUrl": "https://skillsmp.com/creators/microsoft/skills/github-plugins-azure-sdk-python-skills-fastapi-router-py",
+  "stars": 2860,
+  "updatedAt": 1785275175
+}

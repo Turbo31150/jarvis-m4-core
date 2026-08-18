@@ -1,0 +1,11 @@
+{
+  "id": "google-research-google-research-finance-harness-financeharness-skills-relative-valuation-skill-md",
+  "name": "relative-valuation",
+  "author": "google-research",
+  "description": "Value an equity against its peers \u2014 peer-median trading multiples applied to the company's metrics for an implied range, cross-read against its own valuation ratios.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/google-research/google-research/tree/master/finance_harness/financeharness/skills/relative-valuation",
+  "skillUrl": "https://skillsmp.com/creators/google-research/google-research/finance-harness-financeharness-skills-relative-valuation",
+  "stars": 38471,
+  "updatedAt": 1784763548
+}

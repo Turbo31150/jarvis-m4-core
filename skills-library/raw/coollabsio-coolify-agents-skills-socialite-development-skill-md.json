@@ -1,0 +1,11 @@
+{
+  "id": "coollabsio-coolify-agents-skills-socialite-development-skill-md",
+  "name": "socialite-development",
+  "author": "coollabsio",
+  "description": "Manages OAuth social authentication with Laravel Socialite. Activate when adding social login providers; configuring OAuth redirect/callback flows; retrieving authenticated user details; customizing scopes or parameters; setting up community providers; testing with Socialite fakes; or when the user mentions social login, OAuth, Socialite, or third-party authentication.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/coollabsio/coolify/tree/v4.x/.agents/skills/socialite-development",
+  "skillUrl": "https://skillsmp.com/creators/coollabsio/coolify/agents-skills-socialite-development",
+  "stars": 60067,
+  "updatedAt": 1781171922
+}

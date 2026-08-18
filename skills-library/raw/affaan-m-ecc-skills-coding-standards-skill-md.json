@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-coding-standards-skill-md",
+  "name": "coding-standards",
+  "author": "affaan-m",
+  "description": "Baseline cross-project coding conventions for naming, readability, immutability, and code-quality review. Use detailed frontend or backend skills for framework-specific patterns.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/coding-standards",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-coding-standards",
+  "stars": 237500,
+  "updatedAt": 1782783510
+}

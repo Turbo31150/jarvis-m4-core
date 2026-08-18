@@ -1,0 +1,11 @@
+{
+  "id": "posthog-posthog-products-signals-skills-signals-scout-apm-skill-md",
+  "name": "signals-scout-apm",
+  "author": "PostHog",
+  "description": "Signals scout for PostHog distributed tracing (APM / OpenTelemetry spans). Watches RED metrics per (service, operation) \u2014 error rate, p95 latency, request volume \u2014 for regressions, new error signatures, and traffic cliffs, and files each validated regression as a report in the inbox.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/PostHog/posthog/tree/master/products/signals/skills/signals-scout-apm",
+  "skillUrl": "https://skillsmp.com/creators/posthog/posthog/products-signals-skills-signals-scout-apm",
+  "stars": 37496,
+  "updatedAt": 1785376562
+}

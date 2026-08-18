@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruflo-v3-claude-flow-codex-agents-skills-memory-management-skill-md",
+  "name": "memory-management",
+  "author": "ruvnet",
+  "description": "AgentDB memory system with HNSW vector search. Use when: need to store patterns, search for solutions, semantic lookup. Skip when: no learning needed, ephemeral tasks.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/ruflo/tree/main/v3/@claude-flow/codex/.agents/skills/memory-management",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruflo/v3-claude-flow-codex-agents-skills-memory-management",
+  "stars": 66991,
+  "updatedAt": 1770482155
+}

@@ -1,0 +1,11 @@
+{
+  "id": "danielmiessler-lifeos-lifeos-install-skills-apify-skill-md",
+  "name": "apify",
+  "author": "danielmiessler",
+  "description": "Scrapes social platforms, business data, and e-commerce via Apify actors \u2014 Instagram, LinkedIn, TikTok, YouTube, Facebook, Google Maps, Amazon, and web crawls \u2014 filtering in code. USE WHEN scrape Instagram, scrape LinkedIn, scrape TikTok, scrape YouTube, scrape Facebook, Google Maps leads, Amazon reviews, business intelligence, multi-platform social listening, competitive analysis, lead generation, social monitoring, Apify actors, web crawl, extract contacts. NOT FOR X/Twitter account operations like posting, threads, or bookmarks (those need a dedicated X API client), 4-tier progressive scraping with proxy escalation (use BrightData), or real-Chrome bot bypass and computer use (use Interceptor).",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/danielmiessler/LifeOS/tree/main/LifeOS/install/skills/Apify",
+  "skillUrl": "https://skillsmp.com/creators/danielmiessler/lifeos/lifeos-install-skills-apify",
+  "stars": 17144,
+  "updatedAt": 1785627998
+}

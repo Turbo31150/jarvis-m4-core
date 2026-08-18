@@ -1,0 +1,11 @@
+{
+  "id": "prisma-prisma-skills-prisma-next-contract-skill-md",
+  "name": "prisma-next-contract",
+  "author": "prisma",
+  "description": "Edit the Prisma Next data contract \u2014 add models, fields, relations, indexes, enums, value objects (composite types), type aliases, namespaces (Postgres schemas), cross-contract foreign keys (cross-space FK), polymorphic types (`@@discriminator` / `@@base`), use extension namespaces (`pgvector.Vector(...)`, `cipherstash.EncryptedString(...)`), wire `prisma-next.config.ts` with `defineConfig` from the `@internal/<target>/config` fa\u00e7ade, and run `prisma-next contract emit`. Use for schema, models, fields, attributes, soft delete, paranoid, scopes, validations, callbacks, prisma schema, PSL, contract.prisma, contract.ts, contract.json, contract.d.ts, `@internal/postgres/config`, `@internal/postgres/contract-builder`, `@internal/postgres/control`, `@internal/mongo/config`, `@internal/mongo/contract-builder`, `extensions:`, pgvector, cipherstash, postgis, paradedb, supabase, `@internal/extension-supabase`, `@@control`, control policy, managed, tolerated, external, observed.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/prisma/prisma/tree/main/skills/prisma-next-contract",
+  "skillUrl": "https://skillsmp.com/creators/prisma/prisma/skills-prisma-next-contract",
+  "stars": 47525,
+  "updatedAt": 1785766101
+}

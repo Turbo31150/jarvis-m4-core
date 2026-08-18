@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-orch-refine-code-skill-md",
+  "name": "orch-refine-code",
+  "author": "affaan-m",
+  "description": "Orchestrate a behavior-preserving refactor \u2014 confirm tests are green, restructure without changing behavior, keep tests green, review, and gated commit. Use when the structure should improve but behavior must not change.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/orch-refine-code",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-orch-refine-code",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

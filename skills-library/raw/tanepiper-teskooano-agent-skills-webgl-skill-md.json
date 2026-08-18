@@ -1,0 +1,11 @@
+{
+  "id": "tanepiper-teskooano-agent-skills-webgl-skill-md",
+  "name": "webgl",
+  "author": "tanepiper",
+  "description": "WebGL shaders and effects for JARVIS 3D HUD",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/tanepiper/teskooano/tree/main/.agent/skills/webgl",
+  "skillUrl": "https://skillsmp.com/creators/tanepiper/teskooano/agent-skills-webgl",
+  "stars": 27,
+  "updatedAt": 1769341440
+}

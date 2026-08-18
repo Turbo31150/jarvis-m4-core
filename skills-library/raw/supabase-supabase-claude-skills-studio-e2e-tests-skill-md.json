@@ -1,0 +1,11 @@
+{
+  "id": "supabase-supabase-claude-skills-studio-e2e-tests-skill-md",
+  "name": "studio-e2e-tests",
+  "author": "supabase",
+  "description": "Write and run Playwright E2E tests for Supabase Studio (e2e/studio). Use when asked to run e2e tests, write new E2E tests, or debug flaky or failing Playwright tests. Covers running commands, avoiding race conditions, waiting strategies, selectors, helper functions, and CI vs local differences.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/supabase/supabase/tree/master/.claude/skills/studio-e2e-tests",
+  "skillUrl": "https://skillsmp.com/creators/supabase/supabase/claude-skills-studio-e2e-tests",
+  "stars": 107554,
+  "updatedAt": 1784865529
+}

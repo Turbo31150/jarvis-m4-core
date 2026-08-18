@@ -1,0 +1,8 @@
+{
+  "target": "/home/pamerys/jarvis/audit",
+  "topic": "smoke_467635",
+  "profile": "tech",
+  "mode": "fast",
+  "client": "",
+  "run": "/home/pamerys/jarvis/audit/runs/20260815_025301_smoke_467635_"
+}

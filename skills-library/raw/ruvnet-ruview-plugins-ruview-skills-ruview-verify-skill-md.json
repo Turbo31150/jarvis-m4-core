@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruview-plugins-ruview-skills-ruview-verify-skill-md",
+  "name": "ruview-verify",
+  "author": "ruvnet",
+  "description": "Verify a RuView build \u2014 full Rust workspace tests, the deterministic Python pipeline proof (SHA-256 Trust Kill Switch), firmware hash manifest, and the ADR-028 witness bundle with one-command self-verification. Use after any significant change, before merging a PR, or to produce an attestation bundle for a recipient.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/RuView/tree/main/plugins/ruview/skills/ruview-verify",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruview/plugins-ruview-skills-ruview-verify",
+  "stars": 88440,
+  "updatedAt": 1778535556
+}

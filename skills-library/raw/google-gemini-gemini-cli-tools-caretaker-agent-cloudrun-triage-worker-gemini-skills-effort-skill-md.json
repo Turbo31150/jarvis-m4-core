@@ -1,0 +1,11 @@
+{
+  "id": "google-gemini-gemini-cli-tools-caretaker-agent-cloudrun-triage-worker-gemini-skills-effort-skill-md",
+  "name": "effort",
+  "author": "google-gemini",
+  "description": "Estimates the implementation effort required to address the given issue.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/google-gemini/gemini-cli/tree/main/tools/caretaker-agent/cloudrun/triage-worker/.gemini/skills/effort",
+  "skillUrl": "https://skillsmp.com/creators/google-gemini/gemini-cli/tools-caretaker-agent-cloudrun-triage-worker-gemini-skills-effort",
+  "stars": 106351,
+  "updatedAt": 1783460232
+}

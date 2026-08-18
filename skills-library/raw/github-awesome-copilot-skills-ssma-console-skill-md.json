@@ -1,0 +1,11 @@
+{
+  "id": "github-awesome-copilot-skills-ssma-console-skill-md",
+  "name": "ssma-console",
+  "author": "github",
+  "description": "Use when: SSMA console operations \u2014 create project, generate assessment report, convert schema, migrate data, Oracle to SQL Server migration, schema conversion, data migration",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/github/awesome-copilot/tree/main/skills/ssma-console",
+  "skillUrl": "https://skillsmp.com/creators/github/awesome-copilot/skills-ssma-console",
+  "stars": 37423,
+  "updatedAt": 1778807176
+}

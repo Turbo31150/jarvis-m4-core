@@ -1,0 +1,11 @@
+{
+  "id": "alirezarezvani-claude-skills-engineering-skills-slo-architect-skill-md",
+  "name": "slo-architect",
+  "author": "alirezarezvani",
+  "description": "Use when defining, reviewing, or operating SLOs/SLIs/error budgets. Triggers on \"define an SLO\", \"what should our SLO be\", \"error budget\", \"burn rate\", \"SLI\", \"service level objective\", \"Google SRE workbook\", \"multi-window burn-rate alert\", or any reliability-target question. Ships SLO designer, error-budget calculator with multi-window burn-rate thresholds, and SLO reviewer that catches the common bugs (target too aggressive, window too short, conflicting SLOs, no SLI definition). 4 references on SLO principles + SLI design + error budget math + composition with feature-flags-architect/chaos-engineering/kubernetes-operator. NOT a generic observability skill \u2014 specifically the SLO discipline.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/alirezarezvani/claude-skills/tree/main/engineering/skills/slo-architect",
+  "skillUrl": "https://skillsmp.com/creators/alirezarezvani/claude-skills/engineering-skills-slo-architect",
+  "stars": 23780,
+  "updatedAt": 1781191779
+}

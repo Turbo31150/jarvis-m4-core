@@ -87,7 +87,7 @@ python3 ~/jarvis/scripts/codeur-scraper-worker.py --pages 1-5 --min-budget 300 \
 # 2. Filtrer missions IA/Dev/Automation
 python3 -c "
 import json
-data = json.load(open('/home/turbo/jarvis/data/scrape/codeur_$(date +%Y%m%d).json'))
+data = json.load(open('/home/pamerys/jarvis/data/scrape/codeur_$(date +%Y%m%d).json'))
 missions = data.get('matched_projects', data.get('projects', []))
 ia_missions = [m for m in missions if any(kw in str(m).lower() for kw in ['ia','ai','python','automatisation','agent','llm','gpt','claude'])]
 for m in ia_missions[:10]:
@@ -264,7 +264,7 @@ ssh turbo@192.168.1.113 "
 ### Variables d'environnement à configurer:
 ```bash
 # Dans ~/.gemini/antigravity/brain/jarvis_terminal.env
-export TELEGRAM_BOT_TOKEN="[récupérer de /home/turbo/.config/jarvis/secrets.env]"
+export TELEGRAM_BOT_TOKEN="[récupérer de /home/pamerys/.config/jarvis/secrets.env]"
 export TELEGRAM_CHAT_ID="2010747443"
 export GMAIL_USER="miningexpert31@gmail.com"
 export GMAIL_APP_PASSWORD="[à créer sur myaccount.google.com/security]"
@@ -321,7 +321,7 @@ python3 ~/jarvis/scripts/codeur-veille.py &
 # Voir top missions Codeur IA/Dev
 python3 -c "
 import json
-data = json.load(open('/home/turbo/jarvis/data/scrape/codeur_merged.json'))
+data = json.load(open('/home/pamerys/jarvis/data/scrape/codeur_merged.json'))
 projects = [p for p in data.get('projects',[]) if any(k in str(p).lower() for k in ['ia','ai','python','auto','agent','bot'])]
 for p in sorted(projects, key=lambda x: '10 000' in str(x.get('budget','')), reverse=True)[:10]:
     print(f\"[{p.get('budget','?')}] {p.get('title','?')}\")

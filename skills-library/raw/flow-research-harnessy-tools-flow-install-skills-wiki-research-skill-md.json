@@ -1,0 +1,11 @@
+{
+  "id": "flow-research-harnessy-tools-flow-install-skills-wiki-research-skill-md",
+  "name": "wiki-research",
+  "author": "Flow-Research",
+  "description": "Autonomous research orchestrator for Jarvis Wiki domains. Spawns a Claude agent with web tools to find new sources, drops them into raw/, runs the compile pipeline, and emits autoresearch traces for the autoflow ratchet.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Flow-Research/harnessy/tree/main/tools/flow-install/skills/wiki-research",
+  "skillUrl": "https://skillsmp.com/creators/flow-research/harnessy/tools-flow-install-skills-wiki-research",
+  "stars": 30,
+  "updatedAt": 1776021594
+}

@@ -1,0 +1,11 @@
+{
+  "id": "thedaviddias-front-end-checklist-skills-sitemap-domain-skill-md",
+  "name": "sitemap-domain",
+  "author": "thedaviddias",
+  "description": "Use when applies to sites that have recently migrated from HTTP to HTTPS, changed domain name, or have www/non-www redirect configurations. Use when sitemap submission reports low coverage.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedaviddias/Front-End-Checklist/tree/main/skills/sitemap-domain",
+  "skillUrl": "https://skillsmp.com/creators/thedaviddias/front-end-checklist/skills-sitemap-domain",
+  "stars": 73416,
+  "updatedAt": 1780091646
+}

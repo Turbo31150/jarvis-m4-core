@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-nestjs-patterns-skill-md",
+  "name": "nestjs-patterns",
+  "author": "affaan-m",
+  "description": "NestJS architecture patterns for modules, controllers, providers, DTO validation, guards, interceptors, config, and production-grade TypeScript backends.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/nestjs-patterns",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-nestjs-patterns",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

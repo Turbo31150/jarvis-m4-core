@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-agents-skills-openclaw-ghsa-maintainer-skill-md",
+  "name": "openclaw-ghsa-maintainer",
+  "author": "openclaw",
+  "description": "Inspect, patch, validate, publish, or confirm OpenClaw GHSA security advisories and private-fork state.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/.agents/skills/openclaw-ghsa-maintainer",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/agents-skills-openclaw-ghsa-maintainer",
+  "stars": 385119,
+  "updatedAt": 1779982239
+}

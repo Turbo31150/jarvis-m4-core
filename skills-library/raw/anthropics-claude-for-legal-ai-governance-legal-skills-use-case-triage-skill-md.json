@@ -1,0 +1,11 @@
+{
+  "id": "anthropics-claude-for-legal-ai-governance-legal-skills-use-case-triage-skill-md",
+  "name": "use-case-triage",
+  "author": "anthropics",
+  "description": "Classify a proposed AI use case against your registry \u2014 approved, conditional, or not approved \u2014 and produce required conditions and next steps. Flags cross-plugin handoffs to privacy or product counsel. Use when user says \"triage this use case\", \"can we use AI for X\", \"is this approved\", \"what do we need to do to use AI for X\".",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/anthropics/claude-for-legal/tree/main/ai-governance-legal/skills/use-case-triage",
+  "skillUrl": "https://skillsmp.com/creators/anthropics/claude-for-legal/ai-governance-legal-skills-use-case-triage",
+  "stars": 8999,
+  "updatedAt": 1778611501
+}

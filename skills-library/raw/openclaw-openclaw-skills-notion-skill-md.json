@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-skills-notion-skill-md",
+  "name": "notion",
+  "author": "openclaw",
+  "description": "Notion CLI/API for pages, Markdown content, data sources, files, comments, search, Workers, and raw API calls.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/skills/notion",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/skills-notion",
+  "stars": 385119,
+  "updatedAt": 1779015027
+}

@@ -1,0 +1,11 @@
+{
+  "id": "anthropics-claude-for-legal-ai-governance-legal-skills-reg-gap-analysis-skill-md",
+  "name": "reg-gap-analysis",
+  "author": "anthropics",
+  "description": "Diff a new AI regulation or guidance against your current governance posture \u2014 surfaces gaps, priorities, and a remediation plan with owners and deadlines. Use when an AI regulation moves (or you learn about one you missed), or when user says \"new reg just dropped\", \"does [regulation] affect us\", \"gap analysis for EU AI Act\", \"compliance check against [AI law or guidance]\", or pastes regulatory text.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/anthropics/claude-for-legal/tree/main/ai-governance-legal/skills/reg-gap-analysis",
+  "skillUrl": "https://skillsmp.com/creators/anthropics/claude-for-legal/ai-governance-legal-skills-reg-gap-analysis",
+  "stars": 8999,
+  "updatedAt": 1778611501
+}

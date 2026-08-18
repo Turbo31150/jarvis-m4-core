@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-enterprise-agent-ops-skill-md",
+  "name": "enterprise-agent-ops",
+  "author": "affaan-m",
+  "description": "Operate long-lived agent workloads with observability, security boundaries, and lifecycle management.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/enterprise-agent-ops",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-enterprise-agent-ops",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

@@ -1,0 +1,11 @@
+{
+  "id": "microsoft-powertoys-github-skills-release-note-generation-skill-md",
+  "name": "release-note-generation",
+  "author": "microsoft",
+  "description": "Toolkit for generating PowerToys release notes from GitHub milestone PRs or commit ranges. Use when asked to create release notes, summarize milestone PRs, generate changelog, prepare release documentation, generate PR review summaries locally for release notes, update README for a new release, manage PR milestones, collect PRs between commits/tags, or prepare release assets (download installers and compute installer hashes).",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/microsoft/PowerToys/tree/main/.github/skills/release-note-generation",
+  "skillUrl": "https://skillsmp.com/creators/microsoft/powertoys/github-skills-release-note-generation",
+  "stars": 137450,
+  "updatedAt": 1778767658
+}

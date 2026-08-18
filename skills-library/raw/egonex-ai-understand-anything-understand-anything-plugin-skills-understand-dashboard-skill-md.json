@@ -1,0 +1,11 @@
+{
+  "id": "egonex-ai-understand-anything-understand-anything-plugin-skills-understand-dashboard-skill-md",
+  "name": "understand-dashboard",
+  "author": "Egonex-AI",
+  "description": "Launch the interactive web dashboard to visualize a codebase's knowledge graph",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Egonex-AI/Understand-Anything/tree/main/understand-anything-plugin/skills/understand-dashboard",
+  "skillUrl": "https://skillsmp.com/creators/egonex-ai/understand-anything/understand-anything-plugin-skills-understand-dashboard",
+  "stars": 77428,
+  "updatedAt": 1783687483
+}

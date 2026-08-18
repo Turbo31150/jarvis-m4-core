@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-netmiko-ssh-automation-skill-md",
+  "name": "netmiko-ssh-automation",
+  "author": "affaan-m",
+  "description": "Safe Python Netmiko patterns for read-only collection, bounded batch SSH, TextFSM parsing, guarded config changes, timeouts, and network automation error handling.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/netmiko-ssh-automation",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-netmiko-ssh-automation",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

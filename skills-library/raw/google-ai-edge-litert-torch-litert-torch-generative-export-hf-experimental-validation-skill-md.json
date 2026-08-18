@@ -1,0 +1,11 @@
+{
+  "id": "google-ai-edge-litert-torch-litert-torch-generative-export-hf-experimental-validation-skill-md",
+  "name": "litert-model-equivalence-test",
+  "author": "google-ai-edge",
+  "description": "Validates equivalence between LiteRT models (litert_lm) and PyTorch models (transformers). Use when you need to verify that an exported LiteRT model produces the same outputs as the original Hugging Face model. Supports multi-turn conversations and custom prompts.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/google-ai-edge/litert-torch/tree/main/litert_torch/generative/export_hf/experimental/validation",
+  "skillUrl": "https://skillsmp.com/creators/google-ai-edge/litert-torch/litert-torch-generative-export-hf-experimental-validation",
+  "stars": 1076,
+  "updatedAt": 1782990760
+}

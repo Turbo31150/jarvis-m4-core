@@ -1,0 +1,593 @@
+#!/usr/bin/env python3
+"""
+JARVIS Voice HUD — Bulle flottante draggable, menu radial 5 modes.
+
+Modes:
+  1. DICTEE_FR       — Alt+X push-to-talk → Whisper FR → colle au curseur
+  2. DICTEE_MULTI    — choix langue (en, es, de, it, pt, zh, ja) → Whisper → colle
+  3. SUBTITLES_LIVE  — overlay sous-titres temps réel (chunks 3s)
+  4. REFLEXION       — Whisper → LM Studio M1 qwen3.5-9b → réponse copiée
+  5. SETTINGS        — toggle TTS, langue par defaut, position reset
+
+Hotkey global: Alt+X (push-to-talk)
+Drag & drop: clic gauche maintenu sur la bulle
+Menu radial: clic droit sur la bulle
+Backends:
+  Whisper API : http://127.0.0.1:9743
+  LM Studio M1: http://192.168.1.85:1234
+"""
+
+import json
+import os
+import subprocess
+import tempfile
+import threading
+import time
+import tkinter as tk
+from datetime import datetime
+from pathlib import Path
+
+try:
+    from pynput import keyboard as kb
+except ImportError:
+    print("Install: pip install pynput")
+    raise
+
+import urllib.request
+
+WHISPER_URL = "http://127.0.0.1:9743/v1/audio/transcriptions"
+WHISPER_HEALTH = "http://127.0.0.1:9743/health"
+LMS_URL = "http://192.168.1.85:1234/v1/chat/completions"
+LMS_MODEL = "qwen/qwen3.5-9b"
+LMS_FALLBACK_URL = "http://192.168.1.26:1234/v1/chat/completions"
+
+CFG_DIR = Path.home() / ".config" / "jarvis"
+CFG_DIR.mkdir(parents=True, exist_ok=True)
+CFG_FILE = CFG_DIR / "voice_hud.json"
+LOG_DIR = Path.home() / "jarvis" / "voice_logs"
+LOG_DIR.mkdir(parents=True, exist_ok=True)
+
+DEFAULT_CFG = {
+    "x": 1700,
+    "y": 100,
+    "lang": "fr",
+    "tts": False,
+    "mode": "DICTEE_FR",
+}
+
+LANGUAGES = [
+    ("fr", "Français"),
+    ("en", "English"),
+    ("es", "Español"),
+    ("de", "Deutsch"),
+    ("it", "Italiano"),
+    ("pt", "Português"),
+    ("zh", "中文"),
+    ("ja", "日本語"),
+]
+
+MODES = {
+    "DICTEE_FR": ("🎙", "#00d4ff", "Dictée FR"),
+    "DICTEE_MULTI": ("🌍", "#ffaa00", "Multi-langue"),
+    "SUBTITLES_LIVE": ("📺", "#ff00aa", "Sous-titres live"),
+    "REFLEXION": ("🧠", "#aa00ff", "Réflexion JARVIS"),
+    "SETTINGS": ("⚙", "#888888", "Réglages"),
+}
+
+STATES = {
+    "idle": "#1a1f29",
+    "recording": "#ff3344",
+    "processing": "#ffaa00",
+    "done": "#22cc88",
+    "error": "#ff0000",
+}
+
+
+def load_cfg():
+    if CFG_FILE.exists():
+        try:
+            return {**DEFAULT_CFG, **json.loads(CFG_FILE.read_text())}
+        except Exception:
+            pass
+    return dict(DEFAULT_CFG)
+
+
+def save_cfg(cfg):
+    CFG_FILE.write_text(json.dumps(cfg, indent=2))
+
+
+# ── Audio capture (arecord) ───────────────────────────────────────────────────
+class Recorder:
+    def __init__(self):
+        self.proc = None
+        self.wav = None
+
+    def start(self):
+        self.wav = tempfile.NamedTemporaryFile(suffix=".wav", delete=False).name
+        self.proc = subprocess.Popen(
+            ["arecord", "-q", "-f", "S16_LE", "-r", "16000", "-c", "1", self.wav],
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+
+    def stop(self):
+        if self.proc:
+            self.proc.terminate()
+            try:
+                self.proc.wait(timeout=2)
+            except subprocess.TimeoutExpired:
+                self.proc.kill()
+        path, self.wav = self.wav, None
+        self.proc = None
+        return path
+
+
+# ── Whisper client ────────────────────────────────────────────────────────────
+def whisper_transcribe(wav_path: str, lang: str = "fr") -> str:
+    """POST multipart to /v1/audio/transcriptions (OpenAI-compatible)."""
+    try:
+        import requests
+
+        with open(wav_path, "rb") as f:
+            r = requests.post(
+                WHISPER_URL,
+                files={"file": (os.path.basename(wav_path), f, "audio/wav")},
+                data={"language": lang, "response_format": "json"},
+                timeout=60,
+            )
+        if r.ok:
+            return (r.json().get("text") or "").strip()
+        return f"[whisper {r.status_code}]"
+    except Exception as e:
+        return f"[whisper err: {e}]"
+
+
+# ── LM Studio (réflexion) ─────────────────────────────────────────────────────
+def lms_reflect(text: str) -> str:
+    payload = json.dumps(
+        {
+            "model": LMS_MODEL,
+            "messages": [
+                {
+                    "role": "system",
+                    "content": "Tu es JARVIS. Réfléchis et réponds en français, structuré et concis.",
+                },
+                {"role": "user", "content": text},
+            ],
+            "stream": False,
+            "max_tokens": 600,
+            "temperature": 0.4,
+        }
+    ).encode()
+    for url in (LMS_URL, LMS_FALLBACK_URL):
+        try:
+            req = urllib.request.Request(
+                url, data=payload, headers={"Content-Type": "application/json"}
+            )
+            with urllib.request.urlopen(req, timeout=45) as r:
+                data = json.loads(r.read())
+                return data["choices"][0]["message"]["content"].strip()
+        except Exception:
+            continue
+    return "[LMS unreachable M1+M2]"
+
+
+# ── Outils système ───────────────────────────────────────────────────────────
+def to_clipboard(text: str):
+    if not text:
+        return
+    try:
+        subprocess.run(
+            ["xclip", "-selection", "clipboard"], input=text.encode(), check=False
+        )
+    except FileNotFoundError:
+        try:
+            subprocess.run(
+                ["xsel", "--clipboard", "--input"], input=text.encode(), check=False
+            )
+        except FileNotFoundError:
+            pass
+
+
+def type_at_cursor(text: str):
+    if not text:
+        return
+    try:
+        subprocess.run(["xdotool", "type", "--delay", "5", "--", text], check=False)
+    except FileNotFoundError:
+        to_clipboard(text)
+
+
+def speak_tts(text: str):
+    """Best-effort TTS via piper or espeak."""
+    try:
+        subprocess.Popen(
+            ["espeak-ng", "-v", "fr", text],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+    except FileNotFoundError:
+        pass
+
+
+def session_log(mode: str, text: str, result: str = ""):
+    f = LOG_DIR / f"hud_{datetime.now().strftime('%Y%m%d')}.jsonl"
+    with f.open("a") as fp:
+        fp.write(
+            json.dumps(
+                {
+                    "ts": datetime.now().isoformat(timespec="seconds"),
+                    "mode": mode,
+                    "text": text,
+                    "result": result,
+                },
+                ensure_ascii=False,
+            )
+            + "\n"
+        )
+
+
+# ── HUD widget ───────────────────────────────────────────────────────────────
+class VoiceHUD:
+    SIZE = 86
+
+    def __init__(self):
+        self.cfg = load_cfg()
+        self.recorder = Recorder()
+        self.state = "idle"
+        self.menu_open = False
+        self.subtitles_running = False
+
+        self.root = tk.Tk()
+        self.root.overrideredirect(True)
+        self.root.attributes("-topmost", True)
+        self.root.attributes("-alpha", 0.92)
+        self.root.geometry(f"{self.SIZE}x{self.SIZE}+{self.cfg['x']}+{self.cfg['y']}")
+        self.root.configure(bg="#000000")
+        try:
+            self.root.wm_attributes("-type", "dock")
+        except tk.TclError:
+            pass
+
+        self.canvas = tk.Canvas(
+            self.root,
+            width=self.SIZE,
+            height=self.SIZE,
+            bg="#000000",
+            highlightthickness=0,
+            bd=0,
+        )
+        self.canvas.pack()
+        self._draw()
+
+        # Drag
+        self.canvas.bind("<ButtonPress-1>", self._drag_start)
+        self.canvas.bind("<B1-Motion>", self._drag_motion)
+        self.canvas.bind("<ButtonRelease-1>", self._drag_end)
+        # Menu
+        self.canvas.bind("<Button-3>", self._show_menu)
+        # Double-clic = toggle reflexion mode rapide
+        self.canvas.bind("<Double-Button-1>", lambda e: self._cycle_mode())
+
+        # Hotkey global Alt+X (push-to-talk pour mode courant)
+        self._hk_pressed = False
+        self.hotkey = kb.GlobalHotKeys({"<alt>+x": self._hotkey_toggle})
+        self.hotkey.start()
+
+        self._drag_dx = self._drag_dy = 0
+        self._drag_moved = False
+
+        self.subtitle_window = None
+
+    def _draw(self):
+        self.canvas.delete("all")
+        bg = STATES[self.state]
+        icon, accent, _ = MODES[self.cfg["mode"]]
+        # Cercle externe (ring couleur mode)
+        self.canvas.create_oval(
+            2, 2, self.SIZE - 2, self.SIZE - 2, fill=bg, outline=accent, width=3
+        )
+        # Pulse ring quand recording
+        if self.state == "recording":
+            self.canvas.create_oval(
+                10, 10, self.SIZE - 10, self.SIZE - 10, outline="#ff3344", width=2
+            )
+        # Icône
+        self.canvas.create_text(
+            self.SIZE // 2,
+            self.SIZE // 2 - 6,
+            text=icon,
+            fill=accent,
+            font=("DejaVu Sans", 22),
+        )
+        # Mini label langue
+        self.canvas.create_text(
+            self.SIZE // 2,
+            self.SIZE - 14,
+            text=self.cfg["lang"].upper(),
+            fill="#cccccc",
+            font=("DejaVu Sans Mono", 8, "bold"),
+        )
+
+    def _set_state(self, state):
+        self.state = state
+        self.root.after(0, self._draw)
+
+    # ── Drag ────────────────────────────────────────────────────────────────
+    def _drag_start(self, e):
+        self._drag_dx = e.x_root - self.root.winfo_x()
+        self._drag_dy = e.y_root - self.root.winfo_y()
+        self._drag_moved = False
+        self._drag_start_time = time.time()
+
+    def _drag_motion(self, e):
+        nx = e.x_root - self._drag_dx
+        ny = e.y_root - self._drag_dy
+        if abs(nx - self.root.winfo_x()) > 3 or abs(ny - self.root.winfo_y()) > 3:
+            self._drag_moved = True
+        self.root.geometry(f"+{nx}+{ny}")
+
+    def _drag_end(self, _e):
+        if self._drag_moved:
+            self.cfg["x"] = self.root.winfo_x()
+            self.cfg["y"] = self.root.winfo_y()
+            save_cfg(self.cfg)
+        else:
+            # clic court = toggle hotkey (équivalent Alt+X)
+            self._hotkey_toggle()
+
+    # ── Mode cycle ──────────────────────────────────────────────────────────
+    def _cycle_mode(self):
+        keys = list(MODES.keys())
+        i = keys.index(self.cfg["mode"])
+        self.cfg["mode"] = keys[(i + 1) % len(keys)]
+        save_cfg(self.cfg)
+        self._draw()
+
+    # ── Menu radial (popup tk.Menu) ────────────────────────────────────────
+    def _show_menu(self, e):
+        m = tk.Menu(
+            self.root,
+            tearoff=0,
+            bg="#1a1f29",
+            fg="#ffffff",
+            activebackground="#00d4ff",
+            activeforeground="#000000",
+            bd=1,
+            font=("DejaVu Sans", 10),
+        )
+        cur = self.cfg["mode"]
+        for key, (icon, color, label) in MODES.items():
+            tag = "● " if key == cur else "  "
+            m.add_command(
+                label=f"{tag}{icon}  {label}",
+                command=lambda k=key: self._select_mode(k),
+            )
+        m.add_separator()
+        # Sous-menu langues
+        lm = tk.Menu(
+            m,
+            tearoff=0,
+            bg="#1a1f29",
+            fg="#ffffff",
+            activebackground="#ffaa00",
+            activeforeground="#000000",
+        )
+        for code, name in LANGUAGES:
+            tag = "● " if code == self.cfg["lang"] else "  "
+            lm.add_command(
+                label=f"{tag}{code.upper()} — {name}",
+                command=lambda c=code: self._set_lang(c),
+            )
+        m.add_cascade(label="🌐  Langue Whisper", menu=lm)
+        m.add_separator()
+        m.add_checkbutton(
+            label="🔊  TTS réponse vocale",
+            variable=tk.BooleanVar(value=self.cfg["tts"]),
+            command=self._toggle_tts,
+        )
+        m.add_command(label="📋  Coller dernier", command=self._paste_last)
+        m.add_command(label="📁  Ouvrir logs", command=self._open_logs)
+        m.add_separator()
+        m.add_command(label="❌  Quitter", command=self._quit)
+        try:
+            m.tk_popup(e.x_root, e.y_root)
+        finally:
+            m.grab_release()
+
+    def _select_mode(self, k):
+        self.cfg["mode"] = k
+        save_cfg(self.cfg)
+        self._draw()
+
+    def _set_lang(self, c):
+        self.cfg["lang"] = c
+        save_cfg(self.cfg)
+        self._draw()
+
+    def _toggle_tts(self):
+        self.cfg["tts"] = not self.cfg["tts"]
+        save_cfg(self.cfg)
+
+    def _paste_last(self):
+        f = LOG_DIR / f"hud_{datetime.now().strftime('%Y%m%d')}.jsonl"
+        if not f.exists():
+            return
+        last = f.read_text().strip().split("\n")[-1]
+        try:
+            entry = json.loads(last)
+            type_at_cursor(entry.get("result") or entry.get("text", ""))
+        except Exception:
+            pass
+
+    def _open_logs(self):
+        subprocess.Popen(["xdg-open", str(LOG_DIR)])
+
+    def _quit(self):
+        try:
+            self.hotkey.stop()
+        except Exception:
+            pass
+        self.root.destroy()
+        os._exit(0)
+
+    # ── Hotkey logic ───────────────────────────────────────────────────────
+    def _hotkey_toggle(self):
+        # Push-to-talk style: 1er appel start, 2e appel stop+process
+        if self.state == "idle":
+            self._start_recording()
+        elif self.state == "recording":
+            self._stop_and_process()
+
+    def _start_recording(self):
+        mode = self.cfg["mode"]
+        if mode == "SETTINGS":
+            # Settings n'enregistre pas, ouvre menu à la place
+            self.root.after(0, lambda: self._show_menu_at_widget())
+            return
+        if mode == "SUBTITLES_LIVE":
+            self._toggle_subtitles()
+            return
+        try:
+            self.recorder.start()
+            self._set_state("recording")
+        except FileNotFoundError:
+            self._flash_error("arecord absent")
+
+    def _stop_and_process(self):
+        wav = self.recorder.stop()
+        self._set_state("processing")
+        threading.Thread(target=self._process, args=(wav,), daemon=True).start()
+
+    def _process(self, wav_path):
+        mode = self.cfg["mode"]
+        lang = self.cfg["lang"]
+        if mode == "DICTEE_FR":
+            lang = "fr"
+        try:
+            text = whisper_transcribe(wav_path, lang)
+            if not text or text.startswith("["):
+                self._flash_error(text or "vide")
+                return
+
+            if mode == "REFLEXION":
+                self._set_state("processing")
+                answer = lms_reflect(text)
+                to_clipboard(answer)
+                type_at_cursor(answer)
+                if self.cfg["tts"]:
+                    speak_tts(answer)
+                session_log(mode, text, answer)
+            else:
+                to_clipboard(text)
+                type_at_cursor(text)
+                if self.cfg["tts"]:
+                    speak_tts(text)
+                session_log(mode, text)
+
+            self._set_state("done")
+            self.root.after(800, lambda: self._set_state("idle"))
+        finally:
+            try:
+                os.unlink(wav_path)
+            except Exception:
+                pass
+
+    def _flash_error(self, msg):
+        self._set_state("error")
+        print(f"[VoiceHUD ERR] {msg}")
+        self.root.after(1500, lambda: self._set_state("idle"))
+
+    def _show_menu_at_widget(self):
+        class E:
+            pass
+
+        e = E()
+        e.x_root = self.root.winfo_x() + self.SIZE
+        e.y_root = self.root.winfo_y()
+        self._show_menu(e)
+
+    # ── Sous-titres live ───────────────────────────────────────────────────
+    def _toggle_subtitles(self):
+        if self.subtitles_running:
+            self.subtitles_running = False
+            if self.subtitle_window:
+                self.subtitle_window.destroy()
+                self.subtitle_window = None
+            self._set_state("idle")
+            return
+        self.subtitles_running = True
+        self._set_state("recording")
+        self._build_subtitle_window()
+        threading.Thread(target=self._subtitles_loop, daemon=True).start()
+
+    def _build_subtitle_window(self):
+        w = tk.Toplevel(self.root)
+        w.overrideredirect(True)
+        w.attributes("-topmost", True)
+        w.attributes("-alpha", 0.85)
+        sw = w.winfo_screenwidth()
+        sh = w.winfo_screenheight()
+        ww, hh = 900, 80
+        w.geometry(f"{ww}x{hh}+{(sw - ww) // 2}+{sh - hh - 60}")
+        w.configure(bg="#000000")
+        lbl = tk.Label(
+            w,
+            text="…",
+            fg="#00ffaa",
+            bg="#000000",
+            font=("DejaVu Sans", 22, "bold"),
+            wraplength=ww - 20,
+        )
+        lbl.pack(fill="both", expand=True, padx=10, pady=10)
+        self.subtitle_window = w
+        self.subtitle_label = lbl
+
+    def _subtitles_loop(self):
+        while self.subtitles_running:
+            wav = tempfile.NamedTemporaryFile(suffix=".wav", delete=False).name
+            proc = subprocess.Popen(
+                [
+                    "arecord",
+                    "-q",
+                    "-f",
+                    "S16_LE",
+                    "-r",
+                    "16000",
+                    "-c",
+                    "1",
+                    "-d",
+                    "4",
+                    wav,
+                ],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            )
+            proc.wait()
+            if not self.subtitles_running:
+                break
+            text = whisper_transcribe(wav, self.cfg["lang"])
+            try:
+                os.unlink(wav)
+            except Exception:
+                pass
+            if text and not text.startswith("["):
+                if self.subtitle_label:
+                    self.root.after(
+                        0, lambda t=text: self.subtitle_label.config(text=t)
+                    )
+                session_log("SUBTITLES_LIVE", text)
+
+    def run(self):
+        # Health-check whisper
+        try:
+            with urllib.request.urlopen(WHISPER_HEALTH, timeout=2) as r:
+                json.loads(r.read())
+        except Exception:
+            print("[WARN] Whisper :9743 down — démarrer jarvis_whisper_api.py")
+        self.root.mainloop()
+
+
+if __name__ == "__main__":
+    VoiceHUD().run()

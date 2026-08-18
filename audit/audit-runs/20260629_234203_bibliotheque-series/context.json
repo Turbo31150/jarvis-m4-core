@@ -1,0 +1,18 @@
+{
+  "topic": "bibliotheque-series",
+  "client": "",
+  "url": "",
+  "profile": "tech",
+  "mode": "fast",
+  "target": "/home/pamerys/labo/bibliotheque",
+  "agents": [
+    "tech"
+  ],
+  "waves": [
+    "local"
+  ],
+  "max_tokens": 800,
+  "web": false,
+  "started": "2026-06-29T23:42:03",
+  "outdir": "/home/pamerys/jarvis/audit/audit-runs/20260629_234203_bibliotheque-series"
+}

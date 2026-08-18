@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-ja-jp-skills-django-verification-skill-md",
+  "name": "django-verification",
+  "author": "affaan-m",
+  "description": "Verification loop for Django projects: migrations, linting, tests with coverage, security scans, and deployment readiness checks before release or PR.",
+  "contentLanguage": "ja",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/ja-JP/skills/django-verification",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-ja-jp-skills-django-verification",
+  "stars": 237500,
+  "updatedAt": 1784322829
+}

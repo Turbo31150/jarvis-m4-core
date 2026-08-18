@@ -1,0 +1,11 @@
+{
+  "id": "dmitrytruelecter-multi-agent-skills-issue-claim-skill-md",
+  "name": "issue-claim",
+  "author": "DmitryTrueLecter",
+  "description": "Atomically claim an issue by transitioning it to In Progress. Returns the full issue data on success (same shape as /dma:task-read), or a failure signal if another runner already claimed it. Caller decides what to do on failure. Invocation: /dma:issue-claim <ISSUE-KEY>.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/DmitryTrueLecter/multi-agent/tree/main/skills/issue-claim",
+  "skillUrl": "https://skillsmp.com/creators/dmitrytruelecter/multi-agent/skills-issue-claim",
+  "stars": 0,
+  "updatedAt": 1782718463
+}

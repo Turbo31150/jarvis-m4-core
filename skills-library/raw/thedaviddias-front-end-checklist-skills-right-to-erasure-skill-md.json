@@ -1,0 +1,11 @@
+{
+  "id": "thedaviddias-front-end-checklist-skills-right-to-erasure-skill-md",
+  "name": "right-to-erasure",
+  "author": "thedaviddias",
+  "description": "Use when auditing account settings pages, privacy dashboards, or API routes to verify that a complete data deletion path exists for users.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedaviddias/Front-End-Checklist/tree/main/skills/right-to-erasure",
+  "skillUrl": "https://skillsmp.com/creators/thedaviddias/front-end-checklist/skills-right-to-erasure",
+  "stars": 73416,
+  "updatedAt": 1780091646
+}

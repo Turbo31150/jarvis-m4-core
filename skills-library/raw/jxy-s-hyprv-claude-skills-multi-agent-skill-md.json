@@ -1,0 +1,11 @@
+{
+  "id": "jxy-s-hyprv-claude-skills-multi-agent-skill-md",
+  "name": "multi-agent",
+  "author": "jxy-s",
+  "description": "Sub-area file-scoping for running multiple agents in parallel on the hyprv repo without stepping on each other. Use this when coordinating parallel/concurrent work, claiming an in-flight area, or deciding which files an agent may touch.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/jxy-s/hyprv/tree/main/.claude/skills/multi-agent",
+  "skillUrl": "https://skillsmp.com/creators/jxy-s/hyprv/claude-skills-multi-agent",
+  "stars": 5,
+  "updatedAt": 1781066154
+}

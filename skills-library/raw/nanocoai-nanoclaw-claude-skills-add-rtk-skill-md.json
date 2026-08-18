@@ -1,0 +1,11 @@
+{
+  "id": "nanocoai-nanoclaw-claude-skills-add-rtk-skill-md",
+  "name": "add-rtk",
+  "author": "nanocoai",
+  "description": "Install rtk token-compression proxy into agent containers. Routes Bash tool calls through rtk for 60\u201390% token savings on dev commands (git, cargo, pytest, docker, kubectl, etc.).",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/nanocoai/nanoclaw/tree/main/.claude/skills/add-rtk",
+  "skillUrl": "https://skillsmp.com/creators/nanocoai/nanoclaw/claude-skills-add-rtk",
+  "stars": 30427,
+  "updatedAt": 1781640617
+}

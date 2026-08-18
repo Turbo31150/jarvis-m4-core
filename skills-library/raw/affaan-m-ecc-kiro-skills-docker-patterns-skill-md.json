@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-kiro-skills-docker-patterns-skill-md",
+  "name": "docker-patterns",
+  "author": "affaan-m",
+  "description": "Docker and Docker Compose patterns for local development, container security, networking, volume strategies, and multi-service orchestration. Use when setting up containerized development environments or reviewing Docker configurations.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/.kiro/skills/docker-patterns",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/kiro-skills-docker-patterns",
+  "stars": 237500,
+  "updatedAt": 1774241745
+}

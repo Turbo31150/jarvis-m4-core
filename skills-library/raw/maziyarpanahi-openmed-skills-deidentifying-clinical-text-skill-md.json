@@ -1,0 +1,11 @@
+{
+  "id": "maziyarpanahi-openmed-skills-deidentifying-clinical-text-skill-md",
+  "name": "deidentifying-clinical-text",
+  "author": "maziyarpanahi",
+  "description": "Remove, mask, or replace PHI/PII in clinical free text on-device with OpenMed's deidentify(). Use when the user needs to de-identify medical notes, strip patient identifiers, redact PHI before sharing or analysis, anonymize discharge summaries, or pick a de-id method (mask vs remove vs replace vs hash vs shift_dates). Covers confidence_threshold for safety, consistent+seed for stable surrogates, keep_mapping for reversible de-id, policy= profiles, and the DeidentificationResult fields. Pairs with OpenMed extract_pii (detect spans), reidentify (restore), configuring-privacy-policies, and auditing-deidentification-runs.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/maziyarpanahi/openmed/tree/master/skills/deidentifying-clinical-text",
+  "skillUrl": "https://skillsmp.com/creators/maziyarpanahi/openmed/skills-deidentifying-clinical-text",
+  "stars": 4847,
+  "updatedAt": 1784539657
+}

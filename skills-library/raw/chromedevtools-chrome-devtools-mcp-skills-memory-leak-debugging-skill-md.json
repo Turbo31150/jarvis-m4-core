@@ -1,0 +1,11 @@
+{
+  "id": "chromedevtools-chrome-devtools-mcp-skills-memory-leak-debugging-skill-md",
+  "name": "memory-leak-debugging",
+  "author": "ChromeDevTools",
+  "description": "Diagnoses and resolves memory leaks in JavaScript/Node.js applications. Use when a user reports high memory usage, OOM errors, or wants to capture, compare, or inspect heap snapshots with Chrome DevTools MCP memory tools.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ChromeDevTools/chrome-devtools-mcp/tree/main/skills/memory-leak-debugging",
+  "skillUrl": "https://skillsmp.com/creators/chromedevtools/chrome-devtools-mcp/skills-memory-leak-debugging",
+  "stars": 48505,
+  "updatedAt": 1783941116
+}

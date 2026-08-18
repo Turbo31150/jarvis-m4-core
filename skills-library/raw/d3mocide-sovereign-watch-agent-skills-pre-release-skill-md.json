@@ -1,0 +1,11 @@
+{
+  "id": "d3mocide-sovereign-watch-agent-skills-pre-release-skill-md",
+  "name": "pre-release",
+  "author": "d3mocide",
+  "description": "WORKFLOW SKILL - Sovereign Watch pre-release readiness and release decision gate. Use when: preparing a release candidate, deciding patch release vs batching, validating changelog coverage, confirming verification command coverage, checking migration/docs/task-log completeness, and producing a GO or HOLD recommendation for v1.x.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/d3mocide/Sovereign_Watch/tree/main/.agent/skills/pre-release",
+  "skillUrl": "https://skillsmp.com/creators/d3mocide/sovereign_watch/agent-skills-pre-release",
+  "stars": 88,
+  "updatedAt": 1775839875
+}

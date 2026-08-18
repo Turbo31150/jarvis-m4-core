@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Agent IA sans coder — Crée ton 1er agent en 15 min</title>
+<meta name="description" content="Votre agent IA opérationnel en 15 minutes, sans une ligne de code. Dès 39€.">
+<meta property="og:title" content="Agent IA sans coder — Crée ton 1er agent en 15 min"><meta property="og:description" content="Crée ton premier agent IA sans écrire de code. Dis ta tâche répétitive, on te montre l'agent qui la fait à ta place. Guide gratuit.">
+<style>
+:root{--bg:#0a0e14;--bg2:#111722;--card:#161d2b;--line:#222c3d;--txt:#e6edf3;--muted:#8b97a8;--a:#a78bfa;--a2:#22d3ee;--ok:#34d399}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,"Segoe UI",Roboto,Inter,sans-serif;background:var(--bg);color:var(--txt);line-height:1.55}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+a{color:var(--a);text-decoration:none}
+.btn{display:inline-block;padding:14px 26px;border-radius:12px;font-weight:700;cursor:pointer;border:none;font-size:1rem;transition:.2s}
+.btn-p{background:linear-gradient(135deg,var(--a),var(--a2));color:#06121a}.btn-p:hover{filter:brightness(1.1);transform:translateY(-2px)}
+.btn-g{background:transparent;border:1px solid var(--line);color:var(--txt)}.btn-g:hover{border-color:var(--a)}
+header{padding:64px 0 36px;text-align:center;background:radial-gradient(700px 320px at 50% -10%,rgba(167,139,250,.12),transparent)}
+.badge{display:inline-block;font-size:.8rem;color:var(--a);border:1px solid var(--line);border-radius:99px;padding:6px 14px;margin-bottom:20px;letter-spacing:.5px}
+h1{font-size:clamp(1.9rem,5vw,2.9rem);line-height:1.1;font-weight:800;letter-spacing:-1px}
+.grad{background:linear-gradient(135deg,var(--a),var(--a2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sub{color:var(--muted);font-size:1.12rem;max-width:520px;margin:18px auto 28px}
+section{padding:18px 0}
+.box{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:28px}
+.box h2{font-size:1.3rem;margin-bottom:6px}.box .q{color:var(--muted);margin-bottom:18px}
+select,input,textarea{width:100%;background:#0b0f17;border:1px solid var(--line);border-radius:10px;padding:13px;color:var(--txt);font-size:.95rem;margin-bottom:10px}
+select:focus,input:focus,textarea:focus{outline:none;border-color:var(--a)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.chip{padding:9px 15px;border:1px solid var(--line);border-radius:99px;cursor:pointer;background:var(--card);color:var(--muted);font-size:.9rem;user-select:none}
+.chip.on{border-color:var(--a);color:var(--a)}
+#res{margin-top:18px}
+.verdict{border:1px solid rgba(52,211,153,.4);background:rgba(52,211,153,.08);border-radius:12px;padding:18px}
+.verdict b{color:var(--ok)}
+.reco{margin-top:12px;border:1px solid var(--line);background:rgba(255,255,255,.02);border-radius:12px;padding:16px;font-size:.92rem}
+.packs{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:14px}
+.pack{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column}
+.pack.feat{border-color:var(--a2)}
+.pack .t{font-size:.74rem;color:var(--a);font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.pack h3{font-size:1.15rem;margin:6px 0}.pack .p{font-size:1.7rem;font-weight:800}.pack .p small{font-size:.8rem;color:var(--muted);font-weight:500}
+.pack ul{list-style:none;margin:12px 0;flex:1}.pack li{padding:5px 0;color:var(--muted);font-size:.86rem;display:flex;gap:8px}.pack li::before{content:"✓";color:var(--ok);font-weight:800}
+.cta{text-align:center;padding:40px 0}
+footer{border-top:1px solid var(--line);padding:28px 0;text-align:center;color:var(--muted);font-size:.85rem;margin-top:20px}
+</style></head><body>
+<header><div class="wrap">
+<span class="badge">🤖 GUIDE GRATUIT · 15 MIN</span>
+<h1>Crée ton 1er <span class="grad">agent IA</span><br>sans écrire de code.</h1>
+<p class="sub">Un agent qui bosse pour toi 24/7. Dis-nous ta tâche répétitive, on te montre l'agent qui s'en charge — et on t'offre le guide.</p>
+<a href="#action" class="btn btn-p">🤖 Trouver mon agent</a>
+</div></header>
+
+<section id="action"><div class="wrap"><div class="box">
+<h2>Quelle tâche te fait perdre du temps ?</h2><p class="q">Choisis, on te décrit l'agent qui la fait à ta place.</p>
+<div class="chips" id="ch"></div><button class="btn btn-p" onclick="go()">Voir mon agent</button>
+<div id="res"></div>
+</div></div></section>
+
+<section id="packs"><div class="wrap">
+<h2 style="text-align:center;margin-bottom:6px;font-size:1.5rem">Passe à l'action</h2>
+<p style="text-align:center;color:var(--muted);margin-bottom:18px">Le guide est gratuit. L'accompagnement, tu choisis.</p>
+<div class="packs"><div class="pack"><span class="t">Novice</span><h3>Guide PDF</h3><div class="p">Gratuit<small></small></div><ul><li>8 pages pas-à-pas</li><li>Aucun code</li><li>Exemple concret</li></ul><a href="https://gumroad.com/l/agents-autonomes-mcp" target="_blank" rel="noopener" class="btn btn-g">Acheter sur Gumroad</a></div><div class="pack feat"><span class="t">Confirmé</span><h3>On le fait avec toi</h3><div class="p">39€<small>/séance</small></div><ul><li>Partage d'écran 45 min</li><li>Ton agent en direct</li><li>Adapté à ton métier</li><li>Tu repars avec un agent qui tourne</li></ul><a href="https://gumroad.com/l/ia-no-code" target="_blank" rel="noopener" class="btn btn-g">Acheter sur Gumroad</a></div><div class="pack"><span class="t">Pro</span><h3>Agent sur-mesure</h3><div class="p">290€<small></small></div><ul><li>Agent conçu pour toi</li><li>Connecté à tes outils</li><li>Livré + formé</li></ul><a href="mailto:franck-delmas@laposte.net?subject=Agent sur-mesure" class="btn btn-g">Demander</a></div></div>
+</div></section>
+
+<section class="cta"><div class="wrap">
+<h2 style="font-size:1.5rem">Décris ta tâche, on conçoit l'agent.</h2>
+<p style="color:var(--muted);margin:12px 0 22px">Dis ce que tu répètes tous les jours, on te montre comment l'automatiser.</p>
+<a href="mailto:franck-delmas@laposte.net?subject=Agent%20IA%20-%20ma%20tâche" class="btn btn-p">✉️ Décrire ma tâche</a>
+</div></section>
+
+<footer><div class="wrap"><b>Agent sans coder</b> — un service JARVIS OS · Franck Delmas<br>Make · n8n · Zapier · IA locale JARVIS</div></footer>
+<script>const D={'Trier mes emails':'Agent qui lit, classe (urgent/normal/spam) et prépare les réponses en brouillon.',
+'Publier sur les réseaux':'Agent qui poste ton contenu sur Insta/LinkedIn/TikTok depuis 1 seule commande.',
+'Relancer mes clients':'Agent qui détecte les factures impayées et envoie des relances polies automatiques.',
+'Surveiller des prix':'Agent qui scrute un prix/produit et t\'alerte dès qu\'il bouge.',
+'Résumer des documents':'Agent qui lit tes PDF/réunions et te rend un résumé en 5 points.',
+'Répondre aux FAQ':'Agent qui répond aux questions fréquentes de tes clients 24/7.'};
+let sel='';const ch=document.getElementById('ch');
+Object.keys(D).forEach(k=>{const c=document.createElement('div');c.className='chip';c.textContent=k;c.onclick=()=>{sel=k;document.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));c.classList.add('on')};ch.appendChild(c)});
+function go(){if(!sel){document.getElementById('res').innerHTML='<div class="reco">👆 Choisis d\'abord une tâche.</div>';return}
+document.getElementById('res').innerHTML='<div class="verdict"><b>✅ Ton agent : '+sel+'</b><br>'+D[sel]+'</div><div class="reco"><b>📄 Guide gratuit :</b> télécharge « Construis ton premier agent IA (sans coder) » (8 pages). Bloqué ? On le construit avec toi en direct (39€). 👇</div>';document.getElementById('res').scrollIntoView({behavior:'smooth',block:'nearest'})}</script>
+</body></html>

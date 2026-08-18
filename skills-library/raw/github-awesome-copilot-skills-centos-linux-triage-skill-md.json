@@ -1,0 +1,11 @@
+{
+  "id": "github-awesome-copilot-skills-centos-linux-triage-skill-md",
+  "name": "centos-linux-triage",
+  "author": "github",
+  "description": "Triage and resolve CentOS issues using RHEL-compatible tooling, SELinux-aware practices, and firewalld.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/github/awesome-copilot/tree/main/skills/centos-linux-triage",
+  "skillUrl": "https://skillsmp.com/creators/github/awesome-copilot/skills-centos-linux-triage",
+  "stars": 37423,
+  "updatedAt": 1771904373
+}

@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-agent-harness-construction-skill-md",
+  "name": "agent-harness-construction",
+  "author": "affaan-m",
+  "description": "Design and optimize AI agent action spaces, tool definitions, and observation formatting for higher completion rates.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/agent-harness-construction",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-agent-harness-construction",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

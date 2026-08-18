@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-agents-skills-competitive-platform-analysis-skill-md",
+  "name": "competitive-platform-analysis",
+  "author": "affaan-m",
+  "description": "Use when scoping a competitive landscape \u2014 identifying, categorising, and score-filtering a competitor set before any benchmarking begins. Decides who counts as a competitor, which tier they belong to, and which sources to mine. First step in the three-skill competitive pipeline; precedes benchmark-methodology.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/.agents/skills/competitive-platform-analysis",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/agents-skills-competitive-platform-analysis",
+  "stars": 237500,
+  "updatedAt": 1781207922
+}

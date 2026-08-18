@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-optional-skills-research-parallel-cli-skill-md",
+  "name": "parallel-cli",
+  "author": "NousResearch",
+  "description": "Agent-native web search, deep research, and enrichment.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/optional-skills/research/parallel-cli",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/optional-skills-research-parallel-cli",
+  "stars": 225204,
+  "updatedAt": 1784866036
+}

@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# antigravity-ask.sh — Fallback antigravity → cluster lm-ask.
+SCRIPTS="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROMPT="${*}"
+
+# Tenter antigravity CLI si disponible
+if command -v antigravity-cli >/dev/null 2>&1; then
+  OUT=$(antigravity-cli ask "$PROMPT" 2>/dev/null) && [ -n "$OUT" ] && echo "$OUT" && exit 0
+fi
+
+# Fallback cluster
+exec bash "$SCRIPTS/lm-ask.sh" "$PROMPT"

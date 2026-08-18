@@ -1,0 +1,11 @@
+{
+  "id": "nvidia-megatron-lm-skills-mcore-build-and-dependency-skill-md",
+  "name": "mcore-build-and-dependency",
+  "author": "NVIDIA",
+  "description": "Container-based dev environment setup and dependency management for Megatron-LM. Covers acquiring and launching the CI container, uv package management, and updating uv.lock.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NVIDIA/Megatron-LM/tree/main/skills/mcore-build-and-dependency",
+  "skillUrl": "https://skillsmp.com/creators/nvidia/megatron-lm/skills-mcore-build-and-dependency",
+  "stars": 17319,
+  "updatedAt": 1784848447
+}

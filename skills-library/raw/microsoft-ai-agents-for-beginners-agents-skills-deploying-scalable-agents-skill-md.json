@@ -1,0 +1,11 @@
+{
+  "id": "microsoft-ai-agents-for-beginners-agents-skills-deploying-scalable-agents-skill-md",
+  "name": "deploying-scalable-agents",
+  "author": "microsoft",
+  "description": "Take a working agent prototype to a scalable, observable production deployment on Microsoft Foundry. Covers deployment patterns (client-hosted, hosted agents, agent workflows), the agent lifecycle, model routing, response caching, evaluation gates, human-in-the-loop approval, observability with OpenTelemetry, cost optimisation, and smoke-testing deployed agents with the AI Smoke Test action. Based on Lesson 16 of AI Agents for Beginners. USE FOR: deploy an agent to production, scale an agent, Microsoft Foundry hosted agent, Foundry Agent Service, model routing, response caching, evaluation gate, release gate, human approval workflow, agent observability, agent tracing, agent cost optimisation, smoke test a hosted agent, production customer support agent. DO NOT USE FOR: building your first agent (start with Lesson 01), running agents locally on-device (use local-ai-agents / Lesson 17), Azure infrastructure provisioning unrelated to agents, non-Foundry deployment targets.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/microsoft/ai-agents-for-beginners/tree/main/.agents/skills/deploying-scalable-agents",
+  "skillUrl": "https://skillsmp.com/creators/microsoft/ai-agents-for-beginners/agents-skills-deploying-scalable-agents",
+  "stars": 71222,
+  "updatedAt": 1783967506
+}

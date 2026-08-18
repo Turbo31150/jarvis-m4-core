@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutomatIA — Ton premier agent IA. Sans coder.</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Inter',sans-serif; background:#0a0a0f; color:#e2e8f0; }
+nav { position:fixed; top:0; width:100%; z-index:99; background:rgba(10,10,15,0.92); backdrop-filter:blur(10px); border-bottom:1px solid #1e1e2e; padding:.9rem 2rem; display:flex; justify-content:space-between; align-items:center; }
+.logo { font-weight:900; font-size:1.1rem; color:#22d3ee; }
+.nav-btn { background:#6366f1; color:#fff; padding:.5rem 1.2rem; border-radius:8px; font-weight:700; font-size:.85rem; text-decoration:none; }
+.hero { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:6rem 1.5rem 3rem; background:radial-gradient(ellipse 70% 50% at 50% 20%, rgba(99,102,241,0.12) 0%, transparent 70%); }
+.badge { display:inline-block; background:rgba(34,211,238,0.1); border:1px solid rgba(34,211,238,0.3); color:#22d3ee; font-size:.75rem; font-weight:700; padding:.35rem .9rem; border-radius:20px; margin-bottom:1.5rem; }
+.hero h1 { font-size:clamp(2rem,5vw,3.8rem); font-weight:900; line-height:1.05; margin-bottom:1rem; }
+.hero h1 span { color:#6366f1; }
+.hero p { color:#64748b; font-size:1rem; max-width:480px; margin:0 auto 2rem; }
+.hero-cta { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+.btn-main { background:#6366f1; color:#fff; padding:.85rem 2rem; border-radius:10px; font-weight:700; text-decoration:none; font-size:.95rem; }
+.btn-ghost { border:1px solid #1e1e2e; color:#e2e8f0; padding:.85rem 2rem; border-radius:10px; font-weight:600; text-decoration:none; font-size:.95rem; }
+section { padding:4rem 1.5rem; max-width:960px; margin:0 auto; }
+.tag { display:inline-block; background:rgba(99,102,241,0.12); color:#6366f1; font-size:.7rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:.3rem .8rem; border-radius:20px; border:1px solid rgba(99,102,241,0.25); margin-bottom:.8rem; }
+h2 { font-size:clamp(1.5rem,3vw,2.2rem); font-weight:900; margin-bottom:.5rem; }
+.sub { color:#64748b; font-size:.95rem; margin-bottom:2rem; }
+.grid { display:grid; gap:1rem; }
+.g2 { grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); }
+.card { background:#13131f; border:1px solid #1e1e2e; border-radius:12px; padding:1.5rem; transition:border-color .2s, transform .2s; }
+.card:hover { border-color:#6366f1; transform:translateY(-3px); }
+.card .ico { font-size:1.8rem; margin-bottom:.8rem; }
+.card h3 { font-size:.95rem; font-weight:700; margin-bottom:.4rem; }
+.card .prob { color:#64748b; font-size:.82rem; margin-bottom:.5rem; }
+.card .sol { color:#22d3ee; font-size:.8rem; font-weight:600; }
+.packs { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.2rem; margin-top:2rem; }
+.pack { background:#13131f; border:1px solid #1e1e2e; border-radius:14px; padding:1.8rem; position:relative; }
+.pack.pro { border-color:#6366f1; background:linear-gradient(135deg,rgba(99,102,241,0.07),rgba(34,211,238,0.03)); }
+.pack-star { position:absolute; top:-11px; left:50%; transform:translateX(-50%); background:linear-gradient(135deg,#6366f1,#22d3ee); color:#fff; font-size:.68rem; font-weight:700; padding:.25rem .8rem; border-radius:20px; white-space:nowrap; }
+.pack-tier { font-size:.75rem; font-weight:700; color:#64748b; letter-spacing:.08em; text-transform:uppercase; margin-bottom:.4rem; }
+.pack-price { font-size:2rem; font-weight:900; margin-bottom:.2rem; }
+.pack-price small { font-size:.85rem; font-weight:400; color:#64748b; }
+.pack-desc { color:#64748b; font-size:.82rem; margin-bottom:1.2rem; padding-bottom:1.2rem; border-bottom:1px solid #1e1e2e; }
+.pack ul { list-style:none; display:flex; flex-direction:column; gap:.5rem; margin-bottom:1.5rem; }
+.pack li { font-size:.82rem; display:flex; gap:.5rem; }
+.pack li::before { content:"✓"; color:#10b981; font-weight:700; flex-shrink:0; }
+.pack li.star::before { content:"★"; color:#6366f1; }
+.pack-btn { display:block; text-align:center; padding:.8rem; border-radius:9px; font-weight:700; font-size:.88rem; text-decoration:none; cursor:pointer; border:none; }
+.pack-btn.outline { background:transparent; border:1px solid #1e1e2e; color:#e2e8f0; }
+.pack-btn.fill { background:linear-gradient(135deg,#6366f1,#4f46e5); color:#fff; }
+.svc { display:flex; gap:1rem; align-items:flex-start; background:#13131f; border:1px solid #1e1e2e; border-radius:12px; padding:1.4rem; transition:border-color .2s; }
+.svc:hover { border-color:#22d3ee; }
+.svc-ico { font-size:1.6rem; flex-shrink:0; }
+.svc h3 { font-size:.9rem; font-weight:700; margin-bottom:.25rem; }
+.svc p { color:#64748b; font-size:.8rem; margin-bottom:.4rem; }
+.svc-price { color:#22d3ee; font-weight:700; font-size:.82rem; }
+.steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1rem; margin-top:2rem; }
+.step { text-align:center; padding:1.5rem 1rem; }
+.step-n { width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg,#6366f1,#22d3ee); display:flex; align-items:center; justify-content:center; font-weight:900; font-size:1rem; margin:0 auto .8rem; }
+.step h3 { font-size:.9rem; font-weight:700; margin-bottom:.3rem; }
+.step p { color:#64748b; font-size:.78rem; }
+.form-wrap { background:#0f0f1a; border-top:1px solid #1e1e2e; padding:4rem 1.5rem; }
+.form-inner { max-width:560px; margin:0 auto; text-align:center; }
+form { margin-top:1.5rem; text-align:left; display:flex; flex-direction:column; gap:.8rem; }
+.row2 { display:grid; grid-template-columns:1fr 1fr; gap:.8rem; }
+label { font-size:.75rem; color:#64748b; display:block; margin-bottom:.2rem; }
+input,select,textarea { width:100%; background:#13131f; border:1px solid #1e1e2e; border-radius:8px; padding:.75rem; color:#e2e8f0; font-family:inherit; font-size:.88rem; }
+input:focus,select:focus,textarea:focus { outline:none; border-color:#6366f1; }
+select option { background:#0f0f1a; }
+textarea { min-height:80px; resize:vertical; }
+.submit-btn { background:linear-gradient(135deg,#6366f1,#4f46e5); color:#fff; border:none; border-radius:9px; padding:.9rem; font-size:.95rem; font-weight:700; cursor:pointer; width:100%; }
+footer { text-align:center; padding:1.5rem; color:#64748b; font-size:.78rem; border-top:1px solid #1e1e2e; }
+@media(max-width:600px){.row2{grid-template-columns:1fr;}.nav-btn{display:none;}}
+</style>
+</head>
+<body>
+<nav><div class="logo">⚡ AutomatIA</div><a href="#contact" class="nav-btn">Démarrer →</a></nav>
+
+<div class="hero">
+  <div class="badge">Sans coder · Résultat en 30 min · Méthode simple</div>
+  <h1>Tu parles encore à l'IA.<br><span>Elle devrait travailler pour toi.</span></h1>
+  <p>Nous installons votre premier agent IA — boutique, usine, restaurant, cabinet — sans code, sans complexité.</p>
+  <div class="hero-cta">
+    <a href="#packs" class="btn-main">Voir les packs →</a>
+    <a href="#contact" class="btn-ghost">Diagnostic gratuit</a>
+  </div>
+</div>
+
+<section id="secteurs">
+  <div class="tag">Pour qui ?</div>
+  <h2>Votre secteur, une solution</h2>
+  <p class="sub">Un problème réel → un agent IA qui le résout automatiquement.</p>
+  <div class="grid g2">
+    <div class="card"><div class="ico">🛒</div><h3>Boutique en ligne</h3><p class="prob">Commandes manuelles, stocks erronés, emails répétitifs.</p><p class="sol">→ Agent commandes + stock + support 24/7</p></div>
+    <div class="card"><div class="ico">🏭</div><h3>Industrie / Usine</h3><p class="prob">Suivi production papier, pannes non anticipées.</p><p class="sol">→ Agent monitoring + alertes + tableau de bord</p></div>
+    <div class="card"><div class="ico">🍽️</div><h3>Restaurant / Hôtel</h3><p class="prob">Réservations à gérer, commandes fournisseurs manuelles.</p><p class="sol">→ Agent réservations + commandes + réponses avis</p></div>
+    <div class="card"><div class="ico">🏠</div><h3>Immobilier</h3><p class="prob">Leads perdus, visites à coordonner, relances oubliées.</p><p class="sol">→ Agent leads + agenda + relances automatiques</p></div>
+    <div class="card"><div class="ico">⚕️</div><h3>Santé / Cabinet</h3><p class="prob">RDV chronophages, rappels oubliés, dossiers éparpillés.</p><p class="sol">→ Agent RDV + rappels SMS + dossiers centralisés</p></div>
+    <div class="card"><div class="ico">🔧</div><h3>Artisan / PME</h3><p class="prob">Devis lents, factures oubliées, chantiers désorganisés.</p><p class="sol">→ Agent devis IA + facturation + suivi projets</p></div>
+  </div>
+</section>
+
+<section id="packs" style="background:linear-gradient(180deg,#0a0a0f,#0f0f1a); max-width:100%; padding:4rem 1.5rem;">
+<div style="max-width:960px;margin:0 auto;">
+  <div class="tag">Tarifs clairs</div>
+  <h2>Choisissez votre pack</h2>
+  <p class="sub">Plus le pack est avancé : plus de formations, de docs et d'accompagnement.</p>
+  <div class="packs">
+    <div class="pack">
+      <p class="pack-tier">Starter</p>
+      <p class="pack-price">1 490 <small>€ HT</small></p>
+      <p class="pack-desc">1 agent IA installé, l'essentiel pour démarrer.</p>
+      <ul>
+        <li>Audit de vos processus</li>
+        <li>1 agent IA installé</li>
+        <li>Connexion 2 outils</li>
+        <li>Formation vidéo 2h</li>
+        <li>Guide PDF utilisateur</li>
+        <li>Support email 30 jours</li>
+      </ul>
+      <a href="#contact" class="pack-btn outline">Démarrer →</a>
+    </div>
+    <div class="pack pro">
+      <div class="pack-star">⭐ Le plus choisi</div>
+      <p class="pack-tier">Pro</p>
+      <p class="pack-price">3 490 <small>€ HT</small></p>
+      <p class="pack-desc">3 agents + formation complète + suivi 3 mois.</p>
+      <ul>
+        <li>Audit complet processus</li>
+        <li>3 agents IA sur mesure</li>
+        <li>Connexion outils illimitée</li>
+        <li class="star">Formation présentielle 1 jour</li>
+        <li class="star">Manuel opérateur 20+ pages</li>
+        <li class="star">Vidéos formation 8h</li>
+        <li class="star">Support prioritaire 3 mois</li>
+        <li class="star">3 sessions de suivi</li>
+      </ul>
+      <a href="#contact" class="pack-btn fill">Je veux le Pro →</a>
+    </div>
+    <div class="pack">
+      <p class="pack-tier">Enterprise</p>
+      <p class="pack-price" style="font-size:1.5rem;">Sur devis</p>
+      <p class="pack-desc">Transformation complète, déploiement sur site, 12 mois.</p>
+      <ul>
+        <li>Agents illimités</li>
+        <li>Intégration ERP / systèmes</li>
+        <li class="star">Formation équipe multi-jours</li>
+        <li class="star">Documentation technique</li>
+        <li class="star">Déploiement sur site</li>
+        <li class="star">Manager dédié + SLA</li>
+        <li class="star">Évolutions 12 mois incluses</li>
+      </ul>
+      <a href="#contact" class="pack-btn outline">Obtenir un devis →</a>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="conseil">
+  <div class="tag">Services à la carte</div>
+  <h2>Audit · Conseil · Dépannage</h2>
+  <p class="sub">Besoin d'un expert sans engagement long.</p>
+  <div class="grid g2" style="margin-top:1.5rem;">
+    <div class="svc"><div class="svc-ico">🔍</div><div><h3>Audit Système</h3><p>Rapport de recommandations IA priorisées.</p><p class="svc-price">À partir de 490 € HT</p></div></div>
+    <div class="svc"><div class="svc-ico">🛠️</div><div><h3>Dépannage & Support</h3><p>Intervention rapide sur votre système existant.</p><p class="svc-price">190 € HT / heure</p></div></div>
+    <div class="svc"><div class="svc-ico">📐</div><div><h3>Calcul Infrastructure</h3><p>Dimensionnement, coûts, meilleur circuit à utiliser.</p><p class="svc-price">Devis gratuit 48h</p></div></div>
+    <div class="svc"><div class="svc-ico">🚀</div><div><h3>Implantation sur site</h3><p>Installation et formation dans vos locaux, tous outils.</p><p class="svc-price">Sur devis — France entière</p></div></div>
+  </div>
+</section>
+
+<section style="background:#0f0f1a; max-width:100%; padding:4rem 1.5rem;">
+<div style="max-width:960px;margin:0 auto;">
+  <div class="tag">Comment ça marche</div>
+  <h2>4 étapes. Simple.</h2>
+  <div class="steps">
+    <div class="step"><div class="step-n">1</div><h3>Diagnostic</h3><p>Appel 30 min gratuit. On comprend vos processus.</p></div>
+    <div class="step"><div class="step-n">2</div><h3>Proposition</h3><p>Plan + devis détaillé sous 48h.</p></div>
+    <div class="step"><div class="step-n">3</div><h3>Installation</h3><p>Déploiement, tests, formation. Vous validez avant paiement.</p></div>
+    <div class="step"><div class="step-n">4</div><h3>Suivi</h3><p>Ajustements continus. Votre agent s'améliore.</p></div>
+  </div>
+</div>
+</section>
+
+<div class="form-wrap" id="contact">
+  <div class="form-inner">
+    <div class="tag">Diagnostic gratuit</div>
+    <h2>Commençons</h2>
+    <p style="color:#64748b;font-size:.88rem;margin-top:.4rem;">Réponse sous 24h.</p>
+    <form onsubmit="sub(event)">
+      <div class="row2">
+        <div><label>Nom *</label><input type="text" placeholder="Jean Dupont" required></div>
+        <div><label>Email *</label><input type="email" placeholder="jean@entreprise.fr" required></div>
+      </div>
+      <div class="row2">
+        <div><label>Secteur *</label><select required><option value="">Choisir…</option><option>Boutique en ligne</option><option>Industrie / Usine</option><option>Restaurant / Hôtel</option><option>Immobilier</option><option>Santé / Cabinet</option><option>Artisan / PME</option><option>Autre</option></select></div>
+        <div><label>Budget</label><select><option>Starter ~1 500 €</option><option>Pro ~3 500 €</option><option>Enterprise — devis</option><option>Service ponctuel</option></select></div>
+      </div>
+      <div><label>Votre besoin</label><textarea placeholder="Ex: Je perds 3h/jour sur des tâches répétitives…"></textarea></div>
+      <button type="submit" class="submit-btn">Envoyer ma demande →</button>
+    </form>
+  </div>
+</div>
+
+<footer>© 2026 AutomatIA — IA locale souveraine — vos données restent chez vous.</footer>
+<script>
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'})}));
+function sub(e){e.preventDefault();const b=e.target.querySelector('.submit-btn');b.textContent='✅ Envoyé ! Réponse sous 24h.';b.style.background='#10b981';b.disabled=true;}
+</script>
+</body>
+</html>

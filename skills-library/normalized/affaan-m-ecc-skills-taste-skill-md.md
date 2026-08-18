@@ -1,0 +1,28 @@
+---
+id: affaan-m-ecc-skills-taste-skill-md
+name: "taste"
+author: "affaan-m"
+repository: "https://github.com/affaan-m/ECC/tree/main/skills/taste"
+skill_url: "https://skillsmp.com/creators/affaan-m/ecc/skills-taste"
+stars: 237500
+verified: false
+quality_score: 100
+security_score: 90
+status: "SAFE"
+collected_at: "2026-08-07T17:08:01.530055"
+---
+
+# Résumé
+A creative-direction (taste) layer for music videos and short-form edits in the angelcore / cloud-trance / hyperpop visual family. Distills a named-genre aesthetic vocabulary, a mood + color + light system, and a beat-synced editing grammar, then chains ECC's video skills (video-editing, fal-ai-media, remotion-video-creation, motion-*, content-engine) into one production pipeline. Use when the work is not just making a video function but making it feel intentional, when building a music video, a fancam/edit, a moodboard-driven reel, or when choosing a coherent visual direction for AI-generated b-roll.
+
+# Objectif
+Skill d'automatisation/intégration pour taste.
+
+# Déclencheurs d’utilisation
+Mots-clés associés: taste, affaan-m
+
+# Procédure
+Consulter le dépôt source: https://github.com/affaan-m/ECC/tree/main/skills/taste
+
+# Adaptation Gemini CLI / Claude Code / Jarvis OS
+Incorpore ce skill en suivant la structure d'appel native du repository source.

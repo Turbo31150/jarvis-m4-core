@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-ito-basket-compare-skill-md",
+  "name": "ito-basket-compare",
+  "author": "affaan-m",
+  "description": "Compare It\u00f4 prediction-market baskets against a user's knowledge base, portfolio notes, financial context, watchlist, or research thesis. Use for read-only basket comparison and gap analysis without investment advice or live trading.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/ito-basket-compare",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-ito-basket-compare",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

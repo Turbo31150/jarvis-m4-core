@@ -1,0 +1,11 @@
+{
+  "id": "anthropics-knowledge-work-plugins-partner-built-apollo-skills-enrich-lead-skill-md",
+  "name": "enrich-lead",
+  "author": "anthropics",
+  "description": "Instant lead enrichment. Drop a name, company, LinkedIn URL, or email and get the full contact card with email, phone, title, company intel, and next actions.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/anthropics/knowledge-work-plugins/tree/main/partner-built/apollo/skills/enrich-lead",
+  "skillUrl": "https://skillsmp.com/creators/anthropics/knowledge-work-plugins/partner-built-apollo-skills-enrich-lead",
+  "stars": 23290,
+  "updatedAt": 1771891692
+}

@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-hexagonal-architecture-skill-md",
+  "name": "hexagonal-architecture",
+  "author": "affaan-m",
+  "description": "Design, implement, and refactor Ports & Adapters systems with clear domain boundaries, dependency inversion, and testable use-case orchestration across TypeScript, Java, Kotlin, and Go services.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/hexagonal-architecture",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-hexagonal-architecture",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

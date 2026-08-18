@@ -1,0 +1,11 @@
+{
+  "id": "stablyai-orca-skills-orca-emulator-android-skill-md",
+  "name": "orca-emulator-android",
+  "author": "stablyai",
+  "description": "Control an Android emulator / device from inside Orca using the `orca` CLI. Use for listing/booting AVDs, taps, swipes, typing, hardware buttons (incl. Back and Recents), rotation, app install/launch, runtime permissions, the accessibility tree, and logcat \u2014 driving a real adb-connected device or emulator. Cross-platform (Windows, Linux, macOS). Complements the orca-emulator (iOS) and orca-cli skills.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/stablyai/orca/tree/main/skills/orca-emulator-android",
+  "skillUrl": "https://skillsmp.com/creators/stablyai/orca/skills-orca-emulator-android",
+  "stars": 37078,
+  "updatedAt": 1784745781
+}

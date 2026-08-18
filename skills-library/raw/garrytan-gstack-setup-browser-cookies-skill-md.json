@@ -1,0 +1,11 @@
+{
+  "id": "garrytan-gstack-setup-browser-cookies-skill-md",
+  "name": "setup-browser-cookies",
+  "author": "garrytan",
+  "description": "Import cookies from your real Chromium browser into the headless browse session. (gstack)",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/garrytan/gstack/tree/main/setup-browser-cookies",
+  "skillUrl": "https://skillsmp.com/creators/garrytan/gstack/setup-browser-cookies",
+  "stars": 126191,
+  "updatedAt": 1782405765
+}

@@ -1,0 +1,11 @@
+{
+  "id": "egonex-ai-understand-anything-understand-anything-plugin-skills-understand-skill-md",
+  "name": "understand",
+  "author": "Egonex-AI",
+  "description": "Analyze a codebase to produce an interactive knowledge graph for understanding architecture, components, and relationships",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Egonex-AI/Understand-Anything/tree/main/understand-anything-plugin/skills/understand",
+  "skillUrl": "https://skillsmp.com/creators/egonex-ai/understand-anything/understand-anything-plugin-skills-understand",
+  "stars": 77428,
+  "updatedAt": 1784298944
+}

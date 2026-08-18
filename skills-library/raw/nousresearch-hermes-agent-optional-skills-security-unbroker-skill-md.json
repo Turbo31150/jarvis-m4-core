@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-optional-skills-security-unbroker-skill-md",
+  "name": "unbroker",
+  "author": "NousResearch",
+  "description": "Autonomously remove your info from data-broker sites.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/optional-skills/security/unbroker",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/optional-skills-security-unbroker",
+  "stars": 225204,
+  "updatedAt": 1783106464
+}

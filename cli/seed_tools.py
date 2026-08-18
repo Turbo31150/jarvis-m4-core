@@ -14,13 +14,13 @@ from pathlib import Path
 DB_PATH = "/home/pamerys/jarvis/jarvis_master.db"
 SETTINGS_PATH = os.path.expanduser("~/.claude/settings.json")
 SKILLS_DIR = os.path.expanduser("~/.claude/skills")
-JARVIS_CLI_DIR = "/home/pamerys/jarvis/cli"
-JARVIS_SCRIPTS_DIR = "/home/pamerys/jarvis/scripts"
-JARVIS_INFRA_DIR = "/home/pamerys/jarvis/infra"
-JARVIS_MONITORING_DIR = "/home/pamerys/jarvis/monitoring"
+JARVIS_CLI_DIR = "/home/turbo/jarvis/cli"
+JARVIS_SCRIPTS_DIR = "/home/turbo/jarvis/scripts"
+JARVIS_INFRA_DIR = "/home/turbo/jarvis/infra"
+JARVIS_MONITORING_DIR = "/home/turbo/jarvis/monitoring"
 
-M1_URL = "http://192.168.1.85:1234/v1/models"
-M2_URL = "http://192.168.1.26:1234/v1/models"
+M1_URL = "http://192.168.0.10:1234/v1/models"
+M2_URL = "http://127.0.0.1:18800/v1/models"
 OL1_URL = "http://127.0.0.1:11434"
 
 
@@ -46,7 +46,10 @@ CREATE INDEX IF NOT EXISTS idx_tool_category ON tool_map(category);
 
 
 def get_db():
-    conn = sqlite3.connect(DB_PATH)
+    # WAL : un seul écrivain à la fois sur une base très sollicitée,
+    # il faut attendre au lieu d'échouer sur "database is locked".
+    conn = sqlite3.connect(DB_PATH, timeout=120)
+    conn.execute("PRAGMA busy_timeout=120000")
     conn.row_factory = sqlite3.Row
     conn.executescript(SCHEMA)
     conn.commit()
@@ -333,7 +336,7 @@ SCRIPT_DIRS = [
     JARVIS_SCRIPTS_DIR,
     JARVIS_INFRA_DIR,
     JARVIS_MONITORING_DIR,
-    "/home/pamerys/jarvis/scripts/lumen",
+    "/home/turbo/jarvis/scripts/lumen",
 ]
 
 
@@ -359,6 +362,22 @@ def seed_scripts(conn) -> int:
                 kw = auto_keywords(stem, ["cli", "script", "jarvis"])
                 upsert(conn, f"cli:{stem}", "cli", loader, kw, memory_kb=16, priority=4)
                 count += 1
+
+    # Briques souveraines JARVIS v2
+    BRIQUES = [
+        ("jarvis-agent", "A1 Gateway LLM unique", ["agent", "llm", "délégué", "openclaw", "ollama"]),
+        ("jarvis-mem", "A2 Mémoire durable unique", ["mem", "mémoire", "postgres", "atoms", "search"]),
+        ("jarvis-web", "A3 Acquisition web unique", ["web", "ssrf", "grab", "sourcer", "search"]),
+        ("jarvis-publish", "A4 Sortie contrôlée unique", ["publish", "agir", "stage", "commit", "draft"]),
+        ("jarvis-mail", "Brique Communiquer", ["mail", "gmail", "imap", "smtp", "send"]),
+        ("jarvis-media", "Brique Extraire", ["media", "transcript", "youtube", "podcast", "extraire"]),
+        ("jarvis-board", "Brique Délibérer", ["board", "délibérer", "experts", "conseil", "voix"]),
+    ]
+    for b_name, desc, kws in BRIQUES:
+        loader = f"/home/turbo/jarvis/bin/{b_name}"
+        kw = auto_keywords(b_name, kws)
+        upsert(conn, f"brique:{b_name}", "brique", loader, kw, memory_kb=32, priority=9)
+        count += 1
 
     conn.commit()
     return count
@@ -430,7 +449,7 @@ def seed_models(conn) -> int:
         ("deepseek-r1:7b", "ollama run deepseek-r1:7b", "OL1"),
         ("qwen3:1.7b", "ollama run qwen3:1.7b", "OL1"),
         ("qwen2.5:1.5b", "ollama run qwen2.5:1.5b", "OL1"),
-        ("kimi-k2.5:cloud", "ollama run kimi-k2.5:cloud", "OL1"),
+        ("gpt-oss:20b-cloud", "ollama run gpt-oss:20b-cloud", "OL1"),
         ("nomic-embed-text:latest", "ollama run nomic-embed-text:latest", "OL1"),
     ]
 
@@ -556,6 +575,15 @@ def main():
     print(f"  total   : {total:>4} tools in tool_map")
 
     conn.close()
+
+    # Chaîne domino deep-research (keywords/triggers curés) ré-appliquée après
+    # l'auto-scan générique → survit à un re-seed (sinon écrasée par les valeurs auto).
+    try:
+        import seed_deep_research_chain
+
+        seed_deep_research_chain.main()
+    except Exception as e:  # noqa: BLE001
+        print(f"[seed_tools] seed_deep_research_chain skip: {e}")
 
 
 if __name__ == "__main__":

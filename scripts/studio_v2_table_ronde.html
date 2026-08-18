@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>JARVIS OS — Studio de rendu · Table Ronde</title>
+<style>
+  body { margin:0; background:#05070a; display:flex; align-items:center; justify-content:center; height:100vh; }
+  canvas { background:#0A0E14; max-width:100%; }
+</style>
+</head>
+<body>
+<canvas id="videoCanvas" width="1280" height="720"></canvas>
+<script>
+// ════════════════════════════════════════════════════════════
+//  JARVIS OS — « DE LA MACHINE BRIDÉE À L'IA SOUVERAINE »
+//  Moteur de rendu déterministe : renderAt(t) dessine l'image
+//  exacte de l'instant t. Aucune animation temps réel, aucun
+//  aléa — le même t produit toujours la même image.
+// ════════════════════════════════════════════════════════════
+
+const W = 1280, H = 720;
+const cv = document.getElementById('videoCanvas');
+const ctx = cv.getContext('2d');
+
+const C = {
+  bg0:'#1A1D22', bg1:'#0A0E14',
+  red:'#FF4A4A', amber:'#FFA23A', grey:'#3A3E44',
+  cyan:'#22D3EE', green:'#22C55E', violet:'#A855F7',
+  white:'#F1F5F9', dim:'#64748B'
+};
+
+const TOTAL_DURATION = 720; // 12 min
+
+// ── TIMELINE : chaque réplique = un cue (voix + sous-titre) ──
+const TIMELINE = [
+  // ─── SCÈNE 1 · LE PIÈGE (0 → 120) ───
+  { start:8,  speaker:"Marc Dubois", short:"MARC", voice:"marc",
+    text:"Regarde mon écran... Ça fait 8 minutes que j'essaie de copier un dossier de 500 Mo pour un client qui attend au téléphone. Mon PC m'a coûté 1200 euros ! J'ai réinstallé Linux il y a 6 mois, c'est pire." },
+  { start:48, speaker:"Turbo · Franc Delmas", short:"TURBO", voice:"turbo",
+    text:"Marc, ton PC est en mode survie. Le constructeur bride ton processeur à 800 mégahertz pour économiser la batterie, même branché sur secteur. Tu perds 2 heures 30 par jour. Soit 39600 euros par an de productivité. On va mesurer ça en direct sur ton terminal." },
+
+  // ─── SCÈNE 2 · DIAGNOSTIC (120 → 270) ───
+  { start:124, speaker:"Turbo · Franc Delmas", short:"TURBO", voice:"turbo",
+    text:"Regarde ce chiffre rouge : 798 mégahertz. Ton processeur dort sur 80 pour cent de sa puissance." },
+  { start:150, speaker:"Turbo · Franc Delmas", short:"TURBO", voice:"turbo",
+    text:"Powersave. En clair : ton système a reçu l'ordre de ne jamais accélérer." },
+  { start:186, speaker:"Turbo · Franc Delmas", short:"TURBO", voice:"turbo",
+    text:"Deuxième chiffre : 12 virgule 7 mégaoctets par seconde de débit disque. C'est ton point de départ." },
+  { start:232, speaker:"Turbo · Franc Delmas", short:"TURBO", voice:"turbo",
+    text:"84 degrés. À cette température il se bride lui-même pour ne pas fondre. Il s'auto-punit. Maintenant, regarde les 9 couches." },
+
+  // ─── SCÈNE 3 · LES 9 COUCHES (270 → 570) ───
+  { start:274, speaker:"Turbo · Franc Delmas", short:"TURBO", voice:"turbo",
+    text:"Couche 1 : registres MSR débridés. 4500 mégahertz verrouillés." },
+  { start:305, speaker:"Turbo · Franc Delmas", short:"TURBO", voice:"turbo",
+    text:"Couche 2 : profil ASUS Overdrive. 61 degrés constants." },
+  { start:335, speaker:"Turbo · Franc Delmas", short:"TURBO", voice:"turbo",
+    text:"Couche 3 : les états de veille profonds sont coupés. Les 12 mégaoctets de cache L3 restent chauds en permanence." },
+  { start:370, speaker:"Turbo · Franc Delmas", short:"TURBO", voice:"turbo",
+    text:"Couche 4 : Transparent HugePages en 2 mégaoctets. Le processeur arrête de chercher ses adresses mémoire." },
+  { start:405, speaker:"Turbo · Franc Delmas", short:"TURBO", voice:"turbo",
+    text:"Couche 5 : l'ordonnanceur cesse de balader les tâches d'un cœur à l'autre. Le cache ne se vide plus pour rien." },
+  { start:440, speaker:"Turbo · Franc Delmas", short:"TURBO", voice:"turbo",
+    text:"Couche 6 : file d'attente entrée-sortie à 1024 requêtes, tampon de lecture anticipée à 8 mégaoctets." },
+  { start:472, speaker:"Turbo · Franc Delmas", short:"TURBO", voice:"turbo",
+    text:"Couche 7 : SQLite en journal WAL, 10 gigaoctets mappés directement en mémoire vive. 150 millisecondes deviennent 4." },
+  { start:505, speaker:"Turbo · Franc Delmas", short:"TURBO", voice:"turbo",
+    text:"Couche 8 : les sockets réseau et la communication entre processus passent sous la milliseconde et demie." },
+  { start:530, speaker:"Marc Dubois", short:"MARC", voice:"marc",
+    text:"Attends... je vois les chiffres exploser... mais est-ce que ça change vraiment quelque chose dans la pratique ?" },
+  { start:548, speaker:"Turbo · Franc Delmas", short:"TURBO", voice:"turbo",
+    text:"C'est exactement la question. On relance le test." },
+
+  // ─── SCÈNE 4 · LA GIFLE DU CHRONOMÈTRE (570 → 630) ───
+  { start:572, speaker:"Turbo · Franc Delmas", short:"TURBO", voice:"turbo",
+    text:"Relance la copie de 500 Mo. Même fichier, même disque. Top." },
+  { start:579, speaker:"Marc Dubois", short:"MARC", voice:"marc",
+    text:"C'est fini ?! 1 virgule 4 seconde au lieu de 41 secondes ?! Mais c'est 379 mégaoctets par seconde ! Tu as changé quoi dans la boîte ?!" },
+  { start:596, speaker:"Turbo · Franc Delmas", short:"TURBO", voice:"turbo",
+    text:"Rien dans la boîte. Zéro euro de matériel. 35 minutes de réglage. Ton matériel savait faire ça depuis le premier jour." },
+
+  // ─── SCÈNE 5 · L'ÉCOSYSTÈME SOUVERAIN (630 → 690) ───
+  { start:636, speaker:"Le Conseil du Board JARVIS", short:"BOARD", voice:"board",
+    text:"Vous disposez d'un cluster d'intelligence artificielle local et souverain. Sans abonnement cloud. Sans fuite de données. Opérant à la vitesse de la mémoire vive." },
+  { start:672, speaker:"Turbo · Franc Delmas", short:"TURBO", voice:"turbo",
+    text:"Tout ce que vous venez de voir tourne sur cette machine. Rien ne sort du réseau." },
+
+  // ─── SCÈNES 6 & 7 · CONCLUSION (690 → 720) ───
+  { start:694, speaker:"Turbo · Franc Delmas", short:"TURBO", voice:"turbo",
+    text:"Votre machine sait déjà faire tout ça. Ne rachetez pas un PC neuf pour rien. Réservez votre audit live gratuit de 15 minutes. On mesure votre machine devant vous. Lien en description." }
+];
+
+// ── SCÈNES : modes visuels ──
+const SCENES = [
+  { s:0,   e:120, mode:'piege'      },
+  { s:120, e:270, mode:'diagnostic' },
+  { s:270, e:570, mode:'couches'    },
+  { s:570, e:630, mode:'chrono'     },
+  { s:630, e:690, mode:'souverain'  },
+  { s:690, e:720, mode:'cta'        }
+];
+
+const COUCHES = [
+  { n:1, t:"Silicium MSR",     v:"4 500 MHz verrouillés",          at:274 },
+  { n:2, t:"ACPI / ASUS",      v:"61,3 °C · +40 °C de marge",      at:305 },
+  { n:3, t:"Caches L1/L2/L3",  v:"C2-C7 OFF · L3 12 Mo chaud",     at:335 },
+  { n:4, t:"RAM & TLB",        v:"THP always 2 Mo · swappiness 10",at:370 },
+  { n:5, t:"Ordonnanceur",     v:"sched_migration_cost = 5 ms",    at:405 },
+  { n:6, t:"Contrôleurs I/O",  v:"queue 1024 · read-ahead 8 Mo",   at:440 },
+  { n:7, t:"SQLite MMAP",      v:"WAL + 10 Go en RAM · 4,12 ms",   at:472 },
+  { n:8, t:"Réseau & IPC",     v:"somaxconn 4096 · < 1,5 ms",      at:505 },
+  { n:9, t:"Cognitive",        v:"83 205 chunks · RAG 47 ms",      at:548 }
+];
+
+// ── Utilitaires ──
+const clamp = (v,a,b)=>Math.max(a,Math.min(b,v));
+const easeOutQuint = p => 1 - Math.pow(1-p, 5);
+const easeOutExpo  = p => p>=1?1:1-Math.pow(2,-10*p);
+const easeInOutSine= p => -(Math.cos(Math.PI*p)-1)/2;
+const lerp = (a,b,p)=>a+(b-a)*p;
+const fr = n => n.toLocaleString('fr-FR');
+
+function ramp(t, t0, dur, easing){ return easing(clamp((t-t0)/dur, 0, 1)); }
+
+function scene(t){ return SCENES.find(s => t>=s.s && t<s.e) || SCENES[SCENES.length-1]; }
+function cueAt(t){
+  let cur=null;
+  for(const c of TIMELINE){ if(t>=c.start && t < c.start + (c._dur||6)) cur=c; }
+  return cur;
+}
+
+function roundRect(x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r);
+  ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath();
+}
+
+function text(str,x,y,{size=20,font='Inter, sans-serif',color=C.white,align='left',weight=400}={}){
+  ctx.fillStyle=color; ctx.textAlign=align; ctx.textBaseline='alphabetic';
+  ctx.font=`${weight} ${size}px ${font}`;
+  ctx.fillText(str,x,y);
+}
+const mono = 'JetBrains Mono, DejaVu Sans Mono, monospace';
+
+// ── Fond : la palette bascule au franchissement des 3000 MHz ──
+function drawBackground(t){
+  const flipped = t >= 285; // bascule visuelle scène 3
+  const base = flipped ? C.bg1 : C.bg0;
+  const g = ctx.createRadialGradient(W/2,H/2,60,W/2,H/2,W/1.1);
+  g.addColorStop(0, flipped ? '#101822' : '#22262C');
+  g.addColorStop(1, base);
+  ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+
+  ctx.strokeStyle = flipped ? 'rgba(34,211,238,0.055)' : 'rgba(255,255,255,0.03)';
+  ctx.lineWidth=1;
+  for(let x=0;x<W;x+=48){ ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
+  for(let y=0;y<H;y+=48){ ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+}
+
+// ── HUD télémétrie ──
+function drawHUD(t){
+  const m = metrics(t);
+  const x=W-296, y=26;
+  ctx.globalAlpha=0.92;
+  ctx.fillStyle='rgba(5,8,12,0.72)'; roundRect(x,y,272,132,10); ctx.fill();
+  ctx.strokeStyle='rgba(255,255,255,0.09)'; ctx.lineWidth=1; ctx.stroke();
+  ctx.globalAlpha=1;
+
+  const rows=[
+    ['FREQ', m.freq>=1000 ? `${fr(Math.round(m.freq))} MHz` : `${Math.round(m.freq)} MHz`, m.freq>3000?C.green:C.red],
+    ['DISK', `${m.speed.toFixed(1)} Mo/s`, m.speed>100?C.green:C.red],
+    ['TEMP', `${m.temp.toFixed(1)} °C`,    m.temp<70?C.cyan:C.amber],
+    ['SQL',  `${m.sql.toFixed(2)} ms`,     m.sql<20?C.green:C.red]
+  ];
+  rows.forEach((r,i)=>{
+    const ry=y+32+i*27;
+    text(r[0], x+18, ry, {size:13, font:mono, color:C.dim});
+    text(r[1], x+254, ry, {size:16, font:mono, color:r[2], align:'right', weight:700});
+  });
+}
+
+// ── Métriques interpolées dans le temps ──
+function metrics(t){
+  let freq=798, speed=12.7, temp=84.0, sql=150;
+  if(t>=274){ freq = lerp(798, 4500, ramp(t,274,2.4,easeOutQuint)); }
+  if(t>=305){ temp = lerp(84.0, 61.3, ramp(t,305,3.8,easeInOutSine)); }
+  if(t>=472){ sql  = lerp(150, 4.12, ramp(t,472,1.2,easeOutExpo)); }
+  if(t>=579){ speed= lerp(12.7, 379.0, ramp(t,579,1.0,easeOutExpo)); }
+  return {freq,speed,temp,sql};
+}
+
+// ════════ SCÈNE 1 · LE PIÈGE ════════
+function drawPiege(t){
+  text('COPIE EN COURS — 500 Mo', W/2, 200, {size:26, align:'center', color:C.dim, weight:700});
+
+  // Barre bloquée à 12 %
+  const bx=290, by=250, bw=700, bh=44;
+  ctx.fillStyle='rgba(255,255,255,0.06)'; roundRect(bx,by,bw,bh,8); ctx.fill();
+  const jitter = Math.sin(t*3)*1.2;
+  ctx.fillStyle=C.red; roundRect(bx,by,bw*0.12+jitter,bh,8); ctx.fill();
+  text('12 %', bx+bw*0.12+26, by+31, {size:22, font:mono, color:C.red, weight:700});
+
+  text('temps écoulé  08:14', W/2, 340, {size:20, font:mono, align:'center', color:C.dim});
+
+  if(t<8){
+    const a = clamp(t/1.2,0,1)*clamp((8-t)/1.2,0,1);
+    ctx.globalAlpha=a;
+    text('41,2 secondes pour copier 500 Mo.', W/2, 470, {size:34, align:'center', color:C.white, weight:700});
+    if(t>4) text('Sur un PC à 1 200 €.', W/2, 520, {size:28, align:'center', color:C.red, weight:700});
+    ctx.globalAlpha=1;
+  }
+
+  // Compteur de coût annuel
+  if(t>=72){
+    const p = ramp(t,72,1.8,easeOutExpo);
+    const val = Math.round(39600*p);
+    ctx.globalAlpha = clamp((t-72)/0.4,0,1) * clamp((120-t)/2,0,1);
+    text('COÛT ANNUEL DE LA LENTEUR', W/2, 512, {size:16, align:'center', color:C.dim, weight:700});
+    text(`${fr(val)} €`, W/2, 578, {size:76, font:mono, align:'center', color:C.red, weight:700});
+    text('2 h 30 perdues par jour', W/2, 612, {size:17, align:'center', color:C.dim});
+    ctx.globalAlpha=1;
+  }
+}
+
+// ════════ SCÈNE 2 · DIAGNOSTIC ════════
+const TERM = [
+  { at:126, cmd:'cat /proc/cpuinfo | grep "cpu MHz" | head -3',
+    out:['cpu MHz : 798.234','cpu MHz : 798.117','cpu MHz : 798.402'], hi:0, col:C.red },
+  { at:152, cmd:'cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor',
+    out:['powersave'], hi:0, col:C.amber, note:'← LE COUPABLE' },
+  { at:188, cmd:'dd if=/dev/zero of=/tmp/test bs=1M count=500 oflag=direct',
+    out:['524288000 octets (524 MB) copiés, 41,2043 s, 12,7 Mo/s'], hi:0, col:C.red, timer:true },
+  { at:234, cmd:'sensors | grep "Core 0"',
+    out:['Core 0:  +84.0°C  (high = +100.0°C, crit = +100.0°C)'], hi:0, col:C.amber }
+];
+
+function drawDiagnostic(t){
+  const x=90, top=110;
+  ctx.fillStyle='rgba(3,6,10,0.82)'; roundRect(60,80,W-120,H-190,12); ctx.fill();
+  ctx.strokeStyle='rgba(255,255,255,0.08)'; ctx.stroke();
+  text('pamerys@m4 : ~', 82, 104, {size:13, font:mono, color:C.dim});
+
+  let y = top+34;
+  for(const b of TERM){
+    if(t < b.at) break;
+    // frappe progressive
+    const typed = clamp((t-b.at)/1.6,0,1);
+    const shown = b.cmd.slice(0, Math.round(b.cmd.length*typed));
+    text('$ ', x, y, {size:17, font:mono, color:C.green});
+    text(shown, x+22, y, {size:17, font:mono, color:C.white});
+    y+=30;
+    if(typed>=1 && t > b.at+2){
+      b.out.forEach((line,i)=>{
+        const col = i===b.hi ? b.col : C.dim;
+        const wgt = i===b.hi ? 700 : 400;
+        text(line, x+22, y, {size:17, font:mono, color:col, weight:wgt});
+        if(i===b.hi && b.note) text(b.note, x+22+ctx.measureText(line).width+26, y, {size:15, font:mono, color:C.amber});
+        y+=28;
+      });
+      y+=14;
+    } else { y+=14; }
+  }
+
+  // Chronomètre du dd
+  if(t>=190 && t<232){
+    const el = clamp((t-190)*1.05, 0, 41.2);
+    text(`${el.toFixed(1).padStart(4,'0')} s`, W-140, 150, {size:38, font:mono, color:C.red, align:'right', weight:700});
+    if(t>202) text('⏩ ×4', W-140, 178, {size:14, font:mono, color:C.dim, align:'right'});
+  }
+
+  // Fiche récapitulative
+  if(t>=252){
+    const p = ramp(t,252,0.5,easeOutExpo);
+    const bx = lerp(W, W-450, p);
+    ctx.fillStyle='rgba(5,8,12,0.95)'; roundRect(bx,430,420,180,10); ctx.fill();
+    ctx.strokeStyle=C.red; ctx.lineWidth=2; ctx.stroke();
+    text('POINT DE DÉPART CERTIFIÉ', bx+22, 462, {size:14, color:C.red, weight:700});
+    const rows=[['Fréquence','798 MHz · 18 %'],['Gouverneur','powersave'],
+                ['Débit disque','12,7 Mo/s'],['Température','84 °C · throttling'],['SQLite','150 ms / requête']];
+    rows.forEach((r,i)=>{
+      text(r[0], bx+22, 492+i*23, {size:14, font:mono, color:C.dim});
+      text(r[1], bx+398, 492+i*23, {size:14, font:mono, color:C.white, align:'right'});
+    });
+  }
+}
+
+// ════════ SCÈNE 3 · LES 9 COUCHES ════════
+function gauge(cx,cy,r,frac,label,value,color){
+  ctx.lineWidth=14; ctx.lineCap='round';
+  ctx.strokeStyle='rgba(255,255,255,0.08)';
+  ctx.beginPath(); ctx.arc(cx,cy,r,Math.PI*0.75,Math.PI*2.25); ctx.stroke();
+  ctx.strokeStyle=color;
+  ctx.beginPath(); ctx.arc(cx,cy,r,Math.PI*0.75,Math.PI*0.75+Math.PI*1.5*clamp(frac,0,1)); ctx.stroke();
+  text(value, cx, cy+8, {size:30, font:mono, align:'center', color:C.white, weight:700});
+  text(label, cx, cy+32, {size:12, font:mono, align:'center', color:C.dim});
+}
+
+function drawCouches(t){
+  const m = metrics(t);
+
+  // Flash de bascule au passage des 3000 MHz
+  if(t>=284.9 && t<285.4){ ctx.fillStyle='rgba(255,255,255,0.85)'; ctx.fillRect(0,0,W,H); return; }
+
+  // Gauche : terminal d'application
+  ctx.fillStyle='rgba(3,6,10,0.75)'; roundRect(48,86,560,H-176,10); ctx.fill();
+  ctx.strokeStyle='rgba(255,255,255,0.07)'; ctx.stroke();
+  text('application des couches', 68, 110, {size:12, font:mono, color:C.dim});
+  let ly=142;
+  for(const c of COUCHES){
+    if(t < c.at) break;
+    text(`$ jarvis-tune --layer ${c.n}`, 68, ly, {size:14, font:mono, color:C.white}); ly+=22;
+    if(t > c.at+1.4){ text(`  ✓ ${c.v}`, 68, ly, {size:14, font:mono, color:C.green}); }
+    ly+=30;
+  }
+
+  // Droite : jauges
+  gauge(790, 200, 78, (m.freq-798)/(4500-798), 'MHz', fr(Math.round(m.freq)), m.freq>3000?C.green:C.red);
+  gauge(980, 200, 78, (84-m.temp)/(84-61.3), '°C',  m.temp.toFixed(1),        m.temp<70?C.cyan:C.amber);
+  gauge(1130,200, 62, (150-m.sql)/(150-4.12),'ms',  m.sql.toFixed(1),         m.sql<20?C.green:C.red);
+
+  // Badges empilés : la « tour JARVIS OS »
+  let by=320;
+  for(const c of COUCHES){
+    if(t < c.at) break;
+    const p = ramp(t, c.at, 0.35, easeOutExpo);
+    const bx = lerp(W, 700, p);
+    ctx.globalAlpha = p;
+    ctx.fillStyle='rgba(34,211,238,0.10)'; roundRect(bx,by,500,30,6); ctx.fill();
+    ctx.strokeStyle='rgba(34,211,238,0.45)'; ctx.lineWidth=1; ctx.stroke();
+    text(`COUCHE ${c.n}`, bx+14, by+20, {size:12, font:mono, color:C.cyan, weight:700});
+    text(c.t, bx+108, by+20, {size:13, color:C.white});
+    text('✓', bx+480, by+20, {size:14, color:C.green, align:'right', weight:700});
+    ctx.globalAlpha=1;
+    by+=34;
+  }
+}
+
+// ════════ SCÈNE 4 · LE CHRONOMÈTRE ════════
+function drawChrono(t){
+  ctx.fillStyle='rgba(3,6,10,0.82)'; roundRect(90,90,W-180,220,12); ctx.fill();
+  ctx.strokeStyle='rgba(255,255,255,0.08)'; ctx.stroke();
+
+  text('$ dd if=/dev/zero of=/tmp/test bs=1M count=500 oflag=direct', 118, 140, {size:17, font:mono, color:C.white});
+
+  if(t>=578.5){
+    text('524288000 octets (524 MB) copiés,', 118, 190, {size:17, font:mono, color:C.dim});
+    text('1,381 s', 118, 232, {size:40, font:mono, color:C.green, weight:700});
+    text('379 Mo/s', 330, 232, {size:40, font:mono, color:C.green, weight:700});
+  } else if(t>=577){
+    text('_', 118, 190, {size:20, font:mono, color:C.green});
+  }
+
+  // Comparateur avant / après — la barre APRÈS se dessine en 1,38 s réelle
+  if(t>=586){
+    const bw=940, bx=170;
+    text('AVANT', bx-100, 400, {size:14, font:mono, color:C.dim, weight:700});
+    ctx.fillStyle=C.red; roundRect(bx,382,bw,26,4); ctx.fill();
+    text('41,2 s  ·  12,7 Mo/s', bx+bw+14, 402, {size:15, font:mono, color:C.red, weight:700});
+
+    text('APRÈS', bx-100, 452, {size:14, font:mono, color:C.dim, weight:700});
+    const p = clamp((t-586)/1.38,0,1);
+    ctx.fillStyle=C.green; roundRect(bx,434,Math.max(4,bw/29.8*p),26,4); ctx.fill();
+    if(p>=1) text('1,38 s  ·  379,0 Mo/s', bx+70, 454, {size:15, font:mono, color:C.green, weight:700});
+  }
+
+  if(t>=589){
+    const chars = Math.round(clamp((t-589)/0.6,0,1)*9);
+    text('× 29,8    +2 886 %'.slice(0,chars+9), W/2, 540, {size:44, font:mono, align:'center', color:C.green, weight:700});
+  }
+
+  if(t>=604){
+    ctx.globalAlpha = clamp((t-604)/0.5,0,1);
+    text('MATÉRIEL ACHETÉ : 0 €        TEMPS DE RÉGLAGE : 35 min', W/2, 620, {size:22, font:mono, align:'center', color:C.cyan, weight:700});
+    ctx.globalAlpha=1;
+  }
+}
+
+// ════════ SCÈNE 5 · L'ÉCOSYSTÈME SOUVERAIN ════════
+const SPHERES = [
+  { at:640, cx:340, label:'BOARD OS',   n:83205,  unit:'chunks de doctrine', ms:'RAG 47 ms',   col:C.violet },
+  { at:648, cx:640, label:'HUB SKILLS', n:211270, unit:'compétences IA',     ms:'4,12 ms',     col:C.cyan   },
+  { at:656, cx:940, label:'CRM',        n:17756,  unit:'entreprises',        ms:'17,95 ms',    col:C.green  }
+];
+
+function drawSouverain(t){
+  ctx.fillStyle='#04070B'; ctx.fillRect(0,0,W,H);
+
+  for(const s of SPHERES){
+    if(t < s.at) continue;
+    const app = ramp(t, s.at, 0.8, easeOutExpo);
+    const cy = 250, r = 76*app;
+    ctx.globalAlpha = app;
+
+    // maillage de points
+    const rot = (t-s.at)*0.35;
+    for(let i=0;i<44;i++){
+      const a = (i/44)*Math.PI*2 + rot;
+      const rr = r*(0.55+0.45*Math.abs(Math.sin(i*1.7)));
+      const px = s.cx+Math.cos(a)*rr, py = cy+Math.sin(a)*rr*0.62;
+      ctx.fillStyle=s.col; ctx.globalAlpha=app*0.75;
+      ctx.beginPath(); ctx.arc(px,py,1.8,0,Math.PI*2); ctx.fill();
+    }
+    ctx.globalAlpha=app*0.35; ctx.strokeStyle=s.col; ctx.lineWidth=1.5;
+    ctx.beginPath(); ctx.ellipse(s.cx,cy,r,r*0.62,0,0,Math.PI*2); ctx.stroke();
+
+    ctx.globalAlpha=app;
+    const cp = ramp(t, s.at, 1.6, easeOutExpo);
+    text(fr(Math.round(s.n*cp)), s.cx, cy+8, {size:30, font:mono, align:'center', color:C.white, weight:700});
+    text(s.label, s.cx, cy+130, {size:15, align:'center', color:s.col, weight:700});
+    text(s.unit,  s.cx, cy+152, {size:13, align:'center', color:C.dim});
+    text(s.ms,    s.cx, cy+176, {size:15, font:mono, align:'center', color:s.col, weight:700});
+    ctx.globalAlpha=1;
+  }
+
+  // Liaison cluster : le pulse met 1,4 s à traverser
+  if(t>=664){
+    const y=470;
+    ctx.strokeStyle='rgba(34,211,238,0.28)'; ctx.lineWidth=2;
+    ctx.beginPath(); ctx.moveTo(360,y); ctx.lineTo(920,y); ctx.stroke();
+    const pp = ((t-664)/1.4)%1;
+    ctx.fillStyle=C.cyan;
+    ctx.beginPath(); ctx.arc(lerp(360,920,pp), y, 5, 0, Math.PI*2); ctx.fill();
+    text('M1 · USB-C direct ASIX · 10.42.0.230:1234 · 1,4 ms · H24', W/2, y+34, {size:15, font:mono, align:'center', color:C.cyan});
+  }
+
+  // Anneau de souveraineté
+  if(t>=680){
+    const p = ramp(t,680,0.8,easeOutExpo);
+    ctx.strokeStyle=`rgba(34,197,94,${0.55*p})`; ctx.lineWidth=3;
+    ctx.beginPath(); ctx.ellipse(W/2,330,540*p,290*p,0,0,Math.PI*2); ctx.stroke();
+    ctx.globalAlpha=p;
+    text('AUCUNE DONNÉE NE SORT.', W/2, 660, {size:26, align:'center', color:C.green, weight:700});
+    ctx.globalAlpha=1;
+  }
+}
+
+// ════════ SCÈNES 6 & 7 · CTA ════════
+function drawCTA(t){
+  ctx.fillStyle='#04070B'; ctx.fillRect(0,0,W,H);
+  if(t<702){
+    text('« Votre machine sait déjà faire tout ça. »', W/2, 340, {size:34, align:'center', color:C.white, weight:700});
+    text('Ne rachetez pas un PC neuf pour rien.', W/2, 392, {size:22, align:'center', color:C.dim});
+    return;
+  }
+  const p = ramp(t,702,0.8,easeOutExpo);
+  ctx.globalAlpha=p;
+  text('JARVIS OS', W/2, 230, {size:64, align:'center', color:C.cyan, weight:700});
+  text('AUDIT LIVE · 15 MINUTES · GRATUIT', W/2, 282, {size:22, align:'center', color:C.white, weight:700});
+
+  if(t>=706){
+    const q = ramp(t,706,0.4,easeOutExpo);
+    ctx.globalAlpha=q;
+    text('12,7 Mo/s', W/2-170, 400, {size:44, font:mono, align:'center', color:C.red, weight:700});
+    text('→', W/2, 400, {size:38, align:'center', color:C.dim});
+    text('379,0 Mo/s', W/2+180, 400, {size:44, font:mono, align:'center', color:C.green, weight:700});
+    text('0 € de matériel  ·  35 minutes de réglage', W/2, 452, {size:20, align:'center', color:C.dim});
+    text('[ lien en description ]', W/2, 530, {size:20, align:'center', color:C.cyan, weight:700});
+  }
+  ctx.globalAlpha=1;
+  text('Résultats mesurés sur ASUS i5-11400H — variables selon le matériel.', W/2, 690, {size:12, align:'center', color:'#3F4956'});
+}
+
+// ── Bandeau locuteur + sous-titre ──
+function drawSpeaker(t){
+  const c = cueAt(t);
+  if(!c) return;
+  const AV = { marc:'😤', turbo:'⚡', board:'🧠' };
+  const COL= { marc:C.amber, turbo:C.cyan, board:C.violet };
+
+  const y=H-104;
+  ctx.fillStyle='rgba(4,7,11,0.88)'; roundRect(60,y,W-120,74,10); ctx.fill();
+  ctx.strokeStyle=COL[c.voice]+'55'; ctx.lineWidth=1; ctx.stroke();
+  ctx.fillStyle=COL[c.voice]; roundRect(60,y,4,74,2); ctx.fill();
+
+  text(AV[c.voice], 92, y+46, {size:28});
+  text(c.speaker, 136, y+28, {size:14, color:COL[c.voice], weight:700});
+
+  // sous-titre : 2 lignes max
+  const words=c.text.split(' '); const lines=[]; let cur='';
+  ctx.font='400 17px Inter, sans-serif';
+  for(const w of words){
+    if(ctx.measureText(cur+' '+w).width > W-260){ lines.push(cur); cur=w; } else { cur = cur?cur+' '+w:w; }
+  }
+  lines.push(cur);
+  const prog = clamp((t-c.start)/((c._dur||6)*0.92),0,1);
+  const shown = lines.slice(0,2);
+  shown.forEach((l,i)=>{
+    const full = shown.join(' ');
+    text(l, 136, y+50+i*21, {size:17, color:C.white});
+  });
+}
+
+// ── Chapitrage discret ──
+function drawChapter(t){
+  const s = scene(t);
+  const names = { piege:'1 · LE PIÈGE', diagnostic:'2 · LE DIAGNOSTIC', couches:'3 · LES 9 COUCHES',
+                  chrono:'4 · LA PREUVE', souverain:'5 · SOUVERAINETÉ', cta:'6 · CONCLUSION' };
+  text(names[s.mode], 60, 44, {size:13, font:mono, color:C.dim, weight:700});
+  // barre de progression
+  ctx.fillStyle='rgba(255,255,255,0.07)'; ctx.fillRect(0,H-4,W,4);
+  ctx.fillStyle=C.cyan; ctx.fillRect(0,H-4,W*(t/TOTAL_DURATION),4);
+}
+
+// ════════ RENDU PRINCIPAL ════════
+function renderAt(t){
+  ctx.clearRect(0,0,W,H);
+  drawBackground(t);
+  const m = scene(t).mode;
+  if(m==='piege')       drawPiege(t);
+  else if(m==='diagnostic') drawDiagnostic(t);
+  else if(m==='couches')    drawCouches(t);
+  else if(m==='chrono')     drawChrono(t);
+  else if(m==='souverain')  drawSouverain(t);
+  else                      drawCTA(t);
+
+  if(m!=='souverain' && m!=='cta') drawHUD(t);
+  drawSpeaker(t);
+  drawChapter(t);
+  return true;
+}
+
+// Injecté par le pipeline Python : durée réelle de chaque voix
+function setDurations(list){ list.forEach((d,i)=>{ if(TIMELINE[i]) TIMELINE[i]._dur = d; }); }
+
+renderAt(0);
+</script>
+</body>
+</html>

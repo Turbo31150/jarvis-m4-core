@@ -1,0 +1,11 @@
+{
+  "id": "cloudwego-eino-ext-skills-eino-component-skill-md",
+  "name": "eino-component",
+  "author": "cloudwego",
+  "description": "Eino component selection, configuration, and usage. Use when a user needs to choose or configure a ChatModel, AgenticModel, Embedding, Retriever, Indexer, Tool, Document loader/parser/transformer, Prompt template, or Callback handler. Covers all component interfaces and their implementations in eino-ext including OpenAI, Claude, Gemini, Ark, Ollama, Milvus, Elasticsearch, Redis, MCP tools, and more.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/cloudwego/eino-ext/tree/main/skills/eino-component",
+  "skillUrl": "https://skillsmp.com/creators/cloudwego/eino-ext/skills-eino-component",
+  "stars": 784,
+  "updatedAt": 1779263518
+}

@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-generating-python-installer-skill-md",
+  "name": "generating-python-installer",
+  "author": "affaan-m",
+  "description": "Commercial-grade Python installer expert for Windows: Nuitka extreme compilation, dist slimming, DLL footprint analysis, and Inno Setup packaging to ship the smallest, fastest installers. Use only for advanced packaging/optimization (minimal size, fast startup), not basic script-to-exe conversion. \u4e2d\u6587\u89e6\u53d1\uff1aNuitka \u6781\u9650\u4f18\u5316\u3001Python \u5546\u4e1a\u6253\u5305\u3001\u6781\u9650\u7f16\u8bd1 Python\u3001dist \u7626\u8eab\u3001DLL \u5206\u6790\u3001\u6700\u5c0f\u5b89\u88c5\u5305\u3001\u6700\u5feb\u542f\u52a8\u3001\u5546\u4e1a\u7ea7\u6253\u5305\u98ce\u683c",
+  "contentLanguage": "mul",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/generating-python-installer",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-generating-python-installer",
+  "stars": 237500,
+  "updatedAt": 1781572638
+}

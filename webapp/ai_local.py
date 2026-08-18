@@ -3,7 +3,7 @@
 
 Cascade ANTI-SURCHAUFFE (déporté d'abord, local en dernier recours, 0 token) :
   1. Cache SQL (ecole.db: ai_cache) → instantané, 0 watt, 0 chaleur
-  2. Cluster LM Studio M1/M2 (qwen3.5-35b, distillations Claude) — DÉPORTÉ, si joignable
+  2. LM Studio M6 (câble direct, dual GPU) puis Rémi (Tailscale) — DÉPORTÉ, par défaut
   3. Ollama cloud (kimi-k2.5:cloud) — DÉPORTÉ, si `ollama signin` fait
   4. Gemini / Antigravity (gemini-smart.sh) — DÉPORTÉ Google One
   5. Ollama local CPU (gemma3:4b/qwen2.5:7b) — DERNIER RECOURS, BLOQUÉ si M4 ≥ LOCAL_MAX_TEMP
@@ -21,10 +21,16 @@ from pathlib import Path
 import requests
 
 ECOLE_DB = Path(__file__).resolve().parent / "ecole.db"
-M1 = os.environ.get(
-    "M1_HOST", "http://10.42.0.1:1234"
-)  # câble direct M4↔M1 (ex 192.168.0.10 / .1.85)
-M2 = "http://192.168.1.26:1234"
+# Parc réel 2026-08-14 : M4 (ici) + M6 (câble direct) + Rémi (Tailscale). Rien d'autre.
+# M6 = LM Studio 24/7, dual GPU → backend par défaut de toute inférence.
+M6 = os.environ.get("M6_HOST", "http://10.42.0.230:1234")
+REMI = os.environ.get("REMI_HOST", "http://100.113.121.61:11434")
+# Modèle de référence par nœud, utilisé quand aucun n'est encore résident.
+# Mesuré le 2026-08-14 : sur M6, qwen2.5-coder-14b avorte au démarrage moteur
+# ("Engine protocol startup was aborted") ; qwen3.5-9b charge et répond.
+PREFERRED_MODEL = {
+    M6: os.environ.get("M6_MODEL", "qwen/qwen3.5-9b"),
+}
 OLLAMA = "http://127.0.0.1:11434"
 GEMINI_SH = str(Path.home() / "jarvis" / "scripts" / "gemini-ask.sh")
 # --- Ollama CLOUD (déporté, 0 chaleur sur le M4) ---
@@ -120,12 +126,15 @@ def _up(url, timeout=1.5):
 _MODEL_CACHE = {}  # url -> (ts, model_id) : évite de re-lister /v1/models à chaque appel
 
 
-def _pick_chat_model(url, timeout=4):
+def _pick_chat_model(url, timeout=10):
     """Renvoie l'id du 1er modèle de chat chargé sur ce nœud LM Studio.
 
-    Les noms de modèles varient d'un nœud à l'autre (M1 direct = qwen3.5-9b,
-    M1 LAN = qwen3.5-35b…). On interroge /v1/models et on écarte les modèles
-    d'embedding. Cache 60 s. Renvoie None si rien d'exploitable.
+    /v1/models liste AUSSI les modèles seulement présents sur disque : demander
+    l'un d'eux déclenche un chargement JIT qui échoue ("Engine protocol startup
+    was aborted") et fait tomber toute la cascade sur le cloud. On lit donc
+    /api/v0/models (propre à LM Studio), qui expose `state`, pour privilégier le
+    modèle résident ; on retombe sur /v1/models pour les nœuds qui ne l'exposent
+    pas (Ollama). Cache 60 s. Renvoie None si rien d'exploitable.
     """
     import time
 
@@ -134,19 +143,57 @@ def _pick_chat_model(url, timeout=4):
     if hit and now - hit[0] < 60:
         return hit[1]
     model = None
+    data = []
+    is_lmstudio = False
     try:
-        data = requests.get(f"{url}/v1/models", timeout=timeout).json().get("data", [])
+        data = (
+            requests.get(f"{url}/api/v0/models", timeout=timeout).json().get("data", [])
+        )
+        is_lmstudio = True
+    except (requests.exceptions.RequestException, ValueError):
+        data = []
+    if is_lmstudio and not any(
+        m.get("state") == "loaded"
+        and m.get("type") != "embeddings"
+        and "embed" not in (m.get("id") or "").lower()
+        for m in data
+    ):
+        # Nœud LM Studio sans modèle de chat résident. Le chargement JIT échoue
+        # sur ce parc (« Model is unloaded », « Engine protocol startup was
+        # aborted ») : insister ferait pendre l'appelant 120 s par requête avant
+        # le repli. On rend la main tout de suite ; le nœud revient de lui-même
+        # dès qu'un `lms load` a été fait.
+        _MODEL_CACHE[url] = (now, None)
+        return None
+    try:
+        if not data:
+            data = (
+                requests.get(f"{url}/v1/models", timeout=timeout).json().get("data", [])
+            )
         cands = [
             m.get("id", "")
             for m in data
-            if m.get("id") and "embed" not in m["id"].lower()
+            if m.get("id")
+            and "embed" not in m["id"].lower()
+            and m.get("type") != "embeddings"
         ]
-        # Préférer les modèles NON-« thinking » : qwen3.x rend souvent un content vide
-        # (tout part en reasoning) → on les met en dernier recours.
+        # Un modèle résident bat toute autre préférence : lui seul répond sans
+        # chargement JIT. Ensuite le modèle de référence du nœud (mesuré : sur M6,
+        # qwen3.5-9b est le seul qui charge — le 14b avorte au démarrage moteur).
+        # Le caractère « thinking » n'est plus qu'un départage : le bloc
+        # <think></think> posé à l'appel neutralise le reasoning-runaway.
+        resident = {
+            m.get("id") for m in data if m.get("state") == "loaded" and m.get("id")
+        }
+        ref = PREFERRED_MODEL.get(url, "")
         THINKY = ("qwen3", "qwq", "deepseek-r1", "-r1")
 
         def _score(mid):
-            return 1 if any(t in mid.lower() for t in THINKY) else 0
+            return (
+                0 if mid in resident else 1,
+                0 if ref and mid == ref else 1,
+                1 if any(t in mid.lower() for t in THINKY) else 0,
+            )
 
         cands.sort(key=_score)
         model = cands[0] if cands else None
@@ -306,19 +353,19 @@ def backend_status():
 
     temp = _gpu_temp()
     with ThreadPoolExecutor(max_workers=4) as ex:
-        f_m1 = ex.submit(_up, M1)
-        f_m2 = ex.submit(_up, M2)
+        f_m6 = ex.submit(_up, M6)
+        f_remi = ex.submit(_up, REMI)
         f_ol = ex.submit(_up, OLLAMA)
         f_cloud = ex.submit(_ollama_cloud_ready)
         m1, m2, ol, cloud = (
-            f_m1.result(),
-            f_m2.result(),
+            f_m6.result(),
+            f_remi.result(),
             f_ol.result(),
             f_cloud.result(),
         )
     return {
-        "cluster_m1": m1,
-        "cluster_m2": m2,
+        "cluster_m6": m1,
+        "cluster_remi": m2,
         "ollama_local": ol,
         "ollama_cloud": cloud,
         "gpu_temp": temp,
@@ -335,7 +382,24 @@ def generate(
     cache=True,
     temperature=0.5,
     repli=True,  # défaut : jamais de 503 (trame hors-ligne). Le dispatch passe repli=False.
+    nominatif=False,  # True dès que le prompt contient un élève/une famille — voir ci-dessous
 ):
+    """Génère un texte via la cascade 0-token.
+
+    nominatif=True est OBLIGATOIRE dès que `user` contient un nom d'élève, une
+    appréciation, une observation ou tout élément rattachable à un enfant.
+    Effets, non négociables (cf. CLAUDE.md du profil ecole) :
+      - les backends HORS FOYER sont sautés : Z.AI, Google Gemini, Ollama Cloud ;
+        seuls M6 (câble direct, foyer) et Ollama local restent candidats ;
+      - le cache est désactivé, sinon une réponse nominative devient relisible
+        par une autre requête via le cache partagé `ecole.db:ai_cache`.
+
+    Attention : `cache=False` seul ne protège PAS — il empêche de stocker, pas
+    d'envoyer. Seul `nominatif=True` empêche la sortie hors du foyer.
+    """
+    if nominatif:
+        cache = False
+
     key = hashlib.sha256((system + "||" + user).encode()).hexdigest()[:40]
     if cache:
         hit = _cache_get(key)
@@ -346,19 +410,28 @@ def generate(
 
     # ═══ DÉPORTÉ D'ABORD (0 chaleur sur le M4) ═══
 
-    # 1) Cluster LM Studio M1/M2 (meilleure qualité, distillations Claude) si joignable
-    for node, url in (("M1", M1), ("M2", M2)):
+    # 1) LM Studio M6 (câble direct, dual GPU) — backend par défaut. Rémi en secours,
+    #    mais c'est une machine TIERS : sautée si nominatif.
+    for node, url in (("M6", M6),) + (() if nominatif else (("REMI", REMI),)):
         if not _up(url):
             continue
         model = _pick_chat_model(url)  # modèle réellement chargé sur ce nœud
         if not model:
             continue
+        # Modèle « thinking » (qwen3.x, deepseek-r1) : sans bloc <think> pré-fermé,
+        # tout le budget part en raisonnement et `content` revient vide.
+        thinky = any(t in model.lower() for t in ("qwen3", "qwq", "deepseek-r1", "-r1"))
+        node_msgs = (
+            msgs
+            if not thinky
+            else msgs[:-1] + [{"role": "user", "content": "<think></think>" + user}]
+        )
         try:
             r = requests.post(
                 f"{url}/v1/chat/completions",
                 json={
                     "model": model,
-                    "messages": msgs,
+                    "messages": node_msgs,
                     "temperature": temperature,
                     "max_tokens": max_tokens,
                 },
@@ -372,26 +445,28 @@ def generate(
         except Exception:
             continue
 
-    # 2) Z.AI GLM Coding Plan — DÉPORTÉ (qualité), si clé ZAI_API_KEY définie.
-    txt = _zai(msgs, max_tokens, temperature)
-    if txt:
-        if cache:
-            _cache_put(key, user, txt, f"zai:{ZAI_MODEL}")
-        return {"text": txt, "backend": f"zai:{ZAI_MODEL}", "cached": False}
+    # ═══ BACKENDS HORS FOYER — sautés en mode nominatif (RGPD, données élèves) ═══
+    if not nominatif:
+        # 2) Z.AI GLM Coding Plan — DÉPORTÉ (qualité), si clé ZAI_API_KEY définie.
+        txt = _zai(msgs, max_tokens, temperature)
+        if txt:
+            if cache:
+                _cache_put(key, user, txt, f"zai:{ZAI_MODEL}")
+            return {"text": txt, "backend": f"zai:{ZAI_MODEL}", "cached": False}
 
-    # 2bis) Google Gemini — DÉPORTÉ (quota gratuit, qualité), si GEMINI_API_KEY.
-    txt = _gemini(msgs, max_tokens, temperature)
-    if txt:
-        if cache:
-            _cache_put(key, user, txt, f"gemini:{GEMINI_MODEL}")
-        return {"text": txt, "backend": f"gemini:{GEMINI_MODEL}", "cached": False}
+        # 2bis) Google Gemini — DÉPORTÉ (quota gratuit, qualité), si GEMINI_API_KEY.
+        txt = _gemini(msgs, max_tokens, temperature)
+        if txt:
+            if cache:
+                _cache_put(key, user, txt, f"gemini:{GEMINI_MODEL}")
+            return {"text": txt, "backend": f"gemini:{GEMINI_MODEL}", "cached": False}
 
-    # 3) Ollama CLOUD — DÉPORTÉ (API directe par clé, ou offload daemon signé).
-    txt = _ollama_cloud(msgs, max_tokens, temperature)
-    if txt:
-        if cache:
-            _cache_put(key, user, txt, "ollama-cloud")
-        return {"text": txt, "backend": "ollama-cloud", "cached": False}
+        # 3) Ollama CLOUD — DÉPORTÉ (API directe par clé, ou offload daemon signé).
+        txt = _ollama_cloud(msgs, max_tokens, temperature)
+        if txt:
+            if cache:
+                _cache_put(key, user, txt, "ollama-cloud")
+            return {"text": txt, "backend": "ollama-cloud", "cached": False}
 
     # ═══ LOCAL EN TOUT DERNIER RECOURS — chauffe le M4, BLOQUÉ si trop chaud ═══
     temp = _gpu_temp()
@@ -441,7 +516,7 @@ def generate(
             f"Backends déportés KO (cluster down, Ollama cloud non connecté, Gemini KO) "
             f"et inférence locale BLOQUÉE : M4 à {temp}°C ≥ {LOCAL_MAX_TEMP}°C "
             f"(anti-surchauffe). Connecte un backend déporté : `ollama signin`, "
-            f"allume M1/M2, ou migre Gemini→Antigravity."
+            f"allume LM Studio sur M6, ou migre Gemini→Antigravity."
         )
     raise AIUnavailable(
         "Aucun moteur IA disponible (cluster, Ollama cloud, Gemini, Ollama local tous KO)."

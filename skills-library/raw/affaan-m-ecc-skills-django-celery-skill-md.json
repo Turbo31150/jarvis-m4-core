@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-django-celery-skill-md",
+  "name": "django-celery",
+  "author": "affaan-m",
+  "description": "Django + Celery async task patterns \u2014 configuration, task design, beat scheduling, retries, canvas workflows, monitoring, and testing. Use when adding background jobs, scheduled tasks, or async processing to a Django app.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/django-celery",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-django-celery",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

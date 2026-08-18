@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-extensions-browser-skills-browser-automation-skill-md",
+  "name": "browser-automation",
+  "author": "openclaw",
+  "description": "Use when controlling web pages with the OpenClaw browser tool, especially multi-step flows, login checks, tab management, or recovery from stale refs/timeouts.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/extensions/browser/skills/browser-automation",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/extensions-browser-skills-browser-automation",
+  "stars": 385119,
+  "updatedAt": 1785238977
+}

@@ -1,0 +1,11 @@
+{
+  "id": "github-awesome-copilot-skills-reviewing-oracle-to-postgres-migration-skill-md",
+  "name": "reviewing-oracle-to-postgres-migration",
+  "author": "github",
+  "description": "Identifies Oracle-to-PostgreSQL migration risks by cross-referencing code against known behavioral differences (empty strings, refcursors, type coercion, sorting/collations, UNION ALL planner risks, materialized-view refresh requirements, timestamps, concurrent transactions, etc.). Use when planning a database migration, reviewing migration artifacts, or validating that integration tests cover Oracle/PostgreSQL differences.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/github/awesome-copilot/tree/main/skills/reviewing-oracle-to-postgres-migration",
+  "skillUrl": "https://skillsmp.com/creators/github/awesome-copilot/skills-reviewing-oracle-to-postgres-migration",
+  "stars": 37423,
+  "updatedAt": 1783991218
+}

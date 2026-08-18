@@ -1,0 +1,11 @@
+{
+  "id": "mukul975-anthropic-cybersecurity-skills-skills-implementing-kubernetes-pod-security-standards-skill-md",
+  "name": "implementing-kubernetes-pod-security-standards",
+  "author": "mukul975",
+  "description": "Configures Kubernetes Pod Security Standards (Privileged, Baseline, Restricted) enforced via the built-in Pod Security Admission (PSA) controller (Kubernetes 1.25+), including namespace labeling and enforce/audit/warn modes. Use when hardening pod configurations against privilege escalation, migrating off deprecated PodSecurityPolicy, or setting namespace-level pod security enforcement.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/mukul975/Anthropic-Cybersecurity-Skills/tree/main/skills/implementing-kubernetes-pod-security-standards",
+  "skillUrl": "https://skillsmp.com/creators/mukul975/anthropic-cybersecurity-skills/skills-implementing-kubernetes-pod-security-standards",
+  "stars": 27260,
+  "updatedAt": 1785688333
+}

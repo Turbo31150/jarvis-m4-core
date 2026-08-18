@@ -1,0 +1,11 @@
+{
+  "id": "garrytan-gstack-diagram-skill-md",
+  "name": "diagram",
+  "author": "garrytan",
+  "description": "Turn an English description (or mermaid source) into a diagram triplet: the source, an editable .excalidraw file you can open (gstack)",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/garrytan/gstack/tree/main/diagram",
+  "skillUrl": "https://skillsmp.com/creators/garrytan/gstack/diagram",
+  "stars": 126191,
+  "updatedAt": 1782405765
+}

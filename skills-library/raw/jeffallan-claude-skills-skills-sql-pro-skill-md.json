@@ -1,0 +1,11 @@
+{
+  "id": "jeffallan-claude-skills-skills-sql-pro-skill-md",
+  "name": "sql-pro",
+  "author": "Jeffallan",
+  "description": "Optimizes SQL queries, designs database schemas, and troubleshoots performance issues. Use when a user asks why their query is slow, needs help writing complex joins or aggregations, mentions database performance issues, or wants to design or migrate a schema. Invoke for complex queries, window functions, CTEs, indexing strategies, query plan analysis, covering index creation, recursive queries, EXPLAIN/ANALYZE interpretation, before/after query benchmarking, or migrating queries between database dialects (PostgreSQL, MySQL, SQL Server, Oracle).",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Jeffallan/claude-skills/tree/main/skills/sql-pro",
+  "skillUrl": "https://skillsmp.com/creators/jeffallan/claude-skills/skills-sql-pro",
+  "stars": 10869,
+  "updatedAt": 1777433552
+}

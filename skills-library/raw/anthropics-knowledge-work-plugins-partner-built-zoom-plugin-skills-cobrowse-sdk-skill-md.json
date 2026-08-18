@@ -1,0 +1,11 @@
+{
+  "id": "anthropics-knowledge-work-plugins-partner-built-zoom-plugin-skills-cobrowse-sdk-skill-md",
+  "name": "zoom-cobrowse-sdk",
+  "author": "anthropics",
+  "description": "Reference skill for Zoom Cobrowse SDK. Use after routing to a collaborative-support workflow when implementing browser co-browsing, annotation tools, privacy masking, remote assist, or PIN-based session sharing.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/anthropics/knowledge-work-plugins/tree/main/partner-built/zoom-plugin/skills/cobrowse-sdk",
+  "skillUrl": "https://skillsmp.com/creators/anthropics/knowledge-work-plugins/partner-built-zoom-plugin-skills-cobrowse-sdk",
+  "stars": 23290,
+  "updatedAt": 1775777286
+}

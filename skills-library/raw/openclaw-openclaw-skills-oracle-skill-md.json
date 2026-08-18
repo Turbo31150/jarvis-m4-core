@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-skills-oracle-skill-md",
+  "name": "oracle",
+  "author": "openclaw",
+  "description": "Oracle CLI second-model review/debug/refactor/design with selected files, dry-run token checks, API or browser engine.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/skills/oracle",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/skills-oracle",
+  "stars": 385119,
+  "updatedAt": 1779015027
+}

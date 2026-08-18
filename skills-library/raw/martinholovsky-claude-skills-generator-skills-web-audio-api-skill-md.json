@@ -1,0 +1,11 @@
+{
+  "id": "martinholovsky-claude-skills-generator-skills-web-audio-api-skill-md",
+  "name": "web-audio-api",
+  "author": "martinholovsky",
+  "description": "Web Audio API for JARVIS audio feedback and voice processing",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/web-audio-api",
+  "skillUrl": "https://skillsmp.com/creators/martinholovsky/claude-skills-generator/skills-web-audio-api",
+  "stars": 45,
+  "updatedAt": 1764090731
+}

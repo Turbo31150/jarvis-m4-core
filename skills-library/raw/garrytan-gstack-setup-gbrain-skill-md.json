@@ -1,0 +1,11 @@
+{
+  "id": "garrytan-gstack-setup-gbrain-skill-md",
+  "name": "setup-gbrain",
+  "author": "garrytan",
+  "description": "Set up gbrain for this coding agent: install the CLI, initialize a local PGLite or Supabase brain, register MCP, capture per-remote trust policy. (gstack)",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/garrytan/gstack/tree/main/setup-gbrain",
+  "skillUrl": "https://skillsmp.com/creators/garrytan/gstack/setup-gbrain",
+  "stars": 126191,
+  "updatedAt": 1783727476
+}

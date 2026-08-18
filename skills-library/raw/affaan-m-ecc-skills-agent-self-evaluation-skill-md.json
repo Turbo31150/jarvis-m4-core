@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-agent-self-evaluation-skill-md",
+  "name": "agent-self-evaluation",
+  "author": "affaan-m",
+  "description": "Use after completing any non-trivial task. The agent self-rates its output on 5 axes \u2014 accuracy, completeness, clarity, actionability, conciseness \u2014 with concrete evidence per criterion. Produces a structured 1-5 scorecard with specific improvement suggestions.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/agent-self-evaluation",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-agent-self-evaluation",
+  "stars": 237500,
+  "updatedAt": 1781180937
+}

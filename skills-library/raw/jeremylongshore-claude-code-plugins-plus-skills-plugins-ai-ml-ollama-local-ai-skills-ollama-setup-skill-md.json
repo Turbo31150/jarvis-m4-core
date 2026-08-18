@@ -1,0 +1,11 @@
+{
+  "id": "jeremylongshore-claude-code-plugins-plus-skills-plugins-ai-ml-ollama-local-ai-skills-ollama-setup-skill-md",
+  "name": "ollama-setup",
+  "author": "jeremylongshore",
+  "description": "Configure auto-configure Ollama when user needs local LLM deployment, free AI alternatives,\nor wants to eliminate hosted API costs. Trigger phrases: \"install ollama\",\n\"local AI\", \"free LLM\", \"self-hosted AI\", \"replace OpenAI\", \"no API costs\". Use when appropriate context detected. Trigger with relevant phrases based on skill purpose.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-ml/ollama-local-ai/skills/ollama-setup",
+  "skillUrl": "https://skillsmp.com/creators/jeremylongshore/claude-code-plugins-plus-skills/plugins-ai-ml-ollama-local-ai-skills-ollama-setup",
+  "stars": 2577,
+  "updatedAt": 1784326692
+}

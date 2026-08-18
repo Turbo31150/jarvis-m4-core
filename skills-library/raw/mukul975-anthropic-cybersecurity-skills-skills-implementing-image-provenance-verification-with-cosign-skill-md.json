@@ -1,0 +1,11 @@
+{
+  "id": "mukul975-anthropic-cybersecurity-skills-skills-implementing-image-provenance-verification-with-cosign-skill-md",
+  "name": "implementing-image-provenance-verification-with-cosign",
+  "author": "mukul975",
+  "description": "Signs and verifies container image provenance using Sigstore Cosign, covering key-based and keyless OIDC-based signing (Fulcio, Rekor transparency log), SLSA attestations, and enforcing signature verification via Kubernetes admission control. Use when signing container images for supply chain security, setting up keyless OIDC signing, attaching attestations, or enforcing verified-image-only policies at admission in a Kubernetes cluster.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/mukul975/Anthropic-Cybersecurity-Skills/tree/main/skills/implementing-image-provenance-verification-with-cosign",
+  "skillUrl": "https://skillsmp.com/creators/mukul975/anthropic-cybersecurity-skills/skills-implementing-image-provenance-verification-with-cosign",
+  "stars": 27260,
+  "updatedAt": 1785688333
+}

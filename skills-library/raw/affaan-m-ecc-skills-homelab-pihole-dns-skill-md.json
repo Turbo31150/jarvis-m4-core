@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-homelab-pihole-dns-skill-md",
+  "name": "homelab-pihole-dns",
+  "author": "affaan-m",
+  "description": "Pi-hole installation, blocklist management, DNS-over-HTTPS setup, DHCP integration, local DNS records, and troubleshooting broken DNS resolution on a home network.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/homelab-pihole-dns",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-homelab-pihole-dns",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

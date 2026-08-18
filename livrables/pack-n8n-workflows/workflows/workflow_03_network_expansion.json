@@ -1,0 +1,98 @@
+{
+  "name": "JARVIS OMEGA — Workflow N8N 03 Complet : Ciblage Décideurs B2B, Invits LinkedIn & Enregistrement SQLite",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 1
+            }
+          ]
+        }
+      },
+      "name": "Schedule Trigger (Chaque heure)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        100,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "command": "python3 $HOME/jarvis/scripts/linkedin_network_growth_engine.py"
+      },
+      "name": "Ciblage Décideurs & Envoi Invitations LinkedIn",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        320,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "command": "sqlite3 $HOME/jarvis/jarvis_master.db \"SELECT name, company, connection_status FROM linkedin_network_targets ORDER BY id DESC LIMIT 5;\""
+      },
+      "name": "Vérification Base de Donnees jarvis_master.db",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        540,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "command": "python3 $HOME/jarvis/scripts/util_logging.py \"[N8N Expansion Workflow] Nouvelles invitations réseau envoyées et enregistrées.\""
+      },
+      "name": "Log Centralisé jarvis_logs.db",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        760,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Schedule Trigger (Chaque heure)": {
+      "main": [
+        [
+          {
+            "node": "Ciblage Décideurs & Envoi Invitations LinkedIn",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ciblage Décideurs & Envoi Invitations LinkedIn": {
+      "main": [
+        [
+          {
+            "node": "Vérification Base de Donnees jarvis_master.db",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vérification Base de Donnees jarvis_master.db": {
+      "main": [
+        [
+          {
+            "node": "Log Centralisé jarvis_logs.db",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {},
+  "id": "3"
+}

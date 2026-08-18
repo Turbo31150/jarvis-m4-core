@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-tr-skills-database-migrations-skill-md",
+  "name": "database-migrations",
+  "author": "affaan-m",
+  "description": "\u015eema de\u011fi\u015fiklikleri, veri migration'lar\u0131, rollback'ler ve PostgreSQL, MySQL ve yayg\u0131n ORM'ler (Prisma, Drizzle, Django, TypeORM, golang-migrate) aras\u0131nda s\u0131f\u0131r kesinti deployment'lar\u0131 i\u00e7in veritaban\u0131 migration en iyi uygulamalar\u0131.",
+  "contentLanguage": "tur",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/tr/skills/database-migrations",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-tr-skills-database-migrations",
+  "stars": 237500,
+  "updatedAt": 1774219024
+}

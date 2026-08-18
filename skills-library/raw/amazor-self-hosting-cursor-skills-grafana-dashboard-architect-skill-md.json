@@ -1,0 +1,11 @@
+{
+  "id": "amazor-self-hosting-cursor-skills-grafana-dashboard-architect-skill-md",
+  "name": "grafana-dashboard-architect",
+  "author": "amazor",
+  "description": "Defines the architecture, philosophy, and structural contracts for the homelab Grafana dashboard system. Covers dashboard hierarchy, variable naming, drilldown flow, signal ownership, and scaling rules. Use when designing, building, or reviewing Grafana dashboards, panels, or queries for this homelab.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/amazor/Self-Hosting/tree/main/.cursor/skills/grafana-dashboard-architect",
+  "skillUrl": "https://skillsmp.com/creators/amazor/self-hosting/cursor-skills-grafana-dashboard-architect",
+  "stars": 0,
+  "updatedAt": 1783852920
+}

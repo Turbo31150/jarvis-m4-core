@@ -733,6 +733,12 @@ def _cli() -> None:
     parser = argparse.ArgumentParser(description="JARVIS log util avancé")
     sub = parser.add_subparsers(dest="cmd")
 
+    # log
+    l_parser = sub.add_parser("log", help="Écrire une entrée de log")
+    l_parser.add_argument("--service", "-s", required=True)
+    l_parser.add_argument("--message", "-m", required=True)
+    l_parser.add_argument("--level", "-l", default="INFO", choices=["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"])
+
     # tail
     t = sub.add_parser("tail", help="Dernières entrées d'un service (JSONL)")
     t.add_argument("--service", "-s", required=True)
@@ -792,6 +798,11 @@ def _cli() -> None:
     if args.cmd == "ls":
         for svc in list_services():
             print(svc)
+
+    elif args.cmd == "log":
+        logger = get_logger(args.service)
+        lvl_num = getattr(logging, args.level)
+        logger.log(lvl_num, args.message)
 
     elif args.cmd == "tail":
         svc_dir = LOG_ROOT / args.service

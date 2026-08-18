@@ -1,0 +1,11 @@
+{
+  "id": "purpleailab-decepticon-packages-decepticon-decepticon-skills-standard-iot-z-wave-skill-md",
+  "name": "z-wave",
+  "author": "PurpleAILAB",
+  "description": "Z-Wave S0 network-key derivation flaw exploitation, S2 ECDH/DSK analysis, replay attacks against unauthenticated Z-Wave nodes, traffic capture with RTL-SDR, and active fuzzing/replay with EZ-Wave and Z-Force. Covers 868.42 MHz (EU) and 908.42 MHz (US) bands.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/PurpleAILAB/Decepticon/tree/main/packages/decepticon/decepticon/skills/standard/iot/z-wave",
+  "skillUrl": "https://skillsmp.com/creators/purpleailab/decepticon/packages-decepticon-decepticon-skills-standard-iot-z-wave",
+  "stars": 4969,
+  "updatedAt": 1780142333
+}

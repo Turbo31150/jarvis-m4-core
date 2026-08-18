@@ -1,0 +1,11 @@
+{
+  "id": "microsoft-skills-github-skills-podcast-generation-skill-md",
+  "name": "podcast-generation",
+  "author": "microsoft",
+  "description": "Generate AI-powered podcast-style audio narratives using Azure OpenAI's GPT Realtime Mini model via WebSocket. Use when building text-to-speech features, audio narrative generation, podcast creation from content, or integrating with Azure OpenAI Realtime API for real audio output. Covers full-stack implementation from React frontend to Python FastAPI backend with WebSocket streaming.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/microsoft/skills/tree/main/.github/skills/podcast-generation",
+  "skillUrl": "https://skillsmp.com/creators/microsoft/skills/github-skills-podcast-generation",
+  "stars": 2860,
+  "updatedAt": 1776704294
+}

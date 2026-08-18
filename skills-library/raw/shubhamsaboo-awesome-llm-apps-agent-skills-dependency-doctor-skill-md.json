@@ -1,0 +1,11 @@
+{
+  "id": "shubhamsaboo-awesome-llm-apps-agent-skills-dependency-doctor-skill-md",
+  "name": "dependency-doctor",
+  "author": "Shubhamsaboo",
+  "description": "Checks requirements.txt, pyproject.toml, and package.json dependency manifests for surface-level direct-dependency footguns: standard-library shadowing pins, abandoned backports, unpinned dependencies, and obvious intra-manifest conflicts, plus opt-in PyPI yanked releases. Use when the user asks to check a manifest for dependency problems, asks why dependencies won't install or whether anything is wrong with their dependencies, wants a dependency autopsy, or suspects dependency manifest rot. Runs offline by default as a local tool for the user's own project, not repository CI.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/agent_skills/dependency-doctor",
+  "skillUrl": "https://skillsmp.com/creators/shubhamsaboo/awesome-llm-apps/agent-skills-dependency-doctor",
+  "stars": 130463,
+  "updatedAt": 1785352917
+}

@@ -1,0 +1,11 @@
+{
+  "id": "jeffallan-claude-skills-skills-devops-engineer-skill-md",
+  "name": "devops-engineer",
+  "author": "Jeffallan",
+  "description": "Creates Dockerfiles, configures CI/CD pipelines, writes Kubernetes manifests, and generates Terraform/Pulumi infrastructure templates. Handles deployment automation, GitOps configuration, incident response runbooks, and internal developer platform tooling. Use when setting up CI/CD pipelines, containerizing applications, managing infrastructure as code, deploying to Kubernetes clusters, configuring cloud platforms, automating releases, or responding to production incidents. Invoke for pipelines, Docker, Kubernetes, GitOps, Terraform, GitHub Actions, on-call, or platform engineering.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Jeffallan/claude-skills/tree/main/skills/devops-engineer",
+  "skillUrl": "https://skillsmp.com/creators/jeffallan/claude-skills/skills-devops-engineer",
+  "stars": 10869,
+  "updatedAt": 1777433552
+}

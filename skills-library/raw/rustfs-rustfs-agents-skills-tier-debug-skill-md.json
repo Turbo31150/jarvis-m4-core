@@ -1,0 +1,11 @@
+{
+  "id": "rustfs-rustfs-agents-skills-tier-debug-skill-md",
+  "name": "tier-debug",
+  "author": "rustfs",
+  "description": "Debug ILM tiering / lifecycle transition issues \u2014 NoSuchVersion on tier GET, restore failures, xl.meta inspection, remote-tier versionId tracing. Use when investigating tiered/transitioned objects, warm backends, or transition metadata.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/rustfs/rustfs/tree/main/.agents/skills/tier-debug",
+  "skillUrl": "https://skillsmp.com/creators/rustfs/rustfs/agents-skills-tier-debug",
+  "stars": 30617,
+  "updatedAt": 1783006213
+}

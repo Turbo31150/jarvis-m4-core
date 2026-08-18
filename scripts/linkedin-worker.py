@@ -25,7 +25,7 @@ def log(msg: str) -> None:
 def get_cdp_pages() -> list[dict]:
     try:
         with urllib.request.urlopen(
-            f"http://127.0.0.1:{CDP_PORT}/json/list", timeout=5
+            f"http://localhost:{CDP_PORT}/json/list", timeout=5
         ) as r:
             return json.loads(r.read())
     except Exception:

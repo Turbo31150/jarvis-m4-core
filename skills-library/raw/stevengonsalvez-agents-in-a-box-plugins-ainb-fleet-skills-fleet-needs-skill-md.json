@@ -1,0 +1,11 @@
+{
+  "id": "stevengonsalvez-agents-in-a-box-plugins-ainb-fleet-skills-fleet-needs-skill-md",
+  "name": "ainb-fleet-fleet-needs",
+  "author": "stevengonsalvez",
+  "description": "Workflow-backed Jarvis control panel. Runs the deterministic `hangar`\nworkflow with verb=needs (discover \u2192 enrich \u2192 prioritize), renders the\nJarvis HUD from its render-ready cards, fires AskUserQuestion per blocked\nsession, and routes each answer back via tmux send-keys (broker fallback\nonly). Requires the workflow gate (CLAUDE_CODE_WORKFLOWS=1). If the gate is\noff, fall back to the prompt-driven `/ainb-fleet:needs` skill.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/stevengonsalvez/agents-in-a-box/tree/main/plugins/ainb-fleet/skills/fleet-needs",
+  "skillUrl": "https://skillsmp.com/creators/stevengonsalvez/agents-in-a-box/plugins-ainb-fleet-skills-fleet-needs",
+  "stars": 19,
+  "updatedAt": 1783045261
+}

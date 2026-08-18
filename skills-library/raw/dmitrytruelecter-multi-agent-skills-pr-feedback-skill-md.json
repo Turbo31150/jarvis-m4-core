@@ -1,0 +1,11 @@
+{
+  "id": "dmitrytruelecter-multi-agent-skills-pr-feedback-skill-md",
+  "name": "pr-feedback",
+  "author": "DmitryTrueLecter",
+  "description": "Reconcile PR merge/decline decisions from the VCS platform into the issue tracker. Run as the first step of every /dma:run invocation. Invocation: /dma:pr-feedback.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/DmitryTrueLecter/multi-agent/tree/main/skills/pr-feedback",
+  "skillUrl": "https://skillsmp.com/creators/dmitrytruelecter/multi-agent/skills-pr-feedback",
+  "stars": 0,
+  "updatedAt": 1782718463
+}

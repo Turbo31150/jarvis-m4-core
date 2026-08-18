@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-unified-notifications-ops-skill-md",
+  "name": "unified-notifications-ops",
+  "author": "affaan-m",
+  "description": "Operate notifications as one ECC-native workflow across GitHub, Linear, desktop alerts, hooks, and connected communication surfaces. Use when the real problem is alert routing, deduplication, escalation, or inbox collapse.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/unified-notifications-ops",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-unified-notifications-ops",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

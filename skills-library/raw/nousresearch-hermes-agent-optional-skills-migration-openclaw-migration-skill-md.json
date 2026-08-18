@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-optional-skills-migration-openclaw-migration-skill-md",
+  "name": "openclaw-migration",
+  "author": "NousResearch",
+  "description": "Import an OpenClaw setup (memories, skills) into Hermes.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/optional-skills/migration/openclaw-migration",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/optional-skills-migration-openclaw-migration",
+  "stars": 225204,
+  "updatedAt": 1785662732
+}

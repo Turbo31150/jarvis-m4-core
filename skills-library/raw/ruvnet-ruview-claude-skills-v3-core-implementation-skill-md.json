@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruview-claude-skills-v3-core-implementation-skill-md",
+  "name": "v3-core-implementation",
+  "author": "ruvnet",
+  "description": "Core module implementation for claude-flow v3. Implements DDD domains, clean architecture patterns, dependency injection, and modular TypeScript codebase with comprehensive testing.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/RuView/tree/main/.claude/skills/v3-core-implementation",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruview/claude-skills-v3-core-implementation",
+  "stars": 88440,
+  "updatedAt": 1768273876
+}

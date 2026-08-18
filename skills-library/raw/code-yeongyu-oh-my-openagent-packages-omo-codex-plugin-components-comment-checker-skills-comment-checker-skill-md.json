@@ -1,0 +1,11 @@
+{
+  "id": "code-yeongyu-oh-my-openagent-packages-omo-codex-plugin-components-comment-checker-skills-comment-checker-skill-md",
+  "name": "comment-checker",
+  "author": "code-yeongyu",
+  "description": "Use when Codex needs to understand or respond to automatic comment-checker feedback emitted after an edit-like PostToolUse hook.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/code-yeongyu/oh-my-openagent/tree/dev/packages/omo-codex/plugin/components/comment-checker/skills/comment-checker",
+  "skillUrl": "https://skillsmp.com/creators/code-yeongyu/oh-my-openagent/packages-omo-codex-plugin-components-comment-checker-skills-comment-checker",
+  "stars": 67193,
+  "updatedAt": 1780135930
+}

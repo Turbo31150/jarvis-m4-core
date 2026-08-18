@@ -1,0 +1,11 @@
+{
+  "id": "wshobson-agents-plugins-social-publishing-skills-social-publishing-skill-md",
+  "name": "social-publishing",
+  "author": "wshobson",
+  "description": "Schedule and publish social media posts across 13 platforms (X, LinkedIn, Instagram, Facebook Pages, TikTok, Discord, Telegram, YouTube, Reddit, WordPress, Pinterest) via the SocialClaw API. Use when the user wants to publish, schedule, or manage social media content programmatically. Requires SOCIALCLAW_API_KEY.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/wshobson/agents/tree/main/plugins/social-publishing/skills/social-publishing",
+  "skillUrl": "https://skillsmp.com/creators/wshobson/agents/plugins-social-publishing-skills-social-publishing",
+  "stars": 38472,
+  "updatedAt": 1779783463
+}

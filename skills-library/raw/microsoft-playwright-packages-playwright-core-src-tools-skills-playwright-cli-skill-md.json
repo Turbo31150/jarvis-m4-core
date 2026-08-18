@@ -1,0 +1,11 @@
+{
+  "id": "microsoft-playwright-packages-playwright-core-src-tools-skills-playwright-cli-skill-md",
+  "name": "playwright-cli",
+  "author": "microsoft",
+  "description": "Automate browser interactions, test web pages and work with Playwright tests.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/microsoft/playwright/tree/main/packages/playwright-core/src/tools/skills/playwright-cli",
+  "skillUrl": "https://skillsmp.com/creators/microsoft/playwright/packages-playwright-core-src-tools-skills-playwright-cli",
+  "stars": 93957,
+  "updatedAt": 1784657039
+}

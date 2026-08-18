@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-react-patterns-skill-md",
+  "name": "react-patterns",
+  "author": "affaan-m",
+  "description": "React 18/19 patterns including hooks discipline, server/client component boundaries, Suspense + error boundaries, form actions, data fetching, state management decision trees, and accessibility-first composition. Use when writing or reviewing React components.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/react-patterns",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-react-patterns",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

@@ -1,0 +1,11 @@
+{
+  "id": "github-awesome-copilot-skills-debian-linux-triage-skill-md",
+  "name": "debian-linux-triage",
+  "author": "github",
+  "description": "Triage and resolve Debian Linux issues with apt, systemd, and AppArmor-aware guidance.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/github/awesome-copilot/tree/main/skills/debian-linux-triage",
+  "skillUrl": "https://skillsmp.com/creators/github/awesome-copilot/skills-debian-linux-triage",
+  "stars": 37423,
+  "updatedAt": 1771904373
+}

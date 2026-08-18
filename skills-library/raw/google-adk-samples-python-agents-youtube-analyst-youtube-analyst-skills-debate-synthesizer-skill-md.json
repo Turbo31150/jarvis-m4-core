@@ -1,0 +1,11 @@
+{
+  "id": "google-adk-samples-python-agents-youtube-analyst-youtube-analyst-skills-debate-synthesizer-skill-md",
+  "name": "debate-synthesizer",
+  "author": "google",
+  "description": "Extracts the strongest arguments from heated YouTube comment threads, identifying key battlegrounds and community consensus.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/google/adk-samples/tree/main/python/agents/youtube-analyst/youtube_analyst/skills/debate-synthesizer",
+  "skillUrl": "https://skillsmp.com/creators/google/adk-samples/python-agents-youtube-analyst-youtube-analyst-skills-debate-synthesizer",
+  "stars": 10025,
+  "updatedAt": 1775149571
+}

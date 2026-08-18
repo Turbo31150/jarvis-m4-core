@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AlkymIA Academy — Formation IA locale souveraine, sans coder — de zéro à autonome</title>
+<meta name="description" content="Installez et pilotez votre propre IA qui reste chez vous. 8 modules pas à pas, sans coder. Accompagnement et dépannage par téléphone. RGPD & EU AI Act.">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  /* Palette « apprentissage souverain » : encre profonde, parchemin, indigo pédagogique, vert souverain, ambre d'accent */
+  --enc: #16233a;         /* encre */
+  --enc-2: #33455f;
+  --papier: #f6f1e7;      /* parchemin */
+  --papier-2: #efe7d6;
+  --carte: #ffffff;
+  --bord: #e3d9c4;
+  --texte: #1d2a3d;
+  --texte-doux: #4a5568;
+  --indigo: #3b3c8f;      /* indigo pédagogique */
+  --indigo-clair:#e9e9f7;
+  --vert: #1f6b47;        /* vert souverain */
+  --vert-clair:#e2efe7;
+  --ambre: #c8791a;       /* accent chaleureux/humain */
+  --ambre-clair:#f7ead2;
+  --focus: #7c5cff;
+  --ombre: 0 1px 2px rgba(22,35,58,.06), 0 8px 24px rgba(22,35,58,.08);
+  --ombre-forte: 0 12px 40px rgba(22,35,58,.16);
+  --r: 16px;
+  --r-s: 10px;
+  --max: 1120px;
+  --pas: clamp(3rem, 7vw, 6rem);
+  --fs-h1: clamp(2.1rem, 5.2vw, 3.6rem);
+  --fs-h2: clamp(1.6rem, 3.6vw, 2.4rem);
+  --fs-h3: clamp(1.15rem, 2vw, 1.35rem);
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, "Times New Roman", serif;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --enc:#0c1524;
+    --enc-2:#16233a;
+    --papier:#0f1728;
+    --papier-2:#152034;
+    --carte:#182338;
+    --bord:#28374f;
+    --texte:#e8edf6;
+    --texte-doux:#a7b4c8;
+    --indigo:#a6a7f0;
+    --indigo-clair:#20264a;
+    --vert:#67c69a;
+    --vert-clair:#12321f;
+    --ambre:#e8a951;
+    --ambre-clair:#33260f;
+    --carte:#182338;
+    --focus:#a992ff;
+    --ombre: 0 1px 2px rgba(0,0,0,.4), 0 10px 30px rgba(0,0,0,.35);
+    --ombre-forte: 0 16px 44px rgba(0,0,0,.5);
+  }
+}
+
+/* ============ BASE ============ */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto} *{animation:none!important;transition:none!important}}
+body{
+  margin:0;font-family:var(--sans);color:var(--texte);
+  background:var(--papier);
+  line-height:1.6;-webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+h1,h2,h3{font-family:var(--serif);line-height:1.15;color:var(--texte);letter-spacing:-.01em;margin:0 0 .5em}
+h1{font-size:var(--fs-h1);font-weight:700}
+h2{font-size:var(--fs-h2);font-weight:700}
+h3{font-size:var(--fs-h3);font-weight:600}
+p{margin:0 0 1rem}
+a{color:inherit}
+.wrap{max-width:var(--max);margin-inline:auto;padding-inline:clamp(1.1rem,4vw,2rem)}
+.section{padding-block:var(--pas)}
+.eyebrow{
+  display:inline-block;font-family:var(--sans);font-weight:700;font-size:.78rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ambre);margin-bottom:.9rem;
+}
+.lede{font-size:1.15rem;color:var(--texte-doux);max-width:60ch}
+
+/* focus visible partout */
+a:focus-visible,button:focus-visible,summary:focus-visible{
+  outline:3px solid var(--focus);outline-offset:3px;border-radius:6px;
+}
+
+/* ============ BOUTONS ============ */
+.btn{
+  display:inline-flex;align-items:center;gap:.55rem;justify-content:center;
+  font-family:var(--sans);font-weight:650;font-size:1rem;
+  padding:.9rem 1.5rem;border-radius:999px;text-decoration:none;cursor:pointer;
+  border:2px solid transparent;transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+}
+.btn-primaire{background:var(--ambre);color:#231603;box-shadow:var(--ombre)}
+.btn-primaire:hover{transform:translateY(-2px);box-shadow:var(--ombre-forte)}
+.btn-fantome{background:transparent;border-color:var(--bord);color:var(--texte)}
+.btn-fantome:hover{border-color:var(--ambre);color:var(--ambre)}
+.btn-clair{background:#fff;color:var(--enc)}
+.btn-clair:hover{transform:translateY(-2px);box-shadow:var(--ombre-forte)}
+
+/* ============ HERO ============ */
+.hero{
+  position:relative;overflow:hidden;
+  background:
+    radial-gradient(1200px 500px at 80% -10%, rgba(200,121,26,.14), transparent 60%),
+    radial-gradient(900px 500px at -10% 20%, rgba(59,60,143,.16), transparent 55%),
+    var(--papier);
+  border-bottom:1px solid var(--bord);
+}
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(2rem,5vw,4rem);align-items:center;padding-block:clamp(3.5rem,8vw,6.5rem)}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr}}
+.hero h1 em{font-style:normal;color:var(--ambre)}
+.badges{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.4rem 0}
+.badge{
+  display:inline-flex;align-items:center;gap:.4rem;font-size:.82rem;font-weight:600;
+  background:var(--vert-clair);color:var(--vert);border:1px solid transparent;
+  padding:.35rem .75rem;border-radius:999px;
+}
+.badge.indigo{background:var(--indigo-clair);color:var(--indigo)}
+.hero-cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.8rem}
+.hero-note{font-size:.9rem;color:var(--texte-doux);margin-top:1rem}
+/* carte "transformation" */
+.transfo{
+  background:var(--carte);border:1px solid var(--bord);border-radius:var(--r);
+  box-shadow:var(--ombre-forte);padding:1.6rem;
+}
+.transfo h3{margin-bottom:1rem;font-family:var(--sans);font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--texte-doux)}
+.arc{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:.8rem}
+.arc .etat{padding:.9rem;border-radius:var(--r-s);font-size:.92rem}
+.arc .avant{background:var(--papier-2);color:var(--texte-doux)}
+.arc .apres{background:var(--vert-clair);color:var(--vert);font-weight:600}
+.arc .fleche{font-size:1.5rem;color:var(--ambre)}
+.transfo ul{margin:1.2rem 0 0;padding:0;list-style:none;display:grid;gap:.6rem}
+.transfo li{display:flex;gap:.6rem;font-size:.95rem}
+.transfo li::before{content:"✓";color:var(--vert);font-weight:800}
+
+/* ============ BANDE CONFIANCE ============ */
+.bande{background:var(--enc);color:#e8edf6}
+.bande .wrap{display:flex;flex-wrap:wrap;gap:1.2rem 2.4rem;justify-content:center;padding-block:1.4rem;text-align:center}
+.bande div{font-size:.92rem;opacity:.9}
+.bande strong{color:#fff;font-family:var(--serif);font-size:1.15rem;display:block}
+
+/* ============ POUR QUI ============ */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+@media (max-width:760px){.duo{grid-template-columns:1fr}}
+.pane{background:var(--carte);border:1px solid var(--bord);border-radius:var(--r);padding:1.6rem;box-shadow:var(--ombre)}
+.pane.oui{border-top:4px solid var(--vert)}
+.pane.non{border-top:4px solid var(--enc-2)}
+.pane ul{list-style:none;padding:0;margin:.6rem 0 0;display:grid;gap:.7rem}
+.pane li{display:flex;gap:.7rem;align-items:flex-start;font-size:.98rem}
+.pane.oui li::before{content:"→";color:var(--vert);font-weight:800}
+.pane.non li::before{content:"×";color:var(--enc-2);font-weight:800}
+
+/* ============ PROGRAMME ============ */
+.grid-mod{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.2rem}
+.mod{
+  background:var(--carte);border:1px solid var(--bord);border-radius:var(--r);
+  padding:1.4rem;box-shadow:var(--ombre);position:relative;transition:transform .15s ease, box-shadow .15s ease;
+}
+.mod:hover{transform:translateY(-3px);box-shadow:var(--ombre-forte)}
+.mod .num{
+  display:inline-flex;align-items:center;justify-content:center;width:2.4rem;height:2.4rem;
+  border-radius:12px;background:var(--indigo-clair);color:var(--indigo);
+  font-family:var(--serif);font-weight:700;font-size:1.1rem;margin-bottom:.9rem;
+}
+.mod h3{margin-bottom:.4rem}
+.mod p{font-size:.94rem;color:var(--texte-doux);margin:0}
+.mod .tag{margin-top:.9rem;display:inline-block;font-size:.76rem;font-weight:600;color:var(--ambre);background:var(--ambre-clair);padding:.25rem .6rem;border-radius:999px}
+
+/* ============ HUMAIN / DIFFÉRENCIATEUR ============ */
+.humain{
+  background:
+    radial-gradient(700px 400px at 90% 10%, rgba(200,121,26,.16), transparent 60%),
+    var(--enc);
+  color:#eef2f9;border-radius:var(--r);overflow:hidden;
+}
+.humain .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.5rem,4vw,3rem);align-items:center;padding-block:clamp(2.5rem,6vw,4rem)}
+@media (max-width:820px){.humain .wrap{grid-template-columns:1fr}}
+.humain h2{color:#fff}
+.humain p{color:#cdd6e6}
+.humain .eyebrow{color:var(--ambre)}
+.phone-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:var(--r);padding:1.6rem}
+.phone-card ul{list-style:none;padding:0;margin:0;display:grid;gap:1rem}
+.phone-card li{display:flex;gap:.9rem;align-items:flex-start}
+.phone-card .ico{font-size:1.4rem;flex:none}
+.phone-card strong{display:block;color:#fff}
+.phone-card span{font-size:.92rem;color:#cdd6e6}
+
+/* ============ FORMULES ============ */
+.compare{overflow-x:auto;border:1px solid var(--bord);border-radius:var(--r);box-shadow:var(--ombre);background:var(--carte)}
+table{border-collapse:collapse;width:100%;min-width:640px}
+caption{text-align:left;padding:1.2rem 1.4rem 0;font-size:.9rem;color:var(--texte-doux)}
+th,td{padding:1rem 1.2rem;text-align:left;border-bottom:1px solid var(--bord);font-size:.96rem;vertical-align:top}
+thead th{position:sticky;top:0;background:var(--papier-2);font-family:var(--serif);font-size:1.05rem}
+thead th.reco{background:var(--ambre-clair);color:#5a3a06}
+tbody th{font-weight:600;color:var(--texte-doux)}
+td.oui{color:var(--vert);font-weight:600}
+td.non{color:var(--texte-doux)}
+.prix-row td{font-family:var(--serif);font-size:1.5rem;font-weight:700}
+.prix-row .sous{display:block;font-family:var(--sans);font-size:.8rem;font-weight:500;color:var(--texte-doux)}
+.col-reco{background:linear-gradient(var(--ambre-clair),transparent 60%)}
+@media (prefers-color-scheme: dark){.col-reco{background:linear-gradient(rgba(232,169,81,.14),transparent 60%)}}
+.formule-cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.4rem}
+
+/* ============ RÉSULTATS ============ */
+.skills{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem}
+.skill{background:var(--carte);border:1px solid var(--bord);border-left:4px solid var(--vert);border-radius:var(--r-s);padding:1.1rem 1.2rem;box-shadow:var(--ombre)}
+.skill strong{display:block;margin-bottom:.2rem}
+.skill span{font-size:.9rem;color:var(--texte-doux)}
+
+/* ============ FAQ ============ */
+.faq{display:grid;gap:.8rem;max-width:820px;margin-inline:auto}
+details{background:var(--carte);border:1px solid var(--bord);border-radius:var(--r-s);box-shadow:var(--ombre);overflow:hidden}
+summary{
+  cursor:pointer;padding:1.1rem 1.3rem;font-weight:600;font-size:1.03rem;
+  list-style:none;display:flex;justify-content:space-between;gap:1rem;align-items:center;
+}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:1.4rem;color:var(--ambre);flex:none;transition:transform .2s ease}
+details[open] summary::after{transform:rotate(45deg)}
+details .rep{padding:0 1.3rem 1.2rem;color:var(--texte-doux);font-size:.97rem}
+
+/* ============ GARANTIE ============ */
+.garantie{
+  background:var(--vert-clair);border:1px solid transparent;border-radius:var(--r);
+  padding:clamp(1.5rem,4vw,2.4rem);text-align:center;max-width:760px;margin-inline:auto;
+}
+.garantie .sceau{font-size:2.2rem}
+.garantie h2{color:var(--vert)}
+.garantie .ph{display:inline-block;background:var(--carte);border:1px dashed var(--vert);border-radius:8px;padding:.2rem .5rem;font-family:var(--sans);font-size:.9rem;color:var(--texte-doux)}
+
+/* ============ CTA FINAL ============ */
+.final{background:var(--enc);color:#fff;border-radius:var(--r);text-align:center;padding:clamp(2.5rem,6vw,4rem) clamp(1.2rem,4vw,2rem)}
+.final h2{color:#fff;max-width:22ch;margin-inline:auto}
+.final p{color:#cdd6e6;max-width:52ch;margin-inline:auto}
+.final .hero-cta{justify-content:center}
+
+/* ============ FOOTER ============ */
+footer{padding-block:2.5rem;border-top:1px solid var(--bord);color:var(--texte-doux);font-size:.88rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:center}
+.souv{display:inline-flex;gap:.5rem;align-items:center;font-weight:600;color:var(--vert)}
+.skip{position:absolute;left:-999px}
+.skip:focus{left:1rem;top:1rem;z-index:10;background:#fff;color:var(--enc);padding:.6rem 1rem;border-radius:8px}
+</style>
+</head>
+<body>
+<a href="#programme" class="skip">Aller au programme</a>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">AlkymIA Academy · Formation phare IA locale souveraine</span>
+      <h1>Installez votre <em>propre IA</em>, chez vous, et automatisez votre métier — <em>sans écrire une ligne de code</em>.</h1>
+      <p class="lede">De zéro à autonome. Vous repartez avec une intelligence artificielle qui tourne sur votre ordinateur, ne dépend d'aucun cloud, et travaille pour vous. Et si vous bloquez : on décroche le téléphone.</p>
+      <div class="badges">
+        <span class="badge">🔒 Vos données restent chez vous</span>
+        <span class="badge">✅ RGPD &amp; EU AI Act</span>
+        <span class="badge indigo">☎️ Dépannage par téléphone</span>
+        <span class="badge indigo">🧭 Zéro code</span>
+      </div>
+      <div class="hero-cta">
+        <a href="#formules" class="btn btn-primaire">Voir les 2 formules &amp; tarifs</a>
+        <a href="#programme" class="btn btn-fantome">Découvrir les 8 modules</a>
+      </div>
+      <p class="hero-note">Prochaine session : [DATE] · Durée : [DURÉE] · Places limitées pour l'accompagnement.</p>
+    </div>
+    <aside class="transfo" aria-label="La transformation visée">
+      <h3>La transformation visée</h3>
+      <div class="arc">
+        <div class="etat avant">Je paie des abonnements IA, mes données partent dans le cloud, je ne sais pas par où commencer.</div>
+        <div class="fleche" aria-hidden="true">→</div>
+        <div class="etat apres">J'ai mon IA locale, elle automatise mes tâches, tout reste chez moi, et je suis autonome.</div>
+      </div>
+      <ul>
+        <li>Une IA installée sur votre machine, à vous</li>
+        <li>Des automatisations concrètes pour votre activité</li>
+        <li>Aucune donnée client envoyée ailleurs</li>
+        <li>Un accompagnement humain, pas un forum</li>
+      </ul>
+    </aside>
+  </div>
+</header>
+
+<!-- BANDE CONFIANCE -->
+<div class="bande">
+  <div class="wrap">
+    <div><strong>8 modules</strong>pas à pas, sans code</div>
+    <div><strong>0 €/mois</strong>de cloud une fois installée</div>
+    <div><strong>100 % local</strong>vos données ne sortent pas</div>
+    <div><strong>☎️ Téléphone</strong>pour vous débloquer</div>
+  </div>
+</div>
+
+<!-- POUR QUI / PAS POUR QUI -->
+<section class="section">
+  <div class="wrap">
+    <span class="eyebrow">Est-ce pour vous&nbsp;?</span>
+    <h2>Conçue pour les indépendants, TPE et enseignants qui veulent reprendre la main.</h2>
+    <div class="duo" style="margin-top:1.6rem">
+      <div class="pane oui">
+        <h3>Cette formation est faite pour vous si…</h3>
+        <ul>
+          <li>Vous voulez utiliser l'IA sans envoyer vos documents dans le cloud.</li>
+          <li>Vous êtes indépendant, artisan, commerçant, profession libérale ou en TPE.</li>
+          <li>Vous êtes enseignant et manipulez des données d'élèves à protéger.</li>
+          <li>Vous n'avez jamais codé et n'avez pas l'intention d'apprendre.</li>
+          <li>Vous voulez automatiser des tâches répétitives (mails, devis, comptes rendus, fiches).</li>
+          <li>Vous préférez être guidé, avec quelqu'un à appeler en cas de blocage.</li>
+        </ul>
+      </div>
+      <div class="pane non">
+        <h3>Ce n'est probablement pas pour vous si…</h3>
+        <ul>
+          <li>Vous cherchez à devenir développeur ou ingénieur IA.</li>
+          <li>Vous voulez entraîner de gros modèles à partir de zéro.</li>
+          <li>Le tout-cloud propriétaire vous convient parfaitement.</li>
+          <li>Vous voulez une solution « magique » sans y consacrer quelques heures.</li>
+          <li>Vous n'avez pas d'ordinateur assez récent pour faire tourner un modèle local.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMME -->
+<section class="section" id="programme" style="background:var(--papier-2)">
+  <div class="wrap">
+    <span class="eyebrow">Le programme</span>
+    <h2>8 modules pour passer de zéro à autonome.</h2>
+    <p class="lede" style="margin-bottom:2rem">Chaque module est concret, guidé, et se termine par une mise en pratique sur votre propre machine. Aucun code — que des interfaces et des réglages expliqués simplement.</p>
+    <div class="grid-mod">
+      <article class="mod">
+        <div class="num">1</div>
+        <h3>Installer Ollama : votre IA en local</h3>
+        <p>Mettez en place votre premier modèle d'IA sur votre ordinateur. Il fonctionne hors ligne, sans abonnement, et tout reste chez vous.</p>
+        <span class="tag">Fondations</span>
+      </article>
+      <article class="mod">
+        <div class="num">2</div>
+        <h3>L'art du prompt qui marche</h3>
+        <p>Apprenez à parler à votre IA pour obtenir des réponses fiables et exploitables, avec des modèles de consignes réutilisables.</p>
+        <span class="tag">Savoir-faire</span>
+      </article>
+      <article class="mod">
+        <div class="num">3</div>
+        <h3>Automatiser avec n8n</h3>
+        <p>Construisez des workflows visuels (glisser-déposer) qui enchaînent les actions : recevoir, traiter, répondre. Sans code.</p>
+        <span class="tag">Automation</span>
+      </article>
+      <article class="mod">
+        <div class="num">4</div>
+        <h3>La cascade « 0-token »</h3>
+        <p>Faites travailler d'abord votre IA locale (gratuite) et n'escaladez vers un modèle plus puissant que si nécessaire. Économies garanties.</p>
+        <span class="tag">Efficacité</span>
+      </article>
+      <article class="mod">
+        <div class="num">5</div>
+        <h3>Board &amp; RAG : votre IA lit vos documents</h3>
+        <p>Donnez votre documentation à votre IA pour qu'elle réponde à partir de VOS contenus (RAG), sans jamais les exposer en ligne.</p>
+        <span class="tag">Connaissance</span>
+      </article>
+      <article class="mod">
+        <div class="num">6</div>
+        <h3>Sécurité &amp; coffre à secrets</h3>
+        <p>Protégez vos clés, mots de passe et données sensibles avec un coffre chiffré. Conformité RGPD et EU AI Act expliquée pas à pas.</p>
+        <span class="tag">Souveraineté</span>
+      </article>
+      <article class="mod">
+        <div class="num">7</div>
+        <h3>Vos workflows métier</h3>
+        <p>Adaptez tout ce que vous avez appris à VOTRE activité : devis, mails clients, comptes rendus, fiches, relances. Cas concrets.</p>
+        <span class="tag">Application</span>
+      </article>
+      <article class="mod">
+        <div class="num">8</div>
+        <h3>Autonomie : voler de vos propres ailes</h3>
+        <p>Maintenir, mettre à jour, dépanner seul, et faire évoluer votre système. Vous repartez indépendant, pas dépendant.</p>
+        <span class="tag">Autonomie</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- HUMAIN / DIFFÉRENCIATEUR -->
+<section class="section">
+  <div class="wrap">
+    <div class="humain">
+      <div class="wrap">
+        <div>
+          <span class="eyebrow">Ce qui nous rend différents</span>
+          <h2>Un humain au bout du fil. Vraiment.</h2>
+          <p>La plupart des formations vous laissent seul devant un tutoriel. Ici, quand ça coince, vous n'ouvrez pas un ticket : vous appelez. On regarde ensemble, on débloque, et vous repartez.</p>
+          <p>La technologie est locale et souveraine — mais l'accompagnement, lui, est profondément humain. C'est la promesse.</p>
+        </div>
+        <div class="phone-card">
+          <ul>
+            <li><span class="ico">☎️</span><div><strong>Dépannage par téléphone</strong><span>Un blocage technique&nbsp;? On vous appelle et on résout en direct (formule accompagnée).</span></div></li>
+            <li><span class="ico">🧭</span><div><strong>Guidage pas à pas</strong><span>On avance à votre rythme, sans jargon, avec des exemples de votre métier.</span></div></li>
+            <li><span class="ico">🔁</span><div><strong>Suivi après la formation</strong><span>[GARANTIE] — précisez ici la durée du suivi et son cadre.</span></div></li>
+            <li><span class="ico">🇪🇺</span><div><strong>Souveraineté réelle</strong><span>Vos données ne quittent jamais votre ordinateur. Conformité RGPD / EU AI Act.</span></div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMULES -->
+<section class="section" id="formules" style="background:var(--papier-2)">
+  <div class="wrap">
+    <span class="eyebrow">Les 2 formules</span>
+    <h2>Choisissez votre rythme : en autonomie, ou accompagné de bout en bout.</h2>
+    <p class="lede" style="margin-bottom:1.6rem">Même contenu de fond, deux niveaux d'accompagnement. Le différenciateur téléphone est réservé à la formule accompagnée.</p>
+    <div class="compare">
+      <table>
+        <caption>Comparatif des formules · tarifs validés marché. Paiement en une fois ou en plusieurs fois selon [DATE] d'ouverture.</caption>
+        <thead>
+          <tr>
+            <th scope="col">Ce que vous obtenez</th>
+            <th scope="col">Autoformation</th>
+            <th scope="col" class="reco">Accompagné ★</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="prix-row">
+            <th scope="row">Tarif</th>
+            <td>149–290 €<span class="sous">accès à vie, à votre rythme</span></td>
+            <td class="col-reco">490 €<span class="sous">accompagnement inclus</span></td>
+          </tr>
+          <tr><th scope="row">Les 8 modules vidéo &amp; guides</th><td class="oui">Inclus</td><td class="oui col-reco">Inclus</td></tr>
+          <tr><th scope="row">Modèles &amp; workflows prêts à l'emploi</th><td class="oui">Inclus</td><td class="oui col-reco">Inclus</td></tr>
+          <tr><th scope="row">Mises à jour du contenu</th><td class="oui">Inclus</td><td class="oui col-reco">Inclus</td></tr>
+          <tr><th scope="row">☎️ Dépannage &amp; réglages par téléphone</th><td class="non">—</td><td class="oui col-reco">Inclus</td></tr>
+          <tr><th scope="row">Installation guidée sur votre machine</th><td class="non">—</td><td class="oui col-reco">Inclus</td></tr>
+          <tr><th scope="row">Adaptation à votre métier (cas réel)</th><td class="non">En autonomie</td><td class="oui col-reco">Avec vous</td></tr>
+          <tr><th scope="row">Suivi après formation</th><td class="non">Communauté</td><td class="oui col-reco">[GARANTIE]</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="formule-cta">
+      <a href="#final" class="btn btn-fantome">Je démarre en autoformation (149–290 €)</a>
+      <a href="#final" class="btn btn-primaire">Je veux être accompagné (490 €)</a>
+    </div>
+  </div>
+</section>
+
+<!-- RÉSULTATS -->
+<section class="section">
+  <div class="wrap">
+    <span class="eyebrow">À la fin, vous saurez</span>
+    <h2>Les compétences que vous emportez.</h2>
+    <div class="skills" style="margin-top:1.6rem">
+      <div class="skill"><strong>Installer une IA locale</strong><span>Ollama opérationnel sur votre ordinateur, hors cloud.</span></div>
+      <div class="skill"><strong>Rédiger de bons prompts</strong><span>Obtenir des réponses fiables et réutilisables.</span></div>
+      <div class="skill"><strong>Créer des automatisations</strong><span>Des workflows n8n visuels, sans coder.</span></div>
+      <div class="skill"><strong>Optimiser vos coûts</strong><span>La cascade 0-token : local d'abord.</span></div>
+      <div class="skill"><strong>Faire lire vos documents à l'IA</strong><span>RAG privé sur vos propres contenus.</span></div>
+      <div class="skill"><strong>Sécuriser vos données</strong><span>Coffre chiffré, RGPD, EU AI Act.</span></div>
+      <div class="skill"><strong>Automatiser votre métier</strong><span>Devis, mails, comptes rendus, fiches.</span></div>
+      <div class="skill"><strong>Être autonome</strong><span>Maintenir et faire évoluer votre système seul.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" style="background:var(--papier-2)">
+  <div class="wrap">
+    <span class="eyebrow">Questions fréquentes</span>
+    <h2 style="text-align:center;margin-bottom:2rem">Vous vous demandez sûrement…</h2>
+    <div class="faq">
+      <details>
+        <summary>Faut-il savoir coder&nbsp;?</summary>
+        <div class="rep">Non, jamais. Tout se fait via des interfaces visuelles et des réglages expliqués pas à pas. La formation est conçue pour des personnes qui n'ont jamais programmé et ne souhaitent pas apprendre.</div>
+      </details>
+      <details>
+        <summary>Mes données partent-elles dans le cloud&nbsp;?</summary>
+        <div class="rep">Non. C'est tout l'intérêt : votre IA tourne en local, sur votre ordinateur. Vos documents, vos mails, vos données clients ou élèves restent chez vous. C'est conforme au RGPD et à l'EU AI Act.</div>
+      </details>
+      <details>
+        <summary>Quel matériel me faut-il&nbsp;?</summary>
+        <div class="rep">Un ordinateur relativement récent suffit pour démarrer avec des modèles légers. Dans la formule accompagnée, on vérifie ensemble votre configuration et on choisit les modèles adaptés à votre machine.</div>
+      </details>
+      <details>
+        <summary>Que se passe-t-il si je bloque&nbsp;?</summary>
+        <div class="rep">En formule accompagnée, vous nous appelez : on regarde le problème ensemble par téléphone et on le résout en direct. C'est notre différence. En autoformation, vous vous appuyez sur les guides et la communauté.</div>
+      </details>
+      <details>
+        <summary>Combien de temps pour être autonome&nbsp;?</summary>
+        <div class="rep">La formation est pensée pour être suivie sur [DURÉE]. Vous avancez à votre rythme, et le module 8 est entièrement dédié à votre autonomie : maintenir, mettre à jour et dépanner seul.</div>
+      </details>
+      <details>
+        <summary>Puis-je passer de l'autoformation à l'accompagnement&nbsp;?</summary>
+        <div class="rep">Oui. Vous pouvez démarrer en autonomie puis compléter avec l'accompagnement (dont le dépannage téléphonique) en réglant la différence. Contactez-nous pour les modalités à [DATE].</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- GARANTIE -->
+<section class="section">
+  <div class="wrap">
+    <div class="garantie">
+      <div class="sceau" aria-hidden="true">🛡️</div>
+      <h2>Notre garantie</h2>
+      <p>Nous voulons que vous repartiez avec une IA locale qui fonctionne vraiment. C'est pourquoi nous nous engageons&nbsp;:</p>
+      <p><span class="ph">[GARANTIE — précisez ici l'engagement exact : durée, conditions de remboursement ou de reprise, périmètre. Rien n'est affirmé tant que ce texte n'est pas défini.]</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="section" id="final">
+  <div class="wrap">
+    <div class="final">
+      <span class="eyebrow" style="color:var(--ambre)">Prêt à reprendre la main&nbsp;?</span>
+      <h2>Votre IA, chez vous. Votre métier, automatisé. Votre autonomie, retrouvée.</h2>
+      <p>Rejoignez la formation phare et passez de zéro à autonome — avec un humain à appeler quand vous en avez besoin.</p>
+      <div class="hero-cta">
+        <a href="#" class="btn btn-clair">Je m'inscrit en autoformation (149–290 €)</a>
+        <a href="#" class="btn btn-primaire">Je choisis l'accompagnement (490 €)</a>
+      </div>
+      <p class="hero-note" style="color:#9fb0c8">Prochaine session : [DATE] · [DURÉE] · [TÉMOIGNAGE à insérer une fois recueilli et vérifié].</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span class="souv">🇪🇺 Apprentissage souverain · RGPD &amp; EU AI Act</span>
+    <span>AlkymIA Academy — Formation IA locale souveraine, sans coder, de zéro à autonome. Tarifs indicatifs validés marché : 149–290 € (autoformation) · 490 € (accompagné). Propulsé par la technologie JARVIS OS.</span>
+  </div>
+</footer>
+</body>
+</html>

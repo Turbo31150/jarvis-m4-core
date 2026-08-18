@@ -1,0 +1,28 @@
+---
+id: microsoft-ai-agents-for-beginners-translations-tl-agents-skills-local-ai-agents-skill-md
+name: "local-ai-agents"
+author: "microsoft"
+repository: "https://github.com/microsoft/ai-agents-for-beginners/tree/main/translations/tl/.agents/skills/local-ai-agents"
+skill_url: "https://skillsmp.com/creators/microsoft/ai-agents-for-beginners/translations-tl-agents-skills-local-ai-agents"
+stars: 71222
+verified: false
+quality_score: 100
+security_score: 90
+status: "SAFE"
+collected_at: "2026-08-07T17:08:19.524483"
+---
+
+# Résumé
+Bumuo ng mga local-first AI agents na tumatakbo nang buong-buo sa isang developer workstation gamit ang Microsoft Foundry Local at Qwen function-calling models. Saklaw nito ang Small Language Models (SLMs), ang OpenAI-compatible na lokal na endpoint, sandboxed local tools, lokal na RAG gamit ang Chroma, lokal na MCP servers, hybrid cloud/local routing, at ang privacy/cost/offline trade-offs. Batay sa Lesson 17 ng AI Agents for Beginners. GAMITIN PARA SA: pagpapatakbo ng agent nang lokal, offline agent, on-device agent, Foundry Local, Qwen function calling, local tool calling, lokal na RAG, Chroma vector database, lokal na MCP server, privacy-preserving agent, hybrid local at cloud agent, small language model agent, engineering assistant sa aking makina. HUWAG GAMITIN PARA SA: pag-deploy ng mga agents sa cloud nang malakihan (gamitin ang deploying-scalable-agents / Lesson 16), paggawa ng iyong unang agent concept (Lesson 01), Foundry (cloud) hosted agents, GPU cluster / server-side inference provisioning.
+
+# Objectif
+Skill d'automatisation/intégration pour local-ai-agents.
+
+# Déclencheurs d’utilisation
+Mots-clés associés: local-ai-agents, microsoft
+
+# Procédure
+Consulter le dépôt source: https://github.com/microsoft/ai-agents-for-beginners/tree/main/translations/tl/.agents/skills/local-ai-agents
+
+# Adaptation Gemini CLI / Claude Code / Jarvis OS
+Incorpore ce skill en suivant la structure d'appel native du repository source.

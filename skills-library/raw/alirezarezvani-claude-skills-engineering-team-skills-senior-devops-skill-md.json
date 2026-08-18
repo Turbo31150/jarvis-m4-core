@@ -1,0 +1,11 @@
+{
+  "id": "alirezarezvani-claude-skills-engineering-team-skills-senior-devops-skill-md",
+  "name": "senior-devops",
+  "author": "alirezarezvani",
+  "description": "Comprehensive DevOps skill for CI/CD, infrastructure automation, containerization, and cloud platforms (AWS, GCP, Azure). Includes pipeline setup, infrastructure as code, deployment automation, and monitoring. Use when setting up pipelines, deploying applications, managing infrastructure, implementing monitoring, or optimizing deployment processes.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/alirezarezvani/claude-skills/tree/main/engineering-team/skills/senior-devops",
+  "skillUrl": "https://skillsmp.com/creators/alirezarezvani/claude-skills/engineering-team-skills-senior-devops",
+  "stars": 23780,
+  "updatedAt": 1781148853
+}

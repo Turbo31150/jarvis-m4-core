@@ -1,0 +1,11 @@
+{
+  "id": "mukul975-anthropic-cybersecurity-skills-skills-performing-hash-cracking-with-hashcat-skill-md",
+  "name": "performing-hash-cracking-with-hashcat",
+  "author": "mukul975",
+  "description": "Cracks password hashes with Hashcat, covering hash-type identification, dictionary/brute-force/rule-based attack modes, custom rule creation, GPU benchmarking, and password-strength/compliance reporting. Use for authorized penetration testing or security audits that need to evaluate password strength or crack captured hashes.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/mukul975/Anthropic-Cybersecurity-Skills/tree/main/skills/performing-hash-cracking-with-hashcat",
+  "skillUrl": "https://skillsmp.com/creators/mukul975/anthropic-cybersecurity-skills/skills-performing-hash-cracking-with-hashcat",
+  "stars": 27260,
+  "updatedAt": 1785688333
+}

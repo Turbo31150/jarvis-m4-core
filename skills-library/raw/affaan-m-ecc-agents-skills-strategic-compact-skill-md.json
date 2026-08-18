@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-agents-skills-strategic-compact-skill-md",
+  "name": "strategic-compact",
+  "author": "affaan-m",
+  "description": "Suggests manual context compaction at logical intervals to preserve context through task phases rather than arbitrary auto-compaction.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/.agents/skills/strategic-compact",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/agents-skills-strategic-compact",
+  "stars": 237500,
+  "updatedAt": 1784576466
+}

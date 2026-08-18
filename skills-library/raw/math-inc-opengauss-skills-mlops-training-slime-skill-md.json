@@ -1,0 +1,11 @@
+{
+  "id": "math-inc-opengauss-skills-mlops-training-slime-skill-md",
+  "name": "slime-rl-training",
+  "author": "math-inc",
+  "description": "Provides guidance for LLM post-training with RL using slime, a Megatron+SGLang framework. Use when training GLM models, implementing custom data generation workflows, or needing tight Megatron-LM integration for RL scaling.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/math-inc/OpenGauss/tree/main/skills/mlops/training/slime",
+  "skillUrl": "https://skillsmp.com/creators/math-inc/opengauss/skills-mlops-training-slime",
+  "stars": 1247,
+  "updatedAt": 1773943123
+}

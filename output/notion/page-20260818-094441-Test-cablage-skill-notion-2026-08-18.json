@@ -1,0 +1,47 @@
+{
+  "parent": {
+    "page_id": "3bc7800a-81d6-81008f97c66fe6f52f84"
+  },
+  "properties": {
+    "title": {
+      "title": [
+        {
+          "type": "text",
+          "text": {
+            "content": "Test cablage skill notion 2026-08-18"
+          }
+        }
+      ]
+    }
+  },
+  "children": [
+    {
+      "object": "block",
+      "type": "paragraph",
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Ligne de controle du skill cli_skill_notion."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "type": "paragraph",
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Deuxieme paragraphe pour verifier le decoupage en blocs."
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

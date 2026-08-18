@@ -1,0 +1,11 @@
+{
+  "id": "dotnet-machinelearning-github-skills-repo-health-check-skill-md",
+  "name": "repo-health-check",
+  "author": "dotnet",
+  "description": "Run the dotnet/machinelearning repository health check locally, covering issue backlog, pull requests, GitHub Actions, and Azure DevOps pipelines, then draft a dashboard update and prioritized investigations. Use when asked for ML.NET repository health, maintenance status, stale work, or CI trends.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/dotnet/machinelearning/tree/main/.github/skills/repo-health-check",
+  "skillUrl": "https://skillsmp.com/creators/dotnet/machinelearning/github-skills-repo-health-check",
+  "stars": 9344,
+  "updatedAt": 1784706373
+}

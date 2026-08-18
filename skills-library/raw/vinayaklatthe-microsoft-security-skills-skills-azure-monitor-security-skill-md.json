@@ -1,0 +1,11 @@
+{
+  "id": "vinayaklatthe-microsoft-security-skills-skills-azure-monitor-security-skill-md",
+  "name": "azure-monitor-security",
+  "author": "vinayaklatthe",
+  "description": "Guidance for the security-side use of Azure Monitor and Log Analytics \u2014 designing the workspace strategy that feeds Microsoft Sentinel and Defender for Cloud, choosing analytics vs basic vs auxiliary log tiers, retention and archive, table-level transformations to drop noise pre-ingestion, Data Collection Rules (DCRs) and Azure Monitor Agent (AMA), workspace topology (single vs regional vs sovereign), commitment tiers and cost control, customer-managed keys for the workspace, RBAC including table-level RBAC, integration with Sentinel (workspace requirements), and decommissioning legacy MMA. WHEN: Log Analytics workspace design, Azure Monitor security data, Sentinel workspace, log tier basic auxiliary, AMA Azure Monitor Agent, DCR data collection rule, drop columns ingestion transform, log retention archive, workspace CMK, table-level RBAC, log ingestion cost control. DO NOT USE for Sentinel detection authoring (use sentinel-detection-engineering), App Insights instrumentation (use appinsights-instrumentation)",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/vinayaklatthe/microsoft-security-skills/tree/main/skills/azure-monitor-security",
+  "skillUrl": "https://skillsmp.com/creators/vinayaklatthe/microsoft-security-skills/skills-azure-monitor-security",
+  "stars": 164,
+  "updatedAt": 1781797168
+}

@@ -1,0 +1,22 @@
+DESTINATAIRE : Airbus Group (DSI / AI Lab) <recruitment.france@airbus.com>
+OBJET : Profil Ingénieur IA Souveraine & Architecte Systèmes — Franck Delmas (Toulouse)
+------------------------------------------------------------
+
+Bonjour Airbus Talent Hub Toulouse,
+
+Je suis Franck Delmas, Ingénieur Systèmes & Architecte IA basé à Toulouse.
+
+Je conçois et déploie des architectures d'IA souveraines et des swarms d'agents autonomes fonctionnant à 0 coût d'API récurrent (inférence locale sur clusters multi-GPU, bases SQLite FTS5/Postgres Swarm, protocoles délibératifs Table Ronde et transcription vocale temps réel WhisperFlow).
+
+Mes réalisations récentes en production :
+- JARVIS OS : Cluster distribué de 6 GPUs, système délibératif multi-experts et bibliothèque vivante (110 000+ blocs indexés).
+- Pipeline Vocal Temps Réel (Lumen) : ASR local sous-titré et traduit sans latence ni dépendance cloud.
+- Conformité Factur-X / B2B 2026 : Modules automatisés pour PME et plateformes SaaS.
+
+Ayant une forte affinité avec les enjeux tech de Airbus Group (DSI / AI Lab) sur le bassin toulousain (Aérospatial & DeepTech), je serais ravi d'échanger 10 minutes avec vous sur vos besoins actuels (Architecte IA, Lead Dev Python/Rust, Déploiements On-Premise ou Conseil Stratégique).
+
+Portfolio & Code : https://github.com/Turbo31150
+Contact direct : franck@franckdelmas.dev / 06 19 82 27 06
+
+Bien cordialement,
+Franck Delmas

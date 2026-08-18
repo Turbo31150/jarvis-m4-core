@@ -17,10 +17,12 @@ JOB_DIR = Path(os.environ.get("JARVIS_DUAL_JOBS", ROOT / "data" / "dual-jobs"))
 
 # Candidats testés à la découverte (aucun n'est supposé actif).
 CANDIDATES = [
+    # Parc réel 2026-08-14 : M4 (local) + M6 (câble direct) + Rémi (Tailscale).
+    # LM Studio M6 en priorité permanente (24/7, dual GPU, modèles chargés).
+    ("lmstudio_m6", "http://10.42.0.230:1234"),
     ("lmstudio", "http://127.0.0.1:1234"),
     ("ollama", "http://127.0.0.1:11434"),
-    ("lmstudio_m6", "http://10.42.0.1:1234"),
-    ("lmstudio_m1", "http://192.168.0.250:1234"),
+    ("ollama_remi", "http://100.113.121.61:11434"),
     # Worker CLI : pas d'URL, mais un binaire authentifié dans le PATH.
     ("agy", "cli://agy"),
 ]
@@ -121,8 +123,9 @@ def discover(
             usable = []
             # On sonde le résident en premier : c'est le seul verdict fiable,
             # et cela évite de déloger un modèle qui fonctionne.
-            ordered = ([m for m in models if m in resident]
-                       + [m for m in models if m not in resident])
+            ordered = [m for m in models if m in resident] + [
+                m for m in models if m not in resident
+            ]
             for m in ordered:
                 if "embed" in m.lower():
                     continue
@@ -177,8 +180,8 @@ def _assign_workers(
         # M6 : deepseek répond réellement, qwen3.5-9b consomme tout son budget
         # en raisonnement et renvoie un contenu vide (mesuré le 13/08/2026).
         "lmstudio_m6": ["deepseek/deepseek-r1-0528-qwen3-8b", "qwen/qwen3.5-9b"],
-        "lmstudio_m1": ["qwen/qwen3.5-9b"],
         "ollama": ["gemma3:4b", "llama3.2", "qwen2.5:1.5b", "qwen2.5:0.5b"],
+        "ollama_remi": ["gemma3:27b"],
         # agy : Flash low = le plus rapide, suffisant pour un worker.
         "agy": ["gemini-3.7-flash-low", "gemini-3.6-flash-low", "gpt-oss-120b-medium"],
     }

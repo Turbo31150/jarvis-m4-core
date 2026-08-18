@@ -1,0 +1,11 @@
+{
+  "id": "microsoft-vscode-src-vs-sessions-skills-create-draft-pr-skill-md",
+  "name": "create-draft-pr",
+  "author": "microsoft",
+  "description": "Create a draft pull request for the current session. Use when the user wants to open a draft PR with the session's changes.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/microsoft/vscode/tree/main/src/vs/sessions/skills/create-draft-pr",
+  "skillUrl": "https://skillsmp.com/creators/microsoft/vscode/src-vs-sessions-skills-create-draft-pr",
+  "stars": 188283,
+  "updatedAt": 1774570130
+}

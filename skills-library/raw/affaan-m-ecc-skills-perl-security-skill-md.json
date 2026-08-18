@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-perl-security-skill-md",
+  "name": "perl-security",
+  "author": "affaan-m",
+  "description": "Comprehensive Perl security covering taint mode, input validation, safe process execution, DBI parameterized queries, web security (XSS/SQLi/CSRF), and perlcritic security policies.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/perl-security",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-perl-security",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

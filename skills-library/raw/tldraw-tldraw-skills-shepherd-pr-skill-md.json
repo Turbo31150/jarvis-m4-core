@@ -1,0 +1,11 @@
+{
+  "id": "tldraw-tldraw-skills-shepherd-pr-skill-md",
+  "name": "shepherd-pr",
+  "author": "tldraw",
+  "description": "Keep an eye on this PR. Review and resolve pull request comments and fix build failures autonomously. Use when asked to review PR feedback, address reviewer comments, fix CI failures, resolve PR threads, or handle PR maintenance tasks like \"review PR comments\", \"fix the build\", \"address PR feedback\", \"clean up PR\", or \"resolve comments\". Handles comment triage (resolve false positives, fix trivial issues, flag complex ones), build/lint/type errors, and e2e snapshot updates.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/tldraw/tldraw/tree/main/skills/shepherd-pr",
+  "skillUrl": "https://skillsmp.com/creators/tldraw/tldraw/skills-shepherd-pr",
+  "stars": 49577,
+  "updatedAt": 1777299736
+}

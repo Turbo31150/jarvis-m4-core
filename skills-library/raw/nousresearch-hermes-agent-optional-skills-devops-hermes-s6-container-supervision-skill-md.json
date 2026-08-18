@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-optional-skills-devops-hermes-s6-container-supervision-skill-md",
+  "name": "hermes-s6-container-supervision",
+  "author": "NousResearch",
+  "description": "Modify or debug s6 services in the Hermes Docker image.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/optional-skills/devops/hermes-s6-container-supervision",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/optional-skills-devops-hermes-s6-container-supervision",
+  "stars": 225204,
+  "updatedAt": 1785606754
+}

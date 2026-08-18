@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-skills-summarize-skill-md",
+  "name": "summarize",
+  "author": "openclaw",
+  "description": "Summarize or transcribe URLs, YouTube/videos, podcasts, articles, transcripts, PDFs, and local files.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/skills/summarize",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/skills-summarize",
+  "stars": 385119,
+  "updatedAt": 1779015027
+}

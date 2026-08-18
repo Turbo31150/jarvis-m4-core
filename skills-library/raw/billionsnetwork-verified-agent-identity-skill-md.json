@@ -1,0 +1,11 @@
+{
+  "id": "billionsnetwork-verified-agent-identity-skill-md",
+  "name": "verified-agent-identity",
+  "author": "BillionsNetwork",
+  "description": "Know Your Agent (KYA). Billions decentralized identity for agents. Link agents to human identities using Billions ERC-8004 and Attestation Registries. Verify and generate authentication proofs. Based on iden3 self-sovereign identity protocol.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/BillionsNetwork/verified-agent-identity",
+  "skillUrl": "https://skillsmp.com/creators/billionsnetwork/verified-agent-identity/skill",
+  "stars": 754,
+  "updatedAt": 1779096852
+}

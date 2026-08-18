@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-es-skills-postgres-patterns-skill-md",
+  "name": "postgres-patterns",
+  "author": "affaan-m",
+  "description": "Patrones de base de datos PostgreSQL para optimizaci\u00f3n de consultas, dise\u00f1o de esquemas, indexaci\u00f3n y seguridad. Basado en las buenas pr\u00e1cticas de Supabase.",
+  "contentLanguage": "es",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/es/skills/postgres-patterns",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-es-skills-postgres-patterns",
+  "stars": 237500,
+  "updatedAt": 1780810002
+}

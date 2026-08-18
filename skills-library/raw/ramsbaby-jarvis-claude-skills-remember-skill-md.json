@@ -1,0 +1,11 @@
+{
+  "id": "ramsbaby-jarvis-claude-skills-remember-skill-md",
+  "name": "remember",
+  "author": "Ramsbaby",
+  "description": "\uc624\ub108\uac00 \ubc29\uae08 \ub9d0\ud55c/\ud655\uc815\ud55c \uc0ac\uc2e4\uc744 Jarvis \uc704\ud0a4(`~/jarvis/runtime/wiki/`)\uc5d0 \uc989\uc2dc \uc8fc\uc785\ud569\ub2c8\ub2e4.\n\ub514\uc2a4\ucf54\ub4dc\u00b7Claude Code CLI\u00b7macOS \uc571 \uc5b4\ub514\uc11c \ud638\ucd9c\ud558\ub4e0 \ub3d9\uc77c\ud55c \ub1cc\uc5d0 \uc313\uc774\uba70, source \ud0dc\uadf8\ub85c\n\ud638\ucd9c \ud45c\uba74\uc774 \uc790\ub3d9 \uad6c\ubd84\ub429\ub2c8\ub2e4. \uc624\ub108\uc758 \uba85\uc2dc\uc801 \"\uae30\uc5b5\ud574\" \uc694\uccad\uc774\ub098 \ub300\ud654 \uc911 \ud655\uc815\ub41c\n\uc0ac\uc2e4\u00b7\uacb0\uc815\u00b7\uc120\ud638\ub97c \uc989\uc2dc \uc601\uc18d\uc2dc\ud0ac \ub54c \uc0ac\uc6a9\ud569\ub2c8\ub2e4.",
+  "contentLanguage": "ko",
+  "githubUrl": "https://github.com/Ramsbaby/jarvis/tree/main/.claude/skills/remember",
+  "skillUrl": "https://skillsmp.com/creators/ramsbaby/jarvis/claude-skills-remember",
+  "stars": 13,
+  "updatedAt": 1776733472
+}

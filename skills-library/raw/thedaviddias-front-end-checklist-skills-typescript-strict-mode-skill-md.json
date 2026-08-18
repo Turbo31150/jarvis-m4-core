@@ -1,0 +1,11 @@
+{
+  "id": "thedaviddias-front-end-checklist-skills-typescript-strict-mode-skill-md",
+  "name": "typescript-strict-mode",
+  "author": "thedaviddias",
+  "description": "Use when setting up a new TypeScript project, auditing an existing tsconfig.json, or reviewing code where null-reference errors or implicit any types are present.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedaviddias/Front-End-Checklist/tree/main/skills/typescript-strict-mode",
+  "skillUrl": "https://skillsmp.com/creators/thedaviddias/front-end-checklist/skills-typescript-strict-mode",
+  "stars": 73416,
+  "updatedAt": 1780091646
+}

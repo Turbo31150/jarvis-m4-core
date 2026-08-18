@@ -1,0 +1,11 @@
+{
+  "id": "github-awesome-copilot-skills-arch-linux-triage-skill-md",
+  "name": "arch-linux-triage",
+  "author": "github",
+  "description": "Triage and resolve Arch Linux issues with pacman, systemd, and rolling-release best practices.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/github/awesome-copilot/tree/main/skills/arch-linux-triage",
+  "skillUrl": "https://skillsmp.com/creators/github/awesome-copilot/skills-arch-linux-triage",
+  "stars": 37423,
+  "updatedAt": 1771904373
+}

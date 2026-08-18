@@ -1,0 +1,11 @@
+{
+  "id": "hyper-swe-mtix-codex-plugin-skills-multi-agent-skill-md",
+  "name": "multi-agent",
+  "author": "hyper-swe",
+  "description": "Coordinate multiple agents working on mtix tasks. Manage claiming, sessions, heartbeats, and parallel execution.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/hyper-swe/mtix/tree/main/.codex-plugin/skills/multi-agent",
+  "skillUrl": "https://skillsmp.com/creators/hyper-swe/mtix/codex-plugin-skills-multi-agent",
+  "stars": 6,
+  "updatedAt": 1774853369
+}

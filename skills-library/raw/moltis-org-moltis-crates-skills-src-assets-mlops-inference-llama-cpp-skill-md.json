@@ -1,0 +1,11 @@
+{
+  "id": "moltis-org-moltis-crates-skills-src-assets-mlops-inference-llama-cpp-skill-md",
+  "name": "llama-cpp",
+  "author": "moltis-org",
+  "description": "Run LLM inference with llama.cpp on CPU, Apple Silicon, AMD/Intel GPUs, or NVIDIA \u2014 plus GGUF model conversion and quantization (2\u20138 bit with K-quants and imatrix). Covers CLI, Python bindings, OpenAI-compatible server, and Ollama/LM Studio integration. Use for edge deployment, M1/M2/M3/M4 Macs, CUDA-less environments, or flexible local quantization.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/moltis-org/moltis/tree/main/crates/skills/src/assets/mlops/inference/llama-cpp",
+  "skillUrl": "https://skillsmp.com/creators/moltis-org/moltis/crates-skills-src-assets-mlops-inference-llama-cpp",
+  "stars": 2807,
+  "updatedAt": 1776722744
+}

@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-ja-jp-skills-agent-payment-x402-skill-md",
+  "name": "agent-payment-x402",
+  "author": "affaan-m",
+  "description": "\u30bf\u30b9\u30af\u3054\u3068\u306e\u30d0\u30b8\u30a7\u30c3\u30c8\u3001\u652f\u51fa\u30b3\u30f3\u30c8\u30ed\u30fc\u30eb\u3001\u30ce\u30f3\u30ab\u30b9\u30c8\u30c7\u30a3\u30a2\u30eb\u30a6\u30a9\u30ec\u30c3\u30c8\u3092\u5099\u3048\u305f x402 \u6c7a\u6e08\u5b9f\u884c\u3092 AI \u30a8\u30fc\u30b8\u30a7\u30f3\u30c8\u306b\u8ffd\u52a0\u3057\u307e\u3059\u3002agentwallet-sdk \u3092\u901a\u3058\u3066 Base \u3092\u30b5\u30dd\u30fc\u30c8\u3057\u3001OKX Payments / OKX \u30a8\u30fc\u30b8\u30a7\u30f3\u30c8\u6c7a\u6e08\u30d7\u30ed\u30c8\u30b3\u30eb\u3092\u901a\u3058\u3066 X Layer \u3092\u30b5\u30dd\u30fc\u30c8\u3057\u307e\u3059\u3002",
+  "contentLanguage": "ja",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/ja-JP/skills/agent-payment-x402",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-ja-jp-skills-agent-payment-x402",
+  "stars": 237500,
+  "updatedAt": 1780819528
+}

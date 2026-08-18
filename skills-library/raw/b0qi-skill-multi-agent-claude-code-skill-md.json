@@ -1,0 +1,11 @@
+{
+  "id": "b0qi-skill-multi-agent-claude-code-skill-md",
+  "name": "multi-agent",
+  "author": "B0Qi",
+  "description": "Use when coordinating multiple AI agents (Codex, Gemini) for parallel or collaborative tasks. Invoke with /multi-agent.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/B0Qi/skill-multi-agent/tree/master/claude-code",
+  "skillUrl": "https://skillsmp.com/creators/b0qi/skill-multi-agent/claude-code",
+  "stars": 0,
+  "updatedAt": 1770900817
+}

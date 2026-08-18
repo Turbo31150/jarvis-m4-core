@@ -1,0 +1,11 @@
+{
+  "id": "supermemoryai-supermemory-skills-supermemory-skill-md",
+  "name": "supermemory",
+  "author": "supermemoryai",
+  "description": "Supermemory is a state-of-the-art memory and context infrastructure for AI agents. Use this skill when building applications that need persistent memory, user personalization, long-term context retention, or semantic search across knowledge bases. It provides Memory API for learned user context, User Profiles for static/dynamic facts, and RAG for semantic search. Perfect for chatbots, assistants, and knowledge-intensive applications.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/supermemoryai/supermemory/tree/main/skills/supermemory",
+  "skillUrl": "https://skillsmp.com/creators/supermemoryai/supermemory/skills-supermemory",
+  "stars": 28771,
+  "updatedAt": 1784690370
+}

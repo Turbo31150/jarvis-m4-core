@@ -1,0 +1,11 @@
+{
+  "id": "agentscope-ai-qwenpaw-src-qwenpaw-agents-skills-himalaya-en-skill-md",
+  "name": "himalaya",
+  "author": "agentscope-ai",
+  "description": "CLI to manage emails via IMAP/SMTP. Use `himalaya` to list, read, write, reply, forward, search, and organize emails from the terminal. Supports multiple accounts and message composition with MML (MIME Meta Language).",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/himalaya-en",
+  "skillUrl": "https://skillsmp.com/creators/agentscope-ai/qwenpaw/src-qwenpaw-agents-skills-himalaya-en",
+  "stars": 32812,
+  "updatedAt": 1776673395
+}

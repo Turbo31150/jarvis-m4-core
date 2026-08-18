@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-agents-skills-discord-clawd-skill-md",
+  "name": "discord-clawd",
+  "author": "openclaw",
+  "description": "Use to talk to the Discord-backed OpenClaw agent/session; not for archive search.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/.agents/skills/discord-clawd",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/agents-skills-discord-clawd",
+  "stars": 385119,
+  "updatedAt": 1777272615
+}

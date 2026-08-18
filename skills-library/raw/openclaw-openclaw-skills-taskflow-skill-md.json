@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-skills-taskflow-skill-md",
+  "name": "taskflow",
+  "author": "openclaw",
+  "description": "Coordinate multi-step detached tasks as one durable TaskFlow job with owner context, state, waits, and child tasks.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/skills/taskflow",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/skills-taskflow",
+  "stars": 385119,
+  "updatedAt": 1779015027
+}

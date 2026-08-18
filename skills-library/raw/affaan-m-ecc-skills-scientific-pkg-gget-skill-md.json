@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-scientific-pkg-gget-skill-md",
+  "name": "gget",
+  "author": "affaan-m",
+  "description": "gget CLI and Python workflow for quick genomic database queries, sequence lookup, BLAST-style searches, enrichment checks, and reproducible bioinformatics evidence logs.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/scientific-pkg-gget",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-scientific-pkg-gget",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

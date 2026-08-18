@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-optional-skills-mlops-research-dspy-skill-md",
+  "name": "dspy",
+  "author": "NousResearch",
+  "description": "DSPy: declarative LM programs, auto-optimize prompts, RAG.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/optional-skills/mlops/research/dspy",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/optional-skills-mlops-research-dspy",
+  "stars": 225204,
+  "updatedAt": 1780578682
+}

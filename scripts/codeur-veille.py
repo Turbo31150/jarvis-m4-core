@@ -56,10 +56,10 @@ LOG_FILE = BASE_DIR / "logs" / "codeur-veille.log"
 DAILY_SENT_FLAG = Path("/tmp/codeur-daily-sent")
 
 # ---------------------------------------------------------------------------
-# Telegram credentials (env vars take priority, fallback to hardcoded)
+# Telegram credentials — env-only (jamais de secret hardcodé dans le source)
 # ---------------------------------------------------------------------------
-TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "8369376863:REVOKED-USE-ENV-VAR")
-TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "2010747443")
+TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
+TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "")
 
 # ---------------------------------------------------------------------------
 # Search config
@@ -68,15 +68,45 @@ CODEUR_BASE_URL = "https://www.codeur.com"
 PAGES_TO_SCRAPE = 3  # Number of listing pages to check (35 projects/page)
 
 MATCH_KEYWORDS = [
-    "ia", "intelligence artificielle", "machine learning", "chatbot",
-    "automatisation", "python", "api", "scraping", "trading", "agent",
-    "voice", "vocal", "whisper", "gpu", "docker", "n8n", "workflow",
-    "llm", "react", "node", "nodejs",
+    "ia",
+    "intelligence artificielle",
+    "machine learning",
+    "chatbot",
+    "automatisation",
+    "python",
+    "api",
+    "scraping",
+    "trading",
+    "agent",
+    "voice",
+    "vocal",
+    "whisper",
+    "gpu",
+    "docker",
+    "n8n",
+    "workflow",
+    "llm",
+    "react",
+    "node",
+    "nodejs",
 ]
 
 MIN_BUDGET_EUR = 500
-TECH_KEYWORDS = ["python", "ia", "llm", "react", "node", "nodejs", "intelligence artificielle",
-                 "machine learning", "chatbot", "automatisation", "agent", "n8n", "workflow"]
+TECH_KEYWORDS = [
+    "python",
+    "ia",
+    "llm",
+    "react",
+    "node",
+    "nodejs",
+    "intelligence artificielle",
+    "machine learning",
+    "chatbot",
+    "automatisation",
+    "agent",
+    "n8n",
+    "workflow",
+]
 
 DEFAULT_INTERVAL_MINUTES = 30
 MAX_RETRIES = 3
@@ -103,6 +133,7 @@ logger.addHandler(ch)
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+
 
 def load_seen_projects() -> dict:
     """Load the set of already-seen project IDs."""
@@ -137,7 +168,9 @@ def fetch_page(url: str) -> str | None:
             resp.raise_for_status()
             return resp.text
         except requests.RequestException as e:
-            logger.warning("Fetch attempt %d/%d failed for %s: %s", attempt, MAX_RETRIES, url, e)
+            logger.warning(
+                "Fetch attempt %d/%d failed for %s: %s", attempt, MAX_RETRIES, url, e
+            )
             if attempt < MAX_RETRIES:
                 time.sleep(RETRY_DELAY_SECONDS)
     logger.error("All %d fetch attempts failed for %s", MAX_RETRIES, url)
@@ -173,7 +206,9 @@ def matches_keywords(text: str) -> list[str]:
     text_lower = text.lower()
     found = []
     for kw in MATCH_KEYWORDS:
-        pattern = r"(?<![a-zA-Zéèêëàâùûôîïç])" + re.escape(kw) + r"(?![a-zA-Zéèêëàâùûôîïç])"
+        pattern = (
+            r"(?<![a-zA-Zéèêëàâùûôîïç])" + re.escape(kw) + r"(?![a-zA-Zéèêëàâùûôîïç])"
+        )
         if re.search(pattern, text_lower):
             found.append(kw)
     return found
@@ -184,7 +219,9 @@ def matches_tech_keywords(text: str) -> list[str]:
     text_lower = text.lower()
     found = []
     for kw in TECH_KEYWORDS:
-        pattern = r"(?<![a-zA-Zéèêëàâùûôîïç])" + re.escape(kw) + r"(?![a-zA-Zéèêëàâùûôîïç])"
+        pattern = (
+            r"(?<![a-zA-Zéèêëàâùûôîïç])" + re.escape(kw) + r"(?![a-zA-Zéèêëàâùûôîïç])"
+        )
         if re.search(pattern, text_lower):
             found.append(kw)
     return found
@@ -268,16 +305,18 @@ def parse_projects(html: str) -> list[dict]:
 
         url = CODEUR_BASE_URL + href
 
-        projects.append({
-            "id": project_id,
-            "title": title,
-            "description": description,
-            "budget": budget,
-            "nb_proposals": nb_proposals,
-            "posted": posted,
-            "url": url,
-            "full_text": card_text,
-        })
+        projects.append(
+            {
+                "id": project_id,
+                "title": title,
+                "description": description,
+                "budget": budget,
+                "nb_proposals": nb_proposals,
+                "posted": posted,
+                "url": url,
+                "full_text": card_text,
+            }
+        )
 
     return projects
 
@@ -293,7 +332,9 @@ def score_project_llm(project: dict) -> int:
     try:
         result = subprocess.run(
             ["bash", "/home/pamerys/jarvis/scripts/lm-ask.sh", prompt],
-            capture_output=True, text=True, timeout=30
+            capture_output=True,
+            text=True,
+            timeout=30,
         )
         output = result.stdout.strip()
         # Extract first number found
@@ -361,7 +402,9 @@ def send_daily_dashboard(
         try:
             sent_date = DAILY_SENT_FLAG.read_text(encoding="utf-8").strip()
             if sent_date == today_str:
-                logger.debug("Daily dashboard already sent today (%s), skipping.", today_str)
+                logger.debug(
+                    "Daily dashboard already sent today (%s), skipping.", today_str
+                )
                 return
         except IOError:
             pass
@@ -389,7 +432,7 @@ def send_daily_dashboard(
             score_label = p.get("llm_score", "?")
             kw = ", ".join(p.get("matched_kw", []))[:40]
             lines.append(
-                f"{i}. <a href=\"{p['url']}\">{p['title']}</a>\n"
+                f'{i}. <a href="{p["url"]}">{p["title"]}</a>\n'
                 f"   \U0001f4b0 {p['budget']} | score: {score_label}/10\n"
                 f"   \U0001f3f7 {kw}"
             )
@@ -400,7 +443,13 @@ def send_daily_dashboard(
 
     if dry_run:
         print("\n=== DAILY DASHBOARD ===")
-        print(message.replace("<b>", "").replace("</b>", "").replace("<a href=\"", "").replace("\">", " ").replace("</a>", ""))
+        print(
+            message.replace("<b>", "")
+            .replace("</b>", "")
+            .replace('<a href="', "")
+            .replace('">', " ")
+            .replace("</a>", "")
+        )
         print("=== END ===\n")
     else:
         ok = send_telegram(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, message)
@@ -421,6 +470,13 @@ def save_to_db(projects: list[dict], applied_pids: set[str]) -> None:
     try:
         conn = sqlite3.connect(str(DB_PATH))
         c = conn.cursor()
+        # La table manquait : l'INSERT levait "no such table" à chaque scan, donc
+        # aucun projet n'était persisté alors que le scraping réussissait.
+        c.execute(
+            "CREATE TABLE IF NOT EXISTS codeur_projects ("
+            "pid TEXT PRIMARY KEY, title TEXT, budget TEXT, offers_count INTEGER, "
+            "keywords TEXT, score INTEGER, scanned_at TEXT, applied INTEGER DEFAULT 0)"
+        )
         ts = datetime.now().isoformat()
         for p in projects:
             keywords = ",".join(p.get("matched_kw", []))
@@ -482,15 +538,27 @@ def run_check(dry_run: bool = False, force_dashboard: bool = False) -> int:
         # Filter budget >= 500
         if not budget_is_ok(project["budget"]):
             logger.debug("Skipping %s — budget too low: %s", pid, project["budget"])
-            seen[pid] = {"title": project["title"], "reason": "budget_low", "seen_at": datetime.now().isoformat()}
+            seen[pid] = {
+                "title": project["title"],
+                "reason": "budget_low",
+                "seen_at": datetime.now().isoformat(),
+            }
             continue
 
         # Filter: must match at least one tech keyword
-        searchable = f"{project['title']} {project['description']} {project['full_text']}"
+        searchable = (
+            f"{project['title']} {project['description']} {project['full_text']}"
+        )
         tech_kw = matches_tech_keywords(searchable)
         if not tech_kw:
-            logger.debug("Skipping %s — no tech keyword match: %s", pid, project["title"])
-            seen[pid] = {"title": project["title"], "reason": "no_keyword", "seen_at": datetime.now().isoformat()}
+            logger.debug(
+                "Skipping %s — no tech keyword match: %s", pid, project["title"]
+            )
+            seen[pid] = {
+                "title": project["title"],
+                "reason": "no_keyword",
+                "seen_at": datetime.now().isoformat(),
+            }
             continue
 
         # Broad keyword match (for Telegram label)
@@ -503,8 +571,11 @@ def run_check(dry_run: bool = False, force_dashboard: bool = False) -> int:
 
         logger.info(
             "NEW MATCH: [%s] %s (budget: %s, keywords: %s, score: %d/10)",
-            pid, project["title"], project["budget"],
-            ", ".join(project["matched_kw"]), llm_score,
+            pid,
+            project["title"],
+            project["budget"],
+            ", ".join(project["matched_kw"]),
+            llm_score,
         )
         matched_projects.append(project)
         new_matches += 1
@@ -542,16 +613,34 @@ def run_check(dry_run: bool = False, force_dashboard: bool = False) -> int:
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Monitor Codeur.com for AI/automation projects")
-    parser.add_argument("--once", action="store_true", help="Run a single check and exit")
-    parser.add_argument("--interval", type=int, default=DEFAULT_INTERVAL_MINUTES, help="Check interval in minutes (default: 30)")
-    parser.add_argument("--dry-run", action="store_true", help="Print matches to stdout instead of sending Telegram")
-    parser.add_argument("--force-dashboard", action="store_true", help="Force send daily dashboard even if already sent today")
+    parser = argparse.ArgumentParser(
+        description="Monitor Codeur.com for AI/automation projects"
+    )
+    parser.add_argument(
+        "--once", action="store_true", help="Run a single check and exit"
+    )
+    parser.add_argument(
+        "--interval",
+        type=int,
+        default=DEFAULT_INTERVAL_MINUTES,
+        help="Check interval in minutes (default: 30)",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Print matches to stdout instead of sending Telegram",
+    )
+    parser.add_argument(
+        "--force-dashboard",
+        action="store_true",
+        help="Force send daily dashboard even if already sent today",
+    )
     args = parser.parse_args()
 
     logger.info(
         "=== codeur-veille started (mode: %s, interval: %dm) ===",
-        "once" if args.once else "daemon", args.interval,
+        "once" if args.once else "daemon",
+        args.interval,
     )
 
     if args.once:

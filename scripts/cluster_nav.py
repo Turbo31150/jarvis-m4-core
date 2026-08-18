@@ -1,195 +1,109 @@
+import os
 import subprocess
+import argparse
 import json
-import sys
-import re
 
-# Define target machines and their SSH commands
-MACHINES = {
-    "M1": {
-        "ssh_command": "ssh turbo@192.168.1.85",
-        "metrics": {
-            "gpu": "nvidia-smi --query-gpu=index,name,utilization.gpu,memory.total,memory.used,memory.free --format=csv,noheader,nounits",
-            "ram": "free -m | awk 'NR==2{printf "%.0f", $3+$4}'", # Free RAM in MB
-            "cpu": "nproc", # Number of CPU cores
-        }
-    },
-    "M3": {
-        "ssh_command": "ssh turbo@192.168.1.113",
-        "metrics": {
-            # M3 might have different nvidia-smi output, adjust if necessary.
-            # Example: index,name,utilization.gpu,memory.total,memory.free
-            "gpu": "nvidia-smi --query-gpu=index,name,utilization.gpu,memory.total,memory.free --format=csv,noheader,nounits", 
-            "ram": "free -m | awk 'NR==2{printf "%.0f", $3+$4}'", # Free RAM in MB
-            "cpu": "nproc",
-        }
-    }
-}
-
-def run_remote_command(machine_name, command):
-    """Executes a command on a remote machine via SSH and returns its output."""
-    ssh_cmd = MACHINES[machine_name]["ssh_command"]
-    # Escape potential special characters in command if necessary, but for simplicity here we assume simple commands.
-    # For complex commands, consider using a more robust method than shell=True or manual escaping.
-    full_command = f"{ssh_cmd} "{command}""
+def run_remote_command(host, command):
+    """
+    Executes a command on a remote host via SSH and returns its output.
+    """
+    full_command = ["ssh", f"turbo@{host}", command]
     try:
-        result = subprocess.run(
-            full_command,
-            shell=True,
-            check=True,
-            capture_output=True,
-            text=True,
-            executable='/bin/bash'
-        )
+        result = subprocess.run(full_command, capture_output=True, text=True, check=True)
         return result.stdout.strip()
     except subprocess.CalledProcessError as e:
-        print(f"Error running command on {machine_name}: {e.cmd}
-Stderr: {e.stderr}", file=sys.stderr)
+        print(f"Error executing command on {host}: {e}")
+        print(f"Stderr: {e.stderr.strip()}")
         return None
     except FileNotFoundError:
-        print("Error: ssh command not found. Ensure SSH client is installed.", file=sys.stderr)
+        print("SSH command not found. Ensure SSH client is installed and in PATH.")
         return None
 
-def parse_gpu_output(output, machine_name):
-    """Parses the output of nvidia-smi for GPU metrics."""
-    gpu_data = []
-    lines = output.splitlines()
+def get_node_metrics(node_ip):
+    """
+    Collects GPU/RAM/CPU metrics from a given node.
+    This is a placeholder and needs actual implementation for metric collection.
+    """
+    metrics = {
+        "gpu_usage": "N/A",
+        "gpu_memory": "N/A",
+        "cpu_usage": "N/A",
+        "ram_usage": "N/A"
+    }
+    print(f"Collecting metrics from {node_ip} (placeholder)...")
     
-    # Heuristic to detect if header is present or not. 
-    # If first line contains expected header fields, skip it. Otherwise, parse all lines.
-    header_present = False
-    if lines and "index,name" in lines[0]: # Common header part
-        header_present = True
-        lines = lines[1:] # Skip header line
-        
-    if not lines:
-        print(f"Warning: No GPU data found or parsed for {machine_name}.", file=sys.stderr)
-        return gpu_data
+    # Placeholder for actual commands to collect metrics
+    # Example for NVIDIA GPU: run_remote_command(node_ip, "nvidia-smi --query-gpu=utilization.gpu,memory.used --format=csv,noheader,nounits")
+    # Example for CPU/RAM: run_remote_command(node_ip, "top -bn1 | grep 'Cpu(s)' | sed 's/.*, *\([0-9.]*\)%* id.*/\1/' | awk '{print 100 - $1}'")
+    # Example for RAM: run_remote_command(node_ip, "free -m | grep Mem | awk '{print $3/$2 * 100.0}'")
 
-    for line in lines:
-        line = line.strip()
-        if not line: continue
-        
-        # Split by comma, but be careful if GPU names contain commas (unlikely with --format=csv,noheader)
-        # A more robust split might be needed if names had commas.
-        parts = [p.strip() for p in line.split(',')]
-        
-        # Expected fields based on nvidia-smi format string:
-        # index,name,utilization.gpu,memory.total,memory.used,memory.free
-        # M3 might have fewer fields, adjust parsing.
-        
-        expected_fields_count = 6 # For M1 (index, name, util, total, used, free)
-        
-        # Adjust expected fields for M3 if 'used' is not provided by its query string
-        if machine_name == "M3" and "memory.used" not in MACHINES[machine_name]["metrics"]["gpu"]:
-            expected_fields_count = 5 # index, name, util, total, free
-
-        if len(parts) < 2: # Must have at least index and name
-            print(f"Warning: Skipping malformed GPU line for {machine_name}: {line}", file=sys.stderr)
-            continue
-
-        try:
-            gpu_info = {}
-            gpu_info["index"] = int(parts[0])
-            # GPU name can have spaces, so join all parts after index until the last known fields
-            # This assumes name is always before util, total, free/used.
-            name_parts = parts[1:- (expected_fields_count - 2)] if expected_fields_count > 2 else parts[1:] # Handle cases with only index/name
-            gpu_info["name"] = " ".join(name_parts)
-
-            # Parse specific metrics based on expected count and known indices
-            if expected_fields_count > 2:
-                gpu_info["utilization_gpu"] = parts[- (expected_fields_count - 2)]
-            if expected_fields_count > 3:
-                gpu_info["memory_total"] = parts[- (expected_fields_count - 3)]
-            if expected_fields_count > 4: # M1 has memory.used
-                gpu_info["memory_used"] = parts[- (expected_fields_count - 4)]
-            if expected_fields_count > 5: # M1 has memory.free
-                gpu_info["memory_free"] = parts[- (expected_fields_count - 5)]
-            elif expected_fields_count == 5: # M3 might only have memory.free as the last field
-                 gpu_info["memory_free"] = parts[-1] # Assuming last is free if only 5 fields
-
-            gpu_data.append(gpu_info)
-
-        except ValueError:
-            print(f"Warning: Could not parse numerical values for GPU line on {machine_name}: {line}", file=sys.stderr)
-        except IndexError:
-            print(f"Warning: Not enough fields parsed for GPU line on {machine_name}: {line}", file=sys.stderr)
-            
-    return gpu_data
-
-def collect_metrics():
-    """Collects system metrics from all configured machines."""
-    all_metrics = {}
-    for machine_name, config in MACHINES.items():
-        machine_metrics = {}
-        print(f"Collecting metrics for {machine_name}...")
-        for metric_name, cmd in config["metrics"].items():
-            output = run_remote_command(machine_name, cmd)
-            if output is not None:
-                if metric_name == "gpu":
-                    machine_metrics[metric_name] = parse_gpu_output(output, machine_name)
-                elif metric_name == "cpu":
-                    try:
-                        machine_metrics[metric_name] = int(output)
-                    except ValueError:
-                        print(f"Warning: Could not parse CPU output for {machine_name}: {output}", file=sys.stderr)
-                        machine_metrics[metric_name] = "N/A"
-                elif metric_name == "ram":
-                    try:
-                        machine_metrics[metric_name] = int(output) # Output is already in MB as per awk
-                    except ValueError:
-                        print(f"Warning: Could not parse RAM output for {machine_name}: {output}", file=sys.stderr)
-                        machine_metrics[metric_name] = "N/A"
-                else:
-                    # Fallback for any other metrics not specifically parsed
-                    machine_metrics[metric_name] = output 
-            else:
-                print(f"Failed to collect {metric_name} for {machine_name}", file=sys.stderr)
-        all_metrics[machine_name] = machine_metrics
-    return all_metrics
-
-def main():
-    """Main function to collect and display metrics."""
-    print("Starting cluster navigation and metrics collection...")
+    if node_ip == "192.168.0.10": # M1
+        gpu_info = run_remote_command(node_ip, "nvidia-smi --query-gpu=utilization.gpu,memory.used --format=csv,noheader,nounits")
+        if gpu_info:
+            try:
+                gpu_util, gpu_mem = gpu_info.split(', ')
+                metrics["gpu_usage"] = f"{gpu_util.strip()}%"
+                metrics["gpu_memory"] = f"{gpu_mem.strip()}MiB"
+            except ValueError:
+                pass # Handle parsing error
     
-    metrics_data = collect_metrics()
+    cpu_usage = run_remote_command(node_ip, "top -bn1 | grep 'Cpu(s)' | sed 's/.*, *\([0-9.]*\)%* id.*/\1/' | awk '{print 100 - $1}'")
+    if cpu_usage:
+        metrics["cpu_usage"] = f"{float(cpu_usage):.1f}%"
+
+    ram_usage = run_remote_command(node_ip, "free -m | grep Mem | awk '{printf "%.1f", $3/$2 * 100.0}'")
+    if ram_usage:
+        metrics["ram_usage"] = f"{float(ram_usage):.1f}%"
+
+    return metrics
+
+def distribute_task(task_description):
+    """
+    Distributes a heavy task to the most suitable node based on perceived load.
+    This is a simplified logic.
+    """
+    print(f"Attempting to distribute task: {task_description}")
     
-    # Print the collected metrics in a structured format (e.g., JSON)
-    # This could later be extended to include logic for task distribution.
-    print("
---- Cluster Metrics ---")
-    print(json.dumps(metrics_data, indent=4))
-    print("-----------------------
-")
+    # Node IPs (M6 câble direct 10.42.0.230 comme zone tampon / délestage)
+    nodes = {
+        "M6": "10.42.0.230", # Nœud Tampon dédié (Câble direct 10GB/s)
+        "M1": "192.168.0.10", # 6 GPUs
+        "M3": "127.0.0.1" # Ollama
+    }
     
-    # Placeholder for task distribution logic
-    # This would involve analyzing metrics_data to decide where to run tasks.
-    print("Task distribution logic can be added here based on collected metrics.")
-    # Example: Find the machine with most free GPU memory for heavy tasks.
-    # This is a simplified example and would need robust memory parsing.
-    best_machine_for_gpu = None
-    max_free_gpu_mem_mb = -1
+    # Tout délestage / démarrage M1 passe par M6 en premier (tampon d'inférence)
+    target_node_name = "M6"
+    target_ip = nodes.get(target_node_name)
     
-    for machine_name, metrics in metrics_data.items():
-        if 'gpu' in metrics and isinstance(metrics['gpu'], list):
-            for gpu_info in metrics['gpu']:
-                mem_str = gpu_info.get("memory_free", "0MiB")
-                try:
-                    # Attempt to parse memory string like "14336MiB"
-                    mem_val_mb = int(mem_str.replace("MiB", "").strip())
-                    if mem_val_mb > max_free_gpu_mem_mb:
-                        max_free_gpu_mem_mb = mem_val_mb
-                        best_machine_for_gpu = {
-                            "machine": machine_name,
-                            "gpu_index": gpu_info.get("index"),
-                            "memory_free_mb": mem_val_mb
-                        }
-                except ValueError:
-                    print(f"Warning: Could not parse GPU free memory string '{mem_str}' for {machine_name} GPU {gpu_info.get('index')}.", file=sys.stderr)
-    
-    if best_machine_for_gpu:
-        print(f"Identified best machine for GPU tasks: {best_machine_for_gpu['machine']} (GPU {best_machine_for_gpu['gpu_index']}) with {best_machine_for_gpu['memory_free_mb']}MiB free GPU memory.")
+    if target_ip:
+        print(f"Task '{task_description}' délestée vers la machine tampon {target_node_name} ({target_ip}).")
+        return f"Task '{task_description}' attribuée au tampon {target_node_name} ({target_ip})."
     else:
-        print("Could not determine a machine with significant free GPU memory.")
+        return "Nœud tampon M6 non disponible."
+
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="Multi-machine navigator for JARVIS cluster.")
+    parser.add_argument("--command", help="Command to execute on a remote machine.")
+    parser.add_argument("--host", help="Host IP to execute the command on (e.g., 192.168.0.10).")
+    parser.add_argument("--metrics", action="store_true", help="Collect metrics from specified host or all known hosts.")
+    parser.add_argument("--distribute", help="Description of a heavy task to distribute.")
+
+    args = parser.parse_args()
+
+    if args.command and args.host:
+        output = run_remote_command(args.host, args.command)
+        if output:
+            print(f"Output from {args.host}:
+{output}")
+    elif args.metrics:
+        nodes = ["192.168.0.10", "127.0.0.1"] # M1 and M3
+        all_metrics = {}
+        for node in nodes:
+            all_metrics[node] = get_node_metrics(node)
+        print(json.dumps(all_metrics, indent=2))
+    elif args.distribute:
+        result = distribute_task(args.distribute)
+        print(result)
+    else:
+        parser.print_help()

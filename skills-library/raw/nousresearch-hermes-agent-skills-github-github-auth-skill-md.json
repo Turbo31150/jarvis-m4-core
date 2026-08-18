@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-skills-github-github-auth-skill-md",
+  "name": "github-auth",
+  "author": "NousResearch",
+  "description": "GitHub auth setup: HTTPS tokens, SSH keys, gh CLI login.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/skills/github/github-auth",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/skills-github-github-auth",
+  "stars": 225204,
+  "updatedAt": 1785124766
+}

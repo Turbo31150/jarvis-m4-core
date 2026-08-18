@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-agents-skills-openclaw-docker-e2e-authoring-skill-md",
+  "name": "openclaw-docker-e2e-authoring",
+  "author": "openclaw",
+  "description": "Author OpenClaw Docker E2E and live provider Docker lanes.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/.agents/skills/openclaw-docker-e2e-authoring",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/agents-skills-openclaw-docker-e2e-authoring",
+  "stars": 385119,
+  "updatedAt": 1779108335
+}

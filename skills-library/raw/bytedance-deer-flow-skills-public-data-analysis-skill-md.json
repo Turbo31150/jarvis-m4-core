@@ -1,0 +1,11 @@
+{
+  "id": "bytedance-deer-flow-skills-public-data-analysis-skill-md",
+  "name": "data-analysis",
+  "author": "bytedance",
+  "description": "Use this skill when the user uploads Excel (.xlsx/.xls) or CSV files and wants to perform data analysis, generate statistics, create summaries, pivot tables, SQL queries, or any form of structured data exploration. Supports multi-sheet Excel workbooks, aggregation, filtering, joins, and exporting results to CSV/JSON/Markdown.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/bytedance/deer-flow/tree/main/skills/public/data-analysis",
+  "skillUrl": "https://skillsmp.com/creators/bytedance/deer-flow/skills-public-data-analysis",
+  "stars": 79272,
+  "updatedAt": 1776736398
+}

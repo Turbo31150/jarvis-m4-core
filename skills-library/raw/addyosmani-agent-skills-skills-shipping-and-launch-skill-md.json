@@ -1,0 +1,11 @@
+{
+  "id": "addyosmani-agent-skills-skills-shipping-and-launch-skill-md",
+  "name": "shipping-and-launch",
+  "author": "addyosmani",
+  "description": "Prepares production launches. Use when preparing to deploy to production. Use when you need a pre-launch checklist, when setting up monitoring, when planning a staged rollout, or when you need a rollback strategy.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/addyosmani/agent-skills/tree/main/skills/shipping-and-launch",
+  "skillUrl": "https://skillsmp.com/creators/addyosmani/agent-skills/skills-shipping-and-launch",
+  "stars": 81544,
+  "updatedAt": 1784752505
+}

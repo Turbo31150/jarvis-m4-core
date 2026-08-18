@@ -1,0 +1,11 @@
+{
+  "id": "langfuse-langfuse-agents-skills-seed-test-data-skill-md",
+  "name": "seed-test-data",
+  "author": "langfuse",
+  "description": "Seed reproducible local Langfuse data in ClickHouse and Postgres. Use for\ncomplex traces, long sessions, v3/v4 events, bulk list data, or frontend\nrendering and performance tests; never use ad hoc scripts or raw inserts.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/langfuse/langfuse/tree/main/.agents/skills/seed-test-data",
+  "skillUrl": "https://skillsmp.com/creators/langfuse/langfuse/agents-skills-seed-test-data",
+  "stars": 32476,
+  "updatedAt": 1785310471
+}

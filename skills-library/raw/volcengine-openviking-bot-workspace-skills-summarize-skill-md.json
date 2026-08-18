@@ -1,0 +1,11 @@
+{
+  "id": "volcengine-openviking-bot-workspace-skills-summarize-skill-md",
+  "name": "summarize",
+  "author": "volcengine",
+  "description": "Summarize or extract text/transcripts from URLs, podcasts, and local files (great fallback for \u201ctranscribe this YouTube/video\u201d).",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/volcengine/OpenViking/tree/main/bot/workspace/skills/summarize",
+  "skillUrl": "https://skillsmp.com/creators/volcengine/openviking/bot-workspace-skills-summarize",
+  "stars": 27909,
+  "updatedAt": 1772242617
+}

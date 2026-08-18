@@ -1,0 +1,11 @@
+{
+  "id": "openbmb-minicpm-skills-minicpm5-deploy-mlx-skill-md",
+  "name": "minicpm5-deploy-mlx",
+  "author": "OpenBMB",
+  "description": "Run MiniCPM5-1B natively on Apple Silicon with Apple's MLX framework. Use when the user has an Apple Silicon Mac and asks for \"MLX\", \"mlx_lm\", \"mlx_lm.convert\", \"mlx_lm.generate\", or wants the fastest path on Apple Silicon.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/OpenBMB/MiniCPM/tree/main/skills/minicpm5-deploy-mlx",
+  "skillUrl": "https://skillsmp.com/creators/openbmb/minicpm/skills-minicpm5-deploy-mlx",
+  "stars": 10099,
+  "updatedAt": 1780219511
+}

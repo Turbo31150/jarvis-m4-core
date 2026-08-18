@@ -1,0 +1,11 @@
+{
+  "id": "thedaviddias-front-end-checklist-skills-http-to-https-skill-md",
+  "name": "http-to-https",
+  "author": "thedaviddias",
+  "description": "Use when checking whether a web server is configured to redirect all HTTP traffic to HTTPS.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedaviddias/Front-End-Checklist/tree/main/skills/http-to-https",
+  "skillUrl": "https://skillsmp.com/creators/thedaviddias/front-end-checklist/skills-http-to-https",
+  "stars": 73416,
+  "updatedAt": 1780091646
+}

@@ -1,0 +1,11 @@
+{
+  "id": "browser-use-browser-use-skills-x402-skill-md",
+  "name": "x402",
+  "author": "browser-use",
+  "description": "Set up Browser Use Cloud payments with x402 \u2014 pay per request from a crypto wallet (USDC on Base mainnet), no signup or API key. Two setups it works out up front \u2014 \"just use it\" (set up a wallet so you or Claude Code can run cloud browser tasks paid from the wallet \u2014 Claude writes and runs throwaway scripts, nothing touches your codebase) or \"build it in\" (install the SDK and write the key + code into your project). Walks through wallet setup, funding, .env, and a ~$1 test run. Use when the user asks about x402, pay-per-use, USDC payments, or wants Browser Use Cloud without an API key. For the free-tier signup (reverse-CAPTCHA \u2192 API key), use `browser-use cloud signup` or the `cloud` skill instead.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/browser-use/browser-use/tree/main/skills/x402",
+  "skillUrl": "https://skillsmp.com/creators/browser-use/browser-use/skills-x402",
+  "stars": 107820,
+  "updatedAt": 1780339339
+}

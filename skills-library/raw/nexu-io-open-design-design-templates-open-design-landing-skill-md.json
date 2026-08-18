@@ -1,0 +1,11 @@
+{
+  "id": "nexu-io-open-design-design-templates-open-design-landing-skill-md",
+  "name": "open-design-landing",
+  "author": "nexu-io",
+  "description": "Produce a world-class single-page editorial landing site in the Atelier Zero visual language (Monocle / Apartamento / \u00c9tudes editorial collage) \u2014 the same aesthetic Open Design uses for its own marketing surface. The agent fills a typed `inputs.json` from a brand brief, optionally generates 16 collage assets via gpt-image-2, then runs a pure-function composer that emits a self-contained HTML file; a separate path can mirror the Astro marketing site in `apps/landing-page/`. Drop-in scroll-reveal motion and a Headroom-style sticky nav are wired automatically.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/nexu-io/open-design/tree/main/design-templates/open-design-landing",
+  "skillUrl": "https://skillsmp.com/creators/nexu-io/open-design/design-templates-open-design-landing",
+  "stars": 83535,
+  "updatedAt": 1785465318
+}

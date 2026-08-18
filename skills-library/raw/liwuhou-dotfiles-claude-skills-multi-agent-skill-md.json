@@ -1,0 +1,11 @@
+{
+  "id": "liwuhou-dotfiles-claude-skills-multi-agent-skill-md",
+  "name": "multi-agent",
+  "author": "liwuhou",
+  "description": "Coordinate multiple agents to execute tasks in parallel. Use when user says 'use multiple agents in parallel', 'split task', 'concurrent execution', 'do multiple things at the same time', '/multi-agent', or any explicit request for multi-agent collaboration on complex tasks. Automatically assesses task parallelizability, splits subtasks, and coordinates execution.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/liwuhou/.dotfiles/tree/master/claude/skills/multi-agent",
+  "skillUrl": "https://skillsmp.com/creators/liwuhou/.dotfiles/claude-skills-multi-agent",
+  "stars": 1,
+  "updatedAt": 1782293809
+}

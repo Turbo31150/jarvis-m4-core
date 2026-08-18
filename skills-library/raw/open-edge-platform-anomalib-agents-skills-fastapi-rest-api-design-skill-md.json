@@ -1,0 +1,11 @@
+{
+  "id": "open-edge-platform-anomalib-agents-skills-fastapi-rest-api-design-skill-md",
+  "name": "fastapi-rest-api-design",
+  "author": "open-edge-platform",
+  "description": "Designs and reviews REST APIs for FastAPI services using consistent resource naming, HTTP semantics, validation, security, and error handling patterns. Use for backend API tasks, endpoint design/refactors, or API review requests in FastAPI/Python projects.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/open-edge-platform/anomalib/tree/main/.agents/skills/fastapi-rest-api-design",
+  "skillUrl": "https://skillsmp.com/creators/open-edge-platform/anomalib/agents-skills-fastapi-rest-api-design",
+  "stars": 6008,
+  "updatedAt": 1776842429
+}

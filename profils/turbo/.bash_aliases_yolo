@@ -1,0 +1,5 @@
+# 🚀 MOTEUR JARVIS MODE YOLO V4.0
+alias yolo='echo "[🚀] ACTIVATION MODE YOLO V4.0 — AUTONOMIE TOTALE"; \
+            /home/pamerys/jarvis-linux/scripts/init_nav_layer.sh; \
+            /home/pamerys/launch_omega_automation.sh; \
+            echo "[🏁] CLUSTER JARVIS EN MODE YOLO : NAV(9222) + OMEGA(INBOX) + GPU(M1/OL1) ACTIFS."'

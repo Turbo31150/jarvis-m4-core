@@ -1,0 +1,11 @@
+{
+  "id": "omninode-ai-omniclaude-plugins-onex-skills-multi-agent-skill-md",
+  "name": "multi-agent",
+  "author": "OmniNode-ai",
+  "description": "Multi-agent coordination \u2014 parallel debugging, parallel building, and sequential review workflows",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/OmniNode-ai/omniclaude/tree/dev/plugins/onex/skills/multi-agent",
+  "skillUrl": "https://skillsmp.com/creators/omninode-ai/omniclaude/plugins-onex-skills-multi-agent",
+  "stars": 3,
+  "updatedAt": 1773267376
+}

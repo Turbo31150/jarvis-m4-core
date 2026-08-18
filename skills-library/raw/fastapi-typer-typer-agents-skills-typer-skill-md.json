@@ -1,0 +1,11 @@
+{
+  "id": "fastapi-typer-typer-agents-skills-typer-skill-md",
+  "name": "typer",
+  "author": "fastapi",
+  "description": "Typer best practices and conventions. Use when working with Typer CLIs. Keeps Typer code clean and up to date with the latest features and patterns, updated with new versions. Write new code or refactor and update old code.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/fastapi/typer/tree/master/typer/.agents/skills/typer",
+  "skillUrl": "https://skillsmp.com/creators/fastapi/typer/typer-agents-skills-typer",
+  "stars": 19854,
+  "updatedAt": 1784141069
+}

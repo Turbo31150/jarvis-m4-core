@@ -1,0 +1,11 @@
+{
+  "id": "posthog-posthog-products-logs-skills-authoring-log-alerts-skill-md",
+  "name": "authoring-log-alerts",
+  "author": "PostHog",
+  "description": "Author useful, low-noise log alerts on services in a PostHog project. Use when the user asks to set up alerts for their logs, suggest alerts they should add, or evaluate whether a service is worth monitoring. Covers service triage, baseline characterisation, threshold drafting, back-testing via simulate, and shipping with a notification destination.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/PostHog/posthog/tree/master/products/logs/skills/authoring-log-alerts",
+  "skillUrl": "https://skillsmp.com/creators/posthog/posthog/products-logs-skills-authoring-log-alerts",
+  "stars": 37496,
+  "updatedAt": 1784126242
+}

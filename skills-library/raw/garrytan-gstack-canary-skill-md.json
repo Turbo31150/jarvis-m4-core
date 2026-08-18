@@ -1,0 +1,11 @@
+{
+  "id": "garrytan-gstack-canary-skill-md",
+  "name": "canary",
+  "author": "garrytan",
+  "description": "Post-deploy canary monitoring. (gstack)",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/garrytan/gstack/tree/main/canary",
+  "skillUrl": "https://skillsmp.com/creators/garrytan/gstack/canary",
+  "stars": 126191,
+  "updatedAt": 1782405765
+}

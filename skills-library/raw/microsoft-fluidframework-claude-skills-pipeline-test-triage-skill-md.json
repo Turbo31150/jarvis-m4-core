@@ -1,0 +1,11 @@
+{
+  "id": "microsoft-fluidframework-claude-skills-pipeline-test-triage-skill-md",
+  "name": "pipeline-test-triage",
+  "author": "microsoft",
+  "description": "Triage test failures in an Azure DevOps pipeline run for Fluid Framework. Use when the user shares an ADO build/pipeline URL or build ID and wants failures analyzed, when they ask \"why did this pipeline fail\", \"summarize the test failures\", \"is this test flaky or a real bug\", \"compare these runs\", or wants bugs filed for genuine failures. Covers the Real Service End to End Tests pipeline as the worked example but applies to any FF test pipeline.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/microsoft/FluidFramework/tree/main/.claude/skills/pipeline-test-triage",
+  "skillUrl": "https://skillsmp.com/creators/microsoft/fluidframework/claude-skills-pipeline-test-triage",
+  "stars": 4941,
+  "updatedAt": 1783612035
+}

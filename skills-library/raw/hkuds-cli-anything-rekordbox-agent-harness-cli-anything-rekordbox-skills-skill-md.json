@@ -1,0 +1,11 @@
+{
+  "id": "hkuds-cli-anything-rekordbox-agent-harness-cli-anything-rekordbox-skills-skill-md",
+  "name": "cli-anything-rekordbox",
+  "author": "HKUDS",
+  "description": "Command-line interface for Pioneer Rekordbox 6/7 - DJ library and live-deck control via guarded SQLCipher master.db access (pyrekordbox) + virtual MIDI mapping. Provides library inspection, playlist creation/add/clear, and live-deck mixing (play/sync/crossfade/EQ). Pioneer ships no playback REST API; this harness combines the only two real surfaces (encrypted DB + MIDI) into one agent-native CLI.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/HKUDS/CLI-Anything/tree/main/rekordbox/agent-harness/cli_anything/rekordbox/skills",
+  "skillUrl": "https://skillsmp.com/creators/hkuds/cli-anything/rekordbox-agent-harness-cli-anything-rekordbox-skills",
+  "stars": 46608,
+  "updatedAt": 1779292871
+}

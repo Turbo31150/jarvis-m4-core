@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-plan-orchestrate-skill-md",
+  "name": "plan-orchestrate",
+  "author": "affaan-m",
+  "description": "Read a plan document, decompose it into steps, design a per-step agent chain from the ECC catalogue, and emit ready-to-paste /orchestrate custom prompts. Generative only \u2014 never invokes /orchestrate itself. Use when the user has a multi-step plan and wants to drive it through orchestrate without composing chains by hand.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/plan-orchestrate",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-plan-orchestrate",
+  "stars": 237500,
+  "updatedAt": 1783134051
+}

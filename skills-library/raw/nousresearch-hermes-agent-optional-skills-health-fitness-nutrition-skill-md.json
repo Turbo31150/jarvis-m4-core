@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-optional-skills-health-fitness-nutrition-skill-md",
+  "name": "fitness-nutrition",
+  "author": "NousResearch",
+  "description": "Gym workout planner and nutrition tracker. Search 690+ exercises by muscle, equipment, or category via wger. Look up macros and calories for 380,000+ foods via USDA FoodData Central. Compute BMI, TDEE, one-rep max, macro splits, and body fat \u2014 pure Python, no pip installs. Built for anyone chasing gains, cutting weight, or just trying to eat better.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/optional-skills/health/fitness-nutrition",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/optional-skills-health-fitness-nutrition",
+  "stars": 225204,
+  "updatedAt": 1783284166
+}

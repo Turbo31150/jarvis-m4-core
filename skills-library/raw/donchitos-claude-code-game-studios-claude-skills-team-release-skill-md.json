@@ -1,0 +1,11 @@
+{
+  "id": "donchitos-claude-code-game-studios-claude-skills-team-release-skill-md",
+  "name": "team-release",
+  "author": "Donchitos",
+  "description": "Orchestrate the release team: coordinates release-manager, qa-lead, devops-engineer, and producer to execute a release from candidate to deployment.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Donchitos/Claude-Code-Game-Studios/tree/main/.claude/skills/team-release",
+  "skillUrl": "https://skillsmp.com/creators/donchitos/claude-code-game-studios/claude-skills-team-release",
+  "stars": 23596,
+  "updatedAt": 1778667308
+}

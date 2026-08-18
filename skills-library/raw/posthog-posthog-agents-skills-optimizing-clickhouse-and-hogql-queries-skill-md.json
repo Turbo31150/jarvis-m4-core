@@ -1,0 +1,11 @@
+{
+  "id": "posthog-posthog-agents-skills-optimizing-clickhouse-and-hogql-queries-skill-md",
+  "name": "optimizing-clickhouse-and-hogql-queries",
+  "author": "PostHog",
+  "description": "Workflow for optimizing ClickHouse and HogQL queries. Use when a HogQL query, query runner, insight, or report is too slow; when a hand-written ClickHouse query (via `sync_execute` or in a migration) is too slow; when ClickHouse times out or hits memory limits; when investigating a slow `system.query_log` row; or when reviewing a proposed HogQL printer change for performance. Covers extracting the ClickHouse SQL, common smells (`FROM ... FINAL`, `JSONExtract` over properties, missing skip indexes, self-joins, CTE blow-up), measuring against a real cluster, and applying the fix at the right layer (printer, query runner, or migration). Does NOT cover Postgres / Django ORM / app-database queries; those need pganalyze and the Postgres section of `query-performance-optimization.md`.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/PostHog/posthog/tree/master/.agents/skills/optimizing-clickhouse-and-hogql-queries",
+  "skillUrl": "https://skillsmp.com/creators/posthog/posthog/agents-skills-optimizing-clickhouse-and-hogql-queries",
+  "stars": 37496,
+  "updatedAt": 1783077671
+}

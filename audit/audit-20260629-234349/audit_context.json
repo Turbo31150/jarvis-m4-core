@@ -1,0 +1,43 @@
+{
+  "topic": "boutique JARVIS OS",
+  "profile": "full",
+  "mode": "standard",
+  "scan_local": {
+    "target": "/home/pamerys/jarvis-delmas-site",
+    "files": 76,
+    "size_mb": 9.48,
+    "languages": {
+      "HTML": 10,
+      "JS": 8,
+      "Markdown": 6,
+      "YAML": 1,
+      "Shell": 1,
+      "CSS": 1
+    },
+    "key_files": [
+      "Dockerfile"
+    ],
+    "jarvis_modules": [
+      "jarvis"
+    ],
+    "compliance_markers": [
+      "rgpd",
+      "gdpr",
+      "dpo"
+    ],
+    "secrets_files": [],
+    "git": {
+      "branches": 4,
+      "last_commits": "f51460e Franck Delmas Merge pull request #3 from Turbo31150/fix-seo-security-csp\nadac4d9 Turbo31150 feat(leads): Telegram lead notifier (form → instant notif before mailto)\naac14d7 Turbo31150 feat(monitoring): broken link checker scheduled function\n3e3de68 Turbo31150 fix(seo+security): correct broken domain refs + harden CSP + main.js v2\n48e5ed7 Franck Delmas seo(sitemap): 7 → 81 URLs (toutes pages catalogue/boutique/tunnel) (#1)",
+      "contributors": "7\tFranck Delmas\n     7\tTurbo31150",
+      "commit_count": "12"
+    }
+  },
+  "scan_web": {
+    "url": "https://passcerfa.netlify.app",
+    "topic": "boutique JARVIS OS",
+    "title": "",
+    "headings": [],
+    "signals": []
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "alirezarezvani-claude-skills-marketing-skill-skills-programmatic-seo-skill-md",
+  "name": "programmatic-seo",
+  "author": "alirezarezvani",
+  "description": "When the user wants to create SEO-driven pages at scale using templates and data. Also use when the user mentions \"programmatic SEO,\" \"template pages,\" \"pages at scale,\" \"directory pages,\" \"location pages,\" \"[keyword] + [city] pages,\" \"comparison pages,\" \"integration pages,\" or \"building many pages for SEO.\" For auditing existing SEO issues, see seo-audit.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/alirezarezvani/claude-skills/tree/main/marketing-skill/skills/programmatic-seo",
+  "skillUrl": "https://skillsmp.com/creators/alirezarezvani/claude-skills/marketing-skill-skills-programmatic-seo",
+  "stars": 23780,
+  "updatedAt": 1781150321
+}

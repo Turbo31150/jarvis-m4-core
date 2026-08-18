@@ -1,0 +1,655 @@
+[
+ {
+  "slug": "ia-fondamentaux-2026",
+  "titre": "IA en 2026 — Fondamentaux",
+  "prix": "39 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Fondamentaux & divers",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/ia-fondamentaux-2026",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "copilot-github",
+  "titre": "GitHub Copilot Masterclass",
+  "prix": "39 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Assistants de code",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/copilot-github",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "claude-code-mastery-m2",
+  "titre": "",
+  "prix": "177 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Assistants de code",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/claude-code-mastery-m2",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "claude-code-mastery-bundle",
+  "titre": "159 €/mois",
+  "prix": "159 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Assistants de code",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/claude-code-mastery-bundle",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "cursor-vscode",
+  "titre": "Cursor & VS Code IA Intégrée",
+  "prix": "49 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Assistants de code",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/cursor-vscode",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "ia-no-code",
+  "titre": "IA No-Code — Make, Zapier, n8n",
+  "prix": "39 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Fondamentaux & divers",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/ia-no-code",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "github-cicd",
+  "titre": "GitHub Actions & CI/CD IA",
+  "prix": "39 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Infra & DevOps",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/github-cicd",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "claude-code-pro",
+  "titre": "Claude Code Pro",
+  "prix": "49 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Assistants de code",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/claude-code-pro",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "prompt-engineering",
+  "titre": "Prompt Engineering Avancé",
+  "prix": "39 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Fondamentaux & divers",
+  "http": 200,
+  "url_finale": "https://aimasterclasses.gumroad.com/l/prompt-engineering",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "claude-code-mastery-m3",
+  "titre": "Construis ton AlkymIA-OS",
+  "prix": "597 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Assistants de code",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/claude-code-mastery-m3",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "ia-productivite",
+  "titre": "IA & Productivité Personnelle",
+  "prix": "39 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Fondamentaux & divers",
+  "http": 200,
+  "url_finale": "https://mirage667.gumroad.com/l/ia-productivite",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "gemini-cli-masterclass",
+  "titre": "Gemini CLI Masterclass",
+  "prix": "59 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Assistants de code",
+  "http": 404,
+  "verdict": "MORT"
+ },
+ {
+  "slug": "ia-marketing",
+  "titre": "IA pour le Marketing Digital",
+  "prix": "49 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Verticales métier",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/ia-marketing",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "pgvector-sql",
+  "titre": "PostgreSQL + pgvector pour l'IA",
+  "prix": "49 €",
+  "fichier": "alkymia-os.html",
+  "cat": "RAG & bases vectorielles",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/pgvector-sql",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "vibe-coding",
+  "titre": "Vibe Coding 2026",
+  "prix": "39 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Assistants de code",
+  "http": 200,
+  "url_finale": "https://khoavibecoding.gumroad.com/l/vibe-coding",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "deepseek-open",
+  "titre": "DeepSeek & Open Source 2026",
+  "prix": "59 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Modèles & LLM",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/deepseek-open",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "docker-ia",
+  "titre": "Docker pour l'IA",
+  "prix": "49 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Infra & DevOps",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/docker-ia",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "mistral-local",
+  "titre": "Mistral AI — Local & API",
+  "prix": "49 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Modèles & LLM",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/mistral-local",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "api-openai",
+  "titre": "API OpenAI — Intégration Avancée",
+  "prix": "59 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Modèles & LLM",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/api-openai",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "fastapi-ia",
+  "titre": "FastAPI pour l'IA — APIs Production",
+  "prix": "59 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Fondamentaux & divers",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/fastapi-ia",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "n8n-masterclass",
+  "titre": "n8n Masterclass — Automatisation",
+  "prix": "49 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Agents & automatisation",
+  "http": 200,
+  "url_finale": "https://damianplayer.gumroad.com/l/n8n-masterclass",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "ia-ecommerce",
+  "titre": "IA pour l'E-commerce & Shopify",
+  "prix": "59 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Verticales métier",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/ia-ecommerce",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "ia-code-review",
+  "titre": "Code Review IA Automatisé",
+  "prix": "49 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Assistants de code",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/ia-code-review",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "ia-education",
+  "titre": "IA pour l'Éducation & E-learning",
+  "prix": "49 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Verticales métier",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/ia-education",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "ia-rh",
+  "titre": "IA pour les RH & Recrutement",
+  "prix": "59 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Verticales métier",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/ia-rh",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "ia-freelance",
+  "titre": "Freelance IA — Revenus & Services",
+  "prix": "59 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Verticales métier",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/ia-freelance",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "jarvis-voice-ptt",
+  "titre": "",
+  "prix": "69 €",
+  "fichier": "alkymia-os.html",
+  "cat": "JARVIS OS (produits maison)",
+  "http": 404,
+  "verdict": "MORT"
+ },
+ {
+  "slug": "ai-freelance-automation",
+  "titre": "AI Freelance & LinkedIn Automation",
+  "prix": "59 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Verticales métier",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/ai-freelance-automation",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "claude-api-avance",
+  "titre": "API Claude — Maîtrise Avancée",
+  "prix": "69 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Assistants de code",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/claude-api-avance",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "elasticsearch-ia",
+  "titre": "Elasticsearch & Recherche IA",
+  "prix": "69 €",
+  "fichier": "alkymia-os.html",
+  "cat": "RAG & bases vectorielles",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/elasticsearch-ia",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "ia-devops",
+  "titre": "DevOps IA & CI/CD Intelligent",
+  "prix": "69 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Infra & DevOps",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/ia-devops",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "react-ia",
+  "titre": "React 19 pour Applications IA",
+  "prix": "59 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Fondamentaux & divers",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/react-ia",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "ia-juridique",
+  "titre": "IA pour le Juridique & RGPD",
+  "prix": "69 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Verticales métier",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/ia-juridique",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "monitoring-ia",
+  "titre": "Monitoring Systèmes IA",
+  "prix": "69 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Infra & DevOps",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/monitoring-ia",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "lumen-multilang",
+  "titre": "Phanesis — Transcription Multilingue",
+  "prix": "59 €",
+  "fichier": "alkymia-os.html",
+  "cat": "JARVIS OS (produits maison)",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/lumen-multilang",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "automatisation-business",
+  "titre": "Automatisation Business IA",
+  "prix": "69 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Agents & automatisation",
+  "http": 200,
+  "url_finale": "https://alexdigitalincome.gumroad.com/l/automatisation-business",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "agents-vocaux",
+  "titre": "Agents Vocaux IA — Pipeline Complet",
+  "prix": "79 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Agents & automatisation",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/agents-vocaux",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "llms-locaux-lm-studio-ollama",
+  "titre": "LLMs Locaux — LM Studio & Ollama",
+  "prix": "79 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Modèles & LLM",
+  "http": 404,
+  "verdict": "MORT"
+ },
+ {
+  "slug": "ia-healthcare",
+  "titre": "IA Healthcare Multi-Agents",
+  "prix": "79 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Verticales métier",
+  "http": 404,
+  "verdict": "MORT"
+ },
+ {
+  "slug": "ia-cloud-gcp",
+  "titre": "IA sur GCP — Vertex AI & Gemini",
+  "prix": "79 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Infra & DevOps",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/ia-cloud-gcp",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "mcp-protocol",
+  "titre": "Model Context Protocol (MCP)",
+  "prix": "79 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Agents & automatisation",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/mcp-protocol",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "crewai-autogen",
+  "titre": "CrewAI & AutoGen Multi-Agents",
+  "prix": "79 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Agents & automatisation",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/crewai-autogen",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "multimodal-ia",
+  "titre": "IA Multimodale — Image, Audio, Vidéo",
+  "prix": "79 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Modèles & LLM",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/multimodal-ia",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "langchain-ia",
+  "titre": "LangChain & LangGraph pour Agents",
+  "prix": "79 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Agents & automatisation",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/langchain-ia",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "ia-sante",
+  "titre": "IA pour la Santé & Médical",
+  "prix": "79 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Verticales métier",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/ia-sante",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "jarvis-cowork-qa",
+  "titre": "AlkymIA-OS Cowork — 570 Scripts QA",
+  "prix": "79 €",
+  "fichier": "alkymia-os.html",
+  "cat": "JARVIS OS (produits maison)",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/jarvis-cowork-qa",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "jarvis-mcp-toolkit",
+  "titre": "AlkymIA-OS MCP Toolkit — 88 Handlers",
+  "prix": "79 €",
+  "fichier": "alkymia-os.html",
+  "cat": "JARVIS OS (produits maison)",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/jarvis-mcp-toolkit",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "kubernetes-ia",
+  "titre": "Kubernetes pour l'IA & GPU",
+  "prix": "89 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Infra & DevOps",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/kubernetes-ia",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "ia-finance",
+  "titre": "IA pour la Finance — Analyse",
+  "prix": "89 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Trading & finance",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/ia-finance",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "rag-vectordb",
+  "titre": "RAG & Bases Vectorielles",
+  "prix": "89 €",
+  "fichier": "alkymia-os.html",
+  "cat": "RAG & bases vectorielles",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/rag-vectordb",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "rust-ia",
+  "titre": "Rust pour l'IA & Performance",
+  "prix": "89 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Fondamentaux & divers",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/rust-ia",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "jarvis-domino-engine",
+  "titre": "AlkymIA-OS Domino Engine — 835 Pipelines",
+  "prix": "89 €",
+  "fichier": "alkymia-os.html",
+  "cat": "JARVIS OS (produits maison)",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/jarvis-domino-engine",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "mexc-futures-api",
+  "titre": "MEXC Futures API — Trading Auto",
+  "prix": "89 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Trading & finance",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/mexc-futures-api",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "trading-ia",
+  "titre": "Trading IA — Signaux & Stratégies",
+  "prix": "79 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Trading & finance",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/trading-ia",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "ia-cybersec",
+  "titre": "IA pour la Cybersécurité",
+  "prix": "99 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Verticales métier",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/ia-cybersec",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "agents-autonomes-mcp",
+  "titre": "Agents Autonomes & MCP",
+  "prix": "99 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Agents & automatisation",
+  "http": 404,
+  "verdict": "MORT"
+ },
+ {
+  "slug": "jarvis-os-cluster-complet",
+  "titre": "AlkymIA-OS — Cluster IA Complet",
+  "prix": "149 €",
+  "fichier": "alkymia-os.html",
+  "cat": "JARVIS OS (produits maison)",
+  "http": 404,
+  "verdict": "MORT"
+ },
+ {
+  "slug": "pack-complet-jarvis-os",
+  "titre": "Pack Intégral — 62 Formations",
+  "prix": "399 €",
+  "fichier": "alkymia-os.html",
+  "cat": "JARVIS OS (produits maison)",
+  "http": 404,
+  "verdict": "MORT"
+ },
+ {
+  "slug": "tradeoracle",
+  "titre": "TradeOracle — Consensus Multi-IA Crypto",
+  "prix": "99 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Trading & finance",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/tradeoracle",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "openclaw-gateway",
+  "titre": "OpenClaw Gateway — 77 Agents et 961 scripts",
+  "prix": "99 €",
+  "fichier": "alkymia-os.html",
+  "cat": "JARVIS OS (produits maison)",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/openclaw-gateway",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "jarvis-architecture",
+  "titre": "AlkymIA-OS v17 — Architecture Complète",
+  "prix": "129 €",
+  "fichier": "alkymia-os.html",
+  "cat": "JARVIS OS (produits maison)",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/jarvis-architecture",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "jarvis-cluster-gpu",
+  "titre": "Cluster GPU AlkymIA-OS — LLMs Multi-Machine",
+  "prix": "99 €",
+  "fichier": "alkymia-os.html",
+  "cat": "JARVIS OS (produits maison)",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/jarvis-cluster-gpu",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "llm-finetuning",
+  "titre": "Fine-tuning LLMs — LoRA & QLoRA",
+  "prix": "99 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Modèles & LLM",
+  "http": 200,
+  "url_finale": "https://99749238600.gumroad.com/l/llm-finetuning",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "jarvis-whisper-flow",
+  "titre": "JARVIS Whisper Flow STT — Faible Latence",
+  "prix": "69 €",
+  "fichier": "bespoke-pony-491fd1.html",
+  "cat": "JARVIS OS (produits maison)",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/jarvis-whisper-flow",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "weaviate-chroma",
+  "titre": "Weaviate & ChromaDB — RAG Local",
+  "prix": "69 €",
+  "fichier": "alkymia-os.html",
+  "cat": "RAG & bases vectorielles",
+  "http": 200,
+  "url_finale": "https://franckdelmas.gumroad.com/l/weaviate-chroma",
+  "verdict": "PUBLIE"
+ },
+ {
+  "slug": "mlops",
+  "titre": "MLOps — IA en Production",
+  "prix": "89 €",
+  "fichier": "alkymia-os.html",
+  "cat": "Infra & DevOps",
+  "http": 200,
+  "url_finale": "https://ksafjanuser.gumroad.com/l/mlops",
+  "verdict": "PUBLIE"
+ }
+]

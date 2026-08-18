@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-optional-skills-mlops-instructor-skill-md",
+  "name": "instructor",
+  "author": "NousResearch",
+  "description": "Structured LLM outputs validated with Pydantic.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/optional-skills/mlops/instructor",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/optional-skills-mlops-instructor",
+  "stars": 225204,
+  "updatedAt": 1784866036
+}

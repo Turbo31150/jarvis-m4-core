@@ -1,0 +1,11 @@
+{
+  "id": "react-react-compiler-claude-skills-plan-update-skill-md",
+  "name": "plan-update",
+  "author": "react",
+  "description": "Use when you need to update a plan document with deep research across all compiler passes. Launches parallel subagents to analyze how a topic affects every compiler phase, then consolidates findings into the plan doc.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/react/react/tree/main/compiler/.claude/skills/plan-update",
+  "skillUrl": "https://skillsmp.com/creators/react/react/compiler-claude-skills-plan-update",
+  "stars": 246953,
+  "updatedAt": 1781041986
+}

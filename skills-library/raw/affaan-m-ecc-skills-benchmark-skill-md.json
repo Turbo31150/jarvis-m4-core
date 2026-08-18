@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-benchmark-skill-md",
+  "name": "benchmark",
+  "author": "affaan-m",
+  "description": "Use this skill to measure performance baselines, detect regressions before/after PRs, and compare stack alternatives.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/benchmark",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-benchmark",
+  "stars": 237500,
+  "updatedAt": 1784322829
+}

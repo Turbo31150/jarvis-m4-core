@@ -1,0 +1,11 @@
+{
+  "id": "dmitrytruelecter-multi-agent-skills-issue-comment-skill-md",
+  "name": "issue-comment",
+  "author": "DmitryTrueLecter",
+  "description": "Add a standalone comment to an issue without changing its status or labels. Use for progress updates and error notifications that are not part of a handoff. Invocation: /dma:issue-comment <ISSUE-KEY> <comment-body>.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/DmitryTrueLecter/multi-agent/tree/main/skills/issue-comment",
+  "skillUrl": "https://skillsmp.com/creators/dmitrytruelecter/multi-agent/skills-issue-comment",
+  "stars": 0,
+  "updatedAt": 1782718463
+}

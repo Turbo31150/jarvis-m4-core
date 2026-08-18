@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruflo-agents-skills-workflow-automation-skill-md",
+  "name": "workflow-automation",
+  "author": "ruvnet",
+  "description": "Workflow creation, execution, and template management. Automates complex multi-step processes with agent coordination. Use when: automating processes, creating reusable workflows, orchestrating multi-step tasks. Skip when: simple single-step tasks, ad-hoc operations.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/ruflo/tree/main/.agents/skills/workflow-automation",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruflo/agents-skills-workflow-automation",
+  "stars": 66991,
+  "updatedAt": 1770484638
+}

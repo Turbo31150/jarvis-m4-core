@@ -1,0 +1,11 @@
+{
+  "id": "nexu-io-open-design-plugins-official-examples-od-plugin-contribute-open-design-skill-md",
+  "name": "od-plugin-contribute-open-design",
+  "author": "nexu-io",
+  "description": "Open a pull request adding a local Open Design plugin to the Open Design community catalog using gh CLI.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/nexu-io/open-design/tree/main/plugins/_official/examples/od-plugin-contribute-open-design",
+  "skillUrl": "https://skillsmp.com/creators/nexu-io/open-design/plugins-official-examples-od-plugin-contribute-open-design",
+  "stars": 83535,
+  "updatedAt": 1784018637
+}

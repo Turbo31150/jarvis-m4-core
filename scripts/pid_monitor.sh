@@ -14,7 +14,7 @@ declare -A SVCS=(
 
 for SVC in "${!SVCS[@]}"; do
   PATTERN="${SVCS[$SVC]}"
-  PID=$(pgrep -f "$PATTERN" 2>/dev/null | head -1)
+  PID=$(pidof "$PATTERN" 2>/dev/null | awk '{print $1}')
   STATUS="up"
   RAM_MB=0
   if [ -z "$PID" ]; then

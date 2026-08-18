@@ -1,0 +1,11 @@
+{
+  "id": "significant-gravitas-autogpt-claude-skills-open-pr-skill-md",
+  "name": "open-pr",
+  "author": "Significant-Gravitas",
+  "description": "Open a pull request with proper PR template, test coverage, and review workflow. Guides agents through creating a PR that follows repo conventions, ensures existing behaviors aren't broken, covers new behaviors with tests, and handles review via bot when local testing isn't possible. TRIGGER when user asks to \"open a PR\", \"create a PR\", \"make a PR\", \"submit a PR\", \"open pull request\", \"push and create PR\", or any variation of opening/submitting a pull request.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Significant-Gravitas/AutoGPT/tree/master/.claude/skills/open-pr",
+  "skillUrl": "https://skillsmp.com/creators/significant-gravitas/autogpt/claude-skills-open-pr",
+  "stars": 185813,
+  "updatedAt": 1774606923
+}

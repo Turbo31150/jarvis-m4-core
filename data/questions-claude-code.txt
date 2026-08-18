@@ -1,0 +1,15 @@
+Quels sont les réglages de settings.json de Claude Code les plus sous-utilisés qui améliorent le plus la productivité au quotidien ?
+Comment structurer un CLAUDE.md pour qu'il soit réellement suivi par le modèle, et quelles erreurs le rendent inefficace ou contre-productif ?
+Quels hooks Claude Code (PreToolUse, PostToolUse, UserPromptSubmit, Stop, SessionStart) apportent le plus de valeur, avec des exemples concrets de configuration ?
+Comment réduire drastiquement la consommation de tokens dans Claude Code sans perdre en qualité : quelles techniques concrètes fonctionnent réellement ?
+Quelles sont les meilleures pratiques 2026 pour écrire des subagents Claude Code efficaces, et quand un subagent est-il contre-productif ?
+Comment bien concevoir une skill Claude Code : structure du SKILL.md, description qui déclenche au bon moment, erreurs fréquentes ?
+Quelles sont les stratégies éprouvées de gestion du contexte long dans Claude Code : compaction, /clear, découpage des sessions, mémoire persistante ?
+Comment brancher des modèles locaux (LM Studio, Ollama) sur Claude Code ou en complément, et quelles sont les limites réelles de cette approche ?
+Quels serveurs MCP apportent le plus de valeur à un développeur solo en 2026, et comment éviter la surcharge d'outils MCP qui dégrade les performances ?
+Quels sont les pièges de sécurité les plus courants avec Claude Code (secrets, permissions, hooks, MCP distants) et comment s'en prémunir concrètement ?
+Comment mettre en place un workflow de code review et de tests automatisés efficace avec Claude Code sur un projet réel ?
+Quelles techniques de prompting sont spécifiquement efficaces avec Claude Code par rapport à un chat classique, notamment pour le debugging ?
+Comment orchestrer plusieurs agents Claude Code en parallèle (worktrees git, tâches de fond) sans conflits ni gaspillage ?
+Quelles sont les nouveautés et fonctionnalités récentes de Claude Code souvent ignorées par les utilisateurs expérimentés ?
+Comment mesurer et améliorer objectivement la qualité du travail produit par Claude Code sur la durée : métriques, garde-fous, boucles de feedback ?

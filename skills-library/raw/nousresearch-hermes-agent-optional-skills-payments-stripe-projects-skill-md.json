@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-optional-skills-payments-stripe-projects-skill-md",
+  "name": "stripe-projects",
+  "author": "NousResearch",
+  "description": "Provision SaaS services + sync creds via Stripe Projects.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/optional-skills/payments/stripe-projects",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/optional-skills-payments-stripe-projects",
+  "stars": 225204,
+  "updatedAt": 1781844195
+}

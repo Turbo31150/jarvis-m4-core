@@ -79,6 +79,7 @@ th{color:#8892a4;font-weight:600}
   <div class="tab" data-p="edt" data-grp="prepare">🗓️ Emploi du temps</div>
   <div class="tab" data-p="ress" data-grp="prepare">📎 Ressources</div>
   <div class="tab" data-p="dom2026" data-grp="prepare">🎓 Domaines 2026</div>
+  <div class="tab" data-p="histoire" data-grp="prepare">🎭 Histoire</div>
   <div class="tab" data-p="eval" data-grp="suivre">📊 Évaluations</div>
   <div class="tab" data-p="bull" data-grp="suivre">📋 Bulletins</div>
   <div class="tab" data-p="corr" data-grp="suivre">✅ Corrections</div>
@@ -129,6 +130,21 @@ th{color:#8892a4;font-weight:600}
       </select>
     </div>
     <div id="dom-list"><small>Chargement…</small></div>
+  </div></div>
+
+  <!-- HISTOIRE DE LA SEMAINE (fil rouge narratif) -->
+  <div class="panel" id="p-histoire"><div class="card">
+    <b>🎭 Histoire de la semaine</b>
+    <div class="hint">Un récit fil rouge qui relie les notions de la semaine (domaines 2026). Adaptable à l'humeur de la classe pour apaiser ou canaliser.</div>
+    <div class="row">
+      <div><label>Niveau</label><select id="hi-niv"><option>MS</option><option>GS</option><option>PS</option></select></div>
+      <div><label>Semaine</label><input id="hi-sem" type="number" value="1" min="1" max="36" style="width:80px"></div>
+      <div><label>Ambiance</label><select id="hi-hum"><option value="calme">Calme (apaiser)</option><option value="dynamique">Dynamique</option><option value="fatiguée">Fatiguée</option></select></div>
+    </div>
+    <label>Thème (optionnel)</label><input id="hi-theme" placeholder="ex: l'automne, la forêt, le petit escargot">
+    <button onclick="genHistoire()">Générer l'histoire</button>
+    <div class="out" id="hi-out" style="display:none"></div>
+    <div id="hi-list" style="margin-top:10px"><small>Chargement des histoires…</small></div>
   </div></div>
 
   <!-- PILOTAGE / AUTOMATISATIONS -->
@@ -558,6 +574,7 @@ document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
   if(p==='exo')loadExo();
   if(p==='ress')loadRessources();
   if(p==='dom2026')loadDomaines2026();
+  if(p==='histoire')loadHistoire();
   if(p==='appel')loadAppel();
   if(p==='eval')loadBilan();
   if(p==='mail')loadSmtp();
@@ -576,7 +593,7 @@ function showGroup(g){
   if(first)first.click();
 }
 document.querySelectorAll('.grp').forEach(gb=>gb.onclick=()=>showGroup(gb.dataset.g));
-const MAGIK_TAB={generer_seance:'seq',generer_exercices:'exo',differencier:'diff',cahier_journal:'cj',programmation:'prog',ressources:'ress',banque_batch:'annee',domaines_2026:'dom2026',corriger:'corr',mail_parents:'mail',bulletin:'bull',ateliers:'vie',edt:'edt'};
+const MAGIK_TAB={generer_seance:'seq',generer_exercices:'exo',differencier:'diff',cahier_journal:'cj',programmation:'prog',ressources:'ress',banque_batch:'annee',domaines_2026:'dom2026',corriger:'corr',mail_parents:'mail',bulletin:'bull',ateliers:'vie',edt:'edt',histoire:'histoire'};
 async function magik(){
   const q=$('#magik-q').value.trim(); if(!q)return;
   $('#magik-res').innerHTML='<small>Détection…</small>';
@@ -586,7 +603,7 @@ async function magik(){
   const params=Object.entries(d.params_detectes||{}).map(([k,v])=>k+'='+v).join(' · ')||'—';
   $('#magik-res').innerHTML='<div style="padding:6px;background:#15171c;border-radius:6px">🎯 <b style="color:#e94560">'+d.intent.replace(/_/g,' ')+'</b> <span style="color:#7cc4ff;font-size:11px">('+d.confiance+'%)</span>'
     +'<br><small style="color:#8892a4">Contexte détecté : '+params+'</small>'
-    +(tab?'<br><button class="sec mini" style="margin-top:6px" onclick="document.querySelector(\'.grp[data-g=&quot;'+({seq:'prepare',exo:'prepare',diff:'prepare',cj:'prepare',prog:'prepare',ress:'prepare',annee:'prepare',dom2026:'prepare',corr:'suivre',mail:'auto',bull:'suivre',vie:'classe',edt:'prepare'}[tab])+'&quot;]\').click();document.querySelector(\'.tab[data-p=&quot;'+tab+'&quot;]\').click();">Ouvrir →</button>':'')
+    +(tab?'<br><button class="sec mini" style="margin-top:6px" onclick="document.querySelector(\'.grp[data-g=&quot;'+({seq:'prepare',exo:'prepare',diff:'prepare',cj:'prepare',prog:'prepare',ress:'prepare',annee:'prepare',dom2026:'prepare',histoire:'prepare',corr:'suivre',mail:'auto',bull:'suivre',vie:'classe',edt:'prepare'}[tab])+'&quot;]\').click();document.querySelector(\'.tab[data-p=&quot;'+tab+'&quot;]\').click();">Ouvrir →</button>':'')
     +'</div>';
 }
 async function loadExo(){
@@ -594,6 +611,24 @@ async function loadExo(){
   if(!Array.isArray(r)||!r.length){$('#exo-list').innerHTML='<small>Aucun exercice enregistré pour l\'instant.</small>';return;}
   $('#exo-list').innerHTML='<div style="color:#5a6072;font-size:11px;margin-bottom:4px">'+r.length+' exercice(s)</div>'+
     r.map(e=>'<div style="padding:6px 0;border-bottom:1px solid #22252c"><b style="color:#c8cdd6">'+(e.notion||e.titre||'—')+'</b> <span style="color:#5a6072;font-size:11px">'+(e.matiere||'')+' · '+(e.niveau||'')+'</span></div>').join('');
+}
+async function genHistoire(){
+  const b={niveau:$('#hi-niv').value,semaine:parseInt($('#hi-sem').value||'1'),theme:$('#hi-theme').value,humeur:$('#hi-hum').value};
+  const o=$('#hi-out');o.style.display='block';o.innerHTML='<small>Génération de l\'histoire… (déporté)</small>';
+  try{const d=await api('/api/histoire/generer',b);
+    if(d.error){o.innerHTML='<small>'+d.error+'</small>';return;}
+    showOut(o,d.recit_md,d.backend);loadHistoire();
+  }catch(e){o.innerHTML='<small>Erreur.</small>';}
+}
+async function loadHistoire(){
+  const niv=$('#hi-niv')?.value||'MS';
+  let r;try{r=await get('/api/histoire?niveau='+niv);}catch(e){$('#hi-list').innerHTML='';return;}
+  if(!Array.isArray(r)||!r.length){$('#hi-list').innerHTML='<small style="color:#5a6072">Aucune histoire enregistrée pour ce niveau.</small>';return;}
+  $('#hi-list').innerHTML='<div style="color:#5a6072;font-size:11px;margin-bottom:4px">'+r.length+' histoire(s) '+niv+'</div>'+
+    r.map(h=>'<div style="padding:6px 0;border-bottom:1px solid #22252c;cursor:pointer" onclick="voirHistoire('+h.id+')">🎭 <b>Semaine '+h.semaine+'</b>'+(h.theme?' — '+h.theme:'')+' <span style="color:#5a6072;font-size:11px">('+h.humeur+')</span></div>').join('');
+}
+async function voirHistoire(id){
+  const d=await get('/api/histoire/une?id='+id);const o=$('#hi-out');o.style.display='block';showOut(o,d.recit_md,d.backend);
 }
 async function loadDomaines2026(){
   const niv=$('#dom-niv')?.value||'MS';
@@ -638,7 +673,7 @@ async function downloadPdf(markdown,titre){const r=await fetch('/api/prof/export
 function pdfBtn(txt,titre){const b=document.createElement('button');b.className='sec mini';b.textContent='📄 PDF';b.style.marginLeft='6px';b.onclick=()=>downloadPdf(txt,titre);return b;}
 function showOut(o,txt,backend,cached){o.innerHTML='';const bar=document.createElement('div');bar.appendChild(copyBtn(txt||''));if(txt)bar.appendChild(pdfBtn(txt,deriveTitle(txt)));o.appendChild(bar);const span=document.createElement('div');span.style.marginTop='8px';span.textContent=txt||'';o.appendChild(span);if(backend){const s=document.createElement('small');s.style.display='block';s.style.marginTop='8px';s.textContent='moteur: '+backend+(cached?' (cache)':'');o.appendChild(s);}}
 
-async function iaStatus(){try{const s=await get('/api/prof/ia-status');$('#ia').textContent=(s.cluster_m1||s.cluster_m2?'🟢 cluster':s.ollama?'🟡 local (Ollama)':'🔴 IA off')+' · GPU '+s.gpu_temp+'°C';}catch(e){$('#ia').textContent='IA ?';}}
+async function iaStatus(){try{const s=await get('/api/prof/ia-status');$('#ia').textContent=(s.cluster_m6||s.cluster_remi?'🟢 cluster':s.ollama?'🟡 local (Ollama)':'🔴 IA off')+' · GPU '+s.gpu_temp+'°C';}catch(e){$('#ia').textContent='IA ?';}}
 
 let ELEVES=[];
 async function loadEleves(){const l=await get('/api/eleves');if(!Array.isArray(l))return;ELEVES=l;

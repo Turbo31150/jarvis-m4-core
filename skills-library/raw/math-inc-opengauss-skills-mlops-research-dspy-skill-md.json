@@ -1,0 +1,11 @@
+{
+  "id": "math-inc-opengauss-skills-mlops-research-dspy-skill-md",
+  "name": "dspy",
+  "author": "math-inc",
+  "description": "Build complex AI systems with declarative programming, optimize prompts automatically, create modular RAG systems and agents with DSPy - Stanford NLP's framework for systematic LM programming",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/math-inc/OpenGauss/tree/main/skills/mlops/research/dspy",
+  "skillUrl": "https://skillsmp.com/creators/math-inc/opengauss/skills-mlops-research-dspy",
+  "stars": 1247,
+  "updatedAt": 1773943123
+}

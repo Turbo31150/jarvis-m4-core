@@ -1,0 +1,11 @@
+{
+  "id": "microsoft-vscode-github-skills-flaky-smoke-tests-skill-md",
+  "name": "flaky-smoke-tests",
+  "author": "microsoft",
+  "description": "Diagnose intermittent VS Code Electron smoke-test failures from the Azure DevOps Flaky Smoke Tests pipeline (definition 700). Covers finding failed iterations, downloading task logs and platform artifacts with Azure CLI, correlating cumulative runner logs, tracing the introducing commit, and queueing focused validation runs.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/microsoft/vscode/tree/main/.github/skills/flaky-smoke-tests",
+  "skillUrl": "https://skillsmp.com/creators/microsoft/vscode/github-skills-flaky-smoke-tests",
+  "stars": 188283,
+  "updatedAt": 1785193297
+}

@@ -1,0 +1,10 @@
+subscriber1@example.com
+subscriber2@example.com
+subscriber3@example.com
+subscriber4@example.com
+subscriber5@example.com
+subscriber6@example.com
+subscriber7@example.com
+subscriber8@example.com
+subscriber9@example.com
+subscriber10@example.com

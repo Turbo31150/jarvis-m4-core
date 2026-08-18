@@ -1,0 +1,11 @@
+{
+  "id": "vladmandic-sdnext-github-skills-check-api-skill-md",
+  "name": "check-api",
+  "author": "vladmandic",
+  "description": "Audit SD.Next API route definitions and verify endpoint parameters plus request/response signatures against declared FastAPI contracts.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/vladmandic/sdnext/tree/master/.github/skills/check-api",
+  "skillUrl": "https://skillsmp.com/creators/vladmandic/sdnext/github-skills-check-api",
+  "stars": 7199,
+  "updatedAt": 1780638843
+}

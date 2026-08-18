@@ -1,0 +1,11 @@
+{
+  "id": "posthog-posthog-products-signals-skills-signals-scout-observability-gaps-skill-md",
+  "name": "signals-scout-observability-gaps",
+  "author": "PostHog",
+  "description": "Signals scout for observability gaps \u2014 significant event volumes with no insight, dashboard, or alert coverage. Files a report recommending new insights, dashboards, or alerts as the team's product evolves.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/PostHog/posthog/tree/master/products/signals/skills/signals-scout-observability-gaps",
+  "skillUrl": "https://skillsmp.com/creators/posthog/posthog/products-signals-skills-signals-scout-observability-gaps",
+  "stars": 37496,
+  "updatedAt": 1784123867
+}

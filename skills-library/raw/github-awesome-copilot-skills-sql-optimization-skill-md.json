@@ -1,0 +1,11 @@
+{
+  "id": "github-awesome-copilot-skills-sql-optimization-skill-md",
+  "name": "sql-optimization",
+  "author": "github",
+  "description": "Universal SQL performance optimization assistant for comprehensive query tuning, indexing strategies, and database performance analysis across all SQL databases (MySQL, PostgreSQL, SQL Server, Oracle). Provides execution plan analysis, pagination optimization, batch operations, and performance monitoring guidance.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/github/awesome-copilot/tree/main/skills/sql-optimization",
+  "skillUrl": "https://skillsmp.com/creators/github/awesome-copilot/skills-sql-optimization",
+  "stars": 37423,
+  "updatedAt": 1771904373
+}

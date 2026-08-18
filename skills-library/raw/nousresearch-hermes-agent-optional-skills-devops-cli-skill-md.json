@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-optional-skills-devops-cli-skill-md",
+  "name": "inference-sh-cli",
+  "author": "NousResearch",
+  "description": "Run 150+ AI apps (image, video, LLM) via inference.sh CLI.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/optional-skills/devops/cli",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/optional-skills-devops-cli",
+  "stars": 225204,
+  "updatedAt": 1784866036
+}

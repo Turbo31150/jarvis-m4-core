@@ -1,0 +1,11 @@
+{
+  "id": "romanticamaj-flywheel-plugins-flywheel-skills-multi-agent-skill-md",
+  "name": "multi-agent",
+  "author": "romanticamaj",
+  "description": "Use when coordinating multiple agents working in parallel \u2014 defines role-based agent patterns, branch isolation, and merge strategy for flywheel",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/romanticamaj/flywheel/tree/main/plugins/flywheel/skills/multi-agent",
+  "skillUrl": "https://skillsmp.com/creators/romanticamaj/flywheel/plugins-flywheel-skills-multi-agent",
+  "stars": 20,
+  "updatedAt": 1775131848
+}

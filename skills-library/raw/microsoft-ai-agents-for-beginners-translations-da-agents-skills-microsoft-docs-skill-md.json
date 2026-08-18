@@ -1,0 +1,11 @@
+{
+  "id": "microsoft-ai-agents-for-beginners-translations-da-agents-skills-microsoft-docs-skill-md",
+  "name": "microsoft-docs",
+  "author": "microsoft",
+  "description": "S\u00f8g i den officielle Microsoft-dokumentation for at finde koncepter, vejledninger og kodeeksempler p\u00e5 tv\u00e6rs af Azure, .NET, Agent Framework, Aspire, VS Code, GitHub og mere. Bruger Microsoft Learn MCP som standard, samt Context7 og Aspire MCP til indhold, der findes uden for learn.microsoft.com.",
+  "contentLanguage": "dan",
+  "githubUrl": "https://github.com/microsoft/ai-agents-for-beginners/tree/main/translations/da/.agents/skills/microsoft-docs",
+  "skillUrl": "https://skillsmp.com/creators/microsoft/ai-agents-for-beginners/translations-da-agents-skills-microsoft-docs",
+  "stars": 71222,
+  "updatedAt": 1771575305
+}

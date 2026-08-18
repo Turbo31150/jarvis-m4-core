@@ -1,0 +1,11 @@
+{
+  "id": "rustfs-rustfs-agents-skills-rustfs-logging-governance-skill-md",
+  "name": "rustfs-logging-governance",
+  "author": "rustfs",
+  "description": "Standardize and review RustFS logging with structured `tracing` events, lower noise on hot paths, preserve security-sensitive diagnostics, and extend guardrails to prevent legacy logging patterns from returning. Use when editing or reviewing RustFS logs, startup/config diagnostics, cloud metadata logs, request validation logs, or `scripts/check_logging_guardrails.sh`.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/rustfs/rustfs/tree/main/.agents/skills/rustfs-logging-governance",
+  "skillUrl": "https://skillsmp.com/creators/rustfs/rustfs/agents-skills-rustfs-logging-governance",
+  "stars": 30617,
+  "updatedAt": 1781370026
+}

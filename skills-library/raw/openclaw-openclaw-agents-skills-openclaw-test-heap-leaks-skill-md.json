@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-agents-skills-openclaw-test-heap-leaks-skill-md",
+  "name": "openclaw-test-heap-leaks",
+  "author": "openclaw",
+  "description": "Investigate OpenClaw pnpm test memory growth, Vitest OOMs, RSS spikes, and heap snapshot deltas.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/.agents/skills/openclaw-test-heap-leaks",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/agents-skills-openclaw-test-heap-leaks",
+  "stars": 385119,
+  "updatedAt": 1780574475
+}

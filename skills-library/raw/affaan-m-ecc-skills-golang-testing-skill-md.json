@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-golang-testing-skill-md",
+  "name": "golang-testing",
+  "author": "affaan-m",
+  "description": "Go testing patterns including table-driven tests, subtests, benchmarks, fuzzing, and test coverage. Follows TDD methodology with idiomatic Go practices.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/golang-testing",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-golang-testing",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

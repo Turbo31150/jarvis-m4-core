@@ -1,0 +1,11 @@
+{
+  "id": "unicomai-wanwu-configs-microservice-bff-service-configs-agent-skills-claude-science-fair-esm2-skill-md",
+  "name": "fair-esm2",
+  "author": "UnicomAI",
+  "description": "Embed proteins with Meta AI's ESM-2 (`fair-esm` package). Use this skill when: (1) Extracting per-residue or per-sequence embeddings for downstream ML, (2) Masked-LM likelihood / mutation effect scoring, (3) Contact prediction from a sequence.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/UnicomAI/wanwu/tree/main/configs/microservice/bff-service/configs/agent-skills/claude-science/fair-esm2",
+  "skillUrl": "https://skillsmp.com/creators/unicomai/wanwu/configs-microservice-bff-service-configs-agent-skills-claude-science-fair-esm2",
+  "stars": 2584,
+  "updatedAt": 1783650766
+}

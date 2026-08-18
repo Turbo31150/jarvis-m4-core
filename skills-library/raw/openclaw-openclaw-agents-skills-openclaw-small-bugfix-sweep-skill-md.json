@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-agents-skills-openclaw-small-bugfix-sweep-skill-md",
+  "name": "openclaw-small-bugfix-sweep",
+  "author": "openclaw",
+  "description": "Fix only small, high-certainty OpenClaw bugs from a pasted issue/PR list after deep code review.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/.agents/skills/openclaw-small-bugfix-sweep",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/agents-skills-openclaw-small-bugfix-sweep",
+  "stars": 385119,
+  "updatedAt": 1783757391
+}

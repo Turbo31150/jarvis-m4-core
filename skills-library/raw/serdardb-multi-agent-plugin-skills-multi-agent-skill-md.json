@@ -1,0 +1,11 @@
+{
+  "id": "serdardb-multi-agent-plugin-skills-multi-agent-skill-md",
+  "name": "multi-agent",
+  "author": "serdardb",
+  "description": "Run one of THIS project's agents on ANOTHER AI model (codex / grok) as a LIVE, STEERABLE background agent \u2014 watch it work underneath, and type to it while it runs to steer the running turn. Scope from plain words (git diff / method / path), no flags.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/serdardb/multi-agent/tree/main/plugin/skills/multi-agent",
+  "skillUrl": "https://skillsmp.com/creators/serdardb/multi-agent/plugin-skills-multi-agent",
+  "stars": 1,
+  "updatedAt": 1785107553
+}

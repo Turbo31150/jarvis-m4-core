@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-agents-skills-eval-harness-skill-md",
+  "name": "eval-harness",
+  "author": "affaan-m",
+  "description": "Formal evaluation framework for Claude Code sessions implementing eval-driven development (EDD) principles",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/.agents/skills/eval-harness",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/agents-skills-eval-harness",
+  "stars": 237500,
+  "updatedAt": 1777428617
+}

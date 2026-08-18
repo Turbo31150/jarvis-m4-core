@@ -1,0 +1,11 @@
+{
+  "id": "awesome-skills-code-review-skill-skill-md",
+  "name": "code-review-skill",
+  "author": "awesome-skills",
+  "description": "Provides comprehensive code review guidance for React 19, Vue 3, Angular 17+, Svelte 5,\nRust, TypeScript, Java, Java 8, PHP, Ruby, Rails, Python, Django, FastAPI, Go, C#/.NET, Kotlin, Swift,\nNestJS, C/C++, Zig, CSS/Less/Sass, Qt, and more.\nCovers architecture review, performance review, security audit, code quality anti-patterns,\nand common bugs across all ecosystems.\nUse when: reviewing pull requests, conducting PR reviews, code review, reviewing code changes,\nestablishing review standards, mentoring developers, architecture reviews, security audits,\nperformance reviews, checking code quality, finding bugs, giving feedback on code.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/awesome-skills/code-review-skill",
+  "skillUrl": "https://skillsmp.com/creators/awesome-skills/code-review-skill/skill",
+  "stars": 1610,
+  "updatedAt": 1784182387
+}

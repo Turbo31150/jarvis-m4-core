@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-ja-jp-skills-error-handling-skill-md",
+  "name": "error-handling",
+  "author": "affaan-m",
+  "description": "TypeScript\u3001Python\u3001Go\u306b\u308f\u305f\u308b\u5805\u7262\u306a\u30a8\u30e9\u30fc\u51e6\u7406\u306e\u30d1\u30bf\u30fc\u30f3\u3002\u578b\u4ed8\u304d\u30a8\u30e9\u30fc\u3001\u30a8\u30e9\u30fc\u5883\u754c\u3001\u30ea\u30c8\u30e9\u30a4\u3001\u30b5\u30fc\u30ad\u30c3\u30c8\u30d6\u30ec\u30fc\u30ab\u30fc\u3001\u30e6\u30fc\u30b6\u30fc\u5411\u3051\u30a8\u30e9\u30fc\u30e1\u30c3\u30bb\u30fc\u30b8\u3092\u30ab\u30d0\u30fc\u3057\u307e\u3059\u3002",
+  "contentLanguage": "ja",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/ja-JP/skills/error-handling",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-ja-jp-skills-error-handling",
+  "stars": 237500,
+  "updatedAt": 1778999500
+}

@@ -1,0 +1,11 @@
+{
+  "id": "ccxt-ccxt-claude-skills-ccxt-java-skill-md",
+  "name": "ccxt-java",
+  "author": "ccxt",
+  "description": "CCXT cryptocurrency exchange library for Java developers. Covers both REST API (standard) and WebSocket API (real-time). Helps install CCXT, connect to exchanges, fetch market data, place orders, stream live tickers/orderbooks, handle authentication, and manage errors in Java projects. Use when working with crypto exchanges in Java applications, trading systems, or financial software. Requires Java 21+.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ccxt/ccxt/tree/master/.claude/skills/ccxt-java",
+  "skillUrl": "https://skillsmp.com/creators/ccxt/ccxt/claude-skills-ccxt-java",
+  "stars": 43527,
+  "updatedAt": 1784103584
+}

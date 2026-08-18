@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-optional-skills-autonomous-ai-agents-honcho-skill-md",
+  "name": "honcho",
+  "author": "NousResearch",
+  "description": "Configure and troubleshoot Honcho memory for Hermes.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/optional-skills/autonomous-ai-agents/honcho",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/optional-skills-autonomous-ai-agents-honcho",
+  "stars": 225204,
+  "updatedAt": 1784866036
+}

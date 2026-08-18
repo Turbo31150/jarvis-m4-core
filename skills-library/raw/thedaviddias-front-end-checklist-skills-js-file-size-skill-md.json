@@ -1,0 +1,11 @@
+{
+  "id": "thedaviddias-front-end-checklist-skills-js-file-size-skill-md",
+  "name": "js-file-size",
+  "author": "thedaviddias",
+  "description": "Use when auditing slow page loads, heavy assets, or rendering delays related to Optimize JavaScript bundle size. Verify the actual bottleneck in DevTools, Lighthouse, or field data before recommending changes.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedaviddias/Front-End-Checklist/tree/main/skills/js-file-size",
+  "skillUrl": "https://skillsmp.com/creators/thedaviddias/front-end-checklist/skills-js-file-size",
+  "stars": 73416,
+  "updatedAt": 1780091646
+}

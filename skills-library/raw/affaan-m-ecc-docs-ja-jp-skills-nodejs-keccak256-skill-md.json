@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-ja-jp-skills-nodejs-keccak256-skill-md",
+  "name": "nodejs-keccak256",
+  "author": "affaan-m",
+  "description": "JavaScript\u3068TypeScript\u306b\u304a\u3051\u308bEthereum\u30cf\u30c3\u30b7\u30e5\u30d0\u30b0\u3092\u9632\u3050\u3002Node\u306eSHA3-256\u306fNIST SHA3\u3067\u3042\u308a\u3001Ethereum Keccak-256\u3067\u306f\u306a\u304f\u3001\u30bb\u30ec\u30af\u30bf\u30fc\u3001\u7f72\u540d\u3001\u30b9\u30c8\u30ec\u30fc\u30b8\u30b9\u30ed\u30c3\u30c8\u3001\u30a2\u30c9\u30ec\u30b9\u5c0e\u51fa\u3092\u9759\u304b\u306b\u7834\u58ca\u3059\u308b\u3002",
+  "contentLanguage": "ja",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/ja-JP/skills/nodejs-keccak256",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-ja-jp-skills-nodejs-keccak256",
+  "stars": 237500,
+  "updatedAt": 1778999500
+}

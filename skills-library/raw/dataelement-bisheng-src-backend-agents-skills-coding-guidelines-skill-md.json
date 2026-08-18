@@ -1,0 +1,11 @@
+{
+  "id": "dataelement-bisheng-src-backend-agents-skills-coding-guidelines-skill-md",
+  "name": "coding-guidelines",
+  "author": "dataelement",
+  "description": "\u89c4\u8303\u5f53\u524d Python (FastAPI + SQLAlchemy) \u9879\u76ee\u7684\u4ee3\u7801\u5f00\u53d1\u6807\u51c6\uff0c\u6db5\u76d6\u7f16\u7801\u98ce\u683c\u3001\u5206\u5c42\u67b6\u6784\u3001\u6570\u636e\u5e93\u53ca\u5f02\u5e38\u5904\u7406\u7b49\u3002",
+  "contentLanguage": "zh",
+  "githubUrl": "https://github.com/dataelement/bisheng/tree/main/src/backend/.agents/skills/coding_guidelines",
+  "skillUrl": "https://skillsmp.com/creators/dataelement/bisheng/src-backend-agents-skills-coding-guidelines",
+  "stars": 11822,
+  "updatedAt": 1773370224
+}

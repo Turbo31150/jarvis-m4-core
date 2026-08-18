@@ -1,0 +1,11 @@
+{
+  "id": "nexu-io-open-design-skills-stitch-skill-skill-md",
+  "name": "stitch-design-taste",
+  "author": "nexu-io",
+  "description": "Semantic Design System Skill for Google Stitch. Generates agent-friendly DESIGN.md files that enforce premium, anti-generic UI standards \u2014 strict typography, calibrated color, asymmetric layouts, perpetual micro-motion, and hardware-accelerated performance.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/nexu-io/open-design/tree/main/skills/stitch-skill",
+  "skillUrl": "https://skillsmp.com/creators/nexu-io/open-design/skills-stitch-skill",
+  "stars": 83535,
+  "updatedAt": 1780385670
+}

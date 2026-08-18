@@ -1,0 +1,11 @@
+{
+  "id": "mukul975-anthropic-cybersecurity-skills-skills-performing-cloud-native-forensics-with-falco-skill-md",
+  "name": "performing-cloud-native-forensics-with-falco",
+  "author": "mukul975",
+  "description": "Uses Falco YAML rules for runtime threat detection in containers and Kubernetes, monitoring syscalls for shell spawns, file tampering, network anomalies, and privilege escalation. Manages Falco rules via the Falco gRPC API and parses Falco alert output. Use when building container runtime security or investigating k8s cluster compromises.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/mukul975/Anthropic-Cybersecurity-Skills/tree/main/skills/performing-cloud-native-forensics-with-falco",
+  "skillUrl": "https://skillsmp.com/creators/mukul975/anthropic-cybersecurity-skills/skills-performing-cloud-native-forensics-with-falco",
+  "stars": 27260,
+  "updatedAt": 1780308809
+}

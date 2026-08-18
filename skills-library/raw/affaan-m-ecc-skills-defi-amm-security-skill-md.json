@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-defi-amm-security-skill-md",
+  "name": "defi-amm-security",
+  "author": "affaan-m",
+  "description": "Security checklist for Solidity AMM contracts, liquidity pools, and swap flows. Covers reentrancy, CEI ordering, donation or inflation attacks, oracle manipulation, slippage, admin controls, and integer math.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/defi-amm-security",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-defi-amm-security",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

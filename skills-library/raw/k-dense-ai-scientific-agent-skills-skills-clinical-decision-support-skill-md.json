@@ -1,0 +1,11 @@
+{
+  "id": "k-dense-ai-scientific-agent-skills-skills-clinical-decision-support-skill-md",
+  "name": "clinical-decision-support",
+  "author": "K-Dense-AI",
+  "description": "Prepare and validate research-only clinical decision-support evaluation, evidence-profile, cohort, survival, biomarker/model, privacy, and governance artifacts. Use for aggregate or synthetic research documentation and traceability\u2014not patient care or live clinical operation.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/K-Dense-AI/scientific-agent-skills/tree/main/skills/clinical-decision-support",
+  "skillUrl": "https://skillsmp.com/creators/k-dense-ai/scientific-agent-skills/skills-clinical-decision-support",
+  "stars": 32587,
+  "updatedAt": 1785084854
+}

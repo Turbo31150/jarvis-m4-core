@@ -1,0 +1,11 @@
+{
+  "id": "dotnet-roslyn-github-skills-ci-analysis-skill-md",
+  "name": "ci-analysis",
+  "author": "dotnet",
+  "description": "Analyze CI build and test status from Azure DevOps and Helix for dotnet repository PRs. Use when checking CI status, investigating failures, determining if a PR is ready to merge, or given URLs containing dev.azure.com or helix.dot.net. Also use when asked \"why is CI red\", \"test failures\", \"retry CI\", \"rerun tests\", \"is CI green\", \"build failed\", \"checks failing\", or \"flaky tests\".",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/dotnet/roslyn/tree/main/.github/skills/ci-analysis",
+  "skillUrl": "https://skillsmp.com/creators/dotnet/roslyn/github-skills-ci-analysis",
+  "stars": 20593,
+  "updatedAt": 1776047944
+}

@@ -1,0 +1,11 @@
+{
+  "id": "posthog-posthog-agents-skills-django-migrations-skill-md",
+  "name": "django-migrations",
+  "author": "PostHog",
+  "description": "Django migration patterns and safety workflow for PostHog. Use when creating, adjusting, or reviewing Django/Postgres migrations, including non-blocking index/constraint changes, multi-phase schema changes, data backfills, migration conflict rebasing, and product model moves that require SeparateDatabaseAndState. Also use for any deletion or removal of a model, table, column, product, or app \u2014 including deleting migration files or retiring a feature \u2014 even when no migration is written.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/PostHog/posthog/tree/master/.agents/skills/django-migrations",
+  "skillUrl": "https://skillsmp.com/creators/posthog/posthog/agents-skills-django-migrations",
+  "stars": 37496,
+  "updatedAt": 1783004805
+}

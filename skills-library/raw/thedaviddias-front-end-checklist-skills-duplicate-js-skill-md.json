@@ -1,0 +1,11 @@
+{
+  "id": "thedaviddias-front-end-checklist-skills-duplicate-js-skill-md",
+  "name": "duplicate-js",
+  "author": "thedaviddias",
+  "description": "Use when auditing slow page loads, heavy assets, or rendering delays related to Remove duplicate JavaScript libraries. Verify the actual bottleneck in DevTools, Lighthouse, or field data before recommending changes.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedaviddias/Front-End-Checklist/tree/main/skills/duplicate-js",
+  "skillUrl": "https://skillsmp.com/creators/thedaviddias/front-end-checklist/skills-duplicate-js",
+  "stars": 73416,
+  "updatedAt": 1780091646
+}

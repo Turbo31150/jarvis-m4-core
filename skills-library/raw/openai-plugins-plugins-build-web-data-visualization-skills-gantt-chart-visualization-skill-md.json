@@ -1,0 +1,11 @@
+{
+  "id": "openai-plugins-plugins-build-web-data-visualization-skills-gantt-chart-visualization-skill-md",
+  "name": "gantt-chart-visualization",
+  "author": "openai",
+  "description": "Design, critique, route, and implement Gantt charts and schedule visualizations. Use when the user mentions Gantt charts, project schedules, roadmaps with task spans, milestones, dependencies, predecessors, critical path, baselines, WBS, resource plans, capacity timelines, MS Project, Primavera P6, Jira Advanced Roadmaps, GitHub Projects, Smartsheet, monday.com, Asana, ClickUp, Azure DevOps iterations, or importing/exporting project-management data for a timeline chart.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openai/plugins/tree/main/plugins/build-web-data-visualization/skills/gantt-chart-visualization",
+  "skillUrl": "https://skillsmp.com/creators/openai/plugins/plugins-build-web-data-visualization-skills-gantt-chart-visualization",
+  "stars": 4917,
+  "updatedAt": 1779839167
+}

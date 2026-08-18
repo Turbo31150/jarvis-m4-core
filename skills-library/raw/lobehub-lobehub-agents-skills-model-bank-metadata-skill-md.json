@@ -1,0 +1,11 @@
+{
+  "id": "lobehub-lobehub-agents-skills-model-bank-metadata-skill-md",
+  "name": "model-bank-metadata",
+  "author": "lobehub",
+  "description": "Backfill and maintain model-bank metadata (knowledgeCutoff, family, generation). Use when adding models, fixing cutoff/family data, running a metadata sweep across aiModels providers, or researching official knowledge cutoffs.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/lobehub/lobehub/tree/canary/.agents/skills/model-bank-metadata",
+  "skillUrl": "https://skillsmp.com/creators/lobehub/lobehub/agents-skills-model-bank-metadata",
+  "stars": 81243,
+  "updatedAt": 1781112557
+}

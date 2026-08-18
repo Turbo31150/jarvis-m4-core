@@ -1,0 +1,11 @@
+{
+  "id": "paperclipai-paperclip-packages-skills-catalog-catalog-bundled-quality-qa-acceptance-skill-md",
+  "name": "qa-acceptance",
+  "author": "paperclipai",
+  "description": "Produce QA acceptance criteria and a manual validation plan for a feature change \u2014 golden path, edge cases, error states, performance limits, and explicit pass/fail evidence.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/paperclipai/paperclip/tree/master/packages/skills-catalog/catalog/bundled/quality/qa-acceptance",
+  "skillUrl": "https://skillsmp.com/creators/paperclipai/paperclip/packages-skills-catalog-catalog-bundled-quality-qa-acceptance",
+  "stars": 75602,
+  "updatedAt": 1779989631
+}

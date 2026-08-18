@@ -1,0 +1,11 @@
+{
+  "id": "alirezarezvani-claude-skills-engineering-skills-observability-designer-skill-md",
+  "name": "observability-designer",
+  "author": "alirezarezvani",
+  "description": "Design production-ready observability strategies combining metrics, logs, and traces. Includes SLI/SLO design, golden-signals monitoring, alert optimization. Use when adding observability to a new service, refactoring alerting that is too noisy, or designing an SLO program before scaling production load.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/alirezarezvani/claude-skills/tree/main/engineering/skills/observability-designer",
+  "skillUrl": "https://skillsmp.com/creators/alirezarezvani/claude-skills/engineering-skills-observability-designer",
+  "stars": 23780,
+  "updatedAt": 1781150321
+}

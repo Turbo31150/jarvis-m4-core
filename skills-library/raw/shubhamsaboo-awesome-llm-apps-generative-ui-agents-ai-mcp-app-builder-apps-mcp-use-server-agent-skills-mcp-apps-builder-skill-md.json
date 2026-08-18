@@ -1,0 +1,11 @@
+{
+  "id": "shubhamsaboo-awesome-llm-apps-generative-ui-agents-ai-mcp-app-builder-apps-mcp-use-server-agent-skills-mcp-apps-builder-skill-md",
+  "name": "mcp-apps-builder",
+  "author": "Shubhamsaboo",
+  "description": "**MANDATORY for ALL MCP server work** - mcp-use framework best practices and patterns.\n\n**READ THIS FIRST** before any MCP server work, including:\n- Creating new MCP servers\n- Modifying existing MCP servers (adding/updating tools, resources, prompts, widgets)\n- Debugging MCP server issues or errors\n- Reviewing MCP server code for quality, security, or performance\n- Answering questions about MCP development or mcp-use patterns\n- Making ANY changes to server.tool(), server.resource(), server.prompt(), or widgets\n\nThis skill contains critical architecture decisions, security patterns, and common pitfalls.\nAlways consult the relevant reference files BEFORE implementing MCP features.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/generative_ui_agents/ai-mcp-app-builder/apps/mcp-use-server/.agent/skills/mcp-apps-builder",
+  "skillUrl": "https://skillsmp.com/creators/shubhamsaboo/awesome-llm-apps/generative-ui-agents-ai-mcp-app-builder-apps-mcp-use-server-agent-skills-mcp-apps-builder",
+  "stars": 130463,
+  "updatedAt": 1777387817
+}

@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-zh-cn-skills-agent-eval-skill-md",
+  "name": "agent-eval",
+  "author": "affaan-m",
+  "description": "\u7f16\u7801\u4ee3\u7406\uff08Claude Code\u3001Aider\u3001Codex\u7b49\uff09\u5728\u81ea\u5b9a\u4e49\u4efb\u52a1\u4e0a\u7684\u76f4\u63a5\u6bd4\u8f83\uff0c\u5305\u542b\u901a\u8fc7\u7387\u3001\u6210\u672c\u3001\u65f6\u95f4\u548c\u4e00\u81f4\u6027\u6307\u6807",
+  "contentLanguage": "zh",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/zh-CN/skills/agent-eval",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-zh-cn-skills-agent-eval",
+  "stars": 237500,
+  "updatedAt": 1774068958
+}

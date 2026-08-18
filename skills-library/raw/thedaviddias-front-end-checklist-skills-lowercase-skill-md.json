@@ -1,0 +1,11 @@
+{
+  "id": "thedaviddias-front-end-checklist-skills-lowercase-skill-md",
+  "name": "lowercase",
+  "author": "thedaviddias",
+  "description": "Use when auditing URL structure or configuring a new site's routing. Applies to any server or framework that allows case-insensitive file systems (Linux servers are case-sensitive by default).",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedaviddias/Front-End-Checklist/tree/main/skills/lowercase",
+  "skillUrl": "https://skillsmp.com/creators/thedaviddias/front-end-checklist/skills-lowercase",
+  "stars": 73416,
+  "updatedAt": 1780091646
+}

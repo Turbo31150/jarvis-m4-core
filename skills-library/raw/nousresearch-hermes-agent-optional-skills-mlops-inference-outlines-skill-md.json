@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-optional-skills-mlops-inference-outlines-skill-md",
+  "name": "outlines",
+  "author": "NousResearch",
+  "description": "Outlines: structured JSON/regex/Pydantic LLM generation.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/optional-skills/mlops/inference/outlines",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/optional-skills-mlops-inference-outlines",
+  "stars": 225204,
+  "updatedAt": 1784906281
+}

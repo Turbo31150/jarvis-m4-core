@@ -1,0 +1,11 @@
+{
+  "id": "apache-airflow-providers-common-ai-src-airflow-providers-common-ai-example-dags-skills-sql-reporting-skill-md",
+  "name": "sql-reporting",
+  "author": "apache",
+  "description": "Conventions and review steps for writing analytics SQL against the warehouse. Use whenever the task involves querying tables, building a report, or aggregating metrics.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/apache/airflow/tree/main/providers/common/ai/src/airflow/providers/common/ai/example_dags/skills/sql-reporting",
+  "skillUrl": "https://skillsmp.com/creators/apache/airflow/providers-common-ai-src-airflow-providers-common-ai-example-dags-skills-sql-reporting",
+  "stars": 46374,
+  "updatedAt": 1780189637
+}

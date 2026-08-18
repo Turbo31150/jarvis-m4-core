@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-optional-skills-devops-docker-management-skill-md",
+  "name": "docker-management",
+  "author": "NousResearch",
+  "description": "Manage Docker containers, images, volumes, and Compose.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/optional-skills/devops/docker-management",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/optional-skills-devops-docker-management",
+  "stars": 225204,
+  "updatedAt": 1784866036
+}

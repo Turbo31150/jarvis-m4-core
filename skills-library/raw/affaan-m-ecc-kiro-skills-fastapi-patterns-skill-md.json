@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-kiro-skills-fastapi-patterns-skill-md",
+  "name": "fastapi-patterns",
+  "author": "affaan-m",
+  "description": "FastAPI patterns for async APIs, dependency injection, Pydantic request and response models, OpenAPI docs, tests, security, and production readiness.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/.kiro/skills/fastapi-patterns",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/kiro-skills-fastapi-patterns",
+  "stars": 237500,
+  "updatedAt": 1780809997
+}

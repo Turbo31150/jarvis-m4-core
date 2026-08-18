@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-skills-github-skill-md",
+  "name": "github",
+  "author": "openclaw",
+  "description": "GitHub CLI for issues, PRs, CI/check logs, comments, reviews, releases, repos, and gh api queries.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/skills/github",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/skills-github",
+  "stars": 385119,
+  "updatedAt": 1783523229
+}

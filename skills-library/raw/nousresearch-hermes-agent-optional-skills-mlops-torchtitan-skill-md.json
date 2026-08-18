@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-optional-skills-mlops-torchtitan-skill-md",
+  "name": "distributed-llm-pretraining-torchtitan",
+  "author": "NousResearch",
+  "description": "Pretrain LLMs at scale with PyTorch 4D parallelism.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/optional-skills/mlops/torchtitan",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/optional-skills-mlops-torchtitan",
+  "stars": 225204,
+  "updatedAt": 1784906285
+}

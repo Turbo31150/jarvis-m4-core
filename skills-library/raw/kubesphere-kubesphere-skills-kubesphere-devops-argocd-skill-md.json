@@ -1,0 +1,11 @@
+{
+  "id": "kubesphere-kubesphere-skills-kubesphere-devops-argocd-skill-md",
+  "name": "kubesphere-devops-argocd",
+  "author": "kubesphere",
+  "description": "Use when configuring ArgoCD in KubeSphere DevOps, including GitOps deployments, application management, SSO setup, or troubleshooting ArgoCD issues",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/kubesphere/kubesphere/tree/master/skills/kubesphere-devops-argocd",
+  "skillUrl": "https://skillsmp.com/creators/kubesphere/kubesphere/skills-kubesphere-devops-argocd",
+  "stars": 17017,
+  "updatedAt": 1774838084
+}

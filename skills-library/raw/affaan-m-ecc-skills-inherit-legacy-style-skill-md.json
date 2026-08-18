@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-inherit-legacy-style-skill-md",
+  "name": "inherit-legacy-style",
+  "author": "affaan-m",
+  "description": "Legacy-project style inheritance skill. Use when the user types /inherit-legacy-style, or when onboarding an AI coding agent onto a hand-written legacy project and you need to prevent \"style drift\" (the model imposing its pretrained mainstream idioms onto the project). Language- and framework-agnostic \u2014 it aligns meta-architecture only, not syntax. Once run, it becomes a behavioral constraint on all subsequent coding tasks. Do NOT use for pure research or one-off questions unrelated to code-style alignment.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/inherit-legacy-style",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-inherit-legacy-style",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

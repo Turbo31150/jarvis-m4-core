@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruview-claude-skills-v3-mcp-optimization-skill-md",
+  "name": "v3-mcp-optimization",
+  "author": "ruvnet",
+  "description": "MCP server optimization and transport layer enhancement for claude-flow v3. Implements connection pooling, load balancing, tool registry optimization, and performance monitoring for sub-100ms response times.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/RuView/tree/main/.claude/skills/v3-mcp-optimization",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruview/claude-skills-v3-mcp-optimization",
+  "stars": 88440,
+  "updatedAt": 1768273876
+}

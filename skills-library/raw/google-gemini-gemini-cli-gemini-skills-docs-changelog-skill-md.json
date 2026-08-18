@@ -1,0 +1,11 @@
+{
+  "id": "google-gemini-gemini-cli-gemini-skills-docs-changelog-skill-md",
+  "name": "docs-changelog",
+  "author": "google-gemini",
+  "description": "Generates and formats changelog files for a new release based on provided version and raw changelog data.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/google-gemini/gemini-cli/tree/main/.gemini/skills/docs-changelog",
+  "skillUrl": "https://skillsmp.com/creators/google-gemini/gemini-cli/gemini-skills-docs-changelog",
+  "stars": 106351,
+  "updatedAt": 1775760324
+}

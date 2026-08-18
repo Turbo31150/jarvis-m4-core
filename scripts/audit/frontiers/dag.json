@@ -1,0 +1,10 @@
+{
+  "Ω": ["agent", "mem", "web", "publish", "mail", "media", "board", "Ω"],
+  "agent": [],
+  "mem": [],
+  "web": [],
+  "publish": ["agent", "mail"],
+  "mail": [],
+  "media": ["agent", "web"],
+  "board": ["agent", "mem", "web", "media"]
+}

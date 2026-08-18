@@ -1,0 +1,11 @@
+{
+  "id": "flashinfer-ai-flashinfer-claude-skills-benchmark-kernel-skill-md",
+  "name": "benchmark-kernel",
+  "author": "flashinfer-ai",
+  "description": "Guide for benchmarking FlashInfer kernels with CUPTI timing",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/flashinfer-ai/flashinfer/tree/main/.claude/skills/benchmark-kernel",
+  "skillUrl": "https://skillsmp.com/creators/flashinfer-ai/flashinfer/claude-skills-benchmark-kernel",
+  "stars": 6095,
+  "updatedAt": 1784236855
+}

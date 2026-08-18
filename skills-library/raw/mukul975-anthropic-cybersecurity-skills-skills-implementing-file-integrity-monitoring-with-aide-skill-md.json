@@ -1,0 +1,11 @@
+{
+  "id": "mukul975-anthropic-cybersecurity-skills-skills-implementing-file-integrity-monitoring-with-aide-skill-md",
+  "name": "implementing-file-integrity-monitoring-with-aide",
+  "author": "mukul975",
+  "description": "Configures AIDE (Advanced Intrusion Detection Environment) for file integrity monitoring on Linux, covering baseline database creation, scheduled integrity checks via cron, change detection, and alerting on unauthorized modifications. Use when setting up host-based file integrity monitoring, detecting unauthorized file changes, or meeting compliance requirements for FIM on Linux systems.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/mukul975/Anthropic-Cybersecurity-Skills/tree/main/skills/implementing-file-integrity-monitoring-with-aide",
+  "skillUrl": "https://skillsmp.com/creators/mukul975/anthropic-cybersecurity-skills/skills-implementing-file-integrity-monitoring-with-aide",
+  "stars": 27260,
+  "updatedAt": 1785688333
+}

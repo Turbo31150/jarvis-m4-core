@@ -1,0 +1,11 @@
+{
+  "id": "habitat-thinking-ai-literacy-superpowers-ai-literacy-superpowers-skills-model-sovereignty-skill-md",
+  "name": "model-sovereignty",
+  "author": "Habitat-Thinking",
+  "description": "This skill should be used when the user asks about \"local models\", \"custom models\", \"fine-tuning\", \"self-hosting models\", \"model selection\", \"which model should I use\", \"data privacy and models\", \"LoRA\", \"RAG vs fine-tuning\", \"Ollama\", \"vLLM\", or wants guidance on whether to build, host, or customise their own AI models.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Habitat-Thinking/ai-literacy-superpowers/tree/main/ai-literacy-superpowers/skills/model-sovereignty",
+  "skillUrl": "https://skillsmp.com/creators/habitat-thinking/ai-literacy-superpowers/ai-literacy-superpowers-skills-model-sovereignty",
+  "stars": 43,
+  "updatedAt": 1775688473
+}

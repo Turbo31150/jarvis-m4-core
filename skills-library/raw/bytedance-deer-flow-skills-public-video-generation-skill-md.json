@@ -1,0 +1,11 @@
+{
+  "id": "bytedance-deer-flow-skills-public-video-generation-skill-md",
+  "name": "video-generation",
+  "author": "bytedance",
+  "description": "Use this skill when the user requests to generate, create, or imagine videos. Supports structured prompts and reference image for guided generation.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/bytedance/deer-flow/tree/main/skills/public/video-generation",
+  "skillUrl": "https://skillsmp.com/creators/bytedance/deer-flow/skills-public-video-generation",
+  "stars": 79272,
+  "updatedAt": 1780927478
+}

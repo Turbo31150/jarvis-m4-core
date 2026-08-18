@@ -1,0 +1,11 @@
+{
+  "id": "midudev-autoskills-packages-autoskills-skills-registry-pydantic-skill-md",
+  "name": "pydantic",
+  "author": "midudev",
+  "description": "Python data validation using type hints and runtime type checking with Pydantic v2's Rust-powered core for high-performance validation in FastAPI, Django, and configuration management.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/midudev/autoskills/tree/main/packages/autoskills/skills-registry/pydantic",
+  "skillUrl": "https://skillsmp.com/creators/midudev/autoskills/packages-autoskills-skills-registry-pydantic",
+  "stars": 6625,
+  "updatedAt": 1777059413
+}

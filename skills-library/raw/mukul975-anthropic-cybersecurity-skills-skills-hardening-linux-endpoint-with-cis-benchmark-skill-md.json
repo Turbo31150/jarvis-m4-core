@@ -1,0 +1,11 @@
+{
+  "id": "mukul975-anthropic-cybersecurity-skills-skills-hardening-linux-endpoint-with-cis-benchmark-skill-md",
+  "name": "hardening-linux-endpoint-with-cis-benchmark",
+  "author": "mukul975",
+  "description": "Hardens Linux endpoints using CIS Benchmark recommendations for Ubuntu, RHEL, and CentOS to reduce attack surface, enforce security baselines, and meet compliance requirements. Use when deploying new Linux servers, remediating audit findings, or establishing security baselines for Linux infrastructure. Activates for requests involving Linux hardening, CIS benchmarks for Linux, server security baselines, or Linux configuration compliance.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/mukul975/Anthropic-Cybersecurity-Skills/tree/main/skills/hardening-linux-endpoint-with-cis-benchmark",
+  "skillUrl": "https://skillsmp.com/creators/mukul975/anthropic-cybersecurity-skills/skills-hardening-linux-endpoint-with-cis-benchmark",
+  "stars": 27260,
+  "updatedAt": 1780308809
+}

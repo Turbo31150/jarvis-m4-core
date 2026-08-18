@@ -1,0 +1,11 @@
+{
+  "id": "dmitrytruelecter-multi-agent-skills-sentinel-skill-md",
+  "name": "sentinel",
+  "author": "DmitryTrueLecter",
+  "description": "Sentinel: meta-agent for prompt quality and pipeline health. /dma:sentinel enters conversation mode; /dma:sentinel full-audit, /dma:sentinel retrospective <EPIC-KEY>, /dma:sentinel healthcheck, or /dma:sentinel healthcheck fix runs immediately.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/DmitryTrueLecter/multi-agent/tree/main/skills/sentinel",
+  "skillUrl": "https://skillsmp.com/creators/dmitrytruelecter/multi-agent/skills-sentinel",
+  "stars": 0,
+  "updatedAt": 1780839651
+}

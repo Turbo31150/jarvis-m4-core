@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruflo-plugins-ruflo-rag-memory-skills-memory-search-skill-md",
+  "name": "memory-search",
+  "author": "ruvnet",
+  "description": "SOTA semantic search \u2014 hybrid (sparse+dense), Graph RAG multi-hop, MMR diversity reranking, recency weighting",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/ruflo/tree/main/plugins/ruflo-rag-memory/skills/memory-search",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruflo/plugins-ruflo-rag-memory-skills-memory-search",
+  "stars": 66991,
+  "updatedAt": 1784257589
+}

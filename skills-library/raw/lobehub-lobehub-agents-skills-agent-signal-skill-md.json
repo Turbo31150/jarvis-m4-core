@@ -1,0 +1,11 @@
+{
+  "id": "lobehub-lobehub-agents-skills-agent-signal-skill-md",
+  "name": "agent-signal",
+  "author": "lobehub",
+  "description": "Build or extend LobeHub Agent Signal pipelines. Use for signal sources, signal/action types, policies, middleware, workflow handoff, dedupe, scope behavior, or observability.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/lobehub/lobehub/tree/canary/.agents/skills/agent-signal",
+  "skillUrl": "https://skillsmp.com/creators/lobehub/lobehub/agents-skills-agent-signal",
+  "stars": 81243,
+  "updatedAt": 1785300910
+}

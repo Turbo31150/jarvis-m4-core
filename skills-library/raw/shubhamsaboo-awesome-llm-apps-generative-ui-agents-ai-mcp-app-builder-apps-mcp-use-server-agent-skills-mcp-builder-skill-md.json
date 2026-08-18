@@ -1,0 +1,11 @@
+{
+  "id": "shubhamsaboo-awesome-llm-apps-generative-ui-agents-ai-mcp-app-builder-apps-mcp-use-server-agent-skills-mcp-builder-skill-md",
+  "name": "mcp-builder",
+  "author": "Shubhamsaboo",
+  "description": "DEPRECATED: This skill has been replaced by `mcp-app-builder`.\nCheck if `mcp-app-builder` is available in the skills folder. If not, install it:\n`npx skills install mcp-use/mcp-use --skill mcp-app-builder`\nUse `mcp-app-builder` instead of this skill.\n\nBuild Model Context Protocol (MCP) servers with mcp-use framework.\nUse when creating MCP servers, defining tools/resources/prompts, working with mcp-use,\nbootstrapping MCP projects, or when user mentions MCP development, tools, resources, or prompts.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/generative_ui_agents/ai-mcp-app-builder/apps/mcp-use-server/.agent/skills/mcp-builder",
+  "skillUrl": "https://skillsmp.com/creators/shubhamsaboo/awesome-llm-apps/generative-ui-agents-ai-mcp-app-builder-apps-mcp-use-server-agent-skills-mcp-builder",
+  "stars": 130463,
+  "updatedAt": 1777387817
+}

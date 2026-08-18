@@ -1,0 +1,11 @@
+{
+  "id": "nexu-io-open-design-skills-youtube-clipper-skill-md",
+  "name": "youtube-clipper",
+  "author": "nexu-io",
+  "description": "YouTube clip generation and editing with automated workflows \u2014 pull source video, slice highlights, add captions, and export.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/nexu-io/open-design/tree/main/skills/youtube-clipper",
+  "skillUrl": "https://skillsmp.com/creators/nexu-io/open-design/skills-youtube-clipper",
+  "stars": 83535,
+  "updatedAt": 1778492914
+}

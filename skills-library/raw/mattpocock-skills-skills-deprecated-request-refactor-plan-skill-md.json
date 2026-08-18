@@ -1,0 +1,11 @@
+{
+  "id": "mattpocock-skills-skills-deprecated-request-refactor-plan-skill-md",
+  "name": "request-refactor-plan",
+  "author": "mattpocock",
+  "description": "Create a detailed refactor plan with tiny commits via user interview, then file it as a GitHub issue. Use when user wants to plan a refactor, create a refactoring RFC, or break a refactor into safe incremental steps.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/mattpocock/skills/tree/main/skills/deprecated/request-refactor-plan",
+  "skillUrl": "https://skillsmp.com/creators/mattpocock/skills/skills-deprecated-request-refactor-plan",
+  "stars": 202506,
+  "updatedAt": 1783943838
+}

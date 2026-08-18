@@ -1,0 +1,11 @@
+{
+  "id": "appwrite-appwrite-agents-skills-self-hosted-release-skill-md",
+  "name": "self-hosted-release",
+  "author": "appwrite",
+  "description": "Enforce Appwrite self-hosted release readiness checks. Use when validating a self-hosted RC or final release, running fresh Docker Compose install tests, testing realistic e2e workflows, discovering the previous stable release baseline, upgrading seeded data from the previous self-hosted release, verifying migrations, compatibility filters, release metadata, installer behavior, or deciding whether a self-hosted release is safe to publish.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/appwrite/appwrite/tree/main/.agents/skills/self-hosted-release",
+  "skillUrl": "https://skillsmp.com/creators/appwrite/appwrite/agents-skills-self-hosted-release",
+  "stars": 56779,
+  "updatedAt": 1782412194
+}

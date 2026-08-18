@@ -264,8 +264,10 @@ def register(app):
                     "Génère le mot complet avec talon-réponse."
                 )
                 try:
-                    texte = ai_local.generate(system_prompt, user_prompt)
-                    return jsonify({"texte": texte, "source": "ia"})
+                    # generate(user, system=...) : l'ordre était inversé, et la
+                    # fonction renvoie un dict — pas une chaîne.
+                    res = ai_local.generate(user_prompt, system=system_prompt)
+                    return jsonify({"texte": res["text"], "source": res["backend"]})
                 except Exception:
                     pass  # fallback générique ci-dessous
 

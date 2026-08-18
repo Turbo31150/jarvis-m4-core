@@ -1,0 +1,124 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Guide d&#x27;installation &amp; mise en place — pack-n8n-workflows</title><style>
+body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;max-width:820px;
+margin:0 auto;padding:40px 28px;color:#1a1a2e;line-height:1.6}
+h1{font-size:2em;border-bottom:3px solid #4361ee;padding-bottom:.3em;color:#3a0ca3}
+h2{color:#3a0ca3;border-bottom:1px solid #e0e0f0;padding-bottom:.2em;margin-top:1.6em}
+h3{color:#4361ee}code{background:#f2f2fa;padding:2px 5px;border-radius:4px;font-size:.9em}
+pre{background:#1a1a2e;color:#e0e0f0;padding:14px;border-radius:8px;overflow-x:auto}
+pre code{background:none;color:inherit}table{border-collapse:collapse;width:100%}
+td,th{border:1px solid #ddd;padding:8px}th{background:#4361ee;color:#fff}
+blockquote{border-left:4px solid #4361ee;margin:0;padding-left:16px;color:#555}
+.cover{text-align:center;padding:30px 0 10px;border-bottom:2px dashed #4361ee;margin-bottom:24px}
+.cover .badge{display:inline-block;background:#3a0ca3;color:#fff;padding:6px 16px;
+border-radius:20px;font-size:.85em;letter-spacing:1px}
+.sep{margin:40px 0;border:none;border-top:2px dashed #ccd}
+</style></head><body>
+<div class="cover"><span class="badge">GUIDE D'INSTALLATION</span>
+<h1 style="border:none">pack-n8n-workflows</h1>
+<p>Présentation · Installation / mise en place · Usage</p></div>
+<h1>Présentation</h1>
+<h1 id="fiche-de-vente-pack-n8n-workflows">Fiche de vente — pack-n8n-workflows</h1>
+<blockquote>
+<p>Prix PROPOSÉ, à valider par Franck (pack de workflows).</p>
+</blockquote>
+<h2 id="accroche">Accroche</h2>
+<p>5 workflows n8n prêts à importer — surveillance mail, LinkedIn, prospection,
+planning — nettoyés de tout secret, à brancher sur vos propres credentials.</p>
+<h2 id="le-probleme">Le problème</h2>
+<p>Construire des workflows d'automatisation n8n de zéro prend des heures, et les
+templates trouvés en ligne embarquent souvent des credentials ou des chemins
+étrangers.</p>
+<h2 id="la-solution">La solution</h2>
+<p>Ce pack livre 5 workflows structurés et <strong>scrubbés</strong> : les jetons passent par
+variables d'environnement n8n, aucun secret ni donnée personnelle. Vous importez,
+vous branchez vos identifiants, vous activez.</p>
+<h2 id="ce-que-vous-recevez">Ce que vous recevez</h2>
+<ul>
+<li>5 fichiers <code>.json</code> prêts à importer</li>
+<li>Guide d'import + rebranchement des credentials</li>
+</ul>
+<h2 id="points-forts">Points forts</h2>
+<ul>
+<li>0 secret / 0 PII (auditables)</li>
+<li>Import direct dans n8n</li>
+<li>Cas d'usage business concrets (mail, LinkedIn, prospection, planning)</li>
+</ul>
+<h2 id="prix">Prix</h2>
+<p><strong>39 € — paiement unique</strong> [PROPOSÉ, à valider].</p>
+<h2 id="cible">Cible</h2>
+<p>Indépendants et TPE qui veulent automatiser mail/prospection sans partir d'une
+page blanche.</p>
+<hr class="sep"><h1>Prise en main</h1>
+<h1 id="pack-n8n-workflows">pack-n8n-workflows</h1>
+<p>Pack de workflows n8n prêts à importer, <strong>scrubbés de tout credential</strong>. Les
+identifiants et jetons sont référencés par variable d'environnement n8n
+(<code>{{ $env.* }}</code>), jamais en clair.</p>
+<h2 id="contenu">Contenu</h2>
+<pre><code>workflows/
+  planning-prod-trigger.json            # déclencheur planning (webhook + auth par env)
+  workflow_01_mail_surveillance.json    # surveillance boîte mail
+  workflow_02_linkedin_automation.json  # automatisation LinkedIn
+  workflow_03_network_expansion.json    # expansion réseau
+  workflow_04_notebooklm_cloud_prospecting.json  # prospection via NotebookLM
+README.md / FICHE-VENTE.md / LICENSE.txt
+</code></pre>
+<h2 id="installation">Installation</h2>
+<ol>
+<li>Dans n8n : <strong>Workflows → Import from File</strong>, sélectionnez un <code>.json</code>.</li>
+<li>Recréez vos <strong>credentials</strong> dans n8n (Settings → Credentials) et associez-les
+   aux nodes concernés — aucun credential n'est fourni dans le pack.</li>
+<li>Définissez les variables d'environnement référencées (ex.
+   <code>PLANNING_TRIGGER_TOKEN</code>) côté n8n.</li>
+<li>Activez le workflow.</li>
+</ol>
+<h2 id="securite">Sécurité</h2>
+<p>Aucun secret, jeton ni chemin personnel dans les fichiers : tout est paramétré.
+Vérifiez / adaptez les chemins et credentials à votre environnement avant
+activation.</p>
+<hr class="sep"><h1>Dossier complet — installation & usage</h1>
+<h1 id="dossier-complet-alkymia-boost">DOSSIER COMPLET — AlkymIA Boost</h1>
+<blockquote>
+<p>Dossier self-contained. Source : Notion (Naming, PRIX FINAUX, Présentations, Preuves). Aucun secret dans ce dossier.</p>
+</blockquote>
+<h2 id="nom-commercial-tagline">Nom commercial &amp; tagline</h2>
+<p><strong>AlkymIA Boost</strong> — « Prospection, emails, réseaux : automatisés pour vous. »
+Gamme : La Fabrique AlkymIA. (Nom technique interne : pack-n8n-workflows.)</p>
+<h2 id="cible">Cible</h2>
+<p>Indépendants et TPE en prospection/marketing qui veulent des automatisations métier prêtes à brancher (prospection, email, réseaux sociaux).</p>
+<h2 id="probleme">Problème</h2>
+<p>Construire ses workflows de zéro prend des semaines ; les modèles génériques ne collent jamais au métier.</p>
+<h2 id="promesse">Promesse</h2>
+<p>Des packs de workflows n8n éprouvés, orientés résultat, que vous branchez à vos outils pour automatiser prospection, emailing et social.</p>
+<h2 id="ce-qui-est-inclus-fichiers-reels-de-ce-dossier">Ce qui est inclus (fichiers réels de ce dossier)</h2>
+<ul>
+<li><code>workflows/</code> — packs de workflows n8n prêts à l'emploi (prospection / email / social)</li>
+<li><code>README.md</code> — documentation d'installation et de personnalisation</li>
+<li><code>FICHE-VENTE.md</code> — argumentaire</li>
+<li><code>LICENSE.txt</code> — licence propriétaire</li>
+<li>Support humain par téléphone pour le branchement.</li>
+</ul>
+<h2 id="differenciateur">Différenciateur</h2>
+<p>Workflows exécutables en local (déploiement souverain) + assistance humaine au téléphone pour l'adaptation à votre cas. Curation métier FR (là où les templates génériques gratuits ne collent pas).</p>
+<h2 id="preuves-reelles-honnetes">Preuves réelles (honnêtes)</h2>
+<ul>
+<li>Sites de vente réellement en production sur Netlify + portfolio pro (Lighthouse 98/100). [source : sites-live-2026, franckdelmas.dev]</li>
+<li>Plus de 160 dépôts de code — capacité de production démontrée.</li>
+<li>[À CONFIRMER] Témoignage + STAT (nombre de workflows / gains observés).</li>
+</ul>
+<h2 id="offre-prix-cta">Offre, prix &amp; CTA</h2>
+<p><strong>147 € le bundle de 3 packs</strong> (unité 47–67 €/pack). Paiement unique.
+CTA : « Je récupère mes packs Boost ».
+Canal : Gumroad.</p>
+<h2 id="landing">Landing</h2>
+<p>Aucune landing dédiée dans ce dossier (non requise pour ce produit).</p>
+<h2 id="placeholders-honnetes-restants">Placeholders honnêtes restants</h2>
+<ul>
+<li>Témoignage + statistiques d'usage.</li>
+<li>Différenciation valeur perçue vs templates gratuits (curation FR + support) à mettre en avant.</li>
+<li>Contact support dans <code>LICENSE.txt</code>.</li>
+</ul>
+<hr class="sep"><p style="text-align:center;color:#888;font-size:.85em">
+Document généré pour livraison (zip / systeme.io). JARVIS OS — livrables.</p>
+</body></html>

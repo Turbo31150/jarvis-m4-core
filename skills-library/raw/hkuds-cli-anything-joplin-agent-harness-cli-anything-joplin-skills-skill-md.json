@@ -1,0 +1,11 @@
+{
+  "id": "hkuds-cli-anything-joplin-agent-harness-cli-anything-joplin-skills-skill-md",
+  "name": "cli-anything-joplin",
+  "author": "HKUDS",
+  "description": "Command-line interface for Joplin workflows using the real joplin terminal backend",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/HKUDS/CLI-Anything/tree/main/joplin/agent-harness/cli_anything/joplin/skills",
+  "skillUrl": "https://skillsmp.com/creators/hkuds/cli-anything/joplin-agent-harness-cli-anything-joplin-skills",
+  "stars": 46608,
+  "updatedAt": 1779967594
+}

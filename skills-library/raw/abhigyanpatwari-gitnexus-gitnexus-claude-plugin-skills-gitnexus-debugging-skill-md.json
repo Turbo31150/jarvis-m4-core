@@ -1,0 +1,11 @@
+{
+  "id": "abhigyanpatwari-gitnexus-gitnexus-claude-plugin-skills-gitnexus-debugging-skill-md",
+  "name": "gitnexus-debugging",
+  "author": "abhigyanpatwari",
+  "description": "Use when the user is debugging a bug, tracing an error, or asking why something fails. Examples: \"Why is X failing?\", \"Where does this error come from?\", \"Trace this bug\"",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/abhigyanpatwari/GitNexus/tree/main/gitnexus-claude-plugin/skills/gitnexus-debugging",
+  "skillUrl": "https://skillsmp.com/creators/abhigyanpatwari/gitnexus/gitnexus-claude-plugin-skills-gitnexus-debugging",
+  "stars": 45026,
+  "updatedAt": 1784470044
+}

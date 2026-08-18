@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruflo-plugins-ruflo-autopilot-skills-autopilot-loop-skill-md",
+  "name": "autopilot-loop",
+  "author": "ruvnet",
+  "description": "Run an autonomous /loop iteration -- check progress, work on next task, schedule next wake",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/ruflo/tree/main/plugins/ruflo-autopilot/skills/autopilot-loop",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruflo/plugins-ruflo-autopilot-skills-autopilot-loop",
+  "stars": 66991,
+  "updatedAt": 1784257589
+}

@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-optional-skills-mlops-slime-skill-md",
+  "name": "slime-rl-training",
+  "author": "NousResearch",
+  "description": "RL post-training for LLMs with Megatron and SGLang.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/optional-skills/mlops/slime",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/optional-skills-mlops-slime",
+  "stars": 225204,
+  "updatedAt": 1784866036
+}

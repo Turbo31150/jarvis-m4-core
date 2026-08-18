@@ -1,0 +1,11 @@
+{
+  "id": "thedaviddias-front-end-checklist-skills-mutation-testing-skill-md",
+  "name": "mutation-testing",
+  "author": "thedaviddias",
+  "description": "Use when evaluating test quality on modules containing business logic, calculation utilities, or state machines to determine whether the tests provide genuine defect detection.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedaviddias/Front-End-Checklist/tree/main/skills/mutation-testing",
+  "skillUrl": "https://skillsmp.com/creators/thedaviddias/front-end-checklist/skills-mutation-testing",
+  "stars": 73416,
+  "updatedAt": 1780091646
+}

@@ -1,0 +1,11 @@
+{
+  "id": "shareai-lab-learn-claude-code-skills-agent-builder-skill-md",
+  "name": "agent-builder",
+  "author": "shareAI-lab",
+  "description": "Design and build AI agents for any domain. Use when users:\n(1) ask to \"create an agent\", \"build an assistant\", or \"design an AI system\"\n(2) want to understand agent architecture, agentic patterns, or autonomous AI\n(3) need help with capabilities, subagents, planning, or skill mechanisms\n(4) ask about Claude Code, Cursor, or similar agent internals\n(5) want to build agents for business, research, creative, or operational tasks\nKeywords: agent, assistant, autonomous, workflow, tool use, multi-step, orchestration",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/shareAI-lab/learn-claude-code/tree/main/skills/agent-builder",
+  "skillUrl": "https://skillsmp.com/creators/shareai-lab/learn-claude-code/skills-agent-builder",
+  "stars": 73191,
+  "updatedAt": 1773767974
+}

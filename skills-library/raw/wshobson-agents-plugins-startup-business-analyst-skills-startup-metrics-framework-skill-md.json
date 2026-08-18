@@ -1,0 +1,11 @@
+{
+  "id": "wshobson-agents-plugins-startup-business-analyst-skills-startup-metrics-framework-skill-md",
+  "name": "startup-metrics-framework",
+  "author": "wshobson",
+  "description": "Track, calculate, and optimize key performance metrics for SaaS, marketplace, consumer, and B2B startups from seed through Series A, including unit economics, growth efficiency, and cash management. Use this skill when defining a metrics framework, calculating CAC/LTV/burn multiple, benchmarking business health, or preparing metrics dashboards for investors or board reporting.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/wshobson/agents/tree/main/plugins/startup-business-analyst/skills/startup-metrics-framework",
+  "skillUrl": "https://skillsmp.com/creators/wshobson/agents/plugins-startup-business-analyst-skills-startup-metrics-framework",
+  "stars": 38472,
+  "updatedAt": 1774489443
+}

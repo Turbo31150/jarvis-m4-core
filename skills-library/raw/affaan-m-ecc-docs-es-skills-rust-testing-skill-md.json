@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-es-skills-rust-testing-skill-md",
+  "name": "rust-testing",
+  "author": "affaan-m",
+  "description": "Patrones de pruebas en Rust incluyendo pruebas unitarias, de integraci\u00f3n, async, basadas en propiedades, mocking y cobertura. Sigue la metodolog\u00eda TDD.",
+  "contentLanguage": "es",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/es/skills/rust-testing",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-es-skills-rust-testing",
+  "stars": 237500,
+  "updatedAt": 1780810002
+}

@@ -1,0 +1,11 @@
+{
+  "id": "oven-sh-bun-claude-skills-slowest-tests-skill-md",
+  "name": "slowest-tests",
+  "author": "oven-sh",
+  "description": "Find the top-N slowest test files in CI from a recent BuildKite run, optionally posting the results to a Slack channel as a formatted table. Use when asked to find slow CI tests, \"what's making CI slow\", or to post a slow-test report to Slack.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/oven-sh/bun/tree/main/.claude/skills/slowest-tests",
+  "skillUrl": "https://skillsmp.com/creators/oven-sh/bun/claude-skills-slowest-tests",
+  "stars": 95263,
+  "updatedAt": 1776980369
+}

@@ -1,0 +1,11 @@
+{
+  "id": "kubesphere-kubesphere-skills-kubesphere-devops-pipeline-skill-md",
+  "name": "kubesphere-devops-pipeline",
+  "author": "kubesphere",
+  "description": "Use when creating, running, or managing CI/CD pipelines in KubeSphere DevOps, including pipeline API operations and run monitoring",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/kubesphere/kubesphere/tree/master/skills/kubesphere-devops-pipeline",
+  "skillUrl": "https://skillsmp.com/creators/kubesphere/kubesphere/skills-kubesphere-devops-pipeline",
+  "stars": 17017,
+  "updatedAt": 1777273266
+}

@@ -1,0 +1,11 @@
+{
+  "id": "leonxlnx-taste-skill-skills-output-skill-skill-md",
+  "name": "full-output-enforcement",
+  "author": "Leonxlnx",
+  "description": "Overrides default LLM truncation behavior. Enforces complete code generation, bans placeholder patterns, and handles token-limit splits cleanly. Apply to any task requiring exhaustive, unabridged output.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Leonxlnx/taste-skill/tree/main/skills/output-skill",
+  "skillUrl": "https://skillsmp.com/creators/leonxlnx/taste-skill/skills-output-skill",
+  "stars": 71572,
+  "updatedAt": 1774023400
+}

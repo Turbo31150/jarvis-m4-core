@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-delivery-gate-skill-md",
+  "name": "delivery-gate",
+  "author": "affaan-m",
+  "description": "Stop hook that blocks Claude from finishing until quality checks pass. Detects rationalization patterns (surface text heuristics), stale learning logs (filesystem mtime), and low disk space. Complements self-audit by mechanically enforcing learning capture habits.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/delivery-gate",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-delivery-gate",
+  "stars": 237500,
+  "updatedAt": 1782786175
+}

@@ -1,0 +1,11 @@
+{
+  "id": "lobehub-lobehub-agents-skills-agent-work-skill-md",
+  "name": "agent-work",
+  "author": "lobehub",
+  "description": "Agent Work registry (works / work_versions): how agent outputs \u2014 github/linear entities, files, documents, tasks \u2014 get registered, deduped, and rendered as cards, and how to extend it with a new skill provider, a new shell CLI scanner, or a new Work type.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/lobehub/lobehub/tree/canary/.agents/skills/agent-work",
+  "skillUrl": "https://skillsmp.com/creators/lobehub/lobehub/agents-skills-agent-work",
+  "stars": 81243,
+  "updatedAt": 1785248875
+}

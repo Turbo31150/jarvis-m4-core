@@ -1,0 +1,11 @@
+{
+  "id": "zipstack-unstract-claude-skills-adapter-ops-skill-md",
+  "name": "adapter-ops",
+  "author": "Zipstack",
+  "description": "Extend LLM and embedding adapters in unstract/sdk1. Use when adding new adapters (LLM or embedding), removing adapters, adding/removing models to existing adapters, or editing adapter configurations. Supports OpenAI-compatible providers, cloud providers (AWS Bedrock, VertexAI, Azure), and self-hosted models (Ollama).",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Zipstack/unstract/tree/main/.claude/skills/adapter-ops",
+  "skillUrl": "https://skillsmp.com/creators/zipstack/unstract/claude-skills-adapter-ops",
+  "stars": 7114,
+  "updatedAt": 1784023596
+}

@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruflo-plugins-ruflo-ruvllm-skills-llm-config-skill-md",
+  "name": "llm-config",
+  "author": "ruvnet",
+  "description": "Configure RuVLLM local inference with model selection, MicroLoRA fine-tuning, and SONA adaptation",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/ruflo/tree/main/plugins/ruflo-ruvllm/skills/llm-config",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruflo/plugins-ruflo-ruvllm-skills-llm-config",
+  "stars": 66991,
+  "updatedAt": 1784257589
+}

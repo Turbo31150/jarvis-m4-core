@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-skills-media-youtube-content-skill-md",
+  "name": "youtube-content",
+  "author": "NousResearch",
+  "description": "YouTube transcripts to summaries, threads, blogs.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/skills/media/youtube-content",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/skills-media-youtube-content",
+  "stars": 225204,
+  "updatedAt": 1783284166
+}

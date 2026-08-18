@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-skills-github-github-issues-skill-md",
+  "name": "github-issues",
+  "author": "NousResearch",
+  "description": "Create, triage, label, assign GitHub issues via gh or REST.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/skills/github/github-issues",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/skills-github-github-issues",
+  "stars": 225204,
+  "updatedAt": 1785124766
+}

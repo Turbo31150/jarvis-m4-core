@@ -1,0 +1,11 @@
+{
+  "id": "thedotmack-claude-mem-plugin-skills-mem-search-skill-md",
+  "name": "mem-search",
+  "author": "thedotmack",
+  "description": "Search claude-mem's persistent cross-session memory database. Use when user asks \"did we already solve this?\", \"how did we do X last time?\", or needs work from previous sessions.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedotmack/claude-mem/tree/main/plugin/skills/mem-search",
+  "skillUrl": "https://skillsmp.com/creators/thedotmack/claude-mem/plugin-skills-mem-search",
+  "stars": 89499,
+  "updatedAt": 1776219108
+}

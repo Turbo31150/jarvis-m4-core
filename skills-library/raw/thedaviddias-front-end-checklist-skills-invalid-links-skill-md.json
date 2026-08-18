@@ -1,0 +1,11 @@
+{
+  "id": "thedaviddias-front-end-checklist-skills-invalid-links-skill-md",
+  "name": "invalid-links",
+  "author": "thedaviddias",
+  "description": "Use when auditing a page's link elements for crawlability, reviewing JavaScript-heavy SPAs where navigation may not use `<a href>` tags, or checking that dynamically generated links have valid href values.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedaviddias/Front-End-Checklist/tree/main/skills/invalid-links",
+  "skillUrl": "https://skillsmp.com/creators/thedaviddias/front-end-checklist/skills-invalid-links",
+  "stars": 73416,
+  "updatedAt": 1780091646
+}

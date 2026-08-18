@@ -1,0 +1,11 @@
+{
+  "id": "microsoft-ai-agents-for-beginners-translations-et-agents-skills-jupyter-notebook-skill-md",
+  "name": "jupyter-notebook",
+  "author": "microsoft",
+  "description": "Kasuta, kui kasutaja palub luua, \u00fcles ehitada v\u00f5i redigeerida Jupyteri m\u00e4rkmikke (`.ipynb`) katsetuste, uurimiste v\u00f5i juhendite jaoks; eelista kaasasolevaid malle ja k\u00e4ivita abiskript `new_notebook.py`, et genereerida puhas algne m\u00e4rkmik.",
+  "contentLanguage": "est",
+  "githubUrl": "https://github.com/microsoft/ai-agents-for-beginners/tree/main/translations/et/.agents/skills/jupyter-notebook",
+  "skillUrl": "https://skillsmp.com/creators/microsoft/ai-agents-for-beginners/translations-et-agents-skills-jupyter-notebook",
+  "stars": 71222,
+  "updatedAt": 1771568238
+}

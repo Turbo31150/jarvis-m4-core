@@ -1,0 +1,11 @@
+{
+  "id": "nexu-io-open-design-design-templates-social-media-dashboard-skill-md",
+  "name": "social-media-dashboard",
+  "author": "nexu-io",
+  "description": "Creator-facing social media analytics dashboard in a single HTML file.\nA platform switcher (X / LinkedIn / YouTube / Instagram), a row of KPI\ncards (followers, engagement rate, likes, reposts), a follower-growth\nchart, a \"top post this week\" preview, and a trending topics / top\ncomments side panel. Use when the brief mentions a \"social media\ndashboard\", \"creator analytics\", \"social analytics\", or names specific\nplatforms (X, Twitter, LinkedIn, YouTube, Instagram, TikTok) together\nwith metrics like followers, engagement, likes, reposts.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/nexu-io/open-design/tree/main/design-templates/social-media-dashboard",
+  "skillUrl": "https://skillsmp.com/creators/nexu-io/open-design/design-templates-social-media-dashboard",
+  "stars": 83535,
+  "updatedAt": 1785160968
+}

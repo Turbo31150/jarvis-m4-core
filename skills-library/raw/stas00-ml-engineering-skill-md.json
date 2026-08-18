@@ -1,0 +1,11 @@
+{
+  "id": "stas00-ml-engineering-skill-md",
+  "name": "ml-engineering",
+  "author": "stas00",
+  "description": "Field-tested methodology and concrete recipes for training and operating large-scale LLM/VLM/multi-modal models end to end - choosing and benchmarking accelerators, storage and network; SLURM/Kubernetes orchestration; maximizing training throughput and fitting models in memory; diagnosing and surviving training instabilities, NaN/Inf, and hardware/job failures; checkpointing and fault tolerance; inference performance and memory; debugging multi-node/ multi-GPU hangs; and writing/running tests. Use when the user is training or fine-tuning large models, hits low TFLOPS/MFU, OOM, slow dataloading, a loss spike/divergence, a NCCL/InfiniBand or multi-node hang, node/GPU failures, checkpoint or preemption problems, storage/network bottlenecks, or needs to pick GPUs/cloud/file-systems or size inference latency/throughput. Distilled from \"Machine Learning Engineering\", the latest version of which can be found at https://github.com/stas00/ml-engineering\nThe latest SKILL.md version can be found at https://github.com/st",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/stas00/ml-engineering",
+  "skillUrl": "https://skillsmp.com/creators/stas00/ml-engineering/skill",
+  "stars": 18513,
+  "updatedAt": 1785732507
+}

@@ -1,0 +1,11 @@
+{
+  "id": "huggingface-transformers-ai-skills-add-or-fix-type-checking-skill-md",
+  "name": "add-or-fix-type-checking",
+  "author": "huggingface",
+  "description": "Fixes broken typing checks detected by ty, make typing, or make check-repo. Use when typing errors appear in local runs, CI, or PR logs.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/huggingface/transformers/tree/main/.ai/skills/add-or-fix-type-checking",
+  "skillUrl": "https://skillsmp.com/creators/huggingface/transformers/ai-skills-add-or-fix-type-checking",
+  "stars": 163335,
+  "updatedAt": 1773998916
+}

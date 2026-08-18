@@ -1,0 +1,11 @@
+{
+  "id": "thedaviddias-front-end-checklist-skills-interstitials-skill-md",
+  "name": "interstitials",
+  "author": "thedaviddias",
+  "description": "Use when applies to CSS and JavaScript implementations of modals, overlays, pop-ups, cookie banners, newsletter sign-up dialogs, and promotional overlays. Check for `position: fixed`, `position: absolute` with large z-index, backdrop overlays, and JavaScript that shows modals on page load or shortly after. Consider both SEO impact (Google) and accessibility (WCAG focus management).",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedaviddias/Front-End-Checklist/tree/main/skills/interstitials",
+  "skillUrl": "https://skillsmp.com/creators/thedaviddias/front-end-checklist/skills-interstitials",
+  "stars": 73416,
+  "updatedAt": 1780091646
+}

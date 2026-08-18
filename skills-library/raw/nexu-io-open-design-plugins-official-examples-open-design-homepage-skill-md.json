@@ -1,0 +1,11 @@
+{
+  "id": "nexu-io-open-design-plugins-official-examples-open-design-homepage-skill-md",
+  "name": "open-design-homepage",
+  "author": "nexu-io",
+  "description": "A pixel-faithful, self-contained mirror of the live open-design.ai homepage \u2014 an interactive React Three Fiber / Next.js hero with a real-time 3D wordmark, sticker collage, variable fonts, and scroll-driven motion. First-party showcase of the visual ceiling for interactive web marketing surfaces.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/nexu-io/open-design/tree/main/plugins/_official/examples/open-design-homepage",
+  "skillUrl": "https://skillsmp.com/creators/nexu-io/open-design/plugins-official-examples-open-design-homepage",
+  "stars": 83535,
+  "updatedAt": 1784018637
+}

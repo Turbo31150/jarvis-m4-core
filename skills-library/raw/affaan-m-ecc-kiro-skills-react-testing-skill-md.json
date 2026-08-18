@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-kiro-skills-react-testing-skill-md",
+  "name": "react-testing",
+  "author": "affaan-m",
+  "description": "React component testing with React Testing Library, Vitest/Jest, MSW for network mocking, accessibility assertions with axe, and the decision boundary between component tests and Playwright/Cypress end-to-end runs. Use when writing or fixing tests for React components, hooks, or pages.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/.kiro/skills/react-testing",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/kiro-skills-react-testing",
+  "stars": 237500,
+  "updatedAt": 1780809997
+}

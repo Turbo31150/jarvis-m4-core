@@ -1,0 +1,11 @@
+{
+  "id": "nexu-io-open-design-skills-d3-visualization-skill-md",
+  "name": "d3-visualization",
+  "author": "nexu-io",
+  "description": "Teaches the agent to produce D3 charts and interactive data visualizations. A comprehensive D3.js skill with examples across chart types and techniques giving the agent expert-level knowledge to generate complex, interactive visualizations. Useful for editorial dashboards, reports, data-rich prototypes, and explanatory graphics.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/nexu-io/open-design/tree/main/skills/d3-visualization",
+  "skillUrl": "https://skillsmp.com/creators/nexu-io/open-design/skills-d3-visualization",
+  "stars": 83535,
+  "updatedAt": 1779706703
+}

@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-canary-watch-skill-md",
+  "name": "canary-watch",
+  "author": "affaan-m",
+  "description": "Use this skill to monitor and verify a deployed URL after releases \u2014 checks HTTP endpoints, SSE streams, static assets, console errors, and performance regressions after deploys, merges, or dependency upgrades. Smoke / canary / post-deploy verification.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/canary-watch",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-canary-watch",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

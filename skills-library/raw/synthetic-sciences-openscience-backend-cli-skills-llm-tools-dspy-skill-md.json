@@ -1,0 +1,11 @@
+{
+  "id": "synthetic-sciences-openscience-backend-cli-skills-llm-tools-dspy-skill-md",
+  "name": "dspy",
+  "author": "synthetic-sciences",
+  "description": "Build complex AI systems with declarative programming, optimize prompts automatically, create modular RAG systems and agents with DSPy - Stanford NLP's framework for systematic LM programming",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/synthetic-sciences/openscience/tree/main/backend/cli/skills/llm-tools/dspy",
+  "skillUrl": "https://skillsmp.com/creators/synthetic-sciences/openscience/backend-cli-skills-llm-tools-dspy",
+  "stars": 3069,
+  "updatedAt": 1783146304
+}

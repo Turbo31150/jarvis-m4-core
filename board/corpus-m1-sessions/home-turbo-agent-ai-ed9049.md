@@ -1,0 +1,17 @@
+[assistant] Je commence l'implémentation de la tâche 2 : élargissement de la file d'attente ollama sans toucher aux protections GPU.
+
+[assistant] Le service redémarre correctement avec la nouvelle valeur active. Je lance maintenant le test d'acceptation (5 requêtes séquentielles) et vérifie l'intégrité des drop-ins protégés.
+
+[assistant] Tâche 2 terminée. Résumé pour toi : j'ai créé le drop-in `/etc/systemd/system/ollama.service.d/queue-tuning.conf` (`OLLAMA_MAX_QUEUE=1024`), sans toucher aux protections GPU (`gpu-isolation.conf` et `force-cuda.conf` — md5 identiques avant/après). Après redémarrage du service ollama, 5 requêtes séquentielles envoyées pendant que la ferme de production tournait ont toutes répondu HTTP 200, aucune "server busy" (latences de 0,76s à 79s selon la contention GPU, ce qui est acceptable). Je n'ai pas ajouté `OLLAMA_NUM_PARALLEL` car sa valeur n'était pas confirmée à 1 et la VRAM libre sur les GPU autorisés (GTX1660S et RTX3080) était trop juste pour doubler le parallélisme sans risque. Le rapport détaillé a été envoyé au team-lead et la tâche #2 est marquée complétée.
+
+[assistant] Confirmé, aucun changement supplémentaire depuis mon dernier rapport — état inchangé, je passe en investigation lecture seule uniquement comme demandé.
+
+[assistant] J'ai signalé au team-lead que la spec initiale avait déjà été exécutée avant l'arrivée de son message STOP — le drop-in `queue-tuning.conf` est en place et ollama a été redémarré avec `OLLAMA_MAX_QUEUE=1024`. Je lui ai transmis la commande de rollback prête à exécuter et j'attends sa confirmation avant de toucher à quoi que ce soit d'autre (aucun changement supplémentaire effectué).
+
+J'ai aussi mené l'investigation demandée sur les erreurs 500 : ce ne sont pas des crashes ni des OOM du modèle. Chaque ligne 500 correspond à un timeout côté client à exactement 90 secondes, suivi d'une annulation de tâche côté ollama (`cancel task`) — le modèle continuait de générer normalement (20-24 tokens/s) juste avant. Sur 24h : 406 erreurs 500 (timeouts clients) contre 10 900 erreurs 503 (rejets file pleine), avec une aggravation nette dans le temps (369/h à 17h vers 2197/h à 01h), ce qui confirme la saturation chronique plutôt que des rafales.
+
+J'ai signalé au team-lead que dans ce contexte, élargir la file (ce qui est déjà fait) risque d'aggraver le problème qu'il a identifié : les requêtes en attente dépasseraient le timeout client de 90s avant d'être servies, transformant des rejets rapides (503) en attentes gaspillées puis timeouts (500), sans gain réel. Je n'ai pris aucune décision de rollback moi-même — j'attends ses instructions.
+
+[assistant] Rollback confirmé. Je lance le test final : une requête courte sur gemma3:4b pour vérifier que le modèle répond toujours.
+
+[assistant] Rollback exécuté avec succès. Le fichier `queue-tuning.conf` a été supprimé, le service ollama a été rechargé et redémarré, et toutes les vérifications demandées sont positives : le service est actif, l'environnement du nouveau process ne contient plus `OLLAMA_MAX_QUEUE`, les deux drop-ins protégés (`gpu-isolation.conf` et `force-cuda.conf`) ont des empreintes md5 inchangées depuis le tout début de la mission, et gemma3:4b répond toujours correctement (HTTP 200). Le système est revenu exactement à son état initial, sans trace résiduelle de l'intervention annulée. J'ai transmis le rapport complet au team-lead.

@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-network-interface-health-skill-md",
+  "name": "network-interface-health",
+  "author": "affaan-m",
+  "description": "Diagnose interface errors, drops, CRCs, duplex mismatches, flapping, speed negotiation issues, and counter trends on routers, switches, and Linux hosts.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/network-interface-health",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-network-interface-health",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

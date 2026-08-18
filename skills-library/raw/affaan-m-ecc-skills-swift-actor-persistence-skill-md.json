@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-swift-actor-persistence-skill-md",
+  "name": "swift-actor-persistence",
+  "author": "affaan-m",
+  "description": "Thread-safe data persistence in Swift using actors \u2014 in-memory cache with file-backed storage, eliminating data races by design.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/swift-actor-persistence",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-swift-actor-persistence",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

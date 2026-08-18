@@ -1,0 +1,11 @@
+{
+  "id": "microsoft-ai-agents-for-beginners-translations-no-agents-skills-jupyter-notebook-skill-md",
+  "name": "jupyter-notebook",
+  "author": "microsoft",
+  "description": "Bruk n\u00e5r brukeren ber om \u00e5 opprette, sette opp eller redigere Jupyter-notatb\u00f8ker (`.ipynb`) for eksperimenter, utforskninger eller veiledninger; foretrekk de medf\u00f8lgende malene og kj\u00f8r hjelpeskriptet `new_notebook.py` for \u00e5 generere en ren startnotatbok.",
+  "contentLanguage": "nob",
+  "githubUrl": "https://github.com/microsoft/ai-agents-for-beginners/tree/main/translations/no/.agents/skills/jupyter-notebook",
+  "skillUrl": "https://skillsmp.com/creators/microsoft/ai-agents-for-beginners/translations-no-agents-skills-jupyter-notebook",
+  "stars": 71222,
+  "updatedAt": 1771575305
+}

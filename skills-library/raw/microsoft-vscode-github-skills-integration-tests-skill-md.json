@@ -1,0 +1,11 @@
+{
+  "id": "microsoft-vscode-github-skills-integration-tests-skill-md",
+  "name": "integration-tests",
+  "author": "microsoft",
+  "description": "Use when running integration tests in the VS Code repo. Covers scripts/test-integration.sh (macOS/Linux) and scripts/test-integration.bat (Windows), their supported arguments for filtering, and the difference between node.js integration tests and extension host tests.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/microsoft/vscode/tree/main/.github/skills/integration-tests",
+  "skillUrl": "https://skillsmp.com/creators/microsoft/vscode/github-skills-integration-tests",
+  "stars": 188283,
+  "updatedAt": 1774657417
+}

@@ -1,0 +1,11 @@
+{
+  "id": "microsoft-playwright-claude-skills-playwright-devops-skill-md",
+  "name": "playwright-devops",
+  "author": "microsoft",
+  "description": "DevOps workflows for Playwright - CI failure analysis, workflow debugging, and release operations.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/microsoft/playwright/tree/main/.claude/skills/playwright-devops",
+  "skillUrl": "https://skillsmp.com/creators/microsoft/playwright/claude-skills-playwright-devops",
+  "stars": 93957,
+  "updatedAt": 1776566223
+}

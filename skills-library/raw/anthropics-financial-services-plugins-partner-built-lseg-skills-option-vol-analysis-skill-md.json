@@ -1,0 +1,11 @@
+{
+  "id": "anthropics-financial-services-plugins-partner-built-lseg-skills-option-vol-analysis-skill-md",
+  "name": "option-vol-analysis",
+  "author": "anthropics",
+  "description": "Analyze option volatility by combining vol surface data, option pricing with Greeks, and historical price data to assess implied vs realized volatility. Use when pricing options, analyzing volatility surfaces, computing Greeks, assessing vol premiums, or evaluating vol trading strategies.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/anthropics/financial-services/tree/main/plugins/partner-built/lseg/skills/option-vol-analysis",
+  "skillUrl": "https://skillsmp.com/creators/anthropics/financial-services/plugins-partner-built-lseg-skills-option-vol-analysis",
+  "stars": 33988,
+  "updatedAt": 1777993098
+}

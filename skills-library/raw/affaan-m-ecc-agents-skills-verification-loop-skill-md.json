@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-agents-skills-verification-loop-skill-md",
+  "name": "verification-loop",
+  "author": "affaan-m",
+  "description": "A comprehensive verification system for Claude Code sessions.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/.agents/skills/verification-loop",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/agents-skills-verification-loop",
+  "stars": 237500,
+  "updatedAt": 1777428617
+}

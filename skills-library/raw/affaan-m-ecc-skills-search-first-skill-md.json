@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-search-first-skill-md",
+  "name": "search-first",
+  "author": "affaan-m",
+  "description": "Research-before-coding workflow. Search for existing tools, libraries, and patterns before writing custom code. Invokes the researcher agent.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/search-first",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-search-first",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

@@ -1,0 +1,11 @@
+{
+  "id": "github-awesome-copilot-skills-qdrant-deployment-options-skill-md",
+  "name": "qdrant-deployment-options",
+  "author": "github",
+  "description": "Guides Qdrant deployment selection. Use when someone asks 'how to deploy Qdrant', 'Docker vs Cloud', 'local mode', 'embedded Qdrant', 'Qdrant EDGE', 'which deployment option', 'self-hosted vs cloud', or 'need lowest latency deployment'. Also use when choosing between deployment types for a new project.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/github/awesome-copilot/tree/main/skills/qdrant-deployment-options",
+  "skillUrl": "https://skillsmp.com/creators/github/awesome-copilot/skills-qdrant-deployment-options",
+  "stars": 37423,
+  "updatedAt": 1776387267
+}

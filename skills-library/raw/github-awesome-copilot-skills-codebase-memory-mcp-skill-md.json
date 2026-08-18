@@ -1,0 +1,11 @@
+{
+  "id": "github-awesome-copilot-skills-codebase-memory-mcp-skill-md",
+  "name": "codebase-memory-mcp",
+  "author": "github",
+  "description": "Use when a configured codebase-memory-mcp server can assist with graph-backed code discovery, architecture orientation, symbol lookup, callers and callees, dependency or data-flow tracing, impact analysis, unfamiliar modules, or an explicit Codebase Memory request.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/github/awesome-copilot/tree/main/skills/codebase-memory-mcp",
+  "skillUrl": "https://skillsmp.com/creators/github/awesome-copilot/skills-codebase-memory-mcp",
+  "stars": 37423,
+  "updatedAt": 1784233299
+}

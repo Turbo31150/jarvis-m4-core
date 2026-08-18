@@ -1,0 +1,11 @@
+{
+  "id": "rtk-ai-rtk-claude-skills-performance-skill-md",
+  "name": "performance",
+  "author": "rtk-ai",
+  "description": "RTK CLI performance analysis and optimization. Startup time (<10ms), binary size (<5MB), regex compilation, memory usage. Use when adding dependencies, changing initialization, or suspecting regressions.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/rtk-ai/rtk/tree/develop/.claude/skills/performance",
+  "skillUrl": "https://skillsmp.com/creators/rtk-ai/rtk/claude-skills-performance",
+  "stars": 74635,
+  "updatedAt": 1774887754
+}

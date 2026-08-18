@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-cost-aware-llm-pipeline-skill-md",
+  "name": "cost-aware-llm-pipeline",
+  "author": "affaan-m",
+  "description": "Cost optimization patterns for LLM API usage \u2014 model routing by task complexity, budget tracking, retry logic, and prompt caching.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/cost-aware-llm-pipeline",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-cost-aware-llm-pipeline",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

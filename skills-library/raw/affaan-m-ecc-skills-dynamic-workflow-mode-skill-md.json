@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-dynamic-workflow-mode-skill-md",
+  "name": "dynamic-workflow-mode",
+  "author": "affaan-m",
+  "description": "Design task-local harnesses, eval gates, and reusable skill extraction for Claude dynamic workflow mode and other adaptive agent harnesses.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/dynamic-workflow-mode",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-dynamic-workflow-mode",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

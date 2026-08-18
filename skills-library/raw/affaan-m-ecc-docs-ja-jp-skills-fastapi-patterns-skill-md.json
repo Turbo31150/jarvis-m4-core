@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-ja-jp-skills-fastapi-patterns-skill-md",
+  "name": "fastapi-patterns",
+  "author": "affaan-m",
+  "description": "\u975e\u540c\u671fAPI\u3001\u4f9d\u5b58\u6027\u6ce8\u5165\u3001Pydantic\u306e\u30ea\u30af\u30a8\u30b9\u30c8\u30fb\u30ec\u30b9\u30dd\u30f3\u30b9\u30e2\u30c7\u30eb\u3001OpenAPI\u30c9\u30ad\u30e5\u30e1\u30f3\u30c8\u3001\u30c6\u30b9\u30c8\u3001\u30bb\u30ad\u30e5\u30ea\u30c6\u30a3\u3001\u672c\u756a\u5bfe\u5fdc\u306e\u305f\u3081\u306eFastAPI\u30d1\u30bf\u30fc\u30f3\u3002",
+  "contentLanguage": "ja",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/ja-JP/skills/fastapi-patterns",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-ja-jp-skills-fastapi-patterns",
+  "stars": 237500,
+  "updatedAt": 1778999500
+}

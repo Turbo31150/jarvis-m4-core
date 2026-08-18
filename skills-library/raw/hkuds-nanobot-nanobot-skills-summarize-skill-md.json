@@ -1,0 +1,11 @@
+{
+  "id": "hkuds-nanobot-nanobot-skills-summarize-skill-md",
+  "name": "summarize",
+  "author": "HKUDS",
+  "description": "Summarize or extract text/transcripts from URLs, podcasts, and local files (great fallback for \u201ctranscribe this YouTube/video\u201d).",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/HKUDS/nanobot/tree/main/nanobot/skills/summarize",
+  "skillUrl": "https://skillsmp.com/creators/hkuds/nanobot/nanobot-skills-summarize",
+  "stars": 46606,
+  "updatedAt": 1769971542
+}

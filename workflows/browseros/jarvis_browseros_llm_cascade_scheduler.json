@@ -1,0 +1,41 @@
+{
+  "name": "JARVIS — BrowserOS LLM Cascade Scheduler",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": { "interval": [ { "field": "hours", "hoursInterval": 2 } ] }
+      },
+      "id": "sched-trigger",
+      "name": "Schedule (toutes les 2h)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [ 240, 300 ]
+    },
+    {
+      "parameters": {
+        "command": "python3 /home/turbo/jarvis/bin/n8n-browseros-cascade.py --from-biblio \"veille tech IA du jour\""
+      },
+      "id": "exec-cascade",
+      "name": "LLM cascade -> BrowserOS",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [ 520, 300 ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// parse la sortie JSON du pont et expose {url, via, ok}\nconst raw = $input.first().json.stdout || '{}';\nlet d = {}; try { d = JSON.parse(raw); } catch(e) {}\nreturn [{ json: {\n  intention: d.intention,\n  url: d.decision?.url,\n  via: d.decision?._via,\n  ok: d.browseros?.ok,\n  bytes: d.browseros?.bytes,\n  error: d.browseros?.error,\n  ts: d.ts\n} }];"
+      },
+      "id": "parse-result",
+      "name": "Parse résultat",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [ 800, 300 ]
+    }
+  ],
+  "connections": {
+    "Schedule (toutes les 2h)": { "main": [ [ { "node": "LLM cascade -> BrowserOS", "type": "main", "index": 0 } ] ] },
+    "LLM cascade -> BrowserOS": { "main": [ [ { "node": "Parse résultat", "type": "main", "index": 0 } ] ] }
+  },
+  "settings": { "executionOrder": "v1" },
+  "tags": [ "jarvis", "browseros", "llm-cascade", "0-token" ]
+}

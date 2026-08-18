@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-zh-tw-skills-continuous-learning-skill-md",
+  "name": "continuous-learning",
+  "author": "affaan-m",
+  "description": "Automatically extract reusable patterns from Claude Code sessions and save them as learned skills for future use.",
+  "contentLanguage": "zh",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/zh-TW/skills/continuous-learning",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-zh-tw-skills-continuous-learning",
+  "stars": 237500,
+  "updatedAt": 1772664486
+}

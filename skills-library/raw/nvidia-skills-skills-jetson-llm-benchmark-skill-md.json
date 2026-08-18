@@ -1,0 +1,11 @@
+{
+  "id": "nvidia-skills-skills-jetson-llm-benchmark-skill-md",
+  "name": "jetson-llm-benchmark",
+  "author": "NVIDIA",
+  "description": "Benchmark Jetson LLM/VLM serving performance across vLLM, llama.cpp, and Ollama with structured JSON output.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NVIDIA/skills/tree/main/skills/jetson-llm-benchmark",
+  "skillUrl": "https://skillsmp.com/creators/nvidia/skills/skills-jetson-llm-benchmark",
+  "stars": 2787,
+  "updatedAt": 1782151933
+}

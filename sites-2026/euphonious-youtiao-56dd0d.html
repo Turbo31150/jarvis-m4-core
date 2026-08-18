@@ -75,7 +75,7 @@ footer { text-align:center; padding:1.5rem; color:#64748b; font-size:.78rem; bor
 <nav><div class="logo">⚡ AutomatIA</div><a href="#contact" class="nav-btn">Démarrer →</a></nav>
 
 <div class="hero">
-  <div class="badge">Sans coder · Résultat en 30 min · Méthode simple</div>
+  <div class="badge">Sans coder · Méthode simple · Accompagnement complet</div>
   <h1>Tu parles encore à l'IA.<br><span>Elle devrait travailler pour toi.</span></h1>
   <p>Nous installons votre premier agent IA — boutique, usine, restaurant, cabinet — sans code, sans complexité.</p>
   <div class="hero-cta">
@@ -186,14 +186,14 @@ footer { text-align:center; padding:1.5rem; color:#64748b; font-size:.78rem; bor
     <p style="color:#64748b;font-size:.88rem;margin-top:.4rem;">Réponse sous 24h.</p>
     <form onsubmit="sub(event)">
       <div class="row2">
-        <div><label>Nom *</label><input type="text" placeholder="Jean Dupont" required></div>
-        <div><label>Email *</label><input type="email" placeholder="jean@entreprise.fr" required></div>
+        <div><label>Nom *</label><input id="f-nom" name="nom" type="text" placeholder="Jean Dupont" required></div>
+        <div><label>Email *</label><input id="f-email" name="email" type="email" placeholder="jean@entreprise.fr" required></div>
       </div>
       <div class="row2">
-        <div><label>Secteur *</label><select required><option value="">Choisir…</option><option>Boutique en ligne</option><option>Industrie / Usine</option><option>Restaurant / Hôtel</option><option>Immobilier</option><option>Santé / Cabinet</option><option>Artisan / PME</option><option>Autre</option></select></div>
-        <div><label>Budget</label><select><option>Starter ~1 500 €</option><option>Pro ~3 500 €</option><option>Enterprise — devis</option><option>Service ponctuel</option></select></div>
+        <div><label>Secteur *</label><select id="f-secteur" name="secteur" required><option value="">Choisir…</option><option>Boutique en ligne</option><option>Industrie / Usine</option><option>Restaurant / Hôtel</option><option>Immobilier</option><option>Santé / Cabinet</option><option>Artisan / PME</option><option>Autre</option></select></div>
+        <div><label>Budget</label><select id="f-budget" name="budget"><option>Starter ~1 500 €</option><option>Pro ~3 500 €</option><option>Enterprise — devis</option><option>Service ponctuel</option></select></div>
       </div>
-      <div><label>Votre besoin</label><textarea placeholder="Ex: Je perds 3h/jour sur des tâches répétitives…"></textarea></div>
+      <div><label>Votre besoin</label><textarea id="f-besoin" name="besoin" placeholder="Ex: Je perds 3h/jour sur des tâches répétitives…"></textarea></div>
       <button type="submit" class="submit-btn">Envoyer ma demande →</button>
     </form>
   </div>
@@ -202,7 +202,29 @@ footer { text-align:center; padding:1.5rem; color:#64748b; font-size:.78rem; bor
 <footer>© 2026 AutomatIA — IA locale souveraine — vos données restent chez vous.</footer>
 <script>
 document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'})}));
-function sub(e){e.preventDefault();const b=e.target.querySelector('.submit-btn');b.textContent='✅ Envoyé ! Réponse sous 24h.';b.style.background='#10b981';b.disabled=true;}
+function sub(e){
+  e.preventDefault();
+  var f=e.target;
+  if(!f.checkValidity()){f.reportValidity();return;}
+  var g=function(id){var el=document.getElementById(id);return el?el.value.trim():'';};
+  var nom=g('f-nom'),email=g('f-email'),secteur=g('f-secteur'),budget=g('f-budget'),besoin=g('f-besoin');
+  var sujet='Lead AutomatIA — '+(nom||'nouveau contact');
+  var corps=
+    'Nouvelle demande de diagnostic AutomatIA\n'+
+    '----------------------------------------\n'+
+    'Nom     : '+nom+'\n'+
+    'Email   : '+email+'\n'+
+    'Secteur : '+secteur+'\n'+
+    'Budget  : '+budget+'\n'+
+    'Besoin  : '+besoin+'\n';
+  var mailto='mailto:franckdelmas00@gmail.com'+
+    '?subject='+encodeURIComponent(sujet)+
+    '&body='+encodeURIComponent(corps);
+  window.location.href=mailto;
+  var b=f.querySelector('.submit-btn');
+  b.textContent='✅ Votre logiciel de mail va s\'ouvrir…';
+  b.style.background='#10b981';
+}
 </script>
 
 <!-- Mentions légales — TODO avant mise en ligne définitive : compléter le SIRET / statut juridique (auto-entrepreneur, etc.) -->

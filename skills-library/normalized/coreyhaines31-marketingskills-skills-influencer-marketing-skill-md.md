@@ -1,0 +1,28 @@
+---
+id: coreyhaines31-marketingskills-skills-influencer-marketing-skill-md
+name: "influencer-marketing"
+author: "coreyhaines31"
+repository: "https://github.com/coreyhaines31/marketingskills/tree/main/skills/influencer-marketing"
+skill_url: "https://skillsmp.com/creators/coreyhaines31/marketingskills/skills-influencer-marketing"
+stars: 42958
+verified: false
+quality_score: 100
+security_score: 90
+status: "SAFE"
+collected_at: "2026-08-07T17:30:41.147298"
+---
+
+# Résumé
+When the user wants to run influencer, creator, or ambassador partnerships to promote their product — finding and vetting partners, structuring deals, briefing creators, disclosure compliance, and measuring ROI. Also use when the user mentions 'influencer marketing,' 'creator partnerships,' 'sponsorships,' 'YouTube sponsorships,' 'podcast sponsorships,' 'brand ambassador,' 'ambassador program,' 'creator program,' 'UGC creators,' 'B2B influencers,' 'thought leader ads,' 'gifting,' 'product seeding,' 'whitelisting creator content,' 'how much to pay an influencer,' or 'FTC disclosure.' For affiliate/referral payout mechanics, see referrals. For community-led advocacy, see community-marketing. For turning creator content into paid ads, see ad-creative.
+
+# Objectif
+Skill d'automatisation/intégration pour influencer-marketing.
+
+# Déclencheurs d’utilisation
+Mots-clés associés: influencer-marketing, coreyhaines31
+
+# Procédure
+Consulter le dépôt source: https://github.com/coreyhaines31/marketingskills/tree/main/skills/influencer-marketing
+
+# Adaptation Gemini CLI / Claude Code / Jarvis OS
+Incorpore ce skill en suivant la structure d'appel native du repository source.

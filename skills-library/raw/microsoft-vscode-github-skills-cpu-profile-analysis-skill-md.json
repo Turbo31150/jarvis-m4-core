@@ -1,0 +1,11 @@
+{
+  "id": "microsoft-vscode-github-skills-cpu-profile-analysis-skill-md",
+  "name": "cpu-profile-analysis",
+  "author": "microsoft",
+  "description": "Analyze V8/Chrome CPU profiles (.cpuprofile) and DevTools trace files (Trace-*.json). Use when: profiling performance, investigating slow functions, comparing code paths, finding bottlenecks, analyzing timeToRequest, understanding call trees from sampling profiler data, analyzing layout/paint/rendering, investigating user timing marks.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/microsoft/vscode/tree/main/.github/skills/cpu-profile-analysis",
+  "skillUrl": "https://skillsmp.com/creators/microsoft/vscode/github-skills-cpu-profile-analysis",
+  "stars": 188283,
+  "updatedAt": 1775807797
+}

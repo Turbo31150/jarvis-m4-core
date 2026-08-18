@@ -1,0 +1,11 @@
+{
+  "id": "rightnow-ai-openfang-crates-openfang-skills-bundled-searxng-skill-md",
+  "name": "searxng",
+  "author": "RightNow-AI",
+  "description": "Privacy-respecting metasearch specialist using SearXNG instances",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/RightNow-AI/openfang/tree/main/crates/openfang-skills/bundled/searxng",
+  "skillUrl": "https://skillsmp.com/creators/rightnow-ai/openfang/crates-openfang-skills-bundled-searxng",
+  "stars": 18077,
+  "updatedAt": 1774870553
+}

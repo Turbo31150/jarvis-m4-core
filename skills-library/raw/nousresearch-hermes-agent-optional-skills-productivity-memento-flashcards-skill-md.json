@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-optional-skills-productivity-memento-flashcards-skill-md",
+  "name": "memento-flashcards",
+  "author": "NousResearch",
+  "description": "Spaced-repetition flashcard system. Create cards from facts or text, chat with flashcards using free-text answers graded by the agent, generate quizzes from YouTube transcripts, review due cards with adaptive scheduling, and export/import decks as CSV.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/optional-skills/productivity/memento-flashcards",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/optional-skills-productivity-memento-flashcards",
+  "stars": 225204,
+  "updatedAt": 1774828372
+}

@@ -1,0 +1,40 @@
+{
+  "files": 105,
+  "size_mb": 5.5,
+  "languages": {
+    "TS": 22,
+    "Markdown": 10,
+    "React": 10,
+    "Shell": 8,
+    "JSON": 6,
+    "HTML": 6,
+    "JS": 4,
+    "Python": 4,
+    "CSS": 2,
+    "SQL": 2,
+    "YAML": 1
+  },
+  "key_files": [
+    "Dockerfile",
+    "docker-compose.yml",
+    "README.md",
+    ".env",
+    "package.json",
+    "db/snapshots/README.md"
+  ],
+  "git": {
+    "branch": "main",
+    "commits": "64",
+    "last": "2026-06-29 docs: notice utilisateur interprete FR/EN (scenario + depannage)",
+    "contributors": 2
+  },
+  "secrets_suspects": [
+    "package.json:7",
+    "package.json:7",
+    "server/whisperflow-9743.py:36",
+    "src/hooks/useTranscription.ts:11",
+    "src/hooks/useTranscription.ts:21",
+    "src/hooks/useTranscription.ts:197"
+  ],
+  "rgpd_markers_files": 0
+}

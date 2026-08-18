@@ -1,0 +1,11 @@
+{
+  "id": "obra-superpowers-skills-receiving-code-review-skill-md",
+  "name": "receiving-code-review",
+  "author": "obra",
+  "description": "Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/obra/superpowers/tree/main/skills/receiving-code-review",
+  "skillUrl": "https://skillsmp.com/creators/obra/superpowers/skills-receiving-code-review",
+  "stars": 266054,
+  "updatedAt": 1784852836
+}

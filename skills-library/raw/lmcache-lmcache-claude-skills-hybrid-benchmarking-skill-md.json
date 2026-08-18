@@ -1,0 +1,11 @@
+{
+  "id": "lmcache-lmcache-claude-skills-hybrid-benchmarking-skill-md",
+  "name": "hybrid-benchmarking",
+  "author": "LMCache",
+  "description": "Benchmark a hybrid-attention model across the LMCache performance ladder (vLLM no-hybrid-allocator \u2192 hybrid allocator + prefix caching \u2192 hybrid allocator + LMCache) and produce a decode-throughput / TTFT / cache-hit-rate comparison. Use when asked to benchmark, demo, or quantify the value of LMCache caching for a hybrid model.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/LMCache/LMCache/tree/dev/.claude/skills/hybrid-benchmarking",
+  "skillUrl": "https://skillsmp.com/creators/lmcache/lmcache/claude-skills-hybrid-benchmarking",
+  "stars": 11016,
+  "updatedAt": 1781658066
+}

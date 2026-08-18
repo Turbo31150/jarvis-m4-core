@@ -1,0 +1,11 @@
+{
+  "id": "copilotkit-copilotkit-skills-copilotkit-debug-skill-md",
+  "name": "copilotkit-debug",
+  "author": "CopilotKit",
+  "description": "Use when diagnosing CopilotKit issues -- runtime connectivity failures, agent not responding, streaming errors, tool execution problems, transcription failures, version mismatches, and AG-UI event tracing.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/CopilotKit/CopilotKit/tree/main/skills/copilotkit-debug",
+  "skillUrl": "https://skillsmp.com/creators/copilotkit/copilotkit/skills-copilotkit-debug",
+  "stars": 36444,
+  "updatedAt": 1785188678
+}

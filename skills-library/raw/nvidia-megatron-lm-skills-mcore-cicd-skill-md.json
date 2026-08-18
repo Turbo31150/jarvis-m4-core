@@ -1,0 +1,11 @@
+{
+  "id": "nvidia-megatron-lm-skills-mcore-cicd-skill-md",
+  "name": "mcore-cicd",
+  "author": "NVIDIA",
+  "description": "CI/CD reference for Megatron-LM. Covers CI pipeline structure, PR scope labels, triggering internal GitLab CI (which force-pushes the current branch to a pull-request/BRANCH ref \u2014 always dry-run and verify the destination first; never run against shared or protected branches), and CI failure investigation.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NVIDIA/Megatron-LM/tree/main/skills/mcore-cicd",
+  "skillUrl": "https://skillsmp.com/creators/nvidia/megatron-lm/skills-mcore-cicd",
+  "stars": 17319,
+  "updatedAt": 1784848447
+}

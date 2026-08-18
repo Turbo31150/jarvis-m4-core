@@ -1,0 +1,11 @@
+{
+  "id": "cyberstrategyinstitute-ai-safe2-framework-examples-anti-gravity-sovereign-runtime-plugins-governance-enforcer-skills-governance-skill-md",
+  "name": "ai-safe2-sovereign-governance",
+  "author": "CyberStrategyInstitute",
+  "description": "Enforce AI SAFE\u00b2 v3.0 sovereign governance constraints for every session. Apply this skill automatically at session start and before any tool execution that involves file writes, network access, shell commands, or subagent spawning. Covers identity lock, hard security limits, context isolation, tool authorization, memory governance, and human-in-the-loop controls.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/CyberStrategyInstitute/ai-safe2-framework/tree/main/examples/anti-gravity-sovereign-runtime/plugins/governance-enforcer/skills/governance",
+  "skillUrl": "https://skillsmp.com/creators/cyberstrategyinstitute/ai-safe2-framework/examples-anti-gravity-sovereign-runtime-plugins-governance-enforcer-skills-governance",
+  "stars": 137,
+  "updatedAt": 1781031504
+}

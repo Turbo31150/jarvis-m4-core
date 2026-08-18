@@ -1,0 +1,11 @@
+{
+  "id": "nexu-io-open-design-plugins-official-scenarios-od-default-skill-md",
+  "name": "od-default",
+  "author": "nexu-io",
+  "description": "Hidden fallback scenario for free-form Home prompts. Infer the task type and ask only when routing is materially ambiguous.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/nexu-io/open-design/tree/main/plugins/_official/scenarios/od-default",
+  "skillUrl": "https://skillsmp.com/creators/nexu-io/open-design/plugins-official-scenarios-od-default",
+  "stars": 83535,
+  "updatedAt": 1785465318
+}

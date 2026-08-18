@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-skills-research-research-paper-writing-skill-md",
+  "name": "research-paper-writing",
+  "author": "NousResearch",
+  "description": "Write ML papers for NeurIPS/ICML/ICLR: design\u2192submit.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/skills/research/research-paper-writing",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/skills-research-research-paper-writing",
+  "stars": 225204,
+  "updatedAt": 1784904845
+}

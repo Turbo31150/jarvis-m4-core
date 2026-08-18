@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Transcription IA — Tes audios et vidéos en texte</title>
+<meta name="description" content="De l'audio ou vidéo au texte, on-premise 100% RGPD. Dès 9€.">
+<meta property="og:title" content="Transcription IA — Tes audios et vidéos en texte"><meta property="og:description" content="Transcris tes réunions, podcasts, interviews en texte précis. 50 langues. 5 minutes offertes, sans inscription.">
+<style>
+:root{--bg:#0a0e14;--bg2:#111722;--card:#161d2b;--line:#222c3d;--txt:#e6edf3;--muted:#8b97a8;--a:#22d3ee;--a2:#a78bfa;--ok:#34d399}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,"Segoe UI",Roboto,Inter,sans-serif;background:var(--bg);color:var(--txt);line-height:1.55}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+a{color:var(--a);text-decoration:none}
+.btn{display:inline-block;padding:14px 26px;border-radius:12px;font-weight:700;cursor:pointer;border:none;font-size:1rem;transition:.2s}
+.btn-p{background:linear-gradient(135deg,var(--a),var(--a2));color:#06121a}.btn-p:hover{filter:brightness(1.1);transform:translateY(-2px)}
+.btn-g{background:transparent;border:1px solid var(--line);color:var(--txt)}.btn-g:hover{border-color:var(--a)}
+header{padding:64px 0 36px;text-align:center;background:radial-gradient(700px 320px at 50% -10%,rgba(34,211,238,.12),transparent)}
+.badge{display:inline-block;font-size:.8rem;color:var(--a);border:1px solid var(--line);border-radius:99px;padding:6px 14px;margin-bottom:20px;letter-spacing:.5px}
+h1{font-size:clamp(1.9rem,5vw,2.9rem);line-height:1.1;font-weight:800;letter-spacing:-1px}
+.grad{background:linear-gradient(135deg,var(--a),var(--a2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sub{color:var(--muted);font-size:1.12rem;max-width:520px;margin:18px auto 28px}
+section{padding:18px 0}
+.box{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:28px}
+.box h2{font-size:1.3rem;margin-bottom:6px}.box .q{color:var(--muted);margin-bottom:18px}
+select,input,textarea{width:100%;background:#0b0f17;border:1px solid var(--line);border-radius:10px;padding:13px;color:var(--txt);font-size:.95rem;margin-bottom:10px}
+select:focus,input:focus,textarea:focus{outline:none;border-color:var(--a)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.chip{padding:9px 15px;border:1px solid var(--line);border-radius:99px;cursor:pointer;background:var(--card);color:var(--muted);font-size:.9rem;user-select:none}
+.chip.on{border-color:var(--a);color:var(--a)}
+#res{margin-top:18px}
+.verdict{border:1px solid rgba(52,211,153,.4);background:rgba(52,211,153,.08);border-radius:12px;padding:18px}
+.verdict b{color:var(--ok)}
+.reco{margin-top:12px;border:1px solid var(--line);background:rgba(255,255,255,.02);border-radius:12px;padding:16px;font-size:.92rem}
+.packs{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:14px}
+.pack{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column}
+.pack.feat{border-color:var(--a2)}
+.pack .t{font-size:.74rem;color:var(--a);font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.pack h3{font-size:1.15rem;margin:6px 0}.pack .p{font-size:1.7rem;font-weight:800}.pack .p small{font-size:.8rem;color:var(--muted);font-weight:500}
+.pack ul{list-style:none;margin:12px 0;flex:1}.pack li{padding:5px 0;color:var(--muted);font-size:.86rem;display:flex;gap:8px}.pack li::before{content:"✓";color:var(--ok);font-weight:800}
+.cta{text-align:center;padding:40px 0}
+footer{border-top:1px solid var(--line);padding:28px 0;text-align:center;color:var(--muted);font-size:.85rem;margin-top:20px}
+</style></head><body>
+<header><div class="wrap">
+<span class="badge">🎙️ 5 MIN OFFERTES</span>
+<h1>Tes audios et vidéos,<br><span class="grad">en texte. Précis.</span></h1>
+<p class="sub">Réunions, podcasts, interviews, mémos vocaux → texte propre en 50 langues. Teste gratuitement, sans inscription.</p>
+<a href="#action" class="btn btn-p">🎙️ Estimer ma transcription</a>
+</div></header>
+
+<section id="action"><div class="wrap"><div class="box">
+<h2>Estime ta transcription</h2><p class="q">Durée + langue, on te dit le délai et le format.</p>
+<select id="dur"><option value="">Durée de l’audio…</option><option>0-5 min</option><option>5-30 min</option><option>30-60 min</option><option>1-3 h</option><option>3h+</option></select><select id="lng"><option value="">Langue…</option><option>Français</option><option>Anglais</option><option>Autre (50 langues)</option></select><button class="btn btn-p" onclick="go()">Estimer</button>
+<div id="res"></div>
+</div></div></section>
+
+<section id="packs"><div class="wrap">
+<h2 style="text-align:center;margin-bottom:6px;font-size:1.5rem">Tarifs au volume</h2>
+<p style="text-align:center;color:var(--muted);margin-bottom:18px">Les 5 premières minutes sont toujours offertes.</p>
+<div class="packs"><div class="pack"><span class="t">Essai</span><h3>Découverte</h3><div class="p">Gratuit<small>/5 min</small></div><ul><li>5 min offertes</li><li>Texte + horodatage</li><li>Sans inscription</li></ul><a href="https://gumroad.com/l/lumen-multilang" target="_blank" rel="noopener" class="btn btn-g">Acheter sur Gumroad</a></div><div class="pack feat"><span class="t">Standard</span><h3>À la demande</h3><div class="p">9€<small>/heure</small></div><ul><li>Texte propre</li><li>50 langues</li><li>Sous-titres .srt</li><li>Livré rapide</li></ul><a href="https://gumroad.com/l/ia-productivite" target="_blank" rel="noopener" class="btn btn-g">Acheter sur Gumroad</a></div><div class="pack"><span class="t">Pro</span><h3>Pipeline dédié</h3><div class="p">49€<small>/mois</small></div><ul><li>Volume illimité</li><li>100% local & privé</li><li>API intégrable</li></ul><a href="mailto:franck-delmas@laposte.net?subject=Pipeline dédié" class="btn btn-g">S'abonner</a></div></div>
+</div></section>
+
+<section class="cta"><div class="wrap">
+<h2 style="font-size:1.5rem">Envoie ton fichier, on le transcrit.</h2>
+<p style="color:var(--muted);margin:12px 0 22px">Audio ou vidéo, n'importe quelle langue.</p>
+<a href="mailto:franck-delmas@laposte.net?subject=Transcription%20IA" class="btn btn-p">✉️ Envoyer mon fichier</a>
+</div></section>
+
+<footer><div class="wrap"><b>Transcription IA</b> — un service JARVIS OS · Franck Delmas<br>Whisper · 50 langues · 100% privé (local)</div></footer>
+<script>function go(){const d=document.getElementById('dur').value,l=document.getElementById('lng').value;
+if(!d||!l){document.getElementById('res').innerHTML='<div class="reco">👆 Choisis la durée et la langue.</div>';return}
+const free=d==='0-5 min';
+let html='<div class="verdict"><b>✅ '+d+' · '+l+'</b><br>Format livré : texte horodaté + version nettoyée (sans hésitations). Sous-titres .srt en option.</div>';
+html+='<div class="reco"><b>'+(free?'🎁 Cette durée est OFFERTE — envoie ton fichier, on te le rend transcrit.':'Délai : quelques minutes. Tarif au volume ci-dessous.')+'</b></div>';
+document.getElementById('res').innerHTML=html;document.getElementById('res').scrollIntoView({behavior:'smooth',block:'nearest'})}</script>
+</body></html>

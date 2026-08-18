@@ -1,0 +1,11 @@
+{
+  "id": "nvidia-skills-skills-nemo-mbridge-mlm-bridge-training-skill-md",
+  "name": "nemo-mbridge-mlm-bridge-training",
+  "author": "NVIDIA",
+  "description": "Run Megatron-LM (MLM) and Megatron Bridge training with mock or real data. Covers correlation testing, available recipes, and multi-GPU examples.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NVIDIA/skills/tree/main/skills/nemo-mbridge-mlm-bridge-training",
+  "skillUrl": "https://skillsmp.com/creators/nvidia/skills/skills-nemo-mbridge-mlm-bridge-training",
+  "stars": 2787,
+  "updatedAt": 1784215575
+}

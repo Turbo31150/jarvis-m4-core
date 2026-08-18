@@ -1,0 +1,11 @@
+{
+  "id": "langgenius-dify-agents-skills-how-to-write-component-skill-md",
+  "name": "how-to-write-component",
+  "author": "langgenius",
+  "description": "Use when implementing or refactoring React/TypeScript components and the task requires decisions about component ownership, feature boundaries, state, data flow, effects, or interaction ownership. Do not use for review-only requests, test-only work, copy-only edits, or styling-only changes.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/langgenius/dify/tree/main/.agents/skills/how-to-write-component",
+  "skillUrl": "https://skillsmp.com/creators/langgenius/dify/agents-skills-how-to-write-component",
+  "stars": 151304,
+  "updatedAt": 1785046417
+}

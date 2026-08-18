@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-scientific-db-uspto-database-skill-md",
+  "name": "uspto-database",
+  "author": "affaan-m",
+  "description": "USPTO patent and trademark data workflow for official record lookup, PatentSearch queries, TSDR checks, assignment data, and reproducible IP research logs.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/scientific-db-uspto-database",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-scientific-db-uspto-database",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

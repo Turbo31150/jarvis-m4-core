@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-autonomous-agent-harness-skill-md",
+  "name": "autonomous-agent-harness",
+  "author": "affaan-m",
+  "description": "Transform Claude Code into a fully autonomous agent system with persistent memory, scheduled operations, computer use, and task queuing. Replaces standalone agent frameworks (Hermes, AutoGPT) by leveraging Claude Code's native crons, dispatch, MCP tools, and memory. Use when the user wants continuous autonomous operation, scheduled tasks, or a self-directing agent loop.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/autonomous-agent-harness",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-autonomous-agent-harness",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

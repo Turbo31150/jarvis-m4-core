@@ -8,18 +8,18 @@
 
 ### T001 — Fix jarvis-telegram /chat endpoint permanent
 - Le proxy `http://127.0.0.1:18800/chat` tourne via `/tmp/chat_proxy.js`
-- **Tâche**: Déplacer `/tmp/chat_proxy.js` → `/home/turbo/jarvis/scripts/chat_proxy.js`
+- **Tâche**: Déplacer `/tmp/chat_proxy.js` → `/home/pamerys/jarvis/scripts/chat_proxy.js`
 - Créer service systemd `jarvis-chat-proxy.service` qui démarre au boot
 - Tester: `curl -X POST http://127.0.0.1:18800/chat -d '{"messages":[{"role":"user","content":"test"}]}'`
 
 ### T002 — Fix WhisperFlow bridge permanent
 - Le bridge `9742→9743` tourne via `/tmp/whisper_bridge_9742.py`
-- **Tâche**: Déplacer → `/home/turbo/jarvis/scripts/whisper_bridge.py`
+- **Tâche**: Déplacer → `/home/pamerys/jarvis/scripts/whisper_bridge.py`
 - Créer service systemd `jarvis-whisper-bridge.service`
 - Tester: `curl http://127.0.0.1:9742/health`
 
 ### T003 — Fix OMEGA dashboard 18800 (canvas)
-- Copier `/home/turbo/Workspaces/jarvis-linux/src/legacy/interfaces/canvas/` → `/home/turbo/Workspaces/jarvis-linux/canvas/`
+- Copier `/home/pamerys/Workspaces/jarvis-linux/src/legacy/interfaces/canvas/` → `/home/pamerys/Workspaces/jarvis-linux/canvas/`
 - Fusionner les routes dans `canvas/direct-proxy.js`: ajouter `/chat` avec LLM M1:1234
 
 ### T004 — Fix vocal-whisper OOM (exit 137)
@@ -39,21 +39,21 @@
 
 ### T010 — Déployer les 928 agents OpenClaw
 ```bash
-cd /home/turbo/jarvis-cowork
+cd /home/pamerys/jarvis-cowork
 python3 src/deploy_cowork_agents.py --scale 928 --pattern all
 ```
 Si script manquant: scanner les patterns dans `src/core/` et les déployer via `openclaw`
 
 ### T011 — Activer tous les patterns cowork
 ```bash
-cat /home/turbo/jarvis-cowork/automation/WORKFLOW_COMPLET_TURBO31150.yml
+cat /home/pamerys/jarvis-cowork/automation/WORKFLOW_COMPLET_TURBO31150.yml
 # Pour chaque pattern: openclaw deploy --pattern <nom>
 ```
-Lister tous les patterns: `find /home/turbo/jarvis-cowork -name "*.json" -path "*/patterns/*"`
+Lister tous les patterns: `find /home/pamerys/jarvis-cowork -name "*.json" -path "*/patterns/*"`
 
 ### T012 — Créer agent CONTENT_GENERATOR
 ```bash
-mkdir -p /home/turbo/jarvis-cowork/src/agents/content
+mkdir -p /home/pamerys/jarvis-cowork/src/agents/content
 ```
 Créer `content_generator.py`:
 - Input: topic + type (article/linkedin/tweet/podcast)
@@ -62,7 +62,7 @@ Créer `content_generator.py`:
 - Auto-post LinkedIn si `--publish`
 
 ### T013 — Créer agent MULTI_MACHINE_NAVIGATOR
-Créer `/home/turbo/jarvis/scripts/cluster_nav.py`:
+Créer `/home/pamerys/jarvis/scripts/cluster_nav.py`:
 - SSH vers M1/M3 pour exécuter des commandes
 - Collecter métriques GPU/RAM/CPU de chaque nœud
 - Distribuer les tâches lourdes vers M1 (6 GPUs) ou M3 (Ollama)
@@ -105,7 +105,7 @@ mv ~/.lmstudio /storage/data/lmstudio && ln -s /storage/data/lmstudio ~/.lmstudi
 ```
 
 ### T022 — Créer watchdog pour services critiques
-Créer `/home/turbo/jarvis/scripts/watchdog_critical.sh`:
+Créer `/home/pamerys/jarvis/scripts/watchdog_critical.sh`:
 - Surveiller: 9743 (whisper), 18800 (chat proxy), 9742 (bridge), 4173 (lumen), 8788 (token)
 - Si down: redémarrer automatiquement
 - Ajouter en cron: `*/5 * * * * bash ~/jarvis/scripts/watchdog_critical.sh`
@@ -120,7 +120,7 @@ Ajouter dans le rapport: état des bridges 9742/18800/8788
 - Investiguer pourquoi M2 SSH bloqué
 - Tester: `ssh -v turbo@192.168.1.26 2>&1 | tail -10`
 - Si firewall: contacter Turbo pour accès physique
-- Documenter dans `/home/turbo/jarvis/infra/cluster-status.md`
+- Documenter dans `/home/pamerys/jarvis/infra/cluster-status.md`
 
 ### T025 — Activer M3 dans le routage LLM
 - M3 (192.168.1.113) est UP avec Ollama
@@ -145,11 +145,11 @@ done
 ```
 
 ### T031 — Générer README.md attractifs pour les repos GitHub
-Pour chaque repo dans `/home/turbo/Workspaces/`:
+Pour chaque repo dans `/home/pamerys/Workspaces/`:
 ```bash
 for repo in JARVIS-OMEGA jarvis-core jarvis-mcp-toolkit; do
-  if [ -d "/home/turbo/Workspaces/$repo" ]; then
-    bash ~/jarvis/scripts/lm-ask.sh --big "Génère un README.md professionnel avec badges GitHub pour le projet $repo. Description: $(cat /home/turbo/Workspaces/$repo/README.md 2>/dev/null | head -20)"
+  if [ -d "/home/pamerys/Workspaces/$repo" ]; then
+    bash ~/jarvis/scripts/lm-ask.sh --big "Génère un README.md professionnel avec badges GitHub pour le projet $repo. Description: $(cat /home/pamerys/Workspaces/$repo/README.md 2>/dev/null | head -20)"
   fi
 done
 ```
@@ -172,12 +172,12 @@ Créer cron weekly pour générer:
 
 ### T040 — Indexer tous les repos dans Pinecone/mémoire
 ```bash
-for repo in /home/turbo/Workspaces/*/; do
+for repo in /home/pamerys/Workspaces/*/; do
   python3 ~/jarvis/scripts/util_logging.py checkpoint "indexed_$repo" "$(date +%s)" || true
   # Indexer dans jarvis_master.db
   python3 -c "
 import sqlite3, os, json
-db = sqlite3.connect('/home/turbo/jarvis/jarvis_master.db')
+db = sqlite3.connect('/home/pamerys/jarvis/jarvis_master.db')
 db.execute('CREATE TABLE IF NOT EXISTS repos (name TEXT PRIMARY KEY, path TEXT, indexed_at TEXT, files INT)')
 repo_name = os.path.basename('$repo'.rstrip('/'))
 files = sum(1 for _ in os.walk('$repo'))
@@ -188,18 +188,18 @@ done
 ```
 
 ### T041 — Créer dashboard web pour les 928 agents
-- Exposer `/home/turbo/Workspaces/jarvis-linux/canvas/` sur port 18801
+- Exposer `/home/pamerys/Workspaces/jarvis-linux/canvas/` sur port 18801
 - Ajouter route `/api/agents` qui liste tous les Docker containers
 - Ajouter route `/api/logs` qui lit jarvis_logs.db (dernières 100 entrées)
 
 ### T042 — Optimiser lm-ask.sh (ajouter M3)
-Modifier `/home/turbo/jarvis/scripts/lm-ask.sh`:
+Modifier `/home/pamerys/jarvis/scripts/lm-ask.sh`:
 - Ajouter M3 (192.168.1.113:11434) comme fallback Ollama
 - Ordre: M1 → M2 → M3 → OL1
 
 ### T043 — Ajouter type hints + docstrings manquants
 ```bash
-for f in /home/turbo/Workspaces/jarvis-linux/src/jarvis/core/*.py; do
+for f in /home/pamerys/Workspaces/jarvis-linux/src/jarvis/core/*.py; do
   python3 -c "
 import ast, sys
 with open('$f') as fp: code = fp.read()
@@ -214,7 +214,7 @@ done | head -20
 
 ### T044 — Scanner imports cassés et créer stubs
 ```bash
-find /home/turbo/Workspaces/jarvis-linux/src -name "*.py" -exec python3 -c "
+find /home/pamerys/Workspaces/jarvis-linux/src -name "*.py" -exec python3 -c "
 import py_compile, sys
 try:
     py_compile.compile('{}', doraise=True)
@@ -224,7 +224,7 @@ except: print('BROKEN: {}')
 
 ### T045 — Committer tous les changements non commités
 ```bash
-for repo in /home/turbo/Workspaces/jarvis-linux /home/turbo/jarvis-cowork; do
+for repo in /home/pamerys/Workspaces/jarvis-linux /home/pamerys/jarvis-cowork; do
   cd $repo
   if git status --short | grep -q .; then
     git add -A
@@ -262,7 +262,7 @@ Ajouter dans crontab:
 ```
 
 ### T051 — Créer script weekly_report.sh
-Créer `/home/turbo/jarvis/scripts/weekly_report.sh`:
+Créer `/home/pamerys/jarvis/scripts/weekly_report.sh`:
 - Commits de la semaine dans tous les repos
 - Agents actifs vs arrêtés
 - Taille du disk
@@ -310,12 +310,12 @@ Si corrompu: `sqlite3 bad.db ".dump" | sqlite3 new.db`
 ### T063 — Documenter l'API JARVIS complète
 Scanner tous les endpoints Flask/FastAPI dans les scripts:
 ```bash
-grep -r "@app.route\|@router\|def get_\|def post_" /home/turbo/Workspaces/jarvis-linux/src --include="*.py" | head -30
+grep -r "@app.route\|@router\|def get_\|def post_" /home/pamerys/Workspaces/jarvis-linux/src --include="*.py" | head -30
 ```
-Générer `/home/turbo/jarvis/docs/API.md`
+Générer `/home/pamerys/jarvis/docs/API.md`
 
 ### T064 — Créer CLAUDE.md dans tous les sous-projets
-Pour chaque repo cloné dans /home/turbo/Workspaces/:
+Pour chaque repo cloné dans /home/pamerys/Workspaces/:
 - Vérifier si CLAUDE.md existe
 - Sinon créer avec contexte du projet (depuis README.md)
 
@@ -326,8 +326,8 @@ Pour chaque repo cloné dans /home/turbo/Workspaces/:
 ### T070 — Déployer cowork-dispatcher sur M3
 ```bash
 ssh turbo@192.168.1.113 "
-  cd /home/turbo/jarvis-cowork 2>/dev/null || git clone https://github.com/Turbo31150/jarvis-cowork /home/turbo/jarvis-cowork
-  cd /home/turbo/jarvis-cowork
+  cd /home/pamerys/jarvis-cowork 2>/dev/null || git clone https://github.com/Turbo31150/jarvis-cowork /home/pamerys/jarvis-cowork
+  cd /home/pamerys/jarvis-cowork
   docker-compose up -d cowork-dispatcher 2>/dev/null || python3 src/cowork_dispatcher.py &
 "
 ```
@@ -342,7 +342,7 @@ done
 ```
 
 ### T072 — Créer script de déploiement multi-nœuds
-Créer `/home/turbo/jarvis/scripts/cluster_deploy.sh <script>`:
+Créer `/home/pamerys/jarvis/scripts/cluster_deploy.sh <script>`:
 - Copier et exécuter un script sur M1/M3 en parallèle
 - Collecter les outputs
 - Afficher résultat consolidé
@@ -359,7 +359,7 @@ docker run -d --name grafana -p 3000:3000 grafana/grafana 2>/dev/null || true
 Configurer scraping: Docker metrics + GPU (nvidia-smi → exporter)
 
 ### T081 — Dashboard agents temps réel
-Créer `/home/turbo/jarvis/scripts/agents_dashboard.py`:
+Créer `/home/pamerys/jarvis/scripts/agents_dashboard.py`:
 - Lire `docker ps` toutes les 5s
 - Afficher status coloré par catégorie
 - Alerte si agent critique down
@@ -381,14 +381,14 @@ python3 ~/jarvis/scripts/util_logging.py --service lm-ask --message "query: ${qu
 
 ### T091 — Vérifier secrets exposés dans les repos publics
 ```bash
-for repo in /home/turbo/Workspaces/*/; do
+for repo in /home/pamerys/Workspaces/*/; do
   git -C $repo log --all --full-history -- "*.env" "secrets*" 2>/dev/null | grep commit | head -2
 done
 ```
 
 ### T092 — Créer .gitignore complet pour tous les repos
 ```bash
-for repo in /home/turbo/Workspaces/*/; do
+for repo in /home/pamerys/Workspaces/*/; do
   if [ ! -f "$repo/.gitignore" ] || ! grep -q "secrets" "$repo/.gitignore" 2>/dev/null; then
     cat >> "$repo/.gitignore" << 'GITIGNORE'
 *.env
@@ -418,3 +418,43 @@ Après exécution de toutes ces tâches, JARVIS doit avoir:
 - [ ] Tous les repos GitHub à jour
 
 **Total: ~92 tâches autonomes — aucune confirmation requise**
+
+---
+
+# SESSION 14/08/2026 — état réel du parc (mesuré, pas supposé)
+
+## EN COURS (dispatch multi-agents)
+- [ ] M6 + LM Studio : charger un modèle sur la RTX 3080 (10 Gio libres)
+- [ ] Board : vectoriser 28 717 chunks aveugles sur 49 232 (embed via Rémi, 768 dim)
+- [ ] Gitmore M1 : archive chiffrée, sans les 43 Go de bases ni les 400+ secrets.env
+- [ ] Profils Chrome : lever l'ambiguïté sur le "profil Rémi"
+- [ ] Vérifier que les correctifs M4 tiennent au prochain redémarrage
+
+## BLOQUÉ — action humaine requise
+- [ ] **ACL Tailscale** — SSH vers Rémi refusé : `tailnet policy does not permit you to
+      SSH as user "turbo"`. Ce n'est PAS un mot de passe. Ajouter sur
+      login.tailscale.com/admin/acls :
+      "ssh":[{"action":"accept","src":["autogroup:member"],
+              "dst":["autogroup:self"],"users":["autogroup:nonroot","turbo","root"]}]
+      → débloque terminaux Rémi + M1, AnyDesk, profil Chrome
+- [ ] **M1 hors ligne** dans Tailscale — seul son disque USB est lisible
+- [ ] **M6 : problème disque** — load 29,8 après libération mais io pressure 97 %,
+      15 procs bloqués en D. C'est de l'attente disque, pas du CPU. À diagnostiquer.
+- [ ] **Sauvegardes passées** pouvant contenir ecole.db sur Google Drive — à vérifier
+      puis purger côté Drive (aucune suppression faite de mon côté)
+
+## ÉTAT DU PARC (sondé, pas supposé)
+| Machine | État | Note |
+|---|---|---|
+| M4 (ici) | OK | load 0,4 · 54 °C · 9,4 Gi libres · RTX 3050 4 Go |
+| M6 10.42.0.230 | dégradé | 2 GPU LIBRES (RTX 3080 10 Go, RTX 2060 12 Go) mais disque saturé |
+| Rémi-ASUS 100.113.121.61 | OK | Ollama :11434 — gemma3:27b, embeddings 768. SSH bloqué ACL |
+| Rémi-tour 100.124.69.1 | ping seul | pas d'Ollama |
+| M1 100.112.114.32 | OFFLINE | disque USB monté en lecture seule |
+
+## PIÈGES CONFIRMÉS (ne pas réapprendre)
+- `10.42.0.1:1234` n'est PAS M1 : c'est l'interface USB-C de M4 lui-même
+- `ai_local.py` route encore vers M1_HOST et M2 : les deux sont MORTS
+- `cache=False` n'empêche PAS l'envoi, seulement le stockage
+- `pkill -f <motif>` se tue lui-même si le motif est dans sa propre ligne de commande
+- table `ai_cache` en anglais : key / answer / ts

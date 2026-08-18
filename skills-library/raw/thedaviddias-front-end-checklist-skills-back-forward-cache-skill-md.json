@@ -1,0 +1,11 @@
+{
+  "id": "thedaviddias-front-end-checklist-skills-back-forward-cache-skill-md",
+  "name": "back-forward-cache",
+  "author": "thedaviddias",
+  "description": "Use when reviewing navigation performance, browser lifecycle events, or resume-from-memory behavior. Check the actual browser lifecycle and restore path, not only static code patterns.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedaviddias/Front-End-Checklist/tree/main/skills/back-forward-cache",
+  "skillUrl": "https://skillsmp.com/creators/thedaviddias/front-end-checklist/skills-back-forward-cache",
+  "stars": 73416,
+  "updatedAt": 1780091646
+}

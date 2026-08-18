@@ -1,0 +1,11 @@
+{
+  "id": "github-awesome-copilot-skills-postgresql-optimization-skill-md",
+  "name": "postgresql-optimization",
+  "author": "github",
+  "description": "PostgreSQL-specific development assistant focusing on unique PostgreSQL features, advanced data types, and PostgreSQL-exclusive capabilities. Covers JSONB operations, array types, custom types, range/geometric types, full-text search, window functions, and PostgreSQL extensions ecosystem.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/github/awesome-copilot/tree/main/skills/postgresql-optimization",
+  "skillUrl": "https://skillsmp.com/creators/github/awesome-copilot/skills-postgresql-optimization",
+  "stars": 37423,
+  "updatedAt": 1771904373
+}

@@ -1,0 +1,11 @@
+{
+  "id": "danielmiessler-lifeos-lifeos-install-skills-art-skill-md",
+  "name": "art",
+  "author": "danielmiessler",
+  "description": "Static visual content across 20+ formats \u2014 diagrams, mermaid, infographics, D3 dashboards, comics, icons, wallpaper \u2014 via Nano Banana Pro (default), Nano Banana, and Flux. USE WHEN art, illustration, diagram, flowchart, infographic, header image, blog social thumbnail, visualize, generate image, mermaid, architecture diagram, comic, icon, blog art, framework diagram, D3 chart, remove background, wallpaper. NOT FOR locked house-style YouTube/channel/video thumbnails, video or animation (use Remotion), or web UI design and integrated frontend layout (use Webdesign).",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/danielmiessler/LifeOS/tree/main/LifeOS/install/skills/Art",
+  "skillUrl": "https://skillsmp.com/creators/danielmiessler/lifeos/lifeos-install-skills-art",
+  "stars": 17144,
+  "updatedAt": 1785627998
+}

@@ -1,0 +1,11 @@
+{
+  "id": "lobehub-lobehub-agents-skills-add-provider-doc-skill-md",
+  "name": "add-provider-doc",
+  "author": "lobehub",
+  "description": "Add documentation for a new AI provider \u2014 usage docs, env vars, Docker config, image resources.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/lobehub/lobehub/tree/canary/.agents/skills/add-provider-doc",
+  "skillUrl": "https://skillsmp.com/creators/lobehub/lobehub/agents-skills-add-provider-doc",
+  "stars": 81243,
+  "updatedAt": 1782976292
+}

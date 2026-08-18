@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-agents-skills-plan-canvas-skill-md",
+  "name": "plan-canvas",
+  "author": "affaan-m",
+  "description": "Open plans and HTML artifacts in a local browser canvas where the human annotates elements, chats, and approves or requests changes without leaving the page. Use when presenting a plan for review, or when feedback like \"move this, change that\" is easier pointed at than typed.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/.agents/skills/plan-canvas",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/agents-skills-plan-canvas",
+  "stars": 237500,
+  "updatedAt": 1783545168
+}

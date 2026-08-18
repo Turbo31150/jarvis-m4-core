@@ -1,0 +1,11 @@
+{
+  "id": "paperclipai-paperclip-agents-skills-terminal-bench-loop-skill-md",
+  "name": "terminal-bench-loop",
+  "author": "paperclipai",
+  "description": "Run one Terminal-Bench task through a bounded Paperclip smoke/diagnosis/fix loop. Use when asked to drive Terminal-Bench until it passes, rerun a Terminal-Bench loop, or iterate with board-gated fixes and diagnosis.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/paperclipai/paperclip/tree/master/.agents/skills/terminal-bench-loop",
+  "skillUrl": "https://skillsmp.com/creators/paperclipai/paperclip/agents-skills-terminal-bench-loop",
+  "stars": 75602,
+  "updatedAt": 1783691180
+}

@@ -1,0 +1,29 @@
+{
+  "topic": "Boutique Prof IA / Pousseline — écosystème JARVIS OS",
+  "profile": "full",
+  "mode": "fast",
+  "scan_local": {
+    "target": "/home/pamerys/jarvis/webapp",
+    "files": 215,
+    "size_mb": 726.16,
+    "languages": {
+      "HTML": 49,
+      "Python": 24,
+      "JSON": 4,
+      "Markdown": 4,
+      "JS": 2,
+      "Shell": 2,
+      "SQL": 1
+    },
+    "key_files": [],
+    "jarvis_modules": [
+      "cascade"
+    ],
+    "compliance_markers": [],
+    "secrets_files": [
+      "certs/server.key",
+      "certs/ca.key"
+    ],
+    "git": {}
+  }
+}

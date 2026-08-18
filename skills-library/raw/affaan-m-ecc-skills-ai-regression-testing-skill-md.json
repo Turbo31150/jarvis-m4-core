@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-ai-regression-testing-skill-md",
+  "name": "ai-regression-testing",
+  "author": "affaan-m",
+  "description": "Regression testing strategies for AI-assisted development. Sandbox-mode API testing without database dependencies, automated bug-check workflows, and patterns to catch AI blind spots where the same model writes and reviews code.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/ai-regression-testing",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-ai-regression-testing",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

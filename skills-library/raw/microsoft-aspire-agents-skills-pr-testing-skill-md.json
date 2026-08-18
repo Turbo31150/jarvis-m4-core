@@ -1,0 +1,11 @@
+{
+  "id": "microsoft-aspire-agents-skills-pr-testing-skill-md",
+  "name": "pr-testing",
+  "author": "microsoft",
+  "description": "Use when asked to test a microsoft/aspire pull request, including CLI, hosting, dashboard, component, template, and VS Code extension changes. Also covers testing PRs that change CI infrastructure \u2014 GitHub Actions (workflows, actions, gh-aw agentic workflows, CI scripts under .github/ and eng/) and Azure DevOps pipelines (eng/pipelines, eng/common).",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/microsoft/aspire/tree/main/.agents/skills/pr-testing",
+  "skillUrl": "https://skillsmp.com/creators/microsoft/aspire/agents-skills-pr-testing",
+  "stars": 6203,
+  "updatedAt": 1781846635
+}

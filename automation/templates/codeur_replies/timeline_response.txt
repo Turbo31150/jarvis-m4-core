@@ -1,0 +1,23 @@
+Hi,
+
+Great question! Here's our typical project timeline:
+
+DISCOVERY & REQUIREMENTS: 2-3 days
+DEVELOPMENT: Depends on scope (we work in 1-week sprints)
+TESTING & QA: 3-5 days
+DEPLOYMENT & HANDOVER: 2-3 days
+
+FACTORS AFFECTING TIMELINE:
+- Project complexity
+- Your feedback response time
+- Availability of requirements
+- Third-party integrations needed
+
+TYPICAL PROJECTS:
+- MVP (4 weeks)
+- Full Platform (8-12 weeks)
+- Integration Project (2-3 weeks)
+
+We can discuss an accelerated timeline if needed. Let's hop on a call?
+
+Looking forward to working with you!

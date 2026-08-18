@@ -1,0 +1,11 @@
+{
+  "id": "dotnet-runtime-github-skills-ci-pipeline-monitor-skill-md",
+  "name": "ci-pipeline-monitor",
+  "author": "dotnet",
+  "description": "Monitors .NET runtime CI test pipelines on Azure DevOps. Use this skill when asked to monitor CI pipeline test results, triage CI test failures across ADO pipelines, or generate CI test monitoring reports.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/dotnet/runtime/tree/main/.github/skills/ci-pipeline-monitor",
+  "skillUrl": "https://skillsmp.com/creators/dotnet/runtime/github-skills-ci-pipeline-monitor",
+  "stars": 18123,
+  "updatedAt": 1783077867
+}

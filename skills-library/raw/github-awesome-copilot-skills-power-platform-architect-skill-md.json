@@ -1,0 +1,11 @@
+{
+  "id": "github-awesome-copilot-skills-power-platform-architect-skill-md",
+  "name": "power-platform-architect",
+  "author": "github",
+  "description": "Use this skill when the user needs to transform business requirements, use case descriptions, or meeting transcripts into a technical Power Platform solution architecture, including component selection and Mermaid.js diagrams.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/github/awesome-copilot/tree/main/skills/power-platform-architect",
+  "skillUrl": "https://skillsmp.com/creators/github/awesome-copilot/skills-power-platform-architect",
+  "stars": 37423,
+  "updatedAt": 1776386980
+}

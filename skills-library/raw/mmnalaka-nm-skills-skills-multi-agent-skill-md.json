@@ -1,0 +1,11 @@
+{
+  "id": "mmnalaka-nm-skills-skills-multi-agent-skill-md",
+  "name": "multi-agent",
+  "author": "mmNalaka",
+  "description": "Use when a task has independent parallel concerns \u2014 decomposes into subagents with a dispatch plan approved before execution.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/mmNalaka/nm-skills/tree/main/skills/multi-agent",
+  "skillUrl": "https://skillsmp.com/creators/mmnalaka/nm-skills/skills-multi-agent",
+  "stars": 1,
+  "updatedAt": 1779307737
+}

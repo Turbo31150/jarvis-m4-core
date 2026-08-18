@@ -1,0 +1,11 @@
+{
+  "id": "mui-material-ui-skills-material-ui-theming-skill-md",
+  "name": "material-ui-theming",
+  "author": "mui",
+  "description": "Guides Material\u00a0UI theming and design tokens (createTheme, ThemeProvider, palette, colorSchemes, cssVariables, theme.vars, dark mode, TypeScript augmentation). Use when building or extending a theme, toggling light/dark, or aligning tokens across an app.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/mui/material-ui/tree/master/skills/material-ui-theming",
+  "skillUrl": "https://skillsmp.com/creators/mui/material-ui/skills-material-ui-theming",
+  "stars": 98678,
+  "updatedAt": 1782725489
+}

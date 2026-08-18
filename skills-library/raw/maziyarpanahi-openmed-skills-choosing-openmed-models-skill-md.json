@@ -1,0 +1,11 @@
+{
+  "id": "maziyarpanahi-openmed-skills-choosing-openmed-models-skill-md",
+  "name": "choosing-openmed-models",
+  "author": "maziyarpanahi",
+  "description": "Discover and pick the right OpenMed model for a clinical or biomedical task, domain, or language. Use when the user asks which OpenMed model to use, wants to list model categories, find a Disease vs Oncology vs Privacy/PII model, get a PII model for a specific language, search models by size or task, or inspect a model's labels and metadata before loading. Covers list_model_categories, get_models_by_category, get_pii_models_by_language, get_default_pii_model, search_models(ModelQuery(...)), get_model_info, and the openmed models CLI. Pairs with loading-openmed-models.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/maziyarpanahi/openmed/tree/master/skills/choosing-openmed-models",
+  "skillUrl": "https://skillsmp.com/creators/maziyarpanahi/openmed/skills-choosing-openmed-models",
+  "stars": 4847,
+  "updatedAt": 1784539657
+}

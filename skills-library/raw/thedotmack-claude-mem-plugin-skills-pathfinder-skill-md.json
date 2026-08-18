@@ -1,0 +1,11 @@
+{
+  "id": "thedotmack-claude-mem-plugin-skills-pathfinder-skill-md",
+  "name": "pathfinder",
+  "author": "thedotmack",
+  "description": "Map a codebase into feature-grouped flowcharts, identify duplicated concerns across features, and propose a unified architecture. Use when asked to \"find the ideal path,\" unify duplicated systems, or audit architecture before a refactor. Emits a proposed unified flowchart plus per-system /make-plan prompts.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedotmack/claude-mem/tree/main/plugin/skills/pathfinder",
+  "skillUrl": "https://skillsmp.com/creators/thedotmack/claude-mem/plugin-skills-pathfinder",
+  "stars": 89499,
+  "updatedAt": 1777149460
+}

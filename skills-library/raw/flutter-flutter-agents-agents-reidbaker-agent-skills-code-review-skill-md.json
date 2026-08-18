@@ -1,0 +1,11 @@
+{
+  "id": "flutter-flutter-agents-agents-reidbaker-agent-skills-code-review-skill-md",
+  "name": "code-review",
+  "author": "flutter",
+  "description": "Performs a comprehensive, multi-step code review of pull requests or local code changes, using iterative refinement (generation, critique, synthesis) to ensure high-quality, actionable feedback. Use when you need to review code changes thoroughly.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/flutter/flutter/tree/master/.agents/agents/reidbaker-agent/skills/code-review",
+  "skillUrl": "https://skillsmp.com/creators/flutter/flutter/agents-agents-reidbaker-agent-skills-code-review",
+  "stars": 178163,
+  "updatedAt": 1780946475
+}

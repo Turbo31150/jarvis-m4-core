@@ -1,0 +1,11 @@
+{
+  "id": "yeachan-heo-oh-my-claudecode-skills-ask-skill-md",
+  "name": "ask",
+  "author": "Yeachan-Heo",
+  "description": "Process-first advisor routing for Claude, Codex, Gemini, Antigravity, Grok, or Cursor via `omc ask`, with artifact capture and no raw CLI assembly",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Yeachan-Heo/oh-my-claudecode/tree/main/skills/ask",
+  "skillUrl": "https://skillsmp.com/creators/yeachan-heo/oh-my-claudecode/skills-ask",
+  "stars": 38323,
+  "updatedAt": 1782141974
+}

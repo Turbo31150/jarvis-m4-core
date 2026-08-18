@@ -1,0 +1,11 @@
+{
+  "id": "storybookjs-storybook-agents-skills-fix-linting-types-on-pr-skill-md",
+  "name": "fix-linting-types-on-pr",
+  "author": "storybookjs",
+  "description": "Checks out a PR (including fork PRs), fixes all linting and TypeScript errors, then pushes the changes back. Use when asked to fix lint, types, or TS errors on a PR.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/storybookjs/storybook/tree/next/.agents/skills/fix-linting-types-on-pr",
+  "skillUrl": "https://skillsmp.com/creators/storybookjs/storybook/agents-skills-fix-linting-types-on-pr",
+  "stars": 90755,
+  "updatedAt": 1774004679
+}

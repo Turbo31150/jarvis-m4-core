@@ -1,0 +1,11 @@
+{
+  "id": "microsoft-vscode-github-skills-azure-pipelines-skill-md",
+  "name": "azure-pipelines",
+  "author": "microsoft",
+  "description": "Use when validating Azure DevOps pipeline changes for the VS Code build. Covers queueing builds, checking build status, viewing logs, and iterating on pipeline YAML changes without waiting for full CI runs.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/microsoft/vscode/tree/main/.github/skills/azure-pipelines",
+  "skillUrl": "https://skillsmp.com/creators/microsoft/vscode/github-skills-azure-pipelines",
+  "stars": 188283,
+  "updatedAt": 1782333278
+}

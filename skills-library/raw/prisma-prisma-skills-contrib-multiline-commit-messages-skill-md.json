@@ -1,0 +1,11 @@
+{
+  "id": "prisma-prisma-skills-contrib-multiline-commit-messages-skill-md",
+  "name": "multiline-commit-messages",
+  "author": "prisma",
+  "description": "Use single-quoted strings for multiline git commit messages in the Shell tool. Prevents heredoc escaping failures that produce garbled commit messages.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/prisma/prisma/tree/main/skills-contrib/multiline-commit-messages",
+  "skillUrl": "https://skillsmp.com/creators/prisma/prisma/skills-contrib-multiline-commit-messages",
+  "stars": 47525,
+  "updatedAt": 1779021672
+}

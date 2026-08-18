@@ -1,0 +1,11 @@
+{
+  "id": "nexu-io-open-design-skills-output-skill-skill-md",
+  "name": "full-output-enforcement",
+  "author": "nexu-io",
+  "description": "Overrides default LLM truncation behavior. Enforces complete code generation, bans placeholder patterns, and handles token-limit splits cleanly. Apply to any task requiring exhaustive, unabridged output.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/nexu-io/open-design/tree/main/skills/output-skill",
+  "skillUrl": "https://skillsmp.com/creators/nexu-io/open-design/skills-output-skill",
+  "stars": 83535,
+  "updatedAt": 1780385670
+}

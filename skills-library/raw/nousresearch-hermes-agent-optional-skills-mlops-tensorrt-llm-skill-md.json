@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-optional-skills-mlops-tensorrt-llm-skill-md",
+  "name": "tensorrt-llm",
+  "author": "NousResearch",
+  "description": "High-throughput LLM inference on NVIDIA GPUs.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/optional-skills/mlops/tensorrt-llm",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/optional-skills-mlops-tensorrt-llm",
+  "stars": 225204,
+  "updatedAt": 1784906285
+}

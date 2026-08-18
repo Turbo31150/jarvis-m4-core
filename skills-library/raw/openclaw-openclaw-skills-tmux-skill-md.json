@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-skills-tmux-skill-md",
+  "name": "tmux",
+  "author": "openclaw",
+  "description": "Control tmux sessions/panes for interactive CLIs: list, capture output, send keys, paste text, monitor prompts.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/skills/tmux",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/skills-tmux",
+  "stars": 385119,
+  "updatedAt": 1779015027
+}

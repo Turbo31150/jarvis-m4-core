@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-agentic-os-skill-md",
+  "name": "agentic-os",
+  "author": "affaan-m",
+  "description": "Build persistent multi-agent operating systems on Claude Code. Covers kernel architecture, specialist agents, slash commands, file-based memory, scheduled automation, and state management without external databases.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/agentic-os",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-agentic-os",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

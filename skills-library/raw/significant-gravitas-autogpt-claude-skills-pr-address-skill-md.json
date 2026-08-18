@@ -1,0 +1,11 @@
+{
+  "id": "significant-gravitas-autogpt-claude-skills-pr-address-skill-md",
+  "name": "pr-address",
+  "author": "Significant-Gravitas",
+  "description": "Address PR review comments and loop until CI green and all comments resolved. TRIGGER when user asks to address comments, fix PR feedback, respond to reviewers, or babysit/monitor a PR.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Significant-Gravitas/AutoGPT/tree/master/.claude/skills/pr-address",
+  "skillUrl": "https://skillsmp.com/creators/significant-gravitas/autogpt/claude-skills-pr-address",
+  "stars": 185813,
+  "updatedAt": 1776569824
+}

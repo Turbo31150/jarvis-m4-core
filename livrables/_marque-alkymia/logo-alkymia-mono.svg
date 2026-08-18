@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 100" fill="currentColor" role="img" aria-label="AlkymIA">
+  <title>AlkymIA — logo maître monochrome (currentColor)</title>
+  <g transform="translate(4,2)" fill="none" stroke="currentColor">
+    <circle cx="48" cy="50" r="44" stroke-width="3.4"/>
+    <path d="M48 26 L76 74 L20 74 Z" stroke-width="6.6" stroke-linejoin="round"/>
+    <line x1="33" y1="58" x2="63" y2="58" stroke-width="6.6" stroke-linecap="round"/>
+  </g>
+  <path d="M52 10 C47 17 44 21 44 25 a8 8 0 0 0 16 0 C60 21 57 17 52 10 Z" fill="currentColor"/>
+  <text x="112" y="63" font-family="'Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="44" font-weight="600" letter-spacing="0.5" fill="currentColor">AlkymIA</text>
+</svg>

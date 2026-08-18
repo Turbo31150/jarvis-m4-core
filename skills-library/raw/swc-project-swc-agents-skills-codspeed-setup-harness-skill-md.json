@@ -1,0 +1,11 @@
+{
+  "id": "swc-project-swc-agents-skills-codspeed-setup-harness-skill-md",
+  "name": "codspeed-setup-harness",
+  "author": "swc-project",
+  "description": "Set up performance benchmarks and CodSpeed harness for a project. Use this skill whenever the user wants to create benchmarks, add performance tests, set up CodSpeed, configure codspeed.yml, integrate a benchmarking framework (criterion, divan, pytest-benchmark, vitest bench, go test -bench, google benchmark), or when the user says 'add benchmarks', 'set up perf tests', 'create a benchmark', 'benchmark this', or wants to measure performance of their code for the first time. Also trigger when the optimize skill needs benchmarks that don't exist yet.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/swc-project/swc/tree/main/.agents/skills/codspeed-setup-harness",
+  "skillUrl": "https://skillsmp.com/creators/swc-project/swc/agents-skills-codspeed-setup-harness",
+  "stars": 34161,
+  "updatedAt": 1780207479
+}

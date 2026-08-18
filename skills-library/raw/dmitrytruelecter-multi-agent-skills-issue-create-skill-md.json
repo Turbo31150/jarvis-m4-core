@@ -1,0 +1,11 @@
+{
+  "id": "dmitrytruelecter-multi-agent-skills-issue-create-skill-md",
+  "name": "issue-create",
+  "author": "DmitryTrueLecter",
+  "description": "Create a new issue in the issue tracker \u2014 type, summary, description, labels, parent/epic link, and dependency links. Reads project/team key from ${CLAUDE_PROJECT_DIR}/.claude/dma/config.yml. Invocation: /dma:issue-create <type> <summary> [parent:<KEY>] [labels:<l1>,<l2>] [blocks:<KEY1>,<KEY2>] [description:<text>].",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/DmitryTrueLecter/multi-agent/tree/main/skills/issue-create",
+  "skillUrl": "https://skillsmp.com/creators/dmitrytruelecter/multi-agent/skills-issue-create",
+  "stars": 0,
+  "updatedAt": 1782718463
+}

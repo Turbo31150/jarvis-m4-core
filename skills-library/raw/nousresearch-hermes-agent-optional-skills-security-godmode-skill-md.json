@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-optional-skills-security-godmode-skill-md",
+  "name": "godmode",
+  "author": "NousResearch",
+  "description": "Jailbreak LLMs: Parseltongue, GODMODE, ULTRAPLINIAN.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/optional-skills/security/godmode",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/optional-skills-security-godmode",
+  "stars": 225204,
+  "updatedAt": 1783284166
+}

@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-x-api-skill-md",
+  "name": "x-api",
+  "author": "affaan-m",
+  "description": "X/Twitter API integration for posting tweets, threads, reading timelines, search, and analytics. Covers OAuth auth patterns, rate limits, and platform-native content posting. Use when the user wants to interact with X programmatically.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/x-api",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-x-api",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

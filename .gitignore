@@ -63,3 +63,42 @@ webapp/backups/
 # JARVIS DUAL — état runtime, jamais versionné
 data/dual-jobs/
 dual/config.json
+
+# --- 2026-08-18 : garde-fou taille. Un `git add -A` embarquait 24 Go d'artefacts
+# (bases de 6,5 Go renommées .bak_pre_merge, donc non couvertes par *.db).
+*.bak
+*.bak-*
+*.bak.*
+*.bak_*
+*.bak2-*
+*.bak3-*
+*.bak4-*
+databases/
+dominos-compiled/
+
+# === MCP : contient des tokens en clair (GitHub PAT, Netlify, Mirra, Telegram) ===
+.mcp.json
+
+# 2026-08-18 : .mcp.json porte des tokens GitHub en clair (gho_/ghp_).
+# Un `git add -A` l'a réintroduit dans l'index apres le commit de purge f5a6249.
+.mcp.json
+.mcp.json.*
+# Transcripts de sessions : contiennent des secrets recopies (cle SSH privee
+# base64 reperee dans une session passcerfa-app).
+board/corpus-m6-sessions/
+
+# === Profil shell : porte TELEGRAM_BOT_TOKEN et OPENCLAW_GATEWAY_TOKEN en clair ===
+profils/turbo/.bashrc
+# Rapports d audit locaux : ils RECOPIENT en clair les secrets qu ils
+# detectent (cle Google AIzaSy… reperee dans trois d entre eux).
+audit/audit-local-*.md
+
+# 2026-08-18 : blobs qui rendaient le push impossible (fichiers >100 Mo,
+# refuses par GitHub). Six commits locaux les portaient — 1,78 Go a pousser
+# pour un depot dont le code utile pese quelques Mo.
+*.db.bak*
+*.sqlite.bak*
+n8n/database.sqlite*
+windows_recovery/
+voice_dataset/wav/
+_backups/

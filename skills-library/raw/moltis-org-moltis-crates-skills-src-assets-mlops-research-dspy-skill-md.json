@@ -1,0 +1,11 @@
+{
+  "id": "moltis-org-moltis-crates-skills-src-assets-mlops-research-dspy-skill-md",
+  "name": "dspy",
+  "author": "moltis-org",
+  "description": "Build complex AI systems with declarative programming, optimize prompts automatically, create modular RAG systems and agents with DSPy - Stanford NLP's framework for systematic LM programming",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/moltis-org/moltis/tree/main/crates/skills/src/assets/mlops/research/dspy",
+  "skillUrl": "https://skillsmp.com/creators/moltis-org/moltis/crates-skills-src-assets-mlops-research-dspy",
+  "stars": 2807,
+  "updatedAt": 1776722744
+}

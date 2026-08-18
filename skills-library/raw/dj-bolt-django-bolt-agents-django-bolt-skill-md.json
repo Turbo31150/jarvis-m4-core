@@ -1,0 +1,11 @@
+{
+  "id": "dj-bolt-django-bolt-agents-django-bolt-skill-md",
+  "name": "django-bolt",
+  "author": "dj-bolt",
+  "description": "Build high-performance APIs with Django-Bolt, including BoltAPI routes, typed request validation, msgspec serialization, auth guards, middleware, OpenAPI docs, pagination, streaming, SSE, WebSockets, and testing. Use when the user asks to create a new bolt endpoint, set up a Django-Bolt project, add JWT or API key auth, configure runbolt, wire guards or middleware, add pagination or streaming, generate OpenAPI docs, write TestClient tests, or migrate from FastAPI, Django REST Framework, or Django Ninja to django-bolt. Do NOT use for general Django views, Django admin customization, or standard Django REST Framework work.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/dj-bolt/django-bolt/tree/master/.agents/django-bolt",
+  "skillUrl": "https://skillsmp.com/creators/dj-bolt/django-bolt/agents-django-bolt",
+  "stars": 1591,
+  "updatedAt": 1773604366
+}

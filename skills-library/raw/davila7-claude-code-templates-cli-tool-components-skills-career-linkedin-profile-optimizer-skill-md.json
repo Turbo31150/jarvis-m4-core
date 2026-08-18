@@ -1,0 +1,11 @@
+{
+  "id": "davila7-claude-code-templates-cli-tool-components-skills-career-linkedin-profile-optimizer-skill-md",
+  "name": "linkedin-profile-optimizer",
+  "author": "davila7",
+  "description": "Optimize a LinkedIn profile for searchability, recruiter visibility, and engagement. Use when the user mentions LinkedIn profile, headline, About section, recruiter visibility, or social hiring.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/career/linkedin-profile-optimizer",
+  "skillUrl": "https://skillsmp.com/creators/davila7/claude-code-templates/cli-tool-components-skills-career-linkedin-profile-optimizer",
+  "stars": 30096,
+  "updatedAt": 1778891615
+}

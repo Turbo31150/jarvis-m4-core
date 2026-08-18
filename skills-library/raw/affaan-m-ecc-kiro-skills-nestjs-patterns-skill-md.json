@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-kiro-skills-nestjs-patterns-skill-md",
+  "name": "nestjs-patterns",
+  "author": "affaan-m",
+  "description": "NestJS architecture patterns for modules, controllers, providers, DTO validation, guards, interceptors, config, and production-grade TypeScript backends.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/.kiro/skills/nestjs-patterns",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/kiro-skills-nestjs-patterns",
+  "stars": 237500,
+  "updatedAt": 1780809997
+}

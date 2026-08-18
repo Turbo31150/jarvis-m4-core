@@ -1,0 +1,11 @@
+{
+  "id": "github-awesome-copilot-skills-pr-screenshots-skill-md",
+  "name": "pr-screenshots",
+  "author": "github",
+  "description": "Embed before/after screenshots and annotated images in pull request descriptions. Covers PR description patterns, image upload for Azure DevOps and GitHub, and sizing best practices.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/github/awesome-copilot/tree/main/skills/pr-screenshots",
+  "skillUrl": "https://skillsmp.com/creators/github/awesome-copilot/skills-pr-screenshots",
+  "stars": 37423,
+  "updatedAt": 1779672159
+}

@@ -1,0 +1,11 @@
+{
+  "id": "frank890417-taiwan-md-claude-skills-twmd-embeddings-skill-md",
+  "name": "twmd-embeddings",
+  "author": "frank890417",
+  "description": "Rebuild the bge-m3 semantic index via canonical EMBEDDING-PIPELINE \u2014\none keystone build feeds reader related-articles (src/data/related) +\nRAG vectors (public/api/rag). Sovereignty-preserving: embeddings computed\nin-house (mac-m4max local primary, GPU fleet fallback), never outsourced.\nTRIGGER when: user says \"\u91cd\u5efa\u8a9e\u610f\u7d22\u5f15\", \"\u8dd1 embeddings\", \"rebuild embeddings\",\n\"embedding routine\", or routine `twmd-embeddings-nightly` fires.",
+  "contentLanguage": "zh",
+  "githubUrl": "https://github.com/frank890417/taiwan-md/tree/main/.claude/skills/twmd-embeddings",
+  "skillUrl": "https://skillsmp.com/creators/frank890417/taiwan-md/claude-skills-twmd-embeddings",
+  "stars": 1125,
+  "updatedAt": 1783263969
+}

@@ -1,0 +1,11 @@
+{
+  "id": "posthog-posthog-products-signals-skills-working-with-scouts-skill-md",
+  "name": "working-with-scouts",
+  "author": "PostHog",
+  "description": "How to get real jobs done with PostHog Signals scouts \u2014 the scheduled agents that watch a project and write reports into the Signals inbox \u2014 and how to steer and customize the fleet over time. Use when a user wants to delegate a watching job (\"have a scout keep an eye on X\", \"tell me if Y spikes\", \"watch this for a week\"), wants to know which scout covers a surface, asks how to act on what scouts report, complains the fleet is noisy or quiet (\"my scouts aren't useful\", \"too many reports\"), or wants the fleet to get smarter over time (feedback loops, periodic calibration, promoting one-off steers into permanent policy). The operating manual for the human\u2013scout working relationship; routes to `authoring-scouts` for write mechanics, `exploring-scouts` for run observability, and `inbox-exploration` for report triage. Trigger on \"work with my scouts\", \"get more out of scouts\", \"have a scout watch X\", \"what do I do with this scout report\", \"calibrate/review my scout fleet\".",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/PostHog/posthog/tree/master/products/signals/skills/working-with-scouts",
+  "skillUrl": "https://skillsmp.com/creators/posthog/posthog/products-signals-skills-working-with-scouts",
+  "stars": 37496,
+  "updatedAt": 1785791822
+}

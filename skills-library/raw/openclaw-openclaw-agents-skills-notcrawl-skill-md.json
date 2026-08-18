@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-agents-skills-notcrawl-skill-md",
+  "name": "notcrawl",
+  "author": "openclaw",
+  "description": "Notion archive: search, sync freshness, pages/databases, Markdown exports, SQL counts, and Notcrawl repo work.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/.agents/skills/notcrawl",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/agents-skills-notcrawl",
+  "stars": 385119,
+  "updatedAt": 1779016703
+}

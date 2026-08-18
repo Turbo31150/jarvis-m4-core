@@ -1,0 +1,11 @@
+{
+  "id": "netdata-netdata-agents-skills-codacy-audit-skill-md",
+  "name": "codacy-audit",
+  "author": "netdata",
+  "description": "Codacy Cloud workflow for this repository -- run Codacy's analyzers locally before `git push` (mirrors what Codacy CI runs), and fetch/cluster Codacy issues for any PR via the v3 API. Use when the user mentions Codacy, \"codacy analysis\", `codacy-analysis-cli`, \"codacy issues on PR\", \"fix codacy CI\", \"codacy markdownlint findings\", or any Codacy gate failing on a netdata-org PR. Ships scripts analyze-local.sh (docker/binary runner for codacy-analysis-cli) and pr-issues.sh (paginated v3 issue fetch + group-by tool/pattern/severity/file). Token-safe -- CODACY_TOKEN never reaches assistant-visible stdout. Read-only by design; write actions (mark FP, mark fixed) require a GitHub issue or branch-local SOW.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/netdata/netdata/tree/master/.agents/skills/codacy-audit",
+  "skillUrl": "https://skillsmp.com/creators/netdata/netdata/agents-skills-codacy-audit",
+  "stars": 80011,
+  "updatedAt": 1782497033
+}

@@ -1,0 +1,11 @@
+{
+  "id": "freedomintelligence-openclaw-medical-skills-skills-bio-metagenomics-strain-tracking-skill-md",
+  "name": "bio-metagenomics-strain-tracking",
+  "author": "FreedomIntelligence",
+  "description": "Track bacterial strains using MASH, sourmash, fastANI, and inStrain. Compare genomes, detect contamination, and monitor strain-level variation. Use when needing sub-species resolution for outbreak tracking, transmission analysis, or within-host strain dynamics.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/FreedomIntelligence/OpenClaw-Medical-Skills/tree/main/skills/bio-metagenomics-strain-tracking",
+  "skillUrl": "https://skillsmp.com/creators/freedomintelligence/openclaw-medical-skills/skills-bio-metagenomics-strain-tracking",
+  "stars": 2908,
+  "updatedAt": 1772967850
+}

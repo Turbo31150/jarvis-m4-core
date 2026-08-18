@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-optional-skills-mlops-nemo-curator-skill-md",
+  "name": "nemo-curator",
+  "author": "NousResearch",
+  "description": "Curate LLM training data: dedupe, filter, PII redaction.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/optional-skills/mlops/nemo-curator",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/optional-skills-mlops-nemo-curator",
+  "stars": 225204,
+  "updatedAt": 1784906285
+}

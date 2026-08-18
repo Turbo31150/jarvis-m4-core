@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-healthcare-emr-patterns-skill-md",
+  "name": "healthcare-emr-patterns",
+  "author": "affaan-m",
+  "description": "EMR/EHR development patterns for healthcare applications. Clinical safety, encounter workflows, prescription generation, clinical decision support integration, and accessibility-first UI for medical data entry.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/healthcare-emr-patterns",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-healthcare-emr-patterns",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

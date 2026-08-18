@@ -1,0 +1,11 @@
+{
+  "id": "arize-ai-phoenix-agents-skills-phoenix-server-skill-md",
+  "name": "phoenix-server",
+  "author": "Arize-ai",
+  "description": "Backend development guide for the Phoenix AI observability platform (Strawberry GraphQL, SQLAlchemy async, FastAPI). Use this skill when writing or modifying Python server code in the phoenix repo \u2014 adding mutations, types, migrations, or tests. Trigger on any backend task touching src/phoenix/server/, src/phoenix/db/, or tests/unit/server/.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Arize-ai/phoenix/tree/main/.agents/skills/phoenix-server",
+  "skillUrl": "https://skillsmp.com/creators/arize-ai/phoenix/agents-skills-phoenix-server",
+  "stars": 10897,
+  "updatedAt": 1778681658
+}

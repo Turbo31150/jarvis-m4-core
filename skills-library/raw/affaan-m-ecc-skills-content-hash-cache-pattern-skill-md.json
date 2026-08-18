@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-content-hash-cache-pattern-skill-md",
+  "name": "content-hash-cache-pattern",
+  "author": "affaan-m",
+  "description": "Cache expensive file processing results using SHA-256 content hashes \u2014 path-independent, auto-invalidating, with service layer separation.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/content-hash-cache-pattern",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-content-hash-cache-pattern",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

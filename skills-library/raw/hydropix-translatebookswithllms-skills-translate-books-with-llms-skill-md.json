@@ -1,0 +1,11 @@
+{
+  "id": "hydropix-translatebookswithllms-skills-translate-books-with-llms-skill-md",
+  "name": "translate-books-with-llms",
+  "author": "hydropix",
+  "description": "Translate a full-length book, document, or subtitle file (EPUB, DOCX, SRT, or TXT) into another language by running the official TranslateBooksWithLLMs CLI (translate.py). Preserves chapter structure, inline formatting, and SRT timecodes; supports local (Ollama) or cloud LLM providers, per-book glossaries, an optional literary refinement pass, and resume-on-interrupt. Use when a user supplies a real book / subtitle / document file plus a target language and wants the whole file translated end-to-end, rather than pasting a single passage into a chat window.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/hydropix/TranslateBooksWithLLMs/tree/main/skills/translate-books-with-llms",
+  "skillUrl": "https://skillsmp.com/creators/hydropix/translatebookswithllms/skills-translate-books-with-llms",
+  "stars": 2250,
+  "updatedAt": 1779886892
+}

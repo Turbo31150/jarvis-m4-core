@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-agents-skills-brand-voice-skill-md",
+  "name": "brand-voice",
+  "author": "affaan-m",
+  "description": "Build a source-derived writing style profile from real posts, essays, launch notes, docs, or site copy, then reuse that profile across content, outreach, and social workflows. Use when the user wants voice consistency without generic AI writing tropes.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/.agents/skills/brand-voice",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/agents-skills-brand-voice",
+  "stars": 237500,
+  "updatedAt": 1777428617
+}

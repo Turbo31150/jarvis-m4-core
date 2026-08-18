@@ -20,7 +20,7 @@ import pathlib as _pl
 def _load_task_metrics():
     spec = _ilu.spec_from_file_location(
         "task_metrics",
-        _pl.Path("/home/pamerys/jarvis/monitoring/task_metrics.py"),
+        _pl.Path("/home/turbo/jarvis/monitoring/task_metrics.py"),
     )
     if spec is None:
         raise ImportError("Cannot locate task_metrics.py")
@@ -31,7 +31,20 @@ def _load_task_metrics():
 
 DB_PATH = "/home/pamerys/jarvis/jarvis_master.db"
 LM_ASK = os.path.expanduser("~/.local/bin/claudelm")
-CASCADE_PY = "/home/pamerys/jarvis/cli/cascade.py"
+CASCADE_PY = "/home/turbo/jarvis/cli/cascade.py"
+
+
+def _load_audit_cmd():
+    spec = _ilu.spec_from_file_location(
+        "audit_commands",
+        _pl.Path(__file__).resolve().parent / "audit_commands.py",
+    )
+    mod = _ilu.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod.cmd_audit
+
+
+cmd_audit = _load_audit_cmd()
 
 # ---------------------------------------------------------------------------
 # DB Bootstrap
@@ -39,7 +52,10 @@ CASCADE_PY = "/home/pamerys/jarvis/cli/cascade.py"
 
 
 def get_db():
-    conn = sqlite3.connect(DB_PATH)
+    # WAL : un seul écrivain à la fois sur une base très sollicitée,
+    # il faut attendre au lieu d'échouer sur "database is locked".
+    conn = sqlite3.connect(DB_PATH, timeout=120)
+    conn.execute("PRAGMA busy_timeout=120000")
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -377,7 +393,7 @@ def cmd_task_score(args, conn):
 def cmd_loop_start(_args, _conn):
     """Foreground monitoring loop — delegates to loop_monitor.py."""
     del _args, _conn
-    monitor = "/home/pamerys/jarvis/cli/loop_monitor.py"
+    monitor = "/home/turbo/jarvis/cli/loop_monitor.py"
     if not os.path.exists(monitor):
         print(f"Loop monitor not found at {monitor}")
         return
@@ -388,7 +404,7 @@ def cmd_loop_start(_args, _conn):
 def cmd_loop_debug(_args, _conn):
     """Debug mode: show each loop step without actual dispatch."""
     del _args, _conn
-    monitor = "/home/pamerys/jarvis/cli/loop_monitor.py"
+    monitor = "/home/turbo/jarvis/cli/loop_monitor.py"
     print("[LOOP DEBUG] Starting in debug mode...")
     os.execv(sys.executable, [sys.executable, monitor, "--debug"])
 
@@ -510,7 +526,7 @@ def cmd_tools_list(_args, conn):
         "SELECT category, name, priority, usage_count, last_used FROM tool_map ORDER BY category, priority DESC, name"
     ).fetchall()
     if not rows:
-        print("tool_map is empty. Run: python3 /home/pamerys/jarvis/cli/seed_tools.py")
+        print("tool_map is empty. Run: python3 /home/turbo/jarvis/cli/seed_tools.py")
         return
 
     cur_cat = None
@@ -716,6 +732,7 @@ KNOWN_CMDS = {
     "cascade",
     "plan",
     "tools",
+    "audit",
 }
 
 
@@ -801,6 +818,40 @@ def main():
     tools_find_p.add_argument("term", nargs="+", help="Search term")
     tools_sub.add_parser("stats", help="Top 10 by usage + category stats")
 
+    # jarvis audit <sub> — MODE AUDIT / DEEP RESEARCH
+    audit_p = sub.add_parser(
+        "audit", help="Mode audit / deep research (cascade multi-agents)"
+    )
+    audit_sub = audit_p.add_subparsers(dest="audit_cmd")
+    for _sc in (
+        "run",
+        "init",
+        "scan-local",
+        "scan-web",
+        "multi-agents",
+        "report",
+        "todo",
+        "cascade",
+    ):
+        _ap = audit_sub.add_parser(_sc, help=f"audit phase: {_sc}")
+        _ap.add_argument("--target", default=".", help="Dossier à auditer")
+        _ap.add_argument("--topic", default="", help="Sujet de l'audit")
+        _ap.add_argument(
+            "--profile",
+            default="full",
+            choices=["tech", "business", "souverainete", "full"],
+        )
+        _ap.add_argument(
+            "--mode", default="standard", choices=["fast", "standard", "deep"]
+        )
+        _ap.add_argument("--client", default="", help="Nom/id client")
+        _ap.add_argument("--previous", default="", help="Rapport précédent (cascade)")
+        _ap.add_argument(
+            "--real-agents",
+            action="store_true",
+            help="Dispatcher les vrais sous-agents + consensus",
+        )
+
     args = parser.parse_args()
 
     if args.cmd == "task":
@@ -844,6 +895,9 @@ def main():
             cmd_tools_stats(args, conn)
         else:
             tools_p.print_help()
+
+    elif args.cmd == "audit":
+        cmd_audit(args, conn)
 
     else:
         parser.print_help()

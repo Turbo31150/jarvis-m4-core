@@ -1,0 +1,11 @@
+{
+  "id": "grcengclub-claude-grc-engineering-plugins-frameworks-irap-skills-irap-expert-skill-md",
+  "name": "irap-expert",
+  "author": "GRCEngClub",
+  "description": "Australian IRAP (Information Security Registered Assessors Program) expert. Provides guidance on ISM controls, Essential Eight maturity levels, ACSC guidelines, and Australian data sovereignty requirements.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/GRCEngClub/claude-grc-engineering/tree/main/plugins/frameworks/irap/skills/irap-expert",
+  "skillUrl": "https://skillsmp.com/creators/grcengclub/claude-grc-engineering/plugins-frameworks-irap-skills-irap-expert",
+  "stars": 362,
+  "updatedAt": 1776518183
+}

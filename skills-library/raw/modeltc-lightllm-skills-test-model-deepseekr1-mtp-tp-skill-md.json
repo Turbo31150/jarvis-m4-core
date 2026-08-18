@@ -1,0 +1,11 @@
+{
+  "id": "modeltc-lightllm-skills-test-model-deepseekr1-mtp-tp-skill-md",
+  "name": "test-model-deepseekr1-mtp-tp",
+  "author": "ModelTC",
+  "description": "DeepSeek-R1 MTP-TP test: LightLLM api_server with MTP (EAGLE) draft, tensor parallel only (--tp 8, no --dp, no EP MoE), plus GSM8K lm_eval on localhost. Distinct from the MTP-EP-TPDP skill which uses --tp 8 --dp 8 and EP MoE. Requires a dedicated log directory, summary.txt, tokenizer aligned with MODEL_DIR. Use for TP-only MTP gsm8k accuracy runs.",
+  "contentLanguage": "zh",
+  "githubUrl": "https://github.com/ModelTC/LightLLM/tree/main/skills/test_model/deepseekr1-mtp-tp",
+  "skillUrl": "https://skillsmp.com/creators/modeltc/lightllm/skills-test-model-deepseekr1-mtp-tp",
+  "stars": 4207,
+  "updatedAt": 1779411417
+}

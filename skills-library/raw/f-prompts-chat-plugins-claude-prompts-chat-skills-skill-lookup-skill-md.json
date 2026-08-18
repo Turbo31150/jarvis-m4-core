@@ -1,0 +1,11 @@
+{
+  "id": "f-prompts-chat-plugins-claude-prompts-chat-skills-skill-lookup-skill-md",
+  "name": "skill-lookup",
+  "author": "f",
+  "description": "Search, retrieve, and install Agent Skills from the prompts.chat registry using MCP tools. Use when the user asks to find skills, browse skill catalogs, install a skill for Claude, or extend Claude's capabilities with reusable AI agent components.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/f/prompts.chat/tree/main/plugins/claude/prompts.chat/skills/skill-lookup",
+  "skillUrl": "https://skillsmp.com/creators/f/prompts.chat/plugins-claude-prompts-chat-skills-skill-lookup",
+  "stars": 166717,
+  "updatedAt": 1771320590
+}

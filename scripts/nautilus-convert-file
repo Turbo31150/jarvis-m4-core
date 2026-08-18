@@ -1,0 +1,114 @@
+#!/usr/bin/env bash
+# JARVIS — Nautilus context-menu converter (image, audio, video, document)
+set -u
+
+readonly APP_NAME="JARVIS"
+
+notify() {
+  notify-send "$APP_NAME" "$1" 2>/dev/null || true
+}
+
+fail() {
+  notify "$1"
+  exit 1
+}
+
+command -v zenity >/dev/null 2>&1 || fail "Zenity est requis pour ce script."
+command -v file >/dev/null 2>&1 || fail "La commande file est requise."
+
+# Nautilus separates selected paths with newlines. This action intentionally
+# converts the first selected file, to keep each conversion explicit.
+FILE=$(printf '%s\n' "${NAUTILUS_SCRIPT_SELECTED_FILE_PATHS:-}" | head -n 1)
+[ -n "$FILE" ] && [ -f "$FILE" ] || fail "Aucun fichier valide sélectionné."
+
+MIME=$(file --mime-type -b -- "$FILE")
+DIR=$(dirname -- "$FILE")
+NAME=$(basename -- "$FILE")
+BASE=${NAME%.*}
+[ "$BASE" = "$NAME" ] && BASE="$NAME"
+
+unique_output() {
+  local extension=$1 candidate index
+  candidate="$DIR/$BASE.$extension"
+  index=1
+  while [ -e "$candidate" ]; do
+    candidate="$DIR/$BASE-converti-$index.$extension"
+    index=$((index + 1))
+  done
+  printf '%s\n' "$candidate"
+}
+
+choose() {
+  local title=$1; shift
+  zenity --list --radiolist --title="$title" --column="" --column="Format" \
+    TRUE "$1" $(for option in "$@"; do printf 'FALSE %q ' "$option"; done) 2>/dev/null
+}
+
+convert_image() {
+  local format extension output tool
+  format=$(choose "Convertir une image" PNG JPG WEBP) || exit 0
+  [ -n "$format" ] || exit 0
+  extension=${format,,}
+  [ "$extension" = "jpg" ] && extension="jpg"
+  output=$(unique_output "$extension")
+  if command -v magick >/dev/null 2>&1; then tool=(magick)
+  elif command -v convert >/dev/null 2>&1; then tool=(convert)
+  else fail "ImageMagick est requis (commande magick ou convert)."
+  fi
+  "${tool[@]}" "$FILE" "$output" && notify "Conversion terminée : $(basename -- "$output")" || fail "Échec de conversion de l'image."
+}
+
+convert_audio() {
+  local format output
+  format=$(choose "Convertir un fichier audio" MP3 WAV FLAC OGG M4A) || exit 0
+  [ -n "$format" ] || exit 0
+  output=$(unique_output "${format,,}")
+  command -v ffmpeg >/dev/null 2>&1 || fail "FFmpeg est requis."
+  ffmpeg -nostdin -i "$FILE" -y "$output" >/dev/null 2>&1 && notify "Conversion terminée : $(basename -- "$output")" || fail "Échec de conversion audio."
+}
+
+convert_video() {
+  local format output
+  format=$(choose "Convertir une vidéo" MP4 WEBM MKV MOV) || exit 0
+  [ -n "$format" ] || exit 0
+  output=$(unique_output "${format,,}")
+  command -v ffmpeg >/dev/null 2>&1 || fail "FFmpeg est requis."
+  ffmpeg -nostdin -i "$FILE" -y "$output" >/dev/null 2>&1 && notify "Conversion terminée : $(basename -- "$output")" || fail "Échec de conversion vidéo."
+}
+
+convert_document() {
+  local format extension output generated
+  if [ "$MIME" = "application/pdf" ]; then
+    command -v pdftotext >/dev/null 2>&1 || fail "pdftotext (poppler-utils) est requis pour convertir un PDF."
+    output=$(unique_output "txt")
+    pdftotext "$FILE" "$output" && notify "Conversion terminée : $(basename -- "$output")" || fail "Échec de conversion du PDF."
+    return
+  fi
+  format=$(choose "Convertir un document" PDF DOCX ODT) || exit 0
+  [ -n "$format" ] || exit 0
+  extension=${format,,}
+  output=$(unique_output "$extension")
+  command -v libreoffice >/dev/null 2>&1 || fail "LibreOffice est requis pour les documents."
+  # LibreOffice names the result from the input base. Use a temporary folder
+  # so it never overwrites a file next to the original.
+  local tempdir
+  tempdir=$(mktemp -d) || fail "Impossible de créer le dossier temporaire."
+  libreoffice --headless --convert-to "$extension" --outdir "$tempdir" "$FILE" >/dev/null 2>&1
+  generated="$tempdir/$BASE.$extension"
+  if [ -f "$generated" ]; then
+    mv -- "$generated" "$output"
+    rmdir "$tempdir" 2>/dev/null || true
+    notify "Conversion terminée : $(basename -- "$output")"
+  else
+    rm -rf -- "$tempdir"
+    fail "Échec de conversion du document."
+  fi
+}
+
+case "$MIME" in
+  image/*) convert_image ;;
+  audio/*) convert_audio ;;
+  video/*) convert_video ;;
+  application/pdf|application/msword|application/vnd.openxmlformats-officedocument.*|application/vnd.oasis.opendocument.*|text/*) convert_document ;;
+  *) fail "Format non pris en charge : $MIME" ;;
+esac

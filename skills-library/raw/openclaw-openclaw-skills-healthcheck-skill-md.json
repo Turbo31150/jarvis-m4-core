@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-skills-healthcheck-skill-md",
+  "name": "healthcheck",
+  "author": "openclaw",
+  "description": "Audit/harden OpenClaw hosts: SSH, firewall, updates, exposure, backups, disk encryption, gateway security.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/skills/healthcheck",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/skills-healthcheck",
+  "stars": 385119,
+  "updatedAt": 1779015027
+}

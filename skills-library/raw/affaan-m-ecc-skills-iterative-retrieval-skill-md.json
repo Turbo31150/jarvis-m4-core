@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-iterative-retrieval-skill-md",
+  "name": "iterative-retrieval",
+  "author": "affaan-m",
+  "description": "Pattern for progressively refining context retrieval to solve the subagent context problem",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/iterative-retrieval",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-iterative-retrieval",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

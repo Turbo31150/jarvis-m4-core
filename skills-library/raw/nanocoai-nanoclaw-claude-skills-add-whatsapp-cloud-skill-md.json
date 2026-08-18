@@ -1,0 +1,11 @@
+{
+  "id": "nanocoai-nanoclaw-claude-skills-add-whatsapp-cloud-skill-md",
+  "name": "add-whatsapp-cloud",
+  "author": "nanocoai",
+  "description": "Add WhatsApp Business Cloud API channel via Chat SDK. Official Meta API.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/nanocoai/nanoclaw/tree/main/.claude/skills/add-whatsapp-cloud",
+  "skillUrl": "https://skillsmp.com/creators/nanocoai/nanoclaw/claude-skills-add-whatsapp-cloud",
+  "stars": 30427,
+  "updatedAt": 1784206575
+}

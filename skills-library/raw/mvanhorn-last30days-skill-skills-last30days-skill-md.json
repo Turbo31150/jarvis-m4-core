@@ -1,0 +1,11 @@
+{
+  "id": "mvanhorn-last30days-skill-skills-last30days-skill-md",
+  "name": "last30days",
+  "author": "mvanhorn",
+  "description": "Research what people actually say about any topic in the last 30 days. Pulls posts and engagement from Reddit, X, YouTube, TikTok, Hacker News, Polymarket, GitHub, and the web. Includes a doctor health check to diagnose broken or missing sources.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/mvanhorn/last30days-skill/tree/main/skills/last30days",
+  "skillUrl": "https://skillsmp.com/creators/mvanhorn/last30days-skill/skills-last30days",
+  "stars": 57188,
+  "updatedAt": 1785439070
+}

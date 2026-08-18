@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-ja-jp-skills-rust-testing-skill-md",
+  "name": "rust-testing",
+  "author": "affaan-m",
+  "description": "\u5358\u4f53\u30c6\u30b9\u30c8\u3001\u7d71\u5408\u30c6\u30b9\u30c8\u3001\u975e\u540c\u671f\u30c6\u30b9\u30c8\u3001\u30d7\u30ed\u30d1\u30c6\u30a3\u30d9\u30fc\u30b9\u30c6\u30b9\u30c8\u3001\u30e2\u30c3\u30af\u3001\u30ab\u30d0\u30ec\u30c3\u30b8\u3092\u542b\u3080Rust\u30c6\u30b9\u30c8\u30d1\u30bf\u30fc\u30f3\u3002TDD\u65b9\u6cd5\u8ad6\u306b\u5f93\u3046\u3002",
+  "contentLanguage": "ja",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/ja-JP/skills/rust-testing",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-ja-jp-skills-rust-testing",
+  "stars": 237500,
+  "updatedAt": 1778999500
+}

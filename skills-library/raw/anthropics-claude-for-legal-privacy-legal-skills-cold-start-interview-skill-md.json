@@ -1,0 +1,11 @@
+{
+  "id": "anthropics-claude-for-legal-privacy-legal-skills-cold-start-interview-skill-md",
+  "name": "cold-start-interview",
+  "author": "anthropics",
+  "description": "Run the cold-start interview \u2014 learns your privacy practice and writes CLAUDE.md from your policy, DPA template, and a reference PIA. Use on first run, when CLAUDE.md is missing or has placeholders, or when the user says \"set up the privacy plugin\", \"onboard me\", \"configure privacy\", or wants to re-run the interview or re-check integrations.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/anthropics/claude-for-legal/tree/main/privacy-legal/skills/cold-start-interview",
+  "skillUrl": "https://skillsmp.com/creators/anthropics/claude-for-legal/privacy-legal-skills-cold-start-interview",
+  "stars": 8999,
+  "updatedAt": 1778532266
+}

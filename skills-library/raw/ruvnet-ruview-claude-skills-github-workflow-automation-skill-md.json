@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruview-claude-skills-github-workflow-automation-skill-md",
+  "name": "github-workflow-automation",
+  "author": "ruvnet",
+  "description": "Advanced GitHub Actions workflow automation with AI swarm coordination, intelligent CI/CD pipelines, and comprehensive repository management",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/RuView/tree/main/.claude/skills/github-workflow-automation",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruview/claude-skills-github-workflow-automation",
+  "stars": 88440,
+  "updatedAt": 1768273876
+}

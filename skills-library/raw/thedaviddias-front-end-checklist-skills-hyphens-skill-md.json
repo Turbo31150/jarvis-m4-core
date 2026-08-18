@@ -1,0 +1,11 @@
+{
+  "id": "thedaviddias-front-end-checklist-skills-hyphens-skill-md",
+  "name": "hyphens",
+  "author": "thedaviddias",
+  "description": "Use when auditing URL structures for word separator format, generating slugs from titles, or planning a URL migration from underscores or spaces to hyphens with appropriate redirects.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedaviddias/Front-End-Checklist/tree/main/skills/hyphens",
+  "skillUrl": "https://skillsmp.com/creators/thedaviddias/front-end-checklist/skills-hyphens",
+  "stars": 73416,
+  "updatedAt": 1780091646
+}

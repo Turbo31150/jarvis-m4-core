@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-tr-skills-deployment-patterns-skill-md",
+  "name": "deployment-patterns",
+  "author": "affaan-m",
+  "description": "Deployment i\u015f ak\u0131\u015flar\u0131, CI/CD pipeline kal\u0131plar\u0131, Docker konteynerizasyonu, sa\u011fl\u0131k kontrolleri, rollback stratejileri ve web uygulamalar\u0131 i\u00e7in \u00fcretim haz\u0131rl\u0131\u011f\u0131 kontrol listeleri.",
+  "contentLanguage": "tur",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/tr/skills/deployment-patterns",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-tr-skills-deployment-patterns",
+  "stars": 237500,
+  "updatedAt": 1774219024
+}

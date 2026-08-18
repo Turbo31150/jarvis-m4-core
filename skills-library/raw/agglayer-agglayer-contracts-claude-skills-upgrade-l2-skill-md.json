@@ -1,0 +1,11 @@
+{
+  "id": "agglayer-agglayer-contracts-claude-skills-upgrade-l2-skill-md",
+  "name": "upgrade-l2",
+  "author": "agglayer",
+  "description": "Upgrade L2 sovereign chain contracts (bridge and/or GER). Helps configure parameters, choose the right script, and run the upgrade.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/agglayer/agglayer-contracts/tree/main/.claude/skills/upgrade-l2",
+  "skillUrl": "https://skillsmp.com/creators/agglayer/agglayer-contracts/claude-skills-upgrade-l2",
+  "stars": 309,
+  "updatedAt": 1771579324
+}

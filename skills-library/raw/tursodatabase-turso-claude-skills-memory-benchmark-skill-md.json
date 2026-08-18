@@ -1,0 +1,11 @@
+{
+  "id": "tursodatabase-turso-claude-skills-memory-benchmark-skill-md",
+  "name": "memory-benchmark",
+  "author": "tursodatabase",
+  "description": "How to benchmark and analyze memory usage in Turso using the memory-benchmark crate and dhat heap profiler. Use this skill whenever the user mentions memory usage, memory profiling, allocation tracking, heap analysis, memory regression, memory benchmarking, dhat, or wants to understand where memory is being allocated during SQL workloads. Also use when investigating memory growth in WAL or MVCC mode. IMPORTANT - If you modify the perf/memory crate (add profiles, change CLI flags, change output format, etc.), update this skill document to reflect those changes so it stays accurate for future agents.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/tursodatabase/turso/tree/main/.claude/skills/memory-benchmark",
+  "skillUrl": "https://skillsmp.com/creators/tursodatabase/turso/claude-skills-memory-benchmark",
+  "stars": 23671,
+  "updatedAt": 1785335088
+}

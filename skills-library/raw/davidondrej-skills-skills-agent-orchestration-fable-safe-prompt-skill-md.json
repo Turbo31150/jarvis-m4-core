@@ -1,0 +1,11 @@
+{
+  "id": "davidondrej-skills-skills-agent-orchestration-fable-safe-prompt-skill-md",
+  "name": "fable-safe-prompt",
+  "author": "davidondrej",
+  "description": "Rewrite a user's prompt to reduce the chance it trips Claude Fable 5's server-side safety classifiers (cyber/bio guardrails that force-route to Opus 4.8 or return stop_reason \"refusal\"). Use when the user hands you a prompt that touches cybersecurity, auth, exploits, malware, pentesting, or other dual-use topics and asks to make it \"Fable-safe\", \"guardrail-safe\", \"won't get flagged/refused/downgraded\", or to rewrite it so Fable 5 won't block it.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/davidondrej/skills/tree/main/skills/agent-orchestration/fable-safe-prompt",
+  "skillUrl": "https://skillsmp.com/creators/davidondrej/skills/skills-agent-orchestration-fable-safe-prompt",
+  "stars": 3300,
+  "updatedAt": 1785488713
+}

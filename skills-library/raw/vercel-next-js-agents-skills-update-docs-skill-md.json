@@ -1,0 +1,11 @@
+{
+  "id": "vercel-next-js-agents-skills-update-docs-skill-md",
+  "name": "update-docs",
+  "author": "vercel",
+  "description": "This skill should be used when the user asks to \"update documentation for my changes\", \"check docs for this PR\", \"what docs need updating\", \"sync docs with code\", \"scaffold docs for this feature\", \"document this feature\", \"review docs completeness\", \"add docs for this change\", \"what documentation is affected\", \"docs impact\", or mentions \"docs/\", \"docs/01-app\", \"docs/02-pages\", \"MDX\", \"documentation update\", \"API reference\", \".mdx files\". Provides guided workflow for updating Next.js documentation based on code changes.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/vercel/next.js/tree/canary/.agents/skills/update-docs",
+  "skillUrl": "https://skillsmp.com/creators/vercel/next.js/agents-skills-update-docs",
+  "stars": 141334,
+  "updatedAt": 1778790575
+}

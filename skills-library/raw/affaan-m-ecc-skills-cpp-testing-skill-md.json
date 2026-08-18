@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-cpp-testing-skill-md",
+  "name": "cpp-testing",
+  "author": "affaan-m",
+  "description": "Use only when writing/updating/fixing C++ tests, configuring GoogleTest/CTest, diagnosing failing or flaky tests, or adding coverage/sanitizers.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/cpp-testing",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-cpp-testing",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

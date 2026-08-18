@@ -1,0 +1,29 @@
+LICENCE PROPRIÉTAIRE — pack-n8n-workflows
+Copyright (c) 2026 JARVIS OS / Pousseline. Tous droits réservés.
+
+1. OCTROI DE LICENCE
+   L'achat de ce produit confère à l'acquéreur une licence personnelle,
+   non exclusive et non transférable d'utilisation du logiciel et des
+   fichiers fournis, pour son propre usage professionnel ou personnel.
+
+2. RESTRICTIONS
+   Sauf autorisation écrite préalable de l'éditeur, il est interdit de :
+   - revendre, redistribuer, publier, sous-licencier ou louer le produit ;
+   - retirer les mentions de propriété ou de licence ;
+   - diffuser le produit sur un dépôt public ou une place de marché tierce.
+
+3. ABSENCE DE GARANTIE
+   Le produit est fourni « en l'état », sans garantie d'aucune sorte.
+   L'éditeur ne saurait être tenu responsable d'un quelconque dommage
+   résultant de l'utilisation ou de l'impossibilité d'utiliser le produit.
+
+4. DONNÉES & SOUVERAINETÉ
+   Le produit s'exécute localement. Aucune donnée n'est transmise à
+   l'éditeur. L'acquéreur reste seul responsable de ses propres données
+   et de sa conformité RGPD.
+
+5. SUPPORT
+   Le support éventuel (dépannage, accompagnement) est régi par l'offre
+   commerciale associée à l'achat.
+
+Contact / support : [PLACEHOLDER — à compléter par l'éditeur]

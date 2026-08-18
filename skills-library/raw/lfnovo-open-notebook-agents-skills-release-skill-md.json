@@ -1,0 +1,11 @@
+{
+  "id": "lfnovo-open-notebook-agents-skills-release-skill-md",
+  "name": "release",
+  "author": "lfnovo",
+  "description": "Orchestrate an Open Notebook release \u2014 changelog audit, risk-based A/B/C test matrix, Docker image gate (fresh + upgrade), fix loop via PRs, cut, publication with credits, retro. Use when preparing, testing, cutting or publishing a release.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/lfnovo/open-notebook/tree/main/.agents/skills/release",
+  "skillUrl": "https://skillsmp.com/creators/lfnovo/open-notebook/agents-skills-release",
+  "stars": 36318,
+  "updatedAt": 1784484857
+}

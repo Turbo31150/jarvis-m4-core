@@ -1,0 +1,11 @@
+{
+  "id": "vercel-next-js-agents-skills-write-guide-skill-md",
+  "name": "write-guide",
+  "author": "vercel",
+  "description": "Generates technical guides that teach real-world use cases through progressive examples.\n\n**Auto-activation:** User asks to write, create, or draft a guide or tutorial. Also use when converting feature documentation, API references, or skill knowledge into step-by-step learning content.\n\n**Input sources:** Feature skills, API documentation, existing code examples, or user-provided specifications.\n\n**Output type:** A markdown guide with YAML frontmatter, introduction, 2-4 progressive steps, and next steps section.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/vercel/next.js/tree/canary/.agents/skills/write-guide",
+  "skillUrl": "https://skillsmp.com/creators/vercel/next.js/agents-skills-write-guide",
+  "stars": 141334,
+  "updatedAt": 1779811926
+}

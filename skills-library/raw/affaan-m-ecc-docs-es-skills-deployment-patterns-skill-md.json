@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-es-skills-deployment-patterns-skill-md",
+  "name": "deployment-patterns",
+  "author": "affaan-m",
+  "description": "Flujos de trabajo de despliegue, patrones de pipeline CI/CD, contenedorizaci\u00f3n Docker, health checks, estrategias de rollback y listas de verificaci\u00f3n de preparaci\u00f3n para producci\u00f3n de aplicaciones web.",
+  "contentLanguage": "es",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/es/skills/deployment-patterns",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-es-skills-deployment-patterns",
+  "stars": 237500,
+  "updatedAt": 1780810002
+}

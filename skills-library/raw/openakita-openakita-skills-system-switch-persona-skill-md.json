@@ -1,0 +1,11 @@
+{
+  "id": "openakita-openakita-skills-system-switch-persona-skill-md",
+  "name": "switch-persona",
+  "author": "openakita",
+  "description": "Switch Agent persona preset. Supports 8 presets including default assistant, business, tech expert, butler, girlfriend, boyfriend, family, and Jarvis. Use when user asks to change communication style or personality.",
+  "contentLanguage": "zh",
+  "githubUrl": "https://github.com/openakita/openakita/tree/main/skills/system/switch-persona",
+  "skillUrl": "https://skillsmp.com/creators/openakita/openakita/skills-system-switch-persona",
+  "stars": 1902,
+  "updatedAt": 1777004109
+}

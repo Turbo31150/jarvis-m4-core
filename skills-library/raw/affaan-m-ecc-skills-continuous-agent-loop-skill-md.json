@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-continuous-agent-loop-skill-md",
+  "name": "continuous-agent-loop",
+  "author": "affaan-m",
+  "description": "Patterns for continuous autonomous agent loops with quality gates, evals, and recovery controls.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/continuous-agent-loop",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-continuous-agent-loop",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

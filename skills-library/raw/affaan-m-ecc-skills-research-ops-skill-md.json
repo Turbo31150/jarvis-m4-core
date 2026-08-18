@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-research-ops-skill-md",
+  "name": "research-ops",
+  "author": "affaan-m",
+  "description": "Evidence-first current-state research workflow for ECC. Use when the user wants fresh facts, comparisons, enrichment, or a recommendation built from current public evidence and any supplied local context.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/research-ops",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-research-ops",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

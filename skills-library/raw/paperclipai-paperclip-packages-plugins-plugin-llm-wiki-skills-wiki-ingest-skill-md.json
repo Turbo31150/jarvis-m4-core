@@ -1,0 +1,11 @@
+{
+  "id": "paperclipai-paperclip-packages-plugins-plugin-llm-wiki-skills-wiki-ingest-skill-md",
+  "name": "wiki-ingest",
+  "author": "paperclipai",
+  "description": "Use when an operation issue asks to ingest a captured `raw/` source into the LLM Wiki, or the user says \"ingest <slug>\". Create durable source, entity, concept, synthesis, index, and log pages; use paperclip-distill for Paperclip bundles.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/paperclipai/paperclip/tree/master/packages/plugins/plugin-llm-wiki/skills/wiki-ingest",
+  "skillUrl": "https://skillsmp.com/creators/paperclipai/paperclip/packages-plugins-plugin-llm-wiki-skills-wiki-ingest",
+  "stars": 75602,
+  "updatedAt": 1783691180
+}

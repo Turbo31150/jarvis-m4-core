@@ -11,8 +11,8 @@ mkdir -p "$LOG_DIR"
 # Endpoints disponibles
 declare -A NODES
 NODES["OL1_ollama"]="http://127.0.0.1:11434"
-NODES["M1_lmstudio"]="http://192.168.1.85:1234"
-NODES["M2_lmstudio"]="http://192.168.1.26:1234"
+NODES["M1_lmstudio"]="http://127.0.0.1:1234"
+NODES["M2_lmstudio"]="http://127.0.0.1:18800"
 
 # Modèles OL1
 OLLAMA_MODELS=("qwen3:1.7b" "gemma3:4b" "deepseek-r1:7b")

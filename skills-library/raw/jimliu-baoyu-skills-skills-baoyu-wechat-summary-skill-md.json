@@ -1,0 +1,11 @@
+{
+  "id": "jimliu-baoyu-skills-skills-baoyu-wechat-summary-skill-md",
+  "name": "baoyu-wechat-summary",
+  "author": "JimLiu",
+  "description": "Summarizes WeChat group chat highlights into a structured digest using the local wx-cli binary (https://github.com/jackwener/wx-cli). Generates a normal digest by default; a roast (\u6bd2\u820c) version is opt-in. Maintains per-group history (history.json + history-digests.jsonl), per-user profiles, and per-group fact memory (memory.md) across runs, with privacy guardrails baked in. Use when the user asks to \"\u603b\u7ed3\u7fa4\u804a\", \"\u7fa4\u804a\u7cbe\u534e\", \"\u7fa4\u804a\u6458\u8981\", \"summarize group chat\", \"group chat digest\", mentions a WeChat group name with a time range, says \"\u5e2e\u6211\u770b\u770b XX \u7fa4\u6700\u8fd1\u804a\u4e86\u4ec0\u4e48\", \"XX \u7fa4\u6709\u4ec0\u4e48\u503c\u5f97\u770b\u7684\", or asks to \"\u56de\u6eaf\u753b\u50cf\" / \"\u521d\u59cb\u5316\u753b\u50cf\" / \"backfill profiles\". Adds the roast version when the user says \"\u6bd2\u820c\u7248\", \"roast \u7248\", \"\u518d\u6765\u4e2a\u6bd2\u820c\u7684\", or similar.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/JimLiu/baoyu-skills/tree/main/skills/baoyu-wechat-summary",
+  "skillUrl": "https://skillsmp.com/creators/jimliu/baoyu-skills/skills-baoyu-wechat-summary",
+  "stars": 24551,
+  "updatedAt": 1783128175
+}

@@ -1,0 +1,11 @@
+{
+  "id": "hkuds-cli-anything-cc-switch-agent-harness-cli-anything-ccswitch-skills-skill-md",
+  "name": "cli-anything-ccswitch",
+  "author": "HKUDS",
+  "description": "CLI interface for CC Switch \u2014 manage AI coding tool configurations from the terminal",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/HKUDS/CLI-Anything/tree/main/cc-switch/agent-harness/cli_anything/ccswitch/skills",
+  "skillUrl": "https://skillsmp.com/creators/hkuds/cli-anything/cc-switch-agent-harness-cli-anything-ccswitch-skills",
+  "stars": 46608,
+  "updatedAt": 1781176569
+}

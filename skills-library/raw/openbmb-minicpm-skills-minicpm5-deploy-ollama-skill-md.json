@@ -1,0 +1,11 @@
+{
+  "id": "openbmb-minicpm-skills-minicpm5-deploy-ollama-skill-md",
+  "name": "minicpm5-deploy-ollama",
+  "author": "OpenBMB",
+  "description": "Run MiniCPM5-1B via Ollama on macOS / Linux laptop using the released GGUF. Use when the user wants \"ollama run\", \"ollama pull\", a Modelfile-driven setup, or one-line laptop deployment.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/OpenBMB/MiniCPM/tree/main/skills/minicpm5-deploy-ollama",
+  "skillUrl": "https://skillsmp.com/creators/openbmb/minicpm/skills-minicpm5-deploy-ollama",
+  "stars": 10099,
+  "updatedAt": 1779706657
+}

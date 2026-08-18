@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-skills-research-llm-wiki-skill-md",
+  "name": "llm-wiki",
+  "author": "NousResearch",
+  "description": "Karpathy's LLM Wiki: build/query interlinked markdown KB.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/skills/research/llm-wiki",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/skills-research-llm-wiki",
+  "stars": 225204,
+  "updatedAt": 1781129411
+}

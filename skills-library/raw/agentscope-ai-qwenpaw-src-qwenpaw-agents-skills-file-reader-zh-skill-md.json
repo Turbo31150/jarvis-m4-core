@@ -1,0 +1,11 @@
+{
+  "id": "agentscope-ai-qwenpaw-src-qwenpaw-agents-skills-file-reader-zh-skill-md",
+  "name": "file-reader",
+  "author": "agentscope-ai",
+  "description": "\u4ec5\u7528\u4e8e\u8bfb\u53d6\u548c\u603b\u7ed3\u6587\u672c\u7c7b\u6587\u4ef6\u3002\u6587\u672c\u683c\u5f0f\u4f18\u5148\u4f7f\u7528 read_file\uff1b\u9700\u8981\u505a\u7c7b\u578b\u63a2\u6d4b\u65f6\u4f7f\u7528 execute_shell_command\u3002PDF\u3001Office\u3001\u56fe\u7247\u548c\u538b\u7f29\u5305\u7531\u5176\u4ed6\u6280\u80fd\u5904\u7406\u3002",
+  "contentLanguage": "zh",
+  "githubUrl": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/file_reader-zh",
+  "skillUrl": "https://skillsmp.com/creators/agentscope-ai/qwenpaw/src-qwenpaw-agents-skills-file-reader-zh",
+  "stars": 32812,
+  "updatedAt": 1776673395
+}

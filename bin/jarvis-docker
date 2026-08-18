@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Point unique d'accès aux conteneurs JARVIS depuis M4 (pamerys).
+#
+# POURQUOI : la pile JARVIS a migré sur la tour (serveurremjarvis) le 2026-08-03.
+# Un `docker` lancé en local sur M4 frappe une pile périmée : lectures fausses,
+# écritures silencieusement perdues (incident du 2026-08-11, 6 atomes mémoire).
+# Ce wrapper route donc toute commande docker vers la tour.
+#
+# Les arguments sont échappés un par un, donc
+#   jarvis-docker ps --format '{{.Names}}'
+# arrive intact côté tour.
+set -euo pipefail
+
+TOUR="${JARVIS_TOUR_HOST:-root@100.124.69.1}"
+
+if [[ $# -eq 0 ]]; then
+    echo "usage: jarvis-docker <commande docker...>" >&2
+    echo "       route vers ${TOUR} (pile JARVIS réelle)" >&2
+    exit 2
+fi
+
+remote="docker"
+for arg in "$@"; do
+    remote+=" $(printf '%q' "$arg")"
+done
+
+exec ssh -o BatchMode=yes -o ConnectTimeout=8 "$TOUR" "$remote"

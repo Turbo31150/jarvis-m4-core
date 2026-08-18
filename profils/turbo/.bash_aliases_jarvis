@@ -1,0 +1,73 @@
+# JARVIS OS Aliases
+alias j="/home/pamerys/Workspaces/jarvis-linux/infra/scripts/j.py"
+alias jstatus="jarvis status"
+alias jdash="jarvis dash"
+alias jgpu="jarvis gpu"
+alias jtrade="jarvis trade"
+alias jlogs="journalctl --user -u jarvis-* -f"
+alias jreload="systemctl --user daemon-reload && systemctl --user restart jarvis-master.service"
+alias jsys="htop"
+alias jdocker="docker ps --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}'"
+alias jupdate="sudo apt update && sudo apt full-upgrade -y"
+alias clearj="clear && neofetch --source ~/.config/neofetch/jarvis-ascii.txt || true"
+
+# JARVIS Prompt
+export PS1="\[\033[01;36m\][JARVIS OS]\[\033[00m\] \[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ "
+function j_audit() {
+    clear
+    echo -e "\e[1;36m[JARVIS OS v13.1] COGNITIVE AUDIT IN PROGRESS...\e[0m"
+    sleep 1
+    echo -e "\e[1;34m[CORE] OS-Release: \e[1;32m$(grep PRETTY_NAME /etc/os-release | cut -d= -f2 | tr -d \")\e[0m"
+    echo -e "\e[1;34m[NODE] Hostname: \e[1;32m$(hostname)\e[0m"
+    echo -e "\e[1;34m[DATA] Memory: \e[1;32m$(free -h | grep Mem | awk \"{print \$3 \\\"/\\\" \$2}\")\e[0m"
+    echo -e "\e[1;34m[DATA] Disk: \e[1;32m$(df -h / | tail -1 | awk \"{print \$3 \\\"/\\\" \$2}\")\e[0m"
+    echo -e "\e[1;34m[GPU]  Cluster: \e[1;32m$(nvidia-smi --query-gpu=name --format=csv,noheader | wc -l) GPUs Active\e[0m"
+    echo -e "\e[1;34m[IA]   Agents: \e[1;32m7 Active\e[0m"
+    echo -e "\e[1;36m[JARVIS OS] AUDIT COMPLETED.\e[0m"
+}
+alias jaudit="j_audit"
+alias jbrain='cat /etc/motd'
+alias j-models="/home/pamerys/Workspaces/jarvis-linux/infra/scripts/j-models.sh"
+alias j-heal="j heal --force"
+
+# Specialized JARVIS OMEGA Shortcuts
+alias jc="j code"
+alias jw="j web"
+alias jo="j openclaw"
+alias jp="j prompts"
+
+# Web AI Fast Access
+alias claude-web="j web claude"
+alias perplexity-web="j web perplexity"
+alias gemini-web="j web gemini"
+alias aistudio-web="j web aistudio"
+alias chatgpt-web="j web chatgpt"
+
+# Missing CLIs wrappers
+alias claude-code="j code"
+alias ja="j app"
+alias claude-app="j app claude"
+
+# Domain Specific JARVIS OMEGA Shortcuts
+alias jt="j trade"
+alias jl="j linkedin"
+alias jv="j voice"
+alias jn="j n8n"
+
+# Advanced JARVIS OMEGA Control Aliases
+alias jsy="j sync"
+alias jlgs="j logs"
+alias jbn="j bench"
+alias jva="j valise"
+alias jcog="j cognitive"
+
+# Domino and Cluster Aliases
+alias jdm="j domino"
+alias jcs="j consensus"
+alias jdp="j dispatch"
+
+alias jme="j memory"
+alias jtui="bash ~/Workspaces/jarvis-linux/infra/scripts/j-tui.sh"
+alias jos='/usr/local/bin/jos'
+alias jos-cockpit='/usr/local/bin/jos cockpit'
+alias tt='python3 /home/pamerys/Workspaces/jarvis-linux/scripts/todo_manager.py'

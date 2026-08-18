@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruflo-plugins-ruflo-swarm-skills-monitor-stream-skill-md",
+  "name": "monitor-stream",
+  "author": "ruvnet",
+  "description": "Stream live swarm events using the Monitor tool for real-time observability",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/ruflo/tree/main/plugins/ruflo-swarm/skills/monitor-stream",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruflo/plugins-ruflo-swarm-skills-monitor-stream",
+  "stars": 66991,
+  "updatedAt": 1784257589
+}

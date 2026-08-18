@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JARVIS OS — Formations & Services IA | Franck Delmas</title>
+<meta name="description" content="Tunnel JARVIS OS : 4 formations Claude Code Mastery + 8 formations catalogue + 6 services premium (Déploiement, TradeOracle, Voice, MCP, Audit, Coaching). Paiement Gumroad, Stripe, PayPal.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://jarvis-delmas.netlify.app/tunnel/">
+<meta property="og:title" content="JARVIS OS — Tunnel formations & services IA">
+<meta property="og:description" content="De 0 € (Module 1 gratuit) à 80 000 € (Déploiement Enterprise) — tout JARVIS OS sur une page.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:#fff;color:#1a1a1a;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px}
+
+/* Hero — Gumroad style */
+.hero{padding:48px 0 32px;text-align:center;border-bottom:1px solid #efefef}
+.hero .badge{display:inline-block;background:#ffeb3b;color:#1a1a1a;padding:4px 10px;border-radius:4px;font-size:12px;font-weight:700;margin-bottom:18px;letter-spacing:0.5px}
+.hero h1{font-size:38px;font-weight:900;line-height:1.1;margin-bottom:14px;letter-spacing:-0.5px}
+.hero p.lead{font-size:18px;color:#555;margin-bottom:22px;font-weight:400}
+.hero .stats{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;font-size:13px;color:#888;margin-bottom:18px}
+.hero .stats b{color:#1a1a1a;font-weight:700;display:block;font-size:18px}
+.hero .author{font-size:13px;color:#888;margin-top:14px}
+.hero .author b{color:#1a1a1a;font-weight:600}
+
+/* Section nav */
+.nav{position:sticky;top:0;background:rgba(255,255,255,0.97);backdrop-filter:blur(8px);border-bottom:1px solid #efefef;padding:12px 0;z-index:50}
+.nav-row{display:flex;justify-content:center;gap:6px;flex-wrap:wrap}
+.nav a{font-size:13px;padding:6px 12px;border-radius:20px;background:#f5f5f5;color:#555;font-weight:500;transition:all .15s}
+.nav a:hover{background:#1a1a1a;color:#fff}
+
+/* Section */
+.sec{padding:48px 0;border-bottom:1px solid #efefef}
+.sec-head{margin-bottom:28px}
+.sec-tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:1.5px;color:#888;text-transform:uppercase;margin-bottom:8px}
+.sec h2{font-size:28px;font-weight:800;letter-spacing:-0.4px;margin-bottom:6px}
+.sec .desc{font-size:15px;color:#666}
+
+/* Product card — Gumroad inspired */
+.prod{background:#fff;border:1px solid #e5e5e5;border-radius:8px;padding:22px;margin-bottom:14px;transition:all .15s;display:block}
+.prod:hover{border-color:#1a1a1a;box-shadow:4px 4px 0 #1a1a1a;transform:translate(-2px,-2px)}
+.prod-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:8px}
+.prod-tag{display:inline-block;font-size:10px;font-weight:800;padding:3px 8px;border-radius:3px;letter-spacing:0.8px;margin-bottom:6px;text-transform:uppercase}
+.t-free{background:#d4f4dd;color:#0a6b3a}
+.t-hot{background:#ffe0e0;color:#a30000}
+.t-pro{background:#e0e7ff;color:#3730a3}
+.t-new{background:#fff3cd;color:#856404}
+.t-svc{background:#cce7ff;color:#003d80}
+.prod h3{font-size:18px;font-weight:700;margin-bottom:4px;line-height:1.3}
+.prod .px{font-size:22px;font-weight:800;white-space:nowrap;color:#1a1a1a}
+.prod .px small{font-size:13px;color:#999;text-decoration:line-through;font-weight:500;margin-right:4px}
+.prod p{font-size:14px;color:#666;margin-bottom:14px;line-height:1.55}
+.prod .meta{display:flex;gap:14px;font-size:12px;color:#888;margin-bottom:14px;flex-wrap:wrap}
+.prod .meta span::before{content:"• ";color:#ccc}
+.prod .meta span:first-child::before{content:""}
+.prod .cta{display:inline-block;background:#1a1a1a;color:#fff;padding:11px 22px;border-radius:6px;font-weight:700;font-size:14px;transition:all .15s}
+.prod .cta:hover{background:#000;transform:scale(1.02)}
+.prod .cta.free{background:#10b981}
+.prod .cta.hot{background:#ef4444}
+.prod .cta.pro{background:#7c3aed}
+.prod .cta.svc{background:#2563eb}
+
+/* Featured bundle */
+.bundle{background:linear-gradient(135deg,#1a1a1a,#2d2d2d);color:#fff;border:none;position:relative;overflow:hidden}
+.bundle::before{content:"⭐ BEST VALUE";position:absolute;top:14px;right:-30px;background:#ffeb3b;color:#1a1a1a;padding:4px 36px;font-size:10px;font-weight:800;transform:rotate(35deg);letter-spacing:1px}
+.bundle h3{color:#fff;font-size:20px}
+.bundle p{color:#bbb}
+.bundle .px{color:#fff}
+.bundle .px small{color:#888}
+.bundle .meta{color:#999}
+.bundle .cta{background:#ffeb3b;color:#1a1a1a}
+.bundle .cta:hover{background:#fff}
+
+/* Service tier table */
+.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid #eee}
+.tier{background:#fafafa;padding:12px;border-radius:6px;text-align:center;font-size:13px}
+.tier b{display:block;font-size:11px;color:#888;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:4px;font-weight:700}
+.tier .v{font-size:18px;font-weight:800;color:#1a1a1a}
+
+/* Payments */
+.pay{background:#1a1a1a;color:#fff;padding:32px 0;text-align:center}
+.pay h2{font-size:22px;margin-bottom:8px}
+.pay p{color:#bbb;font-size:14px;margin-bottom:18px}
+.pay .icons{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+.pay .icons span{background:rgba(255,255,255,0.08);padding:7px 14px;border-radius:6px;font-size:13px;color:#ddd;font-weight:500}
+
+/* FAQ */
+.faq details{border-bottom:1px solid #eee;padding:16px 0}
+.faq details:last-child{border-bottom:none}
+.faq summary{cursor:pointer;font-weight:600;font-size:15px;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq summary::after{content:"+";font-size:22px;font-weight:300;color:#888}
+.faq details[open] summary::after{content:"−"}
+.faq details p{margin-top:10px;color:#666;font-size:14px;line-height:1.6}
+
+/* Footer */
+footer{padding:32px 0;text-align:center;font-size:13px;color:#888}
+footer a{color:#555;text-decoration:underline}
+
+/* Mobile */
+@media(max-width:600px){
+  .hero h1{font-size:30px}
+  .hero p.lead{font-size:16px}
+  .sec h2{font-size:24px}
+  .prod-top{flex-direction:column}
+  .prod .px{font-size:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">🚀 TUNNEL OFFICIEL — COHORT 1 EARLY-BIRD</span>
+    <h1>Tout JARVIS OS<br>sur une seule page</h1>
+    <p class="lead">4 formations Claude Code Mastery · 8 formations catalogue · 6 services premium.<br>De <b>0 €</b> (Module 1 gratuit) à <b>80 000 €</b> (Déploiement Enterprise).</p>
+    <div class="stats">
+      <div><b>250+</b>agents JARVIS OS</div>
+      <div><b>20+</b>MCP handlers</div>
+      <div><b>97/100</b>record</div>
+      <div><b>88</b>handlers MCP</div>
+    </div>
+    <div class="author">Par <b>Franck Delmas</b> · Architecte IA Distribué · <a href="mailto:franckdelmas00@gmail.com">franckdelmas00@gmail.com</a></div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="wrap nav-row">
+    <a href="#mastery">🎯 Claude Code Mastery</a>
+    <a href="#catalogue">📚 Catalogue</a>
+    <a href="#services">⚡ Services</a>
+    <a href="#coaching">👨‍💻 Coaching</a>
+    <a href="#paiement">💳 Paiement</a>
+    <a href="#faq">❓ FAQ</a>
+  </div>
+</nav>
+
+<!-- 1. CLAUDE CODE MASTERY -->
+<section class="sec" id="mastery">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-tag">Formation phare</span>
+      <h2>Claude Code Mastery</h2>
+      <p class="desc">La seule formation Claude Code bâtie sur JARVIS OS réel. 4 modules, 14 leçons, ~12h pratique.</p>
+    </div>
+
+    <a href="/claude-code-mastery/#etape-2" class="prod">
+      <div class="prod-top">
+        <div>
+          <span class="prod-tag t-free">Gratuit · Lead magnet</span>
+          <h3>Module 1 — Fondamentaux</h3>
+        </div>
+        <div class="px">0 €</div>
+      </div>
+      <p>3 leçons (~50 min lecture + 90 min pratique). Installation Claude Code, premier agent <code>daily-brief</code>, première skill <code>audit-rapide</code>.</p>
+      <div class="meta"><span>📄 7 pages PDF</span><span>⏱ ~2h</span><span>🆓 Sans CB</span></div>
+      <span class="cta free">📥 Recevoir le PDF gratuit</span>
+    </a>
+
+    <a href="https://franckdelmas.gumroad.com/l/claude-code-mastery-m2" class="prod" target="_blank" rel="noopener">
+      <div class="prod-top">
+        <div>
+          <span class="prod-tag t-new">Early-bird 48h</span>
+          <h3>Module 2 — Agents & Skills Avancés</h3>
+        </div>
+        <div class="px"><small>297 €</small>177 €</div>
+      </div>
+      <p>5 leçons (~5h). Plugin structure + cascades + agents parallèles + MCP + hooks SQL. Construis le système.</p>
+      <div class="meta"><span>📄 7 pages</span><span>⏱ ~5h</span><span>🎓 Intermédiaire</span></div>
+      <span class="cta">Acheter — 177 €</span>
+    </a>
+
+    <a href="https://franckdelmas.gumroad.com/l/claude-code-mastery-m3" class="prod" target="_blank" rel="noopener">
+      <div class="prod-top">
+        <div>
+          <span class="prod-tag t-pro">Avancé</span>
+          <h3>Module 3 — Construis ton JARVIS</h3>
+        </div>
+        <div class="px">597 €</div>
+      </div>
+      <p>5 leçons (~5h). CLAUDE.md hiérarchique + mémoire Π 15:1 + Docker + orchestration 40 agents + benchmark ELITE.</p>
+      <div class="meta"><span>📄 8 pages</span><span>⏱ ~5h</span><span>🚀 Expert</span></div>
+      <span class="cta pro">Acheter — 597 €</span>
+    </a>
+
+    <a href="https://franckdelmas.gumroad.com/l/claude-code-mastery-bundle" class="prod bundle" target="_blank" rel="noopener">
+      <div class="prod-top">
+        <div>
+          <span class="prod-tag t-hot">🔥 Bundle Cohort 1</span>
+          <h3>Bundle M2 + M3 + Bonus</h3>
+        </div>
+        <div class="px"><small>797 €</small>477 €</div>
+      </div>
+      <p>13 leçons + CLAUDE.md réel JARVIS + Discord privé + 5 templates GitHub + MAJ à vie. <b>Économie 320 €</b>.</p>
+      <div class="meta"><span>📄 6 pages bonus</span><span>♾️ Accès à vie</span><span>💬 Discord</span></div>
+      <span class="cta">🎓 Bundle 477 €</span>
+    </a>
+  </div>
+</section>
+
+<!-- 2. CATALOGUE -->
+<section class="sec" id="catalogue">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-tag">Catalogue complet</span>
+      <h2>Formations courtes 39 € — 149 €</h2>
+      <p class="desc">8 formations à la carte : débutant → expert. PDF + accès Discord.</p>
+    </div>
+
+    <a href="https://franckdelmas.gumroad.com/l/ia-fondamentaux-2026" class="prod" target="_blank" rel="noopener">
+      <div class="prod-top">
+        <div><span class="prod-tag t-new">Débutant</span><h3>IA en 2026 — Fondamentaux</h3></div>
+        <div class="px">39 €</div>
+      </div>
+      <p>ChatGPT, Claude, Gemini, Mistral — comparatif, cas d'usage, prompting avancé.</p>
+      <span class="cta">Acheter — 39 €</span>
+    </a>
+
+    <a href="https://franckdelmas.gumroad.com/l/prompt-engineering" class="prod" target="_blank" rel="noopener">
+      <div class="prod-top">
+        <div><span class="prod-tag t-new">Débutant</span><h3>Prompt Engineering Avancé</h3></div>
+        <div class="px">39 €</div>
+      </div>
+      <p>Chain-of-Thought, few-shot, structured output. L'art du prompting pour tous les LLMs.</p>
+      <span class="cta">Acheter — 39 €</span>
+    </a>
+
+    <a href="https://franckdelmas.gumroad.com/l/vibe-coding" class="prod" target="_blank" rel="noopener">
+      <div class="prod-top">
+        <div><span class="prod-tag t-new">Débutant</span><h3>Vibe Coding 2026</h3></div>
+        <div class="px">39 €</div>
+      </div>
+      <p>Coder avec l'IA comme co-pilote : Claude, Cursor, Copilot. Productivité ×10.</p>
+      <span class="cta">Acheter — 39 €</span>
+    </a>
+
+    <a href="https://franckdelmas.gumroad.com/l/openclaw-gateway" class="prod" target="_blank" rel="noopener">
+      <div class="prod-top">
+        <div><span class="prod-tag t-pro">Expert JARVIS</span><h3>OpenClaw Gateway — 250+ Agents</h3></div>
+        <div class="px">149 €</div>
+      </div>
+      <p>Orchestration 250+ agents autonomes, circuit-breaker, consensus IA, gateway Docker.</p>
+      <span class="cta pro">Acheter — 149 €</span>
+    </a>
+
+    <p style="text-align:center;margin-top:18px;font-size:13px;color:#888">+ 4 autres formations sur <a href="/boutique/" style="color:#1a1a1a;text-decoration:underline;font-weight:600">la boutique complète</a></p>
+  </div>
+</section>
+
+<!-- 3. SERVICES PREMIUM -->
+<section class="sec" id="services">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-tag">Services entreprise</span>
+      <h2>Services premium B2B</h2>
+      <p class="desc">6 prestations clé-en-main. Devis sous 24h ouvrées. Paiement 40 % / 40 % / 20 %.</p>
+    </div>
+
+    <a href="mailto:franckdelmas00@gmail.com?subject=JARVIS%20D%C3%A9ploiement" class="prod">
+      <div class="prod-top">
+        <div><span class="prod-tag t-svc">Service 1 · Phare</span><h3>JARVIS OS — Déploiement clé-en-main</h3></div>
+        <div class="px">dès <b>12 000 €</b></div>
+      </div>
+      <p>Infrastructure on-prem complète : LM Studio, agents, MCP, orchestrateur. Audit → Déploiement → Formation → Support.</p>
+      <div class="meta"><span>⏱ 2–12 sem.</span><span>🎯 PME 50–500</span><span>🛡️ RGPD natif</span></div>
+      <div class="tiers">
+        <div class="tier"><b>Starter</b><div class="v">12 000 €</div>1 nœud · 50 agents</div>
+        <div class="tier"><b>Pro</b><div class="v">35 000 €</div>3 nœuds · 300 agents</div>
+        <div class="tier"><b>Enterprise</b><div class="v">80 000 €</div>900+ agents</div>
+      </div>
+      <span class="cta svc" style="margin-top:14px">📩 Demander un devis</span>
+    </a>
+
+    <a href="mailto:franckdelmas00@gmail.com?subject=TradeOracle%20POC" class="prod">
+      <div class="prod-top">
+        <div><span class="prod-tag t-svc">Service 2 · Trading IA</span><h3>TradeOracle — Trading Algorithmique</h3></div>
+        <div class="px">dès <b>8 000 €</b></div>
+      </div>
+      <p>Trading IA multi-modèles. POC 5 jours (3 stratégies + backtest + rapport) → Production. Hedge funds, family offices 20M€–500M€.</p>
+      <div class="meta"><span>POC 8 k€</span><span>Production 45 k€</span><span>API SaaS 2 k€/mois</span></div>
+      <span class="cta svc">📩 Réserver un POC</span>
+    </a>
+
+    <a href="mailto:franckdelmas00@gmail.com?subject=Pipeline%20Voix" class="prod">
+      <div class="prod-top">
+        <div><span class="prod-tag t-svc">Service 3 · Voice AI</span><h3>Pipeline Voix / Transcription temps réel</h3></div>
+        <div class="px">dès <b>6 000 €</b></div>
+      </div>
+      <p>Whisper distil-large-v3 + Piper TTS + wake-word. API REST clé-en-main, latence &lt;500 ms.</p>
+      <div class="meta"><span>Standard 6 k€</span><span>+ Custom 9 k€</span><span>API SaaS 800 €/mois</span></div>
+      <span class="cta svc">📩 Demander une démo</span>
+    </a>
+
+    <a href="mailto:franckdelmas00@gmail.com?subject=MCP%20Toolkit" class="prod">
+      <div class="prod-top">
+        <div><span class="prod-tag t-svc">Service 4 · Intégration</span><h3>MCP Toolkit — Integration Consulting</h3></div>
+        <div class="px">dès <b>600 €</b></div>
+      </div>
+      <p>20+ handlers MCP prêts à l'emploi. Consulting demi-journée, dev handler standard/complexe, packs forfait.</p>
+      <div class="meta"><span>½ jour 600 €</span><span>Pack 5 handlers 8 k€</span><span>TJM 1 200 €</span></div>
+      <span class="cta svc">📩 Consulting MCP</span>
+    </a>
+
+    <a href="mailto:franckdelmas00@gmail.com?subject=Formation%20JARVIS%20Stack" class="prod">
+      <div class="prod-top">
+        <div><span class="prod-tag t-svc">Service 5 · Formation B2B</span><h3>Formation JARVIS Stack — 6 modules</h3></div>
+        <div class="px">dès <b>4 500 €</b></div>
+      </div>
+      <p>19h de formation : IA distribuée on-prem, multi-agents, MCP 20+ handlers, TradeOracle, voix, prod. Intra-entreprise.</p>
+      <div class="meta"><span>6 modules</span><span>~19 h</span><span>Jusqu'à 8 personnes</span></div>
+      <span class="cta svc">📩 Devis formation</span>
+    </a>
+
+    <a href="mailto:franckdelmas00@gmail.com?subject=Audit%20Architecture%20IA" class="prod">
+      <div class="prod-top">
+        <div><span class="prod-tag t-svc">Service 6 · Conseil</span><h3>Audit Architecture IA</h3></div>
+        <div class="px">dès <b>2 400 €</b></div>
+      </div>
+      <p>Audit complet stack IA existante : sécurité, coûts, performance, RGPD. Rapport + plan d'action 90 jours.</p>
+      <div class="meta"><span>2–5 jours</span><span>Rapport PDF 30+ pages</span><span>Restitution visio</span></div>
+      <span class="cta svc">📩 Réserver audit</span>
+    </a>
+  </div>
+</section>
+
+<!-- 4. COACHING 1:1 -->
+<section class="sec" id="coaching">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-tag">Accompagnement individuel</span>
+      <h2>Coaching 1:1 — Visio</h2>
+      <p class="desc">Sessions Zoom/Meet avec moi directement. Pour devs, fondateurs, CTO.</p>
+    </div>
+
+    <a href="mailto:franckdelmas00@gmail.com?subject=Coaching%201h" class="prod">
+      <div class="prod-top">
+        <div><span class="prod-tag t-new">Découverte</span><h3>Session 1h — Quick win</h3></div>
+        <div class="px">150 €</div>
+      </div>
+      <p>1 problème ciblé : architecture, choix LLM, debug, prompt engineering. Replay vidéo inclus.</p>
+      <span class="cta">📅 Réserver 1h</span>
+    </a>
+
+    <a href="mailto:franckdelmas00@gmail.com?subject=Coaching%20Pack%205h" class="prod">
+      <div class="prod-top">
+        <div><span class="prod-tag t-pro">Pack favori</span><h3>Pack 5h — Projet complet</h3></div>
+        <div class="px"><small>750 €</small>600 €</div>
+      </div>
+      <p>5 sessions d'1h sur 5 semaines. Suivi projet de bout en bout. Discord direct entre sessions.</p>
+      <span class="cta pro">📅 Réserver pack 5h</span>
+    </a>
+
+    <a href="mailto:franckdelmas00@gmail.com?subject=Mentorat%203%20mois" class="prod">
+      <div class="prod-top">
+        <div><span class="prod-tag t-hot">Mentorat premium</span><h3>Mentorat 3 mois — Architect on-demand</h3></div>
+        <div class="px">2 400 €</div>
+      </div>
+      <p>12 sessions + revue de code illimitée + Discord prioritaire + accès Cohort Discord. Pour CTO et lead devs.</p>
+      <span class="cta hot">📅 Demander entretien</span>
+    </a>
+  </div>
+</section>
+
+<!-- 5. PAIEMENT -->
+<section class="pay" id="paiement">
+  <div class="wrap">
+    <h2>💳 Moyens de paiement</h2>
+    <p>Formations via Gumroad · Services via virement SEPA / Stripe Invoice</p>
+    <div class="icons">
+      <span>💳 CB Visa/Mastercard</span>
+      <span>🅿️ PayPal</span>
+      <span>🍎 Apple Pay</span>
+      <span>🤖 Google Pay</span>
+      <span>🏦 SEPA / Virement</span>
+      <span>📄 Facture entreprise</span>
+    </div>
+  </div>
+</section>
+
+<!-- 6. FAQ -->
+<section class="sec faq" id="faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-tag">Questions fréquentes</span>
+      <h2>FAQ</h2>
+    </div>
+
+    <details>
+      <summary>Le Module 1 est-il vraiment gratuit ?</summary>
+      <p>Oui, sans carte bancaire. Tu reçois le PDF par email après inscription. C'est ma façon de te montrer la qualité avant achat.</p>
+    </details>
+    <details>
+      <summary>Quelle différence entre formations et services ?</summary>
+      <p>Les <b>formations</b> sont des produits digitaux (PDF + Discord) que tu consommes à ton rythme — de 0 € à 597 €. Les <b>services</b> sont des prestations sur-mesure que je réalise pour ton entreprise — de 600 € à 80 000 €.</p>
+    </details>
+    <details>
+      <summary>Puis-je obtenir une facture entreprise ?</summary>
+      <p>Oui pour tout achat ≥ 100 €. Envoie-moi un email avec SIRET et adresse de facturation, je te fournis une facture aux normes françaises.</p>
+    </details>
+    <details>
+      <summary>Y a-t-il une garantie satisfait ou remboursé ?</summary>
+      <p>Formations : 14 jours satisfait ou remboursé, sans justification. Services : devis ferme avec clauses contractuelles, acompte 40 % à la signature.</p>
+    </details>
+    <details>
+      <summary>Combien de temps pour recevoir un devis ?</summary>
+      <p>Sous 24 h ouvrées pour tout service. Email <a href="mailto:franckdelmas00@gmail.com">franckdelmas00@gmail.com</a> avec ton besoin + contraintes (budget, délai, périmètre).</p>
+    </details>
+    <details>
+      <summary>Le code JARVIS OS est-il open-source ?</summary>
+      <p>Oui, MIT sur <a href="https://github.com/Turbo31150" target="_blank" rel="noopener">github.com/Turbo31150</a>. Les services consistent en l'installation, l'adaptation, la formation et le support — pas le code lui-même.</p>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><b>JARVIS OS</b> — Franck Delmas · Architecte IA Distribué · <a href="mailto:franckdelmas00@gmail.com">franckdelmas00@gmail.com</a></p>
+    <p style="margin-top:8px"><a href="/">Accueil</a> · <a href="/boutique/">Boutique complète</a> · <a href='/mentions-legales'>Mentions légales</a> · <a href="https://github.com/Turbo31150" target="_blank" rel="noopener">GitHub</a></p>
+  </div>
+</footer>
+
+<script>
+// Smooth scroll
+document.querySelectorAll('.nav a').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const id=a.getAttribute('href');
+    if(id.startsWith('#')){
+      e.preventDefault();
+      document.querySelector(id).scrollIntoView({behavior:'smooth',block:'start'});
+    }
+  });
+});
+</script>
+</body>
+</html>

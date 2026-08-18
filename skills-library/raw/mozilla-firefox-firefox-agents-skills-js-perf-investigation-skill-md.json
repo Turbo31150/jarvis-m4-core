@@ -1,0 +1,11 @@
+{
+  "id": "mozilla-firefox-firefox-agents-skills-js-perf-investigation-skill-md",
+  "name": "js-perf-investigation",
+  "author": "mozilla-firefox",
+  "description": "Structured performance opportunity investigation for SpiderMonkey (the Firefox JavaScript engine). Use this skill when the user wants to investigate JS engine performance, profile SpiderMonkey, find optimization opportunities, write performance patches, or evaluate benchmark regressions. Trigger on mentions of: profiling JS, SpiderMonkey performance, JIT optimization, benchmark regression analysis, shell benchmarking, or any request to make JS workloads faster.\nThe methodolgy is described mostly for the JS shell but can be adapted to browser investigation.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/mozilla-firefox/firefox/tree/main/.agents/skills/js-perf-investigation",
+  "skillUrl": "https://skillsmp.com/creators/mozilla-firefox/firefox/agents-skills-js-perf-investigation",
+  "stars": 12741,
+  "updatedAt": 1785799649
+}

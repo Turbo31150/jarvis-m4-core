@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruview-claude-skills-agentdb-optimization-skill-md",
+  "name": "agentdb-performance-optimization",
+  "author": "ruvnet",
+  "description": "Optimize AgentDB performance with quantization (4-32x memory reduction), HNSW indexing (150x faster search), caching, and batch operations. Use when optimizing memory usage, improving search speed, or scaling to millions of vectors.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/RuView/tree/main/.claude/skills/agentdb-optimization",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruview/claude-skills-agentdb-optimization",
+  "stars": 88440,
+  "updatedAt": 1768273876
+}

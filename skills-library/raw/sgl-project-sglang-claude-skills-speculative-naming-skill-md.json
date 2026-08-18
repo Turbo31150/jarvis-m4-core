@@ -1,0 +1,11 @@
+{
+  "id": "sgl-project-sglang-claude-skills-speculative-naming-skill-md",
+  "name": "speculative-naming",
+  "author": "sgl-project",
+  "description": "Naming conventions for SGLang speculative decoding identifiers. Use when adding, renaming, or reviewing identifiers in speculative decoding code \u2014 anything under `python/sglang/srt/speculative/`, related attention backends, scheduler accumulators, IPC fields, observability metrics, or CLI flags.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/sgl-project/sglang/tree/main/.claude/skills/speculative-naming",
+  "skillUrl": "https://skillsmp.com/creators/sgl-project/sglang/claude-skills-speculative-naming",
+  "stars": 31262,
+  "updatedAt": 1779695909
+}

@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-springboot-verification-skill-md",
+  "name": "springboot-verification",
+  "author": "affaan-m",
+  "description": "Verification loop for Spring Boot projects: build, static analysis, tests with coverage, security scans, and diff review before release or PR.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/springboot-verification",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-springboot-verification",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

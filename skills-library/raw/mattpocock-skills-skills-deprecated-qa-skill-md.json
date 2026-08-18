@@ -1,0 +1,11 @@
+{
+  "id": "mattpocock-skills-skills-deprecated-qa-skill-md",
+  "name": "qa",
+  "author": "mattpocock",
+  "description": "Interactive QA session where user reports bugs or issues conversationally, and the agent files GitHub issues. Explores the codebase in the background for context and domain language. Use when user wants to report bugs, do QA, file issues conversationally, or mentions \"QA session\".",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/mattpocock/skills/tree/main/skills/deprecated/qa",
+  "skillUrl": "https://skillsmp.com/creators/mattpocock/skills/skills-deprecated-qa",
+  "stars": 202506,
+  "updatedAt": 1783943838
+}

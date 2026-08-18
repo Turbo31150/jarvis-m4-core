@@ -1,0 +1,11 @@
+{
+  "id": "significant-gravitas-autogpt-claude-skills-vercel-react-best-practices-skill-md",
+  "name": "vercel-react-best-practices",
+  "author": "Significant-Gravitas",
+  "description": "React and Next.js performance optimization guidelines from Vercel Engineering. This skill should be used when writing, reviewing, or refactoring React/Next.js code to ensure optimal performance patterns. Triggers on tasks involving React components, Next.js pages, data fetching, bundle optimization, or performance improvements.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Significant-Gravitas/AutoGPT/tree/master/.claude/skills/vercel-react-best-practices",
+  "skillUrl": "https://skillsmp.com/creators/significant-gravitas/autogpt/claude-skills-vercel-react-best-practices",
+  "stars": 185813,
+  "updatedAt": 1768581658
+}

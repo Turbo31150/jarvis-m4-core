@@ -1,0 +1,11 @@
+{
+  "id": "kubesphere-kubesphere-skills-kubesphere-devops-overview-skill-md",
+  "name": "kubesphere-devops-overview",
+  "author": "kubesphere",
+  "description": "Use when working with KubeSphere DevOps extension, CI/CD pipelines, Jenkins integration, or pipeline troubleshooting",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/kubesphere/kubesphere/tree/master/skills/kubesphere-devops-overview",
+  "skillUrl": "https://skillsmp.com/creators/kubesphere/kubesphere/skills-kubesphere-devops-overview",
+  "stars": 17017,
+  "updatedAt": 1777273305
+}

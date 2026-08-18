@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-continuous-learning-v2-skill-md",
+  "name": "continuous-learning-v2",
+  "author": "affaan-m",
+  "description": "Instinct-based learning system that observes sessions via hooks, creates atomic instincts with confidence scoring, and evolves them into skills/commands/agents. v2.1 adds project-scoped instincts to prevent cross-project contamination.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/continuous-learning-v2",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-continuous-learning-v2",
+  "stars": 237500,
+  "updatedAt": 1785288672
+}

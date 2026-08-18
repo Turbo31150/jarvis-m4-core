@@ -1,0 +1,11 @@
+{
+  "id": "thedaviddias-front-end-checklist-skills-has-selector-skill-md",
+  "name": "has-selector",
+  "author": "thedaviddias",
+  "description": "Use when reviewing stylesheets or components that use JavaScript to toggle classes on parent elements based on child state, form input values, or content presence \u2014 :has() may replace the JavaScript entirely.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedaviddias/Front-End-Checklist/tree/main/skills/has-selector",
+  "skillUrl": "https://skillsmp.com/creators/thedaviddias/front-end-checklist/skills-has-selector",
+  "stars": 73416,
+  "updatedAt": 1780091646
+}

@@ -1,0 +1,11 @@
+{
+  "id": "netdata-netdata-agents-skills-project-snmp-trap-profiles-authoring-skill-md",
+  "name": "project-snmp-trap-profiles-authoring",
+  "author": "netdata",
+  "description": "Use when editing Netdata SNMP trap profile YAMLs, trap profile metric rules, the trap profile-format documentation, the snmp-trap-profile-gen Go helper, or running a regeneration of the OOB trap profile pack. Enforces the closed 8-category / 8-severity taxonomy, the file-scoped varbinds-table pattern, metric cardinality discipline, and stock/operator separation.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/netdata/netdata/tree/master/.agents/skills/project-snmp-trap-profiles-authoring",
+  "skillUrl": "https://skillsmp.com/creators/netdata/netdata/agents-skills-project-snmp-trap-profiles-authoring",
+  "stars": 80011,
+  "updatedAt": 1785844618
+}

@@ -1,0 +1,11 @@
+{
+  "id": "docling-project-docling-agents-skills-dignified-python-skill-md",
+  "name": "dignified-python",
+  "author": "docling-project",
+  "description": "Opinionated production Python standards with automatic version detection (3.10-3.13). Use when writing, reviewing, or refactoring Python in repos that want modern type syntax, explicit condition checks where practical, pathlib operations, interface guidance, and pragmatic production patterns.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/docling-project/docling/tree/main/.agents/skills/dignified-python",
+  "skillUrl": "https://skillsmp.com/creators/docling-project/docling/agents-skills-dignified-python",
+  "stars": 64238,
+  "updatedAt": 1778819956
+}

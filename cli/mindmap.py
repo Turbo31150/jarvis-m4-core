@@ -15,42 +15,42 @@ DB_PATH = "/home/pamerys/jarvis/jarvis_master.db"
 
 KNOWN_NODES = [
     # CLI / core
-    {"node": "jarvis-master-cli", "type": "script", "path": "/home/pamerys/jarvis/cli/jarvis_master.py",
+    {"node": "jarvis-master-cli", "type": "script", "path": "/home/turbo/jarvis/cli/jarvis_master.py",
      "machine": "OL1", "connects_to": ["jarvis_master.db", "loop-monitor", "disk-index"],
      "description": "CLI principal JARVIS — todo + dispatcher"},
-    {"node": "loop-monitor", "type": "service", "path": "/home/pamerys/jarvis/cli/loop_monitor.py",
+    {"node": "loop-monitor", "type": "service", "path": "/home/turbo/jarvis/cli/loop_monitor.py",
      "machine": "OL1", "connects_to": ["jarvis_master.db", "jarvis-master.service"],
      "description": "Surveille la boucle autonome JARVIS"},
-    {"node": "disk-index", "type": "script", "path": "/home/pamerys/jarvis/cli/disk_index.py",
+    {"node": "disk-index", "type": "script", "path": "/home/turbo/jarvis/cli/disk_index.py",
      "machine": "OL1", "connects_to": ["jarvis_master.db"],
      "description": "Index fichiers multi-machines dans disk_index table"},
-    {"node": "monitoring-server", "type": "service", "path": "/home/pamerys/jarvis/monitoring/",
+    {"node": "monitoring-server", "type": "service", "path": "/home/turbo/jarvis/monitoring/",
      "machine": "OL1", "connects_to": ["jarvis_master.db", "node-agent"],
      "description": "Serveur monitoring cluster"},
-    {"node": "node-agent", "type": "agent", "path": "/home/pamerys/jarvis/infra/",
+    {"node": "node-agent", "type": "agent", "path": "/home/turbo/jarvis/infra/",
      "machine": "M1/M2", "connects_to": ["monitoring-server"],
      "description": "Agent nœud distant pour reporting cluster"},
     # Agents
-    {"node": "openclaw", "type": "service", "path": "/home/pamerys/jarvis/",
+    {"node": "openclaw", "type": "service", "path": "/home/turbo/jarvis/",
      "machine": "OL1", "connects_to": ["cowork-dispatcher", "jarvis_master.db"],
      "description": "Sandbox agents OpenClaw spécialisés"},
-    {"node": "cowork-dispatcher", "type": "service", "path": "/home/pamerys/jarvis-cowork/",
+    {"node": "cowork-dispatcher", "type": "service", "path": "/home/turbo/jarvis-cowork/",
      "machine": "OL1", "connects_to": ["cowork_engine.db", "lm-studio", "openclaw"],
      "description": "Dispatcher tâches JARVIS Cowork vers agents"},
-    {"node": "antigravity", "type": "service", "path": "/home/pamerys/jarvis/antigravity_heavy_tasks/",
+    {"node": "antigravity", "type": "service", "path": "/home/turbo/jarvis/antigravity_heavy_tasks/",
      "machine": "OL1", "connects_to": ["jarvis_master.db", "m2-lmstudio"],
      "description": "Tâches lourdes déléguées (heavy tasks)"},
     # LLM backends
-    {"node": "lm-studio", "type": "model", "path": "http://192.168.1.85:1234",
+    {"node": "lm-studio", "type": "model", "path": "http://192.168.0.10:1234",
      "machine": "M1", "connects_to": ["cowork-dispatcher", "antigravity", "jarvis-ai-proxy"],
      "description": "LM Studio M1 — qwen3.5-35b, claude-opus-distilled"},
-    {"node": "m2-lmstudio", "type": "model", "path": "http://192.168.1.26:1234",
+    {"node": "m2-lmstudio", "type": "model", "path": "http://127.0.0.1:18800",
      "machine": "M2", "connects_to": ["cowork-dispatcher", "antigravity"],
      "description": "LM Studio M2 — qwen3.5-35b, deepseek-r1"},
     {"node": "ollama", "type": "model", "path": "http://127.0.0.1:11434",
      "machine": "OL1", "connects_to": ["lm-ask"],
      "description": "Ollama local — gemma3:4b, llama3.2"},
-    {"node": "lm-ask", "type": "script", "path": "/home/pamerys/jarvis/scripts/lm-ask.sh",
+    {"node": "lm-ask", "type": "script", "path": "/home/turbo/jarvis/scripts/lm-ask.sh",
      "machine": "OL1", "connects_to": ["lm-studio", "m2-lmstudio", "ollama"],
      "description": "Proxy shell 1-shot vers backends LLM avec fallback"},
     {"node": "jarvis-ai-proxy", "type": "service", "path": "/etc/systemd/system/jarvis-ai-proxy.service",
@@ -60,10 +60,10 @@ KNOWN_NODES = [
     {"node": "jarvis_master.db", "type": "db", "path": "/home/pamerys/jarvis/jarvis_master.db",
      "machine": "OL1", "connects_to": [],
      "description": "DB principale JARVIS — tasks, pipeline_log, disk_index, mindmap"},
-    {"node": "cowork_engine.db", "type": "db", "path": "/home/pamerys/jarvis/cowork_engine.db",
+    {"node": "cowork_engine.db", "type": "db", "path": "/home/turbo/jarvis/cowork_engine.db",
      "machine": "OL1", "connects_to": ["cowork-dispatcher"],
      "description": "DB moteur cowork — jobs, résultats agents"},
-    {"node": "jarvis_web_nav.db", "type": "db", "path": "/home/pamerys/jarvis/data/jarvis_web_nav.db",
+    {"node": "jarvis_web_nav.db", "type": "db", "path": "/home/turbo/jarvis/data/jarvis_web_nav.db",
      "machine": "OL1", "connects_to": ["jarvis-chrome-cdp"],
      "description": "DB navigation web JARVIS"},
     # Services systemd JARVIS
@@ -173,7 +173,10 @@ def main():
     parser.add_argument("--show", action="store_true", help="Affiche la carte")
     args = parser.parse_args()
 
-    conn = sqlite3.connect(DB_PATH)
+    # WAL : un seul écrivain à la fois sur une base très sollicitée,
+    # il faut attendre au lieu d'échouer sur "database is locked".
+    conn = sqlite3.connect(DB_PATH, timeout=120)
+    conn.execute("PRAGMA busy_timeout=120000")
     init_db(conn)
 
     if args.rebuild or not conn.execute("SELECT COUNT(*) FROM mindmap").fetchone()[0]:

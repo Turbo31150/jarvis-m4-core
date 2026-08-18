@@ -1,0 +1,11 @@
+{
+  "id": "sipeed-picoclaw-workspace-skills-summarize-skill-md",
+  "name": "summarize",
+  "author": "sipeed",
+  "description": "Summarize or extract text/transcripts from URLs, podcasts, and local files (great fallback for \u201ctranscribe this YouTube/video\u201d).",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/sipeed/picoclaw/tree/main/workspace/skills/summarize",
+  "skillUrl": "https://skillsmp.com/creators/sipeed/picoclaw/workspace-skills-summarize",
+  "stars": 29813,
+  "updatedAt": 1773303029
+}

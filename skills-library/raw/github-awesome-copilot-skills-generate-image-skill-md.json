@@ -1,0 +1,11 @@
+{
+  "id": "github-awesome-copilot-skills-generate-image-skill-md",
+  "name": "generate-image",
+  "author": "github",
+  "description": "Generate images using AI. Use when asked to generate, create, or make images, textures, icons, sprites, artwork, visual assets, or mockups. Supports OpenAI (gpt-image-2) and Google Gemini (Nano Banana). Requires an API key for the chosen provider.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/github/awesome-copilot/tree/main/skills/generate-image",
+  "skillUrl": "https://skillsmp.com/creators/github/awesome-copilot/skills-generate-image",
+  "stars": 37423,
+  "updatedAt": 1778808419
+}

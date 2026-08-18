@@ -1,10 +1,14 @@
 # AUDIT_CONFIG — MODE AUDIT / DEEP RESEARCH (JARVIS OS)
 # Définit profils, modes de profondeur, vagues et agents.
 
+# Dossier des runs, relatif à $JARVIS. Lu par ensure_run() ; sans lui les runs
+# atterrissaient à la racine de ~/jarvis.
+output_dir: audit/runs
+
 profiles:
   tech:        { agents: [tech], focus: "code, infra, automatisation, OS IA, conteneurisation" }
   business:    { agents: [business], focus: "offres, pricing, tunnel de vente, positionnement" }
-  souverainete:{ agents: [legal], focus: "RGPD, CLOUD Act, NIS2, IA Act, hébergement, logs" }
+  souverainete: { agents: [legal], focus: "RGPD, CLOUD Act, NIS2, IA Act, hébergement, logs" }
   ops:         { agents: [ops], focus: "exploitation, monitoring, résilience, sauvegardes" }
   full:        { agents: [tech, business, legal, ops], focus: "audit 360°" }
   b2b:         { agents: [business, legal], focus: "offre B2B, conformité, crédibilité" }

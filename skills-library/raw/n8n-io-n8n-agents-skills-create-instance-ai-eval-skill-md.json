@@ -1,0 +1,11 @@
+{
+  "id": "n8n-io-n8n-agents-skills-create-instance-ai-eval-skill-md",
+  "name": "n8n-create-instance-ai-eval",
+  "author": "n8n-io",
+  "description": "Authors a new Instance AI workflow eval case \u2014 written locally as JSON, calibrated against a real build, then pushed to the LangTracer suite CI runs \u2014 build cases, behaviour/process cases, credential cases, and seeded (mid-conversation) cases \u2014 with intent-driven expectations. Use when adding or changing an Instance AI workflow eval, or debugging why one is flaky.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/n8n-io/n8n/tree/master/.agents/skills/create-instance-ai-eval",
+  "skillUrl": "https://skillsmp.com/creators/n8n-io/n8n/agents-skills-create-instance-ai-eval",
+  "stars": 199283,
+  "updatedAt": 1785777981
+}

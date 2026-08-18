@@ -1,0 +1,11 @@
+{
+  "id": "alirezarezvani-claude-skills-compliance-os-skills-ai-act-readiness-skill-md",
+  "name": "ai-act-readiness",
+  "author": "alirezarezvani",
+  "description": "/cs:ai-act-readiness <system> \u2014 EU AI Act 6-question forcing interrogation. Use during AI-system intake, before EU deployment, or during annual compliance refresh as Article 113 obligations phase in (2025-02-02 / 2025-08-02 / 2026-08-02 / 2027-08-02).",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/alirezarezvani/claude-skills/tree/main/compliance-os/skills/ai-act-readiness",
+  "skillUrl": "https://skillsmp.com/creators/alirezarezvani/claude-skills/compliance-os-skills-ai-act-readiness",
+  "stars": 23780,
+  "updatedAt": 1781101980
+}

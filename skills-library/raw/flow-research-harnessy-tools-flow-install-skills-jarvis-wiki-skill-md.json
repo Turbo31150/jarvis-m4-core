@@ -1,0 +1,11 @@
+{
+  "id": "flow-research-harnessy-tools-flow-install-skills-jarvis-wiki-skill-md",
+  "name": "jarvis-wiki",
+  "author": "Flow-Research",
+  "description": "Use when the user wants to manage their personal knowledge base: ingest a URL or file, compile wiki articles, ask questions about a domain, run lint, or open in Obsidian. Trigger on: \"add to wiki\", \"compile wiki\", \"what does my wiki say\", \"lint wiki\".",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Flow-Research/harnessy/tree/main/tools/flow-install/skills/jarvis-wiki",
+  "skillUrl": "https://skillsmp.com/creators/flow-research/harnessy/tools-flow-install-skills-jarvis-wiki",
+  "stars": 30,
+  "updatedAt": 1778847605
+}

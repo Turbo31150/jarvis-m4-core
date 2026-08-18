@@ -1,0 +1,11 @@
+{
+  "id": "lobehub-lobehub-agents-skills-product-design-skill-md",
+  "name": "product-design",
+  "author": "lobehub",
+  "description": "Turn a vague product ask (\"this page feels wrong\", \"we need a team view\") into a grounded, shippable design by establishing business semantics and the user task before proposing a surface. Use when scoping a new surface, redesigning an existing one, or deciding what a feature should be. Not for auditing a built screen (ux-audit) or choosing visual details (ux).",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/lobehub/lobehub/tree/canary/.agents/skills/product-design",
+  "skillUrl": "https://skillsmp.com/creators/lobehub/lobehub/agents-skills-product-design",
+  "stars": 81243,
+  "updatedAt": 1784054742
+}

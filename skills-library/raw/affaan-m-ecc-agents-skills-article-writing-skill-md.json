@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-agents-skills-article-writing-skill-md",
+  "name": "article-writing",
+  "author": "affaan-m",
+  "description": "Write articles, guides, blog posts, tutorials, newsletter issues, and other long-form content in a distinctive voice derived from supplied examples or brand guidance. Use when the user wants polished written content longer than a paragraph, especially when voice consistency, structure, and credibility matter.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/.agents/skills/article-writing",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/agents-skills-article-writing",
+  "stars": 237500,
+  "updatedAt": 1777428617
+}

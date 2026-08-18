@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-agents-skills-release-openclaw-ci-skill-md",
+  "name": "release-openclaw-ci",
+  "author": "openclaw",
+  "description": "Run, watch, debug, and summarize OpenClaw full release CI, release checks, live provider gates, install/update proofs, and release-secret preflights.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/.agents/skills/release-openclaw-ci",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/agents-skills-release-openclaw-ci",
+  "stars": 385119,
+  "updatedAt": 1785408821
+}

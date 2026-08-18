@@ -1,0 +1,11 @@
+{
+  "id": "samchon-ttsc-agents-skills-multi-agent-skill-md",
+  "name": "multi-agent",
+  "author": "samchon",
+  "description": "Defines the explicitly parallel variants of ttsc review and issue campaigns. Use only when the user explicitly requests a team, parallel, or multi-agent review or campaign. Route review work to review.md and issue campaigns to issue-campaign.md. Overall Self-Review and unqualified review remain solo; the solo campaign's mandatory Individual Self-Review is a separate narrow subagent workflow. Multi-agent issue campaigns parallelize discovery and implementation by default, but an explicit request may limit parallelism to discovery and return implementation to the solo campaign.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/samchon/ttsc/tree/master/.agents/skills/multi-agent",
+  "skillUrl": "https://skillsmp.com/creators/samchon/ttsc/agents-skills-multi-agent",
+  "stars": 300,
+  "updatedAt": 1784727005
+}

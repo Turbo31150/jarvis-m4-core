@@ -1,0 +1,11 @@
+{
+  "id": "bytedance-deer-flow-skills-public-music-generation-skill-md",
+  "name": "music-generation",
+  "author": "bytedance",
+  "description": "Use this skill when the user requests to generate, create, compose, or produce music or songs \u2014 background music, theme songs, jingles, or instrumental tracks. Generates a song from a style/mood prompt and optional lyrics via the MiniMax music API.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/bytedance/deer-flow/tree/main/skills/public/music-generation",
+  "skillUrl": "https://skillsmp.com/creators/bytedance/deer-flow/skills-public-music-generation",
+  "stars": 79272,
+  "updatedAt": 1780927478
+}

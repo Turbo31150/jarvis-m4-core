@@ -1,0 +1,11 @@
+{
+  "id": "android-skills-play-play-policy-insights-skill-md",
+  "name": "play-policy-insights",
+  "author": "android",
+  "description": "Automated auditor designed to verify Android applications against Google Play Policy domains. It cross-references static code analysis with Play Store declarations to generate deterministic compliance reports, identifying undeclared data collection, architectural risks, and missing disclosures across Permissions and APIs Hygiene, User Account and Identity, and Data Safety and Privacy domains.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/android/skills/tree/main/play/play-policy-insights",
+  "skillUrl": "https://skillsmp.com/creators/android/skills/play-play-policy-insights",
+  "stars": 6463,
+  "updatedAt": 1784017292
+}

@@ -1,0 +1,120 @@
+{
+  "_meta": {
+    "nom": "mochii-commandes-rapides",
+    "version": "1.0",
+    "date": "2026-07-17",
+    "objet": "Bibliotheque de commandes rapides (balise -> commande -> domino) captees de la logique mochii.ai et adaptees souverain 0-token. Couvre les DEUX emplacements.",
+    "loi": "0-token d'abord : cache/SQL avant inference ; cascade cache->cluster M1/M2->Ollama local->Gemini ; Opus jamais au runtime ; on-demand (aucune boucle, risque thermique) ; backend renvoye (transparence).",
+    "emplacements": {
+      "prof": { "type": "flask", "dir": "/home/pamerys/jarvis/webapp", "service": "jarvis-webapp:7777", "inference": "ai_local.generate(prompt, cache=True)" },
+      "labo": { "type": "node-express", "dir": "/home/pamerys/labo/passcerfa-app", "route_llm": "/api/llm", "inference": "cascade via routes/llm.js" }
+    },
+    "anti_patterns": ["pub/AdSense", "tout-cloud US", "parrainage en credits (on garde l'affiliation cash Qonto)", "boucle d'inference permanente"]
+  },
+  "modeles_locaux": {
+    "_note": "Modeles Ollama reellement installes (127.0.0.1:11434) au 2026-07-17. Verifier: curl 127.0.0.1:11434/api/tags. keep_alive on-demand par appel (pas de daemon/boucle : anti-surchauffe). Poste CPU-force (Whisper occupe la VRAM) => gemma3:4b ~70s, prevoir des reponses courtes.",
+    "catalogue": {
+      "gemma3:4b": { "role": "rapide/general", "usage": "assistant, falc, simplify, courrier" },
+      "qwen2.5:7b": { "role": "raisonnement/code", "usage": "reasoning, cerfa-fill, analyse" },
+      "qwen3:1.7b": { "role": "micro ultra-rapide", "usage": "classification, extraction courte" },
+      "kimi-k2.5:cloud": { "role": "complexe gratuit route", "usage": "synthese longue si local insuffisant" }
+    },
+    "task_modele": {
+      "falc": "gemma3:4b", "simplify": "gemma3:4b", "courrier": "gemma3:4b",
+      "reasoning": "qwen2.5:7b", "cerfa-fill": "qwen2.5:7b",
+      "micro": "qwen3:1.7b", "complexe": "kimi-k2.5:cloud"
+    }
+  },
+  "dispatch": {
+    "_note": "Routage 0-token d'abord ; cloud UNIQUEMENT si besoin de puissance ET Ollama signin actif. On-demand, jamais de boucle, conscient du thermique.",
+    "regles": [
+      "légère (falc/simplify/courrier/classification) -> LOCAL gemma3:4b / qwen3:1.7b",
+      "moyenne (reasoning/cerfa-fill/analyse) -> LOCAL qwen2.5:7b",
+      "lourde / synthèse longue / besoin de puissance -> CLOUD kimi-k2.5:cloud si signin actif, sinon repli LOCAL ou différé",
+      "GPU >= 82°C ou file chargée -> différer/planifier (anti-surchauffe), pas d'inférence lourde immédiate",
+      "tâche spécialisée (trading/mail/linkedin/sys-ops) -> agent OpenClaw (openclaw-dispatcher / docker exec openclaw-sbx-agent-<nom>)",
+      "API Opus/Sonnet : JAMAIS au runtime (facturé) — orchestration seulement"
+    ],
+    "cibles": ["commandes (ce registre)", "agents (.claude/agents)", "OpenClaw (dispatcher + agents sbx)", "app labo PassCerfa (/api)", "app prof Flask (ai_local.generate)"],
+    "protocole": "Même patron pour tout : lire cache/SQL -> local (Ollama) -> cloud (kimi si signin) -> agent spécialisé (OpenClaw). Liens créés au fil des domaines lus, jamais d'IA facturée au runtime."
+  },
+  "secrets": {
+    "_note": "Références SEULEMENT — aucune valeur ici (compartimenté, chmod 600, hors git).",
+    "OLLAMA_API_KEY": { "source": "/home/pamerys/.config/ollama/cloud.env", "usage": "API cloud Ollama / recherche web", "valeur_dans_le_registre": false },
+    "cloud_activation": { "commande": "ollama signin", "device": "pamerys-m4", "etat": "en attente d'approbation navigateur (compte claire.dms64)" }
+  },
+  "commandes": [
+    {
+      "id": "assistant",
+      "balises": ["assistant", "sidebar", "ia", "aide"],
+      "description": "Barre laterale IA universelle 0-token (B1).",
+      "backend": "cascade",
+      "domino": ["lire cache SQL (cle=hash prompt+persona)", "si absent -> cluster M1/M2 si up", "sinon Ollama local CPU", "sinon Gemini flash", "ecrire cache", "renvoyer {texte, backend, cached}"],
+      "routes": { "prof": "POST /api/assistant", "labo": "POST /api/assistant" }
+    },
+    {
+      "id": "backends",
+      "balises": ["cascade", "modele", "etat-ia", "backends"],
+      "description": "Etat de la cascade (quels backends up) (B2).",
+      "backend": "aucun (status)",
+      "domino": ["ping cache", "ping M1/M2:1234", "ping Ollama 127.0.0.1:11434/api/tags", "ping gemini-ask.sh --dry", "renvoyer matrice dispo"],
+      "routes": { "prof": "GET /api/backends", "labo": "GET /api/backends" }
+    },
+    {
+      "id": "prefill",
+      "balises": ["prefill", "cerfa", "pre-remplir", "formulaire"],
+      "description": "Pre-remplissage formulaire par donnees officielles, pas par devinette IA (B3).",
+      "backend": "donnees officielles + cascade (normalisation seulement)",
+      "domino": ["detecter le CERFA/formulaire", "si doc joint -> OCR (ocr-engine)", "recuperer FranceConnect+ / API Particulier", "mapper champs (cerfa-mapper)", "generer champs ambigus 0-token (llm-field-normalizer)", "valider", "renvoyer champs + sources"],
+      "routes": { "prof": "n/a", "labo": "POST /api/cerfa/prefill (existe, etendre)" }
+    },
+    {
+      "id": "personas",
+      "balises": ["persona", "agent", "role"],
+      "description": "Galerie de personas = prefixe systeme injecte avant la cascade (B4). Reutilise les 22 profils-agents.",
+      "backend": "cascade + prompt systeme",
+      "domino": ["charger persona (demarches|falc|mediateur|senior)", "prefixer le prompt systeme", "appeler /api/assistant", "renvoyer texte adapte au profil (FALC si besoin)"],
+      "routes": { "prof": "GET /api/personas ; POST /api/assistant {persona_id}", "labo": "GET /api/personas ; POST /api/assistant {persona_id}" }
+    },
+    {
+      "id": "memoire",
+      "balises": ["memoire", "dossier", "historique"],
+      "description": "Memoire longue duree par dossier/usager en SQLite local, RGPD (B5).",
+      "backend": "SQL + resume cascade",
+      "domino": ["lire memoire dossier (SQLite)", "injecter contexte resume", "apres echange -> resumer 0-token + cache", "purge/anonymisation sur demande"],
+      "routes": { "prof": "GET/POST /api/memory/:dossier", "labo": "GET/POST /api/memory/:dossier" }
+    },
+    {
+      "id": "kb",
+      "balises": ["kb", "recherche", "connaissance", "cerfa-catalogue"],
+      "description": "Base de connaissances demarches, recherche semantique locale avant inference (B6).",
+      "backend": "index local (embeddings Ollama) + cache",
+      "domino": ["embed requete (Ollama)", "recherche vecteur local (catalogue 15578 + guides)", "renvoyer top-k sources", "si synthese demandee -> cascade sur extraits"],
+      "routes": { "prof": "GET /api/kb/search?q=", "labo": "GET /api/kb/search?q=" }
+    },
+    {
+      "id": "analyse-doc",
+      "balises": ["ocr", "analyse-doc", "courrier", "avis"],
+      "description": "Analyse de courriers admin -> extraction champs -> alimente prefill (B7).",
+      "backend": "OCR + cascade extraction",
+      "domino": ["OCR document", "detecter type (avis impot|CAF|...)", "extraire champs (field-extractor)", "normaliser 0-token", "proposer prefill (domino:prefill)"],
+      "routes": { "prof": "n/a", "labo": "POST /api/doc/analyse (multipart)" }
+    },
+    {
+      "id": "research",
+      "balises": ["deep-research", "recherche-approfondie", "sources"],
+      "description": "Recherche approfondie sourcee (B8) via skill deep-research, cascade d'abord.",
+      "backend": "cascade + Opus seulement pour synthese finale",
+      "domino": ["fan-out recherches (service-public/legifrance)", "fetch sources", "verifier faits (cascade)", "synthese citee", "renvoyer rapport + citations"],
+      "routes": { "prof": "POST /api/research", "labo": "POST /api/research" }
+    },
+    {
+      "id": "extension",
+      "balises": ["extension", "navigateur", "acquisition"],
+      "description": "Extension navigateur MV3 : detecte un formulaire admin et propose le prefill (B10). Meilleur canal d'acquisition.",
+      "backend": "appelle domino:prefill",
+      "domino": ["content-script detecte formulaire", "bouton flottant", "declenche /api/cerfa/prefill", "remplit la page"],
+      "routes": { "prof": "n/a", "labo": "nouveau extension/ (MV3)" }
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "files": 143,
+  "size_mb": 0.7,
+  "languages": {
+    "Markdown": 92,
+    "Shell": 38,
+    "JSON": 1,
+    "Python": 1
+  },
+  "key_files": [
+    "README.md",
+    "zero-token/README.md"
+  ],
+  "git": {},
+  "secrets_suspects": [
+    "series/crm-audit-mail.sh:2",
+    "series/cascade-ask.sh:2",
+    "series/secret-scan.sh:6",
+    "series/health-cluster.sh:2",
+    "series/crm-enrich.sh:2",
+    "zero-token/keyword_map.json:271",
+    "zero-token/keyword_map.json:768"
+  ],
+  "rgpd_markers_files": 9
+}

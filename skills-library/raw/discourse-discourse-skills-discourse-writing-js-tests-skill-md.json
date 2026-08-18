@@ -1,0 +1,11 @@
+{
+  "id": "discourse-discourse-skills-discourse-writing-js-tests-skill-md",
+  "name": "discourse-writing-js-tests",
+  "author": "discourse",
+  "description": "Write and structure JavaScript/QUnit tests for Discourse core, plugins, and themes. Use when creating or modifying unit tests (lib/utility/service/model), component rendering tests, integration tests, or acceptance tests. Covers module naming, setupTest/setupRenderingTest/setupApplicationTest, fixtures, the qunit-helpers toolbox, pretender, and qunit-dom assertions.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/discourse/discourse/tree/main/.skills/discourse-writing-js-tests",
+  "skillUrl": "https://skillsmp.com/creators/discourse/discourse/skills-discourse-writing-js-tests",
+  "stars": 47595,
+  "updatedAt": 1784731836
+}

@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-agent-architecture-audit-skill-md",
+  "name": "agent-architecture-audit",
+  "author": "affaan-m",
+  "description": "Full-stack diagnostic for agent and LLM applications. Audits the 12-layer agent stack for wrapper regression, memory pollution, tool discipline failures, hidden repair loops, and rendering corruption. Produces severity-ranked findings with code-first fixes. Essential for developers building agent applications, autonomous loops, or any LLM-powered feature.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/agent-architecture-audit",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-agent-architecture-audit",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

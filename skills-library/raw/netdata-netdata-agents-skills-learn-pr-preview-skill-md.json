@@ -1,0 +1,11 @@
+{
+  "id": "netdata-netdata-agents-skills-learn-pr-preview-skill-md",
+  "name": "learn-pr-preview",
+  "author": "netdata",
+  "description": "Use only when the user explicitly asks to build, run, preview, inspect, or validate learn.netdata.cloud locally using the contents of a PR or documentation branch before merge. Do not trigger for ordinary docs edits unless the user asks for a local Learn preview.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/netdata/netdata/tree/master/.agents/skills/learn-pr-preview",
+  "skillUrl": "https://skillsmp.com/creators/netdata/netdata/agents-skills-learn-pr-preview",
+  "stars": 80011,
+  "updatedAt": 1778198447
+}

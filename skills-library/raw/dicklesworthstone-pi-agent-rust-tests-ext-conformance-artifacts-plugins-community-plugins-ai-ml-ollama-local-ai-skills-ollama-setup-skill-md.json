@@ -1,0 +1,11 @@
+{
+  "id": "dicklesworthstone-pi-agent-rust-tests-ext-conformance-artifacts-plugins-community-plugins-ai-ml-ollama-local-ai-skills-ollama-setup-skill-md",
+  "name": "ollama-setup",
+  "author": "Dicklesworthstone",
+  "description": "Configure auto-configure Ollama when user needs local LLM deployment, free AI alternatives,\nor wants to eliminate hosted API costs. Trigger phrases: \"install ollama\",\n\"local AI\", \"free LLM\", \"self-hosted AI\", \"replace OpenAI\", \"no API costs\". Use when appropriate context detected. Trigger with relevant phrases based on skill purpose.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Dicklesworthstone/pi_agent_rust/tree/main/tests/ext_conformance/artifacts/plugins-community/plugins/ai-ml/ollama-local-ai/skills/ollama-setup",
+  "skillUrl": "https://skillsmp.com/creators/dicklesworthstone/pi_agent_rust/tests-ext-conformance-artifacts-plugins-community-plugins-ai-ml-ollama-local-ai-skills-ollama-setup",
+  "stars": 1448,
+  "updatedAt": 1770274565
+}

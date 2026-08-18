@@ -1,0 +1,11 @@
+{
+  "id": "perminder-klair-subwave-claude-skills-subwave-llm-bench-skill-md",
+  "name": "subwave-llm-bench",
+  "author": "perminder-klair",
+  "description": "Benchmark and compare LLM models for SUB/WAVE's on-air calls \u2014 track picks, segments, listener requests, DJ scripts, banter, and programme beats \u2014 in both candidate-pool and agent modes, using controller/scripts/llm-bench (the matrix harness) or the legacy picker-only controller/scripts/picker-test.mjs. Use this skill whenever the user wants to assess, benchmark, compare, or test which LLM model to run the station on \u2014 phrases like \"which model should I use\", \"benchmark the picker / the DJ / this model\", \"test these models\", \"is <model> good enough for the radio\", \"compare the ollama models\", \"will a small model work\", \"run llm-bench\", \"run picker-test\", or when diagnosing slow/failing djAgentPick / djAgentSegment / generate* calls and the model choice is suspect. Trigger it even if the user doesn't name a harness \u2014 any request to evaluate model reliability or choose a model for SUB/WAVE belongs here. This skill only measures and recommends; it does NOT change the live station's configured model.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/perminder-klair/subwave/tree/develop/.claude/skills/subwave-llm-bench",
+  "skillUrl": "https://skillsmp.com/creators/perminder-klair/subwave/claude-skills-subwave-llm-bench",
+  "stars": 1172,
+  "updatedAt": 1783640752
+}

@@ -1,0 +1,11 @@
+{
+  "id": "vercel-next-js-agents-skills-pr-status-triage-skill-md",
+  "name": "pr-status-triage",
+  "author": "vercel",
+  "description": "Triage CI failures and PR review comments using scripts/pr-status.js. Use when investigating failing CI jobs, flaky tests, or PR review feedback. Covers blocker-first prioritization (build > lint > types > tests), CI env var matching for local reproduction, and the Known Flaky Tests distinction.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/vercel/next.js/tree/canary/.agents/skills/pr-status-triage",
+  "skillUrl": "https://skillsmp.com/creators/vercel/next.js/agents-skills-pr-status-triage",
+  "stars": 141334,
+  "updatedAt": 1778790575
+}

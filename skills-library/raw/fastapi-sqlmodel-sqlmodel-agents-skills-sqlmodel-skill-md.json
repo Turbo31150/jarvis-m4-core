@@ -1,0 +1,11 @@
+{
+  "id": "fastapi-sqlmodel-sqlmodel-agents-skills-sqlmodel-skill-md",
+  "name": "sqlmodel",
+  "author": "fastapi",
+  "description": "Use when writing or reviewing Python code with SQLModel, especially models, sessions, queries, FastAPI integration, relationships, link models, creates, updates, and deletes.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/fastapi/sqlmodel/tree/main/sqlmodel/.agents/skills/sqlmodel",
+  "skillUrl": "https://skillsmp.com/creators/fastapi/sqlmodel/sqlmodel-agents-skills-sqlmodel",
+  "stars": 18240,
+  "updatedAt": 1782391795
+}

@@ -1,0 +1,11 @@
+{
+  "id": "synalinks-synalinks-skills-skills-synalinks-skill-md",
+  "name": "synalinks",
+  "author": "SynaLinks",
+  "description": "Use for anything involving the Synalinks neuro-symbolic LM framework (Keras-inspired) \u2014 DataModel/Field/Input, JSON operators (+ & | ^ ~), synalinks.ops, LanguageModel/EmbeddingModel and provider prefixes (openai/anthropic/ollama/groq/openrouter/bedrock/...); the Program class and its four building APIs (Functional/Sequential/Subclassing/Mixed), save/load, summary; generation modules (Generator, ChainOfThought, SelfCritique, Identity, PythonSynthesis) and custom Module subclassing; control flow (Decision, Branch, And/Or/Xor, parallel branches, self-consistency, XOR guards); agents (FunctionCallingAgent, RecursiveLanguageModelAgent/RLM, DeepAgent, Tool, MCP, subagents); KnowledgeBase/RAG (DuckDB, EmbedKnowledge/UpdateKnowledge/RetrieveKnowledge, hybrid search); training (compile/fit/evaluate/predict, callbacks, ProgramCheckpoint); rewards & metrics (ExactMatch, CosineSimilarity, LMAsJudge, ProgramAsJudge, F1Score, custom rewards, masking); optimizers (RandomFewShot, OMEGA/DNS); datasets (gsm8k, hotpotqa, arcag",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/SynaLinks/synalinks-skills/tree/main/skills/synalinks",
+  "skillUrl": "https://skillsmp.com/creators/synalinks/synalinks-skills/skills-synalinks",
+  "stars": 905,
+  "updatedAt": 1781959457
+}

@@ -1,0 +1,11 @@
+{
+  "id": "ramsbaby-jarvis-plugins-jarvis-goal-skills-goal-skill-md",
+  "name": "jarvis-goal",
+  "author": "Ramsbaby",
+  "description": "Goal-driven autonomous execution with completion-condition gating and built-in irreversibility guard. Port of Anthropic /goal (Claude Code v2.1.139) that automatically pauses for explicit user approval when detecting unrecoverable operations \u2014 git push, repo visibility changes, payment, secret exposure, mass data deletion.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Ramsbaby/jarvis/tree/main/plugins/jarvis-goal/skills/goal",
+  "skillUrl": "https://skillsmp.com/creators/ramsbaby/jarvis/plugins-jarvis-goal-skills-goal",
+  "stars": 13,
+  "updatedAt": 1778648602
+}

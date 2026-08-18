@@ -1,0 +1,11 @@
+{
+  "id": "lobehub-lobehub-agents-skills-project-overview-skill-md",
+  "name": "project-overview",
+  "author": "lobehub",
+  "description": "LobeHub open-source monorepo architecture map. Use when locating code layers, understanding apps/packages/src layout, business stubs, project structure, or onboarding to the repository.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/lobehub/lobehub/tree/canary/.agents/skills/project-overview",
+  "skillUrl": "https://skillsmp.com/creators/lobehub/lobehub/agents-skills-project-overview",
+  "stars": 81243,
+  "updatedAt": 1783677003
+}

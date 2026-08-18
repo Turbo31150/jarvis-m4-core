@@ -1,0 +1,11 @@
+{
+  "id": "posthog-posthog-products-ai-observability-skills-creating-online-evaluations-skill-md",
+  "name": "creating-online-evaluations",
+  "author": "PostHog",
+  "description": "Author continuously-running online evaluations in PostHog AI observability, grounded in a real failure mode you've identified. Use when the user wants an evaluation that automatically scores new generations or whole traces going forward \u2014 \"create an eval to catch X\", \"continuously check that responses do Y\", \"turn this failure into an eval\". Covers choosing the target and eval type (hog / llm_judge / sentiment), configuring a provider, model, and usable provider key for an llm_judge eval, scoping which generations trigger it via conditions (property filters + rollout sampling), creating it disabled, verifying scope, and enabling. Finding and ranking the failure modes worth evaluating is its own job \u2014 use exploring-ai-failures first. To debug or manage evaluations that already exist, use exploring-llm-evaluations.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/PostHog/posthog/tree/master/products/ai_observability/skills/creating-online-evaluations",
+  "skillUrl": "https://skillsmp.com/creators/posthog/posthog/products-ai-observability-skills-creating-online-evaluations",
+  "stars": 37496,
+  "updatedAt": 1785173193
+}

@@ -1,0 +1,11 @@
+{
+  "id": "react-react-compiler-claude-skills-compiler-verify-skill-md",
+  "name": "compiler-verify",
+  "author": "react",
+  "description": "Use when you need to run all compiler checks (tests, lint, format) before committing. Detects whether TS or Rust code changed and runs the appropriate checks.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/react/react/tree/main/compiler/.claude/skills/compiler-verify",
+  "skillUrl": "https://skillsmp.com/creators/react/react/compiler-claude-skills-compiler-verify",
+  "stars": 246953,
+  "updatedAt": 1781041986
+}

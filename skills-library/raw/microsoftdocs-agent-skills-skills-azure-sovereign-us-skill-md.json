@@ -1,0 +1,11 @@
+{
+  "id": "microsoftdocs-agent-skills-skills-azure-sovereign-us-skill-md",
+  "name": "azure-sovereign-us",
+  "author": "MicrosoftDocs",
+  "description": "Expert knowledge for Azure US Government development including decision making, architecture & design patterns, security, configuration, integrations & coding patterns, and deployment. Use when using Azure Gov IL5/FedRAMP, SACA patterns, Gov App Service/ASE, Gov Marketplace, or sovereign storage/SQL APIs, and other Azure US Government related development tasks. Not for Azure Networking (use azure-networking), Azure Virtual Network (use azure-virtual-network), Azure Virtual WAN (use azure-virtual-wan), Azure ExpressRoute (use azure-expressroute).",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/MicrosoftDocs/Agent-Skills/tree/main/skills/azure-sovereign-us",
+  "skillUrl": "https://skillsmp.com/creators/microsoftdocs/agent-skills/skills-azure-sovereign-us",
+  "stars": 682,
+  "updatedAt": 1785135629
+}

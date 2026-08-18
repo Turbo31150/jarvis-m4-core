@@ -1,0 +1,11 @@
+{
+  "id": "github-awesome-copilot-skills-fedora-linux-triage-skill-md",
+  "name": "fedora-linux-triage",
+  "author": "github",
+  "description": "Triage and resolve Fedora issues with dnf, systemd, and SELinux-aware guidance.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/github/awesome-copilot/tree/main/skills/fedora-linux-triage",
+  "skillUrl": "https://skillsmp.com/creators/github/awesome-copilot/skills-fedora-linux-triage",
+  "stars": 37423,
+  "updatedAt": 1771904373
+}

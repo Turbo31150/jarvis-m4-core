@@ -1,0 +1,11 @@
+{
+  "id": "thedaviddias-front-end-checklist-skills-dom-performance-skill-md",
+  "name": "dom-performance",
+  "author": "thedaviddias",
+  "description": "Use when reviewing scripts, client components, bundles, or runtime behavior related to Minimize costly DOM read/write operations. Inspect both source code and the browser execution path so fixes target the real bottleneck or bug. In React, repeated requestAnimationFrame-driven state updates across multiple mounted components are a valid performance smell when visible in the source.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedaviddias/Front-End-Checklist/tree/main/skills/dom-performance",
+  "skillUrl": "https://skillsmp.com/creators/thedaviddias/front-end-checklist/skills-dom-performance",
+  "stars": 73416,
+  "updatedAt": 1780091646
+}

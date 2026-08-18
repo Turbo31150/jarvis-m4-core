@@ -1,0 +1,11 @@
+{
+  "id": "paperclipai-paperclip-agents-skills-pr-gardening-skill-md",
+  "name": "pr-gardening",
+  "author": "paperclipai",
+  "description": "Discover the pull requests this Paperclip instance opened (never community contributions), report what each is for and how confident we are that it is merge-ready, and automatically drive the non-ready ones back to green with /prepare-paperclip-pr \u2014 without ever merging.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/paperclipai/paperclip/tree/master/.agents/skills/pr-gardening",
+  "skillUrl": "https://skillsmp.com/creators/paperclipai/paperclip/agents-skills-pr-gardening",
+  "stars": 75602,
+  "updatedAt": 1785162251
+}

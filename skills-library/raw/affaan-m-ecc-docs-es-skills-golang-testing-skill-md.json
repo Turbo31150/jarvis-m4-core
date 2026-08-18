@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-es-skills-golang-testing-skill-md",
+  "name": "golang-testing",
+  "author": "affaan-m",
+  "description": "Patrones de pruebas Go incluyendo pruebas basadas en tablas, subpruebas, benchmarks, fuzzing y cobertura de c\u00f3digo. Sigue la metodolog\u00eda TDD con pr\u00e1cticas idiom\u00e1ticas de Go.",
+  "contentLanguage": "es",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/es/skills/golang-testing",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-es-skills-golang-testing",
+  "stars": 237500,
+  "updatedAt": 1780810002
+}

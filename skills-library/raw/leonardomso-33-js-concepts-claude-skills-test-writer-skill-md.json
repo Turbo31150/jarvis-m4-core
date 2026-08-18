@@ -1,0 +1,11 @@
+{
+  "id": "leonardomso-33-js-concepts-claude-skills-test-writer-skill-md",
+  "name": "test-writer",
+  "author": "leonardomso",
+  "description": "Generate comprehensive Vitest tests for code examples in JavaScript concept documentation pages, following project conventions and referencing source lines",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/leonardomso/33-js-concepts/tree/master/.claude/skills/test-writer",
+  "skillUrl": "https://skillsmp.com/creators/leonardomso/33-js-concepts/claude-skills-test-writer",
+  "stars": 66509,
+  "updatedAt": 1767707911
+}

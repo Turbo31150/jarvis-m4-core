@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-security-bounty-hunter-skill-md",
+  "name": "security-bounty-hunter",
+  "author": "affaan-m",
+  "description": "Hunt for exploitable, bounty-worthy security issues in repositories. Focuses on remotely reachable vulnerabilities that qualify for real reports instead of noisy local-only findings.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/security-bounty-hunter",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-security-bounty-hunter",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

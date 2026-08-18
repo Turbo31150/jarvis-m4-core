@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-prisma-patterns-skill-md",
+  "name": "prisma-patterns",
+  "author": "affaan-m",
+  "description": "Prisma ORM patterns for TypeScript backends \u2014 schema design, query optimization, transactions, pagination, and critical traps like updateMany returning count not records, $transaction timeouts, migrate dev resetting the DB, @updatedAt skipped on bulk writes, and serverless connection exhaustion.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/prisma-patterns",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-prisma-patterns",
+  "stars": 237500,
+  "updatedAt": 1782783510
+}

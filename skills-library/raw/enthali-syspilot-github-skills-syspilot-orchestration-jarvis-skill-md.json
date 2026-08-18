@@ -1,0 +1,11 @@
+{
+  "id": "enthali-syspilot-github-skills-syspilot-orchestration-jarvis-skill-md",
+  "name": "syspilot-orchestration-jarvis",
+  "author": "enthali",
+  "description": "Implements the SEND/RECEIVE/RESPOND orchestration vocabulary using Jarvis session-messaging tools. USE FOR: any agent that passes work to another session (SEND), obtains its triggering instructions (RECEIVE), or returns results to the initiator (RESPOND). Also use when agents need to determine whether they were triggered by a message or started directly. DO NOT USE FOR: general agent design, skill architecture rules, or spec writing.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/enthali/syspilot/tree/main/.github/skills/syspilot.orchestration-jarvis",
+  "skillUrl": "https://skillsmp.com/creators/enthali/syspilot/github-skills-syspilot-orchestration-jarvis",
+  "stars": 13,
+  "updatedAt": 1784699841
+}

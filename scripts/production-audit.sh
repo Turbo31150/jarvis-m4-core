@@ -18,7 +18,7 @@ _log "=== JARVIS PRODUCTION AUDIT $TS ==="
 
 # ── 1. Cluster LLM ──────────────────────────────────────────────────────────
 _log "\n[1/6] CLUSTER LLM"
-for node in "M1:192.168.1.85:1234" "M2:192.168.1.26:1234"; do
+for node in "M1:127.0.0.1:1234" "M2:127.0.0.1"; do
   name="${node%%:*}"; addr="${node#*:}"
   count=$(curl -sf "http://$addr/v1/models" 2>/dev/null | python3 -c "import sys,json; d=json.load(sys.stdin); print(len(d.get('data',[])))" 2>/dev/null || echo "0")
   [[ "$count" -gt 0 ]] && _ok "$name: $count models" || _err "$name: DOWN (http://$addr)"
@@ -35,11 +35,11 @@ done
 
 # ── 3. Docker containers ────────────────────────────────────────────────────
 _log "\n[3/6] DOCKER CONTAINERS"
-down_containers=$(docker ps -a --format "{{.Names}}:{{.Status}}" 2>/dev/null | grep -v "Up " | grep -v "NAMES" | head -10)
+down_containers=$(docker ps -a --format "{{.Names}}:{{.Status}}" 2>/dev/null | grep -v "Up " | grep -v "NAMES" || true)
 running=$(docker ps -q 2>/dev/null | wc -l)
 _ok "Running: $running containers"
 if [[ -n "$down_containers" ]]; then
-  echo "$down_containers" | while IFS= read -r line; do _log "  ~ DOWN: $line"; done
+  echo "$down_containers" | head -10 | while IFS= read -r line; do _log "  ~ DOWN: $line"; done
 fi
 
 # ── 4. MCP servers Python import check ──────────────────────────────────────

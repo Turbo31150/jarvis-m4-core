@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-es-skills-python-testing-skill-md",
+  "name": "python-testing",
+  "author": "affaan-m",
+  "description": "Estrategias de pruebas Python usando pytest, metodolog\u00eda TDD, fixtures, mocking, parametrizaci\u00f3n y requisitos de cobertura.",
+  "contentLanguage": "es",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/es/skills/python-testing",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-es-skills-python-testing",
+  "stars": 237500,
+  "updatedAt": 1780810002
+}

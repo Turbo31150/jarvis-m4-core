@@ -1,0 +1,11 @@
+{
+  "id": "flutter-flutter-agents-agents-reidbaker-agent-skills-natural-writing-skill-md",
+  "name": "natural-writing",
+  "author": "flutter",
+  "description": "Contains well-defined rules for creating natural, accurate, and readable writing. Use whenever authoring longer text, like analysis documents, PR or CL descriptions, or documentation.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/flutter/flutter/tree/master/.agents/agents/reidbaker-agent/skills/natural-writing",
+  "skillUrl": "https://skillsmp.com/creators/flutter/flutter/agents-agents-reidbaker-agent-skills-natural-writing",
+  "stars": 178163,
+  "updatedAt": 1780946475
+}

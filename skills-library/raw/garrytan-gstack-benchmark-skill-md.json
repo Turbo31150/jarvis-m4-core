@@ -1,0 +1,11 @@
+{
+  "id": "garrytan-gstack-benchmark-skill-md",
+  "name": "benchmark",
+  "author": "garrytan",
+  "description": "Performance regression detection using the browse daemon. (gstack)",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/garrytan/gstack/tree/main/benchmark",
+  "skillUrl": "https://skillsmp.com/creators/garrytan/gstack/benchmark",
+  "stars": 126191,
+  "updatedAt": 1782405765
+}

@@ -1,0 +1,207 @@
+#!/bin/bash
+# ==============================================================================
+# SCRIPT DE CONFIGURATION AUTONOME POUR LE NŒUD JARVIS M5
+# Crée par JARVIS-OMEGA le $(date)
+#
+# OBJECTIF:
+# 1. Installer les scripts de contrôle pour M1 (`wake-m1`, `reboot-m1`, `power-cycle-m1`).
+# 2. Configurer l'environnement shell (`.bashrc`) pour les opérations JARVIS & Gemini.
+#
+# USAGE:
+# Transférer ce script sur M5 et l'exécuter.
+# scp ./configure_m5.sh turbo@127.0.0.1:/tmp/
+# ssh turbo@127.0.0.1 "bash /tmp/configure_m5.sh"
+# ==============================================================================
+
+set -e
+echo "▶️ Démarrage de la configuration de M5..."
+
+# --- 1. Création des scripts de contrôle du cluster ---
+
+echo "  ▶️ Création de /usr/local/bin/wake-m1"
+cat << 'EOF' | sudo tee /usr/local/bin/wake-m1 > /dev/null
+#!/bin/bash
+# Réveille M1 (192.168.0.10) via Wake-on-LAN.
+# MAC: d8:43:ae:96:e0:40
+echo "Magic packet envoyé à d8:43:ae:96:e0:40 sur le broadcast 192.168.1.255..."
+wakeonlan -i 192.168.1.255 d8:43:ae:96:e0:40
+EOF
+
+echo "  ▶️ Création de /usr/local/bin/reboot-m1"
+cat << 'EOF' | sudo tee /usr/local/bin/reboot-m1 > /dev/null
+#!/bin/bash
+# Tente un redémarrage SSH gracieux de M1.
+# Si SSH échoue, bascule sur Wake-on-LAN comme fallback.
+M1_IP="192.168.0.10"
+echo "Tentative de redémarrage gracieux de M1 via SSH..."
+if ssh -o ConnectTimeout=8 "turbo@${M1_IP}" 'sudo -n /sbin/reboot'; then
+    echo "Commande de redémarrage envoyée avec succès."
+else
+    echo "SSH a échoué. Tentative de réveil via Wake-on-LAN..."
+    if command -v wake-m1 &>/dev/null; then
+        wake-m1
+    else
+        echo "Erreur: commande wake-m1 non trouvée." >&2
+        exit 1
+    fi
+fi
+EOF
+
+echo "  ▶️ Création de /usr/local/bin/power-cycle-m1"
+cat << 'EOF' | sudo tee /usr/local/bin/power-cycle-m1 > /dev/null
+#!/bin/bash
+# Pilote un smart plug Shelly pour redémarrer électriquement M1.
+# Lit la configuration depuis /etc/jarvis/shelly-m1.conf
+
+CONFIG_FILE="/etc/jarvis/shelly-m1.conf"
+ACTION=${1:-cycle}
+
+# Création du fichier de config si non existant
+if [ ! -f "$CONFIG_FILE" ]; then
+    echo "Fichier de configuration $CONFIG_FILE non trouvé. Création..."
+    sudo mkdir -p /etc/jarvis
+    sudo tee "$CONFIG_FILE" > /dev/null <<EOCONF
+SHELLY_IP="192.168.1.XXX"
+SHELLY_GEN="2"
+SHELLY_USER="admin"
+SHELLY_PASS=""
+RELAY_ID="0"
+OFF_DELAY="8"
+EOCONF
+    echo "Veuillez éditer $CONFIG_FILE avec l'IP de votre Shelly."
+    exit 1
+fi
+
+source "$CONFIG_FILE"
+
+# Validation
+if [ -z "$SHELLY_IP" ] || [ "$SHELLY_IP" == "192.168.1.XXX" ]; then
+    echo "Erreur: SHELLY_IP n'est pas configurée dans $CONFIG_FILE." >&2
+    exit 1
+fi
+
+API_URL=""
+CMD_ON=""
+CMD_OFF=""
+
+if [ "$SHELLY_GEN" == "1" ]; then
+    API_URL="http://${SHELLY_IP}/relay/${RELAY_ID}"
+    CMD_ON="?turn=on"
+    CMD_OFF="?turn=off"
+elif [ "$SHELLY_GEN" == "2" ]; {
+    API_URL="http://${SHELLY_IP}/rpc/Switch.Set"
+    CMD_ON="?id=${RELAY_ID}&on=true"
+    CMD_OFF="?id=${RELAY_ID}&on=false"
+}
+else
+    echo "Erreur: SHELLY_GEN doit être 1 ou 2." >&2; exit 1
+fi
+
+# Fonctions
+do_curl() {
+    if [ -n "$SHELLY_USER" ] && [ -n "$SHELLY_PASS" ]; then
+        curl --user "${SHELLY_USER}:${SHELLY_PASS}" -s "$1"
+    else
+        curl -s "$1"
+    fi
+}
+
+turn_on() { echo "Allumage..."; do_curl "${API_URL}${CMD_ON}"; }
+turn_off() { echo "Extinction..."; do_curl "${API_URL}${CMD_OFF}"; }
+get_status() {
+    echo "Statut du Shelly sur $SHELLY_IP:"
+    if [ "$SHELLY_GEN" == "1" ]; then
+        do_curl "http://${SHELLY_IP}/relay/${RELAY_ID}"
+    else
+        do_curl "http://${SHELLY_IP}/rpc/Switch.GetStatus?id=${RELAY_ID}"
+    fi
+    echo
+}
+
+# Logique principale
+case "$ACTION" in
+    on) turn_on ;;
+    off) turn_off ;;
+    status) get_status ;;
+    cycle)
+        turn_off
+        echo "Attente de ${OFF_DELAY} secondes..."
+        sleep "${OFF_DELAY}"
+        turn_on
+        ;;
+    *) echo "Usage: $0 [on|off|status|cycle]"; exit 1 ;;
+esac
+EOF
+
+echo "  ▶️ Application des permissions exécutables..."
+sudo chmod +x /usr/local/bin/wake-m1 /usr/local/bin/reboot-m1 /usr/local/bin/power-cycle-m1
+
+# --- 2. Configuration de l'environnement Bash ---
+
+BASHRC_FILE="$HOME/.bashrc"
+BASHRC_BACKUP="$HOME/.bashrc.bak.jarvis-omega-$(date +%F)"
+
+echo "  ▶️ Sauvegarde de .bashrc existant vers ${BASHRC_BACKUP}"
+cp "$BASHRC_FILE" "$BASHRC_BACKUP"
+
+echo "  ▶️ Ajout des configurations JARVIS et Gemini à ${BASHRC_FILE}"
+cat << 'EOF' >> "$BASHRC_FILE"
+
+# ============================================================================
+# CONFIGURATION AJOUTÉE PAR JARVIS-OMEGA
+# ============================================================================
+
+# --- Variables d'environnement JARVIS ---
+export JARVIS_HOME="/home/pamerys/jarvis"
+export TURBO_DIR="/home/pamerys/jarvis"
+export PATH="$HOME/.local/bin:$JARVIS_HOME/bin:$PATH"
+
+# --- Alias JARVIS ---
+alias jstatus='bash ~/jarvis/scripts/jarvis-status.sh'
+alias jdash='python3 ~/jarvis/core/health_dashboard.py --once'
+alias jlog='tail -50 /var/log/jarvis-failure-handler.log'
+alias jnodes='PYTHONPATH=/home/pamerys/jarvis-linux/src python3 /home/pamerys/jarvis-linux/src/jarvis/cli/cmd_node.py list'
+alias j='jnodes'
+
+# --- Configuration Gemini CLI ---
+# Fonction pour changer de profil Gemini (short, long, agent)
+gemini-profile() {
+  local p="${1:-short}"
+  local src="$HOME/.gemini-profiles/$p.json"
+  if [[ ! -f "$src" ]]; then
+    echo "Profils disponibles: short long agent" >&2; return 1
+  fi
+  # Merge avec les paramètres de base pour conserver l'authentification
+  python3 - "$src" << 'PY'
+import json, sys, os
+base_path = os.path.expanduser("~/.gemini/settings.json")
+base = json.load(open(base_path)) if os.path.exists(base_path) else {}
+patch = json.load(open(sys.argv[1]))
+def deep_merge(b, p):
+    for k, v in p.items():
+        if isinstance(v, dict) and isinstance(b.get(k), dict): deep_merge(b[k], v)
+        else: b[k] = v
+deep_merge(base, patch)
+json.dump(base, open(base_path, "w"), indent=2)
+print(f"[gemini-profile] Profil '{os.path.basename(sys.argv[1]).replace('.json','')}' activé.")
+PY
+}
+
+# --- Secrets et Tokens (à vérifier) ---
+# secrets externalisés -> ~/jarvis/.secrets/cluster-secrets.env (méga-audit 2026-06-11 R1)
+[ -f "$HOME/jarvis/.secrets/cluster-secrets.env" ] && . "$HOME/jarvis/.secrets/cluster-secrets.env"
+export GEMINI_API_KEY OPENCLAW_GATEWAY_TOKEN
+
+# --- Scripts de contrôle Cluster (déjà installés dans /usr/local/bin) ---
+# alias reboot-m1='/usr/local/bin/reboot-m1'
+# alias wake-m1='/usr/local/bin/wake-m1'
+# alias power-cycle-m1='/usr/local/bin/power-cycle-m1'
+
+echo "✅ Environnement JARVIS chargé. Utilisez 'source ~/.bashrc' pour appliquer."
+
+# ============================================================================
+EOF
+
+echo "✅ Configuration de M5 terminée."
+echo "Pour appliquer les changements, exécutez: source ~/.bashrc"
+echo "N'oubliez pas de configurer /etc/jarvis/shelly-m1.conf si vous utilisez un Shelly."

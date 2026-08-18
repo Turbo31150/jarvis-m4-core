@@ -1,0 +1,11 @@
+{
+  "id": "storybookjs-storybook-agents-skills-docs-review-skill-md",
+  "name": "docs-review",
+  "author": "storybookjs",
+  "description": "Review, improve, rewrite, author, or plan Storybook documentation in /docs. Use this when asked to review docs, improve a page, rewrite documentation, draft new docs, or advise on docs strategy.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/storybookjs/storybook/tree/next/.agents/skills/docs-review",
+  "skillUrl": "https://skillsmp.com/creators/storybookjs/storybook/agents-skills-docs-review",
+  "stars": 90755,
+  "updatedAt": 1776382581
+}

@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-hipaa-compliance-skill-md",
+  "name": "hipaa-compliance",
+  "author": "affaan-m",
+  "description": "HIPAA-specific entrypoint for healthcare privacy and security work. Use when a task is explicitly framed around HIPAA, PHI handling, covered entities, BAAs, breach posture, or US healthcare compliance requirements.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/hipaa-compliance",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-hipaa-compliance",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

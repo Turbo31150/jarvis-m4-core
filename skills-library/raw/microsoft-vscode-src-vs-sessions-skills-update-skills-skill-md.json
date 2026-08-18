@@ -1,0 +1,11 @@
+{
+  "id": "microsoft-vscode-src-vs-sessions-skills-update-skills-skill-md",
+  "name": "update-skills",
+  "author": "microsoft",
+  "description": "Create or update repository skills and instructions when major learnings are discovered during a session. Use when the user says \"learn!\", when a significant pattern or pitfall is identified, or when reusable domain knowledge should be captured for future sessions.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/microsoft/vscode/tree/main/src/vs/sessions/skills/update-skills",
+  "skillUrl": "https://skillsmp.com/creators/microsoft/vscode/src-vs-sessions-skills-update-skills",
+  "stars": 188283,
+  "updatedAt": 1773443017
+}

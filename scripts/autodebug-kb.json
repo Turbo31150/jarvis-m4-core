@@ -1,0 +1,54 @@
+{
+  "version": "1.0",
+  "rules": [
+    {
+      "id": "llm-8082-down",
+      "description": "llama-server :8082 (deepseek-r1) offline",
+      "check": {"type": "port", "host": "localhost", "port": 8082},
+      "fix": {"type": "systemd", "action": "restart", "unit": "m2-llm-watchdog", "user": true},
+      "severity": "high"
+    },
+    {
+      "id": "llm-8083-down",
+      "description": "llama-server :8083 (qwen3.5-9b) offline",
+      "check": {"type": "port", "host": "localhost", "port": 8083},
+      "fix": {"type": "systemd", "action": "restart", "unit": "m2-llm-watchdog", "user": true},
+      "severity": "high"
+    },
+    {
+      "id": "hub-7788-down",
+      "description": "JARVIS Social Hub :7788 offline",
+      "check": {"type": "http", "url": "http://localhost:7788/api/config"},
+      "fix": {"type": "shell", "cmd": "cd ~/jarvis/integrations/mirr/hub && nohup python3 server.py > /tmp/mirra-hub.log 2>&1 &"},
+      "severity": "high"
+    },
+    {
+      "id": "caption-bug-present",
+      "description": "Bug caption '4' : _validate_caption absente de local_mirra.py",
+      "check": {"type": "grep", "file": "~/jarvis/integrations/mirr/local_mirra.py", "pattern": "_validate_caption"},
+      "fix": {"type": "shell", "cmd": "bash ~/jarvis/scripts/cluster-sync.sh"},
+      "severity": "critical"
+    },
+    {
+      "id": "tty-guard-missing",
+      "description": "Guard TTY absent de local_mirra_app.sh",
+      "check": {"type": "grep", "file": "~/jarvis/integrations/mirr/local_mirra_app.sh", "pattern": "\\[ -t 0 \\]"},
+      "fix": {"type": "shell", "cmd": "bash ~/jarvis/scripts/cluster-sync.sh"},
+      "severity": "high"
+    },
+    {
+      "id": "disk-critical",
+      "description": "Disk / > 90%",
+      "check": {"type": "disk", "path": "/", "threshold_pct": 90},
+      "fix": {"type": "shell", "cmd": "sudo journalctl --vacuum-size=100M && docker system prune -f"},
+      "severity": "critical"
+    },
+    {
+      "id": "gpu-overheat",
+      "description": "GPU température > 85°C",
+      "check": {"type": "gpu_temp", "threshold": 85},
+      "fix": {"type": "shell", "cmd": "pkill -f 'whisperflow\\|llmworker' 2>/dev/null; sleep 5"},
+      "severity": "high"
+    }
+  ]
+}

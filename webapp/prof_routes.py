@@ -180,7 +180,12 @@ def register(app):
             "Inclus le corrigé de chaque version. Markdown, prêt à imprimer."
         )
         try:
-            res = ai_local.generate(prompt, max_tokens=1100, cache=use_cache)
+            res = ai_local.generate(
+                prompt,
+                max_tokens=1100,
+                cache=use_cache,
+                nominatif=bool(d.get("eleve_id")),  # profil élève → reste dans le foyer
+            )
         except ai_local.AIUnavailable as e:
             return jsonify({"error": str(e)}), 503
         try:
@@ -233,7 +238,10 @@ def register(app):
             "3) conseil bienveillant, 4) note sur 10. Ton encourageant."
         )
         try:
-            res = ai_local.generate(prompt, max_tokens=900, cache=False)
+            # copie d'un élève réel → ne sort pas du foyer
+            res = ai_local.generate(
+                prompt, max_tokens=900, cache=False, nominatif=True
+            )
         except ai_local.AIUnavailable as e:
             return jsonify({"error": str(e)}), 503
         try:
@@ -311,7 +319,12 @@ def register(app):
             "Ton professionnel chaleureux, vouvoiement, prêt à envoyer. Objet + corps."
         )
         try:
-            res = ai_local.generate(prompt, max_tokens=600, cache=not eleve)
+            res = ai_local.generate(
+                prompt,
+                max_tokens=600,
+                cache=not eleve,
+                nominatif=bool(eleve),  # mail nommant un élève → reste dans le foyer
+            )
         except ai_local.AIUnavailable as e:
             return jsonify({"error": str(e)}), 503
         return jsonify({"draft": res["text"], "backend": res["backend"]})
@@ -391,7 +404,10 @@ def register(app):
                 "Inclus le corrigé. Markdown, prêt à imprimer."
             )
             try:
-                res = ai_local.generate(prompt, max_tokens=900, cache=False)
+                # prompt contenant le prénom et le profil de l'élève → ne sort pas du foyer
+                res = ai_local.generate(
+                    prompt, max_tokens=900, cache=False, nominatif=True
+                )
             except ai_local.AIUnavailable as ex:
                 return jsonify({"error": str(ex), "partiel": out}), 503
             try:
@@ -459,7 +475,10 @@ def register(app):
             f"Observations de l'enseignante : {obs}\nNotes : {notes}"
         )
         try:
-            res = ai_local.generate(prompt, max_tokens=700, cache=False)  # PII
+            # PII : prénom, points forts, besoins, observations → ne sort pas du foyer
+            res = ai_local.generate(
+                prompt, max_tokens=700, cache=False, nominatif=True
+            )
         except ai_local.AIUnavailable as ex:
             return jsonify({"error": str(ex)}), 503
         try:

@@ -1,0 +1,11 @@
+{
+  "id": "anthropics-claude-for-legal-privacy-legal-skills-policy-monitor-skill-md",
+  "name": "policy-monitor",
+  "author": "anthropics",
+  "description": "Keep the privacy policy current with practice. Two modes: weekly sweep of saved PIAs, DPA reviews, and triage results to find policy drift; or direct query for a proposed new practice. Use when the user asks \"does our policy cover this\", \"we want to start doing X \u2014 does the policy need updating\", \"run the policy monitor\", \"policy sweep\", or wants to find where the privacy policy no longer matches what the team actually does.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/anthropics/claude-for-legal/tree/main/privacy-legal/skills/policy-monitor",
+  "skillUrl": "https://skillsmp.com/creators/anthropics/claude-for-legal/privacy-legal-skills-policy-monitor",
+  "stars": 8999,
+  "updatedAt": 1778532266
+}

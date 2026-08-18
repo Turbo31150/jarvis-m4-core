@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-git-workflow-skill-md",
+  "name": "git-workflow",
+  "author": "affaan-m",
+  "description": "Git workflow patterns including branching strategies, commit conventions, merge vs rebase, conflict resolution, and collaborative development best practices for teams of all sizes.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/git-workflow",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-git-workflow",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

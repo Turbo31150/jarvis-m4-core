@@ -1,0 +1,11 @@
+{
+  "id": "langflow-ai-langflow-agents-skills-ibm-a11y-automation-skill-md",
+  "name": "ibm-a11y-automation",
+  "author": "langflow-ai",
+  "description": "Run Langflow's local accessibility scanner script against frontend routes from src/frontend/src/routes.tsx and summarize the JSON report.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/langflow-ai/langflow/tree/main/.agents/skills/ibm-a11y-automation",
+  "skillUrl": "https://skillsmp.com/creators/langflow-ai/langflow/agents-skills-ibm-a11y-automation",
+  "stars": 152830,
+  "updatedAt": 1782412433
+}

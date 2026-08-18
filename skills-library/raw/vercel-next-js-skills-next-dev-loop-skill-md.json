@@ -1,0 +1,11 @@
+{
+  "id": "vercel-next-js-skills-next-dev-loop-skill-md",
+  "name": "next-dev-loop",
+  "author": "vercel",
+  "description": "Verify Next.js runtime behavior after editing app code. Use this skill to confirm a change actually works in a running app \u2014 not just that it compiles or type-checks. Combines /_next/mcp (Next.js's view) with agent-browser (the browser's view). Requires a running `next dev`.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/vercel/next.js/tree/canary/skills/next-dev-loop",
+  "skillUrl": "https://skillsmp.com/creators/vercel/next.js/skills-next-dev-loop",
+  "stars": 141334,
+  "updatedAt": 1782494880
+}

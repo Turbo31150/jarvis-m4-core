@@ -1,0 +1,11 @@
+{
+  "id": "shubhamsaboo-awesome-llm-apps-agent-skills-commit-archaeologist-skill-md",
+  "name": "commit-archaeologist",
+  "author": "Shubhamsaboo",
+  "description": "Reconstructs why code exists from local git history, including the introducing commit, later changes, current authors, repeated companion files, and likely intent. Use when the user asks \"why does this code exist\", \"who wrote this function and why\", or to \"explain the history of this function\" before a rewrite, refactor, or risky edit. Runs entirely locally.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/agent_skills/commit-archaeologist",
+  "skillUrl": "https://skillsmp.com/creators/shubhamsaboo/awesome-llm-apps/agent-skills-commit-archaeologist",
+  "stars": 130463,
+  "updatedAt": 1784697221
+}

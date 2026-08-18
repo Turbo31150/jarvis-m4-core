@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 100" role="img" aria-label="AlkymIA Les Essences">
+  <title>AlkymIA — Les Essences</title>
+  <g transform="translate(4,2)">
+    <circle cx="48" cy="50" r="44" fill="none" stroke="#2FA37F" stroke-width="3.4"/>
+    <path d="M48 26 L76 74 L20 74 Z" fill="none" stroke="#6E5AA6" stroke-width="6.6" stroke-linejoin="round"/>
+    <line x1="33" y1="58" x2="63" y2="58" stroke="#6E5AA6" stroke-width="6.6" stroke-linecap="round"/>
+    <path d="M48 8 C43 15 40 19 40 23 a8 8 0 0 0 16 0 C56 19 53 15 48 8 Z" fill="#2FA37F"/>
+    <path d="M48 56 C44 61 42 63 42 66 a6 6 0 0 0 12 0 C54 63 52 61 48 56 Z" fill="#2FA37F"/>
+  </g>
+  <text x="112" y="50" font-family="'Segoe UI',system-ui,-apple-system,Arial,sans-serif" font-size="34" font-weight="600" fill="#6E5AA6">AlkymIA</text>
+  <text x="113" y="76" font-family="'Segoe UI',system-ui,-apple-system,Arial,sans-serif" font-size="20" font-weight="600" letter-spacing="2.5" fill="#2FA37F">LES ESSENCES</text>
+</svg>

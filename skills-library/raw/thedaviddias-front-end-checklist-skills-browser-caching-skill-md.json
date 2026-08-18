@@ -1,0 +1,11 @@
+{
+  "id": "thedaviddias-front-end-checklist-skills-browser-caching-skill-md",
+  "name": "browser-caching",
+  "author": "thedaviddias",
+  "description": "Use when auditing slow page loads, heavy assets, or rendering delays related to Enable browser caching. Verify the actual bottleneck in DevTools, Lighthouse, or field data before recommending changes.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedaviddias/Front-End-Checklist/tree/main/skills/browser-caching",
+  "skillUrl": "https://skillsmp.com/creators/thedaviddias/front-end-checklist/skills-browser-caching",
+  "stars": 73416,
+  "updatedAt": 1780091646
+}

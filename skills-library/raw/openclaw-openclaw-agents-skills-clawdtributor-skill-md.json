@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-agents-skills-clawdtributor-skill-md",
+  "name": "clawdtributor",
+  "author": "openclaw",
+  "description": "Use for OpenClaw clawtributors PR/issue triage: Discrawl discovery, live-open rechecks, deep review, topic grouping, and compact @handle/LOC/type/blast/verification summaries.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/.agents/skills/clawdtributor",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/agents-skills-clawdtributor",
+  "stars": 385119,
+  "updatedAt": 1779971592
+}

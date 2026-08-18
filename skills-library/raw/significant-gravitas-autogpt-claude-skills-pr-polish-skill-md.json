@@ -1,0 +1,11 @@
+{
+  "id": "significant-gravitas-autogpt-claude-skills-pr-polish-skill-md",
+  "name": "pr-polish",
+  "author": "Significant-Gravitas",
+  "description": "Alternate /pr-review and /pr-address on a PR until the PR is truly mergeable \u2014 no new review findings, zero unresolved inline threads, zero unaddressed top-level reviews or issue comments, all CI checks green, and two consecutive quiet polls after CI settles. Use when the user wants a PR polished to merge-ready without setting a fixed number of rounds.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Significant-Gravitas/AutoGPT/tree/master/.claude/skills/pr-polish",
+  "skillUrl": "https://skillsmp.com/creators/significant-gravitas/autogpt/claude-skills-pr-polish",
+  "stars": 185813,
+  "updatedAt": 1777527865
+}

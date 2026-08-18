@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-tr-skills-laravel-verification-skill-md",
+  "name": "laravel-verification",
+  "author": "affaan-m",
+  "description": "Verification loop for Laravel projects: env checks, linting, static analysis, tests with coverage, security scans, and deployment readiness.",
+  "contentLanguage": "tur",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/tr/skills/laravel-verification",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-tr-skills-laravel-verification",
+  "stars": 237500,
+  "updatedAt": 1784322829
+}

@@ -1,0 +1,191 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""Envoi réel de la prospection Toulouse — messages_v5.
+
+Principes non négociables :
+  - le destinataire est celui du fichier, jamais l'expéditeur ;
+  - aucune ligne n'est marquée ENVOYE avant acquittement du serveur SMTP ;
+  - le Message-ID stocké est celui réellement émis ;
+  - --test envoie uniquement à l'expéditeur, pour contrôler la délivrabilité ;
+  - --exec est requis pour tout envoi externe ; sans lui, simulation.
+
+Usage :
+  envoi_prospection_v5.py --test              # 1 mail vers soi-même
+  envoi_prospection_v5.py --plan              # liste sans rien envoyer
+  envoi_prospection_v5.py --exec --limit 5    # envoi réel, 5 cibles max
+"""
+
+import argparse
+import os
+import re
+import smtplib
+import sqlite3
+import sys
+import time
+from datetime import datetime
+from email.message import EmailMessage
+from email.utils import formataddr, make_msgid
+
+MSG_DIR = "/home/pamerys/Bureau/prospection_grands_comptes/messages_v5"
+DB = "/home/pamerys/jarvis/data/prospection_reelle.db"
+
+SMTP_HOST = "smtp.gmail.com"
+SMTP_PORT = 587
+SMTP_USER = "franckdelmas00@gmail.com"
+FROM_NAME = "Franck Delmas"
+# Mot de passe d'application : jamais en dur. Lu dans l'environnement.
+SMTP_PASS = os.environ.get("JARVIS_SMTP_PASS", "")
+
+CADENCE_S = 45  # délai entre deux envois, pour ne pas déclencher les filtres
+
+
+def charger(fichier):
+    """Retourne (metadonnees, corps) d'un message markdown à en-tête YAML."""
+    texte = open(f"{MSG_DIR}/{fichier}", encoding="utf-8").read()
+    meta = dict(re.findall(r"^([a-z_]+): (.+)$", texte, re.M))
+    corps = texte.split("---\n", 2)[2].lstrip("\n")
+    return meta, corps
+
+
+def journaliser(conn, meta, fichier, code, reponse, msgid, statut):
+    conn.execute(
+        "UPDATE envois_reels SET smtp_code=?, smtp_reponse=?, message_id=?, "
+        "envoye_le=?, statut=? WHERE destinataire=? AND objet=?",
+        (
+            code,
+            reponse,
+            msgid,
+            datetime.now().isoformat(timespec="seconds"),
+            statut,
+            meta["destinataire"],
+            meta["objet"],
+        ),
+    )
+    conn.commit()
+
+
+def envoyer(serveur, destinataire, objet, corps):
+    """Envoie et retourne (code, réponse, message_id). Lève en cas d'échec."""
+    msg = EmailMessage()
+    msg["From"] = formataddr((FROM_NAME, SMTP_USER))
+    msg["To"] = destinataire
+    msg["Subject"] = objet
+    msgid = make_msgid(domain="gmail.com")
+    msg["Message-ID"] = msgid
+    msg.set_content(corps)
+    refus = serveur.send_message(msg)
+    if refus:
+        raise smtplib.SMTPRecipientsRefused(refus)
+    return 250, "accepte par le serveur", msgid
+
+
+def main():
+    p = argparse.ArgumentParser()
+    p.add_argument("--exec", dest="execute", action="store_true")
+    p.add_argument("--test", action="store_true")
+    p.add_argument("--plan", action="store_true")
+    p.add_argument("--limit", type=int, default=10)
+    a = p.parse_args()
+
+    fichiers = sorted(f for f in os.listdir(MSG_DIR) if f.endswith(".md"))
+
+    if a.plan or not (a.execute or a.test):
+        # --plan doit montrer ce qui PARTIRAIT vraiment. L'ancienne version
+        # listait les 15 fichiers du dossier alors que la garde anti-doublon,
+        # appliquee plus bas, n'en laissait passer aucun : le plan annoncait
+        # 15 envois pour un resultat reel de zero.
+        with sqlite3.connect(DB) as c:
+            deja = {r[0] for r in c.execute("SELECT destinataire FROM envois_reels")}
+            mortes = {r[0] for r in c.execute(
+                "SELECT destinataire FROM envois_reels WHERE statut='REBOND'")}
+        a_partir, bloques = [], []
+        for f in fichiers:
+            m, _ = charger(f)
+            d = m["destinataire"]
+            if d in mortes:
+                bloques.append((d, m["objet"], "ADRESSE MORTE (rebond serveur)"))
+            elif d in deja:
+                bloques.append((d, m["objet"], "deja contacte"))
+            else:
+                a_partir.append((d, m["objet"]))
+        print(f"{len(a_partir)} message(s) partiraient — {len(bloques)} bloque(s) "
+              f"sur {len(fichiers)} fichier(s) (mode plan)\n")
+        for d, o in a_partir:
+            print(f"  → {d:<44} {o}")
+        if bloques:
+            print()
+            for d, o, motif in bloques:
+                print(f"  ⛔ {d:<44} {motif}")
+        print("\nAjouter --exec pour envoyer, --test pour un essai vers soi-meme.")
+        return
+
+    if not SMTP_PASS:
+        sys.exit(
+            "JARVIS_SMTP_PASS absent de l'environnement. "
+            "Exporter le mot de passe d'application avant d'executer."
+        )
+
+    conn = sqlite3.connect(DB)
+    serveur = smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=30)
+    serveur.starttls()
+    serveur.login(SMTP_USER, SMTP_PASS)
+    print(f"SMTP authentifie : {SMTP_USER}\n")
+
+    if a.test:
+        meta, corps = charger(fichiers[0])
+        code, rep, mid = envoyer(serveur, SMTP_USER, f"[TEST] {meta['objet']}", corps)
+        print(f"  test envoye a {SMTP_USER} — {code} {rep}\n  {mid}")
+        serveur.quit()
+        return
+
+    # Ne jamais renvoyer a une adresse DEJA TOUCHEE, quel que soit le resultat.
+    #
+    # L'ancien filtre testait statut='ENVOYE'. Une adresse passee en REBOND
+    # (serveur : "adresse introuvable") n'etait donc plus filtree et repartait
+    # au tour suivant — un echec de delivrabilite devenait un laissez-passer.
+    # On filtre desormais sur la PRESENCE de la ligne, pas sur son issue.
+    deja = {r[0] for r in conn.execute("SELECT destinataire FROM envois_reels")}
+
+    # Les adresses mortes sont tracees a part : les taire ferait croire a un
+    # simple doublon alors qu'il faut les retirer du vivier.
+    mortes = {
+        r[0]
+        for r in conn.execute(
+            "SELECT destinataire FROM envois_reels WHERE statut='REBOND'"
+        )
+    }
+
+    restants = []
+    for f in fichiers:
+        meta, _ = charger(f)
+        dest = meta["destinataire"]
+        if dest in mortes:
+            print(f"  ADRESSE MORTE {dest:<37} rebond serveur — a retirer du vivier")
+        elif dest in deja:
+            print(f"  SAUTE {dest:<43} deja contacte")
+        else:
+            restants.append(f)
+
+    envoyes = 0
+    for f in restants[: a.limit]:
+        meta, corps = charger(f)
+        dest = meta["destinataire"]
+        try:
+            code, rep, mid = envoyer(serveur, dest, meta["objet"], corps)
+            journaliser(conn, meta, f, code, rep, mid, "ENVOYE")
+            print(f"  OK   {dest:<44} {mid}")
+            envoyes += 1
+        except Exception as e:
+            journaliser(conn, meta, f, None, str(e)[:200], None, "ENVOI_ECHOUE")
+            print(f"  ECHEC {dest:<43} {e}")
+        if envoyes < a.limit:
+            time.sleep(CADENCE_S)
+
+    serveur.quit()
+    reste = conn.execute("SELECT count(*) FROM envois_non_acquittes").fetchone()[0]
+    print(f"\n{envoyes} envoi(s) acquitte(s) par le serveur.")
+    print(f"Lignes ENVOYE sans Message-ID (doit valoir 0) : {reste}")
+
+
+if __name__ == "__main__":
+    main()

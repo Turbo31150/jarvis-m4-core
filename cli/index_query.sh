@@ -3,7 +3,7 @@
 # Usage: index_query.sh <cmd> [arg]
 # Commandes: find <name> | ext <ext> | node <name> | heavy | machines | tag <tag> | recent [N]
 
-DB="/home/pamerys/jarvis/jarvis_master.db"
+DB="/home/turbo/jarvis/jarvis_master.db"
 
 cmd="${1:-help}"
 arg="${2:-}"

@@ -1,0 +1,11 @@
+{
+  "id": "cherubini-sam-agenticsforge-claude-skills-multi-agent-skill-md",
+  "name": "multi-agent",
+  "author": "cherubini-sam",
+  "description": "Framework-agnostic mapping of the 7-role governance architecture to any multi-agent system. Use when building, deploying, or reasoning about orchestrator/worker agent topologies that implement MANAGER/ARCHITECT/ENGINEER/VALIDATOR/LIBRARIAN/REFLECTOR/PROTOCOL roles.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/cherubini-sam/agenticsforge/tree/main/.claude/skills/multi-agent",
+  "skillUrl": "https://skillsmp.com/creators/cherubini-sam/agenticsforge/claude-skills-multi-agent",
+  "stars": 0,
+  "updatedAt": 1777403963
+}

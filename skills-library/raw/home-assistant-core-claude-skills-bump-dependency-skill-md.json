@@ -1,0 +1,11 @@
+{
+  "id": "home-assistant-core-claude-skills-bump-dependency-skill-md",
+  "name": "bump-dependency",
+  "author": "home-assistant",
+  "description": "Bumps a Python package dependency across Home Assistant Core integrations, regenerates core requirement files, runs verification tests and prek lint, and prepares a pull request with proper release/compare links.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/home-assistant/core/tree/dev/.claude/skills/bump-dependency",
+  "skillUrl": "https://skillsmp.com/creators/home-assistant/core/claude-skills-bump-dependency",
+  "stars": 89683,
+  "updatedAt": 1785829998
+}

@@ -1,0 +1,11 @@
+{
+  "id": "google-gemini-gemini-cli-packages-core-src-skills-builtin-antigravity-support-skill-md",
+  "name": "antigravity-support",
+  "author": "google-gemini",
+  "description": "Use when the user asks questions, seeks help, or requests instructions related to installing, setting up, or migrating to Antigravity CLI. This skill provides the latest up to date details, requirements, and commands sourced from the official Antigravity CLI documentation.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/google-gemini/gemini-cli/tree/main/packages/core/src/skills/builtin/antigravity-support",
+  "skillUrl": "https://skillsmp.com/creators/google-gemini/gemini-cli/packages-core-src-skills-builtin-antigravity-support",
+  "stars": 106351,
+  "updatedAt": 1781038826
+}

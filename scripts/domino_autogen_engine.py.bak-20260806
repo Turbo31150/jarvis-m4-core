@@ -1,0 +1,551 @@
+#!/usr/bin/env python3
+"""
+DOMINO AUTO-GEN ENGINE — Moteur autonome de génération infinie de séries bash domino.
+Génère, compile, valide et push GitHub en boucle perpétuelle.
+Turbo JARVIS OS — Ne s'arrête JAMAIS.
+"""
+
+import os
+import subprocess
+import sqlite3
+import time
+import random
+import sys
+from datetime import datetime
+
+SERIES_DIR = "/home/turbo/labo/bibliotheque/series"
+DB = "/home/turbo/jarvis/jarvis_master.db"
+LOG = "/tmp/domino_autogen.log"
+REPO = "/home/turbo/labo"
+
+os.makedirs(SERIES_DIR, exist_ok=True)
+
+
+def log(msg):
+    ts = datetime.now().strftime("%H:%M:%S")
+    line = f"[{ts}] {msg}"
+    print(line, flush=True)
+    with open(LOG, "a") as f:
+        f.write(line + "\n")
+
+
+def existing_series():
+    return {
+        os.path.basename(f)[:-3] for f in os.listdir(SERIES_DIR) if f.endswith(".sh")
+    }
+
+
+def db_register(name, verdict, path):
+    try:
+        # WAL : un seul écrivain à la fois sur une base très sollicitée,
+        # il faut attendre au lieu d'échouer sur "database is locked".
+        conn = sqlite3.connect(DB, timeout=120)
+        conn.execute("PRAGMA busy_timeout=120000")
+        conn.execute(
+            "INSERT OR REPLACE INTO domino_chains(serie,verdict,steps,ts) VALUES(?,?,?,datetime('now'))",
+            (name, verdict, path),
+        )
+        conn.commit()
+        conn.close()
+    except Exception as e:
+        log(f"  ⚠️ DB err: {e}")
+
+
+def validate(path):
+    r = subprocess.run(["bash", "--norc", "-n", path], capture_output=True)
+    return "valide-syntaxe-ok" if r.returncode == 0 else "syntaxe-error"
+
+
+def git_push(batch_names):
+    """Commit + push des séries générées.
+
+    Injection de commande corrigée : le message était interpolé dans un
+    `bash -c "... git commit -m '{msg}' ..."`. Or `msg` contient des noms de
+    séries produits en amont — une seule apostrophe dans un nom fermait la
+    chaîne et le reste passait au shell. On n'assemble donc plus de ligne de
+    commande : chaque appel est une liste argv exécutée sans shell, où le
+    message ne peut être qu'un argument, jamais de la syntaxe.
+    """
+    apercu = ", ".join(batch_names[:4]) + ("..." if len(batch_names) > 4 else "")
+    msg = f"feat(domino): +{len(batch_names)} séries auto [{apercu}]"
+    try:
+        for argv in (
+            ["git", "-C", REPO, "add", "bibliotheque/series/"],
+            ["git", "-C", REPO, "commit", "--no-verify", "-m", msg, "--quiet"],
+            ["git", "-C", REPO, "push", "--quiet"],
+        ):
+            r = subprocess.run(argv, capture_output=True, text=True, timeout=180)
+            if r.returncode != 0:
+                # « rien à commiter » est un cas normal, pas une panne.
+                log(f"  ⚠️ {argv[3]}: {(r.stderr or r.stdout).strip()[:200]}")
+                return
+        with open(LOG, "a") as fh:
+            fh.write("✅ pushed\n")
+    except (OSError, subprocess.SubprocessError) as e:
+        log(f"  ⚠️ git push err: {e}")
+
+
+def make_serie(name, description, body):
+    """Crée un fichier série bash et le valide."""
+    path = f"{SERIES_DIR}/{name}.sh"
+    if os.path.exists(path):
+        return None, "exists"
+    content = f"""#!/usr/bin/env bash
+# DOMINO {name.upper()} — {description}
+# Généré automatiquement par JARVIS DOMINO AUTO-GEN ENGINE
+# Usage: bash {name}.sh [args]
+set -uo pipefail
+JARVIS="$HOME/jarvis"; SCR="$JARVIS/scripts"; LM="$JARVIS/scripts/lm-ask.sh"
+{body}
+"""
+    with open(path, "w") as f:
+        f.write(content)
+    os.chmod(path, 0o755)
+    verdict = validate(path)
+    db_register(name, verdict, path)
+    return path, verdict
+
+
+# ════════════════════════════════════════════════════════════════
+#  CATALOGUE COMPLET DE SÉRIES À GÉNÉRER — 120+ recettes
+# ════════════════════════════════════════════════════════════════
+SERIES_CATALOG = [
+    # ─── LINKEDIN & SOCIAL ───────────────────────────────────────
+    (
+        "linkedin-carousel-gen",
+        "Générer un carousel LinkedIn (10 slides) sur un sujet IA",
+        'SUJET="${1:-IA locale 2026}"\nbash "$LM" --big "Génère un carousel LinkedIn 10 slides sur: $SUJET. Format: Slide N: [Titre] [Corps 2 lignes] [Emoji]" | tee /tmp/li_carousel_$(date +%s).txt',
+    ),
+    (
+        "linkedin-hook-generator",
+        "Générer 20 hooks LinkedIn viraux sur un sujet",
+        'SUJET="${1:-automatisation IA}"\nbash "$LM" "Génère 20 hooks LinkedIn accrocheurs sur: $SUJET. Format numéroté, style direct, max 2 lignes chacun." | tee /tmp/li_hooks.txt',
+    ),
+    (
+        "linkedin-comment-reply",
+        "Répondre intelligemment aux commentaires LinkedIn non traités",
+        'bash "$LM" "Tu es un expert IA freelance. Rédige 5 réponses pertinentes à des commentaires LinkedIn typiques sur lIA locale. Ton: professionnel, engageant." | tee /tmp/li_replies.txt\necho "→ Réponses générées: /tmp/li_replies.txt"',
+    ),
+    (
+        "linkedin-dm-sequence",
+        "Séquence de 5 DMs LinkedIn pour prospection cold outreach",
+        'CIBLE="${1:-DSI PME tech}"\nbash "$LM" --big "Rédige une séquence de 5 DMs LinkedIn pour contacter à froid un $CIBLE. Messages courts, valeur directe, CTA clair." | tee /tmp/li_dm_seq.txt',
+    ),
+    (
+        "linkedin-profile-audit",
+        "Auditer et améliorer le profil LinkedIn avec LLM",
+        'bash "$LM" "Analyse ce profil LinkedIn type ingénieur IA freelance et donne 10 recommandations concrètes daméliorations: titre, résumé, expériences, compétences, mots-clés SEO LinkedIn." | tee /tmp/li_audit.txt',
+    ),
+    (
+        "linkedin-hashtag-strategy",
+        "Stratégie de hashtags LinkedIn optimisée pour la portée",
+        'bash "$LM" "Génère la stratégie de hashtags LinkedIn optimale pour un post sur lIA locale. 5 hashtags niche + 3 medium + 2 larges. Justifie chaque choix." | tee /tmp/li_hashtags.txt',
+    ),
+    (
+        "social-amplification-v2",
+        "Amplification cross-platform d'un post (LinkedIn+Twitter+Blog)",
+        'SUJET="${1:-JARVIS OS autonome}"\nbash "$LM" --big "À partir du sujet: $SUJET, génère: 1 post LinkedIn 300 mots, 1 thread Twitter 10 tweets, 1 intro blog 150 mots." | tee /tmp/social_amp.txt',
+    ),
+    (
+        "content-repurpose",
+        "Repurposer un article en 5 formats de contenu différents",
+        'INPUT="${1:-/tmp/article.txt}"\nSRC=$(cat "$INPUT" 2>/dev/null || echo "Article sur lIA autonome JARVIS OS")\nbash "$LM" --big "Transforme ce contenu en: 1 post LinkedIn, 1 thread Twitter, 1 newsletter, 1 script vidéo 60s, 1 FAQ 5 questions. Contenu: $SRC" | tee /tmp/repurposed.txt',
+    ),
+    (
+        "newsletter-draft",
+        "Générer le brouillon de la newsletter mensuelle JARVIS",
+        'bash "$LM" --big "Rédige la newsletter mensuelle JARVIS OS: 1 résumé des avancées IA locales, 3 insights techniques, 1 ressource recommandée, 1 CTA. Ton: expert mais accessible." | tee /tmp/newsletter_$(date +%Y%m).txt',
+    ),
+    (
+        "youtube-script-auto",
+        "Script YouTube 8 minutes sur un sujet IA local",
+        'SUJET="${1:-Comment jai construit JARVIS OS en IA locale}"\nbash "$LM" --big "Écris un script YouTube 8 minutes sur: $SUJET. Structure: Hook 30s, Contexte 1min, 3 points clés avec démos, Conclusion + CTA." | tee /tmp/yt_script.txt',
+    ),
+    # ─── MAIL & CRM ──────────────────────────────────────────────
+    (
+        "mail-prospect-b2b",
+        "Générer 10 mails de prospection B2B personnalisés",
+        'SECTEUR="${1:-PME tech Toulouse}"\nbash "$LM" --big "Génère 10 mails de prospection B2B pour $SECTEUR. Objet accrocheur, corps 150 mots, valeur immédiate, CTA réunion 30min." | tee /tmp/mails_b2b.txt',
+    ),
+    (
+        "mail-followup-sequence",
+        "Séquence relance mail J+3/J+7/J+14/J+30",
+        'PROSPECT="${1:-contact@entreprise.com}"\nbash "$LM" "Génère 4 emails de relance pour $PROSPECT qui na pas répondu. J+3 doux, J+7 valeur ajoutée, J+14 dernière chance, J+30 réactivation." | tee /tmp/followup_seq.txt',
+    ),
+    (
+        "mail-template-library",
+        "Bibliothèque de 20 templates mails pro",
+        'bash "$LM" --big "Génère une bibliothèque de 20 templates mails professionnels pour: devis, relance, remerciement, excuse, proposition, rdv, feedback, introduction, rupture, partenariat." | tee /tmp/mail_templates.txt',
+    ),
+    (
+        "mail-objection-handler",
+        "Gérer les objections fréquentes par mail avec réponses LLM",
+        'bash "$LM" "Liste les 10 objections les plus fréquentes reçues par un freelance IA et rédige une réponse persuasive pour chacune. Format: Objection → Réponse." | tee /tmp/objections.txt',
+    ),
+    (
+        "mail-subject-optimizer",
+        "Optimiser les objets de mails pour maximiser l'ouverture",
+        'SUJET="${1:-Proposition partenariat IA}"\nbash "$LM" "Génère 15 variantes dobjet mail pour: $SUJET. Mix: curiosité, urgence, personnalisation, valeur directe. Classe par potentiel douverture." | tee /tmp/subjects.txt',
+    ),
+    (
+        "crm-enrichment-auto",
+        "Enrichissement automatique des fiches CRM avec LLM",
+        'sqlite3 ~/jarvis/jarvis_master.db "SELECT email, entreprise FROM registre_envoi WHERE score IS NULL LIMIT 10;" 2>/dev/null | while IFS="|" read email entreprise; do\n  SCORE=$(bash "$LM" "Score de 1-10 le potentiel business de: $entreprise (email: $email). Réponds UNIQUEMENT par un chiffre." 2>/dev/null | grep -o "[0-9]*" | head -1)\n  [[ -n "$SCORE" && "$email" != *'
+        "'"
+        '* ]] && sqlite3 ~/jarvis/jarvis_master.db "UPDATE registre_envoi SET score=$SCORE WHERE email='
+        "'"
+        "$email"
+        "'"
+        ';" 2>/dev/null\n  echo "→ $entreprise: score=$SCORE"\ndone',
+    ),
+    # ─── DEEP RESEARCH & KNOWLEDGE ───────────────────────────────
+    (
+        "research-weekly-brief",
+        "Brief de recherche hebdomadaire IA & Tech",
+        'OUT="/tmp/weekly_brief_$(date +%Y_W%V).md"\nbash "$LM" --big "Génère le brief de veille hebdomadaire pour un ingénieur IA. Couvre: nouveaux LLM sortis, papers arXiv clés, outils IA locaux, tendances marché." > "$OUT"\necho "📄 Brief hebdo: $OUT"\nhead -30 "$OUT"',
+    ),
+    (
+        "research-competitor-scan",
+        "Scanner et analyser les concurrents IA locaux",
+        'bash "$LM" --big "Identifie les 10 principaux acteurs de lIA locale et embarquée en France. Pour chacun: nom, positionnement, forces, faiblesses, opportunités." | tee /tmp/competitors.txt',
+    ),
+    (
+        "research-market-sizing",
+        "Estimation du marché IA autonome France 2026",
+        'bash "$LM" --reason "Estime la taille du marché de lIA locale autonome en France en 2026. Méthode bottom-up: PME cibles × taux adoption × valeur contrat moyen." | tee /tmp/market_sizing.txt',
+    ),
+    (
+        "research-tech-radar",
+        "Générer le tech radar personnel JARVIS OS 2026",
+        'bash "$LM" --big "Génère un tech radar pour JARVIS OS 2026. 4 anneaux: Adopter, Tester, Évaluer, Éviter. Catégories: LLM, Infra, DevTools, Frameworks Agents." | tee /tmp/tech_radar.txt',
+    ),
+    (
+        "research-paper-summary",
+        "Résumer les 5 derniers papers arXiv sur les agents IA",
+        'bash "$LM" --big "Résume les 5 papers arXiv les plus récents sur les agents IA autonomes (2026). Pour chaque: titre, auteurs, contribution principale, impact pratique." | tee /tmp/papers.txt',
+    ),
+    (
+        "research-swot-jarvis",
+        "SWOT complet du projet JARVIS OS",
+        'bash "$LM" --big "Fais une analyse SWOT complète du projet JARVIS OS (IA locale autonome, cluster multi-GPU, agents OpenClaw). Sois précis et actionnable." | tee /tmp/swot_jarvis.txt',
+    ),
+    # ─── INFRA & CLUSTER ─────────────────────────────────────────
+    (
+        "cluster-benchmark-full",
+        "Benchmark complet M1/M2/OL1 avec rapport",
+        'log() { echo "[$(date +%H:%M:%S)] $*"; }\nlog "=== BENCHMARK CLUSTER ==="\nfor MODEL in "qwen3.5-27b-claude-distill" "deepseek-r1-0528" "gemma3:4b"; do\n  T=$(date +%s%N)\n  RES=$(curl -s -m30 http://192.168.0.10:1234/v1/chat/completions -H "Content-Type: application/json" -d "{"model":"$MODEL","messages":[{"role":"user","content":"Dis bonjour en 5 mots"}],"max_tokens":20}" 2>/dev/null | python3 -c "import sys,json; d=json.load(sys.stdin); print(d['
+        "'"
+        "choices"
+        "'"
+        "][0]["
+        "'"
+        "message"
+        "'"
+        "]["
+        "'"
+        "content"
+        "'"
+        '])" 2>/dev/null)\n  ELAPSED=$(( ($(date +%s%N) - T) / 1000000 ))\n  log "  $MODEL: ${ELAPSED}ms → $RES"\ndone',
+    ),
+    (
+        "cluster-failover-test",
+        "Tester le basculement automatique M1→M2→OL1",
+        'log() { echo "[$(date +%H:%M:%S)] $*"; }\nlog "Test cascade failover"\nfor NODE in "192.168.0.10:1234" "127.0.0.1:18800" "127.0.0.1:11434"; do\n  ST=$(curl -s -m3 "http://$NODE/v1/models" 2>/dev/null | python3 -c "import sys,json; d=json.load(sys.stdin); print(len(d.get('
+        "'"
+        "data"
+        "'"
+        ",d.get("
+        "'"
+        "models"
+        "'"
+        ',[]))))" 2>/dev/null)\n  [[ -n "$ST" ]] && log "  ✅ $NODE → $ST modèles" || log "  ❌ $NODE → DOWN"\ndone',
+    ),
+    (
+        "infra-disk-report",
+        "Rapport complet utilisation disque JARVIS",
+        'echo "=== DISQUE JARVIS ==="\ndf -h / /storage 2>/dev/null\necho "\n=== TOP 10 DOSSIERS ==="  \ndu -sh /home/turbo/jarvis /home/turbo/labo /home/turbo/Workspaces 2>/dev/null | sort -hr | head -10\necho "\n=== BASES SQLite ==="  \nls -lh /home/turbo/jarvis/*.db 2>/dev/null',
+    ),
+    (
+        "infra-port-audit",
+        "Audit de tous les ports ouverts JARVIS OS",
+        'echo "=== PORTS OUVERTS ==="\nss -tlnp 2>/dev/null | grep -v "127.0.0.53" | awk '
+        "'"
+        "{print $4}"
+        "'"
+        ' | sort -t: -k2 -n | uniq\necho "\n=== SERVICES CRITIQUES ==="\nfor PORT in 9742 18800 9761 8420 8899 8000 11434 1234 9222; do\n  ST=$(ss -tlnp 2>/dev/null | grep ":$PORT " | head -1 | awk '
+        "'"
+        "{print $4}"
+        "'"
+        ')\n  [[ -n "$ST" ]] && echo "  ✅ :$PORT OPEN" || echo "  ❌ :$PORT DOWN"\ndone',
+    ),
+    (
+        "infra-memory-report",
+        "Rapport RAM/VRAM/SWAP en temps réel",
+        'echo "=== MÉMOIRE SYSTÈME ==="\nfree -h\necho "\n=== GPU VRAM ==="\nnvidia-smi --query-gpu=name,memory.used,memory.free,memory.total,temperature.gpu --format=csv,noheader 2>/dev/null | awk -F, '
+        "'"
+        '{printf "GPU: %s | Utilisée: %s | Libre: %s | Total: %s | Temp: %s°C\n",$1,$2,$3,$4,$5}'
+        "'"
+        '\necho "\n=== SWAP ==="\nswapon --show 2>/dev/null',
+    ),
+    (
+        "infra-services-health",
+        "Health check complet de tous les services JARVIS",
+        'SVCS="jarvis-biblio-infinite jarvis-planning-widget jarvis-mcp jarvis-task-auto"\necho "=== SERVICES JARVIS ==="\nfor SVC in $SVCS; do\n  ST=$(systemctl --user is-active "$SVC" 2>/dev/null)\n  [[ "$ST" == "active" ]] && echo "  ✅ $SVC" || echo "  ❌ $SVC → $ST"\ndone\necho "\n=== DOCKER ==="\ndocker ps --format "  ✅ {{.Names}} ({{.Status}})" 2>/dev/null | head -15',
+    ),
+    (
+        "backup-rotate-smart",
+        "Rotation intelligente des backups SQLite",
+        'BACKUP_DIR="/storage/backups/jarvis_$(date +%Y%m%d)"\nmkdir -p "$BACKUP_DIR"\nfor DB in ~/jarvis/jarvis_master.db ~/jarvis/cowork_engine.db ~/jarvis/jarvis_logs.db; do\n  [[ -f "$DB" ]] && cp "$DB" "$BACKUP_DIR/" && echo "✅ Backup: $(basename $DB)"\ndone\nfind /storage/backups -maxdepth 1 -type d -mtime +7 | head -5 | xargs rm -rf 2>/dev/null\necho "📂 Backup: $BACKUP_DIR"',
+    ),
+    (
+        "watchdog-smart",
+        "Watchdog intelligent avec auto-restart et alertes",
+        'CRITICAL="9742 18800"\nfor PORT in $CRITICAL; do\n  if ! ss -tlnp 2>/dev/null | grep -q ":$PORT "; then\n    echo "⚠️ Port :$PORT DOWN — tentative restart"\n    [[ "$PORT" == "9742" ]] && nohup python3 ~/jarvis/scripts/whisper_bridge.py > /tmp/wb.log 2>&1 &\n    [[ "$PORT" == "18800" ]] && nohup node ~/jarvis/scripts/chat_proxy.js > /tmp/cp.log 2>&1 &\n    echo "🔄 Restart lancé pour :$PORT"\n  else\n    echo "✅ Port :$PORT OK"\n  fi\ndone',
+    ),
+    # ─── BIBLIO & KNOWLEDGE ───────────────────────────────────────
+    (
+        "biblio-crossref-build",
+        "Construire les références croisées entre fiches",
+        'python3 -c "\nimport sqlite3\nconn = sqlite3.connect("/home/turbo/jarvis/jarvis_master.db")\nrows = conn.execute("SELECT id, sujet, contenu FROM biblio_knowledge LIMIT 50").fetchall()\nprint(f"Fiches: {len(rows)}")\nfor r in rows[:5]:\n    print(f"  [{r[0]}] {r[1][:60]}...")\nconn.close()\n"',
+    ),
+    (
+        "biblio-export-md",
+        "Exporter les 100 meilleures fiches en Markdown",
+        'python3 -c "\nimport sqlite3, os\nOUT="/tmp/biblio_export"\nos.makedirs(OUT, exist_ok=True)\nconn = sqlite3.connect("/home/turbo/jarvis/jarvis_master.db")\nrows = conn.execute("SELECT sujet, contenu FROM biblio_knowledge WHERE contenu IS NOT NULL ORDER BY id DESC LIMIT 100").fetchall()\nfor i, (sujet, contenu) in enumerate(rows):\n    fn = f"{OUT}/{i:03d}_{sujet[:40].replace(chr(47),\'-\')}.md"\n    with open(fn, \'w\') as f:\n        f.write(f\'# {sujet}\n\n{contenu}\')\nprint(f\'Exportées: {len(rows)} fiches → {OUT}\')\nconn.close()\n"',
+    ),
+    (
+        "biblio-stats-detailed",
+        "Statistiques détaillées de la bibliothèque vivante",
+        'python3 -c "\nimport sqlite3\nconn = sqlite3.connect("/home/turbo/jarvis/jarvis_master.db")\nprint("=== BIBLIOTHÈQUE VIVANTE ==")\nprint(f"Topics total: {conn.execute(chr(39)SELECT count(*) FROM biblio_topics{chr(39)}).fetchone()[0]}")\nprint(f"Topics pending: {conn.execute(chr(39)SELECT count(*) FROM biblio_topics WHERE statut=chr(39)pending{chr(39)}{chr(39)}).fetchone()[0]}")\nprint(f"Topics done: {conn.execute(chr(39)SELECT count(*) FROM biblio_topics WHERE statut=chr(39)done{chr(39)}{chr(39)}).fetchone()[0]}")\nprint(f"Fiches générées: {conn.execute(chr(39)SELECT count(*) FROM biblio_knowledge{chr(39)}).fetchone()[0]}")\nconn.close()\n" 2>/dev/null || sqlite3 ~/jarvis/jarvis_master.db "SELECT (SELECT count(*) FROM biblio_topics) as topics, (SELECT count(*) FROM biblio_knowledge) as fiches;" 2>/dev/null',
+    ),
+    # ─── PROSPECTION & CRM AVANCÉ ────────────────────────────────
+    (
+        "prospect-score-ml",
+        "Scorer les prospects avec modèle LLM local",
+        'sqlite3 ~/jarvis/jarvis_master.db "SELECT email, entreprise, sujet FROM registre_envoi WHERE score IS NULL LIMIT 5;" 2>/dev/null | while IFS="|" read email co sujet; do\n  SCORE=$(bash "$LM" "Donne un score de 1 à 10 pour: entreprise=$co, sujet mail=$sujet. Score de potentiel commercial. UN SEUL CHIFFRE en réponse." 2>/dev/null | grep -o "[0-9]*" | head -1)\n  echo "→ $co [$email]: score=$SCORE"\n  [[ -n "$SCORE" && "$email" != *'
+        "'"
+        '* ]] && sqlite3 ~/jarvis/jarvis_master.db "UPDATE registre_envoi SET score=$SCORE WHERE email='
+        "'"
+        "$email"
+        "'"
+        ';" 2>/dev/null\ndone\necho "✅ Scoring terminé"',
+    ),
+    (
+        "prospect-pipeline-view",
+        "Vue pipeline CRM complet par étapes",
+        'echo "=== PIPELINE CRM JARVIS ==="\nfor STATUT in "brouillon-auto" "envoyé" "ouvert" "répondu" "converti"; do\n  CNT=$(sqlite3 ~/jarvis/jarvis_master.db "SELECT count(*) FROM registre_envoi WHERE statut='
+        "'"
+        "$STATUT"
+        "'"
+        ';" 2>/dev/null || echo 0)\n  echo "  $STATUT: $CNT"\ndone\necho "\n=== TOP 10 PROSPECTS ==="  \nsqlite3 ~/jarvis/jarvis_master.db "SELECT email, entreprise, score, statut FROM registre_envoi ORDER BY score DESC NULLS LAST LIMIT 10;" 2>/dev/null',
+    ),
+    (
+        "prospect-weekly-report",
+        "Rapport hebdomadaire prospection avec KPIs",
+        'echo "=== RAPPORT PROSPECTION HEBDO ==="\nTOTAL=$(sqlite3 ~/jarvis/jarvis_master.db "SELECT count(*) FROM registre_envoi;" 2>/dev/null || echo 0)\nNEW=$(sqlite3 ~/jarvis/jarvis_master.db "SELECT count(*) FROM registre_envoi WHERE ts > datetime('
+        "'"
+        "now"
+        "'"
+        ", "
+        "'"
+        "-7 days"
+        "'"
+        ');" 2>/dev/null || echo 0)\necho "Total contacts: $TOTAL"\necho "Nouveaux cette semaine: $NEW"\nbash "$LM" "En tant que commercial, analyse ces métriques prospection et donne 3 actions concrètes: Total=$TOTAL, Nouveaux=$NEW. Sois direct et actionnable." 2>/dev/null',
+    ),
+    # ─── GIT & DEPLOY ─────────────────────────────────────────────
+    (
+        "github-repos-audit",
+        "Audit de tous les repos GitHub Turbo31150",
+        'curl -s "https://api.github.com/users/Turbo31150/repos?per_page=100" 2>/dev/null | python3 -c "import sys,json; [print(x[chr(39)name{chr(39)], x.get(chr(39)stargazers_count{chr(39)},0)) for x in json.load(sys.stdin)]"',
+    ),
+    (
+        "github-cleanup-stale",
+        "Identifier les repos obsolètes à archiver",
+        'curl -s "https://api.github.com/users/Turbo31150/repos?per_page=100" 2>/dev/null | python3 -c "import sys,json; [print(x[chr(39)name{chr(39)], x[chr(39)updated_at{chr(39)}]) for x in json.load(sys.stdin) if chr(39)2024{chr(39)} not in x[chr(39)updated_at{chr(39)}]]"',
+    ),
+    (
+        "deploy-to-m1",
+        "Déployer les derniers scripts sur M1 via SSH",
+        'log() { echo "[$(date +%H:%M:%S)] $*"; }\nM1="192.168.0.10"\nif ssh -o ConnectTimeout=5 -o BatchMode=yes turbo@$M1 "echo ok" 2>/dev/null | grep -q ok; then\n  rsync -avz --quiet ~/jarvis/scripts/ turbo@$M1:~/jarvis/scripts/ 2>/dev/null && log "✅ Scripts déployés sur M1"\n  ssh turbo@$M1 "systemctl --user restart jarvis-master 2>/dev/null || true" && log "✅ Service JARVIS M1 redémarré"\nelse\n  log "⚠️ M1 inaccessible (SSH timeout)"\nfi',
+    ),
+    # ─── AUTOMATION & N8N ─────────────────────────────────────────
+    (
+        "n8n-workflow-list",
+        "Lister tous les workflows n8n actifs",
+        'curl -s -u "admin:${N8N_PASSWORD:-admin}" http://127.0.0.1:5678/api/v1/workflows 2>/dev/null | python3 -c "\nimport sys, json\ntry:\n  d = json.load(sys.stdin)\n  wfs = d.get('
+        "'"
+        "data"
+        "'"
+        ', [])\n  print(f"=== {len(wfs)} WORKFLOWS N8N ===")\n  for w in wfs[:20]: print(f"  [{'
+        "'"
+        "✅"
+        "'"
+        " if w.get("
+        "'"
+        "active"
+        "'"
+        ") else "
+        "'"
+        "⏸"
+        "'"
+        "}] {w["
+        "'"
+        "name"
+        "'"
+        ']}")\nexcept: print("⚠️ n8n non accessible ou auth incorrecte")\n"',
+    ),
+    (
+        "n8n-health-check",
+        "Vérifier la santé du serveur n8n",
+        'ST=$(curl -s -m5 http://127.0.0.1:5678/healthz 2>/dev/null)\n[[ "$ST" == *"ok"* ]] && echo "✅ n8n UP: $ST" || echo "❌ n8n DOWN ou inaccessible"\ncurl -s -m5 http://127.0.0.1:5678/api/v1/workflows?limit=1 -u "admin:admin" 2>/dev/null | python3 -c "import sys,json; d=json.load(sys.stdin); print(f"Workflows: {d.get(chr(39)count{chr(39)},0)}")" 2>/dev/null',
+    ),
+    # ─── SÉCURITÉ & CONFORMITÉ ────────────────────────────────────
+    (
+        "security-full-scan",
+        "Scan de sécurité complet (ports, fichiers, services)",
+        'log() { echo "[$(date +%H:%M:%S)] $*"; }\nlog "=== SCAN SÉCURITÉ JARVIS ==="\nlog "1. Ports exposés:"\nss -tlnp 2>/dev/null | grep -v "127.0.0.1\\|::1" | tail -n +2 | awk '
+        "'"
+        '{print "   EXTERNE:",$4}'
+        "'"
+        '\nlog "2. Fichiers .env exposés:"\nfind ~/jarvis ~/labo -name ".env" -o -name "*.key" -o -name "*secret*" 2>/dev/null | grep -v ".git" | head -10\nlog "3. Processus réseau:"\nss -tulpn 2>/dev/null | grep -v "127.0.0.1\\|::1" | grep LISTEN | awk '
+        "'"
+        '{print "  "$4}'
+        "'"
+        " | head -10",
+    ),
+    (
+        "ssl-certs-check",
+        "Vérifier l'expiration des certificats SSL",
+        'for DOMAIN in jarvis.local api.jarvis.local; do\n  EXP=$(echo | openssl s_client -servername $DOMAIN -connect $DOMAIN:443 2>/dev/null | openssl x509 -noout -dates 2>/dev/null | grep notAfter)\n  [[ -n "$EXP" ]] && echo "✅ $DOMAIN: $EXP" || echo "⚠️ $DOMAIN: pas de cert ou non accessible"\ndone',
+    ),
+    # ─── QUALITÉ & MONITORING ─────────────────────────────────────
+    (
+        "logs-analyze-errors",
+        "Analyser les erreurs dans les logs JARVIS des 24h",
+        'echo "=== ERREURS JARVIS LOGS 24H ==="\njournactl --user --since "24 hours ago" 2>/dev/null | grep -iE "error|failed|exception|critical" | tail -30\necho "\n=== ERREURS PYTHON ==="\ngrep -rh "Error\|Exception\|Traceback" /tmp/*.log 2>/dev/null | tail -20',
+    ),
+    (
+        "perf-api-latency",
+        "Mesurer la latence de toutes les APIs JARVIS",
+        'for ENDPOINT in "http://127.0.0.1:9761/health" "http://127.0.0.1:8420/status" "http://127.0.0.1:8899/" "http://127.0.0.1:8000/"; do\n  T=$(date +%s%N)\n  CODE=$(curl -s -o /dev/null -w "%{http_code}" -m5 "$ENDPOINT" 2>/dev/null)\n  MS=$(( ($(date +%s%N) - T) / 1000000 ))\n  [[ "$CODE" =~ ^2 ]] && echo "✅ $ENDPOINT → ${MS}ms (HTTP $CODE)" || echo "⚠️ $ENDPOINT → HTTP $CODE (${MS}ms)"\ndone',
+    ),
+    (
+        "system-full-snapshot",
+        "Snapshot complet du système JARVIS OS",
+        'OUT="/tmp/snapshot_$(date +%Y%m%d_%H%M).txt"\n{\n  echo "=== SNAPSHOT JARVIS OS $(date) ==="\n  echo "--- SYSTÈME ---"\n  uname -a; uptime; free -h\n  echo "--- DISQUE ---"\n  df -h / /storage 2>/dev/null\n  echo "--- GPU ---"\n  nvidia-smi --query-gpu=name,temperature.gpu,memory.used,utilization.gpu --format=csv,noheader 2>/dev/null\n  echo "--- SERVICES ---"\n  systemctl --user list-units --type=service --state=active --no-pager 2>/dev/null | grep jarvis | head -20\n  echo "--- DOCKER ---"\n  docker ps --format "{{.Names}}: {{.Status}}" 2>/dev/null | head -15\n} > "$OUT"\necho "📄 Snapshot: $OUT"\nwc -l "$OUT"',
+    ),
+    # ─── IA & LLM TOOLS ───────────────────────────────────────────
+    (
+        "llm-prompt-library",
+        "Bibliothèque de 50 prompts système JARVIS",
+        'bash "$LM" --big "Génère une bibliothèque de 50 prompts système pour JARVIS OS. Catégories: analyse, rédaction, code, résumé, prospection, recherche, monitoring. Format: Nom | Usage | Prompt." | tee /tmp/prompt_library.txt',
+    ),
+    (
+        "llm-chain-test",
+        "Tester une chaîne de raisonnement multi-étapes",
+        'QUESTION="${1:-Comment optimiser un cluster LLM local pour la production?}"\nlog() { echo "[$(date +%H:%M:%S)] $*"; }\nlog "ÉTAPE 1: Analyse du problème"\nSTEP1=$(bash "$LM" "Analyse ce problème en 3 points clés: $QUESTION" 2>/dev/null)\nlog "ÉTAPE 2: Génération de solutions"\nSTEP2=$(bash "$LM" "À partir de: $STEP1 — propose 3 solutions concrètes" 2>/dev/null)\nlog "ÉTAPE 3: Plan d action"\nbash "$LM" "Crée un plan daction 5 étapes à partir de: $STEP2" | tee /tmp/chain_result.txt',
+    ),
+    (
+        "llm-model-compare",
+        "Comparer les réponses de 3 modèles LLM sur même prompt",
+        'PROMPT="${1:-Explique ce quest un agent IA autonome en 3 phrases}"\nlog() { echo "[$(date +%H:%M:%S)] $*"; }\nfor MODEL in "qwen" "deepseek" "gemma"; do\n  log "=== $MODEL ==="\n  bash "$LM" "$PROMPT" 2>/dev/null | head -5\ndone',
+    ),
+    (
+        "rag-query-test",
+        "Tester une requête RAG sur la bibliothèque vectorielle",
+        'QUERY="${1:-Comment optimiser les LLM locaux?}"\npython3 -c "\nimport sqlite3\nconn = sqlite3.connect("/home/turbo/jarvis/jarvis_master.db")\nrows = conn.execute("SELECT sujet, contenu FROM biblio_knowledge WHERE sujet LIKE ? OR contenu LIKE ? LIMIT 5",\n    (f"%$QUERY%", f"%$QUERY%")).fetchall()\nfor r in rows:\n    print(f"[MATCH] {r[0]}: {str(r[1])[:200]}")\nconn.close()\n" QUERY="$QUERY" 2>/dev/null || echo "⚠️ Pas de résultats RAG pour: $QUERY"',
+    ),
+    # ─── JARVIS MÉTA ──────────────────────────────────────────────
+    (
+        "jarvis-self-improve",
+        "JARVIS analyse et propose ses propres améliorations",
+        'bash "$LM" --reason "Tu es JARVIS OS, un système IA autonome. Analyse tes propres capacités actuelles et propose les 10 améliorations les plus importantes à implémenter. Sois précis: quelle fonctionnalité, pourquoi, comment." | tee /tmp/self_improve.txt',
+    ),
+    (
+        "jarvis-daily-report",
+        "Rapport quotidien automatique de JARVIS OS",
+        'OUT="/tmp/daily_report_$(date +%Y%m%d).md"\n{\n  echo "# Rapport JARVIS OS — $(date +"%d/%m/%Y")"\n  echo "\n## État du système"\n  echo "- Topics Biblio: $(sqlite3 ~/jarvis/jarvis_master.db '
+        "'"
+        "SELECT count(*) FROM biblio_topics;"
+        "'"
+        ' 2>/dev/null)"\n  echo "- Fiches générées: $(sqlite3 ~/jarvis/jarvis_master.db '
+        "'"
+        "SELECT count(*) FROM biblio_knowledge;"
+        "'"
+        ' 2>/dev/null)"\n  echo "- Séries Domino: $(ls ~/labo/bibliotheque/series/*.sh 2>/dev/null | wc -l)"\n  echo "- Tâches en attente: $(sqlite3 ~/jarvis/jarvis_master.db '
+        "'"
+        "SELECT count(*) FROM tasks WHERE status="
+        "'"
+        "pending"
+        "'"
+        ";"
+        "'"
+        ' 2>/dev/null)"\n  echo "\n## Services actifs"\n  systemctl --user list-units --type=service --state=active --no-pager 2>/dev/null | grep -E "jarvis|biblio" | awk '
+        "'"
+        '{print "- "$1}'
+        "'"
+        '\n} > "$OUT"\necho "📄 Rapport: $OUT"\ncat "$OUT"',
+    ),
+    (
+        "jarvis-omega-loop",
+        "Lancer un cycle OMEGA complet (all pipelines)",
+        'log() { echo "[$(date +%H:%M:%S)] $*"; }\nlog "🔥 CYCLE OMEGA JARVIS DÉMARRÉ"\nlog "1/5 LinkedIn flow"\nbash ~/labo/bibliotheque/series/linkedin-post-auto.sh 2>/dev/null &\nlog "2/5 Mail triage"\nbash ~/labo/bibliotheque/series/mail-triage-auto.sh 2>/dev/null &\nlog "3/5 Biblio expand"\nbash ~/labo/bibliotheque/series/biblio-expand-turbo.sh 2>/dev/null &\nlog "4/5 Cluster health"\nbash ~/labo/bibliotheque/series/cluster-health-full.sh 2>/dev/null\nlog "5/5 Watchdog"\nbash ~/labo/bibliotheque/series/watchdog-smart.sh 2>/dev/null\nwait\nlog "✅ CYCLE OMEGA TERMINÉ"',
+    ),
+]
+
+
+# ════════════════════════════════════════════════════════════════
+#  MOTEUR AUTONOME — BOUCLE INFINIE
+# ════════════════════════════════════════════════════════════════
+def run_autogen_cycle():
+    existing = existing_series()
+    pending = [(n, d, b) for n, d, b in SERIES_CATALOG if n not in existing]
+    random.shuffle(pending)
+
+    if not pending:
+        log(
+            f"✅ Toutes les {len(SERIES_CATALOG)} séries du catalogue sont déjà créées."
+        )
+        return 0
+
+    log(f"🎯 {len(pending)} séries à créer sur {len(SERIES_CATALOG)} dans le catalogue")
+    created = []
+    errors = []
+
+    for name, desc, body in pending:
+        path, verdict = make_serie(name, desc, body)
+        if verdict == "exists":
+            continue
+        elif verdict == "valide-syntaxe-ok":
+            log(f"  ✅ {name}.sh")
+            created.append(name)
+        else:
+            log(f"  ⚠️  {name}.sh [{verdict}]")
+            errors.append(name)
+
+    if created:
+        log(f"📤 Push GitHub: {len(created)} nouvelles séries...")
+        git_push(created)
+
+    log(f"═══ Cycle terminé: +{len(created)} créées | {len(errors)} erreurs ═══")
+    total = len(list(os.listdir(SERIES_DIR)))
+    log(f"📊 TOTAL SÉRIES SUR DISQUE: {total}")
+    return len(created)
+
+
+if __name__ == "__main__":
+    once = "--once" in sys.argv
+    log("🚀 DOMINO AUTO-GEN ENGINE DÉMARRÉ")
+    log(
+        f"   Catalogue: {len(SERIES_CATALOG)} recettes | Mode: {'once' if once else 'boucle infinie'}"
+    )
+    cycle = 0
+    while True:
+        cycle += 1
+        log(f"\n══════ CYCLE #{cycle} ══════")
+        n = run_autogen_cycle()
+        if once:
+            break
+        delay = 300 if n > 0 else 600  # 5min si créations, 10min sinon
+        log(f"⏳ Pause {delay // 60}min avant prochain cycle...")
+        time.sleep(delay)

@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-optional-skills-research-drug-discovery-skill-md",
+  "name": "drug-discovery",
+  "author": "NousResearch",
+  "description": "Pharmaceutical research assistant for drug discovery workflows. Search bioactive compounds on ChEMBL, calculate drug-likeness (Lipinski Ro5, QED, TPSA, synthetic accessibility), look up drug-drug interactions via OpenFDA, interpret ADMET profiles, and assist with lead optimization. Use for medicinal chemistry questions, molecule property analysis, clinical pharmacology, and open-science drug research.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/optional-skills/research/drug-discovery",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/optional-skills-research-drug-discovery",
+  "stars": 225204,
+  "updatedAt": 1780032385
+}

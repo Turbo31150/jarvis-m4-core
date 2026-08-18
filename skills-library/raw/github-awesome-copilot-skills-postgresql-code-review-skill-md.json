@@ -1,0 +1,11 @@
+{
+  "id": "github-awesome-copilot-skills-postgresql-code-review-skill-md",
+  "name": "postgresql-code-review",
+  "author": "github",
+  "description": "PostgreSQL-specific code review assistant focusing on PostgreSQL best practices, anti-patterns, and unique quality standards. Covers JSONB operations, array usage, custom types, schema design, function optimization, and PostgreSQL-exclusive security features like Row Level Security (RLS).",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/github/awesome-copilot/tree/main/skills/postgresql-code-review",
+  "skillUrl": "https://skillsmp.com/creators/github/awesome-copilot/skills-postgresql-code-review",
+  "stars": 37423,
+  "updatedAt": 1771904373
+}

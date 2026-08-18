@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-skills-software-development-python-debugpy-skill-md",
+  "name": "python-debugpy",
+  "author": "NousResearch",
+  "description": "Debug Python: pdb REPL + debugpy remote (DAP).",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/skills/software-development/python-debugpy",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/skills-software-development-python-debugpy",
+  "stars": 225204,
+  "updatedAt": 1785392178
+}

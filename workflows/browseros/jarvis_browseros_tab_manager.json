@@ -1,0 +1,171 @@
+{
+  "name": "JARVIS — BrowserOS Tab Manager",
+  "active": true,
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 1
+            }
+          ]
+        }
+      },
+      "id": "s5",
+      "name": "Every Hour",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        200,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "http://127.0.0.1:3000/api/browseros/tabs",
+        "method": "GET",
+        "options": {}
+      },
+      "id": "h5",
+      "name": "Get Tabs",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        420,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const tabs=$input.all()[0].json.tabs||$input.all()[0].json.data||[];\nconst total=Array.isArray(tabs)?tabs.length:0;\nconst kw=[\"grafana\",\"n8n\",\"portainer\",\"proxmox\",\"dashboard\",\"jarvis\"];\nconst cluster=Array.isArray(tabs)?tabs.filter(t=>kw.some(k=>(t.url||t.title||\"\").toLowerCase().includes(k))).length:0;\nconst low=cluster<5;\nreturn [{json:{totalTabs:total,clusterTabs:cluster,lowCluster:low,message:`Tabs: ${total} total, ${cluster} cluster. ${low?\"WARNING low!\":\"OK\"}`}}];"
+      },
+      "id": "c5",
+      "name": "Count Tabs",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        640,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "cond1",
+              "leftValue": "={{$json.lowCluster}}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "if5",
+      "name": "IF Low",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        860,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "http://127.0.0.1:3000/api/notify",
+        "method": "POST",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "message",
+              "value": "={{$json.message}}"
+            },
+            {
+              "name": "source",
+              "value": "n8n-tab-manager"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "p5",
+      "name": "Notify",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1080,
+        200
+      ]
+    }
+  ],
+  "connections": {
+    "Every Hour": {
+      "main": [
+        [
+          {
+            "node": "Get Tabs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Tabs": {
+      "main": [
+        [
+          {
+            "node": "Count Tabs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Count Tabs": {
+      "main": [
+        [
+          {
+            "node": "IF Low",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Low": {
+      "main": [
+        [
+          {
+            "node": "Notify",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "staticData": {
+    "node:Every Hour": {
+      "recurrenceRules": []
+    }
+  },
+  "pinData": {}
+}

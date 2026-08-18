@@ -1,0 +1,11 @@
+{
+  "id": "nexu-io-open-design-skills-imagen-skill-md",
+  "name": "imagen",
+  "author": "nexu-io",
+  "description": "Generate images using Google Gemini's image generation API for UI mockups, icons, illustrations, and visual assets.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/nexu-io/open-design/tree/main/skills/imagen",
+  "skillUrl": "https://skillsmp.com/creators/nexu-io/open-design/skills-imagen",
+  "stars": 83535,
+  "updatedAt": 1778492914
+}

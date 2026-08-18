@@ -1,0 +1,11 @@
+{
+  "id": "androidx-androidx-agents-skills-benchmark-skill-md",
+  "name": "benchmark",
+  "author": "androidx",
+  "description": "Benchmarking and improving the performance of Jetpack Compose. Use this skill when requested to run, analyze, or create microbenchmarks and macrobenchmarks for Compose components or features.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/androidx/androidx/tree/androidx-main/.agents/skills/benchmark",
+  "skillUrl": "https://skillsmp.com/creators/androidx/androidx/agents-skills-benchmark",
+  "stars": 6045,
+  "updatedAt": 1780665468
+}

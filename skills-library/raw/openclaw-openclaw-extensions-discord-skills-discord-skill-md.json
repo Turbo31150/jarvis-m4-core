@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-extensions-discord-skills-discord-skill-md",
+  "name": "discord",
+  "author": "openclaw",
+  "description": "Discord messaging workflows through OpenClaw's message tool.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/extensions/discord/skills/discord",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/extensions-discord-skills-discord",
+  "stars": 385119,
+  "updatedAt": 1785803460
+}

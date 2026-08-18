@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-cost-tracking-skill-md",
+  "name": "cost-tracking",
+  "author": "affaan-m",
+  "description": "Track and report Claude Code token usage, spending, and budgets from the local ECC cost-tracker metrics log. Use when the user asks about costs, spending, usage, tokens, budgets, or cost breakdowns by model, session, or date.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/cost-tracking",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-cost-tracking",
+  "stars": 237500,
+  "updatedAt": 1781815798
+}

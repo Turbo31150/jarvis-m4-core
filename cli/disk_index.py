@@ -15,7 +15,7 @@ from datetime import datetime
 DB_PATH = "/home/pamerys/jarvis/jarvis_master.db"
 
 SCAN_DIRS = [
-    "/home/pamerys",
+    "/home/turbo",
     "/opt",
     "/etc/systemd/system",
 ]
@@ -32,8 +32,8 @@ EXT_TAGS = {
 }
 
 REMOTE_MACHINES = [
-    {"name": "M2", "host": "192.168.1.26", "user": "turbo"},
-    {"name": "M3", "host": "192.168.1.133", "user": "turbo"},
+    {"name": "M2", "host": "127.0.0.1", "user": "turbo"},
+    {"name": "M3", "host": "127.0.0.1", "user": "turbo"},
 ]
 
 def init_db(conn):
@@ -140,7 +140,7 @@ def remote_scan(machine_info, quiet=False):
     ssh_cmd = [
         "ssh", "-o", "ConnectTimeout=5", "-o", "BatchMode=yes",
         f"{user}@{host}",
-        "find /home/pamerys /opt /etc/systemd/system -maxdepth 8 "
+        "find /home/turbo /opt /etc/systemd/system -maxdepth 8 "
         r"\( -name '.git' -o -name 'node_modules' -o -name '__pycache__' \) -prune -o "
         r"-not -size +1G -printf '%y\t%p\t%f\t%s\t%T@\n' 2>/dev/null"
     ]
@@ -192,7 +192,10 @@ def main():
         args.local_only = True  # default
 
     t0 = time.time()
-    conn = sqlite3.connect(DB_PATH)
+    # WAL : un seul écrivain à la fois sur une base très sollicitée,
+    # il faut attendre au lieu d'échouer sur "database is locked".
+    conn = sqlite3.connect(DB_PATH, timeout=120)
+    conn.execute("PRAGMA busy_timeout=120000")
     init_db(conn)
 
     total = 0

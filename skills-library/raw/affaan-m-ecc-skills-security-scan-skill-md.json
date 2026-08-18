@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-security-scan-skill-md",
+  "name": "security-scan",
+  "author": "affaan-m",
+  "description": "Scan your Claude Code configuration (.claude/ directory) for security vulnerabilities, misconfigurations, and injection risks using AgentShield. Checks CLAUDE.md, settings.json, MCP servers, hooks, and agent definitions.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/security-scan",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-security-scan",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

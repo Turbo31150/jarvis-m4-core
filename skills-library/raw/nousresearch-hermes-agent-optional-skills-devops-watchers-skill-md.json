@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-optional-skills-devops-watchers-skill-md",
+  "name": "watchers",
+  "author": "NousResearch",
+  "description": "Poll RSS, JSON APIs, and GitHub with watermark dedup.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/optional-skills/devops/watchers",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/optional-skills-devops-watchers",
+  "stars": 225204,
+  "updatedAt": 1781129411
+}

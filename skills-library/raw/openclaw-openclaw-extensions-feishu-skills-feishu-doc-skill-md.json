@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-extensions-feishu-skills-feishu-doc-skill-md",
+  "name": "feishu-doc",
+  "author": "openclaw",
+  "description": "Feishu document read/write workflows. Activate when the user mentions Feishu docs, cloud docs, or docx links.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/extensions/feishu/skills/feishu-doc",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/extensions-feishu-skills-feishu-doc",
+  "stars": 385119,
+  "updatedAt": 1785803460
+}

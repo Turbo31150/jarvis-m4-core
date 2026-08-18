@@ -1,0 +1,11 @@
+{
+  "id": "angular-angular-agent-skills-adev-writing-guide-skill-md",
+  "name": "adev-writing-guide",
+  "author": "angular",
+  "description": "Comprehensive writing guide for Angular documentation (adev). Covers Google Technical Writing standards, Angular-specific markdown extensions, code blocks, and components. You MUST use this skill any time you plan to create, edit, or review documentation files in `adev/` or `adev/src/content`.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/angular/angular/tree/main/.agent/skills/adev-writing-guide",
+  "skillUrl": "https://skillsmp.com/creators/angular/angular/agent-skills-adev-writing-guide",
+  "stars": 100700,
+  "updatedAt": 1777328944
+}

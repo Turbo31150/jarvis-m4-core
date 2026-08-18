@@ -1,0 +1,11 @@
+{
+  "id": "ant-design-ant-design-public-well-known-agent-skills-antd-component-lookup-skill-md",
+  "name": "antd-component-lookup",
+  "author": "ant-design",
+  "description": "Look up Ant Design React component documentation, props, and usage examples. Use when working with Ant Design (antd) components and needing API details, default values, or usage patterns.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ant-design/ant-design/tree/master/public/.well-known/agent-skills/antd-component-lookup",
+  "skillUrl": "https://skillsmp.com/creators/ant-design/ant-design/public-well-known-agent-skills-antd-component-lookup",
+  "stars": 98925,
+  "updatedAt": 1778638843
+}

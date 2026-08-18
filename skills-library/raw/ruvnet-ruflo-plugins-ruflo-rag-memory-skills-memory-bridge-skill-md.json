@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruflo-plugins-ruflo-rag-memory-skills-memory-bridge-skill-md",
+  "name": "memory-bridge",
+  "author": "ruvnet",
+  "description": "Bridge Claude Code auto-memory into AgentDB with ONNX embeddings, deduplicate, and enable unified cross-project search",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/ruflo/tree/main/plugins/ruflo-rag-memory/skills/memory-bridge",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruflo/plugins-ruflo-rag-memory-skills-memory-bridge",
+  "stars": 66991,
+  "updatedAt": 1784257589
+}

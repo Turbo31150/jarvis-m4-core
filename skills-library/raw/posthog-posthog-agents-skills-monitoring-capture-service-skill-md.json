@@ -1,0 +1,11 @@
+{
+  "id": "posthog-posthog-agents-skills-monitoring-capture-service-skill-md",
+  "name": "monitoring-capture-service",
+  "author": "PostHog",
+  "description": "Guide for using the Grafana MCP to monitor and diagnose the capture service (rust/capture) in production. Use when investigating latency, event loss, Kafka backpressure, Redis issues, rate limiting, Envoy proxy issues, or any capture health question. Covers prod-us and prod-eu environments.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/PostHog/posthog/tree/master/.agents/skills/monitoring-capture-service",
+  "skillUrl": "https://skillsmp.com/creators/posthog/posthog/agents-skills-monitoring-capture-service",
+  "stars": 37496,
+  "updatedAt": 1785444387
+}

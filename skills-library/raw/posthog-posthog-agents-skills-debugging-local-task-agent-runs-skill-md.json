@@ -1,0 +1,11 @@
+{
+  "id": "posthog-posthog-agents-skills-debugging-local-task-agent-runs-skill-md",
+  "name": "debugging-local-task-agent-runs",
+  "author": "PostHog",
+  "description": "Debug the output of local PostHog task runs \u2014 the wizard cloud-run path that executes inside a Docker sandbox under the local Temporal `process-task` workflow (the wizard that integrates PostHog, then the coding agent that commits and opens the PR). Use when a local run looks stuck, failed, or silent, or when you need to read the wizard or agent logs. Covers the `.env.local` keys + `ai_features` intent required for cloud runs locally, finding the task UUID (docker ps, temporal CLI, Temporal UI at localhost:8081), tailing live logs inside the sandbox container (`/tmp/posthog-wizard.log`, `/tmp/agent-server.log`), and reading the durable per-run console log from object storage after the sandbox is torn down. Trigger terms: task-sandbox, run_wizard, agent-server, process-task, SANDBOX_PROVIDER, LLM_GATEWAY, cloud_run, posthog-wizard.log.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/PostHog/posthog/tree/master/.agents/skills/debugging-local-task-agent-runs",
+  "skillUrl": "https://skillsmp.com/creators/posthog/posthog/agents-skills-debugging-local-task-agent-runs",
+  "stars": 37496,
+  "updatedAt": 1784142613
+}

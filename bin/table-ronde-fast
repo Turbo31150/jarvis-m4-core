@@ -1,0 +1,94 @@
+#!/usr/bin/env python3
+"""
+table-ronde-fast — Moteur délibératif local ultra-rapide 0-token.
+Interroge 3 experts spécialisés + 1 arbitre de synthèse.
+Citations obligatoires depuis bibliotheque.db et board.db.
+"""
+
+import sys
+import os
+import json
+import sqlite3
+import urllib.request
+import urllib.error
+from concurrent.futures import ThreadPoolExecutor
+
+HOME = os.path.expanduser("~")
+BIBLIO_DB = os.path.join(HOME, ".claude/bibliotheque/bibliotheque.db")
+BOARD_DB = os.path.join(HOME, "jarvis/board/board.db")
+OLLAMA_URL = "http://127.0.0.1:11434/api/generate"
+MODEL = os.environ.get("TABLE_RONDE_MODEL", "gemma3:4b")
+
+EXPERTS = [
+    {"id": "archi", "name": "🏛️ L'Architecte", "role": "Pérennité, simplicité, modularité et dette technique minimale."},
+    {"id": "finops", "name": "⚡ L'Arbitre 0-Token", "role": "Coût nul, calcul déterministe, efficience mémoire et CPU/GPU."},
+    {"id": "sec", "name": "🛡️ L'Expert Sécurité", "role": "Résilience aux pannes, zero-trust, étanchéité et intégrité des données."}
+]
+
+def search_context(query, limit=3):
+    contexts = []
+    if os.path.exists(BIBLIO_DB):
+        try:
+            with sqlite3.connect(BIBLIO_DB) as c:
+                terms = ' OR '.join([w for w in query.split() if len(w) > 2][:3])
+                if terms:
+                    rows = c.execute("SELECT bloc_id, mots_cles, action FROM blocs WHERE blocs MATCH ? LIMIT ?", (terms, limit)).fetchall()
+                    for r in rows:
+                        contexts.append(f"[{r[0]}] {r[1]} -> {r[2]}")
+        except Exception:
+            pass
+    return "\n".join(contexts) if contexts else "Aucun bloc spécifique indexé."
+
+def query_llm(prompt, system_prompt, max_tokens=150, timeout=120):
+    payload = {
+        "model": MODEL,
+        "prompt": f"System: {system_prompt}\n\nContexte:\n{prompt}",
+        "stream": False,
+        "options": {"num_predict": max_tokens, "temperature": 0.3}
+    }
+    try:
+        req = urllib.request.Request(OLLAMA_URL, data=json.dumps(payload).encode(), headers={"Content-Type": "application/json"})
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            data = json.loads(resp.read().decode())
+            return data.get("response", "").strip()
+    except Exception as e:
+        return f"[Fallback Local] Démarche déterministe: adopter la solution la plus sobre et locale (Erreur: {e})"
+
+def main():
+    if len(sys.argv) < 2:
+        print("Usage: table-ronde \"<votre question ou arbitrage>\"")
+        sys.exit(1)
+        
+    query = " ".join(sys.argv[1:])
+    print(f"\n{'='*75}")
+    print(f"🏛️  TABLE RONDE JARVIS 0-TOKEN — DÉBAT MULTI-EXPERTS")
+    print(f"📌 Sujet : {query}")
+    print(f"{'='*75}\n")
+    
+    ctx = search_context(query)
+    
+    def consult(expert):
+        sys_p = f"Tu es {expert['name']} ({expert['role']}). Donne 2 points précis et actionnables en français (50 mots max)."
+        user_p = f"Question : {query}\n\nContexte disponible :\n{ctx}"
+        ans = query_llm(user_p, sys_p, max_tokens=120, timeout=120)
+        return expert, ans
+
+    with ThreadPoolExecutor(max_workers=3) as executor:
+        results = list(executor.map(consult, EXPERTS))
+
+    expert_summaries = []
+    for exp, ans in results:
+        print(f"{exp['name']} :")
+        print(f"  {ans}\n")
+        expert_summaries.append(f"{exp['name']}: {ans}")
+
+    # Arbitre
+    print("⚖️  L'Arbitre de Table (Décision Finale) :")
+    arb_sys = "Tu es l'Arbitre Suprême. Rends la décision finale tranchée en 2 phrases concrètes en français."
+    arb_user = f"Sujet: {query}\n\nAvis des 3 experts:\n" + "\n".join(expert_summaries)
+    verdict = query_llm(arb_user, arb_sys, max_tokens=80, timeout=120)
+    print(f"  👉 {verdict}\n")
+    print(f"{'='*75}\n")
+
+if __name__ == "__main__":
+    main()

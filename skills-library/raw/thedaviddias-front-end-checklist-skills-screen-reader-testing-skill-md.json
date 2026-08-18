@@ -1,0 +1,11 @@
+{
+  "id": "thedaviddias-front-end-checklist-skills-screen-reader-testing-skill-md",
+  "name": "screen-reader-testing",
+  "author": "thedaviddias",
+  "description": "Use when performing accessibility audits of web pages, components, or full user flows. Applies to all web content accessed via assistive technology. Particularly important for custom JavaScript widgets, single-page applications, dynamically updated content, modal dialogs, and forms with validation.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedaviddias/Front-End-Checklist/tree/main/skills/screen-reader-testing",
+  "skillUrl": "https://skillsmp.com/creators/thedaviddias/front-end-checklist/skills-screen-reader-testing",
+  "stars": 73416,
+  "updatedAt": 1780091646
+}

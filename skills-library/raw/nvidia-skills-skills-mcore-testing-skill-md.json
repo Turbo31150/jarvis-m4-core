@@ -1,0 +1,11 @@
+{
+  "id": "nvidia-skills-skills-mcore-testing-skill-md",
+  "name": "mcore-testing",
+  "author": "NVIDIA",
+  "description": "Test system for Megatron-LM. Covers test layout, recipe YAML structure, adding and running unit and functional tests, golden values, marker filters, and CI parity.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NVIDIA/skills/tree/main/skills/mcore-testing",
+  "skillUrl": "https://skillsmp.com/creators/nvidia/skills/skills-mcore-testing",
+  "stars": 2787,
+  "updatedAt": 1780095890
+}

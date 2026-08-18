@@ -1,0 +1,149 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Guide d&#x27;installation &amp; mise en place — jarvis-domino-engine</title><style>
+body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;max-width:820px;
+margin:0 auto;padding:40px 28px;color:#1a1a2e;line-height:1.6}
+h1{font-size:2em;border-bottom:3px solid #4361ee;padding-bottom:.3em;color:#3a0ca3}
+h2{color:#3a0ca3;border-bottom:1px solid #e0e0f0;padding-bottom:.2em;margin-top:1.6em}
+h3{color:#4361ee}code{background:#f2f2fa;padding:2px 5px;border-radius:4px;font-size:.9em}
+pre{background:#1a1a2e;color:#e0e0f0;padding:14px;border-radius:8px;overflow-x:auto}
+pre code{background:none;color:inherit}table{border-collapse:collapse;width:100%}
+td,th{border:1px solid #ddd;padding:8px}th{background:#4361ee;color:#fff}
+blockquote{border-left:4px solid #4361ee;margin:0;padding-left:16px;color:#555}
+.cover{text-align:center;padding:30px 0 10px;border-bottom:2px dashed #4361ee;margin-bottom:24px}
+.cover .badge{display:inline-block;background:#3a0ca3;color:#fff;padding:6px 16px;
+border-radius:20px;font-size:.85em;letter-spacing:1px}
+.sep{margin:40px 0;border:none;border-top:2px dashed #ccd}
+</style></head><body>
+<div class="cover"><span class="badge">GUIDE D'INSTALLATION</span>
+<h1 style="border:none">jarvis-domino-engine</h1>
+<p>Présentation · Installation / mise en place · Usage</p></div>
+<h1>Présentation</h1>
+<h1 id="fiche-de-vente-alkymia-flow-89">Fiche de vente — AlkymIA Flow (89 €)</h1>
+<blockquote>
+<p>Fiche reprise de Notion (« Fiche de vente — AlkymIA Flow »). Les
+[PLACEHOLDER] sont à compléter avant mise en ligne.</p>
+</blockquote>
+<h2 id="accroche">Accroche</h2>
+<p>835 pipelines d'automatisation déjà compilés, qui tournent chez vous, sans
+cloud, sans abonnement — et un humain au bout du fil quand ça coince.</p>
+<h2 id="description-prete-a-coller-sur-gumroad">Description (prête à coller sur Gumroad)</h2>
+<p>Vous perdez des heures sur des tâches répétitives — trier, relancer, générer,
+publier, sauvegarder — et les outils no-code du marché vous enferment dans des
+abonnements mensuels tout en aspirant vos données vers leurs serveurs. Pour
+beaucoup de métiers (santé, éducation, juridique, indépendants), envoyer ces
+données dans le cloud est inacceptable.</p>
+<p>AlkymIA Flow est un moteur d'automatisation qui fonctionne entièrement
+sur votre machine. Un « domino » est une brique d'action prête à l'emploi ; une
+chaîne de dominos forme un « pipeline » qui exécute une tâche complète. Livré
+avec 835 pipelines et 5256 dominos compilés. Vous branchez, vous lancez, ça
+tourne.</p>
+<h2 id="ce-que-vous-recevez">Ce que vous recevez</h2>
+<ul>
+<li>Le moteur complet (exécution 100 % locale)</li>
+<li>835 pipelines prêts à l'emploi + 5256 dominos compilés</li>
+<li>Bibliothèque organisée par domaine, interrogeable</li>
+<li>Guide d'installation + documentation d'usage</li>
+<li>Modèle de création de vos propres dominos</li>
+<li>Mises à jour de la bibliothèque incluses</li>
+<li>Dépannage humain au téléphone (option d'accompagnement)</li>
+</ul>
+<h2 id="prix">Prix</h2>
+<p><strong>89 € — paiement unique, pas d'abonnement.</strong>
+Upsells : Pack Démarrage accompagné [PLACEHOLDER +49 €] · Support téléphonique
+prioritaire [PLACEHOLDER +99 €].</p>
+<h2 id="garantie">Garantie</h2>
+<p>[PLACEHOLDER — ex. satisfait ou remboursé 14 jours]</p>
+<h2 id="cible">Cible</h2>
+<p>Indépendants, TPE/PME, professionnels manipulant des données sensibles, toute
+personne technique (ou accompagnée) qui veut automatiser sans SaaS.</p>
+<hr class="sep"><h1>Prise en main</h1>
+<h1 id="alkymia-flow">AlkymIA Flow</h1>
+<p>Moteur d'automatisation 100 % local. Un « domino » est une brique d'action prête
+à l'emploi ; une chaîne de dominos forme un « pipeline » qui exécute une tâche
+complète de bout en bout. Aucune donnée ne quitte votre machine.</p>
+<h2 id="contenu-du-dossier">Contenu du dossier</h2>
+<pre><code>bin/dominos          # runner unifié (liste, recherche, dry-run, exécution)
+exemples/*.sh        # exemples de séries prêtes à l'emploi (a11y, admin…)
+README.md
+FICHE-VENTE.md
+LICENSE.txt
+</code></pre>
+<blockquote>
+<p>Note : le moteur complet s'appuie sur deux bibliothèques (dominos compilés +
+séries). Ce dossier livre le runner et des exemples représentatifs. La
+bibliothèque complète (835 pipelines / 5256 dominos) est fournie séparément
+lors du packaging final.</p>
+</blockquote>
+<h2 id="installation">Installation</h2>
+<ol>
+<li>Prérequis : <code>bash</code> (Linux/macOS), Python 3.11+ pour la recompilation optionnelle.</li>
+<li>Copiez le dossier où vous voulez, rendez le runner exécutable :
+   <code>bash
+   chmod +x bin/dominos</code></li>
+<li>(Optionnel) Pointez vos bibliothèques via variables d'environnement :
+   <code>bash
+   export DOMINO_DIR="$HOME/dominos-compiled/dominos"   # dominos compilés
+   export DOMINO_SERIES="$HOME/series"                   # séries prêtes</code></li>
+</ol>
+<h2 id="usage">Usage</h2>
+<pre><code class="language-bash">bin/dominos                 # liste tout (compilés + séries)
+bin/dominos search &lt;mot&gt;    # recherche par nom
+bin/dominos &lt;nom&gt;           # DRY-RUN / aperçu (n'exécute rien)
+bin/dominos &lt;nom&gt; --run     # exécute réellement
+</code></pre>
+<p>Les dominos compilés tournent en DRY-RUN par défaut ; les actions destructrices
+demandent confirmation. Les séries sont affichées en aperçu avant toute
+exécution : rien ne part sans <code>--run</code>.</p>
+<h2 id="securite">Sécurité</h2>
+<p>Exécution locale uniquement. Aucun secret n'est stocké dans le runner ; les
+chemins sont paramétrables par variables d'environnement.</p>
+<hr class="sep"><h1>Dossier complet — installation & usage</h1>
+<h1 id="dossier-complet-alkymia-flow">DOSSIER COMPLET — AlkymIA Flow</h1>
+<blockquote>
+<p>Dossier self-contained. Source : Notion (Naming AlkymIA, PRIX FINAUX, Présentations produits, Preuves &amp; crédibilité). Tout reste local, aucun secret dans ce dossier.</p>
+</blockquote>
+<h2 id="nom-commercial-tagline">Nom commercial &amp; tagline</h2>
+<p><strong>AlkymIA Flow</strong> — « Vos tâches répétitives tournent toutes seules, en local. »
+Gamme : La Fabrique AlkymIA. (Nom technique interne : jarvis-domino-engine — jamais mis en avant côté client.)</p>
+<h2 id="cible">Cible</h2>
+<p>Indépendants, TPE, enseignants et petites équipes qui veulent automatiser des tâches répétitives sans dépendre d'un cloud ni d'un développeur — y compris les métiers manipulant des données sensibles (santé, éducation, juridique).</p>
+<h2 id="probleme">Problème</h2>
+<p>Les outils d'automatisation grand public envoient vos données chez des tiers, se facturent au mois et demandent une expertise technique. Pour beaucoup de métiers, envoyer ces données dans le cloud est inacceptable.</p>
+<h2 id="promesse">Promesse</h2>
+<p>Un moteur d'automatisations qui tourne CHEZ VOUS, installé et prêt, pour enchaîner vos tâches sans écrire une ligne de code — et sans qu'aucune donnée ne sorte de votre machine. Un « domino » est une brique d'action prête à l'emploi ; une chaîne de dominos forme un « pipeline » qui exécute une tâche complète.</p>
+<h2 id="ce-qui-est-inclus-fichiers-reels-de-ce-dossier">Ce qui est inclus (fichiers réels de ce dossier)</h2>
+<ul>
+<li><code>bin/dominos</code> — runner unifié (liste, recherche, dry-run, exécution)</li>
+<li><code>exemples/*.sh</code> — exemples de séries prêtes à l'emploi (a11y, admin…)</li>
+<li><code>landing.html</code> — page de vente</li>
+<li><code>README.md</code> — installation + usage</li>
+<li><code>FICHE-VENTE.md</code> — argumentaire prêt à coller (Gumroad)</li>
+<li><code>LICENSE.txt</code> — licence propriétaire</li>
+<li>Bibliothèque complète (835 pipelines / 5256 dominos compilés) : fournie séparément au packaging final.</li>
+</ul>
+<h2 id="differenciateur">Différenciateur</h2>
+<p>Souveraineté locale (tout reste chez vous, zéro cloud, RGPD &amp; EU AI Act par conception) + un humain vraiment joignable au téléphone pour vous débloquer.</p>
+<h2 id="preuves-reelles-honnetes">Preuves réelles (honnêtes)</h2>
+<ul>
+<li>Volume de production : plus de 160 dépôts de code, infra locale souveraine — capacité de production démontrée. [source : extraction Turbo31150]</li>
+<li>Portefeuille de systèmes multi-agents (hackathons Milan, Auth0, Splunk, santé, cyber) : expertise d'orchestration prouvée sur plusieurs domaines (participations, pas « gagnant »).</li>
+<li>[À CONFIRMER] Témoignage client nominatif et STAT d'usage (temps gagné / nb d'automatisations) — aucun verbatim client disponible à ce jour.</li>
+</ul>
+<h2 id="offre-prix-cta">Offre, prix &amp; CTA</h2>
+<p><strong>89 € — paiement unique, sans abonnement</strong> (A/B testé à 79 €). Aligné marché (confirmé).
+Upsells possibles : Pack Démarrage accompagné [À CONFIRMER +49 €] · Support téléphonique prioritaire [À CONFIRMER +99 €].
+Garantie : [À CONFIRMER — ex. satisfait ou remboursé 14 jours].
+CTA : « J'installe AlkymIA Flow chez moi ».
+Canal : Gumroad.</p>
+<h2 id="landing">Landing</h2>
+<p><code>./landing.html</code> (présente dans ce dossier).</p>
+<h2 id="placeholders-honnetes-restants">Placeholders honnêtes restants</h2>
+<ul>
+<li>Témoignage + statistiques d'usage réelles à recueillir.</li>
+<li>Montant/contenu des upsells et garantie à trancher.</li>
+<li>Contact support dans <code>LICENSE.txt</code>.</li>
+</ul>
+<hr class="sep"><p style="text-align:center;color:#888;font-size:.85em">
+Document généré pour livraison (zip / systeme.io). JARVIS OS — livrables.</p>
+</body></html>

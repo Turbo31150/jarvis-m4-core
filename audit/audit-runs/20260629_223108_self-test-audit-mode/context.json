@@ -1,0 +1,18 @@
+{
+  "topic": "self test audit mode",
+  "client": "",
+  "url": "",
+  "profile": "tech",
+  "mode": "fast",
+  "target": "/home/pamerys/jarvis/audit",
+  "agents": [
+    "tech"
+  ],
+  "waves": [
+    "local"
+  ],
+  "max_tokens": 800,
+  "web": false,
+  "started": "2026-06-29T22:31:08",
+  "outdir": "/home/pamerys/jarvis/audit/audit-runs/20260629_223108_self-test-audit-mode"
+}

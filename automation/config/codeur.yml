@@ -1,0 +1,55 @@
+# Codeur.com Automation Configuration
+codeur:
+  enabled: true
+  schedule:
+    - hour: 10
+      minute: 0
+    - hour: 16
+      minute: 0
+  
+  # Message handling
+  messages:
+    check_inbox: true
+    auto_reply_enabled: true
+    reply_templates_dir: "/home/turbo/automation/templates/codeur_replies"
+    response_time_target: 15  # minutes
+    
+  proposals:
+    auto_send_enabled: false  # Safety first
+    submit_when_ready: true
+    max_proposals_per_day: 5
+    min_proposal_quality_score: 0.8
+  
+  # Keyword detection for auto-reply
+  auto_reply_triggers:
+    - keyword: "price|tarif|coût"
+      template: "pricing_response"
+    - keyword: "timeline|délai|planning"
+      template: "timeline_response"
+    - keyword: "technical|technical stack|tech"
+      template: "technical_response"
+  
+  # New opportunity thresholds
+  opportunity_detection:
+    budget_threshold: 500  # EUR
+    skill_match_threshold: 0.75
+    alert_on_match: true
+  
+  # Alerts
+  alerts:
+    telegram_enabled: true
+    on_new_message: true
+    on_new_proposal_match: true
+    daily_summary: true
+    summary_time: "18:00"
+
+logging:
+  level: "INFO"
+  file: "/home/turbo/automation/logs/codeur.log"
+  max_size_mb: 10
+  backup_count: 5
+
+retry:
+  max_retries: 3
+  delay_seconds: 10
+  backoff_multiplier: 1.5

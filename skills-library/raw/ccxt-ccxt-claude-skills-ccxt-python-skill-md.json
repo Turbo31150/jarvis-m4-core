@@ -1,0 +1,11 @@
+{
+  "id": "ccxt-ccxt-claude-skills-ccxt-python-skill-md",
+  "name": "ccxt-python",
+  "author": "ccxt",
+  "description": "CCXT cryptocurrency exchange library for Python developers. Covers both REST API (standard) and WebSocket API (real-time). Helps install CCXT, connect to exchanges, fetch market data, place orders, stream live tickers/orderbooks, handle authentication, and manage errors in Python. Use when working with crypto exchanges in Python projects, trading bots, data analysis, or portfolio management. Supports both sync and async (asyncio) usage.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ccxt/ccxt/tree/master/.claude/skills/ccxt-python",
+  "skillUrl": "https://skillsmp.com/creators/ccxt/ccxt/claude-skills-ccxt-python",
+  "stars": 43527,
+  "updatedAt": 1784103584
+}

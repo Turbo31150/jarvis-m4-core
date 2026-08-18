@@ -25,7 +25,7 @@
 
 | Service | État | Problème |
 |---|---|---|
-| jarvis-ai-proxy | ACTIF | OK — tourne depuis /home/turbo/IA/Core/jarvis/scripts/ |
+| jarvis-ai-proxy | ACTIF | OK — tourne depuis /home/pamerys/IA/Core/jarvis/scripts/ |
 | jarvis-chrome-cdp | ACTIF | OK — port 9222 |
 | jarvis-ia-web-mcp | ACTIF | OK |
 | jarvis-master | ACTIF (en boucle) | SIGKILL toutes les 30-45s — fichier ExecStart INTROUVABLE |
@@ -54,10 +54,10 @@
 
 | Chemin | Rôle | Lien avec git |
 |---|---|---|
-| /home/turbo/jarvis/ | Scripts runtime (lm-ask.sh, gemini-ask.sh, monitoring) | Non versionné |
-| /home/turbo/IA/Core/jarvis/ | App séparée (orchestrator, score, ai-proxy, browser) | Non versionné |
-| /home/turbo/.jarvis/ | Runtime node (etoile.db, session-start.sh) | Non versionné |
-| /home/turbo/.openclaw/ | Workspace OpenClaw | Propre git |
+| /home/pamerys/jarvis/ | Scripts runtime (lm-ask.sh, gemini-ask.sh, monitoring) | Non versionné |
+| /home/pamerys/IA/Core/jarvis/ | App séparée (orchestrator, score, ai-proxy, browser) | Non versionné |
+| /home/pamerys/.jarvis/ | Runtime node (etoile.db, session-start.sh) | Non versionné |
+| /home/pamerys/.openclaw/ | Workspace OpenClaw | Propre git |
 
 ---
 
@@ -69,8 +69,8 @@
 - **Effet** : Restart loop infini, SIGKILL toutes les 30s depuis le boot
 
 ### D2 — CRITIQUE : jarvis-telegram cherche canvas/ dans mauvais répertoire
-- **Attendu** : `/home/turbo/jarvis-linux/infra/interfaces/canvas/telegram-bot.js`
-- **Existant** : `/home/turbo/jarvis-linux/canvas/` contient `data/` uniquement (pas de .js)
+- **Attendu** : `/home/pamerys/jarvis-linux/infra/interfaces/canvas/telegram-bot.js`
+- **Existant** : `/home/pamerys/jarvis-linux/canvas/` contient `data/` uniquement (pas de .js)
 - **Effet** : Restart loop #94 — Telegram bot complètement mort
 
 ### D3 — CRITIQUE : jarvis-ws module python_ws inexistant
@@ -93,7 +93,7 @@
 - Exemples non déployés : jarvis-api, jarvis-mcp, jarvis-voice, jarvis-vector, jarvis-rag-indexer
 
 ### D7 — FAIBLE : Deux espaces de travail parallèles non connectés
-- `/home/turbo/IA/Core/jarvis/` est un projet autonome (son propre orchestrator.db, CLAUDE.md, agents)
+- `/home/pamerys/IA/Core/jarvis/` est un projet autonome (son propre orchestrator.db, CLAUDE.md, agents)
 - `Workspaces/jarvis-linux/` est le repo principal
 - Les services pointent vers les deux sans cohérence (ai-proxy → IA/Core, master → Workspaces)
 
@@ -120,7 +120,7 @@ sudo systemctl daemon-reload && sudo systemctl restart jarvis-master
 
 ### P3 — Corriger CDP port dans orchestrator (15 min)
 ```bash
-grep -r "9108" /home/turbo/IA/Core/jarvis/orchestrator/ 
+grep -r "9108" /home/pamerys/IA/Core/jarvis/orchestrator/ 
 # Remplacer 9108 → 9222 dans les fichiers concernés
 sudo systemctl restart jarvis-orchestrator
 ```
@@ -133,7 +133,7 @@ sudo systemctl restart jarvis-orchestrator
 ### P5 — Unifier IA/Core/jarvis et Workspaces/jarvis-linux (demi-journée)
 - Décider d'une source unique pour les scripts (actuellement split entre les deux)
 - Déplacer ai-proxy-server.js vers le repo principal ou créer symlink
-- Versionner /home/turbo/IA/Core/jarvis/ dans un sous-module ou repo dédié
+- Versionner /home/pamerys/IA/Core/jarvis/ dans un sous-module ou repo dédié
 
 ---
 
@@ -146,5 +146,5 @@ sudo systemctl restart jarvis-orchestrator
 | jarvis-ws.service | python_ws.server | Module jamais créé ou supprimé |
 | health-patrol.service | scripts/health_patrol.py | Fichier jamais migré |
 | jarvis-orchestrator | Chrome CDP :9222 | Hardcodé sur ancien port 9108 |
-| /home/turbo/jarvis/ (runtime) | git | Aucune — scripts critiques non versionnés |
-| /home/turbo/IA/Core/ | git | Aucune — composant autonome non versionné |
+| /home/pamerys/jarvis/ (runtime) | git | Aucune — scripts critiques non versionnés |
+| /home/pamerys/IA/Core/ | git | Aucune — composant autonome non versionné |

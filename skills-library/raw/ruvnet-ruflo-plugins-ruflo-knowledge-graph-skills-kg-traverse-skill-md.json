@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruflo-plugins-ruflo-knowledge-graph-skills-kg-traverse-skill-md",
+  "name": "kg-traverse",
+  "author": "ruvnet",
+  "description": "Pathfinder traversal of the knowledge graph starting from a seed entity",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/ruflo/tree/main/plugins/ruflo-knowledge-graph/skills/kg-traverse",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruflo/plugins-ruflo-knowledge-graph-skills-kg-traverse",
+  "stars": 66991,
+  "updatedAt": 1784257589
+}

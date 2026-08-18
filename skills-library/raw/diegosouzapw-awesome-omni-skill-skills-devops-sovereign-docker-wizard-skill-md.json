@@ -1,0 +1,11 @@
+{
+  "id": "diegosouzapw-awesome-omni-skill-skills-devops-sovereign-docker-wizard-skill-md",
+  "name": "sovereign-docker-wizard",
+  "author": "diegosouzapw",
+  "description": "Docker optimization expert. Analyzes Dockerfiles for security and performance, generates multi-stage builds, optimizes image size, creates docker-compose configs, and identifies container misconfigurations.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/diegosouzapw/awesome-omni-skill/tree/main/skills/devops/sovereign-docker-wizard",
+  "skillUrl": "https://skillsmp.com/creators/diegosouzapw/awesome-omni-skill/skills-devops-sovereign-docker-wizard",
+  "stars": 50,
+  "updatedAt": 1772251771
+}

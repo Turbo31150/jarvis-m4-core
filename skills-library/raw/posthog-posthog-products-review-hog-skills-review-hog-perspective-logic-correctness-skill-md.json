@@ -1,0 +1,11 @@
+{
+  "id": "posthog-posthog-products-review-hog-skills-review-hog-perspective-logic-correctness-skill-md",
+  "name": "review-hog-perspective-logic-correctness",
+  "author": "PostHog",
+  "description": "The Logic & Correctness review perspective for ReviewHog. Verifies that changed code does what it is supposed to do \u2014 business logic, edge cases, data transformations, and query / data-access correctness. Reports correctness issues only; security and performance are separate perspectives.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/PostHog/posthog/tree/master/products/review_hog/skills/review-hog-perspective-logic-correctness",
+  "skillUrl": "https://skillsmp.com/creators/posthog/posthog/products-review-hog-skills-review-hog-perspective-logic-correctness",
+  "stars": 37496,
+  "updatedAt": 1784014019
+}

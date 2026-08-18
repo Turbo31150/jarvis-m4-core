@@ -1,0 +1,11 @@
+{
+  "id": "kubesphere-kubesphere-skills-kubesphere-devops-jenkins-skill-md",
+  "name": "kubesphere-devops-jenkins",
+  "author": "kubesphere",
+  "description": "Use when configuring Jenkins in KubeSphere DevOps, including agent customization, LDAP/OIDC integration, build artifact retrieval, or troubleshooting Jenkins issues",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/kubesphere/kubesphere/tree/master/skills/kubesphere-devops-jenkins",
+  "skillUrl": "https://skillsmp.com/creators/kubesphere/kubesphere/skills-kubesphere-devops-jenkins",
+  "stars": 17017,
+  "updatedAt": 1774838084
+}

@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-es-skills-springboot-security-skill-md",
+  "name": "springboot-security",
+  "author": "affaan-m",
+  "description": "Buenas pr\u00e1cticas de Spring Security para autenticaci\u00f3n/autorizaci\u00f3n, validaci\u00f3n, CSRF, secretos, cabeceras, limitaci\u00f3n de velocidad y seguridad de dependencias en servicios Java Spring Boot.",
+  "contentLanguage": "es",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/es/skills/springboot-security",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-es-skills-springboot-security",
+  "stars": 237500,
+  "updatedAt": 1780810002
+}

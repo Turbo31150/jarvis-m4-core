@@ -1,0 +1,11 @@
+{
+  "id": "upayanghosh-claude-jarvis-skills-jarvis-skill-md",
+  "name": "jarvis",
+  "author": "UpayanGhosh",
+  "description": "Universal intent router. Takes any natural language request and routes it to\nthe highest-ROI skill automatically. One line of output explaining the choice,\nthen full execution. Use when the user says \"/jarvis I want to...\" or asks for\nanything without specifying a workflow.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/UpayanGhosh/claude-jarvis/tree/master/skills/jarvis",
+  "skillUrl": "https://skillsmp.com/creators/upayanghosh/claude-jarvis/skills-jarvis",
+  "stars": 17,
+  "updatedAt": 1775560089
+}

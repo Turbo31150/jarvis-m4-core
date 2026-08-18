@@ -1,0 +1,11 @@
+{
+  "id": "enthali-syspilot-syspilot-skills-syspilot-orchestration-subagent-skill-md",
+  "name": "syspilot-orchestration-subagent",
+  "author": "enthali",
+  "description": "Implements the SEND/RECEIVE/RESPOND orchestration vocabulary synchronously using runSubagent() only \u2014 no session-messaging infrastructure required. USE FOR: any agent that passes work to another agent (SEND), obtains its triggering instructions (RECEIVE), or returns results to the initiator (RESPOND). This is the graceful-degradation variant for workspaces without Jarvis. DO NOT USE FOR: general agent design, skill architecture rules, or spec writing.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/enthali/syspilot/tree/main/syspilot/skills/syspilot.orchestration-subagent",
+  "skillUrl": "https://skillsmp.com/creators/enthali/syspilot/syspilot-skills-syspilot-orchestration-subagent",
+  "stars": 13,
+  "updatedAt": 1783107446
+}

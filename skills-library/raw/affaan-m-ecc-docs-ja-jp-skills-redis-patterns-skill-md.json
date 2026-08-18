@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-ja-jp-skills-redis-patterns-skill-md",
+  "name": "redis-patterns",
+  "author": "affaan-m",
+  "description": "Redis\u30c7\u30fc\u30bf\u69cb\u9020\u30d1\u30bf\u30fc\u30f3\u3001\u30ad\u30e3\u30c3\u30b7\u30f3\u30b0\u6226\u7565\u3001\u5206\u6563\u30ed\u30c3\u30af\u3001\u30ec\u30fc\u30c8\u5236\u9650\u3001Pub/Sub\u3001\u672c\u756a\u30a2\u30d7\u30ea\u30b1\u30fc\u30b7\u30e7\u30f3\u7528\u30b3\u30cd\u30af\u30b7\u30e7\u30f3\u7ba1\u7406\u3002",
+  "contentLanguage": "ja",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/ja-JP/skills/redis-patterns",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-ja-jp-skills-redis-patterns",
+  "stars": 237500,
+  "updatedAt": 1778999500
+}

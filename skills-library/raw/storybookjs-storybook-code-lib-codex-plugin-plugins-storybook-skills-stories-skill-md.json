@@ -1,0 +1,11 @@
+{
+  "id": "storybookjs-storybook-code-lib-codex-plugin-plugins-storybook-skills-stories-skill-md",
+  "name": "stories",
+  "author": "storybookjs",
+  "description": "Invoke FIRST, before creating, editing, or deleting components, stories, styles, CSS, themes, colors, or design tokens \u2014 anything that changes how the UI looks, no exceptions. Also for starting or previewing Storybook to verify UI, requests to show, browse, or list components, stories, or UI states, and docs, props, or usage lookups.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/storybookjs/storybook/tree/next/code/lib/codex-plugin/plugins/storybook/skills/stories",
+  "skillUrl": "https://skillsmp.com/creators/storybookjs/storybook/code-lib-codex-plugin-plugins-storybook-skills-stories",
+  "stars": 90755,
+  "updatedAt": 1783510326
+}

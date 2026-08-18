@@ -1,0 +1,11 @@
+{
+  "id": "sickn33-antigravity-awesome-skills-skills-sql-sentinel-skill-md",
+  "name": "sql-sentinel",
+  "author": "sickn33",
+  "description": "Audit SQL for the cost & performance anti-patterns that burn warehouse credits. Scores warehouse health 0-100 and outputs a prioritized cost-reduction plan for BigQuery, Snowflake, Redshift, and Postgres.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/sickn33/antigravity-awesome-skills/tree/main/skills/sql-sentinel",
+  "skillUrl": "https://skillsmp.com/creators/sickn33/antigravity-awesome-skills/skills-sql-sentinel",
+  "stars": 42129,
+  "updatedAt": 1782546260
+}

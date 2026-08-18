@@ -1,0 +1,107 @@
+#!/usr/bin/env python3
+"""
+jarvis-status — Tableau de bord CLI ultra-rapide de l'état système JARVIS OS.
+Affiche l'état des ports, cluster M1/M4, bases de données, watchdog et bibliothèques.
+"""
+
+import os
+import sys
+import sqlite3
+import subprocess
+import json
+import urllib.request
+from datetime import datetime
+
+G = "\033[92m"
+Y = "\033[93m"
+R = "\033[91m"
+B = "\033[94m"
+C = "\033[96m"
+BOLD = "\033[1m"
+RESET = "\033[0m"
+
+def check_port(port):
+    try:
+        r = subprocess.run(f"ss -tlnp | grep ':{port} '", shell=True, capture_output=True, text=True)
+        return len(r.stdout.strip()) > 0
+    except Exception:
+        return False
+
+def check_proc(name):
+    try:
+        r = subprocess.run(f"pgrep -f '{name}'", shell=True, capture_output=True, text=True)
+        return len(r.stdout.strip()) > 0
+    except Exception:
+        return False
+
+def get_db_stats(path):
+    if not os.path.exists(path):
+        return "Absent"
+    try:
+        size_mb = os.path.getsize(path) / (1024 * 1024)
+        return f"{size_mb:.1f} Mo"
+    except Exception:
+        return "Erreur"
+
+def get_biblio_count():
+    db = os.path.expanduser("~/.claude/bibliotheque/bibliotheque.db")
+    if os.path.exists(db):
+        try:
+            with sqlite3.connect(db) as c:
+                return f"{c.execute('SELECT COUNT(*) FROM blocs').fetchone()[0]:,}"
+        except Exception:
+            pass
+    return "?"
+
+def main():
+    print(f"\n{BOLD}{C}==========================================================================={RESET}")
+    print(f"{BOLD}{C}🚀  JARVIS OMEGA OS — TABLEAU DE BORD TEMPS RÉEL (0-TOKEN){RESET}")
+    print(f"{BOLD}{C}    Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}  ·  Hôte: pamerys (M4){RESET}")
+    print(f"{BOLD}{C}==========================================================================={RESET}\n")
+
+    # 1. PORTS CRITIQUES
+    print(f"{BOLD}📡 SERVICES & PORTS RÉSEAU :{RESET}")
+    ports = [
+        (11434, "Ollama Local (qwen2.5 / gemma3)", "Inférence rapide"),
+        (9742, "Whisper Bridge (Vocal)", "Transcription audio temps réel"),
+        (9743, "WhisperFlow Server", "Moteur ASR continu"),
+        (18800, "Chat Proxy (Telegram & Hub)", "Passerelle messagerie LLM"),
+        (8766, "Board Server (Table Ronde)", "API délibérative REST"),
+        (8901, "MCP Server (FastAPI Tools)", "Hub protocoles agents"),
+        (5678, "n8n Automation Engine", "Workflows & déclencheurs"),
+        (8420, "Cluster Monitor", "Surveillance GPU & ressources")
+    ]
+    for port, name, role in ports:
+        up = check_port(port)
+        status = f"{G}● ACTIF {RESET}" if up else f"{R}○ INACTIF{RESET}"
+        print(f"  {status}  {BOLD}:{port:<6}{RESET} {name:<32} {C}({role}){RESET}")
+
+    # 2. DAEMONS & WATCHDOG
+    print(f"\n{BOLD}🛡️  DAEMONS & AUTO-HEALING :{RESET}")
+    daemons = [
+        ("jarvis-watchdog-resilient", "Watchdog Auto-Healing H24"),
+        ("biblio_filler.*loop", "Biblio Filler Daemon (0-Token)"),
+        ("jarvis-router", "Multi-Agent Router"),
+        ("gpu_guardian", "GPU Guardian & VRAM Auto-Heal")
+    ]
+    for pattern, name in daemons:
+        running = check_proc(pattern)
+        status = f"{G}● EN COURS{RESET}" if running else f"{R}○ ARRÊTÉ  {RESET}"
+        print(f"  {status}  {name}")
+
+    # 3. BASES DE DONNÉES & MÉMOIRE
+    print(f"\n{BOLD}💾 STOCKAGE & BASES SQLITE :{RESET}")
+    home = os.path.expanduser("~")
+    dbs = [
+        (os.path.join(home, "jarvis/jarvis_master.db"), "jarvis_master.db (Base Maître)"),
+        (os.path.join(home, "jarvis/board/board.db"), "board.db (Conseil d'Experts)"),
+        (os.path.join(home, ".claude/bibliotheque/bibliotheque.db"), f"bibliotheque.db ({get_biblio_count()} blocs)")
+    ]
+    for path, label in dbs:
+        sz = get_db_stats(path)
+        print(f"  📁 {label:<35} : {BOLD}{sz}{RESET}")
+
+    print(f"\n{BOLD}{C}==========================================================================={RESET}\n")
+
+if __name__ == "__main__":
+    main()

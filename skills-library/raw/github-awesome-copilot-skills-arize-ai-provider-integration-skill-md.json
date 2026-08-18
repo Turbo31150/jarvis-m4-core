@@ -1,0 +1,11 @@
+{
+  "id": "github-awesome-copilot-skills-arize-ai-provider-integration-skill-md",
+  "name": "arize-ai-provider-integration",
+  "author": "github",
+  "description": "Creates, reads, updates, and deletes Arize AI integrations that store LLM provider credentials used by evaluators and other Arize features. Supports any LLM provider (e.g. OpenAI, Anthropic, Azure OpenAI, AWS Bedrock, Vertex AI, Gemini, NVIDIA NIM). Use when the user mentions AI integration, LLM provider credentials, create integration, list integrations, update credentials, delete integration, or connecting an LLM provider to Arize.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/github/awesome-copilot/tree/main/skills/arize-ai-provider-integration",
+  "skillUrl": "https://skillsmp.com/creators/github/awesome-copilot/skills-arize-ai-provider-integration",
+  "stars": 37423,
+  "updatedAt": 1778638094
+}

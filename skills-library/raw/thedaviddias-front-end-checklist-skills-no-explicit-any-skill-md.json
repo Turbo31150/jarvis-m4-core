@@ -1,0 +1,11 @@
+{
+  "id": "thedaviddias-front-end-checklist-skills-no-explicit-any-skill-md",
+  "name": "no-explicit-any",
+  "author": "thedaviddias",
+  "description": "Use when reviewing TypeScript files for type safety regressions, during code review of functions that handle external data, or when the codebase has ESLint warnings for @typescript-eslint/no-explicit-any.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedaviddias/Front-End-Checklist/tree/main/skills/no-explicit-any",
+  "skillUrl": "https://skillsmp.com/creators/thedaviddias/front-end-checklist/skills-no-explicit-any",
+  "stars": 73416,
+  "updatedAt": 1780091646
+}

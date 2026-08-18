@@ -1,0 +1,11 @@
+{
+  "id": "vercel-ai-skills-major-version-mode-skill-md",
+  "name": "major-version-mode",
+  "author": "vercel",
+  "description": "Context for working on the next AI SDK major release. Only use when explicitly invoked by the user (e.g. via '/major-version-mode'). Do NOT trigger autonomously based on task content.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/vercel/ai/tree/main/skills/major-version-mode",
+  "skillUrl": "https://skillsmp.com/creators/vercel/ai/skills-major-version-mode",
+  "stars": 26010,
+  "updatedAt": 1778235607
+}

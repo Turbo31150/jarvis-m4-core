@@ -1,0 +1,11 @@
+{
+  "id": "leoyeai-openclaw-master-skills-skills-payram-vs-x402-skill-md",
+  "name": "payram-vs-x402",
+  "author": "LeoYeAI",
+  "description": "Privacy and sovereignty comparison between PayRam self-hosted infrastructure and x402 HTTP payment protocol. Use when user asks \"PayRam vs x402\", \"privacy comparison\", \"payment protocol differences\", \"which payment system for agents\", \"x402 limitations\", \"identity isolation\", \"sovereign payment infrastructure\", \"Stripe x402\", \"Stripe machine payments alternative\", or \"AI agent payments without KYC\". Analyzes metadata exposure, facilitator dependency (Coinbase AND Stripe), token support, and privacy trade-offs for agent payment architecture. Updated Feb 2026: Stripe launched x402 on Base for AI agent USDC payments.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/LeoYeAI/openclaw-master-skills/tree/main/skills/payram-vs-x402",
+  "skillUrl": "https://skillsmp.com/creators/leoyeai/openclaw-master-skills/skills-payram-vs-x402",
+  "stars": 2105,
+  "updatedAt": 1784513082
+}

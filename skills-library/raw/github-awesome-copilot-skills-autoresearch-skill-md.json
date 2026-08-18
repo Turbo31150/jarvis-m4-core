@@ -1,0 +1,11 @@
+{
+  "id": "github-awesome-copilot-skills-autoresearch-skill-md",
+  "name": "autoresearch",
+  "author": "github",
+  "description": "Autonomous iterative experimentation loop for any programming task. Guides the user through defining goals, measurable metrics, and scope constraints, then runs an autonomous loop of code changes, testing, measuring, and keeping/discarding results. Inspired by Karpathy's autoresearch. USE FOR: autonomous improvement, iterative optimization, experiment loop, auto research, performance tuning, automated experimentation, hill climbing, try things automatically, optimize code, run experiments, autonomous coding loop. DO NOT USE FOR: one-shot tasks, simple bug fixes, code review, or tasks without a measurable metric.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/github/awesome-copilot/tree/main/skills/autoresearch",
+  "skillUrl": "https://skillsmp.com/creators/github/awesome-copilot/skills-autoresearch",
+  "stars": 37423,
+  "updatedAt": 1773876541
+}

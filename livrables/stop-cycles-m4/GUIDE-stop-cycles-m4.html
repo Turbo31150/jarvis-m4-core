@@ -1,0 +1,121 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Guide d&#x27;installation &amp; mise en place — stop-cycles-m4</title><style>
+body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;max-width:820px;
+margin:0 auto;padding:40px 28px;color:#1a1a2e;line-height:1.6}
+h1{font-size:2em;border-bottom:3px solid #4361ee;padding-bottom:.3em;color:#3a0ca3}
+h2{color:#3a0ca3;border-bottom:1px solid #e0e0f0;padding-bottom:.2em;margin-top:1.6em}
+h3{color:#4361ee}code{background:#f2f2fa;padding:2px 5px;border-radius:4px;font-size:.9em}
+pre{background:#1a1a2e;color:#e0e0f0;padding:14px;border-radius:8px;overflow-x:auto}
+pre code{background:none;color:inherit}table{border-collapse:collapse;width:100%}
+td,th{border:1px solid #ddd;padding:8px}th{background:#4361ee;color:#fff}
+blockquote{border-left:4px solid #4361ee;margin:0;padding-left:16px;color:#555}
+.cover{text-align:center;padding:30px 0 10px;border-bottom:2px dashed #4361ee;margin-bottom:24px}
+.cover .badge{display:inline-block;background:#3a0ca3;color:#fff;padding:6px 16px;
+border-radius:20px;font-size:.85em;letter-spacing:1px}
+.sep{margin:40px 0;border:none;border-top:2px dashed #ccd}
+</style></head><body>
+<div class="cover"><span class="badge">GUIDE D'INSTALLATION</span>
+<h1 style="border:none">stop-cycles-m4</h1>
+<p>Présentation · Installation / mise en place · Usage</p></div>
+<h1>Présentation</h1>
+<h1 id="fiche-de-vente-stop-cycles-m4">Fiche de vente — stop-cycles-m4</h1>
+<blockquote>
+<p>Prix PROPOSÉ, à valider par Franck (skill, palier bas).</p>
+</blockquote>
+<h2 id="accroche">Accroche</h2>
+<p>Votre machine chauffe et rame parce qu'un agent recharge des modèles en boucle ?
+Une commande, et la boucle est coupée — pour de bon.</p>
+<h2 id="le-probleme">Le problème</h2>
+<p>Les agents IA autonomes lancent parfois des boucles d'inférence qui saturent la
+RAM et font monter le CPU à 95-100 °C — et qui se relancent au démarrage.</p>
+<h2 id="la-solution">La solution</h2>
+<p>stop-cycles-m4 détecte et neutralise ces boucles à tous les niveaux : process,
+services systemd --user, autostart, crontab, et décharge les modèles Ollama
+résidents — tout en <strong>protégeant</strong> vos applications légitimes. Idempotent et
+fail-safe, avec un mode <code>--dry</code> pour inspecter d'abord.</p>
+<h2 id="ce-que-vous-recevez">Ce que vous recevez</h2>
+<ul>
+<li>La skill (<code>SKILL.md</code>) + le driver <code>driver.sh</code></li>
+</ul>
+<h2 id="points-forts">Points forts</h2>
+<ul>
+<li>Coupe ET désactive (ne revient pas au reboot)</li>
+<li>Liste de protection des apps légitimes</li>
+<li>0-token, mode dry-run</li>
+</ul>
+<h2 id="prix">Prix</h2>
+<p><strong>19 € — paiement unique</strong> [PROPOSÉ, à valider].</p>
+<h2 id="cible">Cible</h2>
+<p>Utilisateurs d'agents IA locaux sur machine contrainte (laptop, mini-PC).</p>
+<hr class="sep"><h1>Prise en main</h1>
+<h1 id="stop-cycles-m4">stop-cycles-m4</h1>
+<p>Skill + driver qui <strong>coupe et désactive</strong> les boucles d'inférence autonomes qui
+saturent une machine (RAM + thermique) — celles qui rechargent des modèles
+Ollama en boucle et font monter le CPU. 0-token, fail-safe, idempotent.</p>
+<h2 id="contenu">Contenu</h2>
+<pre><code>driver.sh    # coupe les process, désactive systemd --user, neutralise autostart, crontab
+SKILL.md     # définition de la skill (déclencheurs)
+README.md / FICHE-VENTE.md / LICENSE.txt
+</code></pre>
+<h2 id="installation">Installation</h2>
+<pre><code class="language-bash">chmod +x driver.sh
+</code></pre>
+<p>Comme skill Claude Code : copiez le dossier dans <code>~/.claude/skills/stop-cycles-m4/</code>.</p>
+<h2 id="usage">Usage</h2>
+<pre><code class="language-bash">bash driver.sh          # coupe + désactive, montre la RAM avant/après
+bash driver.sh --dry    # montre ce qui tournerait, ne tue rien
+</code></pre>
+<p>Le driver agit sur des motifs de boucles connus (<code>cowork-loop</code>, <code>domino-loop</code>,
+<code>swarm-auto-connect</code>, <code>*continuous_loop</code>, <code>*autonomous_loop</code>…) et <strong>protège</strong> les
+apps légitimes (navigateur, Claude, services système, webapp, audio, whisper).
+Il stoppe/désactive aussi les unités systemd --user, neutralise les autostart
+XDG concernés, commente les lignes crontab (backup) et décharge les modèles
+Ollama résidents.</p>
+<h2 id="securite">Sécurité</h2>
+<p>N'agit que sur des motifs de boucles autonomes ; liste de protection explicite
+pour ne jamais toucher aux applications de l'utilisateur. Mode <code>--dry</code> pour
+inspecter avant d'agir.</p>
+<hr class="sep"><h1>Dossier complet — installation & usage</h1>
+<h1 id="dossier-complet-essence-alkymia-stop-cycles">DOSSIER COMPLET — Essence AlkymIA : Stop-Cycles</h1>
+<blockquote>
+<p>Dossier self-contained. Source : Notion (Naming, Board prix packs, Présentations, Preuves). Aucun secret dans ce dossier.</p>
+</blockquote>
+<h2 id="nom-commercial-tagline">Nom commercial &amp; tagline</h2>
+<p><strong>Les Essences AlkymIA — Stop-Cycles</strong> — « Coupez les boucles d'inférence qui font surchauffer votre machine. »
+Brique à la carte, aussi intégrée au Pack Gouvernance Claude Code. (Nom technique : stop-cycles-m4.)</p>
+<h2 id="cible">Cible</h2>
+<p>Self-hosters et makers qui font tourner de l'inférence locale et subissent des boucles de rétroaction (services qui se relancent, surchauffe, machine qui gèle).</p>
+<h2 id="probleme">Problème</h2>
+<p>Des boucles d'inférence non maîtrisées saturent le CPU/GPU et poussent la machine en surchauffe ; on veut un garde-fou qui les détecte et les coupe.</p>
+<h2 id="promesse">Promesse</h2>
+<p>Un driver qui repère et stoppe les cycles d'inférence emballés, pour garder une machine stable et fraîche.</p>
+<h2 id="ce-qui-est-inclus-fichiers-reels-de-ce-dossier">Ce qui est inclus (fichiers réels de ce dossier)</h2>
+<ul>
+<li><code>driver.sh</code> — détection + arrêt des cycles</li>
+<li><code>SKILL.md</code> — skill Claude Code (déclencheurs)</li>
+<li><code>README.md</code> — usage</li>
+<li><code>FICHE-VENTE.md</code> — argumentaire</li>
+<li><code>LICENSE.txt</code> — licence propriétaire</li>
+</ul>
+<h2 id="differenciateur">Différenciateur</h2>
+<p>Garde-fou système concret (fail-safe, lecture pure), tout local, composable avec les hooks de gouvernance + humain joignable.</p>
+<h2 id="preuves-reelles-honnetes">Preuves réelles (honnêtes)</h2>
+<ul>
+<li>Plus de 160 dépôts de code, infra locale souveraine — capacité de production démontrée.</li>
+<li>[À CONFIRMER] Témoignage + STAT d'adoption.</li>
+</ul>
+<h2 id="offre-prix-cta">Offre, prix &amp; CTA</h2>
+<p><strong>19 €</strong> — paiement unique (ancrage Essences). Inclus dans le Pack Gouvernance Claude Code (79 €).
+CTA : « Je commence par une Essence ».
+Canal : Gumroad.</p>
+<h2 id="landing">Landing</h2>
+<p>Pas de landing dédiée (brique à la carte).</p>
+<h2 id="placeholders-honnetes-restants">Placeholders honnêtes restants</h2>
+<ul>
+<li>Témoignage + statistique d'adoption.</li>
+<li>Contact support dans <code>LICENSE.txt</code>.</li>
+</ul>
+<hr class="sep"><p style="text-align:center;color:#888;font-size:.85em">
+Document généré pour livraison (zip / systeme.io). JARVIS OS — livrables.</p>
+</body></html>

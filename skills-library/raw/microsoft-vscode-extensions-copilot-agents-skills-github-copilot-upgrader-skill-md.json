@@ -1,0 +1,11 @@
+{
+  "id": "microsoft-vscode-extensions-copilot-agents-skills-github-copilot-upgrader-skill-md",
+  "name": "github-copilot-upgrader",
+  "author": "microsoft",
+  "description": "Use this to update the Github Copilot CLI/SDK",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/microsoft/vscode/tree/main/extensions/copilot/.agents/skills/github-copilot-upgrader",
+  "skillUrl": "https://skillsmp.com/creators/microsoft/vscode/extensions-copilot-agents-skills-github-copilot-upgrader",
+  "stars": 188283,
+  "updatedAt": 1776370470
+}

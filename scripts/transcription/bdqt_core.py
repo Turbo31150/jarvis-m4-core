@@ -33,6 +33,25 @@ def strip_accents(s: str) -> str:
     return s.lower().translate(_ACCENTS)
 
 
+# Mots FR fréquents JAMAIS corrigés en flou : ils entrent souvent en collision
+# phonétique avec des acronymes/noms propres du lexique (ex. "plus"~"PLU",
+# "sont"~"SNT", "cette"~"CETE"). Sans cette garde, la post-correction corrompt
+# la dictée normale. (Complète les tests négatifs de bdqt_validate.py.)
+COMMON_FR = frozenset(
+    """
+    plus moins tout tous toute toutes rien bien mal très trop peu assez encore
+    aussi alors donc mais comme dans pour avec sans sous sur entre vers chez
+    cette cet ces mon ton son mes tes ses nos vos leur leurs notre votre
+    sont était étaient sera seront faire fait dit dire avoir être aller venir
+    nous vous elle elles ils lui eux même autre autres aucun chaque quelque
+    quelques beaucoup certains plusieurs quand parce pendant avant après depuis
+    ensuite enfin ici déjà jamais toujours souvent parfois vraiment surtout
+    chose choses temps fois jour jours part parts deux trois quatre cinq
+    petit grand bon bonne mieux pire premier dernier prochain celui celle ceux
+    """.split()
+)
+
+
 def phonetic_key(word: str) -> str:
     """Clé phonétique française simplifiée (pour rapprocher 'biotech'~'bio-tech',
     'sk' ~ 'sc', etc.). Heuristique, pas une norme — suffisant pour fuzzy match."""
@@ -204,8 +223,26 @@ def correct(text, context="general", log=True, fuzzy=True, max_edit=1):
             _log(conn, text, out, rules, context, log)
             return out, rules
 
+        # 1bis) corrections MULTI-MOTS (phrases) en sous-chaîne : ex. "mont laure"
+        #       -> "Montlaur" même au milieu d'une phrase. Bornes de mots, insensible
+        #       à la casse. Appliqué avant le mot-à-mot.
+        for r in conn.execute(
+            "SELECT source_text, target_text FROM corrections "
+            "WHERE instr(source_text,' ')>0 AND instr(target_text,'{')=0 "
+            "ORDER BY length(source_text) DESC"
+        ).fetchall():
+            src, tgt = r["source_text"], r["target_text"]
+            rx = re.compile(r"(?<!\w)" + re.escape(src) + r"(?!\w)", re.IGNORECASE)
+            new = rx.sub(lambda m: tgt, text)
+            if new != text:
+                rules.append({"type": "phrase", "from": src, "to": tgt})
+                text = new
+
         # 2) correction mot-à-mot : exact puis phonétique flou
         lex = _load_lexicon(conn, context) if fuzzy else {}
+        # mots déjà valides (présents tels quels dans le lexique) → NE PAS toucher
+        # (évite p.ex. "député" -> "députée" qui partagent la clé phonétique)
+        known_terms = {t.lower() for lst in lex.values() for t, _ in lst}
         # map des corrections exactes au niveau mot
         corr_words = {
             r["source_text"].lower(): r["target_text"]
@@ -225,7 +262,7 @@ def correct(text, context="general", log=True, fuzzy=True, max_edit=1):
                 rules.append({"type": "exact_word", "from": tok, "to": rep})
                 out_parts.append(rep)
                 continue
-            if fuzzy and len(wl) >= 4:
+            if fuzzy and len(wl) >= 4 and wl not in known_terms and wl not in COMMON_FR:
                 pk = phonetic_key(wl)
                 cands = lex.get(pk)
                 if cands:

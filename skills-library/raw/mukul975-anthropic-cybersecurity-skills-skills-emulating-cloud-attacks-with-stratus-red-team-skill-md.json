@@ -1,0 +1,11 @@
+{
+  "id": "mukul975-anthropic-cybersecurity-skills-skills-emulating-cloud-attacks-with-stratus-red-team-skill-md",
+  "name": "emulating-cloud-attacks-with-stratus-red-team",
+  "author": "mukul975",
+  "description": "Install and run Stratus Red Team to detonate granular, MITRE ATT&CK-mapped AWS, Azure, GCP, and Kubernetes attack techniques through their warmup-detonate-revert-cleanup lifecycle, then verify the telemetry they generate. Use to validate that cloud detections (CloudTrail, GuardDuty, Microsoft Sentinel, GCP SCC, Falco) actually fire, or to run a repeatable purple-team exercise generating realistic attacker telemetry.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/mukul975/Anthropic-Cybersecurity-Skills/tree/main/skills/emulating-cloud-attacks-with-stratus-red-team",
+  "skillUrl": "https://skillsmp.com/creators/mukul975/anthropic-cybersecurity-skills/skills-emulating-cloud-attacks-with-stratus-red-team",
+  "stars": 27260,
+  "updatedAt": 1785688333
+}

@@ -1,0 +1,11 @@
+{
+  "id": "github-awesome-copilot-skills-phoenix-tracing-skill-md",
+  "name": "phoenix-tracing",
+  "author": "github",
+  "description": "OpenInference semantic conventions and instrumentation for Phoenix AI observability. Use when implementing LLM tracing, creating custom spans, or deploying to production.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/github/awesome-copilot/tree/main/skills/phoenix-tracing",
+  "skillUrl": "https://skillsmp.com/creators/github/awesome-copilot/skills-phoenix-tracing",
+  "stars": 37423,
+  "updatedAt": 1777856744
+}

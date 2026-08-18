@@ -1,0 +1,11 @@
+{
+  "id": "nanocoai-nanoclaw-claude-skills-qodo-pr-resolver-skill-md",
+  "name": "qodo-pr-resolver",
+  "author": "nanocoai",
+  "description": "Review and resolve PR issues with Qodo - get AI-powered code review issues and fix them interactively (GitHub, GitLab, Bitbucket, Azure DevOps)",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/nanocoai/nanoclaw/tree/main/.claude/skills/qodo-pr-resolver",
+  "skillUrl": "https://skillsmp.com/creators/nanocoai/nanoclaw/claude-skills-qodo-pr-resolver",
+  "stars": 30427,
+  "updatedAt": 1771882464
+}

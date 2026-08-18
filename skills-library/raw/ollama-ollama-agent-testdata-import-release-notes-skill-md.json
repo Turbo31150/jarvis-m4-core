@@ -1,0 +1,11 @@
+{
+  "id": "ollama-ollama-agent-testdata-import-release-notes-skill-md",
+  "name": "release-notes",
+  "author": "ollama",
+  "description": "Draft concise release notes.",
+  "contentLanguage": "und",
+  "githubUrl": "https://github.com/ollama/ollama/tree/main/agent/testdata/import/release-notes",
+  "skillUrl": "https://skillsmp.com/creators/ollama/ollama/agent-testdata-import-release-notes",
+  "stars": 177754,
+  "updatedAt": 1784785225
+}

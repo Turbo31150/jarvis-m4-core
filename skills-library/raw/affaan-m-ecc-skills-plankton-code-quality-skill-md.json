@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-plankton-code-quality-skill-md",
+  "name": "plankton-code-quality",
+  "author": "affaan-m",
+  "description": "Write-time code quality enforcement using Plankton \u2014 auto-formatting, linting, and Claude-powered fixes on every file edit via hooks.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/plankton-code-quality",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-plankton-code-quality",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

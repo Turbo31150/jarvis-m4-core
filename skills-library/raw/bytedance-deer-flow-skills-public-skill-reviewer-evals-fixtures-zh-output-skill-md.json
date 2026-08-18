@@ -1,0 +1,11 @@
+{
+  "id": "bytedance-deer-flow-skills-public-skill-reviewer-evals-fixtures-zh-output-skill-md",
+  "name": "zh-output-example",
+  "author": "bytedance",
+  "description": "Reviews Chinese skill documentation for publication readiness. Invoke when the user asks in Chinese to review a skill.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/bytedance/deer-flow/tree/main/skills/public/skill-reviewer/evals/fixtures/zh-output",
+  "skillUrl": "https://skillsmp.com/creators/bytedance/deer-flow/skills-public-skill-reviewer-evals-fixtures-zh-output",
+  "stars": 79272,
+  "updatedAt": 1783756687
+}

@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-agents-skills-autoreview-skill-md",
+  "name": "autoreview",
+  "author": "openclaw",
+  "description": "Pre-commit/ship code review: Codex default; optional Claude or Pi.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/.agents/skills/autoreview",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/agents-skills-autoreview",
+  "stars": 385119,
+  "updatedAt": 1785521192
+}

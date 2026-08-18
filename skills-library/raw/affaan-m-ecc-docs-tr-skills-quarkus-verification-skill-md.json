@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-tr-skills-quarkus-verification-skill-md",
+  "name": "quarkus-verification",
+  "author": "affaan-m",
+  "description": "Verification loop for Quarkus projects: build, static analysis, tests with coverage, security scans, native compilation, and diff review before release or PR.",
+  "contentLanguage": "tur",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/tr/skills/quarkus-verification",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-tr-skills-quarkus-verification",
+  "stars": 237500,
+  "updatedAt": 1780819528
+}

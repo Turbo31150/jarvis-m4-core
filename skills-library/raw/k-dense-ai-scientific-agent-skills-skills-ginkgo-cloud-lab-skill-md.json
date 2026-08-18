@@ -1,0 +1,11 @@
+{
+  "id": "k-dense-ai-scientific-agent-skills-skills-ginkgo-cloud-lab-skill-md",
+  "name": "ginkgo-cloud-lab",
+  "author": "K-Dense-AI",
+  "description": "Submit and manage protocols on Ginkgo Bioworks Cloud Lab (cloud.ginkgo.bio), a web-based interface for autonomous lab execution on Reconfigurable Automation Carts (RACs). Use when the user wants to run protein expression and purification (cell-free, E. coli, or Pichia), HiBiT or A280 or LabChip quantification, IVT mRNA/circRNA synthesis, thermal shift / developability assays, Echo-MS enzyme or analyte methods, SPR target onboarding, fluorescent pixel art, or otherwise interact with Ginkgo Cloud Lab services. Covers protocol selection, input preparation, pricing, and ordering workflows.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/K-Dense-AI/scientific-agent-skills/tree/main/skills/ginkgo-cloud-lab",
+  "skillUrl": "https://skillsmp.com/creators/k-dense-ai/scientific-agent-skills/skills-ginkgo-cloud-lab",
+  "stars": 32587,
+  "updatedAt": 1782258512
+}

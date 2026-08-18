@@ -1,0 +1,11 @@
+{
+  "id": "microsoft-powertoys-src-modules-cmdpal-extensiontemplate-templatecmdpalextension-github-skills-publish-extension-skill-md",
+  "name": "publish-extension",
+  "author": "microsoft",
+  "description": "Publish your Command Palette extension to the Microsoft Store or WinGet. Use when asked to publish, distribute, release, deploy to store, create MSIX packages, submit to WinGet, set up CI/CD for releases, or automate builds with GitHub Actions.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/microsoft/PowerToys/tree/main/src/modules/cmdpal/ExtensionTemplate/TemplateCmdPalExtension/.github/skills/publish-extension",
+  "skillUrl": "https://skillsmp.com/creators/microsoft/powertoys/src-modules-cmdpal-extensiontemplate-templatecmdpalextension-github-skills-publish-extension",
+  "stars": 137450,
+  "updatedAt": 1775252830
+}

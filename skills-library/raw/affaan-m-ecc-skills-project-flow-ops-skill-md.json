@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-project-flow-ops-skill-md",
+  "name": "project-flow-ops",
+  "author": "affaan-m",
+  "description": "Operate execution flow across GitHub and Linear by triaging issues and pull requests, linking active work, and keeping GitHub public-facing while Linear remains the internal execution layer. Use when the user wants backlog control, PR triage, or GitHub-to-Linear coordination.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/project-flow-ops",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-project-flow-ops",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

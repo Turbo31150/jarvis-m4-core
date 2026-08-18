@@ -1,0 +1,11 @@
+{
+  "id": "dotnet-fsharp-github-skills-binlog-analysis-skill-md",
+  "name": "binlog-analysis",
+  "author": "dotnet",
+  "description": "Triage a build / compile / restore / WarnAsError failure from its MSBuild binary log. Fetches the binlog (a local build's, or a failed dotnet/fsharp Azure DevOps PR build's published artifact) and analyzes it live via the `binlog-mcp` MCP server \u2014 structured errors, root-cause diagnosis, and an MSBuild perf X-ray. NOT for test failures or CheckCodeFormatting: a build binlog has no errors there.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/dotnet/fsharp/tree/main/.github/skills/binlog-analysis",
+  "skillUrl": "https://skillsmp.com/creators/dotnet/fsharp/github-skills-binlog-analysis",
+  "stars": 4320,
+  "updatedAt": 1781686853
+}

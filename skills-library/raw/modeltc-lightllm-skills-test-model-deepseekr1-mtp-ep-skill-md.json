@@ -1,0 +1,11 @@
+{
+  "id": "modeltc-lightllm-skills-test-model-deepseekr1-mtp-ep-skill-md",
+  "name": "test-model-deepseekr1-mtp-ep",
+  "author": "ModelTC",
+  "description": "Runs LightLLM DeepSeek-R1 EP MoE + MTP (EAGLE) server variants and GSM8K lm_eval against localhost. Requires each full run to use a dedicated log directory: persist every api_server process log under that tree (per-variant subdirectories recommended), write the consolidated summary to summary.txt in that same log directory, and keep artifacts separated from other test runs. Use when running DeepSeek-R1 MTP EP accuracy workflows or when the user asks to run these four server configurations one-by-one with logged results.",
+  "contentLanguage": "zh",
+  "githubUrl": "https://github.com/ModelTC/LightLLM/tree/main/skills/test_model/deepseekr1-mtp-ep",
+  "skillUrl": "https://skillsmp.com/creators/modeltc/lightllm/skills-test-model-deepseekr1-mtp-ep",
+  "stars": 4207,
+  "updatedAt": 1778654677
+}

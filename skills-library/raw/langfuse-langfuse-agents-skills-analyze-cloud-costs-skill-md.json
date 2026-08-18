@@ -1,0 +1,11 @@
+{
+  "id": "langfuse-langfuse-agents-skills-analyze-cloud-costs-skill-md",
+  "name": "analyze-cloud-costs",
+  "author": "langfuse",
+  "description": "Analyze Langfuse Cloud infrastructure cost structure using Metabase cost\nmarts. Use when asked about cloud spend, AWS versus ClickHouse cost splits,\ncost drivers by provider/service/usage type/account, daily cost per tracing\nevent, infra cost dashboards, or cost regressions visible in Metabase.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/langfuse/langfuse/tree/main/.agents/skills/analyze-cloud-costs",
+  "skillUrl": "https://skillsmp.com/creators/langfuse/langfuse/agents-skills-analyze-cloud-costs",
+  "stars": 32476,
+  "updatedAt": 1778492659
+}

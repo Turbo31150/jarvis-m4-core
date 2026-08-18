@@ -1,0 +1,11 @@
+{
+  "id": "midudev-autoskills-packages-autoskills-skills-registry-fastapi-templates-skill-md",
+  "name": "fastapi-templates",
+  "author": "midudev",
+  "description": "Create production-ready FastAPI projects with async patterns, dependency injection, and comprehensive error handling. Use when building new FastAPI applications or setting up backend API projects.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/midudev/autoskills/tree/main/packages/autoskills/skills-registry/fastapi-templates",
+  "skillUrl": "https://skillsmp.com/creators/midudev/autoskills/packages-autoskills-skills-registry-fastapi-templates",
+  "stars": 6625,
+  "updatedAt": 1777059413
+}

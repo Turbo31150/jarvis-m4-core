@@ -1,0 +1,11 @@
+{
+  "id": "metabase-metabase-claude-skills-typescript-review-skill-md",
+  "name": "typescript-review",
+  "author": "metabase",
+  "description": "Review TypeScript and JavaScript code changes for compliance with Metabase coding standards, style violations, and code quality issues. Use when reviewing pull requests or diffs containing TypeScript/JavaScript code.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/metabase/metabase/tree/master/.claude/skills/typescript-review",
+  "skillUrl": "https://skillsmp.com/creators/metabase/metabase/claude-skills-typescript-review",
+  "stars": 48525,
+  "updatedAt": 1785416168
+}

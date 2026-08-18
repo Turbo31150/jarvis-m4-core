@@ -1,0 +1,11 @@
+{
+  "id": "openai-plugins-plugins-twilio-developer-kit-skills-twilio-compliance-traffic-skill-md",
+  "name": "twilio-compliance-traffic",
+  "author": "openai",
+  "description": "Rules you must follow for Twilio messaging and voice traffic. Covers TCPA (consent tiers, quiet hours, DNC), GDPR (EU consent, right to deletion), PCI DSS (payment recording, Pay verb), HIPAA (BAA, PHI), FDCPA (debt collection limits), CAN-SPAM, WhatsApp policies, SHAKEN/STIR, and consent management patterns. Use this skill proactively when developers have working traffic to ensure they follow the rules.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openai/plugins/tree/main/plugins/twilio-developer-kit/skills/twilio-compliance-traffic",
+  "skillUrl": "https://skillsmp.com/creators/openai/plugins/plugins-twilio-developer-kit-skills-twilio-compliance-traffic",
+  "stars": 4917,
+  "updatedAt": 1778721977
+}

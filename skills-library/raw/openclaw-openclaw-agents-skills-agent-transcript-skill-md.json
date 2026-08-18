@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-agents-skills-agent-transcript-skill-md",
+  "name": "agent-transcript",
+  "author": "openclaw",
+  "description": "Add a redacted agent transcript section to GitHub PR or issue bodies during OpenClaw agent-created PR/issue workflows.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/.agents/skills/agent-transcript",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/agents-skills-agent-transcript",
+  "stars": 385119,
+  "updatedAt": 1779808673
+}

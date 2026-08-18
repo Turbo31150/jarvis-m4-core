@@ -1,0 +1,11 @@
+{
+  "id": "wshobson-agents-plugins-python-development-skills-python-observability-skill-md",
+  "name": "python-observability",
+  "author": "wshobson",
+  "description": "Python observability patterns including structured logging, metrics, and distributed tracing. Use when adding logging, implementing metrics collection, setting up tracing, or debugging production systems.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/wshobson/agents/tree/main/plugins/python-development/skills/python-observability",
+  "skillUrl": "https://skillsmp.com/creators/wshobson/agents/plugins-python-development-skills-python-observability",
+  "stars": 38472,
+  "updatedAt": 1779452301
+}

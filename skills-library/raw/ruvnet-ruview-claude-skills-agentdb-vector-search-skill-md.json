@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruview-claude-skills-agentdb-vector-search-skill-md",
+  "name": "agentdb-vector-search",
+  "author": "ruvnet",
+  "description": "Implement semantic vector search with AgentDB for intelligent document retrieval, similarity matching, and context-aware querying. Use when building RAG systems, semantic search engines, or intelligent knowledge bases.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/RuView/tree/main/.claude/skills/agentdb-vector-search",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruview/claude-skills-agentdb-vector-search",
+  "stars": 88440,
+  "updatedAt": 1768273876
+}

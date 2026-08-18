@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-zh-cn-skills-terminal-ops-skill-md",
+  "name": "terminal-ops",
+  "author": "affaan-m",
+  "description": "\u57fa\u4e8e\u8bc1\u636e\u4f18\u5148\u7684\u4ed3\u5e93\u6267\u884c\u5de5\u4f5c\u6d41\uff0c\u9002\u7528\u4e8eECC\u3002\u5f53\u7528\u6237\u9700\u8981\u8fd0\u884c\u547d\u4ee4\u3001\u68c0\u67e5\u4ed3\u5e93\u3001\u8c03\u8bd5CI\u5931\u8d25\u6216\u63a8\u9001\u5e26\u6709\u7cbe\u786e\u6267\u884c\u548c\u9a8c\u8bc1\u8bc1\u660e\u7684\u7a84\u4fee\u590d\u65f6\u4f7f\u7528\u3002",
+  "contentLanguage": "zh",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/zh-CN/skills/terminal-ops",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-zh-cn-skills-terminal-ops",
+  "stars": 237500,
+  "updatedAt": 1778523709
+}

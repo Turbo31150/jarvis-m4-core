@@ -1,0 +1,11 @@
+{
+  "id": "thedaviddias-front-end-checklist-skills-js-redirects-skill-md",
+  "name": "js-redirects",
+  "author": "thedaviddias",
+  "description": "Use when auditing slow page loads, heavy assets, or rendering delays related to Avoid JavaScript-based redirects. Verify the actual bottleneck in DevTools, Lighthouse, or field data before recommending changes.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedaviddias/Front-End-Checklist/tree/main/skills/js-redirects",
+  "skillUrl": "https://skillsmp.com/creators/thedaviddias/front-end-checklist/skills-js-redirects",
+  "stars": 73416,
+  "updatedAt": 1780091646
+}

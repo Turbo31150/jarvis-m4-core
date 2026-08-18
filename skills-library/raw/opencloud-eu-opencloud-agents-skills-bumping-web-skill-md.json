@@ -1,0 +1,11 @@
+{
+  "id": "opencloud-eu-opencloud-agents-skills-bumping-web-skill-md",
+  "name": "bumping-web",
+  "author": "opencloud-eu",
+  "description": "Use when the user asks to bump, update, or upgrade the OpenCloud web assets/frontend to a specific version (e.g. \"bump web to v7.0.0\", \"update web to v7.1.2\"). Covers editing the version files, the single commit, and opening the PR against the right branch.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/opencloud-eu/opencloud/tree/main/.agents/skills/bumping-web",
+  "skillUrl": "https://skillsmp.com/creators/opencloud-eu/opencloud/agents-skills-bumping-web",
+  "stars": 5776,
+  "updatedAt": 1782376945
+}

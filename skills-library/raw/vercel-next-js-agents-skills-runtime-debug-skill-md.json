@@ -1,0 +1,11 @@
+{
+  "id": "vercel-next-js-agents-skills-runtime-debug-skill-md",
+  "name": "runtime-debug",
+  "author": "vercel",
+  "description": "Debug and verification workflow for runtime-bundle and module-resolution regressions. Use when diagnosing unexpected module inclusions, bundle size regressions, or CI failures related to NEXT_SKIP_ISOLATE, nft.json traces, or runtime bundle selection (module.compiled.js). Covers CI env mirroring, full stack traces via __NEXT_SHOW_IGNORE_LISTED, route trace inspection, and webpack stats diffing.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/vercel/next.js/tree/canary/.agents/skills/runtime-debug",
+  "skillUrl": "https://skillsmp.com/creators/vercel/next.js/agents-skills-runtime-debug",
+  "stars": 141334,
+  "updatedAt": 1778790575
+}

@@ -1,0 +1,11 @@
+{
+  "id": "react-react-claude-skills-flow-skill-md",
+  "name": "flow",
+  "author": "react",
+  "description": "Use when you need to run Flow type checking, or when seeing Flow type errors in React code.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/react/react/tree/main/.claude/skills/flow",
+  "skillUrl": "https://skillsmp.com/creators/react/react/claude-skills-flow",
+  "stars": 246953,
+  "updatedAt": 1769217366
+}

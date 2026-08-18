@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-recursive-decision-ledger-skill-md",
+  "name": "recursive-decision-ledger",
+  "author": "affaan-m",
+  "description": "Use when the user asks for repeated rollouts, marked decision processes, high-dimensional search, stochastic optimization, local-optima exploration, ensemble comparison, or recursive reasoning with a visible evidence trail.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/recursive-decision-ledger",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-recursive-decision-ledger",
+  "stars": 237500,
+  "updatedAt": 1784322829
+}

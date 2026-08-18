@@ -1,0 +1,11 @@
+{
+  "id": "nexu-io-open-design-plugins-official-examples-deck-open-slide-canvas-skill-md",
+  "name": "deck-open-slide-canvas",
+  "author": "nexu-io",
+  "description": "Open Design's architecture review: the local daemon + agent-runtime design, the tradeoffs, and the decision to lock. Built as a decision-grade product management deck for staff eng, tech leads, security.",
+  "contentLanguage": "zh",
+  "githubUrl": "https://github.com/nexu-io/open-design/tree/main/plugins/_official/examples/deck-open-slide-canvas",
+  "skillUrl": "https://skillsmp.com/creators/nexu-io/open-design/plugins-official-examples-deck-open-slide-canvas",
+  "stars": 83535,
+  "updatedAt": 1784018637
+}

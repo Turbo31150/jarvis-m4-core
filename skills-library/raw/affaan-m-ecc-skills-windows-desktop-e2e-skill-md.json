@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-windows-desktop-e2e-skill-md",
+  "name": "windows-desktop-e2e",
+  "author": "affaan-m",
+  "description": "E2E testing for Windows native desktop apps (WPF, WinForms, Win32/MFC, Qt) using pywinauto and Windows UI Automation.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/windows-desktop-e2e",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-windows-desktop-e2e",
+  "stars": 237500,
+  "updatedAt": 1781546957
+}

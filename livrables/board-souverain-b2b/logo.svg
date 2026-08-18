@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 100" role="img" aria-label="AlkymIA Council">
+  <title>AlkymIA Council</title>
+  <g transform="translate(4,2)">
+    <circle cx="48" cy="50" r="44" fill="none" stroke="#4A7DE0" stroke-width="3.4"/>
+    <path d="M48 26 L76 74 L20 74 Z" fill="none" stroke="#6E5AA6" stroke-width="6.6" stroke-linejoin="round"/>
+    <line x1="33" y1="58" x2="63" y2="58" stroke="#6E5AA6" stroke-width="6.6" stroke-linecap="round"/>
+    <path d="M48 8 C43 15 40 19 40 23 a8 8 0 0 0 16 0 C56 19 53 15 48 8 Z" fill="#4A7DE0"/>
+    <g fill="#4A7DE0"><circle cx="40" cy="65" r="2.8"/><circle cx="48" cy="65" r="2.8"/><circle cx="56" cy="65" r="2.8"/></g>
+  </g>
+  <text x="112" y="50" font-family="'Segoe UI',system-ui,-apple-system,Arial,sans-serif" font-size="34" font-weight="600" fill="#6E5AA6">AlkymIA</text>
+  <text x="113" y="76" font-family="'Segoe UI',system-ui,-apple-system,Arial,sans-serif" font-size="22" font-weight="600" letter-spacing="3" fill="#4A7DE0">COUNCIL</text>
+</svg>

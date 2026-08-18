@@ -1,0 +1,11 @@
+{
+  "id": "aradotso-trending-skills-skills-crucix-intelligence-dashboard-skill-md",
+  "name": "crucix-intelligence-dashboard",
+  "author": "Aradotso",
+  "description": "Personal intelligence agent that aggregates 27 OSINT data sources into a self-hosted Jarvis-style dashboard with Telegram/Discord bots, LLM analysis, and real-time alerts.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Aradotso/trending-skills/tree/main/skills/crucix-intelligence-dashboard",
+  "skillUrl": "https://skillsmp.com/creators/aradotso/trending-skills/skills-crucix-intelligence-dashboard",
+  "stars": 69,
+  "updatedAt": 1773697708
+}

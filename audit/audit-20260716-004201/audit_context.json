@@ -1,0 +1,60 @@
+{
+  "topic": "Boutique Prof IA / Pousseline — écosystème JARVIS OS",
+  "profile": "full",
+  "mode": "deep",
+  "scan_local": {
+    "target": "/home/pamerys/jarvis/webapp",
+    "files": 215,
+    "size_mb": 726.16,
+    "languages": {
+      "HTML": 49,
+      "Python": 24,
+      "JSON": 4,
+      "Markdown": 4,
+      "JS": 2,
+      "Shell": 2,
+      "SQL": 1
+    },
+    "key_files": [],
+    "jarvis_modules": [
+      "cascade"
+    ],
+    "compliance_markers": [],
+    "secrets_files": [
+      "certs/server.key",
+      "certs/ca.key"
+    ],
+    "git": {}
+  },
+  "scan_web": {
+    "url": "https://prof-ia-74635.netlify.app/",
+    "topic": "Boutique Prof IA / Pousseline — écosystème JARVIS OS",
+    "title": "Prof IA — L'assistant local qui épaule chaque enseignant",
+    "headings": [
+      "Enseigner, sans y perdrevos soirées ni vos données.",
+      "Le quotidien d'un enseignant, allégé",
+      "😮‍💨 Sans Prof IA",
+      "✨ Avec Prof IA",
+      "5 modules, un seul outil",
+      "Préparation de séquence",
+      "Exercices &amp; évaluations",
+      "Différenciation &amp; handicap",
+      "Suivi de classe",
+      "Banque de ressources",
+      "Pourquoi « local » change tout pour l'école",
+      "Télécharger l'app locale « Espace Prof »",
+      "Des offres simples, sans abonnement caché",
+      "Licence solo",
+      "Pack école",
+      "Sur devis",
+      "Testez l'application maintenant.",
+      "Reste informé des nouveautés IA"
+    ],
+    "signals": [
+      "pricing",
+      "€",
+      "rgpd",
+      "offre"
+    ]
+  }
+}

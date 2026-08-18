@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruflo-agents-skills-pair-programming-skill-md",
+  "name": "pair-programming",
+  "author": "ruvnet",
+  "description": "AI-assisted pair programming with multiple modes (driver$navigator$switch), real-time verification, quality monitoring, and comprehensive testing. Supports TDD, debugging, refactoring, and learning sessions. Features automatic role switching, continuous code review, security scanning, and performance optimization with truth-score verification.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/ruflo/tree/main/.agents/skills/pair-programming",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruflo/agents-skills-pair-programming",
+  "stars": 66991,
+  "updatedAt": 1770485431
+}

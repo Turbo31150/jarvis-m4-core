@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-skills-coding-agent-skill-md",
+  "name": "coding-agent",
+  "author": "openclaw",
+  "description": "Delegate coding work to Codex, Claude Code, or OpenCode as background workers; not simple edits or read-only code lookup.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/skills/coding-agent",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/skills-coding-agent",
+  "stars": 385119,
+  "updatedAt": 1785303822
+}

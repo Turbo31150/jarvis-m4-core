@@ -1,0 +1,11 @@
+{
+  "id": "microsoft-vscode-github-skills-vscode-dev-workbench-skill-md",
+  "name": "vscode-dev-workbench",
+  "author": "microsoft",
+  "description": "Use when the user wants to run the vscode.dev server locally and exercise the VS Code workbench or Agents window in the integrated browser against the local `microsoft/vscode` sources. Covers starting the dev server, the `vscode-quality=dev` URL, browser-driven interaction patterns, and optionally wiring up a local mock agent host for the Agents window.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/microsoft/vscode/tree/main/.github/skills/vscode-dev-workbench",
+  "skillUrl": "https://skillsmp.com/creators/microsoft/vscode/github-skills-vscode-dev-workbench",
+  "stars": 188283,
+  "updatedAt": 1777066305
+}

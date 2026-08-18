@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruflo-agents-skills-hooks-automation-skill-md",
+  "name": "hooks-automation",
+  "author": "ruvnet",
+  "description": "Automated coordination, formatting, and learning from Claude Code operations using intelligent hooks with MCP integration. Includes pre$post task hooks, session management, Git integration, memory coordination, and neural pattern training for enhanced development workflows.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/ruflo/tree/main/.agents/skills/hooks-automation",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruflo/agents-skills-hooks-automation",
+  "stars": 66991,
+  "updatedAt": 1775653573
+}

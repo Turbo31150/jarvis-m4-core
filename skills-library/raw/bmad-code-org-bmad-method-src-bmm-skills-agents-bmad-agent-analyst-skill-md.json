@@ -1,0 +1,11 @@
+{
+  "id": "bmad-code-org-bmad-method-src-bmm-skills-agents-bmad-agent-analyst-skill-md",
+  "name": "bmad-agent-analyst",
+  "author": "bmad-code-org",
+  "description": "Strategic business analyst and requirements expert. Use when the user asks to talk to Mary or requests the business analyst.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/bmad-code-org/BMAD-METHOD/tree/main/src/bmm-skills/agents/bmad-agent-analyst",
+  "skillUrl": "https://skillsmp.com/creators/bmad-code-org/bmad-method/src-bmm-skills-agents-bmad-agent-analyst",
+  "stars": 51475,
+  "updatedAt": 1785732094
+}

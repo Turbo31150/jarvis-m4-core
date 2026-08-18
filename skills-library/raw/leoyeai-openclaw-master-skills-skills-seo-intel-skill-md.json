@@ -1,0 +1,11 @@
+{
+  "id": "leoyeai-openclaw-master-skills-skills-seo-intel-skill-md",
+  "name": "seo-intel-by-froggo",
+  "author": "LeoYeAI",
+  "description": "Competitive SEO intelligence \u2014 crawl, extract, analyze, and generate gap reports for your domains vs competitors. Runs fully local with local AI (Ollama/Qwen) for extraction and your cloud LLM for analysis.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/LeoYeAI/openclaw-master-skills/tree/main/skills/seo-intel",
+  "skillUrl": "https://skillsmp.com/creators/leoyeai/openclaw-master-skills/skills-seo-intel",
+  "stars": 2105,
+  "updatedAt": 1784513102
+}

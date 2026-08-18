@@ -1,0 +1,11 @@
+{
+  "id": "paperclipai-paperclip-skills-paperclip-create-agent-skill-md",
+  "name": "paperclip-create-agent",
+  "author": "paperclipai",
+  "description": "Create new agents in Paperclip with governance-aware hiring. Use when you need to inspect adapter configuration options, compare existing agent configs, draft a new agent prompt/config, and submit a hire request.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/paperclipai/paperclip/tree/master/skills/paperclip-create-agent",
+  "skillUrl": "https://skillsmp.com/creators/paperclipai/paperclip/skills-paperclip-create-agent",
+  "stars": 75602,
+  "updatedAt": 1777410723
+}

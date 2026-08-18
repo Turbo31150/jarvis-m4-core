@@ -1,0 +1,11 @@
+{
+  "id": "langwatch-langwatch-services-langyagent-internal-assets-skills-datasets-skill-md",
+  "name": "datasets",
+  "author": "langwatch",
+  "description": "Generate realistic synthetic evaluation datasets by analyzing the user's codebase, prompts, production traces, and reference materials. Interactive, consultant-style \u2014 asks clarifying questions, proposes a plan, generates a preview for approval, then delivers a complete dataset uploaded to LangWatch. Use when user asks to generate, create, or build a dataset for evaluation, testing, or benchmarking.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/langwatch/langwatch/tree/main/services/langyagent/internal/assets/skills/datasets",
+  "skillUrl": "https://skillsmp.com/creators/langwatch/langwatch/services-langyagent-internal-assets-skills-datasets",
+  "stars": 3466,
+  "updatedAt": 1784735348
+}

@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-agents-skills-market-research-skill-md",
+  "name": "market-research",
+  "author": "affaan-m",
+  "description": "Conduct market research, competitive analysis, investor due diligence, and industry intelligence with source attribution and decision-oriented summaries. Use when the user wants market sizing, competitor comparisons, fund research, technology scans, or research that informs business decisions.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/.agents/skills/market-research",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/agents-skills-market-research",
+  "stars": 237500,
+  "updatedAt": 1777428617
+}

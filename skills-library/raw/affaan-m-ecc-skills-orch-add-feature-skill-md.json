@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-orch-add-feature-skill-md",
+  "name": "orch-add-feature",
+  "author": "affaan-m",
+  "description": "Orchestrate building a brand-new feature end to end \u2014 research, plan, TDD implementation, review, and gated commit \u2014 by delegating each phase to the matching ECC agent. Use when adding a capability that does not exist yet.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/orch-add-feature",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-orch-add-feature",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

@@ -1,0 +1,11 @@
+{
+  "id": "google-gemini-gemini-cli-gemini-skills-code-reviewer-skill-md",
+  "name": "code-reviewer",
+  "author": "google-gemini",
+  "description": "Use this skill to review code. It supports both local changes (staged or working tree) and remote Pull Requests (by ID or URL). It focuses on correctness, maintainability, and adherence to project standards.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/google-gemini/gemini-cli/tree/main/.gemini/skills/code-reviewer",
+  "skillUrl": "https://skillsmp.com/creators/google-gemini/gemini-cli/gemini-skills-code-reviewer",
+  "stars": 106351,
+  "updatedAt": 1768980516
+}

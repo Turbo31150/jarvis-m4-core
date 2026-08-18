@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-homelab-network-readiness-skill-md",
+  "name": "homelab-network-readiness",
+  "author": "affaan-m",
+  "description": "Readiness checklist for homelab VLAN segmentation, local DNS filtering, and WireGuard-style remote access before changing router, firewall, DHCP, or VPN configuration.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/homelab-network-readiness",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-homelab-network-readiness",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

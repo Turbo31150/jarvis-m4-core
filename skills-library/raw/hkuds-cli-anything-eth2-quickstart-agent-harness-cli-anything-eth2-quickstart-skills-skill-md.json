@@ -1,0 +1,11 @@
+{
+  "id": "hkuds-cli-anything-eth2-quickstart-agent-harness-cli-anything-eth2-quickstart-skills-skill-md",
+  "name": "cli-anything-eth2-quickstart",
+  "author": "HKUDS",
+  "description": "Use eth2-quickstart to autonomously deploy a hardened Ethereum node, install execution and consensus clients, configure validator metadata, expose RPC safely, and inspect node health with structured JSON output.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/HKUDS/CLI-Anything/tree/main/eth2-quickstart/agent-harness/cli_anything/eth2_quickstart/skills",
+  "skillUrl": "https://skillsmp.com/creators/hkuds/cli-anything/eth2-quickstart-agent-harness-cli-anything-eth2-quickstart-skills",
+  "stars": 46608,
+  "updatedAt": 1775767879
+}

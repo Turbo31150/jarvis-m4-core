@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruflo-plugins-ruflo-knowledge-graph-skills-kg-extract-skill-md",
+  "name": "kg-extract",
+  "author": "ruvnet",
+  "description": "Extract entities and relations from source files to build a knowledge graph",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/ruflo/tree/main/plugins/ruflo-knowledge-graph/skills/kg-extract",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruflo/plugins-ruflo-knowledge-graph-skills-kg-extract",
+  "stars": 66991,
+  "updatedAt": 1784257589
+}

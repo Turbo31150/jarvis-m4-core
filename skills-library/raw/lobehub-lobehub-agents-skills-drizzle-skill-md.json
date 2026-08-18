@@ -1,0 +1,11 @@
+{
+  "id": "lobehub-lobehub-agents-skills-drizzle-skill-md",
+  "name": "drizzle",
+  "author": "lobehub",
+  "description": "LobeHub Drizzle ORM schema and query style. Use for pgTable schemas, indexes, joins, inferred types, db.select/db.query, schema fields, foreign keys, junction tables, or postgres query patterns.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/lobehub/lobehub/tree/canary/.agents/skills/drizzle",
+  "skillUrl": "https://skillsmp.com/creators/lobehub/lobehub/agents-skills-drizzle",
+  "stars": 81243,
+  "updatedAt": 1784280488
+}

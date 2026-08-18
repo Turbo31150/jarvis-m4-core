@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-llm-trading-agent-security-skill-md",
+  "name": "llm-trading-agent-security",
+  "author": "affaan-m",
+  "description": "Security patterns for autonomous trading agents with wallet or transaction authority. Covers prompt injection, spend limits, pre-send simulation, circuit breakers, MEV protection, and key handling.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/llm-trading-agent-security",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-llm-trading-agent-security",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

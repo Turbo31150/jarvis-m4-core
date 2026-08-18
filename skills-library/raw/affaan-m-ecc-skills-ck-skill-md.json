@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-ck-skill-md",
+  "name": "ck",
+  "author": "affaan-m",
+  "description": "Persistent per-project memory for Claude Code. Auto-loads project context on session start, tracks sessions with git activity, and writes to native memory. Commands run deterministic Node.js scripts \u2014 behavior is consistent across model versions.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/ck",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-ck",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

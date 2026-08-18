@@ -23,7 +23,7 @@ WHISPER_URL = "http://127.0.0.1:9743/v1/audio/transcriptions"
 OLLAMA_URL = "http://127.0.0.1:11434/api/chat"
 OLLAMA_MODEL = os.environ.get("JARVIS_LLM", "deepseek-r1:7b")
 PIPER_BIN = os.path.expanduser("~/.local/bin/piper")
-PIPER_VOICE = "/home/pamerys/jarvis/models/piper/fr_FR-siwis-medium.onnx"
+PIPER_VOICE = "/home/pamerys/Workspaces/jarvis-linux/models/fr_FR-siwis-medium.onnx"
 SAMPLE_RATE = 16000
 FRAME_MS = 80
 FRAME_SAMPLES = SAMPLE_RATE * FRAME_MS // 1000  # 1280
@@ -51,7 +51,7 @@ def say(text: str):
             stderr=subprocess.DEVNULL,
         )
         p2 = subprocess.Popen(
-            ["aplay", "-q", "-D", "plughw:1,0", "-r", "22050", "-c", "1", "-f", "S16_LE"],
+            ["aplay", "-q", "-r", "22050", "-c", "1", "-f", "S16_LE"],
             stdin=p1.stdout,
             stderr=subprocess.DEVNULL,
         )
@@ -162,14 +162,20 @@ def _try_gemini(text: str) -> str | None:
 
 
 def ask_llm(text: str) -> str:
-    # Cascade M1 → M2 → Ollama OL1 → Gemini Flash
-    log("LLM: probing M1 (qwen/qwen3.5-9b)…")
-    r = _try_openai_lms("http://192.168.1.85:1234", "qwen/qwen3.5-9b", text, timeout=30)
+    # Cible primaire = hub LLM unifié :18800 (cascade failover + log domino local)
+    log("LLM: hub unifié :18800 (jarvis-auto)…")
+    r = _try_openai_lms("http://127.0.0.1:18800", "jarvis-auto", text, timeout=90)
+    if r:
+        log("LLM via hub")
+        return r
+    # Fallback direct si le hub est down : M1 → M2 → Ollama OL1 → Gemini Flash
+    log("LLM: hub KO → probing M1 (qwen/qwen3.5-9b)…")
+    r = _try_openai_lms("http://127.0.0.1:1234", "qwen/qwen3.5-9b", text, timeout=30)
     if r:
         log("LLM via M1")
         return r
     log("LLM: probing M2 (qwen3.5-9b)…")
-    r = _try_openai_lms("http://192.168.1.26:1234", "qwen3.5-9b", text, timeout=30)
+    r = _try_openai_lms("http://127.0.0.1:18800", "qwen3.5-9b", text, timeout=30)
     if r:
         log("LLM via M2")
         return r

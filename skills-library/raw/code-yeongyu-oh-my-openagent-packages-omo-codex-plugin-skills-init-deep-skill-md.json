@@ -1,0 +1,11 @@
+{
+  "id": "code-yeongyu-oh-my-openagent-packages-omo-codex-plugin-skills-init-deep-skill-md",
+  "name": "init-deep",
+  "author": "code-yeongyu",
+  "description": "(builtin) Initialize hierarchical AGENTS.md knowledge base",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/code-yeongyu/oh-my-openagent/tree/dev/packages/omo-codex/plugin/skills/init-deep",
+  "skillUrl": "https://skillsmp.com/creators/code-yeongyu/oh-my-openagent/packages-omo-codex-plugin-skills-init-deep",
+  "stars": 67193,
+  "updatedAt": 1783712585
+}

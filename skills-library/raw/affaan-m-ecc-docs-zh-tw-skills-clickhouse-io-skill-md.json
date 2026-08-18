@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-zh-tw-skills-clickhouse-io-skill-md",
+  "name": "clickhouse-io",
+  "author": "affaan-m",
+  "description": "ClickHouse database patterns, query optimization, analytics, and data engineering best practices for high-performance analytical workloads.",
+  "contentLanguage": "zh",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/zh-TW/skills/clickhouse-io",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-zh-tw-skills-clickhouse-io",
+  "stars": 237500,
+  "updatedAt": 1783136206
+}

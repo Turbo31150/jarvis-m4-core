@@ -1,0 +1,11 @@
+{
+  "id": "alirezarezvani-claude-skills-marketing-skill-skills-competitor-alternatives-skill-md",
+  "name": "competitor-alternatives",
+  "author": "alirezarezvani",
+  "description": "When the user wants to create competitor comparison or alternative pages for SEO and sales enablement. Also use when the user mentions 'alternative page,' 'vs page,' 'competitor comparison,' 'comparison page,' '[Product] vs [Product],' '[Product] alternative,' 'competitive landing pages,' 'switch from competitor,' or 'comparison content.' Covers four formats: singular alternative, plural alternatives, you vs competitor, and competitor vs competitor. Emphasizes deep research, modular content architecture, and varied section types beyond feature tables.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/alirezarezvani/claude-skills/tree/main/marketing-skill/skills/competitor-alternatives",
+  "skillUrl": "https://skillsmp.com/creators/alirezarezvani/claude-skills/marketing-skill-skills-competitor-alternatives",
+  "stars": 23780,
+  "updatedAt": 1781150321
+}

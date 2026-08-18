@@ -1,0 +1,11 @@
+{
+  "id": "martinholovsky-claude-skills-generator-skills-pinia-skill-md",
+  "name": "pinia",
+  "author": "martinholovsky",
+  "description": "Pinia state management for JARVIS system state",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/pinia",
+  "skillUrl": "https://skillsmp.com/creators/martinholovsky/claude-skills-generator/skills-pinia",
+  "stars": 45,
+  "updatedAt": 1764090731
+}

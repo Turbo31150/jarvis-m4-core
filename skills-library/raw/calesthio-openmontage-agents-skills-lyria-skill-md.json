@@ -1,0 +1,11 @@
+{
+  "id": "calesthio-openmontage-agents-skills-lyria-skill-md",
+  "name": "lyria",
+  "author": "calesthio",
+  "description": "Generate and validate music with Google Lyria 3 through the Gemini Interactions API. Use before calling OpenMontage `google_music`, designing Lyria 3 Clip or Pro prompts, using image-to-music or custom lyrics, choosing between Lyria 3 and Lyria RealTime, diagnosing Google music-generation failures, or preparing exact-duration music for a video.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/calesthio/OpenMontage/tree/main/.agents/skills/lyria",
+  "skillUrl": "https://skillsmp.com/creators/calesthio/openmontage/agents-skills-lyria",
+  "stars": 45016,
+  "updatedAt": 1784418455
+}

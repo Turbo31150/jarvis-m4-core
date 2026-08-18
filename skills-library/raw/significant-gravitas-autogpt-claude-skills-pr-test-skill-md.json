@@ -1,0 +1,11 @@
+{
+  "id": "significant-gravitas-autogpt-claude-skills-pr-test-skill-md",
+  "name": "pr-test",
+  "author": "Significant-Gravitas",
+  "description": "E2E manual testing of PRs/branches using docker compose, agent-browser, and API calls. TRIGGER when user asks to manually test a PR, test a feature end-to-end, or run integration tests against a running system.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Significant-Gravitas/AutoGPT/tree/master/.claude/skills/pr-test",
+  "skillUrl": "https://skillsmp.com/creators/significant-gravitas/autogpt/claude-skills-pr-test",
+  "stars": 185813,
+  "updatedAt": 1779528065
+}

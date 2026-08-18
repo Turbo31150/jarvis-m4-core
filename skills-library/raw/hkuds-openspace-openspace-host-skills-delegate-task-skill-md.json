@@ -1,0 +1,11 @@
+{
+  "id": "hkuds-openspace-openspace-host-skills-delegate-task-skill-md",
+  "name": "delegate-task",
+  "author": "HKUDS",
+  "description": "Delegate tasks to OpenSpace \u2014 a full-stack autonomous worker for coding, DevOps, web research, and desktop automation, backed by an extensive MCP tool and skill library. Skills auto-improve through use, reducing token consumption over time. A cloud community lets agents share and collectively evolve reusable skills.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/HKUDS/OpenSpace/tree/main/openspace/host_skills/delegate-task",
+  "skillUrl": "https://skillsmp.com/creators/hkuds/openspace/openspace-host-skills-delegate-task",
+  "stars": 7268,
+  "updatedAt": 1784259822
+}

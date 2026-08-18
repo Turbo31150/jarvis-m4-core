@@ -1,0 +1,11 @@
+{
+  "id": "activepieces-activepieces-agents-skills-debug-failed-run-skill-md",
+  "name": "debug-failed-run",
+  "author": "activepieces",
+  "description": "Debug a failed Activepieces flow run end-to-end: given a flow run id (or BullMQ job id), find why it failed, cross-referencing the live BullMQ job + Postgres rows (SSH script on the DevOps box), the centralized ClickHouse logs (ClickStack MCP), and the code in this repo, then categorize the failed-job backlog on request.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/activepieces/activepieces/tree/main/.agents/skills/debug-failed-run",
+  "skillUrl": "https://skillsmp.com/creators/activepieces/activepieces/agents-skills-debug-failed-run",
+  "stars": 23574,
+  "updatedAt": 1782816196
+}

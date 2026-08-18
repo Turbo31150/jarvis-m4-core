@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-skills-node-connect-skill-md",
+  "name": "node-connect",
+  "author": "openclaw",
+  "description": "Diagnose OpenClaw Android, iOS, or macOS node pairing, QR/setup code, route, auth, and connection failures.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/skills/node-connect",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/skills-node-connect",
+  "stars": 385119,
+  "updatedAt": 1779483121
+}

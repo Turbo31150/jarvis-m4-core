@@ -1,0 +1,11 @@
+{
+  "id": "clawbio-clawbio-skills-gi-promoter-skill-md",
+  "name": "gi-promoter",
+  "author": "ClawBio",
+  "description": "Detect promoter regions in DNA sequences using the Genomic Intelligence G0 transformer (GENA-LM BERT Large), via the hosted /v1/tasks/promoter/predict API. Returns per-window promoter probabilities and called regions.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ClawBio/ClawBio/tree/main/skills/gi-promoter",
+  "skillUrl": "https://skillsmp.com/creators/clawbio/clawbio/skills-gi-promoter",
+  "stars": 1077,
+  "updatedAt": 1781814865
+}

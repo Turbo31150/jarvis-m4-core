@@ -1,0 +1,11 @@
+{
+  "id": "hybridaione-hybridclaw-skills-search-web-skill-md",
+  "name": "search-web",
+  "author": "HybridAIOne",
+  "description": "Search the public web through the configured self-hosted SearXNG instance for current information, source discovery, or sovereignty-sensitive research.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/HybridAIOne/hybridclaw/tree/main/skills/search.web",
+  "skillUrl": "https://skillsmp.com/creators/hybridaione/hybridclaw/skills-search-web",
+  "stars": 126,
+  "updatedAt": 1778602750
+}

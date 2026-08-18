@@ -220,7 +220,10 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,input:focus-visible,sele
     <a href="#" data-section="commandes"><span class="icon">🛒</span><span>Commandes</span></a>
     <a href="#" data-section="planb"><span class="icon">🆘</span><span>Plan B</span></a>
     <a href="#" data-section="supports"><span class="icon">📎</span><span>Supports</span></a>
+    <a href="#" data-section="modeles"><span class="icon">✉️</span><span>Modèles de mails</span></a>
+    <a href="#" data-section="cascade-ia"><span class="icon">🔀</span><span>Cascade IA</span></a>
     <a href="#" data-section="logiciels"><span class="icon">🧰</span><span>Logiciels</span></a>
+    <a href="#" data-section="forge"><span class="icon">⚒️</span><span>Forge</span></a>
     <a href="#" data-section="assistant"><span class="icon">🤖</span><span>Assistant</span></a>
     <a href="#" data-section="documents"><span class="icon">📁</span><span>Documents</span></a>
     <a href="#" data-section="systeme"><span class="icon">⚙️</span><span>Système</span></a>
@@ -439,6 +442,17 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,input:focus-visible,sele
 </div>
 
 <!-- 4b. LOGICIELS ───────────────────────────────────────────────────────── -->
+<div id="section-forge" class="section">
+  <h2>⚒️ Forge — formations produites</h2>
+  <p class="sub" style="color:var(--muted);margin-bottom:14px">
+    Contenus générés par la cascade 0-token. La colonne « à vérifier » compte les
+    affirmations chiffrées repérées automatiquement (pourcentages, latences, benchmarks) :
+    le modèle en invente de crédibles, il faut les contrôler avant de publier.
+  </p>
+  <div id="forge-stats" class="sub" style="margin-bottom:10px"></div>
+  <div id="forge-grid" class="cards"></div>
+</div>
+
 <div id="section-logiciels" class="section">
   <h2>🧰 Logiciels — tout au même endroit</h2>
   <p class="sub" style="color:var(--muted);margin-bottom:14px">
@@ -1210,13 +1224,60 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,input:focus-visible,sele
   <iframe src="/supports" title="Supports Pousseline" style="width:100%;height:78vh;border:1px solid var(--border,#e0ddd4);border-radius:10px;background:#fff"></iframe>
 </div>
 
+<div id="section-modeles" class="section">
+  <h2>✉️ Modèles de mails</h2>
+  <div class="sub" style="margin-bottom:10px">
+    42 modèles prêts à l'emploi, classés par catégorie. Les champs entre accolades
+    (<code>{prenom}</code>, <code>{dates}</code>, <code>{enseignante}</code>) sont à remplacer.
+    Lecture SQL directe — aucune inférence, aucun token.
+  </div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+    <select id="mod-cat" onchange="loadModeles()" style="padding:7px 10px;border-radius:8px;border:1px solid var(--border,#e0ddd4)">
+      <option value="">Toutes les catégories</option>
+    </select>
+    <input id="mod-q" type="search" placeholder="Rechercher dans les titres et le texte…"
+           oninput="modDebounce()" style="flex:1;min-width:220px;padding:7px 10px;border-radius:8px;border:1px solid var(--border,#e0ddd4)">
+    <span id="mod-compte" class="sub" style="align-self:center"></span>
+  </div>
+  <div id="mod-liste"></div>
+</div>
+
+<div id="section-cascade-ia" class="section">
+  <h2>🔀 Cascade IA</h2>
+  <div class="sub" style="margin-bottom:10px">
+    Où part chaque demande, et sur quel modèle. Trois sources lues à la demande
+    (<code>/api/cascade/status</code>, <code>/api/registre</code>, <code>/api/router/lib</code>) —
+    sondage réseau et lecture SQL, aucune inférence, aucun token.
+    <button onclick="loadCascadeIA()" style="margin-left:8px">rafraîchir</button>
+    <span id="cia-etat" class="sub"></span>
+  </div>
+  <div class="card" style="margin-bottom:10px">
+    <strong>Backends</strong>
+    <div id="cia-backends" style="margin-top:8px">…</div>
+  </div>
+  <div class="card" style="margin-bottom:10px">
+    <strong>Modèle par usage</strong>
+    <div id="cia-modeles" style="margin-top:8px">…</div>
+  </div>
+  <div class="card" style="margin-bottom:10px">
+    <strong>Intentions reconnues</strong>
+    <div class="sub">Ce que la barre magique sait router, et combien de fois ça a servi.</div>
+    <div id="cia-intentions" style="margin-top:8px">…</div>
+  </div>
+  <div class="card">
+    <strong>Registre des commandes</strong>
+    <div class="sub">Chaque commande et la chaîne (domino) qu'elle déclenche.</div>
+    <div id="cia-registre" style="margin-top:8px">…</div>
+  </div>
+</div>
+
 </div><!-- /#main -->
 
 <script>
 /* ════════════════════════════════════════════════════════════════════════
    NAVIGATION
 ════════════════════════════════════════════════════════════════════════ */
-const SECTIONS = ['dashboard','planning','edt','groupes','import','appel','ateliers','budget','notes','carnet','prof','biblio','sorties','equipe','automations','logiciels','assistant','documents','systeme','calendrier','agents','todo','outils','commandes','planb','supports'];
+const SECTIONS = ['dashboard','planning','edt','groupes','import','appel','ateliers','budget','notes','carnet','prof','biblio','sorties','equipe','automations','logiciels','forge','assistant','documents','systeme','calendrier','agents','todo','outils','commandes','planb','supports','modeles','cascade-ia'];
 
 function navigate(id) {
   SECTIONS.forEach(s => {
@@ -1225,6 +1286,8 @@ function navigate(id) {
   document.querySelectorAll('nav a').forEach(a => {
     a.classList.toggle('active', a.dataset.section === id);
   });
+  if (id === 'modeles')   loadModeles();
+  if (id === 'cascade-ia') loadCascadeIA();
   if (id === 'planning')  loadPlanning();
   if (id === 'edt')       loadEdt();
   if (id === 'groupes')   loadGroupes();
@@ -1237,6 +1300,7 @@ function navigate(id) {
   if (id === 'documents') loadDocs();
   if (id === 'systeme')   { loadServices(); loadAdmin(); loadIntegrations(); }
   if (id === 'logiciels') loadLogiciels();
+  if (id === 'forge') loadForge();
   if (id === 'prof')      loadProf();
   if (id === 'biblio')    loadBiblio();
   if (id === 'sorties')   loadSorties();
@@ -1698,6 +1762,41 @@ const LOG_STATUTS = {
   a_copier:    {txt:'À copier',      c:'var(--muted)'},
   a_telecharger:{txt:'À télécharger',c:'var(--blue)'},
 };
+async function loadForge() {
+  const grid = document.getElementById('forge-grid');
+  const stats = document.getElementById('forge-stats');
+  grid.innerHTML = '<div class="sub">Chargement…</div>';
+  try {
+    const d = await (await fetch('/api/forge')).json();
+    stats.textContent = `${d.forgees} forgées sur ${d.inventaire} · ${d.restantes} restantes`;
+    if (!d.formations.length) { grid.innerHTML = '<div class="sub">Aucune formation forgée pour l\'instant.</div>'; return; }
+    grid.innerHTML = d.formations.map(f => {
+      const alerte = f.a_verifier > 0
+        ? `<span style="color:var(--warn,#e8a33d)">⚠ ${f.a_verifier} à vérifier</span>`
+        : '<span style="color:var(--ok,#4caf50)">✓ rien à vérifier</span>';
+      return `<div class="card">
+        <h3>${f.titre}</h3>
+        <div class="sub">${f.prix || '—'} · ${f.mots} mots · ${f.modules} modules</div>
+        <div class="sub">${alerte}</div>
+        <button class="btn" onclick="ouvrirForge('${f.slug}')">Lire</button>
+      </div>`;
+    }).join('');
+  } catch (e) {
+    grid.innerHTML = `<div class="sub">Erreur : ${e}</div>`;
+  }
+}
+async function ouvrirForge(slug) {
+  const d = await (await fetch(`/api/forge/${slug}?claims=1`)).json();
+  const w = window.open('', '_blank');
+  const claims = (d.a_verifier || []).map(c =>
+    `<li>L${c.ligne} — <b>${c.valeur}</b> (${c.genre}) : ${c.extrait.replace(/</g,'&lt;')}</li>`).join('');
+  w.document.write(`<title>${d.titre}</title>
+    <div style="font-family:system-ui;max-width:820px;margin:2rem auto;padding:0 1rem">
+    <h1>${d.titre}</h1><p>${d.prix || ''}</p>
+    ${claims ? `<div style="background:#fff4e0;border-left:4px solid #e8a33d;padding:12px;margin:16px 0">
+      <b>À vérifier avant publication (${d.a_verifier.length})</b><ul>${claims}</ul></div>` : ''}
+    <pre style="white-space:pre-wrap;line-height:1.55">${d.markdown.replace(/</g,'&lt;')}</pre></div>`);
+}
 async function loadLogiciels() {
   const grid = document.getElementById('logiciels-grid');
   grid.innerHTML = '<div class="sub">Chargement…</div>';
@@ -1755,6 +1854,142 @@ function md(s){ // mini-markdown → HTML (sûr : on échappe d'abord)
 function pFetch(url,opt){opt=opt||{};const t=localStorage.getItem('prof_token');opt.headers=Object.assign({'Content-Type':'application/json'},opt.headers||{},t?{'X-Prof-Token':t}:{});return fetch(url,opt);}
 async function pJson(url,opt){const r=await pFetch(url,opt);if(r.status===401){const t=prompt('Token Espace Prof (affiché une fois au démarrage du serveur) :');if(t){localStorage.setItem('prof_token',t);return pJson(url,opt);}}return r.json();}
 
+/* ── Modèles de mails — /api/modeles (SQL pur, 0 inférence) ─────────────── */
+let modTimer = null;
+function modDebounce(){ clearTimeout(modTimer); modTimer = setTimeout(loadModeles, 250); }
+
+function modEchappe(t){
+  return String(t == null ? '' : t).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+}
+
+async function modCopier(id, bouton){
+  const m = (window.__modeles || []).find(x => String(x.id) === String(id));
+  if (!m) return;
+  try {
+    await navigator.clipboard.writeText(m.corps || '');
+    const avant = bouton.textContent;
+    bouton.textContent = '✓ copié';
+    setTimeout(() => { bouton.textContent = avant; }, 1500);
+  } catch (e) {
+    bouton.textContent = 'copie refusée';
+  }
+}
+
+async function loadModeles(){
+  const cat = (document.getElementById('mod-cat') || {}).value || '';
+  const q   = (document.getElementById('mod-q')   || {}).value || '';
+  const params = new URLSearchParams();
+  if (cat) params.set('cat', cat);
+  if (q)   params.set('q', q);
+  const cible = document.getElementById('mod-liste');
+  if (!cible) return;
+  cible.innerHTML = '<div class="sub">chargement…</div>';
+  let data;
+  try {
+    data = await pJson('/api/modeles' + (params.toString() ? '?' + params : ''));
+  } catch (e) {
+    cible.innerHTML = '<div class="sub">⚠ /api/modeles injoignable : ' + modEchappe(e.message) + '</div>';
+    return;
+  }
+  if (!Array.isArray(data)) {
+    cible.innerHTML = '<div class="sub">⚠ réponse inattendue de /api/modeles</div>';
+    return;
+  }
+  window.__modeles = data;
+
+  // le selecteur de categories se remplit depuis la liste complete, une seule fois
+  const sel = document.getElementById('mod-cat');
+  if (sel && sel.options.length <= 1 && !cat && !q) {
+    [...new Set(data.map(m => m.categorie).filter(Boolean))].sort()
+      .forEach(c => sel.add(new Option(c, c)));
+  }
+
+  const compte = document.getElementById('mod-compte');
+  if (compte) compte.textContent = data.length + ' modèle' + (data.length > 1 ? 's' : '') + ' · SQL local, 0 token';
+
+  if (!data.length) { cible.innerHTML = '<div class="sub">aucun modèle pour ce filtre.</div>'; return; }
+
+  cible.innerHTML = data.map(m => `
+    <div class="card" style="margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline">
+        <strong>${modEchappe(m.titre)}</strong>
+        <span class="sub">${modEchappe(m.categorie)}</span>
+      </div>
+      <pre style="white-space:pre-wrap;margin:8px 0 6px;font-family:inherit">${modEchappe(m.corps)}</pre>
+      <button onclick="modCopier('${modEchappe(m.id)}', this)">copier</button>
+    </div>`).join('');
+}
+
+/* ── Cascade IA — status + registre + intentions (0 inférence) ──────────── */
+async function loadCascadeIA(){
+  const etat = document.getElementById('cia-etat');
+  const pose = (id, html) => { const e = document.getElementById(id); if (e) e.innerHTML = html; };
+  if (etat) etat.textContent = ' · lecture…';
+
+  // chacune des 3 sources echoue independamment : une panne n'aveugle pas les autres
+  const lire = async (url) => { try { return await pJson(url); } catch (e) { return {__erreur: e.message}; } };
+  const [st, reg, lib] = await Promise.all([
+    lire('/api/cascade/status'), lire('/api/registre'), lire('/api/router/lib')
+  ]);
+
+  const ech = t => String(t == null ? '' : t).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const souci = o => o && o.__erreur ? `<div class="sub">⚠ source injoignable : ${ech(o.__erreur)}</div>` : null;
+
+  // backends
+  pose('cia-backends', souci(st) || (() => {
+    const b = (st && st.backends) || [];
+    if (!b.length) return '<div class="sub">aucun backend déclaré.</div>';
+    return '<table style="width:100%;border-collapse:collapse">' + b.map(x => `
+      <tr style="border-top:1px solid var(--border,#e0ddd4)">
+        <td style="padding:5px 6px">${x.vivant ? '🟢' : '🔴'}</td>
+        <td style="padding:5px 6px"><strong>${ech(x.nom)}</strong></td>
+        <td style="padding:5px 6px"><code>${ech(x.modele)}</code></td>
+        <td style="padding:5px 6px" class="sub">${x.deporte ? 'déporté' : 'cette machine'}</td>
+        <td style="padding:5px 6px" class="sub">${ech(x.note)}</td>
+      </tr>`).join('') + '</table>';
+  })());
+
+  // modele par usage
+  pose('cia-modeles', souci(reg) || (() => {
+    const m = (reg && reg.modeles) || {};
+    const cles = Object.keys(m);
+    if (!cles.length) return '<div class="sub">aucun routage de modèle déclaré.</div>';
+    return cles.sort().map(k =>
+      `<span style="display:inline-block;margin:3px 6px 3px 0;padding:3px 9px;border:1px solid var(--border,#e0ddd4);border-radius:12px">
+         ${ech(k)} → <code>${ech(m[k])}</code></span>`).join('');
+  })());
+
+  // intentions
+  pose('cia-intentions', souci(lib) || (() => {
+    const l = Array.isArray(lib) ? lib : [];
+    if (!l.length) return '<div class="sub">aucune intention enregistrée.</div>';
+    return '<table style="width:100%;border-collapse:collapse">' +
+      l.slice().sort((a,b) => (b.hits||0) - (a.hits||0)).map(x => `
+      <tr style="border-top:1px solid var(--border,#e0ddd4)">
+        <td style="padding:5px 6px"><strong>${ech(x.intent)}</strong></td>
+        <td style="padding:5px 6px" class="sub">${ech(x.mots_cles)}</td>
+        <td style="padding:5px 6px"><code>${ech(x.route)}</code></td>
+        <td style="padding:5px 6px" class="sub">${x.hits || 0}×</td>
+      </tr>`).join('') + '</table>';
+  })());
+
+  // registre
+  pose('cia-registre', souci(reg) || (() => {
+    const c = (reg && reg.commandes) || [];
+    if (!c.length) return '<div class="sub">registre vide.</div>';
+    return c.map(x => `
+      <div style="border-top:1px solid var(--border,#e0ddd4);padding:7px 0">
+        <div><strong>${ech(x.description || x.nom || '—')}</strong>
+             <span class="sub">· backend ${ech(x.backend)}</span></div>
+        ${(x.balises||[]).length ? `<div class="sub">${(x.balises||[]).map(t => ech(t)).join(' · ')}</div>` : ''}
+        ${(x.domino||[]).length ? `<ol class="sub" style="margin:5px 0 0 18px">${(x.domino||[]).map(d => `<li>${ech(d)}</li>`).join('')}</ol>` : ''}
+      </div>`).join('');
+  })());
+
+  const ko = [st, reg, lib].filter(o => o && o.__erreur).length;
+  if (etat) etat.textContent = ko ? ` · ${ko} source(s) injoignable(s)` : ' · 3 sources lues · 0 token';
+}
+
 function profTab(name){
   document.querySelectorAll('.ppanel').forEach(p=>p.style.display='none');
   document.getElementById('ptab-'+name).style.display='';
@@ -1782,7 +2017,7 @@ async function loadRessources(){
 }
 async function loadProf(){
   try{const s=await pJson('/api/prof/ia-status');
-    const on=[]; if(s.cluster_m1)on.push('M1'); if(s.cluster_m2)on.push('M2');
+    const on=[]; if(s.cluster_m6)on.push('M6'); if(s.cluster_remi)on.push('Rémi');
     if(s.ollama_cloud)on.push('☁️Cloud'); if(s.ollama_local && !s.local_bride)on.push('Ollama');
     let t='IA: '+(on.length?on.join('+'):'hors-ligne')+(s.gpu_temp?` · ${s.gpu_temp}°C`:'');
     if(s.local_bride)t+=' 🔥 local bridé';

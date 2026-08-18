@@ -1,0 +1,11 @@
+{
+  "id": "nrwl-nx-claude-skills-review-pr-skill-md",
+  "name": "review-pr",
+  "author": "nrwl",
+  "description": "Deep code review of a single open PR in nrwl/nx. Checks out the PR inside an isolated sandbox container \u2014 gVisor on Linux, the Docker VM on macOS \u2014 never into the host working tree, runs the pr-review-toolkit review agents, the reproduce-verifier agent (grounds the review in the linked issues and executes the repro inside the sandbox), the alternative-approach agent (independently designs competing solutions and contrasts them with the PR's choice), the performance-analyzer agent (checks the changes don't waste CPU or memory and execute quickly at workspace scale), and the security-analyzer agent (hunts injection-class vulnerabilities \u2014 command injection, zip-slip, SSRF, credential leakage \u2014 across real trust boundaries), then \u2014 only when a finding turns on why the author did something, and only once the review is finished \u2014 verifies that finding against the PR's Polygraph session (read-only, never resumed; it can downgrade a finding or raise a question but never add one, and its internal content never reache",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/nrwl/nx/tree/master/.claude/skills/review-pr",
+  "skillUrl": "https://skillsmp.com/creators/nrwl/nx/claude-skills-review-pr",
+  "stars": 29188,
+  "updatedAt": 1785515123
+}

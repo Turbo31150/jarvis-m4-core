@@ -1,0 +1,11 @@
+{
+  "id": "anthropics-claude-for-legal-privacy-legal-skills-use-case-triage-skill-md",
+  "name": "use-case-triage",
+  "author": "anthropics",
+  "description": "Quickly determine whether a processing activity needs a PIA, a mandatory GDPR DPIA, or can proceed \u2014 surfaces privacy policy conflicts and routes to the right next step. Use when the user asks \"does this need a PIA\", \"triage this feature\", \"privacy check on X\", \"is this okay from a privacy perspective\", or describes a new data processing activity, product feature, or vendor relationship.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/anthropics/claude-for-legal/tree/main/privacy-legal/skills/use-case-triage",
+  "skillUrl": "https://skillsmp.com/creators/anthropics/claude-for-legal/privacy-legal-skills-use-case-triage",
+  "stars": 8999,
+  "updatedAt": 1778532266
+}

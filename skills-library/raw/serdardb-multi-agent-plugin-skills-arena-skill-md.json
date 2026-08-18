@@ -1,0 +1,11 @@
+{
+  "id": "serdardb-multi-agent-plugin-skills-arena-skill-md",
+  "name": "arena",
+  "author": "serdardb",
+  "description": "Multi-model review arena \u2014 several AI models audit the code, cross-critique each other until they converge, then a judge verifies against real code and a scoreboard names a winner. Runs as a Workflow (visible in /workflows).",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/serdardb/multi-agent/tree/main/plugin/skills/arena",
+  "skillUrl": "https://skillsmp.com/creators/serdardb/multi-agent/plugin-skills-arena",
+  "stars": 1,
+  "updatedAt": 1785104537
+}

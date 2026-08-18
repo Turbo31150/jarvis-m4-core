@@ -1,0 +1,11 @@
+{
+  "id": "davila7-claude-code-templates-cli-tool-components-skills-business-marketing-competitive-ads-extractor-skill-md",
+  "name": "competitive-ads-extractor",
+  "author": "davila7",
+  "description": "Extracts and analyzes competitors' ads from ad libraries (Facebook, LinkedIn, etc.) to understand what messaging, problems, and creative approaches are working. Helps inspire and improve your own ad campaigns.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/business-marketing/competitive-ads-extractor",
+  "skillUrl": "https://skillsmp.com/creators/davila7/claude-code-templates/cli-tool-components-skills-business-marketing-competitive-ads-extractor",
+  "stars": 30096,
+  "updatedAt": 1764952495
+}

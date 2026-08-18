@@ -1,0 +1,11 @@
+{
+  "id": "docling-project-docling-docling-agents-skills-docling-skill-md",
+  "name": "docling",
+  "author": "docling-project",
+  "description": "Use Docling to understand the content of documents in any supported format \u2014 PDF (born-digital or scanned), DOCX, PPTX, XLSX, HTML, Markdown, AsciiDoc, CSV, images, audio, and XML \u2014 by converting them into a unified DoclingDocument (Markdown or structured JSON). Use this skill whenever you need to read, parse, convert, extract, or chunk a document you cannot read directly: \"what's in this PDF\", \"convert this to markdown\", \"extract the tables\", \"chunk this for RAG\", \"read this scanned document\", \"parse this DOCX/PPTX\". Covers the `docling` CLI, the Python SDK (DocumentConverter + PipelineOptions), the remote Service Client (self-hosted or managed docling-serve), and the docling-slim install extras for a minimal dependency footprint.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/docling-project/docling/tree/main/docling/.agents/skills/docling",
+  "skillUrl": "https://skillsmp.com/creators/docling-project/docling/docling-agents-skills-docling",
+  "stars": 64238,
+  "updatedAt": 1785500360
+}

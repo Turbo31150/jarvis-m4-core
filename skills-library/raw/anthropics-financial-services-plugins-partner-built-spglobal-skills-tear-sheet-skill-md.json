@@ -1,0 +1,11 @@
+{
+  "id": "anthropics-financial-services-plugins-partner-built-spglobal-skills-tear-sheet-skill-md",
+  "name": "tear-sheet",
+  "author": "anthropics",
+  "description": "Generate professional company tear sheets using S&P Capital IQ data via the Kensho LLM-ready API MCP server. Use this skill whenever the user asks for a tear sheet, company one-pager, company profile, fact sheet, company snapshot, or company overview document \u2014 especially when they mention a specific company name or ticker. Also trigger when users ask for equity research summaries, M&A company profiles, corporate development target profiles, sales/BD meeting prep documents, or any concise single-company financial summary. This skill supports four audience types: equity research, investment banking/M&A, corporate development, and sales/business development. If the user doesn't specify an audience, ask. Works for both public and private companies.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/anthropics/financial-services/tree/main/plugins/partner-built/spglobal/skills/tear-sheet",
+  "skillUrl": "https://skillsmp.com/creators/anthropics/financial-services/plugins-partner-built-spglobal-skills-tear-sheet",
+  "stars": 33988,
+  "updatedAt": 1777993098
+}

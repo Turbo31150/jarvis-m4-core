@@ -1,0 +1,11 @@
+{
+  "id": "lobehub-lobehub-agents-skills-design-prototype-skill-md",
+  "name": "design-prototype",
+  "author": "lobehub",
+  "description": "Produce an interactive single-file HTML design prototype using the REAL LobeHub design system (@lobehub/ui + antd + antd-style tokens) with production-style React \u2014 no build step, opens directly in a browser. Use when asked for a design prototype / interactive mockup / \u4ea4\u4e92\u539f\u578b / \u51fa\u4e2a\u539f\u578b / \u8bbe\u8ba1\u7a3f HTML for a page or flow, or to explore a redesign before committing to implementation.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/lobehub/lobehub/tree/canary/.agents/skills/design-prototype",
+  "skillUrl": "https://skillsmp.com/creators/lobehub/lobehub/agents-skills-design-prototype",
+  "stars": 81243,
+  "updatedAt": 1784795029
+}

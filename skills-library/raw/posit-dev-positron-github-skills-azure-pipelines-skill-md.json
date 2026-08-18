@@ -1,0 +1,11 @@
+{
+  "id": "posit-dev-positron-github-skills-azure-pipelines-skill-md",
+  "name": "azure-pipelines",
+  "author": "posit-dev",
+  "description": "Use when validating Azure DevOps pipeline changes for the VS Code build. Covers queueing builds, checking build status, viewing logs, and iterating on pipeline YAML changes without waiting for full CI runs.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/posit-dev/positron/tree/main/.github/skills/azure-pipelines",
+  "skillUrl": "https://skillsmp.com/creators/posit-dev/positron/github-skills-azure-pipelines",
+  "stars": 4216,
+  "updatedAt": 1780001271
+}

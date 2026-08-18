@@ -1,0 +1,11 @@
+{
+  "id": "github-awesome-copilot-skills-flowstudio-power-automate-governance-skill-md",
+  "name": "flowstudio-power-automate-governance",
+  "author": "github",
+  "description": "Govern Power Automate flows and Power Apps at scale using the FlowStudio MCP cached store. Classify flows by business impact, detect orphaned resources, audit connector usage, enforce compliance standards, manage notification rules, and compute governance scores \u2014 all without Dataverse or the CoE Starter Kit. Load this skill when asked to: tag or classify flows, set business impact, assign ownership, detect orphans, audit connectors, check compliance, compute archive scores, manage notification rules, run a governance review, generate a compliance report, offboard a maker, or any task that involves writing governance metadata to flows. Requires a FlowStudio for Teams or MCP Pro+ subscription \u2014 see https://mcp.flowstudio.app",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/github/awesome-copilot/tree/main/skills/flowstudio-power-automate-governance",
+  "skillUrl": "https://skillsmp.com/creators/github/awesome-copilot/skills-flowstudio-power-automate-governance",
+  "stars": 37423,
+  "updatedAt": 1778462909
+}

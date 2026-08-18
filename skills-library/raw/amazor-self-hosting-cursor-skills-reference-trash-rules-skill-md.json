@@ -1,0 +1,11 @@
+{
+  "id": "amazor-self-hosting-cursor-skills-reference-trash-rules-skill-md",
+  "name": "reference-trash-rules",
+  "author": "amazor",
+  "description": "Determines which TRaSH Guide rules apply from current context (file path, chapter, or stack) and references them. Use when the user asks to reference TRaSH rules, which rules apply here, or when working on media stack docs (Chapter2c, Chapter 3b), docker_compose/media, or docker_compose/accelerated and the agent should follow the correct guidelines.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/amazor/Self-Hosting/tree/main/.cursor/skills/reference-trash-rules",
+  "skillUrl": "https://skillsmp.com/creators/amazor/self-hosting/cursor-skills-reference-trash-rules",
+  "stars": 0,
+  "updatedAt": 1771582030
+}

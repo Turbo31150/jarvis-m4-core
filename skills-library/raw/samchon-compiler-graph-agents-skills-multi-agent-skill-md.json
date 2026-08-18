@@ -1,0 +1,11 @@
+{
+  "id": "samchon-compiler-graph-agents-skills-multi-agent-skill-md",
+  "name": "multi-agent",
+  "author": "samchon",
+  "description": "Defines the explicitly parallel @samchon/graph variants of review and issue campaigns. Use only when the user explicitly requests a team, parallel, or multi-agent review or issue campaign. Route review work to review.md and issue campaigns to issue-campaign.md. Self-Review, unqualified review, and a campaign without explicit parallel authorization remain solo.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/samchon/compiler-graph/tree/master/.agents/skills/multi-agent",
+  "skillUrl": "https://skillsmp.com/creators/samchon/compiler-graph/agents-skills-multi-agent",
+  "stars": 3,
+  "updatedAt": 1784728842
+}

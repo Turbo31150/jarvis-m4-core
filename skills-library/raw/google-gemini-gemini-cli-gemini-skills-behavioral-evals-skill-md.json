@@ -1,0 +1,11 @@
+{
+  "id": "google-gemini-gemini-cli-gemini-skills-behavioral-evals-skill-md",
+  "name": "behavioral-evals",
+  "author": "google-gemini",
+  "description": "Guidance for creating, running, fixing, and promoting behavioral evaluations. Use when verifying agent decision logic, debugging failures, debugging prompt steering, or adding workspace regression tests.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/google-gemini/gemini-cli/tree/main/.gemini/skills/behavioral-evals",
+  "skillUrl": "https://skillsmp.com/creators/google-gemini/gemini-cli/gemini-skills-behavioral-evals",
+  "stars": 106351,
+  "updatedAt": 1775590013
+}

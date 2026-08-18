@@ -1,0 +1,7 @@
+# JARVIS Navigation Stack Aliases - DO NOT EDIT MANUALLY
+alias nav-start='nohup google-chrome-stable --remote-debugging-port=9222 --user-data-dir=/home/pamerys/.config/jarvis-browser --no-first-run --no-default-browser-check --remote-allow-origins=* about:blank > /dev/null 2>&1 &'
+alias nav-check='curl -s http://127.0.0.1:9222/json/version'
+alias nav-list='npx -y chrome-devtools-mcp@latest --browserUrl http://127.0.0.1:9222 --list-pages'
+alias nav-stop='pkill -f google-chrome'
+alias nav='browseros nav'
+alias scrape='browseros text'

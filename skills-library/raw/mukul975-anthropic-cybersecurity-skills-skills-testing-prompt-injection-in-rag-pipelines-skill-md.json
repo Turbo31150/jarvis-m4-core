@@ -1,0 +1,11 @@
+{
+  "id": "mukul975-anthropic-cybersecurity-skills-skills-testing-prompt-injection-in-rag-pipelines-skill-md",
+  "name": "testing-prompt-injection-in-rag-pipelines",
+  "author": "mukul975",
+  "description": "Probes Retrieval-Augmented Generation pipelines for indirect prompt injection via poisoned retrieved documents and embedding-space manipulation, using NVIDIA garak, Promptfoo red-team plugins, and Microsoft PyRIT against vector stores like FAISS, Chroma, Pinecone, or pgvector. Use when security-testing a RAG chatbot or document-Q&A system, validating retrieval guardrails, or gating CI/CD on prompt-template/retriever changes.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/mukul975/Anthropic-Cybersecurity-Skills/tree/main/skills/testing-prompt-injection-in-rag-pipelines",
+  "skillUrl": "https://skillsmp.com/creators/mukul975/anthropic-cybersecurity-skills/skills-testing-prompt-injection-in-rag-pipelines",
+  "stars": 27260,
+  "updatedAt": 1785688333
+}

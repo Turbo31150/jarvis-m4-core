@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-zh-cn-skills-autonomous-agent-harness-skill-md",
+  "name": "autonomous-agent-harness",
+  "author": "affaan-m",
+  "description": "\u5c06 Claude Code \u8f6c\u53d8\u4e3a\u5177\u6709\u6301\u4e45\u8bb0\u5fc6\u3001\u5b9a\u65f6\u64cd\u4f5c\u3001\u8ba1\u7b97\u673a\u4f7f\u7528\u548c\u4efb\u52a1\u961f\u5217\u7684\u5b8c\u5168\u81ea\u4e3b\u4ee3\u7406\u7cfb\u7edf\u3002\u901a\u8fc7\u5229\u7528 Claude Code \u7684\u539f\u751f\u5b9a\u65f6\u4efb\u52a1\u3001\u8c03\u5ea6\u3001MCP \u5de5\u5177\u548c\u8bb0\u5fc6\uff0c\u53d6\u4ee3\u72ec\u7acb\u7684\u4ee3\u7406\u6846\u67b6\uff08Hermes\u3001AutoGPT\uff09\u3002\u5f53\u7528\u6237\u9700\u8981\u6301\u7eed\u81ea\u4e3b\u64cd\u4f5c\u3001\u5b9a\u65f6\u4efb\u52a1\u6216\u81ea\u6211\u5bfc\u5411\u7684\u4ee3\u7406\u5faa\u73af\u65f6\u4f7f\u7528\u3002",
+  "contentLanguage": "zh",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/zh-CN/skills/autonomous-agent-harness",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-zh-cn-skills-autonomous-agent-harness",
+  "stars": 237500,
+  "updatedAt": 1778527909
+}

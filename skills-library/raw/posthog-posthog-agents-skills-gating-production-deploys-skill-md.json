@@ -1,0 +1,11 @@
+{
+  "id": "posthog-posthog-agents-skills-gating-production-deploys-skill-md",
+  "name": "gating-production-deploys",
+  "author": "PostHog",
+  "description": "Use when adding or editing a GitHub Actions workflow that pushes a container image to a registry (ECR/ghcr/Docker Hub via build-push-action) or dispatches a production deploy (a `commit_state_update` repository_dispatch to PostHog/charts). Those run from a single canonical deploy repo, gated by the CD_DEPLOY_ENABLED variable. Does NOT apply to workflows that publish GitHub releases, npm, crates, or Homebrew \u2014 those stay on the public repo.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/PostHog/posthog/tree/master/.agents/skills/gating-production-deploys",
+  "skillUrl": "https://skillsmp.com/creators/posthog/posthog/agents-skills-gating-production-deploys",
+  "stars": 37496,
+  "updatedAt": 1784727341
+}

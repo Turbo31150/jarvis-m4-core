@@ -1,0 +1,11 @@
+{
+  "id": "frank890417-taiwan-md-claude-skills-twmd-bench-skill-md",
+  "name": "twmd-bench",
+  "author": "frank890417",
+  "description": "Sovereignty-Bench-TW measurement via canonical BENCH-PIPELINE.\nTRIGGER when: user says \"\u8dd1 bench\", \"Sovereignty-Bench\",\n\"\u52a0\u65b0 model\", \"bench-pipeline\".",
+  "contentLanguage": "und",
+  "githubUrl": "https://github.com/frank890417/taiwan-md/tree/main/.claude/skills/twmd-bench",
+  "skillUrl": "https://skillsmp.com/creators/frank890417/taiwan-md/claude-skills-twmd-bench",
+  "stars": 1125,
+  "updatedAt": 1777911484
+}

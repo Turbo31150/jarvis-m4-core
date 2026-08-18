@@ -1,0 +1,11 @@
+{
+  "id": "rushindrasinha-youtube-shorts-pipeline-skill-md",
+  "name": "verticals",
+  "author": "rushindrasinha",
+  "description": "AI-native vertical video engine with niche intelligence. Takes a one-line topic and a niche profile, and outputs a finished YouTube Short/Reel/TikTok with AI-generated b-roll, voiceover, burned-in captions, background music, and thumbnail. Supports multiple LLM providers (Claude, Gemini, GPT, Ollama), TTS providers (Edge TTS, ElevenLabs, MiniMax, 60db), and 15+ content niches.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/rushindrasinha/youtube-shorts-pipeline",
+  "skillUrl": "https://skillsmp.com/creators/rushindrasinha/youtube-shorts-pipeline/skill",
+  "stars": 2165,
+  "updatedAt": 1781049300
+}

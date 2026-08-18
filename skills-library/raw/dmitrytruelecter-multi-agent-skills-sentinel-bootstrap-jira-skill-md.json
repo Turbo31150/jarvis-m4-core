@@ -1,0 +1,11 @@
+{
+  "id": "dmitrytruelecter-multi-agent-skills-sentinel-bootstrap-jira-skill-md",
+  "name": "sentinel-bootstrap-jira",
+  "author": "DmitryTrueLecter",
+  "description": "One-time bootstrap. Discovers Jira transition IDs from the live workflow and prints a config block ready to paste into ${CLAUDE_PROJECT_DIR}/.claude/dma/config.yml under tasks.jira.transitions. Run once per project, and again whenever the Jira workflow changes. Invocation: /dma:sentinel-bootstrap-jira.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/DmitryTrueLecter/multi-agent/tree/main/skills/sentinel-bootstrap-jira",
+  "skillUrl": "https://skillsmp.com/creators/dmitrytruelecter/multi-agent/skills-sentinel-bootstrap-jira",
+  "stars": 0,
+  "updatedAt": 1782718463
+}

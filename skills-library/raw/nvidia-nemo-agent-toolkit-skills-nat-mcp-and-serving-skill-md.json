@@ -1,0 +1,11 @@
+{
+  "id": "nvidia-nemo-agent-toolkit-skills-nat-mcp-and-serving-skill-md",
+  "name": "nat-mcp-and-serving",
+  "author": "NVIDIA",
+  "description": "Use when serving NeMo Agent Toolkit workflows, exposing workflows through FastAPI, configuring MCP clients or servers, or troubleshooting transport and server setup.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NVIDIA/NeMo-Agent-Toolkit/tree/develop/skills/nat-mcp-and-serving",
+  "skillUrl": "https://skillsmp.com/creators/nvidia/nemo-agent-toolkit/skills-nat-mcp-and-serving",
+  "stars": 2551,
+  "updatedAt": 1778706935
+}

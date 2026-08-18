@@ -1,0 +1,11 @@
+{
+  "id": "openbb-finance-openbb-openbb-platform-extensions-mcp-server-openbb-mcp-server-skills-build-workspace-app-skill-md",
+  "name": "build-workspace-app",
+  "author": "OpenBB-finance",
+  "description": "This guide covers the full lifecycle of building, running, and serving a custom OpenBB Workspace application from an extension project scaffolded by `openbb-cookiecutter`. It assumes the project shell already exists (see the `develop_extension` skill for scaffolding instructions).",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/OpenBB-finance/OpenBB/tree/develop/openbb_platform/extensions/mcp_server/openbb_mcp_server/skills/build_workspace_app",
+  "skillUrl": "https://skillsmp.com/creators/openbb-finance/openbb/openbb-platform-extensions-mcp-server-openbb-mcp-server-skills-build-workspace-app",
+  "stars": 71375,
+  "updatedAt": 1773866339
+}

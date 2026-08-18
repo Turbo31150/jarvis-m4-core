@@ -1,0 +1,11 @@
+{
+  "id": "kornia-kornia-claude-skills-kornia-developer-skill-md",
+  "name": "kornia-developer",
+  "author": "kornia",
+  "description": "Use when developing on kornia \u2014 making an op torch.compile / dynamo compatible, fixing a graph break, or optimizing for speed. Codifies the compile-first workflow \u2014 genuine fullgraph fixes (no is_compiling hacks), byte-to-byte eager preservation, cross-library benchmarking toward the 10x-vs-albumentations moonshot.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/kornia/kornia/tree/main/.claude/skills/kornia-developer",
+  "skillUrl": "https://skillsmp.com/creators/kornia/kornia/claude-skills-kornia-developer",
+  "stars": 11299,
+  "updatedAt": 1784194659
+}

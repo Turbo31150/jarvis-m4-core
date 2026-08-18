@@ -1,0 +1,11 @@
+{
+  "id": "flutter-flutter-agents-skills-updating-android-sdk-skill-md",
+  "name": "updating-android-sdk",
+  "author": "flutter",
+  "description": "Upgrades Flutter's Android SDK dependency to a new Android API version (or preview/canary release) in packages.txt, verifies CIPD tag uniqueness, and packages/uploads the binaries using create_cipd_packages.sh across macOS, Linux, and Windows. Use whenever a user wants to pick up a new version of Android or upload Android SDK packages to CIPD.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/flutter/flutter/tree/master/.agents/skills/updating-android-sdk",
+  "skillUrl": "https://skillsmp.com/creators/flutter/flutter/agents-skills-updating-android-sdk",
+  "stars": 178163,
+  "updatedAt": 1780604289
+}

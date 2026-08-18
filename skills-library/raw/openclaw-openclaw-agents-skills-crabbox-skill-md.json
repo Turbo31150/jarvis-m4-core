@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-agents-skills-crabbox-skill-md",
+  "name": "crabbox",
+  "author": "openclaw",
+  "description": "Crabbox/Testbox remote proof for OpenClaw: trusted-source routing, untrusted isolation, Linux/macOS/Windows/WSL2, live E2E, desktop, diagnostics, cleanup.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/.agents/skills/crabbox",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/agents-skills-crabbox",
+  "stars": 385119,
+  "updatedAt": 1784101925
+}

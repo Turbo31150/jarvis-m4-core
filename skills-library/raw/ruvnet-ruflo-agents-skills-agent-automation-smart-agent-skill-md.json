@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruflo-agents-skills-agent-automation-smart-agent-skill-md",
+  "name": "agent-automation-smart-agent",
+  "author": "ruvnet",
+  "description": "Agent skill for automation-smart-agent - invoke with $agent-automation-smart-agent",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/ruflo/tree/main/.agents/skills/agent-automation-smart-agent",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruflo/agents-skills-agent-automation-smart-agent",
+  "stars": 66991,
+  "updatedAt": 1770485792
+}

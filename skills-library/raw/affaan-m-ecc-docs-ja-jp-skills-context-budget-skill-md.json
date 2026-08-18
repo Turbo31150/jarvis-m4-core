@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-ja-jp-skills-context-budget-skill-md",
+  "name": "context-budget",
+  "author": "affaan-m",
+  "description": "\u30a8\u30fc\u30b8\u30a7\u30f3\u30c8\u3001\u30b9\u30ad\u30eb\u3001MCP\u30b5\u30fc\u30d0\u30fc\u3001\u30eb\u30fc\u30eb\u306b\u308f\u305f\u3063\u3066Claude Code\u306e\u30b3\u30f3\u30c6\u30ad\u30b9\u30c8\u30a6\u30a3\u30f3\u30c9\u30a6\u6d88\u8cbb\u3092\u76e3\u67fb\u3057\u307e\u3059\u3002\u80a5\u5927\u5316\u3001\u5197\u9577\u306a\u30b3\u30f3\u30dd\u30fc\u30cd\u30f3\u30c8\u3092\u7279\u5b9a\u3057\u3001\u512a\u5148\u9806\u4f4d\u4ed8\u3051\u3055\u308c\u305f\u30c8\u30fc\u30af\u30f3\u7bc0\u7d04\u306e\u63a8\u5968\u4e8b\u9805\u3092\u751f\u6210\u3057\u307e\u3059\u3002",
+  "contentLanguage": "ja",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/ja-JP/skills/context-budget",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-ja-jp-skills-context-budget",
+  "stars": 237500,
+  "updatedAt": 1778999500
+}

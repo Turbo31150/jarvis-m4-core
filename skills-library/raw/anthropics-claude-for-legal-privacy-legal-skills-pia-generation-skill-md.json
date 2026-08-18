@@ -1,0 +1,11 @@
+{
+  "id": "anthropics-claude-for-legal-privacy-legal-skills-pia-generation-skill-md",
+  "name": "pia-generation",
+  "author": "anthropics",
+  "description": "Generate a Privacy Impact Assessment in house format for a new feature, product, or processing activity, using the structure learned from your seed PIA. Use when the user says \"write a PIA\", \"privacy impact assessment for\", \"do we need a PIA for this\", \"privacy review this feature\", or describes a new data processing activity.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/anthropics/claude-for-legal/tree/main/privacy-legal/skills/pia-generation",
+  "skillUrl": "https://skillsmp.com/creators/anthropics/claude-for-legal/privacy-legal-skills-pia-generation",
+  "stars": 8999,
+  "updatedAt": 1778611501
+}

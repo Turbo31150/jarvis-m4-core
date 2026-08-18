@@ -1,0 +1,11 @@
+{
+  "id": "google-gemini-gemini-cli-tools-caretaker-agent-cloudrun-triage-worker-gemini-skills-quality-skill-md",
+  "name": "quality",
+  "author": "google-gemini",
+  "description": "Evaluates whether a GitHub issue is spam, empty, needs more information, or is OK to proceed.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/google-gemini/gemini-cli/tree/main/tools/caretaker-agent/cloudrun/triage-worker/.gemini/skills/quality",
+  "skillUrl": "https://skillsmp.com/creators/google-gemini/gemini-cli/tools-caretaker-agent-cloudrun-triage-worker-gemini-skills-quality",
+  "stars": 106351,
+  "updatedAt": 1783460232
+}

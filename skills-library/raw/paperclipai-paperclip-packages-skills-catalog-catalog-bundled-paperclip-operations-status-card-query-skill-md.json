@@ -1,0 +1,11 @@
+{
+  "id": "paperclipai-paperclip-packages-skills-catalog-catalog-bundled-paperclip-operations-status-card-query-skill-md",
+  "name": "status-card-query",
+  "author": "paperclipai",
+  "description": "Create and maintain agent-authored Paperclip status cards, or compile a prose interest prompt into bounded CompanySearchQuery objects and write the first summary from the assigned Summarizer run.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/paperclipai/paperclip/tree/master/packages/skills-catalog/catalog/bundled/paperclip-operations/status-card-query",
+  "skillUrl": "https://skillsmp.com/creators/paperclipai/paperclip/packages-skills-catalog-catalog-bundled-paperclip-operations-status-card-query",
+  "stars": 75602,
+  "updatedAt": 1784919974
+}

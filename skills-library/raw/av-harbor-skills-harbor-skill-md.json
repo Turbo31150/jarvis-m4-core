@@ -1,0 +1,11 @@
+{
+  "id": "av-harbor-skills-harbor-skill-md",
+  "name": "harbor",
+  "author": "av",
+  "description": "CLI toolkit for managing containerized LLM services. Use when the user wants to start, stop, configure, or manage AI/LLM services like Ollama, Open WebUI, llama.cpp, vLLM, LiteLLM, ComfyUI, and 250+ others. Triggers on requests to \"run a model\", \"start ollama\", \"set up an LLM\", \"configure harbor\", \"manage services\", \"check what's running\", \"harbor launch\", Boost custom workflows, or any Docker-based AI service management task.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/av/harbor/tree/main/skills/harbor",
+  "skillUrl": "https://skillsmp.com/creators/av/harbor/skills-harbor",
+  "stars": 3155,
+  "updatedAt": 1784672433
+}

@@ -1,0 +1,11 @@
+{
+  "id": "microsoft-vscode-github-skills-chat-customizations-editor-skill-md",
+  "name": "chat-customizations-editor",
+  "author": "microsoft",
+  "description": "Use when working on the Chat Customizations editor \u2014 the management UI for agents, skills, instructions, hooks, prompts, MCP servers, and plugins.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/microsoft/vscode/tree/main/.github/skills/chat-customizations-editor",
+  "skillUrl": "https://skillsmp.com/creators/microsoft/vscode/github-skills-chat-customizations-editor",
+  "stars": 188283,
+  "updatedAt": 1781631171
+}

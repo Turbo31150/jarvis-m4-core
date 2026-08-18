@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-skills-gh-issues-skill-md",
+  "name": "gh-issues",
+  "author": "openclaw",
+  "description": "Fetch GitHub issues, select candidates, spawn background fix agents, open PRs, and optionally process PR review comments.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/skills/gh-issues",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/skills-gh-issues",
+  "stars": 385119,
+  "updatedAt": 1781899238
+}

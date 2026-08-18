@@ -1,0 +1,11 @@
+{
+  "id": "langgenius-dify-agents-skills-frontend-testing-skill-md",
+  "name": "frontend-testing",
+  "author": "langgenius",
+  "description": "Use when writing or changing Vitest or React Testing Library tests under `web/` or `packages/dify-ui/`, or when the user explicitly requests frontend test strategy, including evaluation of an existing strategy. Do not use for frontend code-review-only requests, general testability discussion, Python tests, or Cucumber/Playwright E2E.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/langgenius/dify/tree/main/.agents/skills/frontend-testing",
+  "skillUrl": "https://skillsmp.com/creators/langgenius/dify/agents-skills-frontend-testing",
+  "stars": 151304,
+  "updatedAt": 1785046417
+}

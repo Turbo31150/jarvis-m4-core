@@ -1,0 +1,11 @@
+{
+  "id": "google-gemini-gemini-cli-gemini-skills-agent-tui-skill-md",
+  "name": "agent-tui",
+  "author": "google-gemini",
+  "description": "Main Agents: Do NOT use this skill directly. If you need to test the TUI, invoke the `tui_tester` subagent. Drive terminal UI (TUI) applications programmatically for testing, automation, and inspection. Use when: automating CLI/TUI interactions, regression testing terminal apps, or verifying interactive behavior. Also use when: user asks \"what is agent-tui\", \"what does agent-tui do\", \"demo agent-tui\", \"show me agent-tui\", \"how does agent-tui work\", or wants to see it in action.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/google-gemini/gemini-cli/tree/main/.gemini/skills/agent-tui",
+  "skillUrl": "https://skillsmp.com/creators/google-gemini/gemini-cli/gemini-skills-agent-tui",
+  "stars": 106351,
+  "updatedAt": 1779119162
+}

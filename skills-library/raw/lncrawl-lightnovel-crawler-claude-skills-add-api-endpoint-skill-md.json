@@ -1,0 +1,11 @@
+{
+  "id": "lncrawl-lightnovel-crawler-claude-skills-add-api-endpoint-skill-md",
+  "name": "add-api-endpoint",
+  "author": "lncrawl",
+  "description": "Add or modify a FastAPI endpoint in lncrawl \u2014 router aggregation, ensure_user/ensure_admin security, DTO vs DAO models, pagination, ServerErrors. Use when touching lncrawl/server/api/, security.py, or server/models/.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/lncrawl/lightnovel-crawler/tree/dev/.claude/skills/add-api-endpoint",
+  "skillUrl": "https://skillsmp.com/creators/lncrawl/lightnovel-crawler/claude-skills-add-api-endpoint",
+  "stars": 2529,
+  "updatedAt": 1783860532
+}

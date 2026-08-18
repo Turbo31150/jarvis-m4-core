@@ -1,0 +1,11 @@
+{
+  "id": "openai-openai-cookbook-codex-skills-docs-editor-skill-md",
+  "name": "docs-editor",
+  "author": "openai",
+  "description": "Review and edit OpenAI Cookbook notebooks, Markdown, and MDX for technical accuracy, clarity, grammar, consistency, runnable examples, and repository publication requirements. Use for editorial reviews, pre-merge documentation checks, or notebook Markdown-cell sweeps in openai-cookbook.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openai/openai-cookbook/tree/main/.codex/skills/docs-editor",
+  "skillUrl": "https://skillsmp.com/creators/openai/openai-cookbook/codex-skills-docs-editor",
+  "stars": 75091,
+  "updatedAt": 1784300657
+}

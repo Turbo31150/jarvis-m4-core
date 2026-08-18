@@ -1,0 +1,11 @@
+{
+  "id": "dmitrytruelecter-multi-agent-skills-task-read-skill-md",
+  "name": "task-read",
+  "author": "DmitryTrueLecter",
+  "description": "Fetch a task's full data \u2014 description, status, labels, parent, and all comments \u2014 in one call. Returns normalized output for agent consumption. Use at the start of any agent workflow instead of calling tracker tools directly. Invocation: `/dma:task-read <ISSUE-KEY>`.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/DmitryTrueLecter/multi-agent/tree/main/skills/task-read",
+  "skillUrl": "https://skillsmp.com/creators/dmitrytruelecter/multi-agent/skills-task-read",
+  "stars": 0,
+  "updatedAt": 1784627009
+}

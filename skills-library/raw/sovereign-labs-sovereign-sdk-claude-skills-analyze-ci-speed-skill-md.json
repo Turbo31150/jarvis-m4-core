@@ -1,0 +1,11 @@
+{
+  "id": "sovereign-labs-sovereign-sdk-claude-skills-analyze-ci-speed-skill-md",
+  "name": "analyze-ci-speed",
+  "author": "Sovereign-Labs",
+  "description": "Analyze compilation time and test durations from CI logs. Use when the user asks about slow builds, slow tests, or wants to optimize CI time.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Sovereign-Labs/sovereign-sdk/tree/dev/.claude/skills/analyze-ci-speed",
+  "skillUrl": "https://skillsmp.com/creators/sovereign-labs/sovereign-sdk/claude-skills-analyze-ci-speed",
+  "stars": 478,
+  "updatedAt": 1769514006
+}

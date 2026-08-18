@@ -1,0 +1,11 @@
+{
+  "id": "leonardomso-33-js-concepts-claude-skills-resource-curator-skill-md",
+  "name": "resource-curator",
+  "author": "leonardomso",
+  "description": "Find, evaluate, and maintain high-quality external resources for JavaScript concept documentation, including auditing for broken and outdated links",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/leonardomso/33-js-concepts/tree/master/.claude/skills/resource-curator",
+  "skillUrl": "https://skillsmp.com/creators/leonardomso/33-js-concepts/claude-skills-resource-curator",
+  "stars": 66509,
+  "updatedAt": 1767707911
+}

@@ -1,0 +1,11 @@
+{
+  "id": "thedotmack-claude-mem-plugin-skills-how-it-works-skill-md",
+  "name": "how-it-works",
+  "author": "thedotmack",
+  "description": "Explain how claude-mem captures observations, when memory injection kicks in, and where data lives. Use when the user asks \"how does claude-mem work?\" or \"what is this thing doing?\".",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedotmack/claude-mem/tree/main/plugin/skills/how-it-works",
+  "skillUrl": "https://skillsmp.com/creators/thedotmack/claude-mem/plugin-skills-how-it-works",
+  "stars": 89499,
+  "updatedAt": 1777763156
+}

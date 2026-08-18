@@ -1,0 +1,11 @@
+{
+  "id": "langchain-ai-deepagents-examples-content-builder-agent-skills-blog-post-skill-md",
+  "name": "blog-post",
+  "author": "langchain-ai",
+  "description": "Writes and structures long-form blog posts, creates tutorial outlines, and optimizes content for SEO with cover image generation. Use when the user asks to write a blog post, article, how-to guide, tutorial, technical writeup, thought leadership piece, or long-form content.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/langchain-ai/deepagents/tree/main/examples/content-builder-agent/skills/blog-post",
+  "skillUrl": "https://skillsmp.com/creators/langchain-ai/deepagents/examples-content-builder-agent-skills-blog-post",
+  "stars": 27307,
+  "updatedAt": 1773720926
+}

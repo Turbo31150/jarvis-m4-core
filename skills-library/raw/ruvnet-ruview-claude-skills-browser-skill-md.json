@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruview-claude-skills-browser-skill-md",
+  "name": "browser",
+  "author": "ruvnet",
+  "description": "Web browser automation with AI-optimized snapshots for claude-flow agents",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/RuView/tree/main/.claude/skills/browser",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruview/claude-skills-browser",
+  "stars": 88440,
+  "updatedAt": 1772294815
+}

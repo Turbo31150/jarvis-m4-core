@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-csharp-testing-skill-md",
+  "name": "csharp-testing",
+  "author": "affaan-m",
+  "description": "C# and .NET testing patterns with xUnit, FluentAssertions, mocking, integration tests, and test organization best practices.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/csharp-testing",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-csharp-testing",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

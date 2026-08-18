@@ -1,0 +1,11 @@
+{
+  "id": "nexu-io-open-design-skills-research-decision-room-skill-md",
+  "name": "research-decision-room",
+  "author": "nexu-io",
+  "description": "Turn messy user research notes, interviews, support tickets, surveys, and product\ncontext into an evidence-backed decision room: a single HTML artifact with an\nevidence ledger, theme map, confidence heatmap, opportunity matrix, decision\nmemo, and experiment queue. Use when teams need to move from qualitative\nsignals to product or design decisions without fabricating certainty.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/nexu-io/open-design/tree/main/skills/research-decision-room",
+  "skillUrl": "https://skillsmp.com/creators/nexu-io/open-design/skills-research-decision-room",
+  "stars": 83535,
+  "updatedAt": 1779807697
+}

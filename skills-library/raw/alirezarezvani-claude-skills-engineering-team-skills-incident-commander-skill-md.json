@@ -1,0 +1,11 @@
+{
+  "id": "alirezarezvani-claude-skills-engineering-team-skills-incident-commander-skill-md",
+  "name": "incident-commander",
+  "author": "alirezarezvani",
+  "description": "Comprehensive incident response framework from detection through resolution and post-incident review. Battle-tested SRE/DevOps practices: severity classification, timeline reconstruction, structured post-incident analysis. Use when declaring an incident, coordinating multi-team response during an outage, leading a post-mortem, or setting up on-call practices for a new service.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/alirezarezvani/claude-skills/tree/main/engineering-team/skills/incident-commander",
+  "skillUrl": "https://skillsmp.com/creators/alirezarezvani/claude-skills/engineering-team-skills-incident-commander",
+  "stars": 23780,
+  "updatedAt": 1781150321
+}

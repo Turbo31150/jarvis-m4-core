@@ -1,0 +1,11 @@
+{
+  "id": "google-ai-edge-litert-lm-agents-skills-create-litert-lm-android-demo-app-skill-md",
+  "name": "create-litert-lm-android-demo-app",
+  "author": "google-ai-edge",
+  "description": "Guides the agent to orchestrate and implement a standalone LiteRT-LM Android demo app with backend selection and multi-modality support using Bazel 9. Use when asked to create a demo app for LiteRT-LM on Android. Don't use for general Android app development without LiteRT-LM, or for building the core library alone without an app.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/google-ai-edge/LiteRT-LM/tree/main/agents/skills/create-litert-lm-android-demo-app",
+  "skillUrl": "https://skillsmp.com/creators/google-ai-edge/litert-lm/agents-skills-create-litert-lm-android-demo-app",
+  "stars": 6088,
+  "updatedAt": 1780423273
+}

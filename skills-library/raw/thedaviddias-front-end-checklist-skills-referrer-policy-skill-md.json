@@ -1,0 +1,11 @@
+{
+  "id": "thedaviddias-front-end-checklist-skills-referrer-policy-skill-md",
+  "name": "referrer-policy",
+  "author": "thedaviddias",
+  "description": "Use when reviewing HTTP response headers for privacy hardening on any website that handles authentication, session state, or sensitive URL parameters.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedaviddias/Front-End-Checklist/tree/main/skills/referrer-policy",
+  "skillUrl": "https://skillsmp.com/creators/thedaviddias/front-end-checklist/skills-referrer-policy",
+  "stars": 73416,
+  "updatedAt": 1780091646
+}

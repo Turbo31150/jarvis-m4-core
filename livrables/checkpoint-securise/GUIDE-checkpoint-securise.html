@@ -1,0 +1,124 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Guide d&#x27;installation &amp; mise en place — checkpoint-securise</title><style>
+body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;max-width:820px;
+margin:0 auto;padding:40px 28px;color:#1a1a2e;line-height:1.6}
+h1{font-size:2em;border-bottom:3px solid #4361ee;padding-bottom:.3em;color:#3a0ca3}
+h2{color:#3a0ca3;border-bottom:1px solid #e0e0f0;padding-bottom:.2em;margin-top:1.6em}
+h3{color:#4361ee}code{background:#f2f2fa;padding:2px 5px;border-radius:4px;font-size:.9em}
+pre{background:#1a1a2e;color:#e0e0f0;padding:14px;border-radius:8px;overflow-x:auto}
+pre code{background:none;color:inherit}table{border-collapse:collapse;width:100%}
+td,th{border:1px solid #ddd;padding:8px}th{background:#4361ee;color:#fff}
+blockquote{border-left:4px solid #4361ee;margin:0;padding-left:16px;color:#555}
+.cover{text-align:center;padding:30px 0 10px;border-bottom:2px dashed #4361ee;margin-bottom:24px}
+.cover .badge{display:inline-block;background:#3a0ca3;color:#fff;padding:6px 16px;
+border-radius:20px;font-size:.85em;letter-spacing:1px}
+.sep{margin:40px 0;border:none;border-top:2px dashed #ccd}
+</style></head><body>
+<div class="cover"><span class="badge">GUIDE D'INSTALLATION</span>
+<h1 style="border:none">checkpoint-securise</h1>
+<p>Présentation · Installation / mise en place · Usage</p></div>
+<h1>Présentation</h1>
+<h1 id="fiche-de-vente-checkpoint-securise">Fiche de vente — checkpoint-securise</h1>
+<blockquote>
+<p>Prix PROPOSÉ, à valider par Franck (skill, palier bas).</p>
+</blockquote>
+<h2 id="accroche">Accroche</h2>
+<p>Sauvegardez votre app sur GitHub sans jamais y pousser une donnée sensible — le
+garde-fou s'en assure à votre place.</p>
+<h2 id="le-probleme">Le problème</h2>
+<p>Un <code>git push</code> maladroit et vos bases de données, vos <code>.env</code> ou vos clés
+finissent en public. Pour qui manipule des données d'élèves, de patients ou de
+clients, c'est une faute RGPD.</p>
+<h2 id="la-solution">La solution</h2>
+<p>checkpoint-securise fait un backup local de vos bases SQLite, puis ne pousse que
+le code — jamais les données ni les secrets. Un garde-fou inspecte l'index avant
+chaque commit et <strong>refuse</strong> tout fichier <code>*.db</code>, <code>.env</code>, token, clé ou binaire.</p>
+<h2 id="ce-que-vous-recevez">Ce que vous recevez</h2>
+<ul>
+<li>La skill Claude Code (<code>SKILL.md</code>)</li>
+<li>Le driver <code>checkpoint.sh</code> (backup + commit + push protégés)</li>
+</ul>
+<h2 id="points-forts">Points forts</h2>
+<ul>
+<li>Garde-fou anti-fuite « 0 secret / 0 PII »</li>
+<li><code>.gitignore</code> protecteur généré automatiquement</li>
+<li>Mode <code>--dry-run</code> et <code>--no-push</code></li>
+</ul>
+<h2 id="prix">Prix</h2>
+<p><strong>19 € — paiement unique</strong> [PROPOSÉ, à valider].</p>
+<h2 id="cible">Cible</h2>
+<p>Développeurs et professions manipulant des données sensibles qui versionnent
+leur app.</p>
+<hr class="sep"><h1>Prise en main</h1>
+<h1 id="checkpoint-securise">checkpoint-securise</h1>
+<p>Skill Claude Code + script de sauvegarde sécurisée d'une application : backup
+SQLite local + commit/push GitHub du <strong>code seul</strong>, avec garde-fou qui <strong>refuse</strong>
+de pousser toute PII, secret ou binaire lourd.</p>
+<h2 id="contenu">Contenu</h2>
+<pre><code>SKILL.md              # définition de la skill (déclencheurs, usage)
+scripts/checkpoint.sh # le driver de sauvegarde
+README.md / FICHE-VENTE.md / LICENSE.txt
+</code></pre>
+<h2 id="installation">Installation</h2>
+<p>Prérequis : <code>git</code>, <code>sqlite3</code>, un dépôt GitHub configuré (<code>origin</code>).</p>
+<pre><code class="language-bash">chmod +x scripts/checkpoint.sh
+</code></pre>
+<p>Pour l'utiliser comme skill Claude Code, copiez le dossier dans
+<code>~/.claude/skills/checkpoint-securise-app/</code>.</p>
+<h2 id="usage">Usage</h2>
+<pre><code class="language-bash">scripts/checkpoint.sh [APP_DIR] [-m &quot;message&quot;] [--dry-run] [--no-push]
+</code></pre>
+<p>Le script :
+1. sauvegarde chaque <code>*.db</code> en local (<code>backups/</code>) via <code>.backup</code> (cohérent) ;
+2. garantit un <code>.gitignore</code> protecteur (bases, <code>.env</code>, secrets, certs, binaires) ;
+3. stage uniquement le code/docs ;
+4. <strong>garde-fou</strong> : refuse et retire tout fichier sensible détecté dans l'index ;
+5. commit + push la branche courante.</p>
+<h2 id="securite-garantie-rgpd">Sécurité (garantie RGPD)</h2>
+<p>Aucune base <code>*.db</code> (données), aucun <code>.env</code>/token/clé/certs, aucun binaire lourd
+n'est jamais poussé. Le garde-fou bloque et signale toute fuite avant le commit.</p>
+<hr class="sep"><h1>Dossier complet — installation & usage</h1>
+<h1 id="dossier-complet-essence-alkymia-checkpoint-securise">DOSSIER COMPLET — Essence AlkymIA : Checkpoint sécurisé</h1>
+<blockquote>
+<p>Dossier self-contained. Source : Notion (Naming, Board prix packs, Présentations, Preuves). Aucun secret dans ce dossier.</p>
+</blockquote>
+<h2 id="nom-commercial-tagline">Nom commercial &amp; tagline</h2>
+<p><strong>Les Essences AlkymIA — Checkpoint sécurisé</strong> — « Sauvegardez votre app sans jamais fuiter une donnée. »
+Brique à la carte, aussi intégrée au Pack Gouvernance Claude Code. (Nom technique : checkpoint-securise.)</p>
+<h2 id="cible">Cible</h2>
+<p>Développeurs, makers et enseignants qui versionnent une app (webapp, outil local) et veulent un backup + push GitHub garantissant zéro secret / zéro donnée personnelle poussés.</p>
+<h2 id="probleme">Problème</h2>
+<p>Un <code>git push</code> mal cadré expose vite une base <code>*.db</code>, un <code>.env</code> ou une clé ; on veut un garde-fou automatique, pas une checklist manuelle.</p>
+<h2 id="promesse">Promesse</h2>
+<p>Un checkpoint qui sauvegarde le code (backup SQLite local + commit/push) tout en bloquant systématiquement bases, secrets et binaires lourds. Garantie « 0 secret / 0 PII poussé ».</p>
+<h2 id="ce-qui-est-inclus-fichiers-reels-de-ce-dossier">Ce qui est inclus (fichiers réels de ce dossier)</h2>
+<ul>
+<li><code>scripts/checkpoint.sh</code> — driver de sauvegarde + garde anti-fuite</li>
+<li><code>SKILL.md</code> — skill Claude Code (déclencheurs)</li>
+<li><code>README.md</code> — usage</li>
+<li><code>FICHE-VENTE.md</code> — argumentaire</li>
+<li><code>LICENSE.txt</code> — licence propriétaire</li>
+</ul>
+<h2 id="differenciateur">Différenciateur</h2>
+<p>Garde-fou RGPD intégré (filtre <code>.db</code>/<code>.env</code>/<code>.key</code>/<code>.pem</code>/binaires avant tout push) + tout reste local, épaulé par un humain joignable.</p>
+<h2 id="preuves-reelles-honnetes">Preuves réelles (honnêtes)</h2>
+<ul>
+<li>PassCerfa — application IA d'assistance aux démarches administratives, 100 % on-premise (RGPD), prouve la maîtrise de la conformité. [source : passcerfa-app]</li>
+<li>Plus de 160 dépôts de code — capacité de production démontrée.</li>
+<li>[À CONFIRMER] Témoignage + STAT d'adoption.</li>
+</ul>
+<h2 id="offre-prix-cta">Offre, prix &amp; CTA</h2>
+<p><strong>29 €</strong> — paiement unique (ancrage Essences). Inclus dans le Pack Gouvernance Claude Code (79 €).
+CTA : « Je commence par une Essence ».
+Canal : Gumroad.</p>
+<h2 id="landing">Landing</h2>
+<p>Pas de landing dédiée (brique à la carte).</p>
+<h2 id="placeholders-honnetes-restants">Placeholders honnêtes restants</h2>
+<ul>
+<li>Témoignage + statistique d'adoption.</li>
+<li>Contact support dans <code>LICENSE.txt</code>.</li>
+</ul>
+<hr class="sep"><p style="text-align:center;color:#888;font-size:.85em">
+Document généré pour livraison (zip / systeme.io). JARVIS OS — livrables.</p>
+</body></html>

@@ -1,0 +1,11 @@
+{
+  "id": "anthropics-financial-services-plugins-vertical-plugins-investment-banking-skills-teaser-skill-md",
+  "name": "teaser",
+  "author": "anthropics",
+  "description": "Draft anonymous one-page company teasers for sell-side M&A processes. Creates a compelling summary without revealing the company's identity, designed to gauge buyer interest before NDA execution. Triggers on \"teaser\", \"blind teaser\", \"anonymous profile\", \"one-pager for process\", or \"draft teaser for sell-side\".",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/anthropics/financial-services/tree/main/plugins/vertical-plugins/investment-banking/skills/teaser",
+  "skillUrl": "https://skillsmp.com/creators/anthropics/financial-services/plugins-vertical-plugins-investment-banking-skills-teaser",
+  "stars": 33988,
+  "updatedAt": 1779325806
+}

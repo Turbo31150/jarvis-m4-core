@@ -1,0 +1,11 @@
+{
+  "id": "modeltc-lightllm-skills-test-model-qwen2-5-14b-fp8kv-gsm8k-skill-md",
+  "name": "test-model-qwen2-5-14b-fp8kv-gsm8k",
+  "author": "ModelTC",
+  "description": "LightLLM Qwen2.5-14B-Instruct GSM8K with FP8 KV cache quantization: either fp8kv_sph (per-head calibration JSON) or fp8kv_spt (per-tensor calibration JSON). Single api_server tp 2 fixed HTTP port 8089 (not configurable), lm_eval local-completions. Assign GPUs via nvidia-smi then export CUDA_VISIBLE_DEVICES. Before starting api_server, cwd must be LightLLM repo root; pass --kv_quant_calibration_config_path as the repo-relative path from the table row that matches --llm_kv_type (fp8kv_sph with per-head JSON only; fp8kv_spt with per-tensor JSON only; no absolute path, no REPO_ROOT/CALIB_JSON shell concatenation). If default MODEL_DIR path is missing or load fails with path errors, ask the user for the correct MODEL_DIR. LOG_DIR, summary.txt, port listen checks (not health), no_proxy, background server with log redirect. Two variants documented in one skill.",
+  "contentLanguage": "zh",
+  "githubUrl": "https://github.com/ModelTC/LightLLM/tree/main/skills/test_model/qwen2.5-14b-fp8kv-gsm8k",
+  "skillUrl": "https://skillsmp.com/creators/modeltc/lightllm/skills-test-model-qwen2-5-14b-fp8kv-gsm8k",
+  "stars": 4207,
+  "updatedAt": 1778654677
+}

@@ -1,0 +1,11 @@
+{
+  "id": "egonex-ai-understand-anything-understand-anything-plugin-skills-understand-chat-skill-md",
+  "name": "understand-chat",
+  "author": "Egonex-AI",
+  "description": "Use when you need to ask questions about a codebase or understand code using a knowledge graph",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Egonex-AI/Understand-Anything/tree/main/understand-anything-plugin/skills/understand-chat",
+  "skillUrl": "https://skillsmp.com/creators/egonex-ai/understand-anything/understand-anything-plugin-skills-understand-chat",
+  "stars": 77428,
+  "updatedAt": 1784278641
+}

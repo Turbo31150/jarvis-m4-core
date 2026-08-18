@@ -1,0 +1,11 @@
+{
+  "id": "labring-fastgpt-document-public-deploy-skill-md",
+  "name": "fastgpt-docker-deploy",
+  "author": "labring",
+  "description": "FastGPT Docker Compose self-hosting deployment workflow. Use when a user asks an AI agent to deploy FastGPT with Docker by referencing /deploy/SKILL.md, including creating an empty fastgpt directory, running the install script in non-interactive mode, starting Docker Compose, monitoring service health, troubleshooting compose issues, and returning the access URL plus root credentials and next steps.",
+  "contentLanguage": "zh",
+  "githubUrl": "https://github.com/labring/FastGPT/tree/main/document/public/deploy",
+  "skillUrl": "https://skillsmp.com/creators/labring/fastgpt/document-public-deploy",
+  "stars": 29255,
+  "updatedAt": 1785326149
+}

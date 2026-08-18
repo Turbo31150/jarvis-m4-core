@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-data-throughput-accelerator-skill-md",
+  "name": "data-throughput-accelerator",
+  "author": "affaan-m",
+  "description": "Use when large data ingestion, backfill, export, ETL, warehouse loading, manifest catch-up, or table synchronization needs to become much faster while preserving data correctness.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/data-throughput-accelerator",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-data-throughput-accelerator",
+  "stars": 237500,
+  "updatedAt": 1784322829
+}

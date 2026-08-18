@@ -1,0 +1,11 @@
+{
+  "id": "novuhq-novu-cursor-skills-ink-tui-skill-md",
+  "name": "ink-tui-wizard",
+  "author": "novuhq",
+  "description": "Build terminal user interfaces (TUIs) using Ink (React for CLIs) and @inkjs/ui with a reactive, session-driven wizard pattern. Use when creating interactive CLI installation wizards, setup flows, or multi-step terminal applications in Node.js/TypeScript. Covers reactive screen resolution, declarative flow pipelines, overlay interrupts, session state management, Ink components, Flexbox terminal layout, and graceful degradation across terminal environments.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/novuhq/novu/tree/next/.cursor/skills/ink-tui",
+  "skillUrl": "https://skillsmp.com/creators/novuhq/novu/cursor-skills-ink-tui",
+  "stars": 39438,
+  "updatedAt": 1779945302
+}

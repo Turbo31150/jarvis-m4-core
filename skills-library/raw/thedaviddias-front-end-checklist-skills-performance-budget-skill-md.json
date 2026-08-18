@@ -1,0 +1,11 @@
+{
+  "id": "thedaviddias-front-end-checklist-skills-performance-budget-skill-md",
+  "name": "performance-budget",
+  "author": "thedaviddias",
+  "description": "Use when reviewing CI configuration, bundle analysis workflows, or pull requests that add dependencies and assets. Distinguish bundle-size budgets from runtime budgets such as Lighthouse or Core Web Vitals so teams can enforce both.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedaviddias/Front-End-Checklist/tree/main/skills/performance-budget",
+  "skillUrl": "https://skillsmp.com/creators/thedaviddias/front-end-checklist/skills-performance-budget",
+  "stars": 73416,
+  "updatedAt": 1780091646
+}

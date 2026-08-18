@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-codehealth-mcp-skill-md",
+  "name": "codehealth-mcp",
+  "author": "affaan-m",
+  "description": "Real-time structural Code Health via CodeScene MCP \u2014 review before edits, verify score deltas after changes, gate commits and PRs. Use when reviewing code quality, refactoring, checking if AI changes degraded a file, or before commit/PR.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/codehealth-mcp",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-codehealth-mcp",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

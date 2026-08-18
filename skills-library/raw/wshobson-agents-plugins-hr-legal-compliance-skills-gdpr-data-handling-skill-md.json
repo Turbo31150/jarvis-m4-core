@@ -1,0 +1,11 @@
+{
+  "id": "wshobson-agents-plugins-hr-legal-compliance-skills-gdpr-data-handling-skill-md",
+  "name": "gdpr-data-handling",
+  "author": "wshobson",
+  "description": "Implement GDPR-compliant data handling with consent management, data subject rights, and privacy by design. Use when building systems that process EU personal data, implementing privacy controls, or conducting GDPR compliance reviews.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/wshobson/agents/tree/main/plugins/hr-legal-compliance/skills/gdpr-data-handling",
+  "skillUrl": "https://skillsmp.com/creators/wshobson/agents/plugins-hr-legal-compliance-skills-gdpr-data-handling",
+  "stars": 38472,
+  "updatedAt": 1779452301
+}

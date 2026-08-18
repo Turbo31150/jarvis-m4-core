@@ -1,0 +1,11 @@
+{
+  "id": "dotnet-roslyn-github-skills-validate-sdk-skill-md",
+  "name": "validate-sdk",
+  "author": "dotnet",
+  "description": "Install and validate a .NET SDK from an Azure DevOps internal build. Use this when asked to install, validate, or set up a .NET SDK from a dnceng/internal Azure DevOps build link or build ID.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/dotnet/roslyn/tree/main/.github/skills/validate-sdk",
+  "skillUrl": "https://skillsmp.com/creators/dotnet/roslyn/github-skills-validate-sdk",
+  "stars": 20593,
+  "updatedAt": 1783374386
+}

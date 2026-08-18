@@ -1,0 +1,11 @@
+{
+  "id": "laravel-ai-resources-boost-skills-ai-sdk-development-skill-md",
+  "name": "ai-sdk-development",
+  "author": "laravel",
+  "description": "TRIGGER when working with ai-sdk which is Laravel official first-party AI SDK. Activate when building, editing AI agents, chatbots, text generation, image generation, audio/TTS, transcription/STT, embeddings, RAG, vector stores, reranking, structured output, streaming, conversation memory, tools, queueing, broadcasting, and provider failover across OpenAI, Anthropic, Gemini, Azure, Groq, xAI, DeepSeek, Mistral, Ollama, ElevenLabs, Cohere, Jina, and VoyageAI. Invoke when the user references ai-sdk, the `Laravel\\Ai\\` namespace, or this project's AI features \u2014 not for other AI packages used directly.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/laravel/ai/tree/0.x/resources/boost/skills/ai-sdk-development",
+  "skillUrl": "https://skillsmp.com/creators/laravel/ai/resources-boost-skills-ai-sdk-development",
+  "stars": 1075,
+  "updatedAt": 1783373631
+}

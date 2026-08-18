@@ -1,0 +1,11 @@
+{
+  "id": "maziyarpanahi-openmed-skills-benchmarking-clinical-ner-skill-md",
+  "name": "benchmarking-clinical-ner",
+  "author": "maziyarpanahi",
+  "description": "Score an OpenMed clinical or biomedical NER model against a user-supplied gold corpus with entity-level precision, recall, and F1, then break errors down per label. Use when the user wants a seqeval-style scorecard, strict vs partial (relaxed) span matching, a per-label confusion matrix, false-negative / false-positive examples, or to debug why a model misses entities. Trigger on \"evaluate NER\", \"entity-level F1\", \"seqeval\", \"precision recall F1\", \"confusion matrix\", \"error analysis\", \"strict vs partial match\", or \"score against gold\" in an OpenMed context. The gold corpus is user-supplied; OpenMed bundles no i2b2/n2c2/MIMIC data.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/maziyarpanahi/openmed/tree/master/skills/benchmarking-clinical-ner",
+  "skillUrl": "https://skillsmp.com/creators/maziyarpanahi/openmed/skills-benchmarking-clinical-ner",
+  "stars": 4847,
+  "updatedAt": 1784539657
+}

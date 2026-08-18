@@ -1,0 +1,11 @@
+{
+  "id": "thedaviddias-front-end-checklist-skills-meta-in-body-skill-md",
+  "name": "meta-in-body",
+  "author": "thedaviddias",
+  "description": "Use when auditing HTML document structure. Applies to any page where meta tags (noindex, canonical-url, description, viewport, OG tags) may have been injected into the body by CMS plugins, widgets, or JavaScript rendering.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedaviddias/Front-End-Checklist/tree/main/skills/meta-in-body",
+  "skillUrl": "https://skillsmp.com/creators/thedaviddias/front-end-checklist/skills-meta-in-body",
+  "stars": 73416,
+  "updatedAt": 1780091646
+}

@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-vue-patterns-skill-md",
+  "name": "vue-patterns",
+  "author": "affaan-m",
+  "description": "Vue.js 3 Composition API patterns, component architecture, reactivity best practices, Pinia state management, Vue Router navigation, and Nuxt SSR patterns. Activates for Vue, Nuxt, Vite, or Pinia projects.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/vue-patterns",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-vue-patterns",
+  "stars": 237500,
+  "updatedAt": 1781262871
+}

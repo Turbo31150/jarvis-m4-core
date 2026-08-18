@@ -1,0 +1,11 @@
+{
+  "id": "react-react-claude-skills-fix-skill-md",
+  "name": "fix",
+  "author": "react",
+  "description": "Use when you have lint errors, formatting issues, or before committing code to ensure it passes CI.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/react/react/tree/main/.claude/skills/fix",
+  "skillUrl": "https://skillsmp.com/creators/react/react/claude-skills-fix",
+  "stars": 246953,
+  "updatedAt": 1769217366
+}

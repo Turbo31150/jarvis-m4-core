@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-optional-skills-web-development-page-agent-skill-md",
+  "name": "page-agent",
+  "author": "NousResearch",
+  "description": "Embed an in-page natural-language GUI copilot in web apps.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/optional-skills/web-development/page-agent",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/optional-skills-web-development-page-agent",
+  "stars": 225204,
+  "updatedAt": 1784866036
+}

@@ -1,0 +1,11 @@
+{
+  "id": "madapexai-oh-my-loop-core-patterns-multi-agent-skill-md",
+  "name": "multi-agent",
+  "author": "Madapexai",
+  "description": "Multi-perspective loop for complex tasks needing different roles",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Madapexai/oh-my-loop/tree/main/core/patterns/multi-agent",
+  "skillUrl": "https://skillsmp.com/creators/madapexai/oh-my-loop/core-patterns-multi-agent",
+  "stars": 2,
+  "updatedAt": 1784045734
+}

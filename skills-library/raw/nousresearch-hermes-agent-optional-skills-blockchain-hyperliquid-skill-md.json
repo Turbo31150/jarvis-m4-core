@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-optional-skills-blockchain-hyperliquid-skill-md",
+  "name": "hyperliquid",
+  "author": "NousResearch",
+  "description": "Hyperliquid market data, account history, trade review.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/optional-skills/blockchain/hyperliquid",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/optional-skills-blockchain-hyperliquid",
+  "stars": 225204,
+  "updatedAt": 1781129411
+}

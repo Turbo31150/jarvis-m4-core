@@ -1,0 +1,11 @@
+{
+  "id": "debpalash-omnivoice-studio-claude-skills-omnivoice-skill-md",
+  "name": "omnivoice",
+  "author": "debpalash",
+  "description": "Local TTS, voice cloning, voice design, and video dubbing via the OmniVoice Studio MCP server (open-source ElevenLabs alternative; nothing leaves the machine, runs on MPS/CUDA/CPU). Use when: (1) generating speech from text in any of 646 languages, (2) cloning a voice from a 3-second reference clip, (3) designing a voice by gender/age/accent/pitch/style, (4) dubbing a video into another language, (5) listing voice profiles or personality presets, (6) producing narration where privacy, cost, or absent API keys matter, (7) non-English narration where Edge TTS/kokoro fall short, (8) batch audio for blog posts or content pipelines. Triggers: 'omnivoice', 'voice clone', 'clone this voice', 'tts', 'narrate', 'generate speech', 'voice synthesis', 'dub video', 'voice design', 'local tts', 'multilingual voice', 'narrate this post', 'elevenlabs alternative'.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/debpalash/OmniVoice-Studio/tree/main/.claude/skills/omnivoice",
+  "skillUrl": "https://skillsmp.com/creators/debpalash/omnivoice-studio/claude-skills-omnivoice",
+  "stars": 9524,
+  "updatedAt": 1780027721
+}

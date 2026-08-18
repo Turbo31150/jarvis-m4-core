@@ -1,0 +1,11 @@
+{
+  "id": "benavlabs-fastcrud-fastcrud-agents-skills-fastcrud-skill-md",
+  "name": "fastcrud",
+  "author": "benavlabs",
+  "description": "Use when building or modifying CRUD endpoints with FastCRUD (the `fastcrud` PyPI package) in a FastAPI project \u2014 covers `FastCRUD`, `crud_router`, `EndpointCreator`, `FilterConfig`, `JoinConfig`, auto-relationship detection, the filter operator syntax (`__gte`, `__in`, `__ilike`, etc.), cursor pagination, soft delete, and how to avoid N+1 queries when fetching related data. Activate when the user mentions FastCRUD, `crud_router`, `FastCRUD()`, `FilterConfig`, `JoinConfig`, or asks how to build CRUD endpoints / generate REST APIs from SQLAlchemy or SQLModel models, even if the user doesn't name the library directly.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/benavlabs/fastcrud/tree/main/fastcrud/.agents/skills/fastcrud",
+  "skillUrl": "https://skillsmp.com/creators/benavlabs/fastcrud/fastcrud-agents-skills-fastcrud",
+  "stars": 1541,
+  "updatedAt": 1782013147
+}

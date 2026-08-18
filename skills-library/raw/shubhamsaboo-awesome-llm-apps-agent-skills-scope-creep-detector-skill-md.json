@@ -1,0 +1,11 @@
+{
+  "id": "shubhamsaboo-awesome-llm-apps-agent-skills-scope-creep-detector-skill-md",
+  "name": "scope-creep-detector",
+  "author": "Shubhamsaboo",
+  "description": "Analyzes git diffs against a stated intent to detect scope creep, unrelated files, broad pull requests, changes that grew beyond a fix, dependency additions, public API renames, config or CI edits, oversized hunks, and formatting-only files. Use when the user asks whether a change grew beyond the fix, a PR is too broad, or what unrelated stuff they touched, and wants keep, split, or justify guidance. Operates locally and offline.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/agent_skills/scope-creep-detector",
+  "skillUrl": "https://skillsmp.com/creators/shubhamsaboo/awesome-llm-apps/agent-skills-scope-creep-detector",
+  "stars": 130463,
+  "updatedAt": 1784697156
+}

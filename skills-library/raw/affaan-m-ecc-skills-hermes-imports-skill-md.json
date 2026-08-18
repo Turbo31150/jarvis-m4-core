@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-hermes-imports-skill-md",
+  "name": "hermes-imports",
+  "author": "affaan-m",
+  "description": "Convert local Hermes operator workflows into sanitized ECC skills and release-pack artifacts. Use when preparing a Hermes workflow for public ECC reuse without leaking private workspace state, credentials, or local-only paths.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/hermes-imports",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-hermes-imports",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

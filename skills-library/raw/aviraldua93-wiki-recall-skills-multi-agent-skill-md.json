@@ -1,0 +1,11 @@
+{
+  "id": "aviraldua93-wiki-recall-skills-multi-agent-skill-md",
+  "name": "multi-agent",
+  "author": "aviraldua93",
+  "description": "Multi-agent workflow orchestration using docs-as-bus pattern for parallel task execution",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/aviraldua93/wiki-recall/tree/main/skills/multi-agent",
+  "skillUrl": "https://skillsmp.com/creators/aviraldua93/wiki-recall/skills-multi-agent",
+  "stars": 2,
+  "updatedAt": 1775542961
+}

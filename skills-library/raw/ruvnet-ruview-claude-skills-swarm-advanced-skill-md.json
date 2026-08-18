@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruview-claude-skills-swarm-advanced-skill-md",
+  "name": "swarm-advanced",
+  "author": "ruvnet",
+  "description": "Advanced swarm orchestration patterns for research, development, testing, and complex distributed workflows",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/RuView/tree/main/.claude/skills/swarm-advanced",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruview/claude-skills-swarm-advanced",
+  "stars": 88440,
+  "updatedAt": 1768273876
+}

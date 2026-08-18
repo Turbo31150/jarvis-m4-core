@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prof IA — L'assistant local qui épaule chaque enseignant</title>
+<meta name="description" content="Prof IA prépare vos séquences, génère des exercices différenciés PS→CM2, adapte pour les élèves à besoins particuliers et allège votre suivi de classe. 100% local, RGPD par conception, spécial rentrée maternelle MS/GS.">
+<style>
+ :root{--pousse:#2f8f5b;--blue:#0b7285;--cyan:#63c7d6;--soft:#eafbf1;--soft2:#e3fafc;--ink:#1f2933;--muted:#52616b;--line:#e3e8ee;--warn:#fff9db}
+ *{box-sizing:border-box;margin:0;padding:0}
+ body{font-family:"Segoe UI","Helvetica Neue",Arial,sans-serif;color:var(--ink);line-height:1.6;background:#fff}
+ a{color:var(--blue)}
+ .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+ .btn{display:inline-block;padding:13px 24px;border-radius:12px;font-weight:650;text-decoration:none;transition:.2s;cursor:pointer;border:0;font-size:15px}
+ .btn.p{background:linear-gradient(135deg,var(--pousse),var(--blue));color:#fff}
+ .btn.p:hover{filter:brightness(1.08)}
+ .btn.s{background:#fff;color:var(--blue);border:2px solid var(--cyan)}
+ .btn.s:hover{background:var(--soft2)}
+ .tag{display:inline-block;background:var(--soft2);color:var(--blue);border:1px solid var(--cyan);border-radius:20px;padding:4px 14px;font-size:13px;font-weight:600;margin:3px}
+ /* HERO */
+ header{background:radial-gradient(1200px 400px at 50% -80px,var(--soft2),#fff);padding:26px 0 54px;text-align:center;border-bottom:1px solid var(--line)}
+ .kick{font-size:13px;font-weight:700;letter-spacing:.5px;color:var(--pousse);background:var(--soft);border:1px solid #b7e4c7;border-radius:20px;padding:5px 15px;display:inline-block;margin-bottom:18px}
+ h1{font-size:clamp(28px,5vw,46px);line-height:1.15;margin-bottom:14px}
+ h1 span{color:var(--blue)}
+ .lead{font-size:18px;color:var(--muted);max-width:680px;margin:0 auto 26px}
+ .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}
+ .rgpd{font-size:13px;color:var(--muted)}
+ /* bandeau maternelle */
+ .mat{background:linear-gradient(135deg,#fff4e6,#ffe8cc);border-top:1px solid #ffd8a8;border-bottom:1px solid #ffd8a8;padding:18px 0}
+ .mat .wrap{display:flex;gap:16px;align-items:center;flex-wrap:wrap;justify-content:center;text-align:center}
+ .mat b{color:#e8590c}
+ section{padding:52px 0}
+ h2{font-size:clamp(23px,3.6vw,32px);text-align:center;margin-bottom:8px}
+ .sub{text-align:center;color:var(--muted);max-width:620px;margin:0 auto 30px}
+ /* sans/avec */
+ .cmp{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+ .cmp .col{border-radius:14px;padding:22px}
+ .cmp .bad{background:#fff5f5;border:1px solid #ffc9c9}
+ .cmp .good{background:var(--soft);border:1px solid #b7e4c7}
+ .cmp h3{margin-bottom:10px;font-size:17px}
+ .cmp li{list-style:none;padding:6px 0 6px 26px;position:relative;font-size:14.5px}
+ .cmp .bad li:before{content:"✕";position:absolute;left:0;color:#e03131;font-weight:700}
+ .cmp .good li:before{content:"✓";position:absolute;left:0;color:var(--pousse);font-weight:700}
+ /* modules */
+ .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+ .card{border:1px solid var(--line);border-radius:14px;padding:20px;background:#fff;transition:.2s}
+ .card:hover{border-color:var(--cyan);box-shadow:0 8px 24px rgba(11,114,133,.08)}
+ .card .ic{font-size:26px}
+ .card h3{margin:10px 0 6px;font-size:17px}
+ .card p{font-size:14px;color:var(--muted)}
+ .card .mods{margin-top:10px;font-size:12.5px;color:var(--blue)}
+ /* highlight biblio */
+ .hl{background:linear-gradient(135deg,var(--soft2),#fff);border:1px solid var(--cyan);border-radius:16px;padding:28px;display:grid;grid-template-columns:1.3fr 1fr;gap:24px;align-items:center}
+ .hl ul{margin:10px 0 0 18px}.hl li{font-size:14.5px;margin:4px 0}
+ .hl .box{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px}
+ .hl .box a{display:block;padding:7px 0;font-size:14px;text-decoration:none;border-bottom:1px solid var(--line)}
+ .hl .box a:last-child{border-bottom:0}
+ /* why local */
+ .why{background:var(--blue);color:#fff;border-radius:16px;padding:34px;text-align:center}
+ .why h2{color:#fff}.why p{max-width:680px;margin:0 auto 18px;opacity:.95}
+ .pills{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+ .pill{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:6px 15px;font-size:13px;font-weight:600}
+ /* offres */
+ .offers{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:stretch}
+ .offer{border:1px solid var(--line);border-radius:16px;padding:24px;display:flex;flex-direction:column;background:#fff}
+ .offer.best{border:2px solid var(--pousse);position:relative;box-shadow:0 10px 30px rgba(47,143,91,.12)}
+ .offer.best:before{content:"LE PLUS CHOISI";position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--pousse);color:#fff;font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px}
+ .offer .name{font-size:13px;letter-spacing:.5px;color:var(--muted);font-weight:700}
+ .offer .price{font-size:32px;font-weight:800;color:var(--blue);margin:6px 0}
+ .offer .price small{font-size:14px;color:var(--muted);font-weight:500}
+ .offer li{list-style:none;padding:5px 0 5px 24px;position:relative;font-size:14px}
+ .offer li:before{content:"✓";position:absolute;left:0;color:var(--pousse);font-weight:700}
+ .offer .btn{margin-top:auto}
+ /* footer */
+ footer{background:#0e2a33;color:#c7d3d8;padding:40px 0 24px;font-size:14px}
+ footer h4{color:#fff;margin-bottom:10px;font-size:15px}
+ footer a{color:var(--cyan)}
+ .legal{border-top:1px solid rgba(255,255,255,.12);margin-top:24px;padding-top:16px;font-size:12px;opacity:.75;line-height:1.6}
+ .eco{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+ .eco a{font-size:12.5px;background:rgba(255,255,255,.08);padding:4px 11px;border-radius:14px;text-decoration:none}
+ @media(max-width:820px){.grid,.offers{grid-template-columns:1fr}.cmp,.hl{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="wrap">
+  <div class="kick">🎓 100% LOCAL · RGPD · 0 € DE CLOUD</div>
+  <h1>Enseigner, sans y perdre<br><span>vos soirées ni vos données.</span></h1>
+  <p class="lead">Prof IA prépare vos séquences, génère des <strong>exercices différenciés PS→CM2</strong>,
+   adapte pour les élèves à besoins particuliers et allège votre suivi de classe. Tout tourne sur
+   l'ordinateur de l'école : <strong>aucune donnée d'élève ne part sur Internet.</strong></p>
+  <div class="cta">
+   <a class="btn p" href="https://prof-ia-74635.netlify.app/app" >🚀 Ouvrir l'application</a>
+   <a class="btn s" href="#modules">Voir les modules</a>
+  </div>
+  <div class="rgpd">🔒 Données élèves stockées localement — conformité RGPD par conception</div>
+ </div>
+</header>
+
+<div class="mat">
+ <div class="wrap">
+  <span class="tag">🍎 Spécial rentrée</span>
+  <div><b>Maternelle MS/GS</b> : banque d'exercices par domaine, aligné sur le
+   <b>programme 2026 (6 domaines)</b>, guides officiels intégrés — et la différenciation MS↔GS gérée pour vous.</div>
+ </div>
+</div>
+
+<section>
+ <div class="wrap">
+  <h2>Le quotidien d'un enseignant, allégé</h2>
+  <p class="sub">Vous ne remplacez pas votre pédagogie : vous récupérez du temps.</p>
+  <div class="cmp">
+   <div class="col bad">
+    <h3>😮‍💨 Sans Prof IA</h3>
+    <ul>
+     <li>Des heures le soir à bâtir des séquences de zéro</li>
+     <li>Refaire des exercices et leurs corrigés à la main</li>
+     <li>Adapter un support pour un élève DYS : un casse-tête</li>
+     <li>Les outils « IA éducation » envoient tout dans le cloud</li>
+     <li>Appréciations de bulletins : la corvée de fin de trimestre</li>
+    </ul>
+   </div>
+   <div class="col good">
+    <h3>✨ Avec Prof IA</h3>
+    <ul>
+     <li>Un plan de séance structuré en quelques secondes</li>
+     <li>Exercices + corrigé générés, prêts à imprimer</li>
+     <li>Version FALC / adaptée DYS-TDAH en un clic</li>
+     <li>Tout reste en local : rien ne quitte l'établissement</li>
+     <li>Brouillons d'appréciations à partir de vos notes</li>
+    </ul>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section id="modules" style="background:var(--soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+ <div class="wrap">
+  <h2>Tout l'outil, un seul logiciel local</h2>
+  <p class="sub">Les modules réellement présents dans l'application, reliés par un menu et utilisables hors ligne.</p>
+  <div class="grid">
+   <div class="card"><div class="ic">📘</div><h3>Préparer</h3>
+    <p>Cahier-journal, séquences et séances structurées ; banque d'exercices différenciés générée pour toute l'année.</p>
+    <div class="mods">Cahier-journal · Séances · Banque annuelle PS→CM2</div></div>
+   <div class="card"><div class="ic">♿</div><h3>Différencier</h3>
+    <p>Chaque exercice décliné en 3 niveaux (soutien / standard / approfondissement) + version FALC pour DYS, TDAH, allophones.</p>
+    <div class="mods">3 niveaux + corrigé · FALC · besoins particuliers</div></div>
+   <div class="card"><div class="ic">👥</div><h3>Suivre</h3>
+    <p>Carnet de compétences, appel, groupes de besoin, notes en local et brouillons d'appréciations de bulletin (LSU).</p>
+    <div class="mods">Carnet · Appel · Groupes · Bulletins/LSU</div></div>
+   <div class="card"><div class="ic">✉️</div><h3>Communiquer</h3>
+    <p>Mails aux parents, mots du cahier de liaison, préparation et comptes-rendus de réunions.</p>
+    <div class="mods">Parents · Cahier de liaison · Réunions</div></div>
+   <div class="card"><div class="ic">📚</div><h3>Ressources (offline)</h3>
+    <p>Bibliothèque locale : guides officiels Éducation nationale et programme maternelle 2026, consultables sans connexion.</p>
+    <div class="mods">Guides EN · Programme 2026 · Documents PDF</div></div>
+   <div class="card"><div class="ic">🗓️</div><h3>Organiser</h3>
+    <p>Emploi du temps, ateliers tournants, sorties, budget coopérative et calendrier de la classe.</p>
+    <div class="mods">EDT · Ateliers · Sorties · Budget</div></div>
+  </div>
+ </div>
+</section>
+
+<section>
+ <div class="wrap">
+  <div class="hl">
+   <div>
+    <span class="tag">📚 Nouveau · Bibliothèque offline</span>
+    <h2 style="text-align:left;margin:10px 0">Les ressources officielles, sur votre poste</h2>
+    <p style="color:var(--muted)">Les guides de l'Éducation nationale et le programme maternelle 2026
+     sont intégrés à l'application et servis <strong>sans aucun accès Internet</strong>.</p>
+    <ul>
+     <li>Guide pour enseigner le vocabulaire (maternelle)</li>
+     <li>Guide lecture &amp; écriture (maternelle)</li>
+     <li>Guide construction du nombre (maternelle)</li>
+     <li>Programme du cycle 1 consolidé — 6 domaines 2026</li>
+    </ul>
+   </div>
+   <div class="box">
+    <strong style="color:var(--blue)">📁 Rubrique Documents</strong>
+    <a href="#">📕 Guide vocabulaire maternelle</a>
+    <a href="#">📗 Guide lecture-écriture</a>
+    <a href="#">📘 Guide construction du nombre</a>
+    <a href="#">📙 Programme cycle 1 (2026)</a>
+    <a href="#">📄 + banques d'exercices &amp; rapports de classe</a>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section style="background:var(--soft2)">
+ <div class="wrap">
+  <div class="why">
+   <h2>Pourquoi « local » change tout pour l'école</h2>
+   <p>Les données de vos élèves (noms, notes, difficultés) sont des données personnelles sensibles.
+    Avec Prof IA, elles ne transitent par aucun serveur tiers : l'IA tourne sur le poste de l'enseignant.
+    Résultat : conformité RGPD par conception, pas d'abonnement cloud, pas de fuite possible, et un
+    argument solide pour votre direction et votre DPO.</p>
+   <div class="pills">
+    <span class="pill">🇫🇷 Souverain</span>
+    <span class="pill">🔒 RGPD par conception</span>
+    <span class="pill">♿ Accessibilité intégrée</span>
+    <span class="pill">💸 0 € de cloud récurrent</span>
+    <span class="pill">📵 Fonctionne hors ligne</span>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section id="telecharger">
+ <div class="wrap" style="text-align:center">
+  <span class="tag">💻 Application à installer sur votre poste</span>
+  <h2 style="margin-top:12px">Télécharger l'app locale « Espace Prof »</h2>
+  <p class="sub">Une vraie application sur l'ordinateur de l'enseignant : serveur local, base <code>ecole.db</code>
+   sur votre machine, IA locale. Installation pensée pour les profs non-techniques.</p>
+  <div class="cta">
+   <a class="btn p" href="https://github.com/Turbo31150/espace-prof-app">⬇️ Télécharger l'app (GitHub)</a>
+   <a class="btn s" href="https://github.com/Turbo31150/espace-prof-app/blob/main/INSTALL.md">📖 Guide d'installation</a>
+  </div>
+  <p class="rgpd">🖥️ Installation en 1 commande · 🗄️ Vos données restent sur votre poste · 📵 Fonctionne hors ligne</p>
+ </div>
+</section>
+
+<section id="offres" style="background:var(--soft);border-top:1px solid var(--line)">
+ <div class="wrap">
+  <h2>Des offres simples, sans abonnement caché</h2>
+  <p class="sub">Achat unique ou accompagnement. Paiement PayPal, facture sur demande pour les établissements.</p>
+  <div class="offers">
+   <div class="offer">
+    <div class="name">ENSEIGNANT · Licence solo</div>
+    <div class="price">29€ <small>une fois</small></div>
+    <ul><li>Tous les modules</li><li>IA 100% locale</li><li>Mises à jour 1 an</li><li>Aucune donnée en ligne</li></ul>
+    <a class="btn p" href="https://paypal.me/turboss321/29">Acheter — 29€</a>
+   </div>
+   <div class="offer best">
+    <div class="name">PACK ÉCOLE</div>
+    <div class="price">149€ <small>une fois</small></div>
+    <ul><li>Jusqu'à 15 enseignants</li><li>Installation guidée</li><li>Poste local partagé</li><li>Formation 1h en visio</li><li>Facture établissement</li></ul>
+    <a class="btn p" href="https://paypal.me/turboss321/149">Équiper mon école — 149€</a>
+   </div>
+   <div class="offer">
+    <div class="name">CIRCONSCRIPTION · Sur devis</div>
+    <div class="price">Devis</div>
+    <ul><li>Déploiement multi-écoles</li><li>Accompagnement RGPD/DPO</li><li>Support prioritaire</li><li>Adaptation aux besoins</li></ul>
+    <a class="btn s" href="mailto:franckdelmas00@gmail.com?subject=Prof%20IA%20-%20Demande%20de%20devis">Demander un devis</a>
+   </div>
+  </div>
+ </div>
+</section>
+
+<footer>
+ <div class="wrap">
+  <h4>Prof IA — un service JARVIS OS</h4>
+  <p>100% local · RGPD par conception · pensé pour l'accessibilité · particuliers &amp; établissements.<br>
+   Une question ? <a href="mailto:franckdelmas00@gmail.com?subject=Prof%20IA%20-%20Question">franckdelmas00@gmail.com</a></p>
+  <div class="eco">
+   <a href="https://alkymia-os.netlify.app">Alkymia OS</a>
+   <a href="https://admin-ia.netlify.app">Admin IA</a>
+   <a href="https://prof-ia-74635.netlify.app">Prof IA</a>
+   <a href="https://agent-sans-coder.netlify.app">Agent sans coder</a>
+   <a href="https://transcription-ia-jarvis.netlify.app">Transcription IA</a>
+  </div>
+  <div class="legal">
+   <strong>Mentions légales</strong> — Éditeur : Franck Delmas (entreprise individuelle), contact :
+   franckdelmas00@gmail.com. Directeur de la publication : Franck Delmas. Hébergement : Netlify, Inc.,
+   512 2nd Street, San Francisco, CA 94107, USA. Conformément à la LCEN (art. 6-III) et au RGPD :
+   Prof IA traite les données d'élèves <strong>exclusivement en local</strong> sur le poste de l'enseignant ;
+   aucune donnée personnelle n'est transmise à l'éditeur ni à un tiers. Le responsable de traitement est
+   l'établissement / l'enseignant utilisateur. Droits d'accès, rectification et effacement exercés
+   localement. Paiements traités par PayPal. © 2026 Prof IA / JARVIS OS.
+  </div>
+ </div>
+</footer>
+
+</body>
+</html>

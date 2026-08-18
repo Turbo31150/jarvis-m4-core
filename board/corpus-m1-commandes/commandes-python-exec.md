@@ -1,0 +1,387 @@
+# Commandes M1 — python-exec
+
+## A QUOI CA SERT
+
+Execution de scripts et de tests Python. Lancer un test, verifier une dependance, executer un outil du depot.
+
+## COMMANDES REELLEMENT EXECUTEES
+
+Extraites de 1840 sessions Claude Code sur M1, triees par frequence.
+Un chemin en /home/turbo ou une IP 192.168.0.10 doit etre reecrit avant rejeu sur M4.
+
+- (4x) `python3 tests/test_sonde_doctor.py -v 2>&1 | tail -6`
+- (3x) `python3 tests/test_sonde_doctor.py -v 2>&1 | tail -8`
+- (3x) `python3 tests/test_gpu_bench.py -v 2>&1 | tail -10`
+- (2x) `timeout 90 python3 -m pytest tests/test_answer_correctness.py -q 2>&1 | tail -12`
+- (2x) `timeout 600 python3 -m pytest tests/test_skills_doctor.py -q 2>&1 | tail -20`
+- (2x) `timeout 300 python3 bin/cli-gabarits.py stats 2>&1`
+- (2x) `timeout 200 python3 ~/jarvis/bin/orchestrateur.py run "sauvegarder les bases et verifier le cluster" 2>&1 | tail -12`
+- (2x) `time python3 bin/biblio-doctor.py 2>&1 | tail -30`
+- (2x) `python3 ~/jarvis/bin/skillmp.py stats 2>&1 | tail -25`
+- (2x) `python3 ~/jarvis/bin/skillmp-pipeline.py status 2>&1 | tail -30`
+- (2x) `python3 ~/jarvis/bin/skillmp-pipeline.py status 2>&1`
+- (2x) `python3 tests/test_sonde_doctor.py -v 2>&1 | tail -10`
+- (2x) `python3 tests/test_gpu_bench.py -v 2>&1 | tail -6`
+- (2x) `grep -n "^import" bin/gpu-bench.py && python3 tests/test_gpu_bench.py -v 2>&1 | tail -6`
+- (2x) `cd /home/turbo/jarvis/bin && python3 registre-actions.py stats`
+- (2x) `cd /home/turbo && python3 /home/turbo/jarvis/bin/scoring-feedback.py ingest --lot 20 2>&1`
+- (1x) `which gjs && gjs -c /home/turbo/.local/share/gnome-shell/extensions/jarvis-indicator@turbo/extension.js 2>&1 | head -30 ; echo "---syntax check via node (fallback, juste parse ES modules basique non dispo) ---" ; python3 -c " ; import json ; d = json.load(open('/home/turbo/.local/share/gnome-shell/extensions/jarvis-indicator@turbo/metadata.json')) ; print('metadata.json OK:', d) ; "`
+- (1x) `which gh; gh auth status 2>&1 | head -5; echo "=== search reel ==="; timeout 60 gh search repos newsletter growth --sort stars --limit 12 --json fullName,stargazersCount 2>&1 | python3 -c "import sys,json; d=json.load(sys.stdin); print(len(d),'repos'); [print(' ',r['fullName'],r['stargazersCount']) for r in d[:5]]"`
+- (1x) `until [ ! -e /proc/$(pgrep -f "python3 rdit_analysis.py" | head -1) ] 2>/dev/null || ! pgrep -f "python3 rdit_analysis.py" >/dev/null; do sleep 5; done; echo "TERMINE"`
+- (1x) `timeout 900 python3 bin/cli-gabarits.py build 2>&1 | tail -40`
+- (1x) `timeout 900 python3 bin/cli-gabarits.py build 2>&1 | tail -22`
+- (1x) `timeout 900 python3 bin/cli-gabarits.py build 2>&1 | tail -20; echo "===== STATS ====="; timeout 300 python3 bin/cli-gabarits.py stats 2>&1 | head -30`
+- (1x) `timeout 900 python3 /home/turbo/jarvis/scripts/m6_tampon.py drain --workers 3 2>&1 | tail -60`
+- (1x) `timeout 900 python3 -u bin/planning-mega.py 2>&1 | tail -25`
+- (1x) `timeout 90 python3 ~/jarvis/bin/skills-doctor.py --strict 2>&1 | tail -8; echo "rc=$?"`
+- (1x) `timeout 90 python3 ~/jarvis/bin/skills-doctor.py --json 2>/dev/null | python3 -c " ; import sys,json ; d=json.load(sys.stdin) ; if isinstance(d,dict): ;     for k,v in d.items(): ;         if isinstance(v,(int,str)): print(f'  {k}: {v}') ;         elif isinstance(v,list): print(f'  {k}: {len(v)}') ; " 2>/dev/null | head -10`
+- (1x) `timeout 90 python3 ~/jarvis/bin/skillmp-pipeline.py status 2>/dev/null | grep -E "etage|source|catalogue|fr |boucle" | head -7`
+- (1x) `timeout 600 python3 bin/skillmp-pipeline.py inject 2>&1 | tail -20`
+- (1x) `timeout 600 python3 bin/simuler-logique.py --vagues 2 --taille 200 --fils 6; cat /proc/loadavg`
+- (1x) `timeout 600 python3 /home/turbo/jarvis/bin/planning-mega.py 2>&1 | tail -25; echo "=== code retour = ${PIPESTATUS[0]:-?} ==="`
+- (1x) `timeout 600 python3 -m pytest tests/test_skills_doctor.py -q 2>&1 | tail -50`
+- (1x) `timeout 600 python3 -m pytest tests/test_skills_doctor.py -q 2>&1 | tail -40`
+- (1x) `timeout 600 python3 -m pytest tests/test_skills_doctor.py -q 2>&1 | tail -30`
+- (1x) `timeout 600 python3 -m cli.content_perf linkedin --limit 8 2>&1 | tail -20`
+- (1x) `timeout 60 python3 ~/jarvis/bin/skillmp.py stats 2>&1 | head -4 ; echo "── pipeline ──"; timeout 60 python3 ~/jarvis/bin/skillmp-pipeline.py status 2>&1 | grep -E "actif|arrete" | awk '{print "  "$1" "$2" "$3}' ; echo "── clone ──"; tr '\r' '\n' < ~/jarvis/artifacts/e1-20260806/clone-backup-os.log | tail -1`
+- (1x) `timeout 60 python3 ~/jarvis/bin/skillmp.py stats 2>&1 | head -4 ; echo "── collecteurs ──"; pgrep -af "skillsmp/" 2>/dev/null | sed 's|.*skillsmp/||;s| .*||' | sort -u | tr '\n' ' ' ; echo; echo "── clone ──"; tr '\r' '\n' < /home/turbo/jarvis/artifacts/e1-20260806/clone-backup-os.log 2>/dev/null | tail -1`
+- (1x) `timeout 60 python3 ~/jarvis/bin/skillmp.py show src-resources-skills-code-optimizer 2>&1 | head -22`
+- (1x) `timeout 60 python3 ~/jarvis/bin/skillmp-pipeline.py status 2>&1 | sed -n '3,9p'`
+- (1x) `timeout 60 python3 ~/jarvis/bin/skillmp-pipeline.py logs expansion 2>&1 | tail -8; echo "--- site ---"; timeout 60 python3 ~/jarvis/bin/skillmp-pipeline.py logs site 2>&1 | tail -8`
+- (1x) `timeout 60 python3 bin/sonde-doctor.py lister 2>&1; echo "RC=$?"; echo "=== help ==="; timeout 60 python3 bin/sonde-doctor.py --help 2>&1; timeout 60 python3 bin/sonde-doctor.py verifier --help 2>&1`
+- (1x) `timeout 60 python3 /home/turbo/jarvis/scripts/m6_tampon.py backends 2>&1 | head -30; echo "=== status ==="; timeout 60 python3 /home/turbo/jarvis/scripts/m6_tampon.py status 2>&1 | head -30`
+- (1x) `timeout 560 python3 /home/turbo/jarvis/scripts/m6_tampon.py drain --workers 3 2>&1 | tail -50`
+- (1x) `timeout 420 python3 /home/turbo/jarvis/bin/planning-mega.py --dry 2>&1 | tail -40; echo "=== code retour = ${PIPESTATUS[0]:-?} ==="`
+- (1x) `timeout 300 python3 ~/jarvis/bin/skillmp-squads.py --apply 2>&1 | tail -20`
+- (1x) `timeout 300 python3 ~/jarvis/bin/biblio-classify.py 2>&1 | tail -4; echo "=== verif ==="; timeout 60 ~/jarvis/bin/bloc.sh "modele evince" 2>&1 | grep -c "skill-lms" || echo 0`
+- (1x) `timeout 300 python3 bin/cli-gabarits.py list -n 12 --min-vu 5 2>&1`
+- (1x) `timeout 300 python3 -m pytest tests/test_skills_doctor.py -q 2>&1 | tail -20`
+- (1x) `timeout 300 python3 -m pytest tests/content_perf/ -q 2>&1 | tail -20`
+- (1x) `timeout 2400 python3 bin/registre-actions.py build 2>&1 | tail -20`
+- (1x) `timeout 200 python3 ~/jarvis/bin/orchestrateur.py run "generer du contenu video pour linkedin" 2>&1 | head -3 ; echo ; timeout 60 python3 ~/jarvis/bin/orchestrateur.py hist 5 2>&1 | tail -12 ; echo "=== index final ==="; python3 ~/jarvis/bin/intent-engine.py stats`
+- (1x) `timeout 200 python3 ~/jarvis/bin/jarvis-dag.py --variantes "fais-moi un ERP avec React et PostgreSQL" 2>&1 | tail -22`
+- (1x) `timeout 200 python3 bin/skillmp-pipeline.py start expansion catalogue source 2>&1 | tail -8`
+- (1x) `timeout 20 python3 /home/turbo/jarvis/scripts/m6_tampon.py --help 2>&1 | head -40`
+- (1x) `timeout 1800 python3 bin/simuler-logique.py --rapport`
+- (1x) `timeout 180 python3 ~/jarvis/bin/skillmp-pipeline.py start expansion site 2>&1 | tail -8; echo "=== etat ==="; timeout 90 python3 ~/jarvis/bin/skillmp-pipeline.py status 2>&1 | tail -10`
+- (1x) `timeout 180 python3 scripts/cascade-log-ingest.py 2>&1 | tail -2; echo; timeout 120 python3 scripts/cascade-log-ingest.py --stats 2>&1 | tail -14`
+- (1x) `timeout 180 python3 scripts/cascade-log-ingest.py 2>&1 | tail -1`
+- (1x) `timeout 120 python3 ~/jarvis/bin/skillmp.py stats 2>&1 | tail -4; echo; timeout 120 python3 ~/jarvis/bin/skillmp-pipeline.py status 2>&1 | tail -10`
+- (1x) `timeout 120 python3 ~/jarvis/bin/skillmp.py stats 2>&1 | tail -30`
+- (1x) `timeout 120 python3 ~/jarvis/bin/skillmp.py search "keyword trigger dispatch automation queue" -n 8 2>&1 | tail -14`
+- (1x) `timeout 120 python3 ~/jarvis/bin/skillmp-pipeline.py stop source 2>&1 | tail -1; timeout 15 tail -f /dev/null; timeout 120 python3 ~/jarvis/bin/skillmp-pipeline.py start source 2>&1 | tail -1; timeout 10 tail -f /dev/null; pgrep -af github_source | grep -v pgrep | head -1`
+- (1x) `timeout 120 python3 ~/jarvis/bin/skillmp-pipeline.py status 2>&1 | tail -30`
+- (1x) `timeout 120 python3 ~/jarvis/bin/skillmp-detect.py "optimiser du react nextjs et générer des ppt" 2>&1 | head -12`
+- (1x) `timeout 120 python3 ~/jarvis/bin/intent-engine.py route "sauvegarder les bases et verifier le cluster" 2>&1 | head -14 | cat -A | sed 's/\$$//' | head -14`
+- (1x) `timeout 120 python3 tests/test_sonde_doctor.py -v 2>&1 | tail -30`
+- (1x) `timeout 120 python3 scripts/cascade-log-ingest.py 2>&1 | tail -1`
+- (1x) `timeout 120 python3 scripts/cascade-log-ingest.py --stats 2>&1 | head -20`
+- (1x) `timeout 120 python3 bin/sonde-doctor.py verifier --sonde audit-local-failed-units; echo "code sortie=$?"`
+- (1x) `timeout 120 python3 bin/cli-gabarits.py show 500 2>&1`
+- (1x) `timeout 115 python3 ~/jarvis/bin/planning-autogen.py 2>&1 | tail -14`
+- (1x) `timeout 100 python3 ~/jarvis/bin/skillmp-pipeline.py start expansion catalogue source site fr boucle 2>&1 | tail -7`
+- (1x) `time timeout 900 python3 bin/simuler-logique.py --vagues 2 --taille 2000 --fils 6; cat /proc/loadavg`
+- (1x) `time timeout 1800 python3 bin/simuler-logique.py --vagues 16 --taille 2500 --fils 6 2>&1 | tail -6; cat /proc/loadavg`
+- (1x) `time python3 scripts/cascade-log-ingest.py 2>&1; echo "=== 2e passage (idempotence) ==="; time python3 scripts/cascade-log-ingest.py 2>&1`
+- (1x) `time python3 bin/gpu-bench.py mesurer --topologie 5gpu --repetitions 5`
+- (1x) `tail -c 400 ~/jarvis/skills-library/INDEX.jsonl | tail -1 | python3 -c "import json,sys; d=json.loads(sys.stdin.read()); print(list(d.keys())); print(d.get('repository'))"`
+- (1x) `tail -5 /home/turbo/jarvis/logs/biblio_cycle.log 2>&1; echo "--- exit test direct ---"; cd ~ && python3 -c " ; import sys; sys.argv=['x','--tick','--max','200'] ; exec(open('/home/turbo/jarvis/cli/biblio_cycle.py').read().replace('if __name__','if 0 and __name__')) ; try: ;     main() ; except SystemExit as e: print('exit',e) ; " 2>&1 | tail -20`
+- (1x) `tail -3 ~/.local/share/intent-index.log; python3 ~/jarvis/bin/intent-engine.py stats ; echo "=== suite du DAG (exécution) ===" ; sed -n '130,200p' /home/turbo/IA/Core/jarvis/core/jarvis_dag_scheduler.py`
+- (1x) `sudo python3 bin/jarvis-rgb-thermal.py --test`
+- (1x) `sleep 8; CDP_URL=http://127.0.0.1:9105 timeout 40 python3 ~/jarvis/bin/cdp-inspect.py eval "location.href + ' ||| ' + document.title + ' ||| ' + document.body.innerText.replace(/\n{2,}/g,'\n').slice(0,2500)" 2>&1 | tail -30`
+- (1x) `sed -n '70,80p' setup.cfg; echo '--- installé ? ---'; which auto 2>/dev/null; pip show autoagent 2>/dev/null | head -3; python3 -c 'import autoagent; print(autoagent.__file__)' 2>/dev/null; echo '--- cli.py head ---'; head -50 autoagent/cli.py; echo '--- jarvis_bridge (fichier local non commité) ---'; head -30 autoagent/tools/jarvis_bridge.py`
+- (1x) `python3 ~/jarvis/cli/disk_index.py --help 2>&1 | head -25; echo "=== autogen ==="; python3 ~/jarvis/scripts/domino_autogen_engine.py --help 2>&1 | head -20`
+- (1x) `python3 ~/jarvis/bin/skillsmp-harvest.py status 2>&1 | head -25`
+- (1x) `python3 ~/jarvis/bin/skillsmp-harvest.py quarantine 2>&1 | tail -8`
+- (1x) `python3 ~/jarvis/bin/skillsmp-harvest.py fetch-content --max-fetch 300 2>&1 | tail -15`
+- (1x) `python3 ~/jarvis/bin/skillmp.py stats 2>&1 | tail -5`
+- (1x) `python3 ~/jarvis/bin/skillmp.py stats 2>&1 | head -15`
+- (1x) `python3 ~/jarvis/bin/skillmp-pipeline.py stop catalogue 2>&1 | tail -2; ASPIRE_DELAY=2.5 python3 ~/jarvis/bin/skillmp-pipeline.py start catalogue 2>&1 | tail -2`
+- (1x) `python3 ~/jarvis/bin/skillmp-pipeline.py stop boucle 2>&1 ; sleep 4 ; python3 ~/jarvis/bin/skillmp-pipeline.py start boucle 2>&1 ; sleep 4 ; ps -eo pid,lstart,cmd | grep superviseur | grep -v grep | head -2`
+- (1x) `python3 ~/jarvis/bin/skillmp-pipeline.py status 2>&1 | head -25; echo "———"; python3 ~/jarvis/bin/skillmp.py stats 2>&1 | head -8`
+- (1x) `python3 ~/jarvis/bin/skillmp-pipeline.py status 2>&1 | head -25`
+- (1x) `python3 ~/jarvis/bin/skillmp-pipeline.py start fr boucle 2>&1 ; sleep 6; python3 ~/jarvis/bin/skillmp-pipeline.py logs fr -n 3 2>&1 | tail -4`
+- (1x) `python3 ~/jarvis/bin/skillmp-pipeline.py start expansion site 2>&1 | tail -3; python3 ~/jarvis/bin/skillmp-pipeline.py inject 2>&1 | tail -4`
+- (1x) `python3 ~/jarvis/bin/skillmp-pipeline.py start expansion catalogue source site fr boucle && python3 ~/jarvis/bin/skillmp-pipeline.py inject`
+- (1x) `python3 ~/jarvis/bin/skillmp-pipeline.py start 2>&1 | tail -15`
+- (1x) `python3 ~/jarvis/bin/skillmp-pipeline.py logs expansion 2>&1 | tail -5; echo "———"; python3 ~/jarvis/bin/skillmp-pipeline.py logs site 2>&1 | tail -5`
+- (1x) `python3 ~/jarvis/bin/planning-mega.py 2>&1 | head -100`
+- (1x) `python3 ~/jarvis/bin/jarvis-executor.py --tick 6 2>&1 | tail -10`
+- (1x) `python3 ~/jarvis/bin/jarvis-executor.py --status 2>&1 | head -12`
+- (1x) `python3 ~/jarvis/bin/jarvis-backlog-drainer.py --help 2>&1 | head -30`
+- (1x) `python3 ~/jarvis/bin/intent-engine.py stats ; echo; echo "=== routage 100 % vectoriel ===" ; timeout 120 python3 ~/jarvis/bin/intent-engine.py route "je veux monter une boutique en ligne" 2>&1 | head -16`
+- (1x) `python3 ~/jarvis/bin/intent-engine.py build-skills 600 2>&1 | tail -2 ; python3 ~/jarvis/bin/intent-engine.py stats ; echo; echo "=== DAG bout en bout ===" ; timeout 200 python3 ~/jarvis/bin/orchestrateur.py run "je veux monter une boutique en ligne" 2>&1 | tail -8`
+- (1x) `python3 ~/jarvis/bin/intent-engine.py build-familles 2>&1 | tail -2 ; echo "=== test du routage sémantique ===" ; python3 ~/jarvis/bin/intent-engine.py route "fais moi un ERP avec React et PostgreSQL" 2>&1 | head -12`
+- (1x) `python3 tests/test_sonde_doctor.py -v 2>&1 | tail -20`
+- (1x) `python3 tests/test_sonde_doctor.py -v 2>&1 | tail -12`
+- (1x) `python3 tests/test_gpu_bench.py -v 2>&1 | tail -8`
+- (1x) `python3 tests/test_gpu_bench.py -v 2>&1 | tail -20`
+- (1x) `python3 tests/test_gpu_bench.py -v 2>&1 | tail -12`
+- (1x) `python3 test_token.py 2>&1 | tail -3 ; echo "=== relance en fond ===" ; nohup python3 github_source.py >> github.log 2>&1 & ; sleep 20; tail -2 github.log; echo "sources: $(wc -l < sources.jsonl)" ; echo "=== token absent de ps ? ===" ; ps -eo cmd | grep -c "Bearer gho_"`
+- (1x) `python3 test_token.py 2>&1 | tail -3`
+- (1x) `python3 scripts/jarvis-prod-runner.py --limit 200 >> logs/prod-runner-massif.log 2>&1`
+- (1x) `python3 scripts/cascade-log-ingest.py && python3 scripts/cascade-log-ingest.py --stats 2>&1 | head -12`
+- (1x) `python3 bin/skillmp-pipeline.py stop fr 2>&1 | tail -3 ; echo "--- étages restants (réseau/CPU seulement) ---" ; python3 bin/skillmp-pipeline.py status 2>&1 | tail -8`
+- (1x) `python3 bin/skillmp-pipeline.py start fr boucle 2>&1 | tail -4; echo "---"; python3 bin/skillmp-pipeline.py status 2>&1 | tail -9`
+- (1x) `python3 bin/skillmp-pipeline.py start expansion source 2>&1 | tail -8; sleep 0.1; python3 bin/skillmp-pipeline.py status 2>&1 | tail -10`
+- (1x) `python3 bin/skillmp-pipeline.py start expansion catalogue source site 2>&1 | tail -5 ; echo "── cascade en validated (garde-fou GPU bloquerait auto) ──" ; bash bin/skillmp-cascade.sh --mode validated 2>&1 | tail -6`
+- (1x) `python3 bin/skillmp-pipeline.py start catalogue site 2>&1 | tail -4 ; echo "---"; python3 bin/skillmp-pipeline.py status 2>&1 | tail -9`
+- (1x) `python3 bin/biblio-doctor.py 2>&1 | tail -25`
+- (1x) `python3 bin/atomiser-logiques.py matrice 2>&1 | tail -6`
+- (1x) `python3 bin/atomiser-logiques.py extraire 2>&1 | tail -20`
+- (1x) `python3 /home/turbo/jarvis/bin/test_scoring.py 2>&1 | tail -45`
+- (1x) `python3 /home/turbo/jarvis/bin/test_scoring.py 2>&1 | tail -20`
+- (1x) `python3 /home/turbo/jarvis/bin/skillmp-pipeline.py status 2>&1 | tail -8`
+- (1x) `python3 -m unittest test_citations 2>&1 | tail -8`
+- (1x) `python3 -m unittest test_citations 2>&1 | tail -6`
+- (1x) `python3 -m py_compile bin/jarvis-hw-control.py && echo "✅ syntaxe OK" ; echo "=== msi-ec chargeable sur cette machine ? ==="; modinfo msi-ec 2>/dev/null | head -3 || echo "❌ msi-ec absent (normal : pilote pour laptops MSI)" ; echo "=== chassis type (laptop vs desktop) ==="; cat /sys/class/dmi/id/chassis_type 2>/dev/null | sed 's/^3$/3 = Desktop/; s/^10$/10 = Notebook/; s/^9$/9 = Laptop/'`
+- (1x) `python3 -m cli.content_perf --help 2>&1 | head -30; echo "=== scoring ==="; head -50 cli/content_perf/scoring.py`
+- (1x) `python3 -c "import websocket; print('websocket-client OK', websocket.__version__)" 2>&1; ls ~/jarvis/bin/ 2>/dev/null | grep -iE "cdp|browser|chrome" | head -20; ls ~/jarvis/scripts/ 2>/dev/null | grep -iE "cdp|chrome" | head -20`
+- (1x) `python3 -c "import websocket; print('websocket-client OK')" 2>&1; python3 -c "import websockets; print('websockets OK')" 2>&1; which websocat 2>&1; python3 -c "import requests; print('requests OK')" 2>&1`
+- (1x) `python3 -c "import torch;print('torch',torch.__version__,'CUDA',torch.cuda.is_available(),torch.cuda.device_count(),'GPU')" 2>/dev/null | tail -1 ; python3 -c "import deepspeed" 2>&1 | tail -1`
+- (1x) `python3 -c "import pandas,numpy,scipy;print('pandas',pandas.__version__);print('numpy',numpy.__version__);print('scipy',scipy.__version__)" 2>&1; python3 -c "import statsmodels;print('statsmodels',statsmodels.__version__)" 2>&1`
+- (1x) `python3 -c "import deepspeed; print('deepspeed', deepspeed.__version__)" 2>&1 | head -2 ; python3 -c "import torch; print('torch', torch.__version__, '| CUDA', torch.cuda.is_available(), '|', torch.cuda.device_count(), 'GPU')" 2>&1 | head -2`
+- (1x) `python3 -c "import deepspeed" 2>&1 | head -1; python3 -c "import torch;print('torch',torch.__version__, 'cuda',torch.cuda.is_available())" 2>&1 | head -1 ; tr '\r' '\n' < /home/turbo/jarvis/artifacts/e1-20260806/clone-backup-os.log 2>/dev/null | tail -1`
+- (1x) `python3 -c "import deepspeed" 2>&1 | head -1; echo "---"; MAX_JOBS=$(nproc) timeout 1800 pip install deepspeed --no-cache-dir 2>&1 | tail -4`
+- (1x) `python3 -c "import ast;ast.parse(open('bin/atomiser-logiques.py').read())" 2>&1 | tail -2; grep -c "_depart_par_verbe\|_derouler" bin/atomiser-logiques.py`
+- (1x) `python3 -c "import ast;ast.parse(open('/home/turbo/jarvis/scripts/generer-triggers-manquants.py').read());print('syntaxe OK')" && python3 ~/jarvis/scripts/generer-triggers-manquants.py 2>&1 | tail -8`
+- (1x) `python3 -c "import ast;ast.parse(open('/home/turbo/jarvis/bin/skillsmp-harvest.py').read());print('syntaxe OK')" && [ -n "${SKILLSMP_API_KEY:-}" ] && echo "clé API présente (quota 500)" || echo "pas de clé API (quota 50)"`
+- (1x) `python3 -c "import ast;ast.parse(open('$HOME/jarvis/bin/skillmp-pipeline.py').read());print('AST OK')" && timeout 60 python3 ~/jarvis/bin/skillmp-pipeline.py status 2>&1 | tail -3`
+- (1x) `python3 -c "import ast,sys; src=open('bin/simuler-logique.py').read(); ast.parse(src); print('syntaxe OK'); print('import time:', 'import time' in src); print('import lru_cache:', 'lru_cache' in src)"`
+- (1x) `python3 -c "import ast,sys; ast.parse(open('bin/cli-gabarits.py').read())" && echo "SYNTAXE OK" && grep -n "NOT IN" bin/cli-gabarits.py`
+- (1x) `python3 -c " ; ipid=0x0001002e00000500 ; print('high32',hex((ipid>>32)&0xffffffff)) ; print('hwid mask0xFFF', hex(((ipid>>32)&0xFFF))) ; print('mcatype', hex((((ipid>>32)&0xFFFF0000)>>16))) ; print('bits43_32', hex((ipid>>32)&0xFFF)) ; print('bits63_48', hex((ipid>>48)&0xFFFF)) ; "`
+- (1x) `python3 -c " ; ipid=0x0001002e00000500 ; high=ipid>>32 ; print('high=0x%08x' % high) ; print('HWID (high & MCI_IPID_HWID=0xFFF) = 0x%X' % (high & 0xFFF)) ; print('McaType ((high & 0xFFFF0000)>>16) = 0x%X' % ((high & 0xFFFF0000)>>16)) ; "`
+- (1x) `python3 -c " ; import sys ; sys.path.insert(0, '/home/turbo/jarvis-cowork') ; from core.unified import UnifiedMemoryStore ; db = UnifiedMemoryStore() ; print(db.resolve('etoile').path) ; "`
+- (1x) `python3 -c " ; import pynvml as N ; print([x for x in dir(N) if 'FAN' in x.upper()]) ; print('TEMPERATURE_CONTINOUS_SW =', getattr(N,'NVML_FAN_POLICY_TEMPERATURE_CONTINOUS_SW','?')) ; print('MANUAL =', getattr(N,'NVML_FAN_POLICY_MANUAL','?')) ; " 2>&1 | grep -v FutureWarning | grep -v 'import warnings'`
+- (1x) `python3 -c " ; import numpy, scipy, pandas ; print('numpy', numpy.__version__); print('scipy', scipy.__version__); print('pandas', pandas.__version__) ; from scipy import stats; print('scipy.stats OK') ; " 2>&1; echo "--- pip list grep ---"; python3 -m pip list 2>/dev/null | grep -iE "stats|patsy|pymc|arviz|numpyro|jax|pingouin|linearmodels|formulaic" || echo "aucun paquet stats avancé"`
+- (1x) `python3 -c " ; import json ; s=json.load(open('/home/turbo/jarvis/data/content_perf/blog/sources.json')) ; for x in s: print(x['repo'], x['stars'], len(x['readme']), repr(x['description'][:80])) ; print('total sources', len(s)) ; "`
+- (1x) `python3 -c " ; import json ; p='/home/turbo/.openclaw/openclaw.json' ; d=json.load(open(p)) ; print(json.dumps(d.get('providers'),indent=1)[:1200]) ; print('--- cascade/order keys ---') ; for k in d:  ;     if 'cascad' in k.lower() or 'order' in k.lower() or 'fallback' in k.lower() or 'route' in k.lower(): print(k,'=',json.dumps(d[k])[:300]) ; "`
+- (1x) `python3 -c " ; import json ; for l in open('/home/turbo/jarvis/skills-library/CONTENT-INDEX.jsonl'): ;     d=json.loads(l) ;     if d.get('security_status')=='DANGEROUS': ;         print(d['id'][:60],'→',', '.join(d['security_reasons']))"`
+- (1x) `python3 -c " ; import json ; d=json.load(open('/home/turbo/jarvis/runs/dag-3.json')) ; for cap,r in d['resultats'].items(): ;     print(f\"── {r['role']} [{r['statut']}]\") ;     for l in (r['sortie'] or '').strip().splitlines()[:4]: ;         if l.strip(): print('   ', l.strip()[:110]) ; "`
+- (1x) `python3 -c " ; import json ; d=json.load(open('/home/turbo/jarvis/runs/dag-2.json')) ; for cap,r in d['resultats'].items(): ;     s=(r['sortie'] or '').strip().replace(chr(10),' ')[:150] ;     print(f\"[{r['statut']}] {r['role']:<22} {s}\") ; " ; echo; echo "════ mémoire d'exécution (apprentissage) ════" ; python3 ~/jarvis/bin/jarvis-dag.py --historique`
+- (1x) `python3 -c " ; import json ; d=json.load(open('/home/turbo/jarvis/orchestrator/registry.json')) ; print(d['counts']) ; for e in d['entries'][:5]: ;     print(json.dumps(e, ensure_ascii=False)[:400]) ; print('...') ; import collections ; c=collections.Counter(e.get('kind') or e.get('type') for e in d['entries']) ; print(c) ; print(d['entries'][0].keys()) ; "`
+- (1x) `python3 -c " ; import json ; d=json.load(open('/home/turbo/jarvis/infra/config/cluster/service-ownership.json')) ; print(json.dumps(d,indent=1,ensure_ascii=False)[:3000]) ; " 2>&1 | head -80`
+- (1x) `python3 -c " ; import json ; d = json.load(open('/home/turbo/.openclaw/openclaw.json')) ; m = d.get('models',{}) ; print('clés models:', list(m.keys())) ; print('ordre providers:', list(m.get('providers',{}).keys())) ; for k in ('cascade','order','priority','fallback'): ;     if k in m: print(k, '=', m[k]) ; p = m['providers'].get('rem-linux',{}) ; print('rem-linux:', json.dumps(p)[:300]) ; "`
+- (1x) `python3 -c " ; for n in (1139, 214, 1100, 925): ;     for k in range(n+1): ;         p = round(100*k/n, 2) ;         if p == 88.89: ;             print('MATCH', k, '/', n, '=', p) ; print('8/9 =', round(800/9,2)) ; print('1139 %% 9 =', 1139%9, ' 214 %% 9 =', 214%9) ; print('88.89%% of 1139 =', 1139*0.8889, ' of 214 =', 214*0.8889) ; "`
+- (1x) `python3 - <<'PY' ; import re,io ; p="bin/skills-doctor.py" ; s=open(p).read() ; s=s.replace("_VOLATILE_PREFIXES","VOLATILE_PREFIXES").replace("_FS_TOPLEVEL","FS_TOPLEVEL").replace("_fs_toplevel","fs_toplevel") ; open(p,"w").write(s) ; PY ; grep -n "VOLATILE_PREFIXES\|FS_TOPLEVEL" bin/skills-doctor.py`
+- (1x) `python3 - <<'PY' ; import json ; d=json.load(open('/home/turbo/.openclaw/openclaw.json')) ; def walk(o,path=''): ;     if isinstance(o,dict): ;         if 'baseUrl' in o: ;             print(f"{o.get('name','?'):24} {o.get('baseUrl')}  prio={o.get('priority')}  models={o.get('models')}") ;         for k,v in o.items(): walk(v,path+'/'+k) ;     elif isinstance(o,list): ;         for i in o: walk(i,path) ; walk(d) ; PY`
+- (1x) `python3 - <<'EOF' ; import json ; c=json.load(open('/home/turbo/.openclaw/openclaw.json')) ; prov=c.get('models',{}).get('providers',[]) ; for p in prov if isinstance(prov,list) else prov.items(): ;     d=p if isinstance(p,dict) else p[1] ;     print(d.get('name',p if isinstance(p,str) else '?'), '→', d.get('baseUrl') or d.get('base_url') or d.get('url')) ; EOF`
+- (1x) `python3 - <<'EOF' ; bad=0xfffd97fea4209f00 ; good=0xffff97fea426f800   # R15/R12 style valid kernel pointer from same dump ; print(hex(bad^0xffff97fea4209f00)) ; # compare only the top 16 bits pattern ; print(bin(0xffff ^ 0xfffd)) ; EOF`
+- (1x) `python3 - <<'EOF' 2>&1 | grep -v Warning ; import inspect, pynvml as N ; src = inspect.getsource(N.nvmlDeviceGetFanSpeedRPM) ; print(src) ; EOF`
+- (1x) `ps aux | grep -iE "python3.*cowork|python3.*dispatch" | grep -v grep`
+- (1x) `ps -eo pid,lstart,cmd | grep "superviseur.sh" | grep -v grep ; echo "--- arrêt de tous, relance d'un seul ---" ; pgrep -f "superviseur.sh" | xargs -r kill 2>/dev/null; sleep 3 ; python3 ~/jarvis/bin/skillmp-pipeline.py start boucle 2>&1 ; sleep 3; pgrep -cf "superviseur.sh"`
+- (1x) `ps -eo pid,lstart,cmd | grep "github_source" | grep -v grep ; echo "--- on garde le plus ancien (setsid), on tue le doublon ---" ; GARDE=720243 ; for p in $(pgrep -f "python3 github_source.py"); do [ "$p" != "$GARDE" ] && kill "$p" && echo "tué: $p"; done ; sleep 3; ps -eo pid,cmd | grep "github_source" | grep -v grep`
+- (1x) `pkill -f "python3 rdit_analysis.py" 2>/dev/null; sleep 1; pgrep -f "python3 rdit_analysis.py" >/dev/null && echo "encore la" || echo "arrete"`
+- (1x) `pkill -f "biblio_cycle.py --full" 2>/dev/null; sleep 1 ; cd ~ && timeout 120 python3 ~/jarvis/cli/biblio_cycle.py --tick --max 500 2>&1 | tail -3`
+- (1x) `pkill -9 -f "python3 stub.py"; sleep 1; pgrep -af "stub.py" || echo "stub arrete"`
+- (1x) `pip install --quiet py-spy 2>&1 | tail -5; which py-spy 2>&1; python3 -m pip show py-spy 2>&1 | head -3`
+- (1x) `pgrep -cf "superviseur.sh" 2>/dev/null; python3 ~/jarvis/bin/skillmp-pipeline.py start boucle 2>&1; sleep 4 ; ps -eo pid,lstart,cmd | grep superviseur | grep -v grep`
+- (1x) `pgrep -cf "superviseur.sh" 2>/dev/null || echo 0 ; python3 ~/jarvis/bin/skillmp-pipeline.py start boucle 2>&1 ; sleep 4; pgrep -af "superviseur.sh" | grep -v grep | head -2`
+- (1x) `pgrep -cf "python3 github_source" ; echo "---"; ls -l sources.jsonl`
+- (1x) `pgrep -af "skillsmp/" 2>/dev/null | sed 's|.*skillsmp/||' | awk '{print "  actif: "$1}' ; timeout 100 python3 /home/turbo/jarvis/bin/skillmp-pipeline.py start expansion catalogue site 2>&1 | tail -4`
+- (1x) `nohup python3 aspire.py > aspire.log 2>&1 & ; echo "PID=$!"; sleep 25; tail -3 aspire.log; echo "fiches: $(wc -l < skills.jsonl 2>/dev/null || echo 0)"`
+- (1x) `nohup python3 /home/turbo/jarvis/bin/skillmp-pipeline.py inject > /home/turbo/jarvis/artifacts/e1-20260806/skillmp-inject.log 2>&1 & ; disown ; echo "inject relancé sans timeout (le précédent a été tué par mon propre timeout de 600s)" ; echo "── bibliothèque ──"; python3 /home/turbo/jarvis/bin/skillmp-pipeline.py status 2>&1 | tail -2`
+- (1x) `nice -n 19 ionice -c3 timeout 120 python3 -c " ; import glob,os,time ; HOME='/home/turbo' ; t0=time.time() ; r=glob.glob(os.path.join(HOME,'jarvis*','**','cluster-heartbeat.py'), recursive=True) ; print('UN SEUL glob ~/jarvis*/**/<script> : %.1f s, %d resultats' % (time.time()-t0, len(r))) ; " 2>&1; echo "rc=$? (124=pas fini en 120s)"`
+- (1x) `ls /home/turbo/jarvis/tests/ 2>/dev/null | head -30; echo "---"; ls /home/turbo/jarvis/bin/*.py | head -5; echo "--- python"; python3 -V`
+- (1x) `ls -l ~/jarvis/bin/biblio-classify.py 2>&1 ; timeout 60 python3 ~/jarvis/bin/biblio-classify.py --help 2>&1 | head -12`
+- (1x) `ls -d /home/turbo/AutoAgent/venv /home/turbo/AutoAgent/.venv /home/turbo/venvs 2>/dev/null; find /home/turbo -maxdepth 2 -name 'pyvenv.cfg' 2>/dev/null | head -5; python3 --version; echo '--- .env existant ? ---'; cat /home/turbo/AutoAgent/.env 2>/dev/null | sed 's/=.*KEY.*/=***/' | head; ls /home/turbo/AutoAgent/docs 2>/dev/null | head`
+- (1x) `head -5 /home/turbo/.local/bin/jarvis; echo '---'; ls /home/turbo/jarvis-linux/src/jarvis/cli/ 2>/dev/null | head; echo '--- venv jarvis-linux ? ---'; ls -d /home/turbo/jarvis-linux/.venv /home/turbo/jarvis-linux/venv 2>/dev/null; pip show jarvis 2>/dev/null | head -4; python3 -c 'import src.jarvis.cli.main' 2>&1 | tail -1`
+- (1x) `head -2 ~/jarvis/skills-library/INDEX.jsonl | python3 -c "import json,sys; [print(json.dumps({k:v for k,v in json.loads(l).items() if k in ('id','name','repository','source')},ensure_ascii=False)) for l in sys.stdin]"`
+- (1x) `grep -rn "SMCA_PIE\|Power, Interrupts" /usr/src/ /lib/modules/*/build/ 2>/dev/null | head -20; python3 -c " ; ipid=0x0001002e00000500 ; high=ipid>>32 ; print(hex(high), 'HWID=',hex(high & 0xFFF), 'McaType=',hex((high & 0xFFFF0000)>>16)) ; "`
+- (1x) `grep -n "^import\|^from" bin/gpu-bench.py && python3 tests/test_gpu_bench.py -v 2>&1 | tail -10`
+- (1x) `grep -n "INSERT INTO tasks\|done\|status" bin/omega-cascade.sh 2>/dev/null | head -30; echo "════ appelle quoi ════"; grep -n "python3\|omega-todolist\|omega-preload" bin/omega-cascade.sh 2>/dev/null | head -20`
+- (1x) `grep -a "EMPILEMENT\|stack-worker\|mega-avale\|ultra-ingest" /home/turbo/.bash_history 2>/dev/null | head -10; echo "── historique zsh/autres ──"; ls /home/turbo/.*history* 2>/dev/null ; echo "── qui tourne maintenant ──"; ps -eo pid,etimes,cmd --no-headers | grep -Ei "python3.*(runner|cadence|producer|scheduler|worker)" | grep -v grep | head -15`
+- (1x) `for p in 47356 128451; do echo "===== PID $p ====="; echo "-- wchan: $(cat /proc/$p/wchan 2>/dev/null)"; echo "-- io:"; cat /proc/$p/io 2>/dev/null; echo "-- fd (ecriture):"; ls -l /proc/$p/fd 2>/dev/null | head -20; echo "-- stack top python:"; timeout 5 cat /proc/$p/status 2>/dev/null | grep -E "State|Threads|VmRSS"; echo; done`
+- (1x) `for i in 471 500 20; do timeout 120 python3 bin/cli-gabarits.py show $i 2>&1; echo "-----------------------------------------"; done`
+- (1x) `for i in $(seq 1 12); do ;   s=$(python3 ~/jarvis/bin/intent-engine.py stats 2>/dev/null) ;   echo "$s" ;   case "$s" in *"10863/10863"*|*"100 %"*) echo "INDEX COMPLET"; break;; esac ;   pgrep -f 'index_skills' >/dev/null || { echo "indexeur terminé"; break; } ;   sleep 20 ; done ; tail -2 ~/.local/share/intent-index.log`
+- (1x) `for f in atomiser-logiques simuler-logique inscrire-logiques; do ;   echo "=== $f ===" ;   timeout 20 python3 /home/turbo/jarvis/bin/$f.py --help 2>&1 | head -14 ;   echo ; done`
+- (1x) `for c in stats matrice exporter reconstruire; do ;   echo "=== $c ==="; timeout 20 python3 /home/turbo/jarvis/bin/atomiser-logiques.py $c --help 2>&1 | grep -vE '^usage|^$|^positional|^options' | head -10 ; done`
+- (1x) `for c in omega-cascade.sh omega-preload.py omega-sync-repos.sh omega-todolist.py; do ;   p=~/jarvis/bin/$c ;   case $c in *.py) out=$(timeout 20 python3 "$p" --help 2>&1 | head -2);; *) out=$(timeout 20 bash "$p" --help 2>&1 | head -2);; esac ;   printf "%-22s %s\n" "$c" "$(echo "$out" | tr '\n' ' ' | cut -c1-95)" ; done`
+- (1x) `for b in npx xdg-open pctool python3 suricata promql kubectl gh curl; do ;   p=$(command -v "$b" 2>/dev/null) && echo "OK   $b -> $p" || echo "MANQ $b" ; done`
+- (1x) `echo "═══ TESTS gpu-bench ═══" ; timeout 180 python3 /home/turbo/jarvis/tests/test_gpu_bench.py 2>&1 | tail -6`
+- (1x) `echo "═══ CLONE (priorité 1) ═══" ; tr '\r' '\n' < /home/turbo/jarvis/artifacts/e1-20260806/clone-backup-os.log 2>/dev/null | tail -1 ; echo ; echo "═══ SHELLS SECONDAIRES — activité réelle ═══" ; ps -eo pid,etime,pcpu,args --sort=-pcpu 2>/dev/null | grep -E "python3|dd if|bash" | grep -viE "grep|ps -eo" | head -12 | cut -c1-125`
+- (1x) `echo "=== supergateway --help ==="; node /home/turbo/.local/lib/node_modules/supergateway/dist/index.js --help 2>&1 | head -60 ; echo; echo "=== version ==="; python3 -c "import json;print(json.load(open('/home/turbo/.local/lib/node_modules/supergateway/package.json'))['version'])" 2>&1`
+- (1x) `echo "=== python en cours (top CPU) ==="; ps -eo pid,ppid,etime,pcpu,rss,args --sort=-pcpu | head -25 ; echo "=== recherche large ==="; ps -eo pid,etime,pcpu,args | grep -iE "gen_sql|shortcut|jarvis-plan|systematic|rebuild|biblio" | grep -v grep ; echo "=== load ==="; uptime`
+- (1x) `echo "=== ports occupés ==="; ss -tlnp 2>/dev/null | grep -oE ':(89|90)[0-9]{2}' | sort -u; echo "=== GTK/WebKit dispo ? ==="; python3 -c "import gi; gi.require_version('Gtk','3.0'); gi.require_version('WebKit2','4.1'); print('✅ GTK3 + WebKit2 OK')" 2>&1 | tail -1`
+- (1x) `echo "=== jarvis-plan.py test lecture ==="; timeout 30 python3 /home/turbo/jarvis/bin/jarvis-plan.py --help 2>&1 | head -25; echo "EXIT=$?"`
+- (1x) `echo "=== QUI est le python3 a 606% ? ===" ; ps -eo pid,pcpu,pmem,etime,args --sort=-pcpu --no-headers | head -4 | cut -c1-190 ; echo ; echo "=== charge maintenant ==="; cut -d' ' -f1-3 /proc/loadavg`
+- (1x) `echo "== registry_build.py =="; cat /home/turbo/jarvis/orchestrator/registry_build.py; echo "== qc_gate.py head =="; sed -n '1,40p' /home/turbo/jarvis/orchestrator/qc_gate.py; echo "== registry.json top keys =="; python3 -c "import json;d=json.load(open('/home/turbo/jarvis/orchestrator/registry.json'));print(type(d), list(d.keys())[:20] if isinstance(d,dict) else len(d))" 2>/dev/null`
+- (1x) `command -v pandoc wkhtmltopdf weasyprint 2>/dev/null || echo "aucun convertisseur PDF" ; echo "---" ; python3 -c "import yaml;d=yaml.safe_load(open('/home/turbo/jarvis/audit/AUDIT_CONFIG.yaml'));print(list(d['agents'].keys()));print(list(d['profiles'].keys()))"`
+- (1x) `chmod +x ~/jarvis/scripts/generer-triggers-manquants.py; python3 -c "import ast;ast.parse(open('/home/turbo/jarvis/scripts/generer-triggers-manquants.py').read());print('syntaxe OK')"; python3 ~/jarvis/scripts/generer-triggers-manquants.py 2>&1 | tail -40`
+- (1x) `chmod +x ~/jarvis/bin/skillsmp-consolide.py && timeout 600 python3 ~/jarvis/bin/skillsmp-consolide.py 2>&1 | tail -15`
+- (1x) `chmod +x ~/jarvis/bin/skillmp-squads.py && timeout 300 python3 ~/jarvis/bin/skillmp-squads.py 2>&1 | tail -22`
+- (1x) `chmod +x ~/jarvis/bin/skillmp-sentinelle.py ; python3 -c "import ast; ast.parse(open('/home/turbo/jarvis/bin/skillmp-sentinelle.py').read())" && echo "SYNTAXE OK" ; python3 -m py_compile ~/jarvis/bin/skillmp-sentinelle.py && echo "COMPILE OK"`
+- (1x) `chmod +x ~/jarvis/bin/orchestrateur.py ; echo "=== index vectoriel ==="; python3 ~/jarvis/bin/intent-engine.py stats ; echo; echo "=== test PLAN ===" ; timeout 120 python3 ~/jarvis/bin/orchestrateur.py plan "sauvegarder les bases et verifier le cluster" 2>&1 | head -20`
+- (1x) `chmod +x ~/jarvis/bin/jarvis-executor.py ; echo "=== 1) STATUS initial ===" ; python3 ~/jarvis/bin/jarvis-executor.py --status 2>&1 | head -8 ; echo "" ; echo "=== 2) DRY-RUN (ce qui SERAIT exécuté, 6 tâches) ===" ; python3 ~/jarvis/bin/jarvis-executor.py --tick 6 --dry 2>&1 | head -15`
+- (1x) `chmod +x ~/jarvis/bin/jarvis-dag.py ; echo "════ DAG — ERP (dry-run) ════" ; timeout 300 python3 ~/jarvis/bin/jarvis-dag.py "fais-moi un ERP avec React et PostgreSQL" 2>&1 | tail -30`
+- (1x) `chmod +x bin/jarvis-hw-control.py && python3 bin/jarvis-hw-control.py 8901`
+- (1x) `chmod +x bin/gpu-bench.py && python3 bin/gpu-bench.py etat`
+- (1x) `chmod +x /home/turbo/jarvis/bin/skillsmp.py ; cd /home/turbo/jarvis ; python3 bin/skillsmp.py ingest ; echo "---" ; python3 bin/skillsmp.py stats`
+- (1x) `chmod +x /home/turbo/jarvis/bin/scoring-feedback.py /home/turbo/jarvis/bin/test_scoring.py && python3 /home/turbo/jarvis/bin/test_scoring.py 2>&1 | tail -50`
+- (1x) `chmod +x /home/turbo/jarvis/bin/matrice-ressources.py ; python3 -c "import ast; ast.parse(open('/home/turbo/jarvis/bin/matrice-ressources.py').read())" && echo "syntax OK"`
+- (1x) `chmod +x /home/turbo/jarvis/bin/jarvis-wallpaper-hud.py ; python3 /home/turbo/jarvis/bin/jarvis-wallpaper-hud.py ; echo "exit=$?" ; ls -la ~/Pictures/JARVIS/wallpaper_hud_live.png ; gsettings get org.gnome.desktop.background picture-uri`
+- (1x) `chmod +x /home/turbo/jarvis/bin/biblio-doctor.py ; echo "=== SMOKE (échantillon 3000) ==="; time python3 /home/turbo/jarvis/bin/biblio-doctor.py --limit 3000`
+- (1x) `cd ~/jarvis/bin; echo "=== skillsmp.py ==="; timeout 40 python3 skillsmp.py --help 2>&1 | grep -vE 'DOUBLE|RTX|═|║|─|open term|Lancement' | head -25`
+- (1x) `cd ~/jarvis/bin && timeout 60 python3 orchestrateur-local.py --etat`
+- (1x) `cd ~/jarvis/bin && timeout 280 python3 orchestrateur-local.py --dry "sauvegarder les bases sql du cluster" 2>&1 | head -40`
+- (1x) `cd ~/jarvis/bin && timeout 280 python3 notebook-local.py --sources "comment sauvegarder les bases postgres et sqlite du cluster" -n 4 2>&1 | head -16`
+- (1x) `cd ~/jarvis/bin && timeout 280 python3 notebook-local.py "comment sauvegarder les bases postgres et sqlite du cluster" -n 4 2>&1 | head -30`
+- (1x) `cd ~/jarvis/bin && timeout 180 python3 ingest-external.py forum "systemd restart always crash loop" --limit 6 --source hackernews 2>&1 | tail -4 ; echo "---" ; timeout 180 python3 ingest-external.py forum "sqlite slow count large table index" --limit 6 --source stackoverflow 2>&1 | tail -4`
+- (1x) `cd ~/jarvis/bin && timeout 180 python3 ingest-external.py forum "amd ryzen GMI link error data fabric" --limit 5 2>&1 | tail -12`
+- (1x) `cd ~/jarvis/bin && python3 skillmp.py sync-jarvis --seuil 2 --limite 200 2>&1 | tail -5 ; echo; python3 skillmp.py installed -n 10 2>&1 | head -14`
+- (1x) `cd ~/jarvis/bin && python3 skillmp.py sync-jarvis --limite 200 2>&1 | tail -8 ; echo; echo "=== vérification ==="; python3 skillmp.py installed -n 8 2>&1 | tail -14`
+- (1x) `cd ~/jarvis/bin && python3 -c "import ast;ast.parse(open('orchestrateur-local.py').read());print('syntaxe OK')" && timeout 280 python3 jarvis-master-orchestrateur --dry "sauvegarder les bases sql du cluster" 2>&1 | tail -16`
+- (1x) `cd ~/jarvis/bin && exec python3 skillmp.py sync-jarvis --seuil 1 --limite 3000 --cible both 2>&1`
+- (1x) `cd ~/jarvis/bin && chmod +x orchestrateur-local.py ; python3 -c "import ast;ast.parse(open('orchestrateur-local.py').read());print('syntaxe OK')" ; echo "--- imports conserves ---"; grep -E "^import |^from " orchestrateur-local.py ; echo "--- garde-fous intacts ? ---"; grep -c "DESTRUCTIF\|🔴\|🟠" orchestrateur-local.py`
+- (1x) `cd ~/jarvis/bin && chmod +x notebook-local.py ; python3 -c "import ast;ast.parse(open('notebook-local.py').read());print('syntaxe OK')" ; echo "--- imports conserves apres formateur ---"; grep -cE "^import (struct|math|numpy)" notebook-local.py ; echo; timeout 120 python3 notebook-local.py --etat 2>&1 | tail -8`
+- (1x) `cd ~/jarvis ; python3 -c "import ast; ast.parse(open('bin/domino-linkedin-realtime.py').read())" && echo "✅ syntaxe" ; echo "=== engage --live (2 likes réels) ===" ; timeout 90 python3 bin/domino-linkedin-realtime.py engage --live --max-likes 2 --max-comments 0 2>&1 | tail -14; echo "rc=$?"`
+- (1x) `cd ~/jarvis ; python3 -c "import ast; ast.parse(open('bin/domino-linkedin-realtime.py').read())" && echo "✅ syntaxe OK" ; echo "=== read-feed --live ===" ; timeout 50 python3 bin/domino-linkedin-realtime.py read-feed --live --limit 5 2>&1 | tail -15; echo "rc=$?"`
+- (1x) `cd ~/jarvis ; python3 -c " ; import json ; for i,l in enumerate(open('data/linkedin_state/pending_comments.jsonl'),1): ;     d=json.loads(l) ;     print(f'━━━ COMMENTAIRE {i} (pour un post type « {d[\"author\"][:30]} » / sujet {d[\"post\"][:40]}…) ━━━') ;     print(d['comment']) ;     print() ; "`
+- (1x) `cd ~/jarvis ; echo "── avant ──"; python3 bin/gpu-bench.py etat ; echo "── mesure réelle (5 requêtes) ──" ; timeout 280 python3 bin/gpu-bench.py mesurer --topologie 5gpu --repetitions 5 --echauffement 1 2>&1 | tail -2 ; echo "── après ──"; python3 bin/gpu-bench.py etat`
+- (1x) `cd ~/jarvis ; echo "=== test réel : read-feed --live (lit le vrai feed si connecté, sinon échoue proprement) ===" ; timeout 40 python3 bin/domino-linkedin-realtime.py read-feed --live --limit 3 2>&1 | tail -12; echo "rc=$?"`
+- (1x) `cd ~/jarvis ; echo "=== engagement RÉEL borné : 2 likes max, 0 commentaire ===" ; timeout 90 python3 bin/domino-linkedin-realtime.py engage --live --max-likes 2 --max-comments 0 2>&1 | tail -18; echo "rc=$?"`
+- (1x) `cd ~/jarvis && timeout 900 python3 ~/jarvis/bin/biblio-classify.py 2>&1 | tail -10`
+- (1x) `cd ~/jarvis && timeout 900 python3 bin/biblio-classify.py 2>&1 | tail -3 ; echo "=== le déclenchement par mots-clés fonctionne-t-il ? ===" ; bash ~/jarvis/bin/bloc.sh "cascade massive" 2>&1 | head -3`
+- (1x) `cd ~/jarvis && python3 bin/skillsmp-harvest.py status 2>&1 | grep -vE 'DOUBLE|RTX|═|║|─|open term|Lancement|server exited' | head -22; echo "=== INDEX ==="; wc -l ~/jarvis/skills-library/INDEX.jsonl 2>/dev/null; ls ~/jarvis/skills-library/raw/ 2>/dev/null | head -5; ls ~/jarvis/skills-library/normalized/ 2>/dev/null | wc -l`
+- (1x) `cd ~/jarvis && python3 -m pytest tests/test_sonde_doctor.py -q 2>&1 | tail -5`
+- (1x) `cd ~/jarvis && python3 -m pytest tests/content_perf/test_harvest.py -v 2>&1 | grep -E 'Error|assert|raise|line [0-9]+' | head -8`
+- (1x) `cd ~/jarvis && python3 -m pytest tests/content_perf/ 2>&1 | grep -B2 -A8 FAILED | head -20`
+- (1x) `cd ~/jarvis && python3 -m cli.content_perf blog --limit 6 2>&1 | tail -2`
+- (1x) `cd ~/jarvis && for p in linkedin instagram tiktok blog; do echo "=== $p ==="; python3 -m cli.content_perf "$p" --limit 6 || echo "ÉCHEC $p"; done`
+- (1x) `cd ~/Bureau/JARVIS-Presentation-Entreprise/PROSPECTION/STACK-assistant-gen && echo "=== pytest ===" && python3 -m pytest test_assistant_gen.py -q 2>&1 | tail -5 && echo "=== gold.json count ===" && python3 -c "import json;print(len(json.load(open('assistant-durand/gold.json'))))" 2>&1 && echo "=== qa_bench def ===" && grep -n 'def qa_bench' assistant_gen.py`
+- (1x) `cd ~ && timeout 900 python3 ~/jarvis/bin/planning-mega.py 2>&1 | tail -30`
+- (1x) `cd ~ && timeout 400 python3 ~/jarvis/cli/biblio_cycle.py --tick --max 3000 2>&1 | tail -5`
+- (1x) `cd ~ && timeout 300 python3 ~/jarvis/cli/biblio_cycle.py --tick --max 3000 2>&1 | tail -5`
+- (1x) `cd ~ && setsid nohup python3 ~/jarvis/cli/biblio_cycle.py --full --max 15000 --quiet >/dev/null 2>&1 < /dev/null & sleep 2; echo "rattrapage complet lancé en fond"; ps -o pid,etime,cmd -C python3 2>/dev/null | grep biblio_cycle | head -3`
+- (1x) `cd ~ && python3 ~/jarvis/cli/biblio_cycle.py --tick --max 1500 2>&1 | tail -3`
+- (1x) `cd ~ && python3 ~/jarvis/bin/skillmp.py cascade --mode auto --famille openclaw --quota 2 --vague 1 2>&1 | tail -22`
+- (1x) `cd /tmp && python3 comment_post3.py "Sqe7b49SPaLbe-FAoH5Jwlk3uTlbKG8aW1_hCm-Bw8Y" "Mettre son stack open source dédramatise la complexité de l'IA générative. C'est une initiative pragmatique qui favorise l'appropriation des outils par tous, bien au-delà du cercle technique."`
+- (1x) `cd /tmp && python3 comment_post.py "b11PXGS67YnbCJsompxkS5By4yOXU4O2VhWXJ-gjk5o" "L'intégrité prime sur la forme. L'IA doit servir à amplifier votre expertise, jamais à remplacer la substance d'une analyse. La valeur réside dans la pensée humaine derrière le texte."`
+- (1x) `cd /tmp && python3 -c " ; import re,html ; s=open('cr_tips.html',encoding='utf-8',errors='replace').read() ; s=re.sub(r'(?is)<(script|style).*?</\1>',' ',s) ; s=re.sub(r'(?s)<[^>]+>',' ',s) ; s=html.unescape(s) ; s=re.sub(r'[ \t\xa0]+',' ',s) ; s=re.sub(r'\n\s*\n+','\n',s) ; print(s[:9000]) ; "`
+- (1x) `cd /tmp && python3 -c " ; import re,html ; s=open('cr_tips.html',encoding='utf-8',errors='replace').read() ; s=re.sub(r'(?is)<(script|style).*?</\1>',' ',s) ; s=re.sub(r'(?s)<[^>]+>',' ',s) ; s=html.unescape(s) ; s=re.sub(r'[ \t\xa0]+',' ',s) ; s=re.sub(r'\n\s*\n+','\n',s) ; i=s.find('really need to use the REST API') ; print(s[i-1500:i+5000] if i>0 else 'NOT FOUND') ; "`
+- (1x) `cd /tmp && python3 -c " ; import re ; t=open('cr_pdf2.html',encoding='utf-8',errors='replace').read() ; i=t.find('2026 Public data file') ; seg=t[i-200:i+3000] if i>0 else '' ; for m in re.finditer(r'href=\"([^\"]+)\"',seg): print(m.group(1)) ; "`
+- (1x) `cd /tmp && python3 -c " ; import pynvml as N ; " 2>&1 | head -3; python3 -c "import pynvml; print('pynvml ok', pynvml.__file__)" 2>&1 | head -3`
+- (1x) `cd /tmp && python3 - <<'EOF' ; import re ; t=open('cr_pdf2.html',encoding='utf-8',errors='replace').read() ; i=t.find('2026 Public data file') ; print('idx',i) ; print(repr(t[i:i+1200])) ; EOF`
+- (1x) `cd /tmp && python3 - <<'EOF' ; import re ; t=open('cr_pdf2.html',encoding='utf-8',errors='replace').read() ; # find body occurrences after meta ; for m in re.finditer(r'2026 Public data file', t): ;     print('---', m.start()) ; j=t.rfind('2026 Public data file') ; print(repr(t[j-500:j+2500])) ; EOF`
+- (1x) `cd /tmp && env | grep -iE "openblas|omp_|mkl|numexpr" ; echo "---"; for i in 1 2 3; do python3 - <<'EOF' ; import time,numpy as np ; N,D=3691,768 ; X=np.random.rand(N,D).astype(np.float32); q=np.random.rand(D).astype(np.float32) ; for _ in range(5): X@q ; t=time.perf_counter(); R=100 ; for _ in range(R): X@q ; dt=(time.perf_counter()-t)/R ; print(f"default threads: {dt*1e6:7.0f} us") ; EOF ; done; uptime`
+- (1x) `cd /mnt/nvme-fast/jarvis/recherche ; python3 - <<'PY' ; import re ; t=re.sub(r'\s+',' ',open('webfetch-1786052050485-r5dplg.txt').read()) ; i=t.find("Les procédures collectives représentent") ; print("### BLOC 1:\n", t[i-200:i+1500]) ; print() ; j=t.find("un plan de redressement (3 %)") ; print("### BLOC 2:\n", t[j-1800:j+500]) ; PY`
+- (1x) `cd /home/turbo; time python3 /home/turbo/jarvis/bin/planning-preload-biblio.py --top-empty 2>&1 | tail -25`
+- (1x) `cd /home/turbo; chmod +x /home/turbo/jarvis/bin/planning-preload-biblio.py; python3 /home/turbo/jarvis/bin/planning-preload-biblio.py --dry --limit 8 --top-empty 2>&1 | tail -20`
+- (1x) `cd /home/turbo/teamwork_projects/appliance_assistant_prive ; timeout 900 python3 -m pytest tests/ -q 2>&1 | tail -8`
+- (1x) `cd /home/turbo/teamwork_projects/appliance_assistant_prive ; timeout 900 python3 -m pytest tests/ -q 2>&1 | tail -10`
+- (1x) `cd /home/turbo/teamwork_projects/appliance_assistant_prive ; timeout 400 python3 -m pytest tests/test_llm_backend_honesty.py tests/test_rag_engine.py -q 2>&1 | tail -6`
+- (1x) `cd /home/turbo/teamwork_projects/appliance_assistant_prive ; timeout 300 python3 -m pytest tests/test_llm_backend_honesty.py tests/test_rag_engine.py -q 2>&1 | tail -8`
+- (1x) `cd /home/turbo/teamwork_projects/appliance_assistant_prive ; timeout 300 python3 -m pytest tests/test_llm_backend_honesty.py -q 2>&1 | tail -6`
+- (1x) `cd /home/turbo/teamwork_projects/appliance_assistant_prive ; timeout 300 python3 -m pytest tests/test_llm_backend_honesty.py -q 2>&1 | tail -5`
+- (1x) `cd /home/turbo/teamwork_projects/appliance_assistant_prive ; timeout 200 python3 -m pytest tests/test_llm_backend_honesty.py -q 2>&1 | tail -8`
+- (1x) `cd /home/turbo/teamwork_projects/appliance_assistant_prive ; timeout 200 python3 -m pytest tests/test_llm_backend_honesty.py -q 2>&1 | tail -15`
+- (1x) `cd /home/turbo/teamwork_projects/appliance_assistant_prive ; timeout 120 python3 -m pytest tests/test_llm_backend_honesty.py -q -k "circuit or condemn or rearms" 2>&1 | tail -6`
+- (1x) `cd /home/turbo/teamwork_projects/appliance_assistant_prive ; cp data/qa_bench_report.json data/qa_bench_report.INVALIDE-panne-cuda.json ; echo "run invalide archivé (mesuré pendant la panne CUDA)" ; python3 -u qa_bench_real.py 2>&1 | tail -20`
+- (1x) `cd /home/turbo/teamwork_projects/appliance_assistant_prive ; cp data/qa_bench_report.json data/qa_bench_report.APRES-correctif-2.json && echo "rapport correctif-2 archivé (fallback 81,5 %)" ; python3 -u qa_bench_real.py 2>&1 | tail -20`
+- (1x) `cd /home/turbo/jarvis; python3 scripts/cascade-log-ingest.py --stats 2>&1`
+- (1x) `cd /home/turbo/jarvis; grep -nE "python3|bash |\.sh|\.py" scripts/cron_massive_scheduler.sh 2>/dev/null | head -25`
+- (1x) `cd /home/turbo/jarvis; for i in 471 20; do timeout 60 python3 bin/cli-gabarits.py show $i 2>&1; echo "---"; done`
+- (1x) `cd /home/turbo/jarvis/board/pack-rem ; python3 - <<'PY' ; import json ; d = json.load(open("experts-pack.json")) ; dom = d["domains"] ; e = dom[0]["experts"][0] ; print("-- cles d'un expert --", list(e)) ; print("\n-- lens complete (expert 1) --\n") ; print(e["lens"][:1100]) ; print("\n… ") ; print("\n-- bio --", e.get("bio","")) ; PY`
+- (1x) `cd /home/turbo/jarvis/bin ; python3 - <<'PY' ; import json,urllib.request ; from websocket import create_connection  # noqa ; PY ; echo "ws lib: $?" ; python3 -c "import websocket; print('websocket-client OK')" 2>&1 | tail -1 ; head -30 /home/turbo/jarvis/bin/cdp-inspect.py`
+- (1x) `cd /home/turbo/jarvis/bin && time python3 registre-actions.py build 2>&1 | tail -25`
+- (1x) `cd /home/turbo/jarvis/bin && time python3 registre-actions.py build 2>&1 | grep -v '^  …'`
+- (1x) `cd /home/turbo/jarvis/bin && python3 registre-actions.py query "sauvegarde sql" -n 6; python3 registre-actions.py query "sauvegarde sql" --couleur sur --action lancer -n 4`
+- (1x) `cd /home/turbo/jarvis/bin && python3 registre-actions.py query "sauvegarde sql" -n 6 && python3 registre-actions.py query "gpu vram" --couleur sur --action sonder -n 4`
+- (1x) `cd /home/turbo/jarvis/bin && python3 registre-actions.py build --prune 2>&1 | grep -v '^  …' && echo "=== 2e passage : idempotence ===" && python3 registre-actions.py build --prune 2>&1 | grep -v '^  …'`
+- (1x) `cd /home/turbo/jarvis/bin && python3 matrice-ressources.py build 2>&1`
+- (1x) `cd /home/turbo/jarvis/bin && echo "=== stats ===" && python3 matrice-ressources.py stats ; echo ; echo "=== search backup sql ===" && python3 matrice-ressources.py search backup sql ; echo ; echo "=== search publication linkedin ===" && python3 matrice-ressources.py search publication linkedin`
+- (1x) `cd /home/turbo/jarvis/artifacts/e1-20260806 && timeout 900 python3 volet2_analyse.py --boot 10000 2>&1 | tail -90`
+- (1x) `cd /home/turbo/jarvis/artifacts/e1-20260806 && timeout 900 python3 rdit_analysis.py 2>&1 | tail -55`
+- (1x) `cd /home/turbo/jarvis/artifacts/e1-20260806 && timeout 600 python3 rdit_analysis.py 2>&1 | tail -50`
+- (1x) `cd /home/turbo/jarvis/artifacts/e1-20260806 && timeout 1500 python3 volet2_analyse.py --boot 10000 2>&1 | grep -v "UserWarning\|t_min = " > resultats.txt; tail -60 resultats.txt`
+- (1x) `cd /home/turbo/jarvis/artifacts/e1-20260806 && timeout 1200 python3 volet2_analyse.py --boot 10000 2>&1 | grep -v UserWarning | grep -v "t_min = " | tail -95`
+- (1x) `cd /home/turbo/jarvis/artifacts/e1-20260806 && timeout 115 python3 -u rdit_analysis.py 2>&1 | head -14`
+- (1x) `cd /home/turbo/jarvis/artifacts/e1-20260806 && time timeout 115 python3 -u rdit_analysis.py 2>&1 | tail -48`
+- (1x) `cd /home/turbo/jarvis/artifacts/e1-20260806 && time timeout 115 python3 -u rdit_analysis.py 2>&1 | tail -45`
+- (1x) `cd /home/turbo/jarvis/artifacts/e1-20260806 && python3 -c " ; import csv ; rows=list(csv.DictReader(open('volet4-codage.tsv'),delimiter='\t')) ; n=sum(1 for r in rows if r['codes_secondaires'].strip() not in ('','—')) ; print('fiches avec >=1 code secondaire :',n) ; print('fiches a code primaire seul :',len(rows)-n) ; "`
+- (1x) `cd /home/turbo/jarvis/artifacts/e1-20260806 && ls -la && echo "--- vérif reproductibilité (rerun rapide, DiD principal doit être identique) ---" && timeout 600 python3 volet2_analyse.py --boot 10000 2>&1 | grep -A1 "PRINCIPAL" | head -4`
+- (1x) `cd /home/turbo/jarvis/artifacts/e1-20260806 && ls -la && echo "--- doc ---" && wc -l volet3-cadre-methodologique.md && echo "--- phases presentes ---" && grep -n "^## PHASE\|^## CODE\|^## ANALYSE DE SENS" volet3-cadre-methodologique.md && echo "--- code ---" && python3 -c "import ast;ast.parse(open('rdit_analysis.py').read());print('syntaxe OK')"`
+- (1x) `cd /home/turbo/jarvis-linux && timeout 90 .venv/bin/python -m src.jarvis.cli.main --dry-run domino trigger cron 2>&1 | tail -12; echo "exit=$?"`
+- (1x) `cd /home/turbo/jarvis-linux && head -40 Makefile; echo '--- pyproject scripts ---'; grep -A15 '\[project.scripts\]\|scripts =' pyproject.toml 2>/dev/null | head -20; echo '--- package.json scripts ---'; python3 -c 'import json; print(json.load(open("package.json")).get("scripts", {}))' 2>/dev/null`
+- (1x) `cd /home/turbo/jarvis-linux && J='.venv/bin/python -m src.jarvis.cli.main'; timeout 60 $J --dry-run domino trigger zombies 2>&1 | tail -8; echo "exit=$?"`
+- (1x) `cd /home/turbo/jarvis-linux && J='.venv/bin/python -m src.jarvis.cli.main'; grep -l 'threshold' src/jarvis/domino/chains.d/*.yaml 2>/dev/null | head -3; grep -h 'signal\|trigger' src/jarvis/domino/chains.d/zombie*.y*ml 2>/dev/null | head -5; ls src/jarvis/domino/chains.d/ | head -5; timeout 60 $J domino status 2>&1 | tail -6`
+- (1x) `cd /home/turbo/jarvis-linux && J='.venv/bin/python -m src.jarvis.cli.main'; echo '=== status ==='; timeout 60 $J status 2>&1 | tail -20; echo "exit=$?"`
+- (1x) `cd /home/turbo/jarvis-linux && J='.venv/bin/python -m src.jarvis.cli.main'; echo '=== cluster health ==='; timeout 90 $J cluster health 2>&1 | tail -15; echo "exit=$?"; echo '=== domino list ==='; timeout 60 $J domino list 2>&1 | tail -12; echo "exit=$?"`
+- (1x) `cd /home/turbo/jarvis-linux && .venv/bin/python -m src.jarvis.cli.main --help 2>&1 | head -30`
+- (1x) `cd /home/turbo/jarvis-linux && .venv/bin/python --version 2>/dev/null; ls .venv/bin/ 2>/dev/null | grep -E '^(jarvis|turbo)$'; .venv/bin/jarvis --help 2>&1 | head -25`
+- (1x) `cd /home/turbo/jarvis-cowork/src && python3 -c " ; from cowork_dispatcher import dispatch, DISPATCH_LOG_DB_PATH ; print('DISPATCH_LOG_DB_PATH =', DISPATCH_LOG_DB_PATH) ; r = dispatch('gpu thermal vram temperature', execute=True, top_n=1) ; import json ; print(json.dumps(r, indent=2, ensure_ascii=False)[:1500]) ; "`
+- (1x) `cd /home/turbo/jarvis ; timeout 900 python3 /home/turbo/jarvis/bin/planning-mega.py 2>&1 | tail -25`
+- (1x) `cd /home/turbo/jarvis ; timeout 90 python3 bin/skillmp.py stats 2>&1 | head -4 ; timeout 90 python3 bin/skillmp-pipeline.py status 2>&1 | tail -10`
+- (1x) `cd /home/turbo/jarvis ; timeout 90 python3 bin/simuler-logique.py --rapport 2>&1 | head -22`
+- (1x) `cd /home/turbo/jarvis ; timeout 90 python3 bin/simuler-logique.py --rapport 2>&1 | head -20`
+- (1x) `cd /home/turbo/jarvis ; timeout 600 python3 bin/biblio-classify.py 2>&1 | tail -12`
+- (1x) `cd /home/turbo/jarvis ; timeout 60 python3 scripts/deepresearch_audit.py --help 2>&1 | head -14`
+- (1x) `cd /home/turbo/jarvis ; timeout 60 python3 bin/skillmp.py search "kubernetes monitoring" 2>&1 | head -8 ; echo "=== stats ===" ; timeout 60 python3 bin/skillmp.py stats 2>&1 | head -8`
+- (1x) `cd /home/turbo/jarvis ; timeout 60 bash bin/bloc.sh crypto whale 2>&1 | head -3 ; echo "########## 4. agents Claude Code" ; timeout 300 python3 bin/inscrire-logiques.py agents --dry 2>&1 | tail -11`
+- (1x) `cd /home/turbo/jarvis ; timeout 3000 python3 bin/cascade-micro-actions.py "sonder lire consulter etat systeme cluster gpu sql biblio registre" --executer --vagues 5 --quota 100 2>&1 | tail -25`
+- (1x) `cd /home/turbo/jarvis ; timeout 300 python3 bin/inscrire-logiques.py agents 2>&1 | tail -4; echo "exit=$?" ; echo "########## 5. registre OpenClaw" ; timeout 300 python3 bin/inscrire-logiques.py openclaw 2>&1 | tail -4; echo "exit=$?"`
+- (1x) `cd /home/turbo/jarvis ; timeout 240 python3 bin/biblio-doctor.py --report 2>&1 | tail -25`
+- (1x) `cd /home/turbo/jarvis ; timeout 150 python3 bin/skillmp.py stats 2>&1 | head -3 ; echo "── pipeline ──" ; timeout 150 python3 bin/skillmp-pipeline.py status 2>&1 | sed -n '3,12p'`
+- (1x) `cd /home/turbo/jarvis ; timeout 120 python3 bin/skillmp.py stats 2>&1 | head -25`
+- (1x) `cd /home/turbo/jarvis ; timeout 120 python3 bin/skillmp-pipeline.py status 2>&1 | head -30`
+- (1x) `cd /home/turbo/jarvis ; timeout 120 python3 bin/planning-context-capture.py selftest 2>&1 | tail -5 ; echo "=== dry-run purge ===" ; timeout 240 python3 bin/planning-context-capture.py scan-creations 2>&1 | tail -10`
+- (1x) `cd /home/turbo/jarvis ; python3 -c "import ast;ast.parse(open('scripts/biblio_infinite_expansion.py').read());print('syntaxe OK')" ; timeout 200 python3 scripts/biblio_infinite_expansion.py 2>&1 | tail -6 ; echo "RC=$?"`
+- (1x) `cd /home/turbo/jarvis ; python3 -c "import ast;ast.parse(open('scripts/auto_dynamic_task_producer.py').read());print('syntaxe OK')" ; timeout 100 python3 scripts/auto_dynamic_task_producer.py 2>&1 | tail -4`
+- (1x) `cd /home/turbo/jarvis ; python3 -c "import ast;ast.parse(open('bin/skillmp.py').read());print('syntaxe OK')" ; echo "=== stats corrigees ===" ; timeout 60 python3 bin/skillmp.py stats 2>&1 | head -3 ; echo "=== recherche ===" ; timeout 60 python3 bin/skillmp.py search "kubernetes monitoring" 2>&1 | head -4`
+- (1x) `cd /home/turbo/jarvis ; python3 -c "import ast;ast.parse(open('bin/atomiser-logiques.py').read());print('syntaxe OK')" ; for intent in "cloner un depot git" "installer les dependances python"; do ;   echo "── $intent" ;   timeout 90 python3 bin/atomiser-logiques.py reconstruire "$intent" --pas 4 2>&1 | grep -E "^  [0-9]\." | head -4 ; done`
+- (1x) `cd /home/turbo/jarvis ; grep -rl '\[tech\]' audit/runs/*/AUDIT_TODO.md 2>/dev/null | head -3 ; R=$(grep -rl '\[tech\]' audit/runs/*/AUDIT_TODO.md 2>/dev/null | head -1 | xargs dirname); echo "R=$R" ; python3 -c " ; import json;d=json.load(open('$R/AUDIT_TICKETS.json'));print(d['topic'],d['count']);print(d['tickets'][0]['title'][:70])" ; head -9 "$R/AUDIT_TODO.md" | tail -4`
+- (1x) `cd /home/turbo/jarvis ; grep -nE '^import|^from' bin/jarvis-prod-exec.py | head -8 ; python3 -m py_compile bin/jarvis-prod-exec.py && echo "✅ compile OK" || echo "❌ compile KO"`
+- (1x) `cd /home/turbo/jarvis ; grep -n "^import urllib" cli/biblio_filler.py | head -3 ; python3 -c "import ast;ast.parse(open('cli/biblio_filler.py').read());print('syntaxe OK')"`
+- (1x) `cd /home/turbo/jarvis ; grep -c "and '🟢' or" bin/cherche.py | xargs -I{} echo "ternaires restants : {}" ; python3 -c "import ast;ast.parse(open('bin/cherche.py').read());print('syntaxe OK')" ; echo "═══ TEST COMPLET — les 5 registres ═══" ; time timeout 180 python3 bin/cherche.py "gpu vram temperature" -n 2 2>&1 | head -26`
+- (1x) `cd /home/turbo/jarvis ; export CDP_URL=http://127.0.0.1:9222 ; timeout 90 python3 bin/cdp-inspect.py navigate "https://www.linkedin.com/feed/" ; sleep 4 ; timeout 30 python3 bin/cdp-inspect.py eval "({url:location.href, connecte: !!document.querySelector('.global-nav__me, [data-control-name=identity_welcome_message], img.global-nav__me-photo')})"`
+- (1x) `cd /home/turbo/jarvis ; export CDP_URL=http://127.0.0.1:9222 ; timeout 40 python3 bin/cdp-inspect.py eval "document.body.innerText.slice(6000)" 2>/dev/null | python3 -c " ; import sys,json ; d=json.load(sys.stdin)['result'] ; print(d[:6000]) ; "`
+- (1x) `cd /home/turbo/jarvis ; export CDP_URL=http://127.0.0.1:9222 ; timeout 30 python3 bin/cdp-inspect.py eval "({total:document.querySelectorAll('*').length, main:(document.querySelector('main')||{}).innerText?.length||0, iframes:document.querySelectorAll('iframe').length, texte:document.body.innerText.slice(400,2200)})"`
+- (1x) `cd /home/turbo/jarvis ; export CDP_URL=http://127.0.0.1:9222 ; timeout 30 python3 bin/cdp-inspect.py eval "({chars:document.body.innerText.length, posts:document.querySelectorAll('div.feed-shared-update-v2, div[data-id^=\"urn:li:activity\"]').length, apercu:document.body.innerText.slice(0,400)})"`
+- (1x) `cd /home/turbo/jarvis ; export CDP_URL=http://127.0.0.1:9222 ; timeout 30 python3 bin/cdp-inspect.py eval " ; (()=>{const c={};document.querySelectorAll('[class*=feed],[class*=update],[data-urn],[data-id]').forEach(e=>{const k=(e.getAttribute('data-id')||e.getAttribute('data-urn')||e.className.toString()).slice(0,60);c[k]=(c[k]||0)+1});return Object.entries(c).slice(0,25)})()"`
+- (1x) `cd /home/turbo/jarvis ; export CDP_URL=http://127.0.0.1:9222 ; echo "--- navigate ---"; timeout 60 python3 bin/cdp-inspect.py navigate "https://example.com" ; echo "--- text ---";     timeout 30 python3 bin/cdp-inspect.py text | head -20 ; echo "--- eval ---";     timeout 30 python3 bin/cdp-inspect.py eval "document.querySelectorAll('a').length"`
+- (1x) `cd /home/turbo/jarvis ; echo "═══ 3. EXECUTION REELLE — le garde-fou doit refuser (GPU 87 C) ═══" ; timeout 200 python3 bin/cascade-micro-actions.py "gpu temperature etat" --quota 4 --vagues 2 --executer 2>&1 | tail -8; echo "rc=$?"`
+- (1x) `cd /home/turbo/jarvis ; echo "═══ 2. PLAN (dry-run) — doit fonctionner meme bloque ═══" ; timeout 180 python3 bin/cascade-micro-actions.py "gpu temperature etat" --quota 6 2>&1 | head -18`
+- (1x) `cd /home/turbo/jarvis ; echo "── TOUS LES ETAGES ──" ; timeout 200 python3 bin/skillmp-pipeline.py start expansion catalogue source site fr boucle 2>&1 | tail -8`
+- (1x) `cd /home/turbo/jarvis ; echo "=== stats du corpus atomise ===" ; timeout 120 python3 bin/atomiser-logiques.py stats 2>&1 | head -25`
+- (1x) `cd /home/turbo/jarvis ; echo "=== search ==="; timeout 30 python3 bin/skillsmp.py search linkedin prospection 2>&1 | head -14 ; echo "=== cascade (sortie bloc TSV, fusionnable) ===" ; timeout 30 python3 bin/skillsmp.py cascade facture comptabilite 2>&1 | head -4`
+- (1x) `cd /home/turbo/jarvis ; echo "=== lanceurs de tâches disponibles ===" ; ls -la bin/planning-cycle.sh bin/planning-autogen.py cli/jarvis_master.py 2>&1 | awk '{print $NF, $5"o"}' ; echo "--- usage jarvis_master task ---" ; timeout 30 python3 cli/jarvis_master.py --help 2>&1 | head -25 ; echo "--- planning-cycle.sh (entête) ---" ; head -25 bin/planning-cycle.sh 2>/dev/null`
+- (1x) `cd /home/turbo/jarvis ; echo "=== génération todolist dynamique (planning-mega, préchargement biblio) ===" ; timeout 20 python3 bin/planning-mega.py --dry 2>&1 | tail -20 || echo "(dry timeout/erreur — bascule run réel en background)"`
+- (1x) `cd /home/turbo/jarvis ; echo "########## stats atomes (chaîne réellement exécutée)" ; timeout 120 python3 bin/atomiser-logiques.py stats 2>&1 | head -18; echo "exit=$?"`
+- (1x) `cd /home/turbo/jarvis ; echo "########## reconstruction : intention 1" ; timeout 120 python3 bin/atomiser-logiques.py reconstruire "cloner un depot git" --pas 5 2>&1 | head -16; echo "exit=$?"`
+- (1x) `cd /home/turbo/jarvis ; echo "########## PLAN MODE (0-token, cluster local)" ; timeout 400 python3 scripts/deepresearch_audit.py --plan 2>&1 | tail -22; echo "exit=$?"`
+- (1x) `cd /home/turbo/jarvis ; echo "########## 5. filtre danger : uniquement le destructif" ; timeout 200 python3 bin/simuler-logique.py --danger "🔴" --vagues 1 --taille 300; echo "exit=$?" ; echo "########## 6. cas limite : filtre sans correspondance" ; timeout 60 python3 bin/simuler-logique.py --danger "ZZZ" --vagues 1 --taille 10; echo "exit=$? (1 attendu)"`
+- (1x) `cd /home/turbo/jarvis ; echo "########## 4. rapport agrege" ; timeout 90 python3 bin/simuler-logique.py --rapport; echo "exit=$?"`
+- (1x) `cd /home/turbo/jarvis ; echo "########## 3. simulation superposee : 3 vagues x 600, 3 profils" ; timeout 400 python3 bin/simuler-logique.py --vagues 3 --taille 600; echo "exit=$?"`
+- (1x) `cd /home/turbo/jarvis ; echo "########## 2. aide (contrat d'interface)" ; timeout 40 python3 bin/simuler-logique.py --help 2>&1 | head -12; echo "exit=$?"`
+- (1x) `cd /home/turbo/jarvis ; echo "########## 2. TODOLIST DYNAMIQUE — chargement maximal" ; timeout 560 python3 bin/planning-autogen.py 2>&1 | tail -12`
+- (1x) `cd /home/turbo/jarvis ; echo "########## 1. ponderation — apercu du classement" ; chmod +x bin/inscrire-logiques.py ; timeout 300 python3 bin/inscrire-logiques.py poids --top 12; echo "exit=$?"`
+- (1x) `cd /home/turbo/jarvis ; chmod +x scripts/alimenter-deepresearch.py ; timeout 200 python3 scripts/alimenter-deepresearch.py 2>&1 | tail -3 ; echo "########## re-plan" ; timeout 300 python3 scripts/deepresearch_audit.py --plan 2>&1 | tail -3`
+- (1x) `cd /home/turbo/jarvis ; chmod +x bin/registre-sujets.py ; timeout 300 python3 bin/registre-sujets.py build 2>&1 | tail -3 ; echo "--- stats ---" ; python3 bin/registre-sujets.py stats 2>&1 | tail -14`
+- (1x) `cd /home/turbo/jarvis ; chmod +x bin/jarvis-simul.py ; python3 -c "import ast; ast.parse(open('bin/jarvis-simul.py').read()); print('syntaxe OK')" ; echo ; timeout 200 python3 bin/jarvis-simul.py "cascade massive dispatch agents" 2>&1 | head -40`
+- (1x) `cd /home/turbo/jarvis ; chmod +x bin/cascade-micro-actions.py ; python3 -c "import ast;ast.parse(open('bin/cascade-micro-actions.py').read());print('syntaxe OK')" || exit 1 ; echo "═══ 1. garde-fous seuls (GPU a 86 C : doit BLOQUER) ═══" ; timeout 60 python3 bin/cascade-micro-actions.py --garde-fous; echo "rc=$?"`
+- (1x) `cd /home/turbo/jarvis ; chmod +x bin/atomiser-logiques.py ; python3 -c "import ast;ast.parse(open('bin/atomiser-logiques.py').read());print('syntaxe OK')" ; echo "########## atomisation — passage borné d'abord" ; timeout 300 python3 bin/atomiser-logiques.py extraire --limite 20000 2>&1 | tail -4`
+- (1x) `cd /home/turbo/jarvis && timeout 400 python3 bin/registre-actions.py build 2>&1 | tail -4 ; timeout 120 python3 bin/registre-actions.py query "historique" -n 3 2>&1 | tail -6`
+- (1x) `cd /home/turbo/jarvis && sudo python3 bin/jarvis-rgb-thermal.py --once && echo "--- balayage sur zones ARGB actives ---" && sudo python3 bin/jarvis-rgb-thermal.py --test`
+- (1x) `cd /home/turbo/jarvis && python3 -m py_compile bin/jarvis-hw-control.py && echo "✅ syntaxe OK"; grep -n "123category" bin/jarvis-hw-control.py || echo "(pas de coquille CSS)"`
+- (1x) `cd /home/turbo/jarvis && python3 -m py_compile bin/jarvis-hw-control.py && echo "✅ syntaxe OK" ; pkill -f "jarvis-hw-control" 2>/dev/null || true; echo "processus arrêtés"`
+- (1x) `cd /home/turbo/jarvis && chmod +x bin/jarvis-rgb-thermal.py && python3 -m py_compile bin/jarvis-rgb-thermal.py && echo "✅ syntaxe OK" ; echo "=== application immédiate selon la température réelle ===" ; sudo python3 bin/jarvis-rgb-thermal.py --once`
+- (1x) `cd /home/turbo/IA/Core/jarvis ; for m in jarvis_dag_scheduler jarvis_agent_planner jarvis_agent_memory jarvis_consensus_engine; do ;   echo "=== $m ===" ;   grep -nE '^class |^def |^    def ' core/$m.py | head -9 ; done ; echo; echo "### intent-engine corrigé" ; python3 ~/jarvis/bin/intent-engine.py build-familles 2>&1 | tail -2`
+- (1x) `cd /home/turbo/Bureau/JARVIS-Presentation-Entreprise/PROSPECTION/STACK-assistant-gen && python3 -m pytest test_assistant_gen.py -q 2>&1 | tail -60`
+- (1x) `cd /home/turbo/Bureau/JARVIS-Presentation-Entreprise/PROSPECTION/STACK-assistant-gen && python3 -c " ; import json ; d = json.load(open('assistant-durand/gold.json')) ; n = len(d) if isinstance(d, list) else len(d.get('items', d.get('entries', d))) ; print('gold.json entries:', n) ; print('type:', type(d).__name__) ; " 2>&1 ; grep -n "gold.json\|GOLD" test_assistant_gen.py | head -10`
+- (1x) `cd /home/turbo/Bureau/JARVIS-Presentation-Entreprise/PROSPECTION/STACK-assistant-gen && ls -la gold.json assistant_gen.py test_assistant_gen.py 2>&1 && python3 -c "import json; d=json.load(open('gold.json')); print('gold entries:', len(d) if isinstance(d,list) else len(d.get('items',d)))" 2>&1`
+- (1x) `cd /home/turbo ; python3 -c "import ast;ast.parse(open('jarvis/bin/skillsmp.py').read())" 2>&1 | head -3 ; grep -q "^import re" jarvis/bin/skillsmp.py || grep -q "^import" jarvis/bin/skillsmp.py && head -12 jarvis/bin/skillsmp.py | grep -nE "^import|^from"`
+- (1x) `cd /home/turbo && timeout 550 python3 ~/jarvis/bin/planning-mega.py 2>&1 | tail -25`
+- (1x) `cd /home/turbo && python3 /home/turbo/jarvis/bin/test_scoring.py 2>&1 | grep -E "^(Ran|OK|FAILED)"; echo "--- classes couvertes ---"; python3 /home/turbo/jarvis/bin/test_scoring.py 2>&1 | grep -c "\.\.\. ok"; echo "--- ingest final (idempotence) ---"; python3 /home/turbo/jarvis/bin/scoring-feedback.py ingest 2>&1 | tail -2`
+- (1x) `cd /home/turbo && python3 /home/turbo/jarvis/bin/scoring-feedback.py top -n 8 2>&1`
+- (1x) `cd /home/turbo && python3 /home/turbo/jarvis/bin/scoring-feedback.py top -n 6 2>&1`
+- (1x) `cd /home/turbo && python3 /home/turbo/jarvis/bin/scoring-feedback.py explique "cascade-massive" 2>&1 | head -32`
+- (1x) `cd /home/turbo && python3 /home/turbo/jarvis/bin/scoring-feedback.py explique "0-sonde" 2>&1 | head -16; echo; echo "=== ACTION JAMAIS TENTÉE ==="; python3 /home/turbo/jarvis/bin/scoring-feedback.py explique "deploiement-kubernetes" 2>&1`
+- (1x) `apt-cache policy python3-magic 2>/dev/null | head -3 ; echo "── sudo non interactif dispo ? ──" ; sudo -n true 2>/dev/null && echo "  oui" || echo "  non — il faudra ton mot de passe"`
+- (1x) `adb shell dumpsys window 2>/dev/null | grep mCurrentFocus | head -1 ; adb shell uiautomator dump /sdcard/u2.xml >/dev/null 2>&1 ; adb shell cat /sdcard/u2.xml 2>/dev/null | python3 -c " ; import sys,re ; d=sys.stdin.read() ; print('package(s):', set(re.findall(r'package=\"([^\"]+)\"',d))) ; for t in re.findall(r'text=\"([^\"]+)\"',d)[:25]: print(' •',t)"`
+- (1x) `V1=$(python3 ~/jarvis/bin/skillmp-pipeline.py status 2>/dev/null | tail -1); sleep 540; V2=$(python3 ~/jarvis/bin/skillmp-pipeline.py status 2>/dev/null | tail -1); echo "avant : $V1"; echo "après : $V2"; [ "$V1" = "$V2" ] && echo "PLATEAU — moissonnage stabilisé" || echo "ENCORE EN CROISSANCE"`
+- (1x) `MAX_JOBS=$(nproc) timeout 2400 pip install --user --break-system-packages --no-cache-dir deepspeed 2>&1 | tail -3; python3 -c "import deepspeed; print('deepspeed', deepspeed.__version__, 'OK')" 2>&1 | tail -1`
+- (1x) `F=~/jarvis/bin/ingest-external.py ; grep -q "^import urllib.parse" "$F" || sed -i 's/^import subprocess$/import subprocess\nimport urllib.parse/' "$F" ; grep -nE "^import (urllib|re|json|subprocess)" "$F" | head -5 ; python3 -c "import ast;ast.parse(open('$F').read());print('syntaxe OK')" ; echo; echo "=== aide ==="; python3 "$F" forum --help 2>&1 | head -8`
+- (1x) `F=~/jarvis/bin/cascade-massive.sh ; grep -nE '^(HUB|LMS|OLL|TS|HOME_DIR)=|^ *(HUB|LMS|OLL)=' $F | head -8 ; echo "--- insert tâches (référence paramétrée déjà présente ?) ---" ; grep -n "python3" -A6 $F | grep -nE "execute|params|\?" | head -6`
+- (1x) `CDP_URL=http://127.0.0.1:9222 timeout 60 python3 bin/cdp-inspect.py 2>&1 | head -25`
+- (1x) `CDP_URL=http://127.0.0.1:9222 timeout 30 python3 ~/jarvis/bin/cdp-inspect.py eval "document.title + ' || URL=' + location.href + ' || ' + document.body.innerText.replace(/\n{2,}/g,'\n').slice(0,3000)" 2>&1 | tail -60`
+- (1x) `AC=$(python3 -c "import pathlib;p=pathlib.Path('/home/turbo/.local/bin/jarvis').resolve().parent/'audit_commands.py';print(p if p.exists() else '')"); echo "fichier: $AC"; [ -n "$AC" ] && grep -nE "def cmd_audit|sub|frontiers|init|scan" "$AC" | head -10`

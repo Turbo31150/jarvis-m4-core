@@ -1,0 +1,28 @@
+---
+id: microsoft-ai-agents-for-beginners-translations-tl-agents-skills-deploying-scalable-agents-skill-md
+name: "deploying-scalable-agents"
+author: "microsoft"
+repository: "https://github.com/microsoft/ai-agents-for-beginners/tree/main/translations/tl/.agents/skills/deploying-scalable-agents"
+skill_url: "https://skillsmp.com/creators/microsoft/ai-agents-for-beginners/translations-tl-agents-skills-deploying-scalable-agents"
+stars: 71222
+verified: false
+quality_score: 100
+security_score: 20
+status: "DANGEROUS"
+collected_at: "2026-08-07T17:30:27.033311"
+---
+
+# Résumé
+Dalhin ang isang gumaganang prototype ng agent sa isang scalable, observable na production deployment sa Microsoft Foundry. Saklaw nito ang mga deployment pattern (client-hosted, hosted agents, agent workflows), ang lifecycle ng agent, model routing, response caching, evaluation gates, human-in-the-loop approval, observability gamit ang OpenTelemetry, cost optimisation, at smoke-testing ng mga deployed na agent gamit ang AI Smoke Test action. Batay sa Lesson 16 ng AI Agents for Beginners. GAMITIN PARA SA: pag-deploy ng agent sa production, pag-scale ng agent, Microsoft Foundry hosted agent, Foundry Agent Service, model routing, response caching, evaluation gate, release gate, human approval workflow, agent observability, agent tracing, agent cost optimisation, smoke test ng hosted agent, production customer support agent. HUWAG GAMITIN PARA SA: pagbuo ng iyong unang agent (simulan sa Lesson 01), pagpapatakbo ng mga agent nang lokal sa device (gamitin ang local-ai-agents / Lesson 17), Azure infrastructure prov
+
+# Objectif
+Skill d'automatisation/intégration pour deploying-scalable-agents.
+
+# Déclencheurs d’utilisation
+Mots-clés associés: deploying-scalable-agents, microsoft
+
+# Procédure
+Consulter le dépôt source: https://github.com/microsoft/ai-agents-for-beginners/tree/main/translations/tl/.agents/skills/deploying-scalable-agents
+
+# Adaptation Gemini CLI / Claude Code / Jarvis OS
+Incorpore ce skill en suivant la structure d'appel native du repository source.

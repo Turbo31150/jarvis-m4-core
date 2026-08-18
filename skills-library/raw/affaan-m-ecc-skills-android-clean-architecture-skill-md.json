@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-android-clean-architecture-skill-md",
+  "name": "android-clean-architecture",
+  "author": "affaan-m",
+  "description": "Clean Architecture patterns for Android and Kotlin Multiplatform projects \u2014 module structure, dependency rules, UseCases, Repositories, and data layer patterns.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/android-clean-architecture",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-android-clean-architecture",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

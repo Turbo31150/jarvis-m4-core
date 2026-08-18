@@ -1,0 +1,11 @@
+{
+  "id": "openbmb-minicpm-skills-minicpm5-deploy-lmstudio-skill-md",
+  "name": "minicpm5-deploy-lmstudio",
+  "author": "OpenBMB",
+  "description": "Run MiniCPM5-1B in LM Studio (desktop GUI) using either the GGUF runtime (cross-platform) or the MLX runtime (Apple Silicon, faster). Includes OpenAI-compatible local server. Use when the user mentions \"LM Studio\", desktop GUI inference, \"lms\" CLI, or wants a no-code chat UI for MiniCPM5.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/OpenBMB/MiniCPM/tree/main/skills/minicpm5-deploy-lmstudio",
+  "skillUrl": "https://skillsmp.com/creators/openbmb/minicpm/skills-minicpm5-deploy-lmstudio",
+  "stars": 10099,
+  "updatedAt": 1780219511
+}

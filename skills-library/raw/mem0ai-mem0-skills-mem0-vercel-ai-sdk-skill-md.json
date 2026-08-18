@@ -1,0 +1,11 @@
+{
+  "id": "mem0ai-mem0-skills-mem0-vercel-ai-sdk-skill-md",
+  "name": "mem0-vercel-ai-sdk",
+  "author": "mem0ai",
+  "description": "Mem0 provider for Vercel AI SDK (@mem0/vercel-ai-provider). TRIGGER when: user mentions \"vercel ai sdk\", \"@mem0/vercel-ai-provider\", \"createMem0\", \"retrieveMemories\", \"addMemories\", \"getMemories\", \"searchMemories\", \"mem0 vercel\", \"AI SDK provider\", \"AI SDK memory\", or is using generateText/streamText with mem0. Also triggers for Next.js apps needing memory-augmented AI. DO NOT TRIGGER when: user asks about direct Python/TS SDK calls without Vercel (use mem0 skill), or CLI terminal commands (use mem0-cli skill).",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/mem0ai/mem0/tree/main/skills/mem0-vercel-ai-sdk",
+  "skillUrl": "https://skillsmp.com/creators/mem0ai/mem0/skills-mem0-vercel-ai-sdk",
+  "stars": 62485,
+  "updatedAt": 1781240495
+}

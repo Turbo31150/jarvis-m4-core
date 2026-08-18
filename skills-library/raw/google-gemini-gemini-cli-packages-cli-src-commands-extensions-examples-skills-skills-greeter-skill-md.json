@@ -1,0 +1,11 @@
+{
+  "id": "google-gemini-gemini-cli-packages-cli-src-commands-extensions-examples-skills-skills-greeter-skill-md",
+  "name": "greeter",
+  "author": "google-gemini",
+  "description": "A friendly greeter skill",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/google-gemini/gemini-cli/tree/main/packages/cli/src/commands/extensions/examples/skills/skills/greeter",
+  "skillUrl": "https://skillsmp.com/creators/google-gemini/gemini-cli/packages-cli-src-commands-extensions-examples-skills-skills-greeter",
+  "stars": 106351,
+  "updatedAt": 1768929286
+}

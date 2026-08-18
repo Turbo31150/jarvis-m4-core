@@ -1,0 +1,11 @@
+{
+  "id": "frizzlefur-flowkit-skills-multi-agent-skill-md",
+  "name": "multi-agent",
+  "author": "FrizzleFur",
+  "description": "Agent Teams \u65b9\u6848\u751f\u6210\u4e0e\u6267\u884c\u5f15\u64ce\u3002\u901a\u8fc7 TeamCreate + Agent(team_name) \u5de5\u5177\u94fe\u5728 tmux \u5206\u5c4f\u4e2d\u521b\u5efa\u591a agent \u56e2\u961f\u3002 \u5f53\u7528\u6237\u8bf4 /MultiAgent\u3001\"\u591aagent\"\u3001\"\u56e2\u961f\u534f\u4f5c\"\u3001\"\u5e76\u884c\u5904\u7406\"\u3001\"teammate\"\u3001\"\u521b\u5efaagent\u56e2\u961f\" \u65f6\u4f7f\u7528\u3002 \u652f\u6301\u9879\u76ee\u4e0a\u4e0b\u6587\u611f\u77e5\u3001\u534f\u4f5c\u5f0f\u65b9\u6848\u751f\u6210\uff0c\u4ec5 tmux-split \u6a21\u5f0f\u3002",
+  "contentLanguage": "zh",
+  "githubUrl": "https://github.com/FrizzleFur/flowkit/tree/main/skills/multi-agent",
+  "skillUrl": "https://skillsmp.com/creators/frizzlefur/flowkit/skills-multi-agent",
+  "stars": 12,
+  "updatedAt": 1784166242
+}

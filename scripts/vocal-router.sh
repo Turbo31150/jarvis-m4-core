@@ -2,7 +2,7 @@
 # JARVIS Vocal Router — failover M1→M2→M3→M4
 # Trouve le premier nœud whisper disponible
 
-NODES=("127.0.0.1:18001" "192.168.1.26:18001" "192.168.1.113:18001" "192.168.1.62:18001")
+NODES=("127.0.0.1:18001" "127.0.0.1:18001" "127.0.0.1:18001" "127.0.0.1:18800")
 LABELS=("M1-RTX3080" "M2-Quadro4000" "M3-GTX1660S" "M4-Windows")
 
 for i in "${!NODES[@]}"; do

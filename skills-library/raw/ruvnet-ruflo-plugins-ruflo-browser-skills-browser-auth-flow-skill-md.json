@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruflo-plugins-ruflo-browser-skills-browser-auth-flow-skill-md",
+  "name": "browser-auth-flow",
+  "author": "ruvnet",
+  "description": "Probe a site's authentication flow for redirect leaks, missing CSRF, weak session cookies, and OAuth misconfiguration; produces an auth findings.md",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/ruflo/tree/main/plugins/ruflo-browser/skills/browser-auth-flow",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruflo/plugins-ruflo-browser-skills-browser-auth-flow",
+  "stars": 66991,
+  "updatedAt": 1784257589
+}

@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruview-claude-skills-v3-performance-optimization-skill-md",
+  "name": "v3-performance-optimization",
+  "author": "ruvnet",
+  "description": "Achieve aggressive v3 performance targets: 2.49x-7.47x Flash Attention speedup, 150x-12,500x search improvements, 50-75% memory reduction. Comprehensive benchmarking and optimization suite.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/RuView/tree/main/.claude/skills/v3-performance-optimization",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruview/claude-skills-v3-performance-optimization",
+  "stars": 88440,
+  "updatedAt": 1768273876
+}

@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-fastapi-patterns-skill-md",
+  "name": "fastapi-patterns",
+  "author": "affaan-m",
+  "description": "FastAPI best practices covering project structure, Pydantic v2 schemas, dependency injection, async handlers, authentication, authorization, transactional service layers, and testing with httpx and pytest.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/fastapi-patterns",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-fastapi-patterns",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

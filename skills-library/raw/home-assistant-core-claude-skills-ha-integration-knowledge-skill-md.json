@@ -1,0 +1,11 @@
+{
+  "id": "home-assistant-core-claude-skills-ha-integration-knowledge-skill-md",
+  "name": "ha-integration-knowledge",
+  "author": "home-assistant",
+  "description": "Everything you need to know to build, test and review Home Assistant Integrations. If you're looking at an integration, you must use this as your primary reference.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/home-assistant/core/tree/dev/.claude/skills/ha-integration-knowledge",
+  "skillUrl": "https://skillsmp.com/creators/home-assistant/core/claude-skills-ha-integration-knowledge",
+  "stars": 89683,
+  "updatedAt": 1779980623
+}

@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-skill-stocktake-skill-md",
+  "name": "skill-stocktake",
+  "author": "affaan-m",
+  "description": "Use when auditing Claude skills and commands for quality. Supports Quick Scan (changed skills only) and Full Stocktake modes with sequential subagent batch evaluation.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/skill-stocktake",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-skill-stocktake",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

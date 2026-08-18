@@ -1,0 +1,11 @@
+{
+  "id": "brycewang-stanford-auto-empirical-research-skills-skills-42-wanshuiyin-aris-skills-skills-codex-grant-proposal-skill-md",
+  "name": "grant-proposal",
+  "author": "brycewang-stanford",
+  "description": "Draft a structured grant proposal from research ideas and literature. Supports KAKENHI (Japan), NSF (US), NSFC (China, including \u9762\u4e0a/\u9752\u5e74/\u4f18\u9752/\u6770\u9752/\u6d77\u5916\u4f18\u9752/\u91cd\u70b9), ERC (EU), DFG (Germany), SNSF (Switzerland), ARC (Australia), NWO (Netherlands), and generic formats. Use when user says \"write grant\", \"grant proposal\", \"\u7533\u8acb\u66f8\", \"write KAKENHI\", \"\u79d1\u7814\u8cbb\", \"\u57fa\u91d1\u7533\u8bf7\", \"\u5199\u57fa\u91d1\", \"NSF proposal\", or wants to turn research ideas into a funding application.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills/tree/main/skills/42-wanshuiyin-ARIS/skills/skills-codex/grant-proposal",
+  "skillUrl": "https://skillsmp.com/creators/brycewang-stanford/auto-empirical-research-skills/skills-42-wanshuiyin-aris-skills-skills-codex-grant-proposal",
+  "stars": 3161,
+  "updatedAt": 1775182037
+}

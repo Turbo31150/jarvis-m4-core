@@ -1,0 +1,11 @@
+{
+  "id": "electron-electron-claude-skills-chrome-release-cls-skill-md",
+  "name": "chrome-release-cls",
+  "author": "electron",
+  "description": "Given a Chrome Releases blog post URL (chromereleases.googleblog.com), extract every CVE/bug and find the underlying Gerrit CL that fixed it by searching the local Chromium checkout and sub-repos. Use when asked to map Chrome security release notes to fixing CLs, or to find which commits correspond to CVEs in a Chrome stable update.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/electron/electron/tree/main/.claude/skills/chrome-release-cls",
+  "skillUrl": "https://skillsmp.com/creators/electron/electron/claude-skills-chrome-release-cls",
+  "stars": 122314,
+  "updatedAt": 1776498202
+}

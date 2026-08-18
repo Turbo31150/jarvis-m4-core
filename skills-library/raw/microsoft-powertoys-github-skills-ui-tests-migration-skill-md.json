@@ -1,0 +1,11 @@
+{
+  "id": "microsoft-powertoys-github-skills-ui-tests-migration-skill-md",
+  "name": "ui-tests-migration",
+  "author": "microsoft",
+  "description": "Migrate PowerToys module UI tests from the legacy WinAppDriver/Selenium harness (Microsoft.PowerToys.UITest) to the new winappcli-based harness (Microsoft.PowerToys.UITest.Next). Use when asked to port/convert/rewrite/modernize a module's UI tests to the .Next framework, create a new [Module].UITests.Next project alongside existing legacy tests, or stand up brand-new winappcli UI tests for a module that has none by reading its human test sign-off markdown. Covers the API mapping (By/Element/Session/UITestBase, KeyboardHelper/MouseHelper/ClipboardHelper), project/csproj scaffolding, naming rules, common PowerToys test recipes (toggle a module, read an activation shortcut, fire a global hotkey, inspect the clipboard, discover overlay/editor windows), build/run validation, and CI-stability hardening for fewer CI iterations. Keywords: UI test, UITests, UITestAutomation.Next, winappcli, WinAppDriver, Selenium, migrate, port, modernize, .Next, MSTest, CI stability, flaky test, stabilize on CI.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/microsoft/PowerToys/tree/main/.github/skills/ui-tests-migration",
+  "skillUrl": "https://skillsmp.com/creators/microsoft/powertoys/github-skills-ui-tests-migration",
+  "stars": 137450,
+  "updatedAt": 1783655838
+}

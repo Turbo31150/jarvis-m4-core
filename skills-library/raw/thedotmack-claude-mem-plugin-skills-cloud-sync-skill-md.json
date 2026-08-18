@@ -1,0 +1,11 @@
+{
+  "id": "thedotmack-claude-mem-plugin-skills-cloud-sync-skill-md",
+  "name": "cloud-sync",
+  "author": "thedotmack",
+  "description": "Set up or check claude-mem cloud sync with cmem.ai Pro. Use when the user says \"set up cloud sync\", \"sync my memories\", \"cmem pro\", \"cloud backup\", \"sync status\", or wants their memory database backed up or synced to their cmem.ai account.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedotmack/claude-mem/tree/main/plugin/skills/cloud-sync",
+  "skillUrl": "https://skillsmp.com/creators/thedotmack/claude-mem/plugin-skills-cloud-sync",
+  "stars": 89499,
+  "updatedAt": 1784565022
+}

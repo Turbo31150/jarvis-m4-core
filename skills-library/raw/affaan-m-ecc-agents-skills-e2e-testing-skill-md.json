@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-agents-skills-e2e-testing-skill-md",
+  "name": "e2e-testing",
+  "author": "affaan-m",
+  "description": "Playwright E2E testing patterns, Page Object Model, configuration, CI/CD integration, artifact management, and flaky test strategies.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/.agents/skills/e2e-testing",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/agents-skills-e2e-testing",
+  "stars": 237500,
+  "updatedAt": 1777428617
+}

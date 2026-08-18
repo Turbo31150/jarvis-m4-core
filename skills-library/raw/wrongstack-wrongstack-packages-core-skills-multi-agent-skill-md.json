@@ -1,0 +1,11 @@
+{
+  "id": "wrongstack-wrongstack-packages-core-skills-multi-agent-skill-md",
+  "name": "multi-agent",
+  "author": "WrongStack",
+  "description": "Use this skill whenever work can be split across multiple AI agents running in\nparallel, or when orchestrating leader/worker patterns in WrongStack. Trigger\non the explicit vocabulary \u2014 \"fan out\", \"parallel\", \"delegate\", \"subagent\",\n\"fleet\", \"coordinator\", \"collab_debug\", \"swarm\", \"workers\" \u2014 but more\nimportantly trigger on the SHAPE of the task, because users rarely name the\npattern: \"audit these 40 files\", \"check every package for X\", \"run the tests\nacross the monorepo\", \"review this PR and the tests and the docs\", \"refactor\nthese three modules\", \"scan the codebase for security issues\", \"find all the\nplaces that do Y\". Any request with a plural target set and repeatable\nper-target work is a fan-out candidate. Also use this skill when a delegated\nrun came back with `budget_exhausted`, when worker results need to be\nsynthesized into one report, or when deciding whether parallelism is worth it\nat all \u2014 talking someone out of fanning out is a valid use of this skill.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/WrongStack/WrongStack/tree/main/packages/core/skills/multi-agent",
+  "skillUrl": "https://skillsmp.com/creators/wrongstack/wrongstack/packages-core-skills-multi-agent",
+  "stars": 216,
+  "updatedAt": 1785057388
+}

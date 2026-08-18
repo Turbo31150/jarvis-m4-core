@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-agents-skills-openclaw-autonomous-issue-sweep-skill-md",
+  "name": "openclaw-autonomous-issue-sweep",
+  "author": "openclaw",
+  "description": "Orchestrate 64 autonomous OpenClaw issue workers newest-to-oldest with isolated issue worktrees and resource-bounded parallelism; investigate bugs, simplify or refactor, review, land verified fixes, close already-fixed issues, and add meaningful evidence.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/.agents/skills/openclaw-autonomous-issue-sweep",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/agents-skills-openclaw-autonomous-issue-sweep",
+  "stars": 385119,
+  "updatedAt": 1785494215
+}

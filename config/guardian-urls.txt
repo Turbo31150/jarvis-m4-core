@@ -1,0 +1,4 @@
+# URLs de vente surveillées par guardian-urls.sh
+# Une URL par ligne. Lignes vides et # ignorées.
+https://jarvis-delmas.netlify.app
+https://franckdelmas00.systeme.io

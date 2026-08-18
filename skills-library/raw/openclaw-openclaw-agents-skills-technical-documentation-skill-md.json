@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-agents-skills-technical-documentation-skill-md",
+  "name": "technical-documentation",
+  "author": "openclaw",
+  "description": "Build and review high-quality technical docs as well as agent instruction files in your repository.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/.agents/skills/technical-documentation",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/agents-skills-technical-documentation",
+  "stars": 385119,
+  "updatedAt": 1779690014
+}

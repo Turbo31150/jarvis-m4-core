@@ -1,0 +1,11 @@
+{
+  "id": "mattpocock-skills-skills-misc-migrate-to-shoehorn-skill-md",
+  "name": "migrate-to-shoehorn",
+  "author": "mattpocock",
+  "description": "Migrate test files from `as` type assertions to @total-typescript/shoehorn. Use when user mentions shoehorn, wants to replace `as` in tests, or needs partial test data.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/mattpocock/skills/tree/main/skills/misc/migrate-to-shoehorn",
+  "skillUrl": "https://skillsmp.com/creators/mattpocock/skills/skills-misc-migrate-to-shoehorn",
+  "stars": 202506,
+  "updatedAt": 1783943838
+}

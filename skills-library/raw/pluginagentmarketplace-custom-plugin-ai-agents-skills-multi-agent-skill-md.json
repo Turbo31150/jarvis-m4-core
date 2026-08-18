@@ -1,0 +1,11 @@
+{
+  "id": "pluginagentmarketplace-custom-plugin-ai-agents-skills-multi-agent-skill-md",
+  "name": "multi-agent",
+  "author": "pluginagentmarketplace",
+  "description": "Build multi-agent systems - orchestration, coordination, workflows, and distributed architectures",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/pluginagentmarketplace/custom-plugin-ai-agents/tree/main/skills/multi-agent",
+  "skillUrl": "https://skillsmp.com/creators/pluginagentmarketplace/custom-plugin-ai-agents/skills-multi-agent",
+  "stars": 1,
+  "updatedAt": 1767098608
+}

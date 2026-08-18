@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-skills-meme-maker-skill-md",
+  "name": "meme-maker",
+  "author": "openclaw",
+  "description": "Search meme templates, suggest formats, and generate local or hosted image memes.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/skills/meme-maker",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/skills-meme-maker",
+  "stars": 385119,
+  "updatedAt": 1784263332
+}

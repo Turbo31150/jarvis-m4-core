@@ -1,0 +1,11 @@
+{
+  "id": "agricidaniel-claude-ads-skills-ads-setup-skill-md",
+  "name": "ads-setup",
+  "author": "AgriciDaniel",
+  "description": "Set up a paid-media client, brand, account, data-source, privacy, and mutation-guardrail profile for Claude Ads. Use for onboarding, initial configuration, brand DNA, API tokens or credential profiles, environment-variable or keychain setup, connecting exports or read adapters, safe native or verified-local installation, curl-pipe-bash install requests, declaring KPIs, or preparing a new advertising project.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/AgriciDaniel/claude-ads/tree/main/skills/ads-setup",
+  "skillUrl": "https://skillsmp.com/creators/agricidaniel/claude-ads/skills-ads-setup",
+  "stars": 7807,
+  "updatedAt": 1783797687
+}

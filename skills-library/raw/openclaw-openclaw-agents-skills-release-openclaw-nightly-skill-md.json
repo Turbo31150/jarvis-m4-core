@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-agents-skills-release-openclaw-nightly-skill-md",
+  "name": "release-openclaw-nightly",
+  "author": "openclaw",
+  "description": "OpenClaw Tideclaw alpha/nightly release automation: isolated branches, local fixes, release CI, branch retention, and forward-port to main.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/.agents/skills/release-openclaw-nightly",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/agents-skills-release-openclaw-nightly",
+  "stars": 385119,
+  "updatedAt": 1784694530
+}

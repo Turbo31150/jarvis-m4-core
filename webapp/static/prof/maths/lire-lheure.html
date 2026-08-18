@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lire l'heure – Maths CE1</title>
+<style>
+@page{size:A4;margin:12mm}
+*{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;color:#222;margin:0;font-size:12px;line-height:1.5}
+h1{color:#6a1b9a;font-size:23px;margin:0 0 2px}
+.sub{color:#666;font-size:12px;margin:0 0 12px}
+h2{color:#4a148c;font-size:15px;border-left:5px solid #ab47bc;padding-left:8px;margin:14px 0 6px}
+.lecon{background:#f3e5f5;border-radius:8px;padding:10px 14px;margin:8px 0}
+.voc{background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:8px 12px;font-size:11px}
+.voc b{color:#ef6c00}
+.schema{text-align:center;font-size:40px;margin:10px 0;letter-spacing:6px}
+.exo{border:1px solid #e1bee7;border-radius:8px;padding:8px 12px;margin:8px 0}
+.exo .niv{font-size:10px;color:#6a1b9a;font-weight:700}
+.retenir{background:#e8f5e9;border-left:5px solid #66bb6a;border-radius:6px;padding:8px 12px;margin:10px 0}
+.quiz{border-top:1px dashed #bbb;margin-top:12px;padding-top:8px;font-size:11px}
+.foot{margin-top:14px;font-size:9px;color:#999;text-align:center}
+
+/* Compléments mise en page */
+.cols{display:flex;gap:10px}
+.cols>div{flex:1}
+.horloge{display:inline-block;width:90px;height:90px;border-radius:50%;border:4px solid #6a1b9a;background:#fff;position:relative;margin:6px 12px;vertical-align:middle}
+.horloge-wrap{text-align:center;margin:6px 0}
+.cadran{font-size:9px;font-weight:700;color:#4a148c}
+table{width:100%;border-collapse:collapse;font-size:11px}
+td,th{border:1px solid #ddd;padding:4px 6px}
+th{background:#e1bee7;color:#4a148c}
+.bloc-schema{display:flex;align-items:center;justify-content:center;gap:18px;margin:8px 0}
+.mini-clock{font-size:11px;text-align:center;color:#555}
+svg text{font-family:'Segoe UI',Arial,sans-serif}
+.exo ol{margin:4px 0;padding-left:18px}
+.exo ol li{margin-bottom:3px}
+.retenir ul{margin:4px 0;padding-left:16px}
+.retenir ul li{margin-bottom:2px}
+.quiz ol{margin:4px 0;padding-left:18px}
+.quiz ol li{margin-bottom:5px}
+.bo-ref{font-size:9px;color:#999;font-style:italic;margin-bottom:6px}
+</style>
+</head>
+<body>
+
+<h1>🕐 Lire l'heure</h1>
+<p class="sub"><strong>Objectif :</strong> Lire l'heure sur une horloge à aiguilles (heures entières et demies) &amp; sur une horloge numérique.</p>
+<p class="bo-ref">Compétence B.O. — Domaine <em>Grandeurs et mesures</em> : « Lire l'heure sur une horloge à aiguilles (heures, demi-heures) » · Programme 2016/2018, cycle 2, CE1.</p>
+
+<!-- LEÇON -->
+<h2>📖 La leçon</h2>
+<div class="lecon">
+  <p>Une horloge a deux aiguilles :</p>
+  <ul>
+    <li>La <strong>grande aiguille</strong> (longue) indique les <strong>minutes</strong>.</li>
+    <li>La <strong>petite aiguille</strong> (courte) indique les <strong>heures</strong>.</li>
+  </ul>
+
+  <div class="cols">
+    <div>
+      <p><strong>✅ Heures entières</strong></p>
+      <p>La <strong>grande aiguille</strong> est sur le <strong>12</strong>.<br>
+      La <strong>petite aiguille</strong> pointe une heure.<br>
+      Ex : petite aiguille sur 3 → <strong>3 heures</strong> (ou 3 h 00).</p>
+    </div>
+    <div>
+      <p><strong>✅ Demi-heures</strong></p>
+      <p>La <strong>grande aiguille</strong> est sur le <strong>6</strong>.<br>
+      La petite aiguille est <em>entre</em> deux chiffres.<br>
+      Ex : petite aiguille entre 3 et 4 → <strong>3 heures et demie</strong> (3 h 30).</p>
+    </div>
+  </div>
+
+  <p><strong>🔢 Horloge numérique :</strong> on lit directement <strong>HH:MM</strong> (ex : <strong>09:30</strong> = 9 heures et demie).</p>
+  <p><strong>🌅 Matin / 🌆 Après-midi :</strong> la journée a <strong>24 heures</strong>. Le matin va de <strong>0 h à 12 h</strong>, l'après-midi de <strong>12 h à 24 h</strong>. On dit «&nbsp;du matin&nbsp;» ou «&nbsp;de l'après-midi&nbsp;» pour préciser.</p>
+</div>
+
+<!-- SCHEMA -->
+<h2>🕹️ Schéma — Comment lire une horloge ?</h2>
+<div class="schema">🕛 → 🕧 → 🕐 → 🕜 → 🕑</div>
+
+<div class="bloc-schema">
+  <!-- Horloge SVG : 3h00 -->
+  <div>
+    <svg width="88" height="88" viewBox="0 0 88 88">
+      <circle cx="44" cy="44" r="40" fill="white" stroke="#6a1b9a" stroke-width="3"/>
+      <!-- chiffres -->
+      <text x="44" y="12" text-anchor="middle" font-size="9" fill="#4a148c" font-weight="bold">12</text>
+      <text x="78" y="48" text-anchor="middle" font-size="9" fill="#4a148c" font-weight="bold">3</text>
+      <text x="44" y="82" text-anchor="middle" font-size="9" fill="#4a148c" font-weight="bold">6</text>
+      <text x="10" y="48" text-anchor="middle" font-size="9" fill="#4a148c" font-weight="bold">9</text>
+      <!-- aiguille heures : 3h (vers droite) -->
+      <line x1="44" y1="44" x2="64" y2="44" stroke="#4a148c" stroke-width="4" stroke-linecap="round"/>
+      <!-- aiguille minutes : sur 12 (vers haut) -->
+      <line x1="44" y1="44" x2="44" y2="12" stroke="#ab47bc" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="44" cy="44" r="3" fill="#6a1b9a"/>
+    </svg>
+    <div class="mini-clock"><strong>3 h 00</strong><br>Grande aig. sur 12<br>Petite aig. sur 3</div>
+  </div>
+
+  <!-- Horloge SVG : 3h30 -->
+  <div>
+    <svg width="88" height="88" viewBox="0 0 88 88">
+      <circle cx="44" cy="44" r="40" fill="white" stroke="#6a1b9a" stroke-width="3"/>
+      <text x="44" y="12" text-anchor="middle" font-size="9" fill="#4a148c" font-weight="bold">12</text>
+      <text x="78" y="48" text-anchor="middle" font-size="9" fill="#4a148c" font-weight="bold">3</text>
+      <text x="44" y="82" text-anchor="middle" font-size="9" fill="#4a148c" font-weight="bold">6</text>
+      <text x="10" y="48" text-anchor="middle" font-size="9" fill="#4a148c" font-weight="bold">9</text>
+      <!-- aiguille heures : 3h30 (entre 3 et 4, ~105°) -->
+      <line x1="44" y1="44" x2="61" y2="55" stroke="#4a148c" stroke-width="4" stroke-linecap="round"/>
+      <!-- aiguille minutes : sur 6 (vers bas) -->
+      <line x1="44" y1="44" x2="44" y2="76" stroke="#ab47bc" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="44" cy="44" r="3" fill="#6a1b9a"/>
+    </svg>
+    <div class="mini-clock"><strong>3 h 30</strong><br>Grande aig. sur 6<br>Petite aig. entre 3 et 4</div>
+  </div>
+
+  <!-- Correspondance numérique -->
+  <div style="font-size:11px;text-align:center">
+    <table>
+      <tr><th>Aiguilles</th><th>On dit</th><th>Numérique</th></tr>
+      <tr><td>Petite sur 8, grande sur 12</td><td>8 heures</td><td>08:00</td></tr>
+      <tr><td>Petite entre 8 et 9, grande sur 6</td><td>8 h et demie</td><td>08:30</td></tr>
+      <tr><td>Petite sur 12, grande sur 12</td><td>midi / minuit</td><td>12:00</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- VOCABULAIRE -->
+<h2>📚 Vocabulaire</h2>
+<div class="voc">
+  <b>heure</b> : unité de temps. 1 journée = 24 heures. &nbsp;|&nbsp;
+  <b>minute</b> : 1 heure = 60 minutes. &nbsp;|&nbsp;
+  <b>midi</b> : 12 heures (milieu de la journée). &nbsp;|&nbsp;
+  <b>minuit</b> : 0 heure (milieu de la nuit). &nbsp;|&nbsp;
+  <b>et demie</b> : 30 minutes après l'heure (grande aiguille sur le 6). &nbsp;|&nbsp;
+  <b>horloge numérique</b> : affiche les chiffres directement (ex : 07:30). &nbsp;|&nbsp;
+  <b>aiguille</b> : baguette qui tourne sur le cadran.
+</div>
+
+<!-- EXERCICES -->
+<h2>✏️ Exercices</h2>
+
+<div class="exo">
+  <div class="niv">⭐ SOUTIEN — Je repère les aiguilles</div>
+  <p>Observe chaque horloge. Colorie la <u>grande aiguille en violet</u> et la <u>petite aiguille en orange</u>. Puis relie l'horloge à l'heure correcte.</p>
+  <ol>
+    <li>Grande aiguille sur 12, petite sur 2. &nbsp;→ &nbsp; <strong>2 h 00</strong> &nbsp;/&nbsp; <strong>2 h 30</strong></li>
+    <li>Grande aiguille sur 6, petite entre 5 et 6. &nbsp;→ &nbsp; <strong>5 h 00</strong> &nbsp;/&nbsp; <strong>5 h 30</strong></li>
+    <li>Grande aiguille sur 12, petite sur 10. &nbsp;→ &nbsp; <strong>10 h 00</strong> &nbsp;/&nbsp; <strong>10 h 30</strong></li>
+  </ol>
+</div>
+
+<div class="exo">
+  <div class="niv">⭐⭐ STANDARD — Je lis et j'écris l'heure</div>
+  <ol>
+    <li>Quelle heure est-il ? (Grande aiguille sur 12, petite sur 7) → _____ h _____</li>
+    <li>Quelle heure est-il ? (Grande aiguille sur 6, petite entre 11 et 12) → _____ h _____</li>
+    <li>Dessine les aiguilles sur le cadran vide pour montrer <strong>4 h 30</strong>.</li>
+    <li>Écris en chiffres (numérique) : « huit heures du matin » → _____ : _____</li>
+    <li>Écris en lettres : 09:00 → _______________________________</li>
+  </ol>
+</div>
+
+<div class="exo">
+  <div class="niv">⭐⭐⭐ APPROFONDISSEMENT — Je raisonne sur le temps</div>
+  <ol>
+    <li>La récréation commence à <strong>10 h 00</strong> et dure <strong>30 minutes</strong>. À quelle heure se termine-t-elle ? → _____ h _____</li>
+    <li>Maxime part à l'école à <strong>8 h 30</strong>. Le trajet dure <strong>30 minutes</strong>. À quelle heure arrive-t-il ? → _____ h _____</li>
+    <li>Il est <strong>3 h 30</strong> de l'après-midi. Écris cette heure en numérique (format 24 h) → _____ : _____</li>
+    <li>Vrai ou faux ? « La grande aiguille sur le 6 indique toujours midi. » Justifie en une phrase.</li>
+  </ol>
+</div>
+
+<!-- À RETENIR -->
+<h2>💡 À retenir</h2>
+<div class="retenir">
+  <ul>
+    <li><strong>Petite aiguille</strong> → les <strong>heures</strong> · <strong>Grande aiguille</strong> → les <strong>minutes</strong></li>
+    <li>Grande aiguille sur <strong>12</strong> → heure <strong>entière</strong> (ex : 6 h 00)</li>
+    <li>Grande aiguille sur <strong>6</strong> → heure <strong>et demie</strong> (ex : 6 h 30)</li>
+    <li>1 heure = <strong>60 minutes</strong> · 1 demi-heure = <strong>30 minutes</strong></li>
+    <li>Sur l'horloge numérique : <strong>HH:MM</strong> — les deux premiers chiffres = heures, les deux derniers = minutes</li>
+  </ul>
+</div>
+
+<!-- QUIZ -->
+<div class="quiz">
+  <strong>🎯 Quiz — Vrai ou Faux ? Réponds en entourant la bonne réponse.</strong>
+  <ol>
+    <li>Quand la grande aiguille est sur le 12, il est une heure entière. &nbsp;&nbsp; <strong>VRAI</strong> &nbsp;/&nbsp; <strong>FAUX</strong></li>
+    <li>3 h 30 s'écrit 03:60 sur une horloge numérique. &nbsp;&nbsp; <strong>VRAI</strong> &nbsp;/&nbsp; <strong>FAUX</strong></li>
+    <li>La petite aiguille tourne plus vite que la grande aiguille. &nbsp;&nbsp; <strong>VRAI</strong> &nbsp;/&nbsp; <strong>FAUX</strong></li>
+  </ol>
+  <p style="font-size:10px;color:#888"><em>Réponses : 1-VRAI · 2-FAUX (03:30) · 3-FAUX (la petite tourne plus lentement)</em></p>
+</div>
+
+<div class="foot">Pousseline — bibliothèque de supports · maths CE1</div>
+
+</body>
+</html>

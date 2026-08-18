@@ -1,0 +1,11 @@
+{
+  "id": "nexu-io-open-design-plugins-spec-examples-create-video-storyboard-skill-md",
+  "name": "create-video-storyboard",
+  "author": "nexu-io",
+  "description": "Use this plugin when the user wants a video concept, storyboard, shot list, prompt pack, or render-ready motion brief for a product, campaign, or explainer.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/nexu-io/open-design/tree/main/plugins/spec/examples/create-video-storyboard",
+  "skillUrl": "https://skillsmp.com/creators/nexu-io/open-design/plugins-spec-examples-create-video-storyboard",
+  "stars": 83535,
+  "updatedAt": 1778682290
+}

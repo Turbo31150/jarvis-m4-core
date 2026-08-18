@@ -1,0 +1,11 @@
+{
+  "id": "openai-plugins-plugins-plugin-eval-skills-evaluate-skill-skill-md",
+  "name": "evaluate-skill",
+  "author": "openai",
+  "description": "Evaluate a local Codex skill in engineer-friendly terms. Use when the user says \"evaluate this skill\", \"give me an analysis of the game dev skill\", \"audit this skill\", \"why did this score that way\", \"what should I fix first\", or asks for a skill-specific report before benchmarking it.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openai/plugins/tree/main/plugins/plugin-eval/skills/evaluate-skill",
+  "skillUrl": "https://skillsmp.com/creators/openai/plugins/plugins-plugin-eval-skills-evaluate-skill",
+  "stars": 4917,
+  "updatedAt": 1776794869
+}

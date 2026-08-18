@@ -1,0 +1,11 @@
+{
+  "id": "ariffazil-arifos-skills-arifos-deploy-skill-md",
+  "name": "arifos-deploy",
+  "author": "ariffazil",
+  "description": "arifOS sovereign deployment: static hub, docs, runtime, and machine files. Use when deploying arifOS estate surfaces. Encodes deployment philosophy, estate roles, CI/CD policy, machine file invariants, and rollback doctrine. Triggers: deploy, build site, CI/CD, publish, machine files, llms.txt, static hub, Cloudflare, GitHub Pages, VPS runtime.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ariffazil/arifOS/tree/main/skills/arifos-deploy",
+  "skillUrl": "https://skillsmp.com/creators/ariffazil/arifos/skills-arifos-deploy",
+  "stars": 50,
+  "updatedAt": 1778525862
+}

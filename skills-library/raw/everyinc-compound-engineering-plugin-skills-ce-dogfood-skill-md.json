@@ -1,0 +1,11 @@
+{
+  "id": "everyinc-compound-engineering-plugin-skills-ce-dogfood-skill-md",
+  "name": "ce-dogfood",
+  "author": "EveryInc",
+  "description": "Hands-off, diff-scoped browser QA of the active branch: maps user flows, drives a real browser, autonomously fixes small breakages with regression tests and commits, judges experience against product personas, and writes a durable dogfood report. Manual invocation only.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/EveryInc/compound-engineering-plugin/tree/main/skills/ce-dogfood",
+  "skillUrl": "https://skillsmp.com/creators/everyinc/compound-engineering-plugin/skills-ce-dogfood",
+  "stars": 23809,
+  "updatedAt": 1785603885
+}

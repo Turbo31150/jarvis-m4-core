@@ -1,0 +1,11 @@
+{
+  "id": "github-awesome-copilot-skills-migrating-oracle-to-postgres-stored-procedures-skill-md",
+  "name": "migrating-oracle-to-postgres-stored-procedures",
+  "author": "github",
+  "description": "Migrates Oracle PL/SQL stored procedures to PostgreSQL PL/pgSQL. Translates Oracle-specific syntax, preserves method signatures and type-anchored parameters, leverages orafce where appropriate, and applies explicit collation mapping (`COLLATE \"C\"` only when appropriate, locale collations when required). Use when converting Oracle stored procedures or functions to PostgreSQL equivalents during a database migration.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/github/awesome-copilot/tree/main/skills/migrating-oracle-to-postgres-stored-procedures",
+  "skillUrl": "https://skillsmp.com/creators/github/awesome-copilot/skills-migrating-oracle-to-postgres-stored-procedures",
+  "stars": 37423,
+  "updatedAt": 1783991218
+}

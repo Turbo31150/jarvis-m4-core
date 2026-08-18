@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-agents-skills-everything-claude-code-skill-md",
+  "name": "everything-claude-code",
+  "author": "affaan-m",
+  "description": "Development conventions and patterns for everything-claude-code. JavaScript project with conventional commits.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/.agents/skills/everything-claude-code",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/agents-skills-everything-claude-code",
+  "stars": 237500,
+  "updatedAt": 1777428617
+}

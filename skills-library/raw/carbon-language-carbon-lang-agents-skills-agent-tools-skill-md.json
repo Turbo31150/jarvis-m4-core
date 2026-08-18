@@ -1,0 +1,11 @@
+{
+  "id": "carbon-language-carbon-lang-agents-skills-agent-tools-skill-md",
+  "name": "agent-tools",
+  "author": "carbon-language",
+  "description": "Guidelines and restrictions on shell commands and file manipulation tools for AI assistants.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/carbon-language/carbon-lang/tree/trunk/.agents/skills/agent_tools",
+  "skillUrl": "https://skillsmp.com/creators/carbon-language/carbon-lang/agents-skills-agent-tools",
+  "stars": 33847,
+  "updatedAt": 1781198296
+}

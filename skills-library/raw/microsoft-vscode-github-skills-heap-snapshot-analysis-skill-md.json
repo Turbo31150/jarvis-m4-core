@@ -1,0 +1,11 @@
+{
+  "id": "microsoft-vscode-github-skills-heap-snapshot-analysis-skill-md",
+  "name": "heap-snapshot-analysis",
+  "author": "microsoft",
+  "description": "Analyze V8 heap snapshots to investigate memory leaks and retention issues. Use when given .heapsnapshot files, asked to compare before/after snapshots, asked to find what retains objects, or investigating why objects survive GC. Provides snapshot parsing, comparison, retainer-path helpers, and scratchpad scripts.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/microsoft/vscode/tree/main/.github/skills/heap-snapshot-analysis",
+  "skillUrl": "https://skillsmp.com/creators/microsoft/vscode/github-skills-heap-snapshot-analysis",
+  "stars": 188283,
+  "updatedAt": 1776647534
+}

@@ -1,0 +1,11 @@
+{
+  "id": "bgauryy-octocode-skills-octocode-orchestrator-local-worker-skill-md",
+  "name": "octocode-orchestrator-local-worker",
+  "author": "bgauryy",
+  "description": "Use when saving tokens with a local Ollama worker while the cloud agent keeps tools and judgment: summarize, extract, classify, translate, article digest after fetch, draft, checklist, vision caption, map-reduce, or phrases like ollama worker, local model, offload, use ollama.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/bgauryy/octocode/tree/main/skills/octocode-orchestrator-local-worker",
+  "skillUrl": "https://skillsmp.com/creators/bgauryy/octocode/skills-octocode-orchestrator-local-worker",
+  "stars": 903,
+  "updatedAt": 1785682291
+}

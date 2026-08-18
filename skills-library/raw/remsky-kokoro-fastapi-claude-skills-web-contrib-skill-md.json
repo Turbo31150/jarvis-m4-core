@@ -1,0 +1,11 @@
+{
+  "id": "remsky-kokoro-fastapi-claude-skills-web-contrib-skill-md",
+  "name": "web-contrib",
+  "author": "remsky",
+  "description": "Contributing to the Kokoro-FastAPI web player: vanilla JS constraints, MSE/audio gotchas, unit and e2e test setup. Use when changing anything under web/.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/remsky/Kokoro-FastAPI/tree/master/.claude/skills/web-contrib",
+  "skillUrl": "https://skillsmp.com/creators/remsky/kokoro-fastapi/claude-skills-web-contrib",
+  "stars": 5292,
+  "updatedAt": 1784091862
+}

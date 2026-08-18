@@ -1,0 +1,11 @@
+{
+  "id": "ramsbaby-jarvis-plugins-jarvis-deep-interview-skills-deep-interview-skill-md",
+  "name": "jarvis-deep-interview",
+  "author": "Ramsbaby",
+  "description": "Convergent Socratic interview that turns vague requirements into a production-grade specification via 8-15 narrowing rounds with mathematical ambiguity gating. Inspired by Sorbh/interview-me, adds Contrarian/Simplifier Challenge Mode and JSONL decision log. Use when an idea exists but implementation decisions are still undefined.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Ramsbaby/jarvis/tree/main/plugins/jarvis-deep-interview/skills/deep-interview",
+  "skillUrl": "https://skillsmp.com/creators/ramsbaby/jarvis/plugins-jarvis-deep-interview-skills-deep-interview",
+  "stars": 13,
+  "updatedAt": 1778648602
+}

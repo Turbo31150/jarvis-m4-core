@@ -1,0 +1,11 @@
+{
+  "id": "thedotmack-claude-mem-plugin-skills-design-is-skill-md",
+  "name": "design-is",
+  "author": "thedotmack",
+  "description": "Audit a design against Dieter Rams' ten \"Good design is...\" principles, then hand off a /make-plan prompt for one of three outcomes \u2014 new design, refine design, or redesign. Use when the user says \"audit this design\", \"design review\", \"check this UI against Rams\", \"is this UI good\", \"critique this design\", \"design audit\", or asks for a critique that should lead to a plan.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedotmack/claude-mem/tree/main/plugin/skills/design-is",
+  "skillUrl": "https://skillsmp.com/creators/thedotmack/claude-mem/plugin-skills-design-is",
+  "stars": 89499,
+  "updatedAt": 1779353301
+}

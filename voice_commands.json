@@ -1,0 +1,27 @@
+[
+  { "command": "ouvre le dashboard",       "type": "url",   "action": "http://127.0.0.1:8082" },
+  { "command": "ouvre mon espace prof",     "type": "url",   "action": "http://127.0.0.1:7777" },
+  { "command": "ouvre lumen",               "type": "url",   "action": "http://127.0.0.1:9743" },
+  { "command": "ouvre gmail",               "type": "url",   "action": "https://mail.google.com" },
+  { "command": "ouvre le drive",            "type": "url",   "action": "https://drive.google.com" },
+  { "command": "ouvre eduscol",             "type": "url",   "action": "https://eduscol.education.fr" },
+  { "command": "ouvre onde",                "type": "url",   "action": "https://si1d.ac-toulouse.fr" },
+
+  { "command": "ouvre le terminal",         "type": "shell", "action": "gnome-terminal" },
+  { "command": "ouvre les fichiers",        "type": "shell", "action": "nautilus ~/Documents" },
+  { "command": "capture ecran",             "type": "shell", "action": "gnome-screenshot -i" },
+  { "command": "temperature gpu",           "type": "shell", "action": "notify-send \"GPU\" \"$(nvidia-smi --query-gpu=temperature.gpu,memory.used --format=csv,noheader)\"" },
+  { "command": "redemarre whisper",         "type": "shell", "action": "systemctl --user restart jarvis-whisper.service" },
+
+  { "command": "formule de politesse",      "type": "text",  "action": "Je vous prie d'agréer, Madame, Monsieur, l'expression de mes salutations distinguées." },
+  { "command": "signature",                 "type": "text",  "action": "Claire Domingues\nProfesseure des écoles" },
+  { "command": "mon mail pro",              "type": "text",  "action": "claire.domingues@ac-toulouse.fr" },
+
+  { "command": "montre la demo",            "type": "shell", "action": "xdg-open ~/labo/demo.mp4" },
+  { "command": "montre le benchmark",       "type": "shell", "action": "xdg-open ~/Vidéos/bench-small-20260630-061726.mp4" },
+  { "command": "ouvre le catalogue",        "type": "shell", "action": "xdg-open ~/labo/JARVIS-INC/zero-token/command_list.md" },
+  { "command": "ouvre le cahier d'echange", "type": "shell", "action": "xdg-open ~/jarvis/scripts/transcription/CAHIER_ECHANGE.md" },
+
+  { "command": "lance l'audit",             "type": "shell", "action": "gnome-terminal -- bash -c 'bash ~/labo/bibliotheque/series/audit-cascade.sh; echo; read -p \"Entrée pour fermer…\"'" },
+  { "command": "verifie la session",        "type": "shell", "action": "gnome-terminal -- bash -c 'bash ~/labo/bibliotheque/series/session-verify.sh; echo; read -p \"Entrée pour fermer…\"'" }
+]

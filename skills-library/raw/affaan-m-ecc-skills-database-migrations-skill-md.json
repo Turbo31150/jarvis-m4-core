@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-database-migrations-skill-md",
+  "name": "database-migrations",
+  "author": "affaan-m",
+  "description": "Database migration best practices for schema changes, data migrations, rollbacks, and zero-downtime deployments across PostgreSQL, MySQL, and common ORMs (Prisma, Drizzle, Kysely, Django, TypeORM, golang-migrate).",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/database-migrations",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-database-migrations",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

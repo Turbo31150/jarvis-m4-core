@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-optional-skills-data-science-jupyter-notebook-skill-md",
+  "name": "jupyter-notebook",
+  "author": "NousResearch",
+  "description": "Iterative Python via live Jupyter kernel (hamelnb).",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/optional-skills/data-science/jupyter-notebook",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/optional-skills-data-science-jupyter-notebook",
+  "stars": 225204,
+  "updatedAt": 1784862088
+}

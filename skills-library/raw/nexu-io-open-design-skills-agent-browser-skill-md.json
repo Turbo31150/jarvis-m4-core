@@ -1,0 +1,11 @@
+{
+  "id": "nexu-io-open-design-skills-agent-browser-skill-md",
+  "name": "agent-browser",
+  "author": "nexu-io",
+  "description": "Browser automation CLI for AI agents. Use when the user needs to inspect,\ntest, or automate browser behavior: navigating pages, filling forms,\nclicking buttons, taking screenshots, extracting page data, reading selected\nOpen Design browser-tab context, testing web apps, dogfooding Open Design\npreviews, QA, bug hunts, or reviewing app quality. Prefer local Open Design\npreview URLs unless the user explicitly asks for external browsing.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/nexu-io/open-design/tree/main/skills/agent-browser",
+  "skillUrl": "https://skillsmp.com/creators/nexu-io/open-design/skills-agent-browser",
+  "stars": 83535,
+  "updatedAt": 1780933478
+}

@@ -1,0 +1,127 @@
+[
+ {
+  "domaine": "ecole",
+  "scenario": "Je rédige le PPRE de mon élève suivi par le RASED.",
+  "couverts": [
+   "PPRE",
+   "RASED"
+  ],
+  "remplis": []
+ },
+ {
+  "domaine": "ecole",
+  "scenario": "Réunion ESS pour le dossier MDPH et l'AESH de l'élève.",
+  "couverts": [
+   "ESS",
+   "MDPH",
+   "AESH"
+  ],
+  "remplis": []
+ },
+ {
+  "domaine": "ecole",
+  "scenario": "Je saisis les évaluations sur ONDE et AFFELNET.",
+  "couverts": [
+   "ONDE",
+   "AFFELNET"
+  ],
+  "remplis": []
+ },
+ {
+  "domaine": "ecole",
+  "scenario": "Le PIAL coordonne les AESH de la circonscription.",
+  "couverts": [
+   "PIAL",
+   "AESH"
+  ],
+  "remplis": []
+ },
+ {
+  "domaine": "ecole",
+  "scenario": "Conseil des maîtres et conseil d'école avant les APC.",
+  "couverts": [
+   "APC"
+  ],
+  "remplis": []
+ },
+ {
+  "domaine": "mairie",
+  "scenario": "Je dépose un CERFA d'urbanisme et une déclaration préalable.",
+  "couverts": [
+   "CERFA"
+  ],
+  "remplis": []
+ },
+ {
+  "domaine": "mairie",
+  "scenario": "Demande au CCAS et dossier CAF pour la famille.",
+  "couverts": [
+   "CCAS",
+   "CAF"
+  ],
+  "remplis": []
+ },
+ {
+  "domaine": "mairie",
+  "scenario": "Le PLU de Montlaur encadre le permis de construire.",
+  "couverts": [
+   "PLU",
+   "Montlaur"
+  ],
+  "remplis": []
+ },
+ {
+  "domaine": "civique",
+  "scenario": "Courrier à la députée, copie à la préfecture et au DASEN.",
+  "couverts": [
+   "DASEN"
+  ],
+  "remplis": []
+ },
+ {
+  "domaine": "civique",
+  "scenario": "Pétition transmise à la DSDEN et à l'IEN.",
+  "couverts": [
+   "DSDEN",
+   "IEN"
+  ],
+  "remplis": []
+ },
+ {
+  "domaine": "admin",
+  "scenario": "Déclaration URSSAF et remboursement CPAM.",
+  "couverts": [
+   "URSSAF",
+   "CPAM"
+  ],
+  "remplis": []
+ },
+ {
+  "domaine": "perso",
+  "scenario": "Envoie un mail pro et un mail franck pour le rendez-vous.",
+  "couverts": [
+   "mail pro",
+   "mail franck"
+  ],
+  "remplis": []
+ },
+ {
+  "domaine": "perso",
+  "scenario": "Je vais à Labège puis à Saint Orens de Gameville.",
+  "couverts": [
+   "Labège",
+   "Saint Orens de Gameville"
+  ],
+  "remplis": []
+ },
+ {
+  "domaine": "tech",
+  "scenario": "Lance Ollama et Docker sur le cluster JARVIS.",
+  "couverts": [
+   "Ollama",
+   "Docker",
+   "JARVIS"
+  ],
+  "remplis": []
+ }
+]

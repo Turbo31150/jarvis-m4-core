@@ -1,0 +1,11 @@
+{
+  "id": "microsoft-vscode-github-skills-fix-ci-failures-skill-md",
+  "name": "fix-ci-failures",
+  "author": "microsoft",
+  "description": "Investigate and fix CI failures on a pull request. Use when CI checks fail on a PR branch \u2014 covers finding the PR, identifying failed checks, downloading logs and artifacts, extracting the failure cause, and iterating on a fix. Requires the `gh` CLI.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/microsoft/vscode/tree/main/.github/skills/fix-ci-failures",
+  "skillUrl": "https://skillsmp.com/creators/microsoft/vscode/github-skills-fix-ci-failures",
+  "stars": 188283,
+  "updatedAt": 1781631171
+}

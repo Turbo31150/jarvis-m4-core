@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-skills-email-himalaya-skill-md",
+  "name": "himalaya",
+  "author": "NousResearch",
+  "description": "Himalaya CLI: IMAP/SMTP email from terminal.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/skills/email/himalaya",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/skills-email-himalaya",
+  "stars": 225204,
+  "updatedAt": 1782013369
+}

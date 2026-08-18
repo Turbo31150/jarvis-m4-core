@@ -1,0 +1,11 @@
+{
+  "id": "lobehub-lobehub-agents-skills-spa-routes-skill-md",
+  "name": "spa-routes",
+  "author": "lobehub",
+  "description": "LobeHub SPA route architecture. Use when editing src/routes, src/features delegation, desktop/mobile/popup router configs, .desktop variants, route segments, redirects, or new pages.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/lobehub/lobehub/tree/canary/.agents/skills/spa-routes",
+  "skillUrl": "https://skillsmp.com/creators/lobehub/lobehub/agents-skills-spa-routes",
+  "stars": 81243,
+  "updatedAt": 1785609616
+}

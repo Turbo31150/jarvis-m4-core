@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-perl-testing-skill-md",
+  "name": "perl-testing",
+  "author": "affaan-m",
+  "description": "Perl testing patterns using Test2::V0, Test::More, prove runner, mocking, coverage with Devel::Cover, and TDD methodology.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/perl-testing",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-perl-testing",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

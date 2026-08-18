@@ -1,0 +1,11 @@
+{
+  "id": "amazor-self-hosting-cursor-skills-commit-message-from-changes-skill-md",
+  "name": "commit-message-from-changes",
+  "author": "amazor",
+  "description": "Reads git status and diff (staged or working tree), analyzes changes, and generates a Conventional Commits-style commit message. Use when the user asks for a commit message, wants to commit their changes, or asks to \"create a commit message from my changes.\"",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/amazor/Self-Hosting/tree/main/.cursor/skills/commit-message-from-changes",
+  "skillUrl": "https://skillsmp.com/creators/amazor/self-hosting/cursor-skills-commit-message-from-changes",
+  "stars": 0,
+  "updatedAt": 1771582030
+}

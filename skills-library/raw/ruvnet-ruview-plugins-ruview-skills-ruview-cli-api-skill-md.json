@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruview-plugins-ruview-skills-ruview-cli-api-skill-md",
+  "name": "ruview-cli-api",
+  "author": "ruvnet",
+  "description": "Use the RuView `wifi-densepose` CLI binary (incl. MAT scan/status/zones/survivors/alerts/export subcommands), the REST API (`wifi-densepose-api`, Axum), and the browser/WASM build (`wifi-densepose-wasm`, `wifi-densepose-wasm-edge`). Use when integrating RuView into another program, scripting it from the shell, exposing it over HTTP, or shipping it to the browser / ESP32-WASM3.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/RuView/tree/main/plugins/ruview/skills/ruview-cli-api",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruview/plugins-ruview-skills-ruview-cli-api",
+  "stars": 88440,
+  "updatedAt": 1778535556
+}

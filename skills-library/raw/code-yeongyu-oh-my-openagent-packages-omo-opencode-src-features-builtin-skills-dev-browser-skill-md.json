@@ -1,0 +1,11 @@
+{
+  "id": "code-yeongyu-oh-my-openagent-packages-omo-opencode-src-features-builtin-skills-dev-browser-skill-md",
+  "name": "dev-browser",
+  "author": "code-yeongyu",
+  "description": "Browser automation with persistent page state. Use when users ask to navigate websites, fill forms, take screenshots, extract web data, test web apps, or automate browser workflows. Trigger phrases include \"go to [url]\", \"click on\", \"fill out the form\", \"take a screenshot\", \"scrape\", \"automate\", \"test the website\", \"log into\", or any browser interaction request.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/code-yeongyu/oh-my-openagent/tree/dev/packages/omo-opencode/src/features/builtin-skills/dev-browser",
+  "skillUrl": "https://skillsmp.com/creators/code-yeongyu/oh-my-openagent/packages-omo-opencode-src-features-builtin-skills-dev-browser",
+  "stars": 67193,
+  "updatedAt": 1781075002
+}

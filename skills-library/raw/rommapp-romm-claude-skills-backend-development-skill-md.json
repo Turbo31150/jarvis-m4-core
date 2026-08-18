@@ -1,0 +1,11 @@
+{
+  "id": "rommapp-romm-claude-skills-backend-development-skill-md",
+  "name": "backend-development",
+  "author": "rommapp",
+  "description": "Working on the RomM Python backend (backend/) \u2014 a FastAPI app with SQLAlchemy 2.0, Alembic, RQ/Redis, and Socket.IO. Use when adding or changing API endpoints, handlers, ORM models, response schemas, metadata-provider adapters, background tasks, database migrations, or backend tests. Covers the layered architecture, conventions, auth/scopes, the OpenAPI\u2192frontend type pipeline, and the uv/pytest/alembic/trunk workflow. Trigger on any work under backend/.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/rommapp/romm/tree/master/.claude/skills/backend-development",
+  "skillUrl": "https://skillsmp.com/creators/rommapp/romm/claude-skills-backend-development",
+  "stars": 11902,
+  "updatedAt": 1782182799
+}

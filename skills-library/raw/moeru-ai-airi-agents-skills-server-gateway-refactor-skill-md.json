@@ -1,0 +1,11 @@
+{
+  "id": "moeru-ai-airi-agents-skills-server-gateway-refactor-skill-md",
+  "name": "server-gateway-refactor",
+  "author": "moeru-ai",
+  "description": "Use when refactoring AIRI apps/server routes that mix Hono route wiring, business operation orchestration, external gateway calls, billing, rate limiting, telemetry, or websocket session state. Applies especially to OpenAI-compatible, speech, Stripe, and websocket gateway surfaces.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/moeru-ai/airi/tree/main/.agents/skills/server-gateway-refactor",
+  "skillUrl": "https://skillsmp.com/creators/moeru-ai/airi/agents-skills-server-gateway-refactor",
+  "stars": 46803,
+  "updatedAt": 1780465698
+}

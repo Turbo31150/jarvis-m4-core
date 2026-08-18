@@ -1,0 +1,11 @@
+{
+  "id": "jimliu-baoyu-skills-skills-baoyu-youtube-transcript-skill-md",
+  "name": "baoyu-youtube-transcript",
+  "author": "JimLiu",
+  "description": "Downloads YouTube video transcripts/subtitles and cover images by URL or video ID. Supports multiple languages, translation, chapters, and speaker identification. Caches raw data for fast re-formatting. Use when user asks to \"get YouTube transcript\", \"download subtitles\", \"get captions\", \"YouTube\u5b57\u5e55\", \"YouTube\u5c01\u9762\", \"\u89c6\u9891\u5c01\u9762\", \"video thumbnail\", \"video cover image\", or provides a YouTube URL and wants the transcript/subtitle text or cover image extracted.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/JimLiu/baoyu-skills/tree/main/skills/baoyu-youtube-transcript",
+  "skillUrl": "https://skillsmp.com/creators/jimliu/baoyu-skills/skills-baoyu-youtube-transcript",
+  "stars": 24551,
+  "updatedAt": 1775277342
+}

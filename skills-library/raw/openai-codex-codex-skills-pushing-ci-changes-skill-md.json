@@ -1,0 +1,11 @@
+{
+  "id": "openai-codex-codex-skills-pushing-ci-changes-skill-md",
+  "name": "pushing-ci-changes",
+  "author": "openai",
+  "description": "Pushing GitHub Actions changes, resolving push rejection, requesting upload exceptions.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openai/codex/tree/main/.codex/skills/pushing-ci-changes",
+  "skillUrl": "https://skillsmp.com/creators/openai/codex/codex-skills-pushing-ci-changes",
+  "stars": 103817,
+  "updatedAt": 1780612816
+}

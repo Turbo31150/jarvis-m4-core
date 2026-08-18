@@ -1,0 +1,11 @@
+{
+  "id": "martinholovsky-claude-skills-generator-skills-prompt-engineering-skill-md",
+  "name": "prompt-engineering",
+  "author": "martinholovsky",
+  "description": "Expert skill for prompt engineering and task routing/orchestration. Covers secure prompt construction, injection prevention, multi-step task orchestration, and LLM output validation for JARVIS AI assistant.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/prompt-engineering",
+  "skillUrl": "https://skillsmp.com/creators/martinholovsky/claude-skills-generator/skills-prompt-engineering",
+  "stars": 45,
+  "updatedAt": 1764090731
+}

@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruflo-plugins-ruflo-ddd-skills-ddd-aggregate-skill-md",
+  "name": "ddd-aggregate",
+  "author": "ruvnet",
+  "description": "Scaffold an aggregate root with entity, value objects, repository interface, domain events, and test stubs. Use when adding a new aggregate to an existing bounded context, modeling a new business concept that owns invariants, or generating the boilerplate for an entity + repo + events triplet.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/ruflo/tree/main/plugins/ruflo-ddd/skills/ddd-aggregate",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruflo/plugins-ruflo-ddd-skills-ddd-aggregate",
+  "stars": 66991,
+  "updatedAt": 1784257589
+}

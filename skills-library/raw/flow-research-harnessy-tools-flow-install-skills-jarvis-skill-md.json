@@ -1,0 +1,11 @@
+{
+  "id": "flow-research-harnessy-tools-flow-install-skills-jarvis-skill-md",
+  "name": "jarvis",
+  "author": "Flow-Research",
+  "description": "Bridge to Jarvis CLI for scheduling, journaling, reading list orchestration, and context management.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/Flow-Research/harnessy/tree/main/tools/flow-install/skills/jarvis",
+  "skillUrl": "https://skillsmp.com/creators/flow-research/harnessy/tools-flow-install-skills-jarvis",
+  "stars": 30,
+  "updatedAt": 1780404573
+}

@@ -1,0 +1,11 @@
+{
+  "id": "posthog-posthog-products-signals-skills-debugging-signals-pipeline-skill-md",
+  "name": "debugging-signals-pipeline",
+  "author": "PostHog",
+  "description": "Debug the signals pipeline locally end-to-end. Covers emitting test signals from fixtures, monitoring Temporal workflows via the REST API, reading sandbox agent logs from object storage, inspecting Docker sandbox containers, and diagnosing common failures (stale ClickHouse embeddings, agentsh network denials, inactivity timeouts). Use when a signal isn't reaching the inbox, a signal-report-summary workflow fails, or a sandbox task run times out.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/PostHog/posthog/tree/master/products/signals/skills/debugging-signals-pipeline",
+  "skillUrl": "https://skillsmp.com/creators/posthog/posthog/products-signals-skills-debugging-signals-pipeline",
+  "stars": 37496,
+  "updatedAt": 1782122186
+}

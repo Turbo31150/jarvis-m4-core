@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-agents-skills-openclaw-qa-testing-skill-md",
+  "name": "openclaw-qa-testing",
+  "author": "openclaw",
+  "description": "Run, watch, debug, extend, or explain OpenClaw qa-lab and qa-channel scenarios, artifacts, and live lanes.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/.agents/skills/openclaw-qa-testing",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/agents-skills-openclaw-qa-testing",
+  "stars": 385119,
+  "updatedAt": 1785309817
+}

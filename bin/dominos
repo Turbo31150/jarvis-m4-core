@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+# dominos — runner unifié des dominos JARVIS.
+# Deux sources :
+#   [C] compilés  : ~/jarvis/dominos-compiled/dominos/*.sh  (générés, DRY-RUN natif)
+#   [S] séries    : ~/labo/bibliotheque/series/*.sh          (scripts prêts de la biblio)
+#
+#   dominos                      # liste tout (compilés + séries)
+#   dominos list                 # idem
+#   dominos search <mot>         # cherche par nom dans les 2 sources
+#   dominos <nom>                # [C] DRY-RUN  /  [S] APERÇU (n'exécute rien)
+#   dominos <nom> --run          # exécute (compilé: confirm OUI sur 🔴 ; série: lance le script)
+#   dominos recompile            # régénère les compilés depuis la base vive
+set -uo pipefail
+DIR="${DOMINO_DIR:-$HOME/jarvis/dominos-compiled/dominos}"      # [C]
+SERIES="${DOMINO_SERIES:-$HOME/labo/bibliotheque/series}"       # [S]
+COMPILER="$HOME/jarvis/bin/domino-compile.py"
+
+list_all(){
+  local nc=0 ns=0
+  echo "── [C] Dominos compilés (DRY-RUN sûr) ──"
+  for f in "$DIR"/*.sh; do [ -e "$f" ] || continue
+    printf '  %-42s %2s steps\n' "$(basename "$f" .sh)" "$(grep -c '^step \"' "$f")"; nc=$((nc+1)); done
+  echo "── [S] Séries biblio (scripts prêts) ──"
+  for f in "$SERIES"/*.sh; do [ -e "$f" ] || continue
+    printf '  %-42s [série]\n' "$(basename "$f" .sh)"; ns=$((ns+1)); done
+  echo "— $nc compilés + $ns séries = $((nc+ns)) au total"
+}
+
+# resolve → imprime "TYPE<TAB>chemin" (TYPE=C ou S). Exact puis sous-chaîne.
+resolve(){
+  local q="$1"
+  [ -f "$DIR/$q.sh" ] && { printf 'C\t%s\n' "$DIR/$q.sh"; return 0; }
+  [ -f "$SERIES/$q.sh" ] && { printf 'S\t%s\n' "$SERIES/$q.sh"; return 0; }
+  local m
+  m=$(ls "$DIR"/*"$q"*.sh 2>/dev/null | head -1); [ -n "$m" ] && { printf 'C\t%s\n' "$m"; return 0; }
+  m=$(ls "$SERIES"/*"$q"*.sh 2>/dev/null | head -1); [ -n "$m" ] && { printf 'S\t%s\n' "$m"; return 0; }
+  return 1
+}
+
+cmd="${1:-list}"
+case "$cmd" in
+  list|"") list_all ;;
+  search)
+    shift; q="${1:-}"; [ -z "$q" ] && { echo "usage: dominos search <mot>"; exit 1; }
+    { ls "$DIR" 2>/dev/null | sed 's/\.sh$/  [C]/'; ls "$SERIES" 2>/dev/null | sed 's/\.sh$/  [S]/'; } \
+      | grep -i "$q" | sed 's/^/  /' || echo "  (rien)"
+    ;;
+  recompile) python3 "$COMPILER" "$(dirname "$DIR")" ;;
+  *)
+    r=$(resolve "$cmd") || { echo "introuvable: $cmd (essaie: dominos search $cmd)"; exit 1; }
+    typ=${r%%$'\t'*}; f=${r#*$'\t'}; shift
+    if [ "$typ" = "C" ]; then
+      echo "▶ [compilé] $(basename "$f" .sh)  ${*:-（dry-run — --run pour exécuter）}"
+      bash "$f" "$@"
+    else
+      # Série biblio : script prêt, potentiellement à effets. Aperçu par défaut.
+      if [ "${1:-}" = "--run" ]; then
+        echo "▶ [série] $(basename "$f" .sh) — EXÉCUTION"; shift; bash "$f" "$@"
+      else
+        echo "▶ [série] $(basename "$f" .sh) — APERÇU (ajoute --run pour exécuter)"
+        echo "  fichier: $f"; echo "  ── contenu ──"; sed 's/^/  /' "$f" | head -40
+        echo "  …(dominos $(basename "$f" .sh) --run pour lancer)"
+      fi
+    fi
+    ;;
+esac

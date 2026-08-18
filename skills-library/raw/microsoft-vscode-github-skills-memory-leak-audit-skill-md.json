@@ -1,0 +1,11 @@
+{
+  "id": "microsoft-vscode-github-skills-memory-leak-audit-skill-md",
+  "name": "memory-leak-audit",
+  "author": "microsoft",
+  "description": "Audit code for memory leaks and disposable issues. Use when reviewing event listeners, DOM handlers, lifecycle callbacks, or fixing leak reports. Covers addDisposableListener, Event.once, MutableDisposable, DisposableStore, and onWillDispose patterns.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/microsoft/vscode/tree/main/.github/skills/memory-leak-audit",
+  "skillUrl": "https://skillsmp.com/creators/microsoft/vscode/github-skills-memory-leak-audit",
+  "stars": 188283,
+  "updatedAt": 1780025717
+}

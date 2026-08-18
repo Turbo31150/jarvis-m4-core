@@ -1,0 +1,11 @@
+{
+  "id": "samchon-nestia-agents-skills-multi-agent-skill-md",
+  "name": "multi-agent",
+  "author": "samchon",
+  "description": "Defines the explicitly parallel variants of nestia review and issue campaigns. Use only when the user explicitly requests a team, parallel, or multi-agent review or campaign. Route review work to review.md and issue campaigns to issue-campaign.md. Self-Review and unqualified review remain solo. Multi-agent issue campaigns parallelize discovery and implementation by default, but an explicit request may limit parallelism to discovery and return implementation to the solo campaign.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/samchon/nestia/tree/master/.agents/skills/multi-agent",
+  "skillUrl": "https://skillsmp.com/creators/samchon/nestia/agents-skills-multi-agent",
+  "stars": 2173,
+  "updatedAt": 1784729004
+}

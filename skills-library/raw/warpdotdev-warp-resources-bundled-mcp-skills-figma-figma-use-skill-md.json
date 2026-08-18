@@ -1,0 +1,11 @@
+{
+  "id": "warpdotdev-warp-resources-bundled-mcp-skills-figma-figma-use-skill-md",
+  "name": "figma-use",
+  "author": "warpdotdev",
+  "description": "**MANDATORY prerequisite** \u2014 you MUST invoke this skill BEFORE every `use_figma` tool call. NEVER call `use_figma` directly without loading this skill first. Skipping it causes common, hard-to-debug failures. Trigger whenever the user wants to perform a write action or a unique read action that requires JavaScript execution in the Figma file context \u2014 e.g. create/edit/delete nodes, set up variables or tokens, build components and variants, modify auto-layout or fills, bind variables to properties, or inspect file structure programmatically.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/warpdotdev/warp/tree/master/resources/bundled/mcp_skills/figma/figma-use",
+  "skillUrl": "https://skillsmp.com/creators/warpdotdev/warp/resources-bundled-mcp-skills-figma-figma-use",
+  "stars": 63937,
+  "updatedAt": 1782847499
+}

@@ -1,0 +1,11 @@
+{
+  "id": "remsky-kokoro-fastapi-claude-skills-api-contrib-skill-md",
+  "name": "api-contrib",
+  "author": "remsky",
+  "description": "Contributing to the Kokoro-FastAPI Python API: module layout, endpoint gating pattern, test expectations. Use when adding or changing endpoints, services, or inference code.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/remsky/Kokoro-FastAPI/tree/master/.claude/skills/api-contrib",
+  "skillUrl": "https://skillsmp.com/creators/remsky/kokoro-fastapi/claude-skills-api-contrib",
+  "stars": 5292,
+  "updatedAt": 1784091862
+}

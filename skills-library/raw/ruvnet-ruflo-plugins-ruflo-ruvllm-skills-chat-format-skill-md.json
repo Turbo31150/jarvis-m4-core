@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruflo-plugins-ruflo-ruvllm-skills-chat-format-skill-md",
+  "name": "chat-format",
+  "author": "ruvnet",
+  "description": "Format prompts for different LLM providers with chat templates and HNSW-powered context retrieval",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/ruflo/tree/main/plugins/ruflo-ruvllm/skills/chat-format",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruflo/plugins-ruflo-ruvllm-skills-chat-format",
+  "stars": 66991,
+  "updatedAt": 1784257589
+}

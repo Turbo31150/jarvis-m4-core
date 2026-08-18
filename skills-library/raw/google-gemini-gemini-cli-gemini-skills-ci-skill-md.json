@@ -1,0 +1,11 @@
+{
+  "id": "google-gemini-gemini-cli-gemini-skills-ci-skill-md",
+  "name": "ci",
+  "author": "google-gemini",
+  "description": "A specialized skill for Gemini CLI that provides high-performance, fail-fast monitoring of GitHub Actions workflows and automated local verification of CI failures. It handles run discovery automatically\u2014simply provide the branch name.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/google-gemini/gemini-cli/tree/main/.gemini/skills/ci",
+  "skillUrl": "https://skillsmp.com/creators/google-gemini/gemini-cli/gemini-skills-ci",
+  "stars": 106351,
+  "updatedAt": 1774406995
+}

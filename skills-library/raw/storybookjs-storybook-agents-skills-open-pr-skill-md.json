@@ -1,0 +1,11 @@
+{
+  "id": "storybookjs-storybook-agents-skills-open-pr-skill-md",
+  "name": "open-pr",
+  "author": "storybookjs",
+  "description": "Opens a pull request from the current branch using the PR template. Use when the user asks to open a PR, create a pull request, or invokes /open-pr.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/storybookjs/storybook/tree/next/.agents/skills/open-pr",
+  "skillUrl": "https://skillsmp.com/creators/storybookjs/storybook/agents-skills-open-pr",
+  "stars": 90755,
+  "updatedAt": 1782464259
+}

@@ -1,0 +1,11 @@
+{
+  "id": "davila7-claude-code-templates-cli-tool-components-skills-development-manifest-skill-md",
+  "name": "manifest",
+  "author": "davila7",
+  "description": "Install and configure the Manifest observability plugin for your agents. Use when setting up telemetry, configuring API keys or endpoints, troubleshooting plugin connection issues, or verifying the observability pipeline is running.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/manifest",
+  "skillUrl": "https://skillsmp.com/creators/davila7/claude-code-templates/cli-tool-components-skills-development-manifest",
+  "stars": 30096,
+  "updatedAt": 1771823691
+}

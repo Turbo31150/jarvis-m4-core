@@ -1,0 +1,11 @@
+{
+  "id": "martinholovsky-claude-skills-generator-skills-vue-nuxt-skill-md",
+  "name": "vue-nuxt",
+  "author": "martinholovsky",
+  "description": "Vue 3 and Nuxt 3 for JARVIS AI Assistant UI development with security-first patterns",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/vue-nuxt",
+  "skillUrl": "https://skillsmp.com/creators/martinholovsky/claude-skills-generator/skills-vue-nuxt",
+  "stars": 45,
+  "updatedAt": 1764090731
+}

@@ -1,0 +1,11 @@
+{
+  "id": "code-yeongyu-oh-my-openagent-packages-shared-skills-skills-data-scientist-skill-md",
+  "name": "data-scientist",
+  "author": "code-yeongyu",
+  "description": "Expert data processing specialist with intelligent DuckDB/Polars selection for maximum performance. Always includes numpy, never uses pandas, runs everything through uv. Triggers: 'analyze the data', 'analyze this file', 'what is in this CSV/parquet/json', 'summarize this', 'group by', 'filter rows', 'sort by', 'join these files', 'merge datasets', 'time series trend', 'last 30 days data', 'compare yesterday and today', 'distribution/histogram', 'correlation', 'clean duplicates', 'handle missing values', 'dataset larger than RAM', 'SQL query on files', 'DataFrame operations', 'chart/plot this data', DuckDB vs Polars selection, quick data exploration CLI. NOT for plain text/code inspection, configs, or tiny inline math.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/code-yeongyu/oh-my-openagent/tree/dev/packages/shared-skills/skills/data-scientist",
+  "skillUrl": "https://skillsmp.com/creators/code-yeongyu/oh-my-openagent/packages-shared-skills-skills-data-scientist",
+  "stars": 67193,
+  "updatedAt": 1785481253
+}

@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-zh-cn-skills-accessibility-skill-md",
+  "name": "accessibility",
+  "author": "affaan-m",
+  "description": "\u4f7f\u7528 WCAG 2.2 Level AA \u6807\u51c6\u8bbe\u8ba1\u3001\u5b9e\u65bd\u548c\u5ba1\u8ba1\u5305\u5bb9\u6027\u6570\u5b57\u4ea7\u54c1\u3002\u8fd0\u7528\u6b64\u6280\u80fd\u4e3a Web \u751f\u6210\u8bed\u4e49 ARIA\uff0c\u5e76\u4e3a Web \u548c\u539f\u751f\u5e73\u53f0\uff08iOS/Android\uff09\u751f\u6210\u65e0\u969c\u788d\u7279\u6027\u3002",
+  "contentLanguage": "zh",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/zh-CN/skills/accessibility",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-zh-cn-skills-accessibility",
+  "stars": 237500,
+  "updatedAt": 1778527909
+}

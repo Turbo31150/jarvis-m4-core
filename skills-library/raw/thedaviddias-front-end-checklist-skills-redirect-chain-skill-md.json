@@ -1,0 +1,11 @@
+{
+  "id": "thedaviddias-front-end-checklist-skills-redirect-chain-skill-md",
+  "name": "redirect-chain",
+  "author": "thedaviddias",
+  "description": "Use when auditing site redirects after URL migrations, domain changes, or CMS upgrades. Applies to any site that has had multiple rounds of structural changes over time.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedaviddias/Front-End-Checklist/tree/main/skills/redirect-chain",
+  "skillUrl": "https://skillsmp.com/creators/thedaviddias/front-end-checklist/skills-redirect-chain",
+  "stars": 73416,
+  "updatedAt": 1780091646
+}

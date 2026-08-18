@@ -1,0 +1,11 @@
+{
+  "id": "thedaviddias-front-end-checklist-skills-blocked-links-skill-md",
+  "name": "blocked-links",
+  "author": "thedaviddias",
+  "description": "Use when reviewing HTML source and JavaScript for links or resource URLs pointing to domains listed in common adblocker filter lists.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedaviddias/Front-End-Checklist/tree/main/skills/blocked-links",
+  "skillUrl": "https://skillsmp.com/creators/thedaviddias/front-end-checklist/skills-blocked-links",
+  "stars": 73416,
+  "updatedAt": 1780091646
+}

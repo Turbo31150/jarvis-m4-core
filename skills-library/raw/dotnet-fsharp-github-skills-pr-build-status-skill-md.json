@@ -1,0 +1,11 @@
+{
+  "id": "dotnet-fsharp-github-skills-pr-build-status-skill-md",
+  "name": "pr-build-status",
+  "author": "dotnet",
+  "description": "Retrieve and analyze Azure DevOps build failures for GitHub PRs. Use when CI fails. CRITICAL: Collect ALL errors from ALL platforms FIRST, write hypotheses to file, then fix systematically.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/dotnet/fsharp/tree/main/.github/skills/pr-build-status",
+  "skillUrl": "https://skillsmp.com/creators/dotnet/fsharp/github-skills-pr-build-status",
+  "stars": 4320,
+  "updatedAt": 1781686853
+}

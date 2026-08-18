@@ -1,0 +1,11 @@
+{
+  "id": "browser-use-browser-use-skills-remote-browser-skill-md",
+  "name": "remote-browser",
+  "author": "browser-use",
+  "description": "Controls a local browser from a sandboxed remote machine. Use when the agent is running in a sandbox (no GUI) and needs to navigate websites, interact with web pages, fill forms, take screenshots, or expose local dev servers via tunnels.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/browser-use/browser-use/tree/main/skills/remote-browser",
+  "skillUrl": "https://skillsmp.com/creators/browser-use/browser-use/skills-remote-browser",
+  "stars": 107820,
+  "updatedAt": 1774398458
+}

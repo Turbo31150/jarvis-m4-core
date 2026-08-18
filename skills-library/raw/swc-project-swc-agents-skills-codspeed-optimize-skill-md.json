@@ -1,0 +1,11 @@
+{
+  "id": "swc-project-swc-agents-skills-codspeed-optimize-skill-md",
+  "name": "codspeed-optimize",
+  "author": "swc-project",
+  "description": "Autonomously optimize code for performance using CodSpeed benchmarks, flamegraph analysis, and iterative improvement. Use this skill whenever the user wants to make code faster, reduce CPU usage, optimize memory, improve throughput, find performance bottlenecks, or asks to 'optimize', 'speed up', 'make faster', 'reduce latency', 'improve performance', or points at a CodSpeed benchmark result wanting improvements. Also trigger when the user mentions a slow function, a regression, or wants to understand where time is spent in their code.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/swc-project/swc/tree/main/.agents/skills/codspeed-optimize",
+  "skillUrl": "https://skillsmp.com/creators/swc-project/swc/agents-skills-codspeed-optimize",
+  "stars": 34161,
+  "updatedAt": 1780207479
+}

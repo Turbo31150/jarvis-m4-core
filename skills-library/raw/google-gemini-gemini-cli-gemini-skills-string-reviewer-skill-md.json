@@ -1,0 +1,11 @@
+{
+  "id": "google-gemini-gemini-cli-gemini-skills-string-reviewer-skill-md",
+  "name": "string-reviewer",
+  "author": "google-gemini",
+  "description": "Use this skill when asked to review text and user-facing strings within the codebase. It ensures that these strings follow rules on clarity, usefulness, brevity and style.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/google-gemini/gemini-cli/tree/main/.gemini/skills/string-reviewer",
+  "skillUrl": "https://skillsmp.com/creators/google-gemini/gemini-cli/gemini-skills-string-reviewer",
+  "stars": 106351,
+  "updatedAt": 1772837171
+}

@@ -1,0 +1,11 @@
+{
+  "id": "thedaviddias-front-end-checklist-skills-memory-leaks-skill-md",
+  "name": "memory-leaks",
+  "author": "thedaviddias",
+  "description": "Use when reviewing scripts, client components, bundles, or runtime behavior related to Prevent common memory leak patterns. Inspect both source code and the browser execution path so fixes target the real bottleneck or bug.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedaviddias/Front-End-Checklist/tree/main/skills/memory-leaks",
+  "skillUrl": "https://skillsmp.com/creators/thedaviddias/front-end-checklist/skills-memory-leaks",
+  "stars": 73416,
+  "updatedAt": 1780091646
+}

@@ -1,0 +1,11 @@
+{
+  "id": "paperclipai-paperclip-skills-para-memory-files-skill-md",
+  "name": "para-memory-files",
+  "author": "paperclipai",
+  "description": "Use a file-based PARA memory system to store, retrieve, and organize durable knowledge across sessions. Trigger on saving facts, daily notes, entity records, weekly synthesis, recall, tacit user patterns, or plan memory.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/paperclipai/paperclip/tree/master/skills/para-memory-files",
+  "skillUrl": "https://skillsmp.com/creators/paperclipai/paperclip/skills-para-memory-files",
+  "stars": 75602,
+  "updatedAt": 1783691180
+}

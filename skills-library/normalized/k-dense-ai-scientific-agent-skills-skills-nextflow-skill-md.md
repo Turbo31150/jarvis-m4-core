@@ -1,0 +1,28 @@
+---
+id: k-dense-ai-scientific-agent-skills-skills-nextflow-skill-md
+name: "nextflow"
+author: "K-Dense-AI"
+repository: "https://github.com/K-Dense-AI/scientific-agent-skills/tree/main/skills/nextflow"
+skill_url: "https://skillsmp.com/creators/k-dense-ai/scientific-agent-skills/skills-nextflow"
+stars: 32587
+verified: false
+quality_score: 100
+security_score: 20
+status: "DANGEROUS"
+collected_at: "2026-08-07T17:08:31.694183"
+---
+
+# Résumé
+Build, run, and debug Nextflow data pipelines and nf-core workflows end to end. Use whenever the user mentions Nextflow, nf-core, .nf files, nextflow.config, DSL2, processes/channels/operators, samplesheets, or wants to run a community pipeline (e.g. nf-core/rnaseq, nf-core/sarek), write or test a module/subworkflow with nf-test, configure executors/containers (Docker, Singularity/Apptainer, Conda, Wave), scale a workflow to HPC/SLURM or cloud (AWS Batch, Google Batch, Azure, Kubernetes), or debug a failed/-resume run. Make sure to use this skill for any reproducible scientific/bioinformatics workflow work even if the user does not say the word "Nextflow", and for authoring nf-core-compliant pipelines, modules, configs, and linting.
+
+# Objectif
+Skill d'automatisation/intégration pour nextflow.
+
+# Déclencheurs d’utilisation
+Mots-clés associés: nextflow, K-Dense-AI
+
+# Procédure
+Consulter le dépôt source: https://github.com/K-Dense-AI/scientific-agent-skills/tree/main/skills/nextflow
+
+# Adaptation Gemini CLI / Claude Code / Jarvis OS
+Incorpore ce skill en suivant la structure d'appel native du repository source.

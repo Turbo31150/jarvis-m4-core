@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-skills-mcporter-skill-md",
+  "name": "mcporter",
+  "author": "openclaw",
+  "description": "List, configure, authenticate, call, and inspect MCP servers/tools with mcporter over HTTP or stdio.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/skills/mcporter",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/skills-mcporter",
+  "stars": 385119,
+  "updatedAt": 1779015027
+}

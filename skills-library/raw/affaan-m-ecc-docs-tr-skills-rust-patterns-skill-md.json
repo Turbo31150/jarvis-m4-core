@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-tr-skills-rust-patterns-skill-md",
+  "name": "rust-patterns",
+  "author": "affaan-m",
+  "description": "Idiomatic Rust patterns, ownership, error handling, traits, concurrency, and best practices for building safe, performant applications.",
+  "contentLanguage": "tur",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/tr/skills/rust-patterns",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-tr-skills-rust-patterns",
+  "stars": 237500,
+  "updatedAt": 1774219024
+}

@@ -1,0 +1,11 @@
+{
+  "id": "thedaviddias-front-end-checklist-skills-error-monitoring-skill-md",
+  "name": "error-monitoring",
+  "author": "thedaviddias",
+  "description": "Use when setting up a new project's production observability stack, reviewing incident response readiness, or investigating why errors are going undetected.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedaviddias/Front-End-Checklist/tree/main/skills/error-monitoring",
+  "skillUrl": "https://skillsmp.com/creators/thedaviddias/front-end-checklist/skills-error-monitoring",
+  "stars": 73416,
+  "updatedAt": 1780091646
+}

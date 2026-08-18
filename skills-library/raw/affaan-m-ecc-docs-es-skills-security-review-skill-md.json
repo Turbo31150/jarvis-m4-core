@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-es-skills-security-review-skill-md",
+  "name": "security-review",
+  "author": "affaan-m",
+  "description": "Usar este skill al agregar autenticaci\u00f3n, manejar entradas de usuario, trabajar con secretos, crear endpoints de API o implementar funcionalidades de pago/sensibles. Proporciona lista de verificaci\u00f3n y patrones de seguridad completos.",
+  "contentLanguage": "es",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/es/skills/security-review",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-es-skills-security-review",
+  "stars": 237500,
+  "updatedAt": 1780810002
+}

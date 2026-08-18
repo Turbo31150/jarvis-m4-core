@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-es-skills-tdd-workflow-skill-md",
+  "name": "tdd-workflow",
+  "author": "affaan-m",
+  "description": "Usar este skill al escribir nuevas funcionalidades, corregir bugs o refactorizar c\u00f3digo. Aplica el desarrollo guiado por pruebas con 80%+ de cobertura incluyendo pruebas unitarias, de integraci\u00f3n y E2E.",
+  "contentLanguage": "es",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/es/skills/tdd-workflow",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-es-skills-tdd-workflow",
+  "stars": 237500,
+  "updatedAt": 1780810002
+}

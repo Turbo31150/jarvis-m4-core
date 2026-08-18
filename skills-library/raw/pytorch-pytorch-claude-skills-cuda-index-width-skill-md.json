@@ -1,0 +1,11 @@
+{
+  "id": "pytorch-pytorch-claude-skills-cuda-index-width-skill-md",
+  "name": "cuda-index-width",
+  "author": "pytorch",
+  "description": "Choose 32-bit vs 64-bit index math in PyTorch CUDA kernels. Use when fixing large-tensor indexing overflows, deciding whether to use int64_t, canUse32BitIndexMath, CUDA_KERNEL_LOOP_TYPE, or AT_DISPATCH_INDEX_TYPES, and when considering binary-size or performance impact of index-type templating.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/pytorch/pytorch/tree/main/.claude/skills/cuda-index-width",
+  "skillUrl": "https://skillsmp.com/creators/pytorch/pytorch/claude-skills-cuda-index-width",
+  "stars": 102180,
+  "updatedAt": 1783394705
+}

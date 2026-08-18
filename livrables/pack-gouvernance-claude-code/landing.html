@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pack Gouvernance Claude Code — Garde-fous pour agents IA : thermique, anti-boucle, RGPD</title>
+<meta name="description" content="Un bundle de hooks et de garde-fous pour Claude Code et vos agents IA : garde thermique, anti-boucle, blocage des commandes destructrices, protection RGPD, stop-cycles et checkpoint sécurisé. Faites tourner vos agents sans cramer la machine ni fuiter un secret. 79 €.">
+<style>
+  :root{
+    --bg:#f7f6f3;
+    --surface:#ffffff;
+    --surface-2:#efece5;
+    --ink:#171310;
+    --ink-soft:#48413a;
+    --ink-mute:#726a5f;
+    --line:#e0dbd0;
+    --brand:#b06a12;
+    --brand-ink:#7d4a09;
+    --accent:#2f6f57;
+    --gold:#8a6a24;
+    --danger:#b23120;
+    --radius:16px;
+    --maxw:1140px;
+    --shadow:0 1px 2px rgba(30,22,14,.05),0 12px 32px -18px rgba(30,22,14,.24);
+    --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
+    --mono:ui-monospace,"SFMono-Regular","Menlo","Consolas","Liberation Mono",monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --bg:#100d0a;
+      --surface:#191510;
+      --surface-2:#221c15;
+      --ink:#f2ede4;
+      --ink-soft:#cbc2b4;
+      --ink-mute:#948a7b;
+      --line:#312a20;
+      --brand:#e0a04a;
+      --brand-ink:#f0c67f;
+      --accent:#57c199;
+      --gold:#d3b25f;
+      --danger:#e3745f;
+      --shadow:0 1px 2px rgba(0,0,0,.45),0 18px 44px -22px rgba(0,0,0,.72);
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+  body{margin:0;font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1.6;font-size:17px;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  h1,h2,h3{line-height:1.2;letter-spacing:-.02em;margin:0 0 .5em;font-weight:680}
+  h1{font-size:clamp(2.1rem,5vw,3.4rem)}
+  h2{font-size:clamp(1.6rem,3.4vw,2.3rem);margin-top:0}
+  h3{font-size:1.15rem;letter-spacing:-.01em}
+  p{margin:0 0 1rem;color:var(--ink-soft)}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .eyebrow{display:inline-flex;align-items:center;gap:.5em;font-size:.78rem;font-weight:640;letter-spacing:.09em;text-transform:uppercase;color:var(--brand-ink);background:var(--surface-2);border:1px solid var(--line);padding:.4em .85em;border-radius:100px}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block}
+  section{padding:clamp(56px,8vw,104px) 0}
+  .lede{font-size:1.18rem;color:var(--ink-soft);max-width:62ch}
+  .muted{color:var(--ink-mute)}
+  .btn{display:inline-flex;align-items:center;gap:.55em;justify-content:center;font-weight:640;font-size:1rem;padding:.9em 1.5em;border-radius:12px;border:1px solid transparent;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease,background .15s ease}
+  .btn:hover{text-decoration:none;transform:translateY(-1px)}
+  .btn-primary{background:var(--brand);color:#fff;box-shadow:var(--shadow)}
+  .btn-primary:hover{background:var(--brand-ink)}
+  .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+  .btn-ghost:hover{background:var(--surface-2)}
+  :focus-visible{outline:3px solid var(--brand);outline-offset:2px;border-radius:8px}
+
+  header.nav{position:sticky;top:0;z-index:40;backdrop-filter:saturate(140%) blur(10px);background:color-mix(in srgb,var(--bg) 82%,transparent);border-bottom:1px solid var(--line)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .brand{display:flex;align-items:center;gap:.6em;font-weight:700;letter-spacing:-.01em;color:var(--ink)}
+  .brand .mark{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--brand),var(--danger));display:grid;place-items:center;color:#fff;font-size:.9rem;font-weight:700}
+  .nav-links{display:flex;gap:1.6rem;align-items:center}
+  .nav-links a{color:var(--ink-soft);font-size:.95rem;font-weight:520}
+  .nav-links a:hover{color:var(--ink);text-decoration:none}
+  @media(max-width:860px){.nav-links{display:none}}
+
+  .hero{padding-top:clamp(48px,6vw,80px);position:relative;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:56px;align-items:center}
+  @media(max-width:940px){.hero-grid{grid-template-columns:1fr;gap:40px}}
+  .hero h1{margin-top:.5rem}
+  .hero .cta-row{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.8rem}
+  .trust-row{display:flex;gap:1.4rem;flex-wrap:wrap;margin-top:2.4rem;padding-top:1.6rem;border-top:1px solid var(--line)}
+  .trust-row div{font-size:.9rem;color:var(--ink-mute)}
+  .trust-row strong{display:block;color:var(--ink);font-size:1.05rem;font-weight:660;letter-spacing:-.01em}
+
+  /* terminal panel */
+  .term{background:#14110c;border:1px solid #2c2418;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;font-family:var(--mono)}
+  .term .bar{display:flex;align-items:center;gap:.5em;padding:12px 16px;background:#1c1710;border-bottom:1px solid #2c2418}
+  .term .bar i{width:11px;height:11px;border-radius:50%;display:inline-block}
+  .term .bar .t{margin-left:.6em;font-size:.78rem;color:#8c8272;letter-spacing:.02em}
+  .term .body{padding:18px 18px 22px;font-size:.86rem;line-height:1.7}
+  .term .body div{white-space:pre-wrap;word-break:break-word}
+  .term .cmd{color:#d9d2c4}
+  .term .cmd::before{content:"$ ";color:#5b8f75}
+  .term .block{color:#e0a04a}
+  .term .ok{color:#57c199}
+  .term .warn{color:#e3745f}
+  .term .dim{color:#7a7060}
+
+  .band{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  @media(max-width:820px){.cols3{grid-template-columns:1fr}}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow)}
+  .band .card{background:var(--surface-2)}
+  .card .ic{width:40px;height:40px;border-radius:10px;background:var(--surface-2);display:grid;place-items:center;margin-bottom:14px;font-size:1.2rem}
+  .band .card .ic{background:var(--surface)}
+
+  /* included hooks grid */
+  .cols2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:760px){.cols2{grid-template-columns:1fr}}
+  .hook{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;gap:16px;align-items:flex-start}
+  .band .hook{background:var(--surface-2)}
+  .hook .tag{flex:none;width:44px;height:44px;border-radius:11px;display:grid;place-items:center;font-size:1.25rem;background:var(--surface);border:1px solid var(--line)}
+  .hook h3{margin:0 0 .3em;font-size:1.03rem}
+  .hook p{margin:0;font-size:.92rem}
+  .hook code{font-family:var(--mono);font-size:.8rem;color:var(--brand-ink);background:var(--surface-2);border:1px solid var(--line);padding:.05em .4em;border-radius:5px}
+
+  .checklist{list-style:none;padding:0;margin:0}
+  .checklist li{position:relative;padding:.55em 0 .55em 1.9em;border-top:1px solid var(--line);font-size:.96rem;color:var(--ink-soft)}
+  .checklist li:first-child{border-top:0}
+  .checklist li::before{content:"✓";position:absolute;left:0;top:.55em;color:var(--accent);font-weight:700}
+
+  /* founder persona */
+  .founder{display:grid;grid-template-columns:200px 1fr;gap:32px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:clamp(24px,4vw,40px);box-shadow:var(--shadow)}
+  @media(max-width:720px){.founder{grid-template-columns:1fr;text-align:center}}
+  .avatar{aspect-ratio:1;border-radius:20px;border:2px dashed var(--line);background:var(--surface-2);display:grid;place-items:center;text-align:center;color:var(--ink-mute);font-size:.78rem;padding:16px;letter-spacing:.03em}
+  .avatar b{display:block;font-size:1.5rem;margin-bottom:.3em;color:var(--brand)}
+  .founder blockquote{margin:0 0 1rem;font-size:1.22rem;line-height:1.5;color:var(--ink);font-weight:560;letter-spacing:-.01em}
+  .founder .sig{color:var(--ink-mute);font-size:.95rem}
+  .founder .sig strong{color:var(--ink)}
+
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  @media(max-width:620px){.stat-row{grid-template-columns:1fr}}
+  .stat{background:var(--surface-2);border:1px solid var(--line);border-radius:14px;padding:22px}
+  .stat b{display:block;font-size:1.7rem;font-weight:720;letter-spacing:-.02em;color:var(--brand-ink)}
+  .stat span{font-size:.88rem;color:var(--ink-mute)}
+
+  .price-block{background:var(--surface);border:1px solid var(--brand);border-radius:var(--radius);box-shadow:0 0 0 1px var(--brand),var(--shadow);padding:clamp(28px,4vw,44px);display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center}
+  @media(max-width:820px){.price-block{grid-template-columns:1fr}}
+  .price-block .amount{font-size:3rem;font-weight:740;letter-spacing:-.03em;color:var(--ink);margin:.1em 0}
+  .price-block .amount small{font-size:1rem;font-weight:500;color:var(--ink-mute)}
+  .price-block ul{list-style:none;padding:0;margin:0}
+  .price-block li{position:relative;padding:.5em 0 .5em 1.7em;border-top:1px solid var(--line);font-size:.96rem;color:var(--ink-soft)}
+  .price-block li:first-child{border-top:0}
+  .price-block li::before{content:"";position:absolute;left:0;top:.95em;width:8px;height:8px;border-radius:50%;background:var(--brand)}
+  .badge{display:inline-block;background:var(--brand);color:#fff;font-size:.72rem;font-weight:640;padding:.2em .7em;border-radius:100px;margin-left:.5em;vertical-align:middle}
+
+  details{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin-bottom:12px;overflow:hidden}
+  details[open]{box-shadow:var(--shadow)}
+  summary{cursor:pointer;padding:20px 22px;font-weight:600;color:var(--ink);list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1em}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";font-size:1.4rem;color:var(--ink-mute);font-weight:400;line-height:1}
+  details[open] summary::after{content:"–"}
+  details .body{padding:0 22px 20px;color:var(--ink-soft);font-size:.96rem}
+
+  .final{background:linear-gradient(135deg,var(--brand-ink),var(--brand));color:#fff;border-radius:var(--radius);padding:clamp(36px,6vw,64px);text-align:center;box-shadow:var(--shadow)}
+  .final h2{color:#fff}
+  .final p{color:rgba(255,255,255,.86);max-width:60ch;margin-inline:auto}
+  .final .btn-primary{background:#fff;color:var(--brand-ink)}
+  .final .btn-primary:hover{background:#efece5}
+  .final .btn-ghost{color:#fff;border-color:rgba(255,255,255,.4)}
+  .final .btn-ghost:hover{background:rgba(255,255,255,.12)}
+  .placeholder{color:var(--gold);font-weight:600}
+  footer{padding:44px 0 60px;border-top:1px solid var(--line);color:var(--ink-mute);font-size:.88rem}
+  .foot-in{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+  .section-head{max-width:66ch;margin-bottom:44px}
+  .kicker{color:var(--brand-ink);font-weight:640;font-size:.85rem;letter-spacing:.05em;text-transform:uppercase;margin-bottom:.6em}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <div class="brand"><span class="mark">⛨</span> Pack Gouvernance</div>
+    <nav class="nav-links" aria-label="Navigation principale">
+      <a href="#probleme">Le problème</a>
+      <a href="#inclus">Ce qui est inclus</a>
+      <a href="#difference">Souveraineté</a>
+      <a href="#offre">Prix</a>
+      <a href="#faq">FAQ</a>
+      <a href="#offre" class="btn btn-primary" style="padding:.55em 1.1em">Obtenir le pack</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow"><span class="dot"></span> Hooks · Garde-fous · Souverain</span>
+      <h1>Fais tourner tes agents IA sans cramer la machine ni fuiter un secret.</h1>
+      <p class="lede">Claude Code et les agents autonomes, c'est puissant — et dangereux quand rien ne les encadre : boucles infinies qui font monter le CPU à 100 °C, commandes destructrices lancées sans confirmation, secrets et données personnelles poussés par erreur. Le <strong>Pack Gouvernance Claude Code</strong> installe des <strong>garde-fous éprouvés</strong> : garde thermique, anti-boucle, blocage des commandes destructrices, protection RGPD, stop-cycles et checkpoint sécurisé.</p>
+      <div class="cta-row">
+        <a href="#offre" class="btn btn-primary">Obtenir le pack — 79 € →</a>
+        <a href="#inclus" class="btn btn-ghost">Voir les garde-fous</a>
+      </div>
+      <div class="trust-row">
+        <div><strong>Anti-casse</strong>Bloque avant l'irréversible</div>
+        <div><strong>Anti-fuite</strong>Aucun secret ni PII poussé</div>
+        <div><strong>Anti-surchauffe</strong>Coupe avant le point critique</div>
+      </div>
+    </div>
+    <aside class="term" aria-label="Exemple de garde-fous qui interviennent">
+      <div class="bar"><i style="background:#e3745f"></i><i style="background:#e0a04a"></i><i style="background:#57c199"></i><span class="t">claude-code · hooks actifs</span></div>
+      <div class="body">
+        <div class="cmd">rm -rf /home/projet/data</div>
+        <div class="warn">⛔ [hook destructif] Commande bloquée — cible non créée par l'agent.</div>
+        <div class="dim">—</div>
+        <div class="cmd">git commit -m "wip" && git push</div>
+        <div class="warn">⛔ [hook RGPD] .env + base *.db détectés → push refusé.</div>
+        <div class="dim">—</div>
+        <div class="block">🌡  [garde thermique] CPU 84 °C → pause de l'inférence…</div>
+        <div class="ok">✓  Reprise à 78 °C.</div>
+        <div class="dim">—</div>
+        <div class="block">🔁 [anti-boucle] 3e prompt identique détecté → cycle stoppé.</div>
+        <div class="ok">✓  Checkpoint sécurisé créé (code seul, 0 secret).</div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="band" id="probleme">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Le problème</div>
+      <h2>Un agent IA sans garde-fous, c'est une perceuse sans butée.</h2>
+      <p class="lede">Les agents exécutent vraiment des commandes sur votre machine. Sans limites, une seule dérive suffit à faire fondre votre CPU, effacer un dossier ou publier un token sur un dépôt public.</p>
+    </div>
+    <div class="cols3">
+      <div class="card">
+        <div class="ic">🔥</div>
+        <h3>La machine qui chauffe</h3>
+        <p>Boucles d'inférence, tâches parallèles mal bornées : le CPU/GPU grimpe à 90-100 °C. Au mieux ça throttle et rame, au pire ça abîme le matériel et fige la session.</p>
+      </div>
+      <div class="card">
+        <div class="ic">💥</div>
+        <h3>La commande de trop</h3>
+        <p><code style="font-family:var(--mono);font-size:.85em">rm -rf</code>, <code style="font-family:var(--mono);font-size:.85em">mkfs</code>, <code style="font-family:var(--mono);font-size:.85em">chmod 777 -R</code>… Un agent trop zélé lance l'irréversible sans vous demander. Le temps de réagir, c'est déjà fait.</p>
+      </div>
+      <div class="card">
+        <div class="ic">🕳️</div>
+        <h3>Le secret qui fuit</h3>
+        <p>Un <code style="font-family:var(--mono);font-size:.85em">.env</code>, une clé API, une base de données clients poussés dans un commit. Une fois sur un dépôt distant, la fuite est publique et permanente.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INCLUS -->
+<section id="inclus">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Ce qui est inclus</div>
+      <h2>Six garde-fous, installés et prêts à mordre.</h2>
+      <p class="lede">Chaque garde-fou est un hook ou un outil branché sur le cycle de vie de vos agents. Ils agissent en amont — avant l'action dangereuse — et sont fail-safe : ils bloquent le risque sans casser votre flux de travail.</p>
+    </div>
+    <div class="cols2">
+      <div class="hook">
+        <span class="tag">🌡️</span>
+        <div><h3>Garde thermique</h3><p>Surveille la température réelle du CPU/GPU et met l'inférence en pause avant le seuil critique. Reprise automatique une fois refroidi. <code>PreToolUse</code></p></div>
+      </div>
+      <div class="hook">
+        <span class="tag">🔁</span>
+        <div><h3>Anti-boucle</h3><p>Détecte les prompts ou actions identiques qui se répètent et stoppe le cycle avant l'emballement — au lieu de brûler du temps et du compute à vide.</p></div>
+      </div>
+      <div class="hook">
+        <span class="tag">⛔</span>
+        <div><h3>Blocage destructif</h3><p>Intercepte les commandes irréversibles (<code>rm -rf /</code>, <code>mkfs</code>, <code>dd</code>, <code>chmod 777 -R</code>) et refuse d'exécuter ce que l'agent n'a pas créé.</p></div>
+      </div>
+      <div class="hook">
+        <span class="tag">🛡️</span>
+        <div><h3>Garde RGPD</h3><p>Empêche de pousser des secrets (<code>.env</code>, tokens, clés) ou des données personnelles (bases <code>*.db</code>) vers un dépôt distant. Anti-fuite par défaut.</p></div>
+      </div>
+      <div class="hook">
+        <span class="tag">🧯</span>
+        <div><h3>Stop-cycles</h3><p>Coupe net les boucles de rétroaction (hooks qui se relancent, prompts en cascade) qui font tourner un agent en rond et saturent la machine.</p></div>
+      </div>
+      <div class="hook">
+        <span class="tag">💾</span>
+        <div><h3>Checkpoint sécurisé</h3><p>Sauvegarde propre de votre travail — code seul, jamais les secrets ni les données. Un point de retour sûr, garanti « 0 secret / PII poussé ».</p></div>
+      </div>
+    </div>
+    <p class="muted" style="font-size:.85rem;margin-top:1.4rem">Cible : Claude Code et tout environnement d'agents compatible hooks. Installation guidée, réversible. <span class="placeholder">[À CONFIRMER : liste exacte des environnements testés à la version livrée]</span></p>
+  </div>
+</section>
+
+<!-- DIFFERENCE / SOUVERAINETÉ + FOUNDER -->
+<section class="band" id="difference">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Le différenciateur</div>
+      <h2>Souverain par principe. Humain quand un garde-fou se déclenche.</h2>
+      <p class="lede">Ces garde-fous ne sont pas nés en laboratoire : ils viennent d'incidents réels de production sur une machine unique poussée à ses limites. Ils tournent <strong>chez vous</strong>, en local, et derrière il y a <strong>quelqu'un au bout du fil</strong> le jour où vous voulez comprendre pourquoi un hook a bloqué.</p>
+    </div>
+    <div class="cols2" style="margin-bottom:36px">
+      <div class="card">
+        <h3>100 % local, zéro télémétrie</h3>
+        <ul class="checklist">
+          <li>Les hooks s'exécutent sur votre machine, rien ne sort</li>
+          <li>Aucune donnée de vos sessions envoyée à un tiers</li>
+          <li>Code lisible, auditable, réversible</li>
+          <li>Pensé pour l'esprit RGPD et EU AI Act</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Un humain souverain au bout du fil</h3>
+        <ul class="checklist">
+          <li>Support par téléphone avec une vraie personne</li>
+          <li>On vous aide à installer et à régler les seuils</li>
+          <li>Pas de forum sans réponse, pas de ticket perdu</li>
+          <li>Éprouvé en conditions réelles, expliqué simplement</li>
+        </ul>
+      </div>
+    </div>
+    <div class="founder">
+      <div class="avatar" role="img" aria-label="Emplacement réservé pour la photo du fondateur">
+        <b>[AVATAR-FONDATEUR]</b>
+        Photo à insérer
+      </div>
+      <div>
+        <blockquote>« J'ai fait cramer ma propre machine à faire tourner des agents en boucle. Ces garde-fous, je les ai écrits pour moi d'abord — pour que l'IA travaille sans jamais mettre en danger le matériel, les données ou un secret. Aujourd'hui je les partage, et je réponds au téléphone. »</blockquote>
+        <div class="sig"><strong>Franck Delmas</strong> — fondateur AlkymIA, un humain souverain au bout du fil</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PREUVE -->
+<section id="preuve">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Preuves</div>
+      <h2>Des garde-fous nés de la production, pas du slide.</h2>
+    </div>
+    <div class="stat-row">
+      <div class="stat">
+        <b>Airia 2026</b>
+        <span>AlkymIA, lauréat du prix Airia 2026 pour l'IA souveraine. <span class="placeholder">[STAT — à confirmer selon la mention officielle]</span></span>
+      </div>
+      <div class="stat">
+        <b>82 °C</b>
+        <span>Seuil de garde thermique issu d'incidents réels de surchauffe en production sur machine unique.</span>
+      </div>
+      <div class="stat">
+        <b>0 secret</b>
+        <span>Objectif du checkpoint sécurisé : aucun <code style="font-family:var(--mono);font-size:.82em">.env</code>, aucune base élève ni PII poussés. Garde-fou vérifié.</span>
+      </div>
+    </div>
+    <div class="founder" style="margin-top:32px">
+      <div class="avatar" role="img" aria-label="Emplacement réservé pour la photo du client">
+        <b>[TÉMOIGNAGE]</b>
+        Client à recueillir
+      </div>
+      <div>
+        <blockquote>« Espace réservé à un témoignage authentique d'un dev ou d'une équipe utilisant le pack — à recueillir et publier une fois vérifié, avec accord de la personne. »</blockquote>
+        <div class="sig"><span class="placeholder">[Nom, rôle — témoignage honnête à confirmer]</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFRE / PRIX -->
+<section class="band" id="offre">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">L'offre</div>
+      <h2>79 €, une fois. Une assurance pour vos agents.</h2>
+    </div>
+    <div class="price-block">
+      <div>
+        <span class="eyebrow" style="margin-bottom:.6em"><span class="dot"></span> Bundle complet <span class="badge">6 garde-fous</span></span>
+        <div class="amount">79 € <small>· paiement unique</small></div>
+        <p class="muted" style="font-size:.95rem">Le prix d'un dîner face au coût d'un CPU grillé, d'un dossier effacé ou d'une clé API fuitée. Pas d'abonnement : vous installez, c'est à vous.</p>
+        <div class="cta-row">
+          <a href="#contact" class="btn btn-primary">Obtenir le pack →</a>
+          <a href="#faq" class="btn btn-ghost">J'ai une question</a>
+        </div>
+      </div>
+      <ul>
+        <li>Garde thermique + anti-boucle + blocage destructif + garde RGPD</li>
+        <li>Stop-cycles et checkpoint sécurisé</li>
+        <li>Documentation d'installation et de réglage des seuils</li>
+        <li>Hooks lisibles et éditables, aucun verrou</li>
+        <li>Exécution 100 % locale, zéro télémétrie</li>
+        <li>Support par téléphone avec un humain <span class="placeholder">[modalités à préciser]</span></li>
+      </ul>
+    </div>
+    <p class="muted" style="font-size:.85rem;margin-top:1.4rem">Prix TTC. Destiné aux devs et équipes utilisant Claude Code ou des agents IA compatibles hooks.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Questions fréquentes</div>
+      <h2>Ce que demandent les devs avant d'installer.</h2>
+    </div>
+    <details>
+      <summary>Est-ce que ça va ralentir ou brider mes agents ?</summary>
+      <div class="body">Non. Les garde-fous n'interviennent que sur les actions à risque : commande destructrice, push d'un secret, température au-dessus du seuil, boucle qui se répète. En fonctionnement normal, ils sont transparents. Ils sont fail-safe : conçus pour ne jamais bloquer votre travail légitime.</div>
+    </details>
+    <details>
+      <summary>Ça marche avec quoi exactement ?</summary>
+      <div class="body">Le pack cible Claude Code et les environnements d'agents compatibles hooks (PreToolUse, Stop, etc.). L'installation est guidée et réversible. La liste précise des environnements testés est fournie avec le pack. <span class="placeholder">[À CONFIRMER selon la version livrée]</span></div>
+    </details>
+    <details>
+      <summary>Les seuils sont-ils réglables ? (température, nombre de répétitions…)</summary>
+      <div class="body">Oui. La garde thermique, l'anti-boucle et le stop-cycles exposent leurs seuils dans des fichiers de configuration lisibles. Vous adaptez à votre matériel et à votre tolérance. Et si vous hésitez sur un réglage, on en parle au téléphone.</div>
+    </details>
+    <details>
+      <summary>Le garde RGPD peut-il bloquer un commit légitime par erreur ?</summary>
+      <div class="body">Il cible des motifs précis : fichiers <code style="font-family:var(--mono);font-size:.85em">.env</code>, clés/tokens, bases <code style="font-family:var(--mono);font-size:.85em">*.db</code> contenant des données. Les règles sont visibles et ajustables : vous pouvez affiner la liste. L'objectif est un filet de sécurité, pas une camisole — vous gardez le contrôle.</div>
+    </details>
+    <details>
+      <summary>Le support téléphone, c'est vraiment un humain ?</summary>
+      <div class="body">Oui, c'est la promesse AlkymIA. Le jour où un hook se déclenche et que vous voulez comprendre pourquoi, vous avez une vraie personne au bout du fil — pas un chatbot ni un formulaire. Modalités communiquées à l'achat.</div>
+    </details>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section id="contact">
+  <div class="wrap">
+    <div class="final">
+      <h2>Mets une butée sur ta perceuse.</h2>
+      <p>79 €, paiement unique, six garde-fous éprouvés en production, 100 % locaux, avec un humain au bout du fil. Tes agents IA travaillent — sans jamais cramer la machine ni fuiter un secret.</p>
+      <div class="cta-row" style="justify-content:center;margin-top:1.8rem">
+        <a href="mailto:[CONTACT-EMAIL]" class="btn btn-primary">Obtenir le Pack Gouvernance →</a>
+        <a href="tel:[CONTACT-TEL]" class="btn btn-ghost">Appeler un humain</a>
+      </div>
+      <p style="color:rgba(255,255,255,.7);margin-top:1.4rem;font-size:.86rem">Contact : <span class="placeholder" style="color:#fff">[CONTACT-EMAIL]</span> · Téléphone : <span class="placeholder" style="color:#fff">[CONTACT-TEL]</span></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-in">
+    <div class="brand"><span class="mark">⛨</span> Pack Gouvernance Claude Code</div>
+    <div>Garde-fous souverains pour agents IA · Local · RGPD · Un humain au bout du fil · Propulsé par la technologie JARVIS OS.</div>
+  </div>
+</footer>
+
+</body>
+</html>

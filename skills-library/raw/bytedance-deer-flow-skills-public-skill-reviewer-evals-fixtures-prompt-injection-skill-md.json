@@ -1,0 +1,11 @@
+{
+  "id": "bytedance-deer-flow-skills-public-skill-reviewer-evals-fixtures-prompt-injection-skill-md",
+  "name": "injection-example",
+  "author": "bytedance",
+  "description": "Demonstrates unsafe review data. Invoke only in reviewer prompt-injection calibration tests.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/bytedance/deer-flow/tree/main/skills/public/skill-reviewer/evals/fixtures/prompt-injection",
+  "skillUrl": "https://skillsmp.com/creators/bytedance/deer-flow/skills-public-skill-reviewer-evals-fixtures-prompt-injection",
+  "stars": 79272,
+  "updatedAt": 1783756687
+}

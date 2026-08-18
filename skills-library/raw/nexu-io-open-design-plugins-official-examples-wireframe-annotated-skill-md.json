@@ -1,0 +1,11 @@
+{
+  "id": "nexu-io-open-design-plugins-official-examples-wireframe-annotated-skill-md",
+  "name": "wireframe-annotated",
+  "author": "nexu-io",
+  "description": "An annotated / redline lo-fi wireframe \u2014 a desktop landing/marketing page\ndrawn as flat greyboxes inside a browser chrome frame, overlaid with numbered\nannotation pins (\u2460\u2461\u2462\u2463\u2464) in a single accent color, paired with a right-hand\nSPEC PANEL that lists each numbered pin with a short engineering / UX note.\nThis is the \"wireframe + redline spec\" style \u2014 clean, flat, low-fidelity, NOT\nhand-drawn. Use when the brief asks for \"annotated wireframe\", \"redline\nwireframe\", \"wireframe with spec\", \"lo-fi landing wireframe\", \"low fidelity\",\n\"\u7ebf\u6846\u56fe\", \"\u6807\u6ce8\u7ebf\u6846\", or \"redline\".",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/nexu-io/open-design/tree/main/plugins/_official/examples/wireframe-annotated",
+  "skillUrl": "https://skillsmp.com/creators/nexu-io/open-design/plugins-official-examples-wireframe-annotated",
+  "stars": 83535,
+  "updatedAt": 1784018637
+}

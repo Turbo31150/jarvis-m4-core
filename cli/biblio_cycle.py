@@ -1,0 +1,455 @@
+#!/usr/bin/env python3
+"""
+biblio_cycle.py — Cycle bibliothèque vivante, déclenché à CHAQUE demande/réponse.
+
+Un tick = delta depuis le dernier passage (jamais de full-scan bloquant) :
+  1. scan disque incrémental        -> disk_index
+  2. dérivation de blocs prêts      -> lib/BLOCS-INDEX.tsv (+ lib/cycle-blocs.tsv)
+  3. dérivation de dominos          -> dominos_rubriques + domino_chains
+  4. journalisation                 -> biblio_journal
+
+100% déterministe, 0 token, idempotent (dédup par path / nom / série).
+Usage:
+  biblio_cycle.py --tick [--max N] [--quiet]   # delta (défaut, appelé par le hook)
+  biblio_cycle.py --full                       # réinitialise le marqueur -> tout le disque
+  biblio_cycle.py --status
+"""
+
+import argparse
+import fcntl
+import os
+import re
+import sqlite3
+import subprocess
+import sys
+import time
+from datetime import datetime
+
+DB = "/home/pamerys/jarvis/jarvis_master.db"
+# [2026-08-04] Redirigé hors du répertoire de fusion.
+# Ce module dérivait UN BLOC PAR FICHIER trouvé sur le disque : 54 350 chemins
+# nus (53,6 % de l'index) que bloc.sh ne peut jamais exécuter. Il écrivait en
+# plus directement dans BLOCS-INDEX.tsv, si bien que toute purge était annulée.
+# Il continue de produire, mais dans _ECARTES/ : rien ne rejoint le routage.
+BLOCS = "/home/turbo/labo/bibliotheque/lib/_ECARTES/cycle-index.tsv"
+CYCLE_TSV = "/home/turbo/labo/bibliotheque/lib/_ECARTES/cycle-blocs.tsv"
+STATE = "/home/turbo/jarvis/data/biblio_cycle.state"
+LOCK = "/home/turbo/jarvis/data/biblio_cycle.lock"
+LOG = "/home/turbo/jarvis/logs/biblio_cycle.log"
+
+# Tout le disque utile — le reste est du bruit (caches, montages système)
+ROOTS = ["/home/turbo", "/opt", "/etc", "/usr/local", "/srv", "/var/log"]
+EXCLUDE = re.compile(
+    r"/(\.git|node_modules|__pycache__|\.cache|\.venv|venv|site-packages|"
+    r"\.npm|\.cargo|\.rustup|\.local/share/Trash|snap|\.snapshots|"
+    r"dist/\.build|\.mozilla|\.config/Code|proc|sys|dev)(/|$)"
+)
+EXT_TAGS = {
+    ".py": "script",
+    ".sh": "script",
+    ".bash": "script",
+    ".db": "db",
+    ".sqlite": "db",
+    ".sqlite3": "db",
+    ".json": "config",
+    ".yaml": "config",
+    ".yml": "config",
+    ".toml": "config",
+    ".ini": "config",
+    ".conf": "config",
+    ".service": "config",
+    ".md": "doc",
+    ".txt": "doc",
+    ".pdf": "doc",
+    ".csv": "doc",
+    ".log": "log",
+    ".gguf": "model",
+    ".bin": "model",
+    ".safetensors": "model",
+    ".pt": "model",
+}
+SCRIPT_EXT = {".sh", ".py", ".bash"}
+
+# Bruit : dépendances tierces vendorisées, tests, fichiers de packaging.
+# Ils gonflent l'index sans jamais fournir un bloc rejouable.
+BRUIT_CHEMIN = re.compile(
+    r"/(tests?|testing|fixtures|examples?|samples?|vendor|third_party|"
+    r"agentkit|migrations|locales?|i18n|docs?/_build)(/|$)"
+)
+BRUIT_FICHIER = re.compile(
+    r"^(conftest|test_.*|.*_test|__init__|__version__|__main__|setup|"
+    r"versioneer|_version|index|main)$"
+)
+
+
+def est_bruit(path, stem):
+    return bool(BRUIT_CHEMIN.search(path) or BRUIT_FICHIER.match(stem))
+
+
+MAX_SIZE_KB = 1_000_000
+HARD_LIMIT = 600_000  # garde-fou mémoire sur la liste brute de find
+
+RE_DESTRUCTIF = re.compile(
+    r"rm\s+-rf|mkfs|dd\s+if=|DROP\s+TABLE|shutdown|reboot|>\s*/dev/sd"
+)
+RE_MODIFIE = re.compile(
+    r"systemctl|docker\s+(run|rm|restart)|git\s+push|apt\s+install|pip\s+install|"
+    r"INSERT|UPDATE|DELETE|chmod|chown|mv\s|cp\s|write"
+)
+
+
+def log(msg, quiet=False):
+    line = f"[{datetime.now():%H:%M:%S}] {msg}"
+    if not quiet:
+        print(line)
+    try:
+        os.makedirs(os.path.dirname(LOG), exist_ok=True)
+        with open(LOG, "a") as f:
+            f.write(line + "\n")
+    except OSError:
+        pass
+
+
+def danger_of(text):
+    if RE_DESTRUCTIF.search(text):
+        return "🔴"
+    if RE_MODIFIE.search(text):
+        return "🟠"
+    return "🟢"
+
+
+def connect():
+    # WAL : un seul écrivain à la fois, et plusieurs producteurs permanents
+    # écrivent en continu — sans attente longue, "database is locked".
+    conn = sqlite3.connect(DB, timeout=120)
+    conn.execute("PRAGMA journal_mode=WAL")
+    conn.execute("PRAGMA busy_timeout=120000")
+    conn.executescript("""
+    CREATE TABLE IF NOT EXISTS disk_index (
+      id INTEGER PRIMARY KEY AUTOINCREMENT, machine TEXT, disk TEXT, mount TEXT,
+      path TEXT, name TEXT, ext TEXT, size_kb INTEGER, modified_at TEXT,
+      type TEXT, tags TEXT);
+    CREATE INDEX IF NOT EXISTS idx_disk_path ON disk_index(path);
+    CREATE TABLE IF NOT EXISTS biblio_journal(
+      id INTEGER PRIMARY KEY AUTOINCREMENT, ts TEXT DEFAULT (datetime('now')),
+      kind TEXT, metric TEXT, value INTEGER);
+    CREATE TABLE IF NOT EXISTS dominos_rubriques (
+      id INTEGER PRIMARY KEY AUTOINCREMENT, rubrique TEXT NOT NULL,
+      domino_nom TEXT NOT NULL, description TEXT, statut TEXT DEFAULT 'done',
+      poids INTEGER DEFAULT 10, created_at DATETIME DEFAULT CURRENT_TIMESTAMP);
+    """)
+    return conn
+
+
+def last_tick():
+    try:
+        with open(STATE) as f:
+            return float(f.read().strip())
+    except (OSError, ValueError):
+        return 0.0
+
+
+def save_tick(ts):
+    os.makedirs(os.path.dirname(STATE), exist_ok=True)
+    with open(STATE, "w") as f:
+        f.write(str(ts))
+
+
+def find_delta(since, cap):
+    """Fichiers créés/modifiés depuis `since`. find est bien plus rapide qu'os.walk ici."""
+    out = []
+    for root in ROOTS:
+        if not os.path.isdir(root):
+            continue
+        cmd = ["find", root, "-xdev", "-type", "f"]
+        if since > 0:
+            cmd += ["-newermt", f"@{int(since)}"]
+        try:
+            res = subprocess.run(
+                cmd,
+                stdout=subprocess.PIPE,
+                text=True,
+                timeout=120,
+                stderr=subprocess.DEVNULL,
+            )
+        except subprocess.TimeoutExpired:
+            continue
+        for p in res.stdout.splitlines():
+            if EXCLUDE.search(p):
+                continue
+            out.append(p)
+            if len(out) >= HARD_LIMIT:
+                return out
+    return out
+
+
+def bloc_for(path, ext):
+    """Transforme un fichier en bloc prêt à rejouer (nom, source, danger, bloc)."""
+    name = os.path.basename(path)
+    stem = os.path.splitext(name)[0]
+    try:
+        with open(path, "r", errors="ignore") as f:
+            head = f.read(4000)
+    except OSError:
+        head = ""
+    if ext == ".py":
+        cmd = f"python3 {path}"
+    elif ext in (".sh", ".bash"):
+        cmd = f"bash {path}"
+    elif ext == ".service":
+        cmd = f"systemctl --user status {name}"
+    elif ext in (".db", ".sqlite", ".sqlite3"):
+        cmd = f"sqlite3 'file:{path}?mode=ro&immutable=1' '.tables'"
+    elif ext == ".json" and "workflow" in path.lower():
+        cmd = f"import n8n {path}"
+    else:
+        cmd = path
+    source = "cycle-script" if ext in SCRIPT_EXT else "cycle-fichier"
+    return (stem[:80], source, danger_of(head + " " + cmd), cmd)
+
+
+def domino_for(path, ext, head):
+    """Un script qui enchaîne des étapes = un domino candidat."""
+    if ext not in SCRIPT_EXT:
+        return None
+    steps = len(re.findall(r"^\s*(def |function |步骤|step_|phase|etape)", head, re.M))
+    calls = len(
+        re.findall(
+            r"(subprocess|os\.system|curl |ssh |systemctl|docker |sqlite3 )", head
+        )
+    )
+    if steps + calls < 3:
+        return None
+    rubrique = os.path.basename(os.path.dirname(path)) or "divers"
+    nom = os.path.splitext(os.path.basename(path))[0][:80]
+    desc = re.search(r'"""(.{10,160}?)"""', head, re.S) or re.search(
+        r"^#\s*(.{10,160})$", head, re.M
+    )
+    desc = (
+        desc.group(1).strip().replace("\n", " ") if desc else f"chaîne dérivée de {nom}"
+    )
+    return (rubrique, nom, desc, steps + calls, danger_of(head), path)
+
+
+def tick(cap, quiet):
+    t0 = time.time()
+    since = last_tick()
+    mode = "delta" if since else "FULL (1er passage)"
+    files = find_delta(since, cap)
+    conn = connect()
+    # path -> modified_at : permet de sauter instantanément ce qui est déjà à jour,
+    # donc chaque tick progresse réellement dans le backlog au lieu de re-mâcher.
+    known = dict(conn.execute("SELECT path, modified_at FROM disk_index"))
+    seen_blocs = set()
+    if os.path.exists(BLOCS):
+        with open(BLOCS, errors="ignore") as f:
+            for line in f:
+                parts = line.split("\t")
+                if len(parts) >= 2:
+                    seen_blocs.add((parts[0], parts[1]))
+
+    n_disk = n_bloc = n_dom = 0
+    traites = 0
+    truncated = False
+    new_blocs = []
+    for p in files:
+        if traites >= cap:  # plafond sur le travail RÉEL, pas sur les fichiers vus
+            truncated = True
+            break
+        try:
+            st = os.stat(p)
+        except OSError:
+            continue
+        size_kb = st.st_size // 1024
+        if size_kb > MAX_SIZE_KB:
+            continue
+        ext = os.path.splitext(p)[1].lower()
+        tag = EXT_TAGS.get(ext, "other")
+        mtime = datetime.fromtimestamp(st.st_mtime).isoformat(" ", "seconds")
+        if known.get(p) == mtime:
+            continue  # déjà indexé et inchangé
+        traites += 1
+        if p in known:
+            conn.execute(
+                "UPDATE disk_index SET size_kb=?, modified_at=? WHERE path=?",
+                (size_kb, mtime, p),
+            )
+        else:
+            conn.execute(
+                "INSERT INTO disk_index(machine,disk,mount,path,name,ext,size_kb,modified_at,type,tags)"
+                " VALUES('M1','local','/',?,?,?,?,?,?,?)",
+                (p, os.path.basename(p), ext, size_kb, mtime, tag, tag),
+            )
+            n_disk += 1
+
+        stem = os.path.splitext(os.path.basename(p))[0]
+        bruit = est_bruit(p, stem)
+
+        if not bruit and tag in ("script", "config", "db", "doc") and ext in EXT_TAGS:
+            nom, src, dgr, cmd = bloc_for(p, ext)
+            if (nom, src) not in seen_blocs:
+                seen_blocs.add((nom, src))
+                new_blocs.append(f"{nom}\t{src}\t{dgr}\t{cmd}")
+                n_bloc += 1
+
+        if ext in SCRIPT_EXT and not bruit:
+            try:
+                with open(p, errors="ignore") as f:
+                    head = f.read(4000)
+            except OSError:
+                continue
+            d = domino_for(p, ext, head)
+            if d:
+                rub, nom, desc, poids, dgr, spath = d
+                cur = conn.execute(
+                    "SELECT 1 FROM dominos_rubriques WHERE rubrique=? AND domino_nom=?",
+                    (rub, nom),
+                )
+                if not cur.fetchone():
+                    conn.execute(
+                        "INSERT INTO dominos_rubriques(rubrique,domino_nom,description,statut,poids)"
+                        " VALUES(?,?,?,'auto',?)",
+                        (rub, nom, desc[:400], min(poids, 99)),
+                    )
+                    conn.execute(
+                        "INSERT OR IGNORE INTO domino_chains(serie,verdict,danger,steps,backend,logique)"
+                        " VALUES(?,?,?,?,?,?)",
+                        (
+                            f"{rub}/{nom}",
+                            "auto",
+                            dgr,
+                            str(poids),
+                            "0-token",
+                            f"dérivé du disque: {spath}",
+                        ),
+                    )
+                    n_dom += 1
+
+    if new_blocs:
+        os.makedirs(os.path.dirname(BLOCS), exist_ok=True)
+        for target in (BLOCS, CYCLE_TSV):
+            fresh = not os.path.exists(target)
+            with open(target, "a") as f:
+                if fresh:
+                    f.write("nom\tsource\tdanger\tbloc\n")
+                f.write("\n".join(new_blocs) + "\n")
+
+    for kind, val in (("disk", n_disk), ("blocs", n_bloc), ("dominos", n_dom)):
+        conn.execute(
+            "INSERT INTO biblio_journal(kind,metric,value) VALUES('cycle',?,?)",
+            (kind, val),
+        )
+    conn.commit()
+    conn.close()
+    # marqueur avancé seulement si le backlog est absorbé : sinon le prochain tick
+    # reprend la même fenêtre et poursuit là où le plafond a coupé.
+    if not truncated:
+        save_tick(t0)
+    log(
+        f"tick {mode}: {len(files)} vus / {traites} traités | +{n_disk} disk "
+        f"+{n_bloc} blocs +{n_dom} dominos | {time.time() - t0:.1f}s"
+        f"{' | BACKLOG restant' if truncated else ''}",
+        quiet,
+    )
+    return n_disk, n_bloc, n_dom
+
+
+def capture_echange(texte, sens):
+    """Enregistre la demande (ou la réponse) elle-même dans la bibliothèque."""
+    texte = (texte or "").strip()
+    if len(texte) < 12:
+        return 0
+    import hashlib
+
+    h = hashlib.sha1(texte.encode()).hexdigest()[:12]
+    titre = " ".join(texte.split())[:120]
+    conn = connect()
+    conn.execute(
+        "INSERT OR IGNORE INTO biblio_knowledge(domain,topic,title,content_md,backend,path)"
+        " VALUES('echange',?,?,?,'0-token',?)",
+        (
+            f"echange/{sens}/{h}",
+            titre,
+            texte[:8000],
+            f"session:{datetime.now():%Y-%m-%d}",
+        ),
+    )
+    conn.execute(
+        "INSERT INTO biblio_journal(kind,metric,value) VALUES('echange',?,1)", (sens,)
+    )
+    conn.commit()
+    conn.close()
+    return 1
+
+
+def status():
+    conn = sqlite3.connect(f"file:{DB}?mode=ro", uri=True)
+    q = lambda s: conn.execute(s).fetchone()[0]
+    since = last_tick()
+    print(
+        f"dernier tick : {datetime.fromtimestamp(since):%Y-%m-%d %H:%M:%S}"
+        if since
+        else "jamais exécuté"
+    )
+    print(f"disk_index         : {q('SELECT count(*) FROM disk_index'):>8}")
+    print(
+        f"dominos_rubriques  : {q('SELECT count(*) FROM dominos_rubriques'):>8}"
+        f"  (auto: {q(chr(83) + 'ELECT count(*) FROM dominos_rubriques WHERE statut=' + chr(39) + 'auto' + chr(39))})"
+    )
+    print(f"domino_chains      : {q('SELECT count(*) FROM domino_chains'):>8}")
+    print(f"biblio_knowledge   : {q('SELECT count(*) FROM biblio_knowledge'):>8}")
+    with open(BLOCS, errors="ignore") as f:
+        print(f"blocs (TSV)        : {sum(1 for _ in f) - 1:>8}")
+    for r in conn.execute(
+        "SELECT ts,metric,value FROM biblio_journal WHERE kind='cycle'"
+        " ORDER BY id DESC LIMIT 6"
+    ):
+        print("   ", *r)
+    conn.close()
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument(
+        "--tick", action="store_true", help="delta depuis le dernier passage (défaut)"
+    )
+    ap.add_argument(
+        "--full", action="store_true", help="repart de zéro : tout le disque"
+    )
+    ap.add_argument("--status", action="store_true")
+    ap.add_argument(
+        "--max", type=int, default=4000, help="plafond de fichiers par tick"
+    )
+    ap.add_argument("--quiet", action="store_true")
+    ap.add_argument("--note", help="texte de l'échange à archiver (demande ou réponse)")
+    ap.add_argument("--sens", default="demande", choices=["demande", "reponse"])
+    a = ap.parse_args()
+
+    if a.status:
+        return status()
+    if a.note:
+        capture_echange(a.note, a.sens)
+    if a.full:
+        try:
+            os.remove(STATE)
+        except OSError:
+            pass
+        # pas de cap géant : le marqueur reste à zéro tant que le backlog n'est pas
+        # absorbé, donc les ticks suivants poursuivent le balayage du disque entier.
+
+    os.makedirs(os.path.dirname(LOCK), exist_ok=True)
+    with open(LOCK, "w") as lk:
+        try:
+            fcntl.flock(lk, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError:
+            log("cycle déjà en cours -> tick ignoré", a.quiet)
+            return
+        tick(a.max, a.quiet)
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except Exception as e:  # fail-safe : ne bloque jamais un prompt
+        log(f"ERREUR non bloquante: {e}", True)
+        sys.exit(0)

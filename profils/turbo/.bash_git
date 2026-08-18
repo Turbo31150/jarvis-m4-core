@@ -1,0 +1,403 @@
+
+
+     #
+     ##           dMP     .aMMMb dMMMMMP dMP dMP .aMMMMP dMP dMMMMMMP 
+     ###         dMP     dMP"dMP  .dMP" dMP.dMP dMP"    amr    dMP    
+     ####       dMP     dMMMMMP .dMP"   VMMMMP dMP MMP"dMP    dMP     
+     ###       dMP     dMP dMP.dMP"   dA .dMP dMP.dMP dMP    dMP      
+     ##       dMMMMMP dMP dMPdMMMMMP  VMMMP"  VMMMP" dMP    dMP    
+     #     
+
+
+
+___gi() {
+    echo "[1;31mL[0m[1;32ma[0m[1;33mz[0m[1;34my[0m[1;35mg[0m[1;36mi[0m[1;91mt[0m [1;92mr[0m[1;93mu[0m[1;94mn[0m[1;95ms[0m[1;96m:[0m git init"
+    echo "------"
+    git init
+}
+alias gi=___gi
+___giH() {
+    echo "lazygit"
+    echo "gi: Alias to init a git repo"
+    echo "$ gi  <---> git init"
+}
+alias gi-=___giH
+        
+
+___gst() {
+    echo "[1;31mL[0m[1;32ma[0m[1;33mz[0m[1;34my[0m[1;35mg[0m[1;36mi[0m[1;91mt[0m [1;92mr[0m[1;93mu[0m[1;94mn[0m[1;95ms[0m[1;96m:[0m git status"
+    echo "------"
+    git status
+}
+alias gst=___gst
+___gstH() {
+    echo "lazygit"
+    echo "gst: Alias for getting the status"
+    echo "$ gst  <---> git status"
+}
+alias gst-=___gstH
+        
+
+___gbls() {
+    echo "[1;31mL[0m[1;32ma[0m[1;33mz[0m[1;34my[0m[1;35mg[0m[1;36mi[0m[1;91mt[0m [1;92mr[0m[1;93mu[0m[1;94mn[0m[1;95ms[0m[1;96m:[0m git branch -a"
+    echo "------"
+    git branch -a
+}
+alias gbls=___gbls
+___gblsH() {
+    echo "lazygit"
+    echo "gbls: Alias for getting the list of branches"
+    echo "$ gbls  <---> git branch -a"
+}
+alias gbls-=___gblsH
+        
+
+___glog() {
+    echo "[1;31mL[0m[1;32ma[0m[1;33mz[0m[1;34my[0m[1;35mg[0m[1;36mi[0m[1;91mt[0m [1;92mr[0m[1;93mu[0m[1;94mn[0m[1;95ms[0m[1;96m:[0m git log"
+    echo "------"
+    git log
+}
+alias glog=___glog
+___glogH() {
+    echo "lazygit"
+    echo "glog: Alias for getting the log"
+    echo "$ glog  <---> git log"
+}
+alias glog-=___glogH
+        
+
+___gpull() {
+    echo "[1;31mL[0m[1;32ma[0m[1;33mz[0m[1;34my[0m[1;35mg[0m[1;36mi[0m[1;91mt[0m [1;92mr[0m[1;93mu[0m[1;94mn[0m[1;95ms[0m[1;96m:[0m git pull"
+    echo "------"
+    git pull
+}
+alias gpull=___gpull
+___gpullH() {
+    echo "lazygit"
+    echo "gpull: Alias for pull"
+    echo "$ gpull  <---> git pull"
+}
+alias gpull-=___gpullH
+        
+
+___gpushsu() {
+    echo "[1;31mL[0m[1;32ma[0m[1;33mz[0m[1;34my[0m[1;35mg[0m[1;36mi[0m[1;91mt[0m [1;92mr[0m[1;93mu[0m[1;94mn[0m[1;95ms[0m[1;96m:[0m git push --set-upstream origin $1"
+    echo "------"
+    git push --set-upstream origin $1
+}
+alias gpushsu=___gpushsu
+___gpushsuH() {
+    echo "lazygit"
+    echo "gpushsu: Alias for first push setting upstream"
+    echo "$ gpushsu BRANCHNAME  <---> git push --set-upstream origin $1"
+}
+alias gpushsu-=___gpushsuH
+        
+
+___gpush() {
+    echo "[1;31mL[0m[1;32ma[0m[1;33mz[0m[1;34my[0m[1;35mg[0m[1;36mi[0m[1;91mt[0m [1;92mr[0m[1;93mu[0m[1;94mn[0m[1;95ms[0m[1;96m:[0m git push"
+    echo "------"
+    git push
+}
+alias gpush=___gpush
+___gpushH() {
+    echo "lazygit"
+    echo "gpush: Alias for push"
+    echo "$ gpush  <---> git push"
+}
+alias gpush-=___gpushH
+        
+
+___gup() {
+    echo "[1;31mL[0m[1;32ma[0m[1;33mz[0m[1;34my[0m[1;35mg[0m[1;36mi[0m[1;91mt[0m [1;92mr[0m[1;93mu[0m[1;94mn[0m[1;95ms[0m[1;96m:[0m git remote update"
+    echo "------"
+    git remote update
+}
+alias gup=___gup
+___gupH() {
+    echo "lazygit"
+    echo "gup: Alias for remote update"
+    echo "$ gup  <---> git remote update"
+}
+alias gup-=___gupH
+        
+
+___gss() {
+    echo "[1;31mL[0m[1;32ma[0m[1;33mz[0m[1;34my[0m[1;35mg[0m[1;36mi[0m[1;91mt[0m [1;92mr[0m[1;93mu[0m[1;94mn[0m[1;95ms[0m[1;96m:[0m git stash save"
+    echo "------"
+    git stash save
+}
+alias gss=___gss
+___gssH() {
+    echo "lazygit"
+    echo "gss: Alias for saving a stash"
+    echo "$ gss  <---> git stash save"
+}
+alias gss-=___gssH
+        
+
+___gsp() {
+    echo "[1;31mL[0m[1;32ma[0m[1;33mz[0m[1;34my[0m[1;35mg[0m[1;36mi[0m[1;91mt[0m [1;92mr[0m[1;93mu[0m[1;94mn[0m[1;95ms[0m[1;96m:[0m git stash pop"
+    echo "------"
+    git stash pop
+}
+alias gsp=___gsp
+___gspH() {
+    echo "lazygit"
+    echo "gsp: Alias for pop last stash"
+    echo "$ gsp  <---> git stash pop"
+}
+alias gsp-=___gspH
+        
+
+___guncommit() {
+    echo "[1;31mL[0m[1;32ma[0m[1;33mz[0m[1;34my[0m[1;35mg[0m[1;36mi[0m[1;91mt[0m [1;92mr[0m[1;93mu[0m[1;94mn[0m[1;95ms[0m[1;96m:[0m git reset --hard ^HEAD"
+    echo "------"
+    git reset --hard ^HEAD
+}
+alias guncommit=___guncommit
+___guncommitH() {
+    echo "lazygit"
+    echo "guncommit: Alias to UNcommit"
+    echo "$ guncomm  <---> git reset --hard ^HEAD"
+}
+alias guncommit-=___guncommitH
+        
+
+___gadd() {
+    echo "[1;31mL[0m[1;32ma[0m[1;33mz[0m[1;34my[0m[1;35mg[0m[1;36mi[0m[1;91mt[0m [1;92mr[0m[1;93mu[0m[1;94mn[0m[1;95ms[0m[1;96m:[0m git add ${@:-*}"
+    echo "------"
+    git add ${@:-*}
+}
+alias gadd=___gadd
+___gaddH() {
+    echo "lazygit"
+    echo "gadd: Alias to stage"
+    echo "$ gadd  <---> git add ${@:-*}"
+}
+alias gadd-=___gaddH
+        
+
+___gunst() {
+    echo "[1;31mL[0m[1;32ma[0m[1;33mz[0m[1;34my[0m[1;35mg[0m[1;36mi[0m[1;91mt[0m [1;92mr[0m[1;93mu[0m[1;94mn[0m[1;95ms[0m[1;96m:[0m git reset HEAD -- ${@:-*}"
+    echo "------"
+    git reset HEAD -- ${@:-*}
+}
+alias gunst=___gunst
+___gunstH() {
+    echo "lazygit"
+    echo "gunst: Alias to UNstage"
+    echo "$ gunst [PAR [, ...]]  <---> git reset HEAD -- ${@:-*}"
+}
+alias gunst-=___gunstH
+        
+
+___gcomm() {
+    echo "[1;31mL[0m[1;32ma[0m[1;33mz[0m[1;34my[0m[1;35mg[0m[1;36mi[0m[1;91mt[0m [1;92mr[0m[1;93mu[0m[1;94mn[0m[1;95ms[0m[1;96m:[0m git commit -m ${1:-"empty_message"}"
+    echo "------"
+    git commit -m ${1:-"empty_message"}
+}
+alias gcomm=___gcomm
+___gcommH() {
+    echo "lazygit"
+    echo "gcomm: Alias to commit"
+    echo "$ gcomm "message_with_no_spaces" (default: "empty_message")  <---> git commit -m ${1:-"empty_message"}"
+}
+alias gcomm-=___gcommH
+        
+
+___gamend() {
+    echo "[1;31mL[0m[1;32ma[0m[1;33mz[0m[1;34my[0m[1;35mg[0m[1;36mi[0m[1;91mt[0m [1;92mr[0m[1;93mu[0m[1;94mn[0m[1;95ms[0m[1;96m:[0m git commit -m ${1:-"empty_message"} --amend"
+    echo "------"
+    git commit -m ${1:-"empty_message"} --amend
+}
+alias gamend=___gamend
+___gamendH() {
+    echo "lazygit"
+    echo "gamend: Alias to amend last commit message"
+    echo "$ gamend "rewritten message" (default: "empty_message")  <---> git commit -m ${1:-"empty_message"} --amend"
+}
+alias gamend-=___gamendH
+        
+
+___gbr() {
+    echo "[1;31mL[0m[1;32ma[0m[1;33mz[0m[1;34my[0m[1;35mg[0m[1;36mi[0m[1;91mt[0m [1;92mr[0m[1;93mu[0m[1;94mn[0m[1;95ms[0m[1;96m:[0m git checkout -b $1"
+    echo "------"
+    git checkout -b $1
+}
+alias gbr=___gbr
+___gbrH() {
+    echo "lazygit"
+    echo "gbr: Alias to create a new branch and checkout"
+    echo "$ gbr BRANCHNAME  <---> git checkout -b $1"
+}
+alias gbr-=___gbrH
+        
+
+___gbrdel() {
+    echo "[1;31mL[0m[1;32ma[0m[1;33mz[0m[1;34my[0m[1;35mg[0m[1;36mi[0m[1;91mt[0m [1;92mr[0m[1;93mu[0m[1;94mn[0m[1;95ms[0m[1;96m:[0m git branch -d $1"
+    echo "------"
+    git branch -d $1
+}
+alias gbrdel=___gbrdel
+___gbrdelH() {
+    echo "lazygit"
+    echo "gbrdel: Alias to delete a branch"
+    echo "$ gbrdel BRANCHNAME  <---> git branch -d $1"
+}
+alias gbrdel-=___gbrdelH
+        
+
+___gco() {
+    echo "[1;31mL[0m[1;32ma[0m[1;33mz[0m[1;34my[0m[1;35mg[0m[1;36mi[0m[1;91mt[0m [1;92mr[0m[1;93mu[0m[1;94mn[0m[1;95ms[0m[1;96m:[0m git checkout $1"
+    echo "------"
+    git checkout $1
+}
+alias gco=___gco
+___gcoH() {
+    echo "lazygit"
+    echo "gco: Alias to checkout an existing branch"
+    echo "$ gco BRANCHNAME|TAG  <---> git checkout $1"
+}
+alias gco-=___gcoH
+        
+
+___grev() {
+    echo "[1;31mL[0m[1;32ma[0m[1;33mz[0m[1;34my[0m[1;35mg[0m[1;36mi[0m[1;91mt[0m [1;92mr[0m[1;93mu[0m[1;94mn[0m[1;95ms[0m[1;96m:[0m git checkout -- $@"
+    echo "------"
+    git checkout -- $@
+}
+alias grev=___grev
+___grevH() {
+    echo "lazygit"
+    echo "grev: Alias to revert non staged files passed"
+    echo "$ grev [FILE1 [, FILE2 ...]]  <---> git checkout -- $@"
+}
+alias grev-=___grevH
+        
+
+___gclone() {
+    echo "[1;31mL[0m[1;32ma[0m[1;33mz[0m[1;34my[0m[1;35mg[0m[1;36mi[0m[1;91mt[0m [1;92mr[0m[1;93mu[0m[1;94mn[0m[1;95ms[0m[1;96m:[0m git clone $1"
+    echo "------"
+    git clone $1
+}
+alias gclone=___gclone
+___gcloneH() {
+    echo "lazygit"
+    echo "gclone: Alias to clone"
+    echo "$ gclone REF  <---> git clone $1"
+}
+alias gclone-=___gcloneH
+        
+
+___gremoteadd() {
+    echo "[1;31mL[0m[1;32ma[0m[1;33mz[0m[1;34my[0m[1;35mg[0m[1;36mi[0m[1;91mt[0m [1;92mr[0m[1;93mu[0m[1;94mn[0m[1;95ms[0m[1;96m:[0m git remote add origin $1"
+    echo "------"
+    git remote add origin $1
+}
+alias gremoteadd=___gremoteadd
+___gremoteaddH() {
+    echo "lazygit"
+    echo "gremoteadd: Alias to add remote"
+    echo "gremoteadd MYORIGIN  <---> git remote add origin $1"
+}
+alias gremoteadd-=___gremoteaddH
+        
+
+___gtag() {
+    echo "[1;31mL[0m[1;32ma[0m[1;33mz[0m[1;34my[0m[1;35mg[0m[1;36mi[0m[1;91mt[0m [1;92mr[0m[1;93mu[0m[1;94mn[0m[1;95ms[0m[1;96m:[0m git tag -a $1 -m ${2:-"empty_message"}"
+    echo "------"
+    git tag -a $1 -m ${2:-"empty_message"}
+}
+alias gtag=___gtag
+___gtagH() {
+    echo "lazygit"
+    echo "gtag: Alias to create a tag"
+    echo "gtag TAGNAME MESSAGE  <---> git tag -a $1 -m ${2:-"empty_message"}"
+}
+alias gtag-=___gtagH
+        
+
+___gtags() {
+    echo "[1;31mL[0m[1;32ma[0m[1;33mz[0m[1;34my[0m[1;35mg[0m[1;36mi[0m[1;91mt[0m [1;92mr[0m[1;93mu[0m[1;94mn[0m[1;95ms[0m[1;96m:[0m git tag"
+    echo "------"
+    git tag
+}
+alias gtags=___gtags
+___gtagsH() {
+    echo "lazygit"
+    echo "gtags: Alias to list all tags"
+    echo "gtags  <---> git tag"
+}
+alias gtags-=___gtagsH
+        
+
+___gtagsup() {
+    echo "[1;31mL[0m[1;32ma[0m[1;33mz[0m[1;34my[0m[1;35mg[0m[1;36mi[0m[1;91mt[0m [1;92mr[0m[1;93mu[0m[1;94mn[0m[1;95ms[0m[1;96m:[0m git push --tags"
+    echo "------"
+    git push --tags
+}
+alias gtagsup=___gtagsup
+___gtagsupH() {
+    echo "lazygit"
+    echo "gtagsup: Alias to push all local tags"
+    echo "gtagsup  <---> git push --tags"
+}
+alias gtagsup-=___gtagsupH
+        
+
+___gtagup() {
+    echo "[1;31mL[0m[1;32ma[0m[1;33mz[0m[1;34my[0m[1;35mg[0m[1;36mi[0m[1;91mt[0m [1;92mr[0m[1;93mu[0m[1;94mn[0m[1;95ms[0m[1;96m:[0m git push origin $1"
+    echo "------"
+    git push origin $1
+}
+alias gtagup=___gtagup
+___gtagupH() {
+    echo "lazygit"
+    echo "gtagup: Alias to push one local tag"
+    echo "gtagup TAGNAME  <---> git push origin $1"
+}
+alias gtagup-=___gtagupH
+        
+
+___gpatchc() {
+    echo "[1;31mL[0m[1;32ma[0m[1;33mz[0m[1;34my[0m[1;35mg[0m[1;36mi[0m[1;91mt[0m [1;92mr[0m[1;93mu[0m[1;94mn[0m[1;95ms[0m[1;96m:[0m git diff > $1"
+    echo "------"
+    git diff > $1
+}
+alias gpatchc=___gpatchc
+___gpatchcH() {
+    echo "lazygit"
+    echo "gpatchc: Alias to create a patch"
+    echo "gpatchc PATCHNAME  <---> git diff > $1"
+}
+alias gpatchc-=___gpatchcH
+        
+
+___gpatcha() {
+    echo "[1;31mL[0m[1;32ma[0m[1;33mz[0m[1;34my[0m[1;35mg[0m[1;36mi[0m[1;91mt[0m [1;92mr[0m[1;93mu[0m[1;94mn[0m[1;95ms[0m[1;96m:[0m git apply --stat $1"
+    echo "------"
+    git apply --stat $1
+}
+alias gpatcha=___gpatcha
+___gpatchaH() {
+    echo "lazygit"
+    echo "gpatcha: Alias to apply a patch"
+    echo "gpatcha PATCHFILE  <---> git apply --stat $1"
+}
+alias gpatcha-=___gpatchaH
+        
+
+___gmm() {
+    echo "[1;31mL[0m[1;32ma[0m[1;33mz[0m[1;34my[0m[1;35mg[0m[1;36mi[0m[1;91mt[0m [1;92mr[0m[1;93mu[0m[1;94mn[0m[1;95ms[0m[1;96m:[0m git merge master"
+    echo "------"
+    git merge master
+}
+alias gmm=___gmm
+___gmmH() {
+    echo "lazygit"
+    echo "gmm: Merge master in current branch"
+    echo "gmm  <---> git merge master"
+}
+alias gmm-=___gmmH
+        

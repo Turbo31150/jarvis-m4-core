@@ -1,0 +1,39 @@
+{
+  "name": "JARVIS — Planning Prod Trigger",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "planning-prod-trigger",
+        "responseMode": "onReceived"
+      },
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [260, 300],
+      "webhookId": "planning-prod-trigger"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://HOST_IP:PORT/trigger-cycle",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameter": [
+            { "name": "Authorization", "value": "Bearer ={{ $env.PLANNING_TRIGGER_TOKEN }}" }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Déclenche cycle planning",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [520, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": { "main": [[{ "node": "Déclenche cycle planning", "type": "main", "index": 0 }]] }
+  },
+  "active": false,
+  "settings": {}
+}

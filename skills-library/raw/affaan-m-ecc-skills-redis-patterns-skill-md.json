@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-redis-patterns-skill-md",
+  "name": "redis-patterns",
+  "author": "affaan-m",
+  "description": "Redis data structure patterns, caching strategies, distributed locks, rate limiting, pub/sub, and connection management for production applications.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/redis-patterns",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-redis-patterns",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

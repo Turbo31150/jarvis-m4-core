@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-context-budget-skill-md",
+  "name": "context-budget",
+  "author": "affaan-m",
+  "description": "Audits Claude Code context window consumption across agents, skills, MCP servers, and rules. Identifies bloat, redundant components, and produces prioritized token-savings recommendations.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/context-budget",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-context-budget",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

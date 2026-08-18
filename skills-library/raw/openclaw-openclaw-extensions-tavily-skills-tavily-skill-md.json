@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-extensions-tavily-skills-tavily-skill-md",
+  "name": "tavily",
+  "author": "openclaw",
+  "description": "Tavily web search, content extraction, and research tools.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/extensions/tavily/skills/tavily",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/extensions-tavily-skills-tavily",
+  "stars": 385119,
+  "updatedAt": 1773983186
+}

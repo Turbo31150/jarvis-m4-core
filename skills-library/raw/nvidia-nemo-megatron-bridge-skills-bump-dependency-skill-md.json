@@ -1,0 +1,11 @@
+{
+  "id": "nvidia-nemo-megatron-bridge-skills-bump-dependency-skill-md",
+  "name": "bump-dependency",
+  "author": "NVIDIA-NeMo",
+  "description": "Bump a pinned dependency (TransformerEngine, Megatron-LM, NRX, etc.), regenerate the lockfile, open a PR, and drive it to green by attaching a watchdog to the \"CICD NeMo\" workflow and quarantining failing functional tests as flaky until the run is green.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NVIDIA-NeMo/Megatron-Bridge/tree/main/skills/bump-dependency",
+  "skillUrl": "https://skillsmp.com/creators/nvidia-nemo/megatron-bridge/skills-bump-dependency",
+  "stars": 846,
+  "updatedAt": 1782168336
+}

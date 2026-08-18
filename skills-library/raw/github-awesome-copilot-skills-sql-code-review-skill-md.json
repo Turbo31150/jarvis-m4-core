@@ -1,0 +1,11 @@
+{
+  "id": "github-awesome-copilot-skills-sql-code-review-skill-md",
+  "name": "sql-code-review",
+  "author": "github",
+  "description": "Universal SQL code review assistant that performs comprehensive security, maintainability, and code quality analysis across all SQL databases (MySQL, PostgreSQL, SQL Server, Oracle). Focuses on SQL injection prevention, access control, code standards, and anti-pattern detection. Complements SQL optimization prompt for complete development coverage.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/github/awesome-copilot/tree/main/skills/sql-code-review",
+  "skillUrl": "https://skillsmp.com/creators/github/awesome-copilot/skills-sql-code-review",
+  "stars": 37423,
+  "updatedAt": 1771904373
+}

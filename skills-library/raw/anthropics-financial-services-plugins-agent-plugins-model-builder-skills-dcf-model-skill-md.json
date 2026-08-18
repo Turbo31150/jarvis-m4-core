@@ -1,0 +1,11 @@
+{
+  "id": "anthropics-financial-services-plugins-agent-plugins-model-builder-skills-dcf-model-skill-md",
+  "name": "dcf-model",
+  "author": "anthropics",
+  "description": "Real DCF (Discounted Cash Flow) model creation for equity valuation. Retrieves financial data from SEC filings and analyst reports, builds comprehensive cash flow projections with proper WACC calculations, performs sensitivity analysis, and outputs professional Excel models with executive summaries. Use when users need to value a company using DCF methodology, request intrinsic value analysis, or ask for detailed financial modeling with growth projections and terminal value calculations.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/anthropics/financial-services/tree/main/plugins/agent-plugins/model-builder/skills/dcf-model",
+  "skillUrl": "https://skillsmp.com/creators/anthropics/financial-services/plugins-agent-plugins-model-builder-skills-dcf-model",
+  "stars": 33988,
+  "updatedAt": 1777993098
+}

@@ -1,0 +1,11 @@
+{
+  "id": "vercel-next-js-agents-skills-react-sync-skill-md",
+  "name": "react-sync",
+  "author": "vercel",
+  "description": "Build local React changes in the bundle variants consumed by Next.js, sync them into a local Next.js checkout, and test the resulting integration. Use when working on React changes that need validation in Next.js, or when asked to run buildForNext, pnpm sync-react, or synchronize a React checkout with Next.js.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/vercel/next.js/tree/canary/.agents/skills/react-sync",
+  "skillUrl": "https://skillsmp.com/creators/vercel/next.js/agents-skills-react-sync",
+  "stars": 141334,
+  "updatedAt": 1784026199
+}

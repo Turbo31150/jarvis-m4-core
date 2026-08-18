@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-code-tour-skill-md",
+  "name": "code-tour",
+  "author": "affaan-m",
+  "description": "Create CodeTour `.tour` files \u2014 persona-targeted, step-by-step walkthroughs with real file and line anchors. Use for onboarding tours, architecture walkthroughs, PR tours, RCA tours, and structured \"explain how this works\" requests.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/code-tour",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-code-tour",
+  "stars": 237500,
+  "updatedAt": 1782783502
+}

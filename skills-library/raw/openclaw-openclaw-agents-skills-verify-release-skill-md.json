@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-agents-skills-verify-release-skill-md",
+  "name": "verify-release",
+  "author": "openclaw",
+  "description": "Verify regular or extended-stable OpenClaw releases against the exact publication surfaces, workflow identities, package provenance, smoke tests, and live Gateway behavior expected for that release track.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/.agents/skills/verify-release",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/agents-skills-verify-release",
+  "stars": 385119,
+  "updatedAt": 1784771328
+}

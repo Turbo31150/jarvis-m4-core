@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruview-claude-skills-verification-quality-skill-md",
+  "name": "verification-quality-assurance",
+  "author": "ruvnet",
+  "description": "Comprehensive truth scoring, code quality verification, and automatic rollback system with 0.95 accuracy threshold for ensuring high-quality agent outputs and codebase reliability.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/RuView/tree/main/.claude/skills/verification-quality",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruview/claude-skills-verification-quality",
+  "stars": 88440,
+  "updatedAt": 1768273876
+}

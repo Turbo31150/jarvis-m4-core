@@ -1,0 +1,11 @@
+{
+  "id": "nexu-io-open-design-plugins-official-examples-last30days-skill-md",
+  "name": "last30days",
+  "author": "nexu-io",
+  "description": "Recent community and social trend research over the last 30 days. Use when\nthe brief asks what people are saying now, recent sentiment, community\nreactions, social proof, launch reaction, trend scan, or last-30-days context.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/nexu-io/open-design/tree/main/plugins/_official/examples/last30days",
+  "skillUrl": "https://skillsmp.com/creators/nexu-io/open-design/plugins-official-examples-last30days",
+  "stars": 83535,
+  "updatedAt": 1784018637
+}

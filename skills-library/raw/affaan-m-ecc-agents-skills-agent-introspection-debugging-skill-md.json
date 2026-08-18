@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-agents-skills-agent-introspection-debugging-skill-md",
+  "name": "agent-introspection-debugging",
+  "author": "affaan-m",
+  "description": "Structured self-debugging workflow for AI agent failures using capture, diagnosis, contained recovery, and introspection reports.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/.agents/skills/agent-introspection-debugging",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/agents-skills-agent-introspection-debugging",
+  "stars": 237500,
+  "updatedAt": 1777428617
+}

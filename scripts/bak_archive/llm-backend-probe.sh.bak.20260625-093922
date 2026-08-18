@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Probe santé des backends LLM en parallèle (timeout court). Sortie JSON. Cible <60s.
+set -uo pipefail
+TIMEOUT="${PROBE_TIMEOUT:-5}"
+
+declare -A B=(
+  [M1]="http://192.168.1.85:1234/v1/models"
+  [M2]="http://192.168.1.26:1234/v1/models"
+  [OL1]="http://127.0.0.1:11434/v1/models"
+)
+
+probe() {
+  local name="$1" url="$2" start ms code
+  start=$(date +%s%3N)
+  code=$(curl -s -o /dev/null -w '%{http_code}' --max-time "$TIMEOUT" "$url" 2>/dev/null || echo 000)
+  ms=$(( $(date +%s%3N) - start ))
+  local up="false"; [ "$code" = "200" ] && up="true"
+  printf '{"node":"%s","up":%s,"http":"%s","latency_ms":%s}\n' "$name" "$up" "$code" "$ms"
+}
+
+export -f probe
+results=$(for n in "${!B[@]}"; do echo "$n ${B[$n]}"; done \
+  | xargs -P 3 -I{} bash -c 'set -- {}; probe "$1" "$2"' )
+# Assemble en tableau JSON
+echo -n '{"backends":['
+echo -n "$(echo "$results" | paste -sd, -)"
+echo ']}'

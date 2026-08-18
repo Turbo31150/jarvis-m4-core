@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-claude-devfleet-skill-md",
+  "name": "claude-devfleet",
+  "author": "affaan-m",
+  "description": "Orchestrate multi-agent coding tasks via Claude DevFleet \u2014 plan projects, dispatch parallel agents in isolated worktrees, monitor progress, and read structured reports.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/claude-devfleet",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-claude-devfleet",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

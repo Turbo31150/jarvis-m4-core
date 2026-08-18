@@ -1,0 +1,60 @@
+# Telegram Alerts Configuration
+telegram:
+  enabled: true
+  
+  # Bot configuration
+  bot:
+    token: "${TELEGRAM_BOT_TOKEN}"  # Set via environment variable
+    chat_id: "${TELEGRAM_CHAT_ID}"   # Set via environment variable
+    api_timeout: 30
+    
+  # Webhook configuration
+  webhook:
+    enabled: false
+    url: ""  # Set if webhook mode is preferred
+    
+  # Alert channels
+  channels:
+    main_alerts:
+      name: "Automation Alerts"
+      thread_id: null
+      emoji: "🔔"
+    
+    critical_alerts:
+      name: "Critical Issues"
+      thread_id: null
+      emoji: "🚨"
+    
+    monitoring_updates:
+      name: "System Monitoring"
+      thread_id: null
+      emoji: "📊"
+    
+    daily_reports:
+      name: "Daily Reports"
+      thread_id: null
+      emoji: "📋"
+  
+  # Message formatting
+  formatting:
+    use_markdown: true
+    use_html: false
+    include_timestamp: true
+    include_hostname: true
+  
+  # Rate limiting
+  rate_limiting:
+    enabled: true
+    max_messages_per_minute: 10
+    batch_similar_alerts: true
+    batch_timeout_seconds: 60
+  
+  # Retry policy
+  retry:
+    max_retries: 3
+    retry_delay: 5
+    backoff_multiplier: 2
+
+logging:
+  level: "DEBUG"
+  file: "/home/turbo/automation/logs/telegram.log"

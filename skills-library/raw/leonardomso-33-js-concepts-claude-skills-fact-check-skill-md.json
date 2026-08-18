@@ -1,0 +1,11 @@
+{
+  "id": "leonardomso-33-js-concepts-claude-skills-fact-check-skill-md",
+  "name": "fact-check",
+  "author": "leonardomso",
+  "description": "Verify technical accuracy of JavaScript concept pages by checking code examples, MDN/ECMAScript compliance, and external resources to prevent misinformation",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/leonardomso/33-js-concepts/tree/master/.claude/skills/fact-check",
+  "skillUrl": "https://skillsmp.com/creators/leonardomso/33-js-concepts/claude-skills-fact-check",
+  "stars": 66509,
+  "updatedAt": 1767706636
+}

@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruflo-agents-skills-agent-memory-coordinator-skill-md",
+  "name": "agent-memory-coordinator",
+  "author": "ruvnet",
+  "description": "Agent skill for memory-coordinator - invoke with $agent-memory-coordinator",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/ruflo/tree/main/.agents/skills/agent-memory-coordinator",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruflo/agents-skills-agent-memory-coordinator",
+  "stars": 66991,
+  "updatedAt": 1770485792
+}

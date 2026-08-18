@@ -1,0 +1,11 @@
+{
+  "id": "calesthio-openmontage-agents-skills-synthetic-screen-recording-skill-md",
+  "name": "synthetic-screen-recording",
+  "author": "calesthio",
+  "description": "Synthetic terminal-style screen recording guidance for Remotion `TerminalScene`.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/calesthio/OpenMontage/tree/main/.agents/skills/synthetic-screen-recording",
+  "skillUrl": "https://skillsmp.com/creators/calesthio/openmontage/agents-skills-synthetic-screen-recording",
+  "stars": 45016,
+  "updatedAt": 1782394247
+}

@@ -1,0 +1,11 @@
+{
+  "id": "dpqlrkdms03-multi-agent-agents-skills-schedule-agent-skill-md",
+  "name": "schedule-agent",
+  "author": "dpqlrkdms03",
+  "description": "\uc77c\uc815\uacf5\uc9c0 \uc5d0\uc774\uc804\ud2b8\uc758 \uae30\ub2a5\uc744 \ub9cc\ub4e4\uac70\ub098 \uc218\uc815\ud560 \ub54c \uc0ac\uc6a9\ud55c\ub2e4.",
+  "contentLanguage": "ko",
+  "githubUrl": "https://github.com/dpqlrkdms03/multi-agent/tree/main/.agents/skills/schedule-agent",
+  "skillUrl": "https://skillsmp.com/creators/dpqlrkdms03/multi-agent/agents-skills-schedule-agent",
+  "stars": 0,
+  "updatedAt": 1777817549
+}

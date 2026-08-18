@@ -1,0 +1,55 @@
+# nom	pole	domaine
+Airbus Commercial Aircraft	aero	https://www.airbus.com
+Airbus Defence & Space	aero	https://www.airbus.com
+Thales Alenia Space France	aero	https://www.thalesaleniaspace.com
+CNES Toulouse	aero	https://cnes.fr
+Safran Nacelles	aero	https://www.safran-group.com
+Safran Electrical & Power	aero	https://www.safran-group.com
+ATR Aircraft	aero	https://www.atr-aircraft.com
+Liebherr-Aerospace Toulouse	aero	https://www.liebherr.com
+Latecoere	aero	https://www.latecoere.aero
+Premium AEROTEC / Stelia	aero	https://www.aerostructures.airbus.com
+Hemeria	aero	https://www.hemeria-group.com
+Aura Aero	aero	https://aura-aero.com
+Sogeclair Aerospace	aero	https://www.sogeclair.com
+Eolane	aero	https://www.eolane.com
+Laboratoires Pierre Fabre	sante	https://www.pierre-fabre.com
+Evotec France	sante	https://www.evotec.com
+CHU de Toulouse	sante	https://www.chu-toulouse.fr
+IUCT Oncopole	sante	https://www.iuct-oncopole.fr
+GTP Bioways	sante	https://www.gtpbioways.com
+Invivoo Healthcare	sante	https://www.invivoo.com
+MBA Capital Toulouse	finance	https://www.mbacapital.com
+In Extenso Finance Occitanie	finance	https://www.inextenso-finance.fr
+Eurallia Finance	finance	https://www.eurallia-finance.com
+IRDI Capital Investissement	finance	https://www.irdi.fr
+Midi 2i	finance	https://www.midi2i.com
+Barreau de Toulouse	finance	https://www.avocats-toulouse.com
+Capgemini Occitanie	esn	https://www.capgemini.com
+Sopra Steria Toulouse	esn	https://www.soprasteria.com
+Akkodis France	esn	https://www.akkodis.com
+CS Group Occitanie	esn	https://www.csgroup.eu
+Eviden / Atos Toulouse	esn	https://eviden.com
+Inetum Toulouse	esn	https://www.inetum.com
+Continental Automotive France	industrie	https://www.continental.com
+Vitesco Technologies France	industrie	https://www.vitesco-technologies.com
+NXP Semiconductors Toulouse	industrie	https://www.nxp.com
+ACTIA Group	industrie	https://www.actia.com
+
+# --- etendu 2026-08-18 : entreprises connues des autres tables, domaines SOURCES en base ---
+Alten Sud-Ouest (Labège)	esn	https://www.alten.fr
+Davidson Consulting Toulouse	esn	https://www.davidson.fr
+Expectra IT & Ingénierie Toulouse	esn	https://www.expectra.fr
+Externatic Toulouse	esn	https://www.externatic.fr
+Hays IT Toulouse	esn	https://www.hays.fr
+Infotel Toulouse (Blagnac)	esn	https://www.infotel.com
+Ippon Technologies Toulouse	esn	https://fr.ippon.tech
+Naval Group	aero	https://www.naval-group.com
+OnePoint Toulouse	esn	https://www.groupeonepoint.com
+SII Sud-Ouest (Toulouse)	esn	https://sii-group.com
+Scalian (Labège / Colomiers)	esn	https://www.scalian.com
+Servier	sante	https://servier.com
+Seyos Recrutement Tech Toulouse	esn	https://www.seyos.fr
+Thales Services Numériques Toulouse	esn	https://www.thalesgroup.com
+Urban Linker Sud-Ouest	esn	https://www.urbanlinker.com
+Zenika Toulouse	esn	https://zenika.com

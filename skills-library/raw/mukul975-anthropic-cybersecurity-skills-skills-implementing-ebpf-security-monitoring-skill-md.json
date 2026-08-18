@@ -1,0 +1,11 @@
+{
+  "id": "mukul975-anthropic-cybersecurity-skills-skills-implementing-ebpf-security-monitoring-skill-md",
+  "name": "implementing-ebpf-security-monitoring",
+  "author": "mukul975",
+  "description": "Implements eBPF-based security monitoring using Cilium Tetragon for real-time process execution tracking, network connection observability, file access auditing, and runtime enforcement. Covers TracingPolicy CRD authoring with kprobe/tracepoint hooks, in-kernel filtering via matchArgs/matchBinaries selectors, JSON event export, and integration with SIEM pipelines. Use when building kernel-level runtime security observability for Linux hosts or Kubernetes clusters.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/mukul975/Anthropic-Cybersecurity-Skills/tree/main/skills/implementing-ebpf-security-monitoring",
+  "skillUrl": "https://skillsmp.com/creators/mukul975/anthropic-cybersecurity-skills/skills-implementing-ebpf-security-monitoring",
+  "stars": 27260,
+  "updatedAt": 1780308809
+}

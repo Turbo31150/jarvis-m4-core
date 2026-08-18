@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-ja-jp-skills-content-hash-cache-pattern-skill-md",
+  "name": "content-hash-cache-pattern",
+  "author": "affaan-m",
+  "description": "SHA-256\u30b3\u30f3\u30c6\u30f3\u30c4\u30cf\u30c3\u30b7\u30e5\u3092\u4f7f\u7528\u3057\u3066\u3001\u9ad8\u30b3\u30b9\u30c8\u306a\u30d5\u30a1\u30a4\u30eb\u51e6\u7406\u7d50\u679c\u3092\u30ad\u30e3\u30c3\u30b7\u30e5\u3057\u307e\u3059 \u2014 \u30d1\u30b9\u975e\u4f9d\u5b58\u3001\u81ea\u52d5\u7121\u52b9\u5316\u3001\u30b5\u30fc\u30d3\u30b9\u30ec\u30a4\u30e4\u30fc\u306e\u5206\u96e2\u3002",
+  "contentLanguage": "ja",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/ja-JP/skills/content-hash-cache-pattern",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-ja-jp-skills-content-hash-cache-pattern",
+  "stars": 237500,
+  "updatedAt": 1778999500
+}

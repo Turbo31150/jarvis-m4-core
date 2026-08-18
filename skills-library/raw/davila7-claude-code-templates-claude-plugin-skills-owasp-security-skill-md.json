@@ -1,0 +1,11 @@
+{
+  "id": "davila7-claude-code-templates-claude-plugin-skills-owasp-security-skill-md",
+  "name": "owasp-security",
+  "author": "davila7",
+  "description": "Comprehensive OWASP-aligned security guidance across six standards - Top 10 (2021) for web apps, ASVS 5.0, MASVS v2.1.0 for mobile, API Security Top 10 (2023), Kubernetes Top 10 (2022), and the Agentic Applications 2026 edition for AI/LLM. Use for security reviews, vulnerability audits, secure auth/crypto/access-control implementation, Kubernetes manifest hardening, and LLM/agent prompt-injection defense - including indirect requests like \"is this login flow secure?\", \"review this endpoint\", or \"audit my pod spec\".",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/davila7/claude-code-templates/tree/main/.claude-plugin/skills/owasp-security",
+  "skillUrl": "https://skillsmp.com/creators/davila7/claude-code-templates/claude-plugin-skills-owasp-security",
+  "stars": 30096,
+  "updatedAt": 1783371520
+}

@@ -1,0 +1,11 @@
+{
+  "id": "dmitrytruelecter-multi-agent-skills-issue-search-skill-md",
+  "name": "issue-search",
+  "author": "DmitryTrueLecter",
+  "description": "Search issues using tracker-agnostic named parameters. Reads project/team key from ${CLAUDE_PROJECT_DIR}/.claude/dma/config.yml. Invocation: /dma:issue-search [status:<s>] [label:<l>] [type:<task|group>] [parent:<KEY>].",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/DmitryTrueLecter/multi-agent/tree/main/skills/issue-search",
+  "skillUrl": "https://skillsmp.com/creators/dmitrytruelecter/multi-agent/skills-issue-search",
+  "stars": 0,
+  "updatedAt": 1782718463
+}

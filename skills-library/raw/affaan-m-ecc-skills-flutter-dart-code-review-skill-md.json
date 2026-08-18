@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-flutter-dart-code-review-skill-md",
+  "name": "flutter-dart-code-review",
+  "author": "affaan-m",
+  "description": "Library-agnostic Flutter/Dart code review checklist covering widget best practices, state management patterns (BLoC, Riverpod, Provider, GetX, MobX, Signals), Dart idioms, performance, accessibility, security, and clean architecture.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/flutter-dart-code-review",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-flutter-dart-code-review",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

@@ -1,0 +1,11 @@
+{
+  "id": "twentyhq-twenty-cursor-skills-syncable-entity-integration-skill-md",
+  "name": "syncable-entity-integration",
+  "author": "twentyhq",
+  "description": "Wire syncable entity services into NestJS modules, create service layer and resolvers for Twenty entities. Use when registering builders, validators, and action handlers in modules, creating business services, or exposing entities via GraphQL API with proper exception handling.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/twentyhq/twenty/tree/main/.cursor/skills/syncable-entity-integration",
+  "skillUrl": "https://skillsmp.com/creators/twentyhq/twenty/cursor-skills-syncable-entity-integration",
+  "stars": 54222,
+  "updatedAt": 1770981511
+}

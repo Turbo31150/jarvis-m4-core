@@ -1,0 +1,11 @@
+{
+  "id": "lobehub-lobehub-agents-skills-db-migrations-skill-md",
+  "name": "db-migrations",
+  "author": "lobehub",
+  "description": "Use for database rollout strategy, Drizzle migrations, online index creation, data backfills, migration regeneration, sequence conflicts after rebase, idempotent SQL review, or migration renames.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/lobehub/lobehub/tree/canary/.agents/skills/db-migrations",
+  "skillUrl": "https://skillsmp.com/creators/lobehub/lobehub/agents-skills-db-migrations",
+  "stars": 81243,
+  "updatedAt": 1784883991
+}

@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-ja-jp-skills-database-migrations-skill-md",
+  "name": "database-migrations",
+  "author": "affaan-m",
+  "description": "PostgreSQL\u3001MySQL\u3001\u4e00\u822c\u7684\u306aORM\uff08Prisma\u3001Drizzle\u3001Kysely\u3001Django\u3001TypeORM\u3001golang-migrate\uff09\u5168\u4f53\u306e\u30b9\u30ad\u30fc\u30de\u5909\u66f4\u3001\u30c7\u30fc\u30bf\u30de\u30a4\u30b0\u30ec\u30fc\u30b7\u30e7\u30f3\u3001\u30ed\u30fc\u30eb\u30d0\u30c3\u30af\u3001\u30bc\u30ed\u30c0\u30a6\u30f3\u30bf\u30a4\u30e0\u30c7\u30d7\u30ed\u30a4\u30e1\u30f3\u30c8\u306e\u305f\u3081\u306e\u30c7\u30fc\u30bf\u30d9\u30fc\u30b9\u30de\u30a4\u30b0\u30ec\u30fc\u30b7\u30e7\u30f3\u30d9\u30b9\u30c8\u30d7\u30e9\u30af\u30c6\u30a3\u30b9\u3002",
+  "contentLanguage": "ja",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/ja-JP/skills/database-migrations",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-ja-jp-skills-database-migrations",
+  "stars": 237500,
+  "updatedAt": 1778999500
+}

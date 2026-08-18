@@ -1,0 +1,11 @@
+{
+  "id": "microsoft-aspire-agents-skills-dependency-update-skill-md",
+  "name": "dependency-update",
+  "author": "microsoft",
+  "description": "Guides dependency version updates by checking nuget.org for latest versions, triggering the dotnet-migrate-package Azure DevOps pipeline, and monitoring runs. Use this when asked to update external NuGet dependencies.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/microsoft/aspire/tree/main/.agents/skills/dependency-update",
+  "skillUrl": "https://skillsmp.com/creators/microsoft/aspire/agents-skills-dependency-update",
+  "stars": 6203,
+  "updatedAt": 1779879336
+}

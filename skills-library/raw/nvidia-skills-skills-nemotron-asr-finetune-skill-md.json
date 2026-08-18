@@ -1,0 +1,11 @@
+{
+  "id": "nvidia-skills-skills-nemotron-asr-finetune-skill-md",
+  "name": "nemotron-asr-finetune",
+  "author": "NVIDIA",
+  "description": "Orchestration skill for NVIDIA Nemotron Speech (Riva) / NeMo ASR domain and language adaptation. Given a goal like \"improve/fine-tune ASR for my domain or language\", it scopes the task, picks the cheapest sufficient path (word boosting \u2192 n-gram LM \u2192 fine-tuning), delegates each stage to the right sub-skill (data generation, training, evaluation, deployment), and answers cost/time/data questions along the way.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NVIDIA/skills/tree/main/skills/nemotron-asr-finetune",
+  "skillUrl": "https://skillsmp.com/creators/nvidia/skills/skills-nemotron-asr-finetune",
+  "stars": 2787,
+  "updatedAt": 1784328931
+}

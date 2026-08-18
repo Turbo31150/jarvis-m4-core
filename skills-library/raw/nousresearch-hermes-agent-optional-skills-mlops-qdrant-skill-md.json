@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-optional-skills-mlops-qdrant-skill-md",
+  "name": "qdrant-vector-search",
+  "author": "NousResearch",
+  "description": "Vector search engine for production RAG systems.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/optional-skills/mlops/qdrant",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/optional-skills-mlops-qdrant",
+  "stars": 225204,
+  "updatedAt": 1784906281
+}

@@ -5,8 +5,8 @@
 
 API="http://127.0.0.1:8788/api"
 WHISPER_API="http://127.0.0.1:9742/api/voice"
-CLUSTER_M1="http://192.168.1.85:1234/v1"
-CLUSTER_M2="http://192.168.1.26:1234/v1"
+CLUSTER_M1="http://127.0.0.1:1234/v1"
+CLUSTER_M2="http://127.0.0.1:18800/v1"
 
 # ── Couleurs ─────────────────────────────────────────────────────
 C_CYAN='\033[0;36m'; C_GREEN='\033[0;32m'; C_YELLOW='\033[1;33m'

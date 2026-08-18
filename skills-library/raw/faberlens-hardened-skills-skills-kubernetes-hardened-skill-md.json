@@ -1,0 +1,11 @@
+{
+  "id": "faberlens-hardened-skills-skills-kubernetes-hardened-skill-md",
+  "name": "cluster-agent-swarm-hardened",
+  "author": "faberlens",
+  "description": "Complete Platform Agent Swarm \u2014 A coordinated multi-agent system for Kubernetes and OpenShift  platform operations. Includes Orchestrator (Jarvis), Cluster Ops (Atlas), GitOps (Flow),  Security (Shield), Observability (Pulse), Artifacts (Cache), and Developer Experience (Desk).",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/faberlens/hardened-skills/tree/main/skills/kubernetes-hardened",
+  "skillUrl": "https://skillsmp.com/creators/faberlens/hardened-skills/skills-kubernetes-hardened",
+  "stars": 23,
+  "updatedAt": 1776793960
+}

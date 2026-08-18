@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-kiro-skills-golang-testing-skill-md",
+  "name": "golang-testing",
+  "author": "affaan-m",
+  "description": "Go testing best practices including table-driven tests, test helpers, benchmarking, race detection, coverage analysis, and integration testing patterns. Use when writing or improving Go tests.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/.kiro/skills/golang-testing",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/kiro-skills-golang-testing",
+  "stars": 237500,
+  "updatedAt": 1774833678
+}

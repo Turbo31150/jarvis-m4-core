@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-skills-github-github-repo-management-skill-md",
+  "name": "github-repo-management",
+  "author": "NousResearch",
+  "description": "Clone/create/fork repos; manage remotes, releases.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/skills/github/github-repo-management",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/skills-github-github-repo-management",
+  "stars": 225204,
+  "updatedAt": 1785124766
+}

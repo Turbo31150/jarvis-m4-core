@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-extensions-feishu-skills-feishu-drive-skill-md",
+  "name": "feishu-drive",
+  "author": "openclaw",
+  "description": "Feishu cloud-storage and comment workflows. Activate when the user mentions cloud space, folders, Drive files, or document comments.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/extensions/feishu/skills/feishu-drive",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/extensions-feishu-skills-feishu-drive",
+  "stars": 385119,
+  "updatedAt": 1785803460
+}

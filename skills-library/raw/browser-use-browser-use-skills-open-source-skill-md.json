@@ -1,0 +1,11 @@
+{
+  "id": "browser-use-browser-use-skills-open-source-skill-md",
+  "name": "open-source",
+  "author": "browser-use",
+  "description": "Documentation reference for writing Python code using the browser-use open-source library. Use this skill whenever the user needs help with Agent, Browser, or Tools configuration, is writing code that imports from browser_use, asks about @sandbox deployment, supported LLM models, Actor API, custom tools, lifecycle hooks, MCP server setup, or monitoring/observability with Laminar or OpenLIT. Also trigger for questions about browser-use installation, prompting strategies, or sensitive data handling. Do NOT use this for Cloud API/SDK usage or pricing \u2014 use the cloud skill instead. Do NOT use this for directly automating a browser via CLI commands \u2014 use the browser-use skill instead.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/browser-use/browser-use/tree/main/skills/open-source",
+  "skillUrl": "https://skillsmp.com/creators/browser-use/browser-use/skills-open-source",
+  "stars": 107820,
+  "updatedAt": 1779472078
+}

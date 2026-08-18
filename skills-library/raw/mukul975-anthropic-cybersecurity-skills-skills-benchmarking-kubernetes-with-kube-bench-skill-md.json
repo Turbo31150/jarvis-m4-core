@@ -1,0 +1,11 @@
+{
+  "id": "mukul975-anthropic-cybersecurity-skills-skills-benchmarking-kubernetes-with-kube-bench-skill-md",
+  "name": "benchmarking-kubernetes-with-kube-bench",
+  "author": "mukul975",
+  "description": "Run kube-bench (Aqua Security) against a Kubernetes cluster's control-plane, kubelet, and node configuration to check compliance with the CIS Kubernetes Benchmark and remediate PASS/FAIL/WARN findings. Use when establishing a security baseline for a new cluster, performing periodic hardening audits, validating remediation after configuration changes, or gathering compliance evidence for SOC 2/PCI DSS.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/mukul975/Anthropic-Cybersecurity-Skills/tree/main/skills/benchmarking-kubernetes-with-kube-bench",
+  "skillUrl": "https://skillsmp.com/creators/mukul975/anthropic-cybersecurity-skills/skills-benchmarking-kubernetes-with-kube-bench",
+  "stars": 27260,
+  "updatedAt": 1785688333
+}

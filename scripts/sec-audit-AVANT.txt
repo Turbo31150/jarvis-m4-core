@@ -1,0 +1,24 @@
+=== SEC-AUDIT 2026-06-28 09:37:07 sur pamerys-m4 ===
+──────────────────────────────────────────────
+[1] Chiffrement disque (LUKS)
+[31m✗ AUCUN chiffrement disque (disque volé = lisible)[0m
+──────────────────────────────────────────────
+[2] Bases SQLite en clair (échantillon, schémas seulement)
+[31m✗ 708 base(s) SQLite EN CLAIR (lisibles sans clé)[0m
+──────────────────────────────────────────────
+[3] Clés SSH sans passphrase
+[31m✗ sans passphrase : id_ed25519[0m
+[31m✗ sans passphrase : id_ed25519_jarvis[0m
+──────────────────────────────────────────────
+[4] Fichiers de credentials en clair
+[31m✗ présent en clair : ~/.git-credentials  (perms 600)[0m
+[31m✗ présent en clair : ~/.config/gh/hosts.yml  (perms 600)[0m
+──────────────────────────────────────────────
+[5] Fichiers .env en clair (paires clé=valeur)
+[31m✗ 12 fichier(s) .env avec secrets EN CLAIR[0m
+──────────────────────────────────────────────
+[6] Secret store chiffré (SOPS/age) en place ?
+[33m! sops/age non installés (secret store chiffré pas encore en place)[0m
+[33m! pas de clé age[0m
+──────────────────────────────────────────────
+[7] Secrets en clair commités dans un repo git ?

@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-nuxt4-patterns-skill-md",
+  "name": "nuxt4-patterns",
+  "author": "affaan-m",
+  "description": "Nuxt 4 app patterns for hydration safety, performance, route rules, lazy loading, and SSR-safe data fetching with useFetch and useAsyncData.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/nuxt4-patterns",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-nuxt4-patterns",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

@@ -1,0 +1,11 @@
+{
+  "id": "google-gemini-gemini-cli-gemini-skills-tui-tester-skill-md",
+  "name": "tui-tester",
+  "author": "google-gemini",
+  "description": "Expert guidance for testing Gemini CLI behavior and visual output using terminal automation.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/google-gemini/gemini-cli/tree/main/.gemini/skills/tui-tester",
+  "skillUrl": "https://skillsmp.com/creators/google-gemini/gemini-cli/gemini-skills-tui-tester",
+  "stars": 106351,
+  "updatedAt": 1779119162
+}

@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-agents-skills-gitcrawl-skill-md",
+  "name": "gitcrawl",
+  "author": "openclaw",
+  "description": "GitHub archive: issue/PR search, sync freshness, duplicate clusters, gh-shim PR status, and Gitcrawl repo work.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/.agents/skills/gitcrawl",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/agents-skills-gitcrawl",
+  "stars": 385119,
+  "updatedAt": 1779016703
+}

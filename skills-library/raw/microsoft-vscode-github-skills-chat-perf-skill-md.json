@@ -1,0 +1,11 @@
+{
+  "id": "microsoft-vscode-github-skills-chat-perf-skill-md",
+  "name": "chat-perf",
+  "author": "microsoft",
+  "description": "Run chat perf benchmarks and memory leak checks against the local dev build or any published VS Code version. Use when investigating chat rendering regressions, validating perf-sensitive changes to chat UI, or checking for memory leaks in the chat response pipeline.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/microsoft/vscode/tree/main/.github/skills/chat-perf",
+  "skillUrl": "https://skillsmp.com/creators/microsoft/vscode/github-skills-chat-perf",
+  "stars": 188283,
+  "updatedAt": 1783978974
+}

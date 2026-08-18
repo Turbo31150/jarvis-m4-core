@@ -1,0 +1,11 @@
+{
+  "id": "astral-sh-uv-codex-skills-load-github-action-thread-skill-md",
+  "name": "load-github-action-thread",
+  "author": "astral-sh",
+  "description": "Download retained Codex GitHub Action thread artifacts and load their rollout history into the local Codex app. Use when asked to open, load, import, resume, or inspect a Codex automation thread from a GitHub Actions run or a related GitHub issue or pull request.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/astral-sh/uv/tree/main/.codex/skills/load-github-action-thread",
+  "skillUrl": "https://skillsmp.com/creators/astral-sh/uv/codex-skills-load-github-action-thread",
+  "stars": 88319,
+  "updatedAt": 1785517710
+}

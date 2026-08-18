@@ -1,4 +1,5 @@
 #!/bin/bash
+exec 8>/tmp/gsl.lock; flock -n 8 || exit 0
 # gemini-session-logger.sh — Log chaque appel Gemini CLI dans SQLite
 # Usage: source depuis gemini-smart.sh ou appel direct
 # DB: ~/.gemini/stats.db
@@ -25,7 +26,7 @@ _gemini_db_init() {
 
 gemini_log_start() {
   # $1=model $2=prompt_len $3=via
-  local model="${1:-gemini-2.5-pro}" plen="${2:-0}" via="${3:-direct}"
+  local model="${1:-gemini-3.7-flash}" plen="${2:-0}" via="${3:-direct}"
   local ts=$(date +%s%3N) hr=$(date +%H)
   _gemini_db_init
   echo $(sqlite3 "$DB" "INSERT INTO sessions(ts_start,hour,model,prompt_len,via) VALUES($ts,$hr,'$model',$plen,'$via'); SELECT last_insert_rowid();")

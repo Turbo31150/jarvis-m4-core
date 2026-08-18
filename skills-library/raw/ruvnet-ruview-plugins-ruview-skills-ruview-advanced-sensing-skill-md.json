@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruview-plugins-ruview-skills-ruview-advanced-sensing-skill-md",
+  "name": "ruview-advanced-sensing",
+  "author": "ruvnet",
+  "description": "Advanced RuView capabilities \u2014 RuvSense multistatic sensing (attention-weighted fusion, geometric diversity, persistent field model), cross-viewpoint fusion across multiple nodes, RF tomography (ISTA L1 solver, voxel grids), longitudinal biomechanics drift, pre-movement intention signals, adversarial signal detection, and multistatic mesh security hardening. Use for research-grade or multi-node deployments.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/RuView/tree/main/plugins/ruview/skills/ruview-advanced-sensing",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruview/plugins-ruview-skills-ruview-advanced-sensing",
+  "stars": 88440,
+  "updatedAt": 1778535556
+}

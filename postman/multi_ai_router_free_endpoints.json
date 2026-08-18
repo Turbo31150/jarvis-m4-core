@@ -1,0 +1,141 @@
+{
+  "info": {
+    "name": "JARVIS multi_ai_router — Free Endpoints",
+    "description": "Test cascade des providers gratuits OpenAI-compatibles. Renseigne les variables de collection (clés). Chaque requête: list models + chat completion.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {"key": "groq_key", "value": ""},
+    {"key": "cerebras_key", "value": ""},
+    {"key": "gemini_key", "value": ""},
+    {"key": "mistral_key", "value": ""},
+    {"key": "openrouter_key", "value": ""}
+  ],
+  "item": [
+    {
+      "name": "Groq",
+      "item": [
+        {
+          "name": "List models",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{groq_key}}"}],
+            "url": "https://api.groq.com/openai/v1/models"
+          }
+        },
+        {
+          "name": "Chat",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{groq_key}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {"mode": "raw", "raw": "{\n  \"model\": \"llama-3.3-70b-versatile\",\n  \"messages\": [{\"role\": \"user\", \"content\": \"ping\"}]\n}"},
+            "url": "https://api.groq.com/openai/v1/chat/completions"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cerebras",
+      "item": [
+        {
+          "name": "List models",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{cerebras_key}}"}],
+            "url": "https://api.cerebras.ai/v1/models"
+          }
+        },
+        {
+          "name": "Chat",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{cerebras_key}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {"mode": "raw", "raw": "{\n  \"model\": \"llama-3.3-70b\",\n  \"messages\": [{\"role\": \"user\", \"content\": \"ping\"}]\n}"},
+            "url": "https://api.cerebras.ai/v1/chat/completions"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Gemini (OpenAI compat)",
+      "item": [
+        {
+          "name": "List models",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{gemini_key}}"}],
+            "url": "https://generativelanguage.googleapis.com/v1beta/openai/models"
+          }
+        },
+        {
+          "name": "Chat",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{gemini_key}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {"mode": "raw", "raw": "{\n  \"model\": \"gemini-3-flash-preview\",\n  \"messages\": [{\"role\": \"user\", \"content\": \"ping\"}]\n}"},
+            "url": "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Mistral",
+      "item": [
+        {
+          "name": "List models",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{mistral_key}}"}],
+            "url": "https://api.mistral.ai/v1/models"
+          }
+        },
+        {
+          "name": "Chat",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{mistral_key}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {"mode": "raw", "raw": "{\n  \"model\": \"mistral-small-latest\",\n  \"messages\": [{\"role\": \"user\", \"content\": \"ping\"}]\n}"},
+            "url": "https://api.mistral.ai/v1/chat/completions"
+          }
+        }
+      ]
+    },
+    {
+      "name": "OpenRouter (failover :free)",
+      "item": [
+        {
+          "name": "List models",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{openrouter_key}}"}],
+            "url": "https://openrouter.ai/api/v1/models"
+          }
+        },
+        {
+          "name": "Chat (:free)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{openrouter_key}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {"mode": "raw", "raw": "{\n  \"model\": \"meta-llama/llama-3.3-70b-instruct:free\",\n  \"messages\": [{\"role\": \"user\", \"content\": \"ping\"}]\n}"},
+            "url": "https://openrouter.ai/api/v1/chat/completions"
+          }
+        }
+      ]
+    }
+  ]
+}

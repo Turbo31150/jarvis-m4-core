@@ -1,0 +1,123 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Guide d&#x27;installation &amp; mise en place — repurpose-1-4</title><style>
+body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;max-width:820px;
+margin:0 auto;padding:40px 28px;color:#1a1a2e;line-height:1.6}
+h1{font-size:2em;border-bottom:3px solid #4361ee;padding-bottom:.3em;color:#3a0ca3}
+h2{color:#3a0ca3;border-bottom:1px solid #e0e0f0;padding-bottom:.2em;margin-top:1.6em}
+h3{color:#4361ee}code{background:#f2f2fa;padding:2px 5px;border-radius:4px;font-size:.9em}
+pre{background:#1a1a2e;color:#e0e0f0;padding:14px;border-radius:8px;overflow-x:auto}
+pre code{background:none;color:inherit}table{border-collapse:collapse;width:100%}
+td,th{border:1px solid #ddd;padding:8px}th{background:#4361ee;color:#fff}
+blockquote{border-left:4px solid #4361ee;margin:0;padding-left:16px;color:#555}
+.cover{text-align:center;padding:30px 0 10px;border-bottom:2px dashed #4361ee;margin-bottom:24px}
+.cover .badge{display:inline-block;background:#3a0ca3;color:#fff;padding:6px 16px;
+border-radius:20px;font-size:.85em;letter-spacing:1px}
+.sep{margin:40px 0;border:none;border-top:2px dashed #ccd}
+</style></head><body>
+<div class="cover"><span class="badge">GUIDE D'INSTALLATION</span>
+<h1 style="border:none">repurpose-1-4</h1>
+<p>Présentation · Installation / mise en place · Usage</p></div>
+<h1>Présentation</h1>
+<h1 id="fiche-de-vente-repurpose-1-4">Fiche de vente — repurpose 1 → 4</h1>
+<blockquote>
+<p>Prix PROPOSÉ, à valider par Franck (petit outil, palier bas).</p>
+</blockquote>
+<h2 id="accroche">Accroche</h2>
+<p>Écrivez une fois, publiez partout. Un post → 4 formats prêts à relire, générés
+sur votre machine, gratuitement.</p>
+<h2 id="le-probleme">Le problème</h2>
+<p>Décliner chaque idée en LinkedIn + tweet + script vidéo + carrousel prend un
+temps fou — et les outils IA en ligne facturent chaque génération.</p>
+<h2 id="la-solution">La solution</h2>
+<p>repurpose 1→4 transforme n'importe quel texte source en 4 brouillons formatés
+(LinkedIn 150-250 mots, tweet ≤ 280 car., script Reel/Short minuté, plan de
+carrousel 5-7 slides) en une seule commande, via votre IA locale — 0 token
+facturé, 0 donnée envoyée.</p>
+<h2 id="ce-que-vous-recevez">Ce que vous recevez</h2>
+<ul>
+<li>Le script <code>repurpose.sh</code></li>
+<li>Documentation <code>REPURPOSE-1-4.md</code></li>
+<li>Cascade de repli automatique (LM Studio → Ollama)</li>
+</ul>
+<h2 id="points-forts">Points forts</h2>
+<ul>
+<li>0 coût par génération (100 % local)</li>
+<li>Brouillons uniquement : vous gardez le contrôle éditorial</li>
+<li>Sortie organisée en dossier daté</li>
+</ul>
+<h2 id="prix">Prix</h2>
+<p><strong>29 € — paiement unique</strong> [PROPOSÉ, à valider].</p>
+<h2 id="cible">Cible</h2>
+<p>Créateurs de contenu, indépendants, community managers soucieux de leur budget
+et de leurs données.</p>
+<hr class="sep"><h1>Prise en main</h1>
+<h1 id="repurpose-1-4">repurpose 1 → 4</h1>
+<p>Un post source → <strong>4 formats prêts à relire</strong>, générés 100 % en local (0 token
+facturé) : LinkedIn, X/Twitter, script Reel/Short, plan de carrousel Instagram.
+Aucune publication automatique : l'outil ne produit que des <strong>brouillons</strong>.</p>
+<h2 id="contenu">Contenu</h2>
+<pre><code>repurpose.sh          # le générateur (Bash + cascade IA locale)
+REPURPOSE-1-4.md      # documentation
+README.md / FICHE-VENTE.md / LICENSE.txt
+</code></pre>
+<h2 id="prerequis">Prérequis</h2>
+<p>Un backend IA local 0-token, dans cet ordre de repli :
+1. LM Studio (variable <code>M6_HOST</code>, défaut <code>&lt;LLM_HOST&gt;:1234</code>) avec un modèle chargé, ou
+2. Ollama (<code>OLLAMA_URL</code>, défaut <code>http://127.0.0.1:11434</code>) avec <code>qwen2.5:7b</code> ou <code>gemma3:4b</code>.</p>
+<p>Aucune IA facturée n'est utilisée en repli : si aucun backend local ne répond,
+l'outil s'arrête proprement.</p>
+<h2 id="usage">Usage</h2>
+<pre><code class="language-bash">chmod +x repurpose.sh
+repurpose.sh &quot;&lt;texte du post source&gt;&quot;
+repurpose.sh -f post.txt
+echo &quot;&lt;texte&gt;&quot; | repurpose.sh
+</code></pre>
+<p>Sortie : un dossier daté sous <code>$HOME/jarvis/wbs/drafts/repurpose-&lt;slug&gt;-&lt;date&gt;/</code>
+contenant <code>00-INDEX.md</code>, <code>01-linkedin.md</code>, <code>02-twitter.md</code>, <code>03-reel-short.md</code>,
+<code>04-carousel-instagram.md</code>.</p>
+<h2 id="securite">Sécurité</h2>
+<p>Génération locale, brouillons uniquement. Rien n'est publié ni envoyé.</p>
+<hr class="sep"><h1>Dossier complet — installation & usage</h1>
+<h1 id="dossier-complet-essence-alkymia-repurpose-14">DOSSIER COMPLET — Essence AlkymIA : Repurpose 1→4</h1>
+<blockquote>
+<p>Dossier self-contained. Source : Notion (Naming, Board prix packs, Présentations, Preuves). Aucun secret dans ce dossier.</p>
+</blockquote>
+<h2 id="nom-commercial-tagline">Nom commercial &amp; tagline</h2>
+<p><strong>Les Essences AlkymIA — Repurpose 1→4</strong> — « Un post source → 4 formats prêts à relire. »
+Brique à la carte de La Fabrique AlkymIA. (Nom technique : repurpose-1-4.)</p>
+<h2 id="cible">Cible</h2>
+<p>Créateurs de contenu, indépendants et TPE qui veulent décliner un contenu source en plusieurs formats sans y passer des heures ni envoyer leurs textes dans le cloud.</p>
+<h2 id="probleme">Problème</h2>
+<p>Réécrire manuellement un même contenu pour chaque canal est chronophage ; les outils SaaS facturent au mois et aspirent vos textes.</p>
+<h2 id="promesse">Promesse</h2>
+<p>Un post source décliné en 4 formats (dont carrousel 5-7 slides) en une seule commande, via votre IA locale — 0 token, aucune publication automatique, brouillon à relire.</p>
+<h2 id="ce-qui-est-inclus-fichiers-reels-de-ce-dossier">Ce qui est inclus (fichiers réels de ce dossier)</h2>
+<ul>
+<li><code>repurpose.sh</code> — script de génération 0-token (cascade IA locale, fail-safe)</li>
+<li><code>REPURPOSE-1-4.md</code> — documentation</li>
+<li><code>README.md</code> — installation + usage</li>
+<li><code>FICHE-VENTE.md</code> — argumentaire</li>
+<li><code>LICENSE.txt</code> — licence propriétaire</li>
+</ul>
+<h2 id="differenciateur">Différenciateur</h2>
+<p>Génération 100 % locale 0-token, aucun envoi ni publication (brouillon horodaté à relire), composable avec les autres Essences + humain joignable.</p>
+<h2 id="preuves-reelles-honnetes">Preuves réelles (honnêtes)</h2>
+<ul>
+<li>Plus de 160 dépôts de code, infra locale souveraine — capacité de production démontrée.</li>
+<li>[À CONFIRMER] Témoignage + STAT d'usage.</li>
+</ul>
+<h2 id="offre-prix-cta">Offre, prix &amp; CTA</h2>
+<p><strong>39 €</strong> — paiement unique (ancrage Essences).
+CTA : « Je commence par une Essence ».
+Canal : Gumroad.</p>
+<h2 id="landing">Landing</h2>
+<p>Pas de landing dédiée (brique à la carte).</p>
+<h2 id="placeholders-honnetes-restants">Placeholders honnêtes restants</h2>
+<ul>
+<li>Témoignage + statistique d'adoption.</li>
+<li>Contact support dans <code>LICENSE.txt</code>.</li>
+</ul>
+<hr class="sep"><p style="text-align:center;color:#888;font-size:.85em">
+Document généré pour livraison (zip / systeme.io). JARVIS OS — livrables.</p>
+</body></html>

@@ -1,0 +1,11 @@
+{
+  "id": "thedaviddias-front-end-checklist-skills-llms-txt-skill-md",
+  "name": "llms-txt",
+  "author": "thedaviddias",
+  "description": "Use when auditing public documentation portals, API references, help centers, SDK docs, or large knowledge bases. Check the final file served at `/llms.txt` and verify that the linked pages are stable, high-value, and accessible without relying on a JavaScript-only interface.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedaviddias/Front-End-Checklist/tree/main/skills/llms-txt",
+  "skillUrl": "https://skillsmp.com/creators/thedaviddias/front-end-checklist/skills-llms-txt",
+  "stars": 73416,
+  "updatedAt": 1780091646
+}

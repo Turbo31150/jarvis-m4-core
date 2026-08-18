@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-skills-productivity-google-workspace-skill-md",
+  "name": "google-workspace",
+  "author": "NousResearch",
+  "description": "Gmail, Calendar, Drive, Docs, Sheets via gws CLI or Python.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/skills/productivity/google-workspace",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/skills-productivity-google-workspace",
+  "stars": 225204,
+  "updatedAt": 1785565118
+}

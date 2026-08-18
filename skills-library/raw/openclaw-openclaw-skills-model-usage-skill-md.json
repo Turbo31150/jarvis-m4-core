@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-skills-model-usage-skill-md",
+  "name": "model-usage",
+  "author": "openclaw",
+  "description": "Summarize CodexBar local cost logs by model for Codex or Claude, including current or full breakdowns.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/skills/model-usage",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/skills-model-usage",
+  "stars": 385119,
+  "updatedAt": 1784657086
+}

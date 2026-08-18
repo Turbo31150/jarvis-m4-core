@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-error-handling-skill-md",
+  "name": "error-handling",
+  "author": "affaan-m",
+  "description": "Patterns for robust error handling across TypeScript, Python, and Go. Covers typed errors, error boundaries, retries, circuit breakers, and user-facing error messages.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/error-handling",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-error-handling",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

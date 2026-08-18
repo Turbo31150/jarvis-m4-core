@@ -1,0 +1,11 @@
+{
+  "id": "composiohq-composio-agents-skills-cli-e2e-skill-md",
+  "name": "cli-e2e",
+  "author": "ComposioHQ",
+  "description": "Write, modify, or debug Docker-based Composio CLI end-to-end tests under ts/e2e-tests/cli, including binary invocation, fixture isolation, output assertions, and package manifests. Use for CLI E2E test suites only; use cli-command for CLI source implementation.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ComposioHQ/composio/tree/next/.agents/skills/cli-e2e",
+  "skillUrl": "https://skillsmp.com/creators/composiohq/composio/agents-skills-cli-e2e",
+  "stars": 29526,
+  "updatedAt": 1782506157
+}

@@ -1,0 +1,11 @@
+{
+  "id": "thedaviddias-front-end-checklist-skills-canonical-chain-skill-md",
+  "name": "canonical-chain",
+  "author": "thedaviddias",
+  "description": "Use when auditing metadata, crawlability, structured data, or indexability related to Avoid redirect chains on canonical URLs. Verify the rendered HTML and HTTP response rather than relying only on source files.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedaviddias/Front-End-Checklist/tree/main/skills/canonical-chain",
+  "skillUrl": "https://skillsmp.com/creators/thedaviddias/front-end-checklist/skills-canonical-chain",
+  "stars": 73416,
+  "updatedAt": 1780091646
+}

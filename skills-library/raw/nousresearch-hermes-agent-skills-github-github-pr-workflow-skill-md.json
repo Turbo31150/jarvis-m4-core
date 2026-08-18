@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-skills-github-github-pr-workflow-skill-md",
+  "name": "github-pr-workflow",
+  "author": "NousResearch",
+  "description": "GitHub PR lifecycle: branch, commit, open, CI, merge.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/skills/github/github-pr-workflow",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/skills-github-github-pr-workflow",
+  "stars": 225204,
+  "updatedAt": 1785124766
+}

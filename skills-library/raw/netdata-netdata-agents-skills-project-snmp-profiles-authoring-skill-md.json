@@ -1,0 +1,11 @@
+{
+  "id": "netdata-netdata-agents-skills-project-snmp-profiles-authoring-skill-md",
+  "name": "project-snmp-profiles-authoring",
+  "author": "netdata",
+  "description": "Use when editing Netdata SNMP profile YAMLs, topology SNMP profiles, ddsnmp profile parsing, or profile-format documentation. Requires checking source MIB field accessibility, especially MAX-ACCESS not-accessible INDEX objects, before adding or changing profile symbols.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/netdata/netdata/tree/master/.agents/skills/project-snmp-profiles-authoring",
+  "skillUrl": "https://skillsmp.com/creators/netdata/netdata/agents-skills-project-snmp-profiles-authoring",
+  "stars": 80011,
+  "updatedAt": 1778344508
+}

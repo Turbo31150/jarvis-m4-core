@@ -1,0 +1,11 @@
+{
+  "id": "nexu-io-open-design-plugins-official-examples-clinical-case-report-skill-md",
+  "name": "clinical-case-report",
+  "author": "nexu-io",
+  "description": "Structured medical case presentation for clinical rounds, conferences,\nand documentation. Generates SOAP-format or narrative case reports\nwith physiologically accurate vitals, labs, and evidence-based plans.\nUse when the brief mentions \"case report\", \"case presentation\", \"SOAP note\",\n\"clinical case\", \"ward rounds\", \"case summary\", or \"patient presentation\".",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/nexu-io/open-design/tree/main/plugins/_official/examples/clinical-case-report",
+  "skillUrl": "https://skillsmp.com/creators/nexu-io/open-design/plugins-official-examples-clinical-case-report",
+  "stars": 83535,
+  "updatedAt": 1784018637
+}

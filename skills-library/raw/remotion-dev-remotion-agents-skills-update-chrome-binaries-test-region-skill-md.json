@@ -1,0 +1,11 @@
+{
+  "id": "remotion-dev-remotion-agents-skills-update-chrome-binaries-test-region-skill-md",
+  "name": "update-chrome-binaries-test-region",
+  "author": "remotion-dev",
+  "description": "Publish Remotion Lambda Chrome binaries to the eu-central-1 test region and update hosted layer and Chrome version references. Use when updating Chrome binaries before full regional rollout.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/remotion-dev/remotion/tree/main/.agents/skills/update-chrome-binaries-test-region",
+  "skillUrl": "https://skillsmp.com/creators/remotion-dev/remotion/agents-skills-update-chrome-binaries-test-region",
+  "stars": 55475,
+  "updatedAt": 1783766034
+}

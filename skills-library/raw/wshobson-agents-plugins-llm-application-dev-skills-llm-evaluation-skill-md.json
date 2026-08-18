@@ -1,0 +1,11 @@
+{
+  "id": "wshobson-agents-plugins-llm-application-dev-skills-llm-evaluation-skill-md",
+  "name": "llm-evaluation",
+  "author": "wshobson",
+  "description": "Implement comprehensive evaluation strategies for LLM applications using automated metrics, human feedback, and benchmarking. Use when testing LLM performance, measuring AI application quality, or establishing evaluation frameworks.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/wshobson/agents/tree/main/plugins/llm-application-dev/skills/llm-evaluation",
+  "skillUrl": "https://skillsmp.com/creators/wshobson/agents/plugins-llm-application-dev-skills-llm-evaluation",
+  "stars": 38472,
+  "updatedAt": 1783441073
+}

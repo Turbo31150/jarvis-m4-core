@@ -141,7 +141,10 @@ def register(app):
         try:
             import ai_local
 
-            r = ai_local.generate(prompt, max_tokens=700, cache=False)
+            # liste des élèves + observations de l'enseignante → ne sort pas du foyer
+            r = ai_local.generate(
+                prompt, max_tokens=700, cache=False, nominatif=True
+            )
         except Exception as e:
             return jsonify({"ok": False, "error": f"IA indisponible : {e}"}), 503
         return jsonify(

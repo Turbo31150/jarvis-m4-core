@@ -38,7 +38,10 @@ signal.signal(signal.SIGINT, sigterm_handler)
 
 
 def get_db():
-    conn = sqlite3.connect(DB_PATH)
+    # WAL : un seul écrivain à la fois sur une base très sollicitée,
+    # il faut attendre au lieu d'échouer sur "database is locked".
+    conn = sqlite3.connect(DB_PATH, timeout=120)
+    conn.execute("PRAGMA busy_timeout=120000")
     conn.row_factory = sqlite3.Row
     return conn
 

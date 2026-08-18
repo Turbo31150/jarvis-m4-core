@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-codebase-onboarding-skill-md",
+  "name": "codebase-onboarding",
+  "author": "affaan-m",
+  "description": "Analyze an unfamiliar codebase and generate a structured onboarding guide with architecture map, key entry points, conventions, and a starter CLAUDE.md. Use when joining a new project or setting up Claude Code for the first time in a repo.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/codebase-onboarding",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-codebase-onboarding",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

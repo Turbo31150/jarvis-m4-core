@@ -1,0 +1,11 @@
+{
+  "id": "nexu-io-open-design-skills-export-download-debugging-skill-md",
+  "name": "export-download-debugging",
+  "author": "nexu-io",
+  "description": "Diagnose and fix browser, preview, or Electron export/download failures, especially image export issues involving Save As, Blob/Data URLs, the File System Access API, createWritable failures, and 0 KB files.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/nexu-io/open-design/tree/main/skills/export-download-debugging",
+  "skillUrl": "https://skillsmp.com/creators/nexu-io/open-design/skills-export-download-debugging",
+  "stars": 83535,
+  "updatedAt": 1780116240
+}

@@ -1,0 +1,11 @@
+{
+  "id": "posthog-posthog-products-ai-observability-skills-analyzing-expensive-users-skill-md",
+  "name": "analyzing-expensive-users",
+  "author": "PostHog",
+  "description": "Analyze the most expensive users in AI observability and explain why they cost so much. Use when the user asks about top spenders, expensive users, per-user LLM cost, user-level cost drivers, or patterns behind high AI observability spend.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/PostHog/posthog/tree/master/products/ai_observability/skills/analyzing-expensive-users",
+  "skillUrl": "https://skillsmp.com/creators/posthog/posthog/products-ai-observability-skills-analyzing-expensive-users",
+  "stars": 37496,
+  "updatedAt": 1785172217
+}

@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-tr-skills-security-review-skill-md",
+  "name": "security-review",
+  "author": "affaan-m",
+  "description": "Kimlik do\u011frulama eklerken, kullan\u0131c\u0131 girdisi i\u015flerken, secret'larla \u00e7al\u0131\u015f\u0131rken, API endpoint'leri olu\u015ftururken veya \u00f6deme/hassas \u00f6zellikler uygularken bu skill'i kullan\u0131n. Kapsaml\u0131 g\u00fcvenlik kontrol listesi ve kal\u0131plar sa\u011flar.",
+  "contentLanguage": "tur",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/tr/skills/security-review",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-tr-skills-security-review",
+  "stars": 237500,
+  "updatedAt": 1774833678
+}

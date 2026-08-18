@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruflo-agents-skills-memory-management-skill-md",
+  "name": "memory-management",
+  "author": "ruvnet",
+  "description": "AgentDB memory system with HNSW vector search. Provides 150x-12,500x faster pattern retrieval, persistent storage, and semantic search capabilities for learning and knowledge management. Use when: need to store successful patterns, searching for similar solutions, semantic lookup of past work, learning from previous tasks, sharing knowledge between agents, building knowledge base. Skip when: no learning needed, ephemeral one-off tasks, external data sources available, read-only exploration.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/ruflo/tree/main/.agents/skills/memory-management",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruflo/agents-skills-memory-management",
+  "stars": 66991,
+  "updatedAt": 1770487345
+}

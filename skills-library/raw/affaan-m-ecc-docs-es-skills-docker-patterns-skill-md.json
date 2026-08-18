@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-es-skills-docker-patterns-skill-md",
+  "name": "docker-patterns",
+  "author": "affaan-m",
+  "description": "Patrones de Docker y Docker Compose para desarrollo local, seguridad de contenedores, networking, estrategias de vol\u00famenes y orquestaci\u00f3n de m\u00faltiples servicios.",
+  "contentLanguage": "es",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/es/skills/docker-patterns",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-es-skills-docker-patterns",
+  "stars": 237500,
+  "updatedAt": 1780810002
+}

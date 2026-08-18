@@ -1,0 +1,11 @@
+{
+  "id": "nexu-io-open-design-skills-enhance-prompt-skill-md",
+  "name": "enhance-prompt",
+  "author": "nexu-io",
+  "description": "Improve prompts with design specs and UI/UX vocabulary. Useful for design-to-code workflows and clarifying requests for visual output.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/nexu-io/open-design/tree/main/skills/enhance-prompt",
+  "skillUrl": "https://skillsmp.com/creators/nexu-io/open-design/skills-enhance-prompt",
+  "stars": 83535,
+  "updatedAt": 1778492914
+}

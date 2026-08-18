@@ -1,0 +1,11 @@
+{
+  "id": "github-awesome-copilot-skills-qdrant-monitoring-debugging-skill-md",
+  "name": "qdrant-monitoring-debugging",
+  "author": "github",
+  "description": "Diagnoses Qdrant production issues using metrics and observability tools. Use when someone reports 'optimizer stuck', 'indexing too slow', 'memory too high', 'OOM crash', 'queries are slow', 'latency spike', or 'search was fast now it's slow'. Also use when performance degrades without obvious config changes.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/github/awesome-copilot/tree/main/skills/qdrant-monitoring/debugging",
+  "skillUrl": "https://skillsmp.com/creators/github/awesome-copilot/skills-qdrant-monitoring-debugging",
+  "stars": 37423,
+  "updatedAt": 1776387267
+}

@@ -1,0 +1,11 @@
+{
+  "id": "n8n-io-n8n-agents-skills-nathan-skill-md",
+  "name": "n8n-nathan",
+  "author": "n8n-io",
+  "description": "Deploy a temporary n8n test instance (or generate a local docker run command) via the internal \"Nathan\" bot, from the repo instead of Slack. Use after opening a PR to offer the user a live test instance, or whenever someone asks to spin up / deploy a test instance for a branch.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/n8n-io/n8n/tree/master/.agents/skills/nathan",
+  "skillUrl": "https://skillsmp.com/creators/n8n-io/n8n/agents-skills-nathan",
+  "stars": 199283,
+  "updatedAt": 1784016020
+}

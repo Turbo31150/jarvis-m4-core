@@ -1,0 +1,11 @@
+{
+  "id": "posthog-posthog-products-signals-skills-signals-scout-session-replay-skill-md",
+  "name": "signals-scout-session-replay",
+  "author": "PostHog",
+  "description": "Signals scout for PostHog session replay. Watches that sessions keep recording (capture cliffs) and that friction inside recordings \u2014 rage/dead-click clusters, error-after-interaction cohorts \u2014 gets surfaced, and files each validated cliff or cluster as a report in the inbox.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/PostHog/posthog/tree/master/products/signals/skills/signals-scout-session-replay",
+  "skillUrl": "https://skillsmp.com/creators/posthog/posthog/products-signals-skills-signals-scout-session-replay",
+  "stars": 37496,
+  "updatedAt": 1785376562
+}

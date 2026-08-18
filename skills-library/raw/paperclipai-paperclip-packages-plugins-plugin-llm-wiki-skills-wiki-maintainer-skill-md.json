@@ -1,0 +1,11 @@
+{
+  "id": "paperclipai-paperclip-packages-plugins-plugin-llm-wiki-skills-wiki-maintainer-skill-md",
+  "name": "llm-wiki-maintainer",
+  "author": "paperclipai",
+  "description": "Use the LLM Wiki plugin tools to maintain a cited local company wiki.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/paperclipai/paperclip/tree/master/packages/plugins/plugin-llm-wiki/skills/wiki-maintainer",
+  "skillUrl": "https://skillsmp.com/creators/paperclipai/paperclip/packages-plugins-plugin-llm-wiki-skills-wiki-maintainer",
+  "stars": 75602,
+  "updatedAt": 1778550341
+}

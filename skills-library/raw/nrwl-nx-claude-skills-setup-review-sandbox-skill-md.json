@@ -1,0 +1,11 @@
+{
+  "id": "nrwl-nx-claude-skills-setup-review-sandbox-skill-md",
+  "name": "setup-review-sandbox",
+  "author": "nrwl",
+  "description": "One-time setup of the sandbox prerequisites used by the reproduce-issue skill and the reproduce-verifier agent \u2014 Docker, the isolation runtime (gVisor on Linux / Colima on macOS), healthy container networking, and the nx-review-sandbox toolchain image (built from the repo's mise.toml). Idempotent; re-run any time to verify or repair. Use when the user says \"set up the review sandbox\", \"install the sandbox prereqs\", \"build the sandbox image\", or a reproduce-issue preflight reports something MISSING.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/nrwl/nx/tree/master/.claude/skills/setup-review-sandbox",
+  "skillUrl": "https://skillsmp.com/creators/nrwl/nx/claude-skills-setup-review-sandbox",
+  "stars": 29188,
+  "updatedAt": 1785515123
+}

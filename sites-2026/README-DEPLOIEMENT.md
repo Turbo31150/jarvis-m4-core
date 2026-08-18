@@ -41,10 +41,10 @@ héberge la fonction IPN (`jarvis-delmas`). Après déploiement :
 ## 4. À compléter avant mise en ligne définitive
 - **SIRET / statut juridique** dans les footers « Mentions légales » (marqué `TODO` en commentaire
   HTML sur les 5 sites B2C/AutomatIA).
-- Vérifier que le compte PayPal marchand (`miningexpert31@gmail.com`) est bien le tien.
+- Vérifier que le compte PayPal marchand (`franckdelmas00@gmail.com`) est bien le tien.
 
 ## 5. Récapitulatif des corrections déjà appliquées
-- **Chiffres unifiés** : 1000+ agents · 12 GPU · <300ms (compteurs marketing globaux).
+- **Chiffres unifiés** : 77 agents · 9 GPU · <300ms (compteurs marketing globaux).
 - **Bug réparé** : compteurs hero d'alkymia-oss qui affichaient « 0 ».
 - **Témoignages anonymisés** : aucun nom/ville client (RGPD + art. L121-2).
 - **Emails** : contact unifié `franckdelmas00@gmail.com` ; **compte marchand PayPal préservé**.

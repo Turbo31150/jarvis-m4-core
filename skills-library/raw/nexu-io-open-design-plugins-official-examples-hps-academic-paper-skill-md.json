@@ -1,0 +1,11 @@
+{
+  "id": "nexu-io-open-design-plugins-official-examples-hps-academic-paper-skill-md",
+  "name": "hps-academic-paper",
+  "author": "nexu-io",
+  "description": "A review deck on compositional generalization in large language models \u2014 the field map, the gap, the evidence, and open questions. Built as a decision-grade academic research deck for PI, lab group, reviewers.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/nexu-io/open-design/tree/main/plugins/_official/examples/hps-academic-paper",
+  "skillUrl": "https://skillsmp.com/creators/nexu-io/open-design/plugins-official-examples-hps-academic-paper",
+  "stars": 83535,
+  "updatedAt": 1784018637
+}

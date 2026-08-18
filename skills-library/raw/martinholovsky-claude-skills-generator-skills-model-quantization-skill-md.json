@@ -1,0 +1,11 @@
+{
+  "id": "martinholovsky-claude-skills-generator-skills-model-quantization-skill-md",
+  "name": "model-quantization",
+  "author": "martinholovsky",
+  "description": "Expert skill for AI model quantization and optimization. Covers 4-bit/8-bit quantization, GGUF conversion, memory optimization, and quality-performance tradeoffs for deploying LLMs in resource-constrained JARVIS environments.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/model-quantization",
+  "skillUrl": "https://skillsmp.com/creators/martinholovsky/claude-skills-generator/skills-model-quantization",
+  "stars": 45,
+  "updatedAt": 1764090731
+}

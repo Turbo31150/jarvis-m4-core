@@ -213,9 +213,9 @@ def enrich_ecole():
             timeout=200,
         ).stdout
         terms = [
-            l.strip("-*• \t")
-            for l in out.splitlines()
-            if l.strip() and not l.startswith("[")
+            line.strip("-*• \t")
+            for line in out.splitlines()
+            if line.strip() and not line.startswith("[")
         ]
         return [t for t in terms if 2 <= len(t) <= 40]
     except Exception as e:

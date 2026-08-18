@@ -1,0 +1,11 @@
+{
+  "id": "thedaviddias-front-end-checklist-skills-no-unchecked-indexed-access-skill-md",
+  "name": "no-unchecked-indexed-access",
+  "author": "thedaviddias",
+  "description": "Use when auditing tsconfig.json for missing safety flags, reviewing code that uses array index access in data processing pipelines, or investigating runtime undefined errors that TypeScript did not catch.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/thedaviddias/Front-End-Checklist/tree/main/skills/no-unchecked-indexed-access",
+  "skillUrl": "https://skillsmp.com/creators/thedaviddias/front-end-checklist/skills-no-unchecked-indexed-access",
+  "stars": 73416,
+  "updatedAt": 1780091646
+}

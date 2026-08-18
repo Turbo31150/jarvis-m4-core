@@ -1,0 +1,11 @@
+{
+  "id": "storybookjs-storybook-agents-skills-storybook-startup-benchmark-skill-md",
+  "name": "storybook-startup-benchmark",
+  "author": "storybookjs",
+  "description": "Measure Storybook startup time from spawning `storybook dev` until the first story renders in the browser. Use when the user asks about Storybook boot time, server-ready timing, first story render timing, startup regressions, benchmarking with repeat runs, or comparing Storybook versions or feature flags.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/storybookjs/storybook/tree/next/.agents/skills/storybook-startup-benchmark",
+  "skillUrl": "https://skillsmp.com/creators/storybookjs/storybook/agents-skills-storybook-startup-benchmark",
+  "stars": 90755,
+  "updatedAt": 1782464259
+}

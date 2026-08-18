@@ -1,0 +1,11 @@
+{
+  "id": "prism-php-prism-resources-boost-skills-developing-with-prism-skill-md",
+  "name": "developing-with-prism",
+  "author": "prism-php",
+  "description": "Guide for developing with Prism PHP package - a Laravel package for integrating LLMs. Activate or use when working with Prism features including text generation, structured output, embeddings, image generation, audio processing, streaming, tools/function calling, or any LLM provider integration (OpenAI, Anthropic, Gemini, Mistral, Groq, XAI, DeepSeek, OpenRouter, Ollama, VoyageAI, ElevenLabs). Activate for any Prism-related development tasks.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/prism-php/prism/tree/main/resources/boost/skills/developing-with-prism",
+  "skillUrl": "https://skillsmp.com/creators/prism-php/prism/resources-boost-skills-developing-with-prism",
+  "stars": 2407,
+  "updatedAt": 1769433871
+}

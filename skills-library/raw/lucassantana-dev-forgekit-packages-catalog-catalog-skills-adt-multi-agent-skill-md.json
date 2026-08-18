@@ -1,0 +1,11 @@
+{
+  "id": "lucassantana-dev-forgekit-packages-catalog-catalog-skills-adt-multi-agent-skill-md",
+  "name": "multi-agent",
+  "author": "LucasSantana-Dev",
+  "description": "Orchestrate teams of agents \u2014 DAG execution, routing, state sharing, failure recovery. Use when coordinating parallel agents in task pipelines with dependencies or distributing work by capability.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/LucasSantana-Dev/forgekit/tree/main/packages/catalog/catalog/skills/adt-multi-agent",
+  "skillUrl": "https://skillsmp.com/creators/lucassantana-dev/forgekit/packages-catalog-catalog-skills-adt-multi-agent",
+  "stars": 2,
+  "updatedAt": 1779902938
+}

@@ -1,0 +1,11 @@
+{
+  "id": "d4vinci-scrapling-agent-skill-scrapling-skill-skill-md",
+  "name": "scrapling-official",
+  "author": "D4Vinci",
+  "description": "Scrape web pages using Scrapling with anti-bot bypass (like Cloudflare Turnstile), stealth headless browsing, spiders framework, adaptive scraping, and JavaScript rendering. Use when asked to scrape, crawl, or extract data from websites; web_fetch fails; the site has anti-bot protections; write Python code to scrape/crawl; or write spiders.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/D4Vinci/Scrapling/tree/main/agent-skill/Scrapling-Skill",
+  "skillUrl": "https://skillsmp.com/creators/d4vinci/scrapling/agent-skill-scrapling-skill",
+  "stars": 72497,
+  "updatedAt": 1785096815
+}

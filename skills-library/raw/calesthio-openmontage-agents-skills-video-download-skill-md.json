@@ -1,0 +1,11 @@
+{
+  "id": "calesthio-openmontage-agents-skills-video-download-skill-md",
+  "name": "video-download",
+  "author": "calesthio",
+  "description": "Download video and audio from YouTube and 1000+ sites using yt-dlp. No API keys needed.\nUse when: (1) Downloading a video from YouTube or other sites, (2) Extracting audio from a video URL,\n(3) Downloading subtitles/captions from a video, (4) Getting video metadata without downloading.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/calesthio/OpenMontage/tree/main/.agents/skills/video-download",
+  "skillUrl": "https://skillsmp.com/creators/calesthio/openmontage/agents-skills-video-download",
+  "stars": 45016,
+  "updatedAt": 1774797917
+}

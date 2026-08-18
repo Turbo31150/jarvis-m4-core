@@ -1,0 +1,11 @@
+{
+  "id": "react-react-compiler-claude-skills-compiler-review-skill-md",
+  "name": "compiler-review",
+  "author": "react",
+  "description": "Review Rust port code for port fidelity, convention compliance, and error handling. Compares against the original TypeScript source.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/react/react/tree/main/compiler/.claude/skills/compiler-review",
+  "skillUrl": "https://skillsmp.com/creators/react/react/compiler-claude-skills-compiler-review",
+  "stars": 246953,
+  "updatedAt": 1781041986
+}

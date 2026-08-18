@@ -1,0 +1,11 @@
+{
+  "id": "krillinai-krillinai-skills-krillinai-cli-skill-md",
+  "name": "krillinai-cli",
+  "author": "krillinai",
+  "description": "Use when an agent needs to operate KrillinAI through its CLI, choose the right stage command, inspect CLI outputs, or run subtitle, TTS, landscape render, and portrait render tasks from a YouTube/local video input.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/krillinai/KrillinAI/tree/master/skills/krillinai-cli",
+  "skillUrl": "https://skillsmp.com/creators/krillinai/krillinai/skills-krillinai-cli",
+  "stars": 10643,
+  "updatedAt": 1780055677
+}

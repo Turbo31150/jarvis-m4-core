@@ -1,0 +1,11 @@
+{
+  "id": "apache-hamilton-claude-plugin-skills-integrations-skill-md",
+  "name": "hamilton-integrations",
+  "author": "apache",
+  "description": "Hamilton integration patterns for Airflow, Dagster, FastAPI, Streamlit, Jupyter notebooks, and other frameworks. Use when integrating Hamilton with other tools.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/apache/hamilton/tree/main/.claude-plugin/skills/integrations",
+  "skillUrl": "https://skillsmp.com/creators/apache/hamilton/claude-plugin-skills-integrations",
+  "stars": 2557,
+  "updatedAt": 1774220257
+}

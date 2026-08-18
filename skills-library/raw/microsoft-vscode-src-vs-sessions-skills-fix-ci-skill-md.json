@@ -1,0 +1,11 @@
+{
+  "id": "microsoft-vscode-src-vs-sessions-skills-fix-ci-skill-md",
+  "name": "fix-ci",
+  "author": "microsoft",
+  "description": "Fix the failed CI checks for the current session. Use when the user requests a CI fix via the Fix Checks button in the Changes toolbar.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/microsoft/vscode/tree/main/src/vs/sessions/skills/fix-ci",
+  "skillUrl": "https://skillsmp.com/creators/microsoft/vscode/src-vs-sessions-skills-fix-ci",
+  "stars": 188283,
+  "updatedAt": 1781603733
+}

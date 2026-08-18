@@ -1,0 +1,11 @@
+{
+  "id": "rohitg00-agentmemory-plugin-skills-forget-skill-md",
+  "name": "forget",
+  "author": "rohitg00",
+  "description": "Delete specific observations from agentmemory after showing them and getting explicit confirmation. Use when the user says \"forget this\", \"delete memory\", \"remove that note\", or wants to scrub specific data for privacy.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/rohitg00/agentmemory/tree/main/plugin/skills/forget",
+  "skillUrl": "https://skillsmp.com/creators/rohitg00/agentmemory/plugin-skills-forget",
+  "stars": 26538,
+  "updatedAt": 1780853819
+}

@@ -1,0 +1,11 @@
+{
+  "id": "ritual-foundation-ritual-dapp-skills-skills-ritual-dapp-agents-skill-md",
+  "name": "ritual-dapp-agents",
+  "author": "ritual-foundation",
+  "description": "Persistent agent and sovereign agent patterns for Ritual dApps. Use when building dApps with long-lived AI services, sovereign agent jobs, or agent-native product flows on Ritual Chain.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ritual-foundation/ritual-dapp-skills/tree/main/skills/ritual-dapp-agents",
+  "skillUrl": "https://skillsmp.com/creators/ritual-foundation/ritual-dapp-skills/skills-ritual-dapp-agents",
+  "stars": 61,
+  "updatedAt": 1777048848
+}

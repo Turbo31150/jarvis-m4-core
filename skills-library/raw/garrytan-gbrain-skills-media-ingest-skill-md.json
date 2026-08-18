@@ -1,0 +1,11 @@
+{
+  "id": "garrytan-gbrain-skills-media-ingest-skill-md",
+  "name": "media-ingest",
+  "author": "garrytan",
+  "description": "Ingest video, audio, PDF, book, screenshot, and GitHub repo content into the brain.\nMulti-format handling with entity extraction and backlink propagation. Covers\nvideo-ingest, youtube-ingest, and book-ingest subtypes.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/garrytan/gbrain/tree/master/skills/media-ingest",
+  "skillUrl": "https://skillsmp.com/creators/garrytan/gbrain/skills-media-ingest",
+  "stars": 27721,
+  "updatedAt": 1778384794
+}

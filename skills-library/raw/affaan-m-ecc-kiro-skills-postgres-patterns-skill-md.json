@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-kiro-skills-postgres-patterns-skill-md",
+  "name": "postgres-patterns",
+  "author": "affaan-m",
+  "description": "PostgreSQL database patterns for query optimization, schema design, indexing, and security. Quick reference for common patterns, index types, data types, and anti-pattern detection. Based on Supabase best practices.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/.kiro/skills/postgres-patterns",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/kiro-skills-postgres-patterns",
+  "stars": 237500,
+  "updatedAt": 1774241745
+}

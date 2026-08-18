@@ -1,0 +1,11 @@
+{
+  "id": "paperclipai-paperclip-packages-plugins-plugin-llm-wiki-skills-index-refresh-skill-md",
+  "name": "index-refresh",
+  "author": "paperclipai",
+  "description": "Use when an LLM Wiki operation issue requests an index refresh. Rebuild `wiki/index.md` from the actual wiki tree, reconcile missing/deleted entries, and log counts without editing page bodies.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/paperclipai/paperclip/tree/master/packages/plugins/plugin-llm-wiki/skills/index-refresh",
+  "skillUrl": "https://skillsmp.com/creators/paperclipai/paperclip/packages-plugins-plugin-llm-wiki-skills-index-refresh",
+  "stars": 75602,
+  "updatedAt": 1783691180
+}

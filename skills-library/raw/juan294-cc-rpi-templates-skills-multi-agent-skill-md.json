@@ -1,0 +1,11 @@
+{
+  "id": "juan294-cc-rpi-templates-skills-multi-agent-skill-md",
+  "name": "multi-agent",
+  "author": "juan294",
+  "description": "Rules for sub-agents, Agent Teams, worktree agents, central commit pattern, and parallel work coordination.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/juan294/cc-rpi/tree/main/templates/skills/multi-agent",
+  "skillUrl": "https://skillsmp.com/creators/juan294/cc-rpi/templates-skills-multi-agent",
+  "stars": 5,
+  "updatedAt": 1784966688
+}

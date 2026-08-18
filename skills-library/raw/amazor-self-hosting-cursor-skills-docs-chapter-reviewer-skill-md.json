@@ -1,0 +1,11 @@
+{
+  "id": "amazor-self-hosting-cursor-skills-docs-chapter-reviewer-skill-md",
+  "name": "docs-chapter-reviewer",
+  "author": "amazor",
+  "description": "Reviews homelab chapter documentation for formatting, flow, readability, structure, and self-hosting best practices. Adds or checks intra- and inter-document links and a table of contents in every reviewed file. Suggests restructures, tables, philosophy blocks, missing details, app recommendations, and section changes. Use when editing or reviewing docs chapter files, asking for documentation feedback, or iterating on the homelab journal.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/amazor/Self-Hosting/tree/main/.cursor/skills/docs-chapter-reviewer",
+  "skillUrl": "https://skillsmp.com/creators/amazor/self-hosting/cursor-skills-docs-chapter-reviewer",
+  "stars": 0,
+  "updatedAt": 1771582030
+}

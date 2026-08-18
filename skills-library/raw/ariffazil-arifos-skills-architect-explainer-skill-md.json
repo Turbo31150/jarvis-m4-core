@@ -1,0 +1,11 @@
+{
+  "id": "ariffazil-arifos-skills-architect-explainer-skill-md",
+  "name": "architect-explainer",
+  "author": "ariffazil",
+  "description": "Translates code, system state, and technical decisions into plain-language decisions, risks, and next actions for Muhammad Arif bin Fazil (non-coder sovereign architect)",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ariffazil/arifOS/tree/main/skills/architect-explainer",
+  "skillUrl": "https://skillsmp.com/creators/ariffazil/arifos/skills-architect-explainer",
+  "stars": 50,
+  "updatedAt": 1778525862
+}

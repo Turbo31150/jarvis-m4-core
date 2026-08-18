@@ -1,0 +1,11 @@
+{
+  "id": "langchain-ai-deepagents-examples-deploy-content-writer-skills-social-media-skill-md",
+  "name": "social-media",
+  "author": "langchain-ai",
+  "description": "Create social media content including Twitter/X threads, LinkedIn posts, and short-form updates.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/langchain-ai/deepagents/tree/main/examples/deploy-content-writer/skills/social-media",
+  "skillUrl": "https://skillsmp.com/creators/langchain-ai/deepagents/examples-deploy-content-writer-skills-social-media",
+  "stars": 27307,
+  "updatedAt": 1775747295
+}

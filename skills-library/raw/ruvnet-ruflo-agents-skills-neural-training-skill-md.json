@@ -1,0 +1,11 @@
+{
+  "id": "ruvnet-ruflo-agents-skills-neural-training-skill-md",
+  "name": "neural-training",
+  "author": "ruvnet",
+  "description": "Neural pattern training with SONA (Self-Optimizing Neural Architecture), MoE (Mixture of Experts), and EWC++ for knowledge consolidation. Use when: pattern learning, model optimization, knowledge transfer, adaptive routing. Skip when: simple tasks, no learning required, one-off operations.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ruvnet/ruflo/tree/main/.agents/skills/neural-training",
+  "skillUrl": "https://skillsmp.com/creators/ruvnet/ruflo/agents-skills-neural-training",
+  "stars": 66991,
+  "updatedAt": 1770485431
+}

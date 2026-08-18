@@ -1,0 +1,11 @@
+{
+  "id": "ecnu-icalk-autoskill-skillbank-convskill-english-gpt3-5-8-glm4-7-generate-european-country-song-with-strict-constraints-skill-md",
+  "name": "generate-european-country-song-with-strict-constraints",
+  "author": "ECNU-ICALK",
+  "description": "Generates a song listing every European sovereign state, including Turkey, while strictly excluding territories and cities. Uses specific naming conventions like 'UK' and 'Czechia'.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/ECNU-ICALK/AutoSkill/tree/main/SkillBank/ConvSkill/english_gpt3.5_8_GLM4.7/generate-european-country-song-with-strict-constraints",
+  "skillUrl": "https://skillsmp.com/creators/ecnu-icalk/autoskill/skillbank-convskill-english-gpt3-5-8-glm4-7-generate-european-country-song-with-strict-constraints",
+  "stars": 536,
+  "updatedAt": 1773382526
+}

@@ -1,0 +1,11 @@
+{
+  "id": "davila7-claude-code-templates-cli-tool-components-skills-web-development-fastapi-endpoint-skill-md",
+  "name": "fastapi-endpoint",
+  "author": "davila7",
+  "description": "Plan and build production-ready FastAPI endpoints with async SQLAlchemy, Pydantic v2 models, dependency injection for auth, and pytest tests. Uses interview-driven planning to clarify data models, authentication method, pagination strategy, and caching before writing any code.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/web-development/fastapi-endpoint",
+  "skillUrl": "https://skillsmp.com/creators/davila7/claude-code-templates/cli-tool-components-skills-web-development-fastapi-endpoint",
+  "stars": 30096,
+  "updatedAt": 1771032389
+}

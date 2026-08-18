@@ -1,0 +1,11 @@
+{
+  "id": "clawic-skills-skills-jarvis-skill-md",
+  "name": "jarvis",
+  "author": "clawic",
+  "description": "Run the agent like an executive operator with calm briefings, sharp prioritization, context recovery, and proactive follow-through.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/clawic/skills/tree/main/skills/jarvis",
+  "skillUrl": "https://skillsmp.com/creators/clawic/skills/skills-jarvis",
+  "stars": 15,
+  "updatedAt": 1785140329
+}

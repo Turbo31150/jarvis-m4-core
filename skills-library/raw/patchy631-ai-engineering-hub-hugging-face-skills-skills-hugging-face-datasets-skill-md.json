@@ -1,0 +1,11 @@
+{
+  "id": "patchy631-ai-engineering-hub-hugging-face-skills-skills-hugging-face-datasets-skill-md",
+  "name": "hugging-face-datasets",
+  "author": "patchy631",
+  "description": "Create and manage datasets on Hugging Face Hub. Supports initializing repos, defining configs/system prompts, streaming row updates, and SQL-based dataset querying/transformation. Designed to work alongside HF MCP server for comprehensive dataset workflows.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/patchy631/ai-engineering-hub/tree/main/hugging-face-skills/skills/hugging-face-datasets",
+  "skillUrl": "https://skillsmp.com/creators/patchy631/ai-engineering-hub/hugging-face-skills-skills-hugging-face-datasets",
+  "stars": 36845,
+  "updatedAt": 1769157944
+}

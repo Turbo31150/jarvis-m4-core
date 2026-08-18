@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-skills-design-system-skill-md",
+  "name": "design-system",
+  "author": "affaan-m",
+  "description": "Use this skill to generate or audit design systems, check visual consistency, and review PRs that touch styling.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/skills/design-system",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/skills-design-system",
+  "stars": 237500,
+  "updatedAt": 1781179941
+}

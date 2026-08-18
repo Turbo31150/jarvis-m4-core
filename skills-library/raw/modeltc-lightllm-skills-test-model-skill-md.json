@@ -1,0 +1,11 @@
+{
+  "id": "modeltc-lightllm-skills-test-model-skill-md",
+  "name": "test-model-common",
+  "author": "ModelTC",
+  "description": "Common override guidance for all skills/test_model sub-skills. Applies to LightLLM model accuracy/speed tests that use lm_eval or lmms_eval, especially local-completions GSM8K runs.",
+  "contentLanguage": "zh",
+  "githubUrl": "https://github.com/ModelTC/LightLLM/tree/main/skills/test_model",
+  "skillUrl": "https://skillsmp.com/creators/modeltc/lightllm/skills-test-model",
+  "stars": 4207,
+  "updatedAt": 1785403513
+}

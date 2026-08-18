@@ -1,0 +1,11 @@
+{
+  "id": "wshobson-agents-plugins-agent-teams-skills-task-coordination-strategies-skill-md",
+  "name": "task-coordination-strategies",
+  "author": "wshobson",
+  "description": "Decompose complex tasks, design dependency graphs, and coordinate multi-agent work with proper task descriptions and workload balancing. Use this skill when breaking down work for agent teams, managing task dependencies, or monitoring team progress.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/wshobson/agents/tree/main/plugins/agent-teams/skills/task-coordination-strategies",
+  "skillUrl": "https://skillsmp.com/creators/wshobson/agents/plugins-agent-teams-skills-task-coordination-strategies",
+  "stars": 38472,
+  "updatedAt": 1770331350
+}

@@ -1,0 +1,11 @@
+{
+  "id": "nousresearch-hermes-agent-optional-skills-mlops-training-axolotl-skill-md",
+  "name": "axolotl",
+  "author": "NousResearch",
+  "description": "Axolotl: YAML LLM fine-tuning (LoRA, DPO, GRPO).",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/NousResearch/hermes-agent/tree/main/optional-skills/mlops/training/axolotl",
+  "skillUrl": "https://skillsmp.com/creators/nousresearch/hermes-agent/optional-skills-mlops-training-axolotl",
+  "stars": 225204,
+  "updatedAt": 1778377452
+}

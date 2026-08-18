@@ -1,0 +1,11 @@
+{
+  "id": "addyosmani-agent-skills-skills-performance-optimization-skill-md",
+  "name": "performance-optimization",
+  "author": "addyosmani",
+  "description": "Optimizes application performance across frontend, backend, queries, and databases. Use when performance requirements exist, when you suspect performance regressions, when Core Web Vitals or load times need improvement, when N+1 query patterns need fixing, or when profiling reveals bottlenecks.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/addyosmani/agent-skills/tree/main/skills/performance-optimization",
+  "skillUrl": "https://skillsmp.com/creators/addyosmani/agent-skills/skills-performance-optimization",
+  "stars": 81544,
+  "updatedAt": 1783999094
+}

@@ -1,0 +1,11 @@
+{
+  "id": "microsoft-vscode-github-skills-auto-perf-optimize-skill-md",
+  "name": "auto-perf-optimize",
+  "author": "microsoft",
+  "description": "Run agent-driven VS Code performance or memory investigations. Use when asked to launch Code OSS, automate a VS Code scenario, run the Chat memory smoke runner, capture renderer heap snapshots, take workflow screenshots, compare run summaries, or drive a repeatable scenario before heap-snapshot analysis.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/microsoft/vscode/tree/main/.github/skills/auto-perf-optimize",
+  "skillUrl": "https://skillsmp.com/creators/microsoft/vscode/github-skills-auto-perf-optimize",
+  "stars": 188283,
+  "updatedAt": 1777496111
+}

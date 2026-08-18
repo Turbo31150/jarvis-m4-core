@@ -1,0 +1,11 @@
+{
+  "id": "affaan-m-ecc-docs-tr-skills-springboot-security-skill-md",
+  "name": "springboot-security",
+  "author": "affaan-m",
+  "description": "Spring Security best practices for authn/authz, validation, CSRF, secrets, headers, rate limiting, and dependency security in Java Spring Boot services.",
+  "contentLanguage": "tur",
+  "githubUrl": "https://github.com/affaan-m/ECC/tree/main/docs/tr/skills/springboot-security",
+  "skillUrl": "https://skillsmp.com/creators/affaan-m/ecc/docs-tr-skills-springboot-security",
+  "stars": 237500,
+  "updatedAt": 1774219024
+}

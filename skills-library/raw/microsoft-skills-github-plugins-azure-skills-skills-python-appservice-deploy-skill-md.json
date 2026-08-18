@@ -1,0 +1,11 @@
+{
+  "id": "microsoft-skills-github-plugins-azure-skills-skills-python-appservice-deploy-skill-md",
+  "name": "python-appservice-deploy",
+  "author": "microsoft",
+  "description": "Deploy Python (Flask/Django/FastAPI) code to Azure App Service Linux. WHEN: \"Flask App Service\", \"Django App Service\", \"FastAPI App Service\", \"deploy Python to App Service\". DO NOT USE FOR: Container Apps, Functions, non-Python, Terraform/Bicep/IaC, full infra \u2014 use azure-prepare.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/microsoft/skills/tree/main/.github/plugins/azure-skills/skills/python-appservice-deploy",
+  "skillUrl": "https://skillsmp.com/creators/microsoft/skills/github-plugins-azure-skills-skills-python-appservice-deploy",
+  "stars": 2860,
+  "updatedAt": 1785272213
+}

@@ -1,0 +1,11 @@
+{
+  "id": "openclaw-openclaw-agents-skills-security-triage-skill-md",
+  "name": "security-triage",
+  "author": "openclaw",
+  "description": "Triage OpenClaw security advisories, drafts, and GHSA reports with shipped-tag and trust-model proof.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/openclaw/openclaw/tree/main/.agents/skills/security-triage",
+  "skillUrl": "https://skillsmp.com/creators/openclaw/openclaw/agents-skills-security-triage",
+  "stars": 385119,
+  "updatedAt": 1779982239
+}

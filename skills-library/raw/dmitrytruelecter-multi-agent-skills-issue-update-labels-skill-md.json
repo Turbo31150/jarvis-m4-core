@@ -1,0 +1,11 @@
+{
+  "id": "dmitrytruelecter-multi-agent-skills-issue-update-labels-skill-md",
+  "name": "issue-update-labels",
+  "author": "DmitryTrueLecter",
+  "description": "Update labels on an issue without changing its status. Accepts add/remove lists; preserves all other labels. Use for label-only changes not covered by /dma:handoff. Invocation: /dma:issue-update-labels <ISSUE-KEY> [add:<l1>,<l2>] [remove:<l1>,<l2>].",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/DmitryTrueLecter/multi-agent/tree/main/skills/issue-update-labels",
+  "skillUrl": "https://skillsmp.com/creators/dmitrytruelecter/multi-agent/skills-issue-update-labels",
+  "stars": 0,
+  "updatedAt": 1782718463
+}

@@ -1,0 +1,33 @@
+# Logrotate configuration for JARVIS Automation System
+# 
+# Install with:
+# sudo cp /home/turbo/automation/logrotate-config.txt /etc/logrotate.d/jarvis-automation
+# sudo logrotate -f /etc/logrotate.d/jarvis-automation
+#
+
+/home/turbo/automation/logs/*.log {
+    # Rotate daily
+    daily
+    
+    # Keep 30 days of logs
+    rotate 30
+    
+    # Compress old logs
+    compress
+    delaycompress
+    
+    # Don't error if log files are missing
+    missingok
+    
+    # Don't rotate empty files
+    notifempty
+    
+    # Create new log file with same permissions
+    create 0644 turbo turbo
+    
+    # Run this after rotation
+    postrotate
+        # Restart automation scripts if needed
+        /bin/true
+    endscript
+}

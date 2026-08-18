@@ -1,0 +1,11 @@
+{
+  "id": "code-yeongyu-oh-my-openagent-packages-shared-skills-skills-debugging-skill-md",
+  "name": "debugging",
+  "author": "code-yeongyu",
+  "description": "MUST USE for any real runtime debugging across ANY language or binary \u2014 crashes, silent failures, wrong responses, stuck processes, memory leaks, async misbehavior, unexplained timing, reverse engineering. Runs a hypothesis-driven loop: form \u22653 hypotheses, investigate in parallel, after 2 failed rounds spawn Oracles from orthogonal angles, confirm root cause, lock with a failing test, fix minimally, QA by actually USING the system, scrub artifacts. The actual HOW lives in `references/` \u2014 READ THEM. Triggers: 'debug this', 'why is X not working', 'hanging', 'attach a debugger', 'reverse engineer', 'pwndbg', 'gdb', 'lldb', 'node inspect', 'pdb', 'dlv', 'delve', 'rust-gdb', 'set a breakpoint', 'context window exploded', 'why is the response empty', 'why is this happening', 'trace this bug', 'reproduce and fix', 'silent failure', 'HTTP 200 but empty', 'why did it stop', 'inspect the binary', 'playwright', 'flaky test', 'fails intermittently', 'passes in isolation', 'only fails in CI'.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/code-yeongyu/oh-my-openagent/tree/dev/packages/shared-skills/skills/debugging",
+  "skillUrl": "https://skillsmp.com/creators/code-yeongyu/oh-my-openagent/packages-shared-skills-skills-debugging",
+  "stars": 67193,
+  "updatedAt": 1785483130
+}

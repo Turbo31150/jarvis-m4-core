@@ -1,0 +1,74 @@
+# Email Workflow Configuration
+email:
+  enabled: true
+  schedule:
+    - hour: 8
+      minute: 0
+    - hour: 18
+      minute: 0
+  
+  # Newsletter
+  newsletter:
+    enabled: true
+    send_if_content_ready: true
+    content_source: "/home/turbo/automation/templates/newsletter.md"
+    recipients_file: "/home/turbo/automation/templates/newsletter_subscribers.txt"
+    min_subscribers: 5
+  
+  # Incoming leads
+  leads:
+    check_enabled: true
+    label_to_check: "LEADS"
+    extract_info: true
+    extract_fields:
+      - "email"
+      - "company"
+      - "budget"
+      - "timeline"
+  
+  # Auto-reply patterns
+  auto_reply:
+    enabled: true
+    patterns:
+      - pattern: "hello|hi|bonjour"
+        template: "greeting_response"
+      - pattern: "quote|devis|estimate"
+        template: "quote_request_response"
+      - pattern: "urgent|asap|important"
+        template: "priority_response"
+  
+  # VIP emails
+  vip_detection:
+    enabled: true
+    vip_keywords:
+      - "enterprise"
+      - "partnership"
+      - "investment"
+      - "C-level"
+      - "CEO"
+      - "CTO"
+    vip_domains:
+      - "microsoft.com"
+      - "google.com"
+      - "apple.com"
+      - "linkedin.com"
+  
+  # Alerts
+  alerts:
+    telegram_enabled: true
+    alert_on_vip: true
+    alert_on_high_value_lead: true
+    high_value_threshold: 5000  # EUR
+    daily_summary: true
+    summary_time: "19:00"
+
+logging:
+  level: "INFO"
+  file: "/home/turbo/automation/logs/email.log"
+  max_size_mb: 10
+  backup_count: 5
+
+imap:
+  timeout: 30
+  check_interval: 300  # 5 minutes
+  max_emails_per_check: 10

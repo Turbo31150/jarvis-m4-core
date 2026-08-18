@@ -1,0 +1,11 @@
+{
+  "id": "mattpocock-skills-skills-in-progress-wizard-skill-md",
+  "name": "wizard",
+  "author": "mattpocock",
+  "description": "Generate an interactive bash wizard that walks a human through a manual procedure \u2014 third-party setup, a one-off migration, an A\u2192B state transition \u2014 opening URLs, capturing values, confirming each step, and writing .env files and GitHub Actions secrets.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/mattpocock/skills/tree/main/skills/in-progress/wizard",
+  "skillUrl": "https://skillsmp.com/creators/mattpocock/skills/skills-in-progress-wizard",
+  "stars": 202506,
+  "updatedAt": 1783943838
+}

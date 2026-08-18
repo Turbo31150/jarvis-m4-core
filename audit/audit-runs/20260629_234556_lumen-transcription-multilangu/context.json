@@ -1,0 +1,18 @@
+{
+  "topic": "lumen-transcription-multilangue",
+  "client": "",
+  "url": "",
+  "profile": "tech",
+  "mode": "fast",
+  "target": "/home/pamerys/IA/Research/lumen-transcription-multilangue",
+  "agents": [
+    "tech"
+  ],
+  "waves": [
+    "local"
+  ],
+  "max_tokens": 800,
+  "web": false,
+  "started": "2026-06-29T23:45:56",
+  "outdir": "/home/pamerys/jarvis/audit/audit-runs/20260629_234556_lumen-transcription-multilangu"
+}

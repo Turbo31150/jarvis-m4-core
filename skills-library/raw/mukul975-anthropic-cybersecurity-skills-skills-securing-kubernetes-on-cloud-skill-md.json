@@ -1,0 +1,11 @@
+{
+  "id": "mukul975-anthropic-cybersecurity-skills-skills-securing-kubernetes-on-cloud-skill-md",
+  "name": "securing-kubernetes-on-cloud",
+  "author": "mukul975",
+  "description": "Hardens managed Kubernetes clusters on EKS, AKS, and GKE by implementing Pod Security Standards, network policies, workload identity (IRSA for EKS, Workload Identity for GKE, Managed Identities for AKS), RBAC scoping, image admission controls, and runtime security monitoring. Use when deploying a new managed Kubernetes cluster with security requirements or hardening an existing EKS, AKS, or GKE cluster after an audit or pentest finding.",
+  "contentLanguage": "en",
+  "githubUrl": "https://github.com/mukul975/Anthropic-Cybersecurity-Skills/tree/main/skills/securing-kubernetes-on-cloud",
+  "skillUrl": "https://skillsmp.com/creators/mukul975/anthropic-cybersecurity-skills/skills-securing-kubernetes-on-cloud",
+  "stars": 27260,
+  "updatedAt": 1785688333
+}
