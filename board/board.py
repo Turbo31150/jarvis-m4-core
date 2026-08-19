@@ -223,7 +223,19 @@ def embed(text: str, tentatives: int = 2, role: str = "document") -> Embedding:
                 "/embeddings", {"model": EMBED_MODEL, "input": prefixe + text[:8000]}
             )
         except urllib.error.HTTPError as e:
-            dernier = Embedding(cause=f"http_{e.code}", detail=str(e.reason))
+            if e.code == 404 and "text-embedding" in EMBED_MODEL:
+                try:
+                    d = _post(
+                        "/embeddings", {"model": "nomic-embed-text:latest", "input": prefixe + text[:8000]}
+                    )
+                except Exception:
+                    dernier = Embedding(cause=f"http_{e.code}", detail=str(e.reason))
+                else:
+                    v = d["data"][0]["embedding"]
+                    if len(v) == EMBED_DIM:
+                        return Embedding(v)
+            else:
+                dernier = Embedding(cause=f"http_{e.code}", detail=str(e.reason))
         except (socket.timeout, TimeoutError) as e:
             dernier = Embedding(cause="timeout", detail=str(e) or "delai depasse")
         except urllib.error.URLError as e:

@@ -1,0 +1,11 @@
+[user] ## Source Extractor
+
+Research question: "CONTEXTE : défense EMPLOYEUR dans 3 contentieux prud'homaux d'ambulanciers de nuit (SARL de transport sanitaire, ressort CPH de Nîmes / département du GARD, convention collective des transports routiers IDCC 16, accord-cadre du 4 mai 2000, accord de branche transport sanitaire du 16 juin 2016). Recherche juridique FRANÇAISE. SOURCES PRIMAIRES OBLIGATOIRES ET PRIORITAIRES : Légifrance (codes, décrets, arrêtés, conventions étendues), Judilibre / Cour de cassation, recueil des actes administratifs (RAA) de la préfecture du Gard, code des transports, code du travail. RÈGLE ABSOLUE : pour chaque affirmation, fournir une référence primaire citable (numéro d'article, numéro d'arrêt + date + formation, numéro/date de RAA) ; marquer explicitement « NON VÉRIFIÉ — pas de source primaire » tout point qui ne peut être sourcé. Ne jamais inventer un numéro d'arrêt ou d'article.
+
+ANGLE 1 — COEFFICIENT D'ÉQUIVALENCE DE NUIT DES AMBULANCIERS. Quel est l'état du droit 2022-2026 ? Le régime d'équivalence du transport sanitaire (décret n°2001-679 et textes ultérieurs ; durée de présence pondérée vs temps de travail effectif) a-t-il été modifié ou abrogé ? La suppression du coefficient d'équivalence de nuit (~80 %) au 1er juillet 2022 est-elle juridiquement SUBORDONNÉE à la publication d'un cahier des charges départemental de la garde ambulancière au RAA ? Le cahier des charges de la garde ambulancière du GARD (30) a-t-il été publié au RAA, et à quelle date
+
+[assistant] Let me extract the full operative text of the decision to capture the exact holdings on both moyens.
+
+[assistant] The direct re-fetch hit Cloudflare, but the earlier fetch cached the full content. Let me query the indexed store with distinctive terms to pull the operative reasoning.
+
+[assistant] I have enough authoritative material from the official Légifrance metadata (Titrages et résumés, Textes appliqués, énoncé du moyen). This is a primary source — the official publication of a Cour de cassation decision. Let me record the findings.

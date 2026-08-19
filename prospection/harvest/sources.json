@@ -1,0 +1,14 @@
+{
+  "_maj": "2026-08-19",
+  "_regle": "Perimetre resserre par Franck le 19/08 : uniquement Make, n8n et LinkedIn.",
+  "sources_actives": [
+    {"id": "free-work-n8n",   "url": "https://www.free-work.com/fr/tech-it/jobs/n8n",       "type": "jobboard", "gratuit": true},
+    {"id": "free-work-make",  "url": "https://www.free-work.com/fr/tech-it/jobs/make",      "type": "jobboard", "gratuit": true},
+    {"id": "free-work-nocode","url": "https://www.free-work.com/fr/tech-it/jobs/no-code-2", "type": "jobboard", "gratuit": true},
+    {"id": "linkedin",        "url": "https://www.linkedin.com/",                            "type": "reseau",   "gratuit": true}
+  ],
+  "sources_bannies": [
+    {"id": "codeur.com", "motif": "PAYANT — banni par Franck le 19/08/2026", "date_ban": "2026-08-19"}
+  ],
+  "filtre_techno": ["n8n", "make", "zapier", "workflow", "automatisation", "no-code", "orchestration", "integration api"]
+}

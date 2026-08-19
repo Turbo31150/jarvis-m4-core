@@ -1,0 +1,126 @@
+{
+  "name": "JARVIS Health Monitor",
+  "meta": {
+    "description": "Toutes les 10 min: health-check des services HTTP JARVIS -> alerte Telegram si down. Container-natif (HTTP only, network=host)."
+  },
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 10
+            }
+          ]
+        }
+      },
+      "id": "sched",
+      "name": "Every 10min",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        200,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Health-check des services JARVIS (network=host -> 127.0.0.1). Secret-safe.\nconst services = [\n  {name:'LLM hub 18800', url:'http://127.0.0.1:18800/v1/models'},\n  {name:'LM Studio 1234', url:'http://127.0.0.1:1234/v1/models'},\n  {name:'Antigravity 9011', url:'http://127.0.0.1:9011/json/version'},\n  {name:'Dashboard 18801', url:'http://127.0.0.1:18801/'},\n  {name:'CCR 18802', url:'http://127.0.0.1:18802/'},\n  {name:'Orchestrateur 9742', url:'http://127.0.0.1:9742/'},\n  {name:'n8n 5678', url:'http://127.0.0.1:5678/healthz'},\n];\nconst down = [];\nfor (const s of services) {\n  try { await this.helpers.httpRequest({url:s.url, timeout:3000}); }\n  catch(e) { down.push(s.name); }\n}\nreturn [{json:{down, count:down.length, msg: down.length? ('\\u26a0\\ufe0f JARVIS services DOWN: '+down.join(', ')) : 'ok'}}];"
+      },
+      "id": "check",
+      "name": "Health Check",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        420,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.count }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ]
+        }
+      },
+      "id": "ifdown",
+      "name": "If Down",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        640,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $env.TELEGRAM_CHAT_ID }}",
+        "text": "={{ $json.msg }}",
+        "additionalFields": {}
+      },
+      "id": "tg",
+      "name": "Telegram Alert",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        860,
+        220
+      ],
+      "notesInFlow": true,
+      "notes": "Requiert credential Telegram (bot JARVIS) + env TELEGRAM_CHAT_ID"
+    }
+  ],
+  "connections": {
+    "Every 10min": {
+      "main": [
+        [
+          {
+            "node": "Health Check",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Health Check": {
+      "main": [
+        [
+          {
+            "node": "If Down",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Down": {
+      "main": [
+        [
+          {
+            "node": "Telegram Alert",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "active": false,
+  "id": "jarvishealthmon1"
+}

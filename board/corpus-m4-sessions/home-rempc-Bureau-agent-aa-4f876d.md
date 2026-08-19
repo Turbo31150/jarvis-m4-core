@@ -1,0 +1,10 @@
+[user] Vérifie de façon adversariale la cohérence des chiffres de quantum et d'amplitude repris dans l'analyse (réclamé ~418k€ total, exposition réaliste 10-30k€, amplitude médiane ~7h, borne 18h vs 20h). Y a-t-il une incohérence interne, un chiffre non sourcé, ou un optimisme non justifié ? Contexte:
+R1-borne-prise-de-service: En l'absence de planning, qu'est-ce qui borne juridiquement le début de l'amplitude : la disponibilité téléphonique alléguée à 18h, ou la première tâche tracée (jamais avant 20h) ?; R2-forfait-151.67h-angle-mort: Comment neutraliser l'argument adverse selon lequel le maintien des 151,67h même sans travail révèle un salaire forfaitaire déconnecté des heures réelles (angle mort Partie IV pt 2) ?; R3-prescription-DI: Les demandes indemnitaires (dépassement durées max, repos) relèvent-elles de la prescription triennale (L.3245-1) ou biennale (L.1471-1) ?; R4-complement-AT-j1-30: Le complément employeur à 100% dû du 1er au 30e jour de l'arrêt AT (chef I) a-t-il été versé ? (seule la subrogation figure).; R5-diligences-huissier-expert-comptable: Engager le constat d'huissier sur l'archive versionnée (~150 versions 2014-2026) + l'attestation de l'expert-comptable (réception mensuelle depuis 2019) ?; R6-coefficient-equivalence-RAA: La suppression du coefficient d'équivalence de nuit (~80%) au 01/07/2022 s'applique-t-elle ? (conditionnée à la publication du cahier des charges départemental de la garde au RAA du Gard).; R7-casse-croute: Le versement mensuel de l'indemn
+
+[assistant] This is a labor law case (prud'hommes). Let me find the analysis document with the figures.
+
+[assistant] Now let me read the two key synthesis documents that contain these figures and the R1-R8 questions.
+
+[assistant] The ordre du jour is the analysis under review. Let me verify the arithmetic and cross-check the "realistic exposure" against the internal red-team figures.
+
+[assistant] I have what I need. Let me verify the amplitude median variants and the HS "collapse" claim against the source data.

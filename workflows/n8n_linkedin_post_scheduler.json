@@ -1,0 +1,100 @@
+{
+  "name": "JARVIS - LinkedIn Post Publisher & Scheduler",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 4
+            }
+          ]
+        }
+      },
+      "name": "Schedule Trigger (Toutes les 4h)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT id, hook, body, cta FROM linkedin_maker_posts WHERE status='READY' ORDER BY id ASC LIMIT 1;"
+      },
+      "name": "Fetch Next Post SQLite",
+      "type": "n8n-nodes-base.sqlite",
+      "typeVersion": 1,
+      "position": [
+        450,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "http://127.0.0.1:9100/publish",
+        "method": "POST",
+        "jsonParameters": true,
+        "options": {}
+      },
+      "name": "CDP Browser OS Publisher",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        680,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE linkedin_maker_posts SET status='PUBLISHED' WHERE id={{ $json.id }};"
+      },
+      "name": "Mark as Published",
+      "type": "n8n-nodes-base.sqlite",
+      "typeVersion": 1,
+      "position": [
+        900,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Schedule Trigger (Toutes les 4h)": {
+      "main": [
+        [
+          {
+            "node": "Fetch Next Post SQLite",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Next Post SQLite": {
+      "main": [
+        [
+          {
+            "node": "CDP Browser OS Publisher",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CDP Browser OS Publisher": {
+      "main": [
+        [
+          {
+            "node": "Mark as Published",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

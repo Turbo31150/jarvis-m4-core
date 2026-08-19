@@ -1,0 +1,186 @@
+[
+ {
+  "id": "Neuraflow",
+  "entreprise": "Neuraflow",
+  "ville": "Villeurbanne",
+  "segment": "Automatisation / n8n / workflows",
+  "flags": "aucun",
+  "offre": "🟢 Sprint Automatisation IA (1 500–3 500 €)"
+ },
+ {
+  "id": "Daemon-ia",
+  "entreprise": "Daemon-ia",
+  "ville": "France",
+  "segment": "Agence IA generaliste (defaut)",
+  "flags": "aucun",
+  "offre": "🟢 Sprint Automatisation IA (1 500–3 500 €)"
+ },
+ {
+  "id": "Doctor_IA",
+  "entreprise": "Doctor IA",
+  "ville": "Bidart",
+  "segment": "Agence IA generaliste (defaut)",
+  "flags": "aucun",
+  "offre": "🟢 Sprint Automatisation IA (1 500–3 500 €)"
+ },
+ {
+  "id": "Apsodia",
+  "entreprise": "Apsodia",
+  "ville": "Perigueux",
+  "segment": "Agence IA generaliste (defaut)",
+  "flags": "aucun",
+  "offre": "🟢 Sprint Automatisation IA (1 500–3 500 €)"
+ },
+ {
+  "id": "France_IA",
+  "entreprise": "France IA",
+  "ville": "Paris",
+  "segment": "Agence IA generaliste (defaut)",
+  "flags": "HIRING",
+  "offre": "🟢 Sprint Automatisation IA (1 500–3 500 €)"
+ },
+ {
+  "id": "Syril_Digital_ASD",
+  "entreprise": "Syril Digital ASD",
+  "ville": "Toulouse",
+  "segment": "Agence IA generaliste (defaut)",
+  "flags": "LOCAL",
+  "offre": "🟢 Sprint Automatisation IA (1 500–3 500 €)"
+ },
+ {
+  "id": "Pucci_AI",
+  "entreprise": "Pucci AI",
+  "ville": "Suisse",
+  "segment": "Automatisation / n8n / workflows",
+  "flags": "aucun",
+  "offre": "🟢 Sprint Automatisation IA (1 500–3 500 €)"
+ },
+ {
+  "id": "Data_AI_Automation",
+  "entreprise": "Data AI Automation",
+  "ville": "Nice",
+  "segment": "Automatisation / n8n / workflows",
+  "flags": "aucun",
+  "offre": "🟢 Sprint Automatisation IA (1 500–3 500 €)"
+ },
+ {
+  "id": "Feneecia",
+  "entreprise": "Feneecia",
+  "ville": "Paris",
+  "segment": "Agence IA generaliste (defaut)",
+  "flags": "aucun",
+  "offre": "🟢 Sprint Automatisation IA (1 500–3 500 €)"
+ },
+ {
+  "id": "Velixia",
+  "entreprise": "Velixia",
+  "ville": "Laval",
+  "segment": "Agence IA generaliste (defaut)",
+  "flags": "OVERFLOW",
+  "offre": "🟢 Sprint Automatisation IA (1 500–3 500 €)"
+ },
+ {
+  "id": "Cabinets_comptables",
+  "entreprise": "Cabinets comptables",
+  "ville": "Lyon",
+  "segment": "Automatisation / n8n / workflows",
+  "flags": "aucun",
+  "offre": "🟢 Sprint Automatisation IA (1 500–3 500 €)"
+ },
+ {
+  "id": "OccitIA",
+  "entreprise": "OccitIA",
+  "ville": "Occitanie",
+  "segment": "Automatisation / n8n / workflows",
+  "flags": "LOCAL",
+  "offre": "🟢 Sprint Automatisation IA (1 500–3 500 €)"
+ },
+ {
+  "id": "Tensoria",
+  "entreprise": "Tensoria",
+  "ville": "Toulouse",
+  "segment": "Agence IA generaliste (defaut)",
+  "flags": "LOCAL",
+  "offre": "🟢 Sprint Automatisation IA (1 500–3 500 €)"
+ },
+ {
+  "id": "Synapze",
+  "entreprise": "Synapze",
+  "ville": "Toulouse",
+  "segment": "Automatisation / n8n / workflows",
+  "flags": "LOCAL",
+  "offre": "🟢 Sprint Automatisation IA (1 500–3 500 €)"
+ },
+ {
+  "id": "A2Z_Automation",
+  "entreprise": "A2Z Automation",
+  "ville": "Toulouse",
+  "segment": "Automatisation / n8n / workflows",
+  "flags": "LOCAL",
+  "offre": "🟢 Sprint Automatisation IA (1 500–3 500 €)"
+ },
+ {
+  "id": "Volteyr",
+  "entreprise": "Volteyr",
+  "ville": "Toulouse",
+  "segment": "Automatisation / n8n / workflows",
+  "flags": "LOCAL",
+  "offre": "🟢 Sprint Automatisation IA (1 500–3 500 €)"
+ },
+ {
+  "id": "EpickOne",
+  "entreprise": "EpickOne",
+  "ville": "Toulouse",
+  "segment": "Automatisation / n8n / workflows",
+  "flags": "LOCAL",
+  "offre": "🟢 Sprint Automatisation IA (1 500–3 500 €)"
+ },
+ {
+  "id": "Mankova_Consulting",
+  "entreprise": "Mankova Consulting",
+  "ville": "Toulouse",
+  "segment": "Agence IA generaliste (defaut)",
+  "flags": "LOCAL",
+  "offre": "🟢 Sprint Automatisation IA (1 500–3 500 €)"
+ },
+ {
+  "id": "Poller",
+  "entreprise": "Poller",
+  "ville": "Toulouse",
+  "segment": "Agence IA generaliste (defaut)",
+  "flags": "LOCAL",
+  "offre": "🟢 Sprint Automatisation IA (1 500–3 500 €)"
+ },
+ {
+  "id": "IA_Agency",
+  "entreprise": "IA Agency",
+  "ville": "France",
+  "segment": "Souverainete / RGPD / local-first",
+  "flags": "aucun",
+  "offre": "🔴 Audit + POC IA Locale Souveraine (2 500–6 000 €)"
+ },
+ {
+  "id": "Sequance",
+  "entreprise": "Sequance",
+  "ville": "France",
+  "segment": "Automatisation / n8n / workflows",
+  "flags": "aucun",
+  "offre": "🟢 Sprint Automatisation IA (1 500–3 500 €)"
+ },
+ {
+  "id": "Genee",
+  "entreprise": "Genee",
+  "ville": "France",
+  "segment": "Automatisation / n8n / workflows",
+  "flags": "aucun",
+  "offre": "🟢 Sprint Automatisation IA (1 500–3 500 €)"
+ },
+ {
+  "id": "automatisation.dev",
+  "entreprise": "automatisation.dev",
+  "ville": "France",
+  "segment": "Automatisation / n8n / workflows",
+  "flags": "aucun",
+  "offre": "🟢 Sprint Automatisation IA (1 500–3 500 €)"
+ }
+]

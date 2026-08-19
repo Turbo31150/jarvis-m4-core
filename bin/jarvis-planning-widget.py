@@ -1205,8 +1205,15 @@ def data():
     # rafale concurrente qui, sous CPUQuota, suffit à faire trainer /data.
     # TTL court (_CACHE_TTL=3s) : invisible à l'écran, mutualise le scan entre
     # requêtes concurrentes au lieu de le refaire pour chacune.
-    counts = cached("counts", _CACHE_TTL, _counts_query)
-    dom = cached("dom", _CACHE_TTL, _dom_query)
+    # 2026-08-19 : _CACHE_TTL=3s etait trop court pour ces deux requetes.
+    # Mesure : "SELECT status, count(*) FROM tasks GROUP BY status" sur 8 327 600
+    # lignes / 6,62 Go NE TERMINE PAS en 60 s sous contention d ecriture
+    # (l index idx_tasks_status existe pourtant : le cout est l I/O, pas le plan).
+    # Avec un TTL de 3 s, chaque rafraichissement du dashboard (5 s) le repayait.
+    # 98,1 % des taches sont 'done' et done_1h vaut 0 : ces compteurs ne bougent
+    # pas a la seconde, un TTL de 120 s est invisible a l ecran.
+    counts = cached("counts", 120, _counts_query)
+    dom = cached("dom", 120, _dom_query)
     # recent/history : ORDER BY updated_at DESC sans index sur ~500k lignes
     # → tri complet à chaque appel (0,10s + 0,17s). Ce sont des listes
     # « dernières tâches », un TTL de 5s est invisible à l'écran et suffit.
@@ -1239,8 +1246,8 @@ def data():
         ),
     )
     # Compteurs réels des dominos et triggers
-    domino_chains_count = q("SELECT count(*) n FROM domino_chains")[0]["n"]
-    domino_triggers_count = q("SELECT count(*) n FROM domino_triggers")[0]["n"]
+    domino_chains_count = (q("SELECT count(*) n FROM domino_chains") or [{}])[0].get("n", 0)
+    domino_triggers_count = (q("SELECT count(*) n FROM domino_triggers") or [{}])[0].get("n", 0)
     # Vrai "fait" = 1 artefact task_results/*.md par tâche réellement exécutée (preuve VERIFY),
     # PAS un count de lignes status='done' (gonflable par INSERT massif).
     # glob sur ~31k fichiers : le compteur d'artefacts ne bouge pas à la seconde
@@ -1990,9 +1997,25 @@ class H(http.server.BaseHTTPRequestHandler):
                     # évite de rendre une fausse panne au premier message.
                     with urllib.request.urlopen(req, timeout=120) as resp:
                         data = json.loads(resp.read())
-                    reply = data["choices"][0]["message"]["content"].strip()
-                    out = {"ok": True, "reply": reply, "model": data.get("model", "")}
-                    code = 200
+                    msg = (data.get("choices") or [{}])[0].get("message", {}) or {}
+                    reply = (msg.get("content") or "").strip()
+                    if not reply:
+                        # Les modèles à raisonnement (qwen3, qwen3.5) rangent tout
+                        # dans reasoning_content et laissent content VIDE. Mesuré le
+                        # 19/08 : qwen3-4b rend 0 caractère de contenu contre 677 de
+                        # raisonnement. Sans ce repli le widget répondait ok=true avec
+                        # une bulle vide — un faux succès parfaitement silencieux.
+                        raw = (msg.get("reasoning_content") or "").strip()
+                        reply = (
+                            "[modèle à raisonnement — conclusion non émise, "
+                            "réflexion brute ci-dessous]\n" + raw[-1200:]
+                        ) if raw else ""
+                    if not reply:
+                        out = {"ok": False, "msg": f"hub {HUB_URL} : réponse vide"}
+                        code = 502
+                    else:
+                        out = {"ok": True, "reply": reply, "model": data.get("model", "")}
+                        code = 200
                 except Exception as e:
                     out = {"ok": False, "msg": f"hub {HUB_URL} : {e}"}
                     code = 502

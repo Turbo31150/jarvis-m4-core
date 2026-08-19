@@ -28,7 +28,7 @@ EMAILS_MANIFEST = f"{BASE_DIR}/emails_personnalises/manifest_50_emails.json"
 SMTP_HOST = "smtp.gmail.com"
 SMTP_PORT = 587
 SMTP_USER = "franckdelmas00@gmail.com"
-SMTP_PASS = "emlwsxbejktttzor"
+SMTP_PASS = os.environ.get("JARVIS_SMTP_PASS", "")  # secret retire du code 2026-08-20 : export JARVIS_SMTP_PASS
 FROM_NAME = "Franc Delmas — Architecte JARVIS OS"
 
 print("==========================================================")

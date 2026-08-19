@@ -1,0 +1,32 @@
+╭──────────────────────────────────────────────────────────╮
+│  JARVIS OS — COCKPIT S8 · AIDE-MÉMOIRE                   │
+╰──────────────────────────────────────────────────────────╯
+
+ SUR LE TÉLÉPHONE (tape ou dicte)
+   cockpit          tableau de bord du cluster
+   claude           Claude Code local
+   m4 <commande>    exécute sur le PC
+   m4               shell interactif sur le PC
+   m6 <commande>    exécute sur la tour GPU
+   m6-lm "<quest>"  inférence GPU qwen3.5-9b (0 token)
+   m6-gpu           état des 4 GPU
+   board · table-ronde · jarvis-audit · jarvis-crm …
+                    (43 applis du PC, transparentes)
+
+ DEPUIS LE PC
+   s8 ecran         écran du S8, souris + clavier du PC
+   s8 vocal         pilotage à la voix
+   s8 cockpit       tableau de bord
+   s8 shell         shell JARVIS OS du S8
+   s8 tunnels       rétablit les canaux après rebranchement
+
+ À LA VOIX — dis « Hey Jarvis » puis :
+   « cockpit »                   affiche le tableau de bord
+   « les GPU »                   température et charge des 4 cartes
+   « état du cluster »           charge et mémoire du PC
+   « m6 <ta question> »          réponse du GPU, lue à voix haute
+   « sur le PC <commande> »      exécute sur le M4
+   « ouvre termux »              lance une application
+   « retour » « accueil » « entrée » « effacer »
+   « claude <ta question> »      envoie à Claude Code
+   toute autre phrase            est dictée telle quelle

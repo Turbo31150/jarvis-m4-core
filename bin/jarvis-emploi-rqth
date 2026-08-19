@@ -1,0 +1,411 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+jarvis-emploi-rqth — agent de prospection d'emploi pour Franck Delmas.
+
+Axe : postes infrastructure / systemes / support N1-N2, priorite aux GRANDS
+EMPLOYEURS, ou la RQTH est un levier et non un frein.
+
+Fondement legal du ciblage (verifiable, pas une supposition) :
+  - Obligation d'Emploi des Travailleurs Handicapes (OETH), art. L.5212-2 du
+    Code du travail : tout employeur d'au moins 20 salaries doit compter 6 %
+    de beneficiaires. Les entreprises de plus de 250 salaries disposent
+    quasi systematiquement d'une Mission Handicap et d'un accord agree.
+  - Consequence operationnelle : a competence egale, un grand groupe a un
+    interet mesurable a recruter un candidat RQTH. Une PME de 15 salaries
+    n'a aucune obligation et donc aucun levier.
+
+REGLE DE VERITE (LOI 3) : aucune offre inventee. Chaque ligne stockee porte
+son identifiant France Travail et son URL. Ce qui n'a pas ete lu n'est pas ecrit.
+
+La RQTH ne figure JAMAIS dans un texte public. Elle apparait uniquement dans
+la lettre de motivation adressee a l'employeur, conformement a la consigne.
+"""
+import argparse
+import html
+import json
+import os
+import re
+import sqlite3
+import sys
+import textwrap
+import time
+import unicodedata
+import urllib.parse
+import urllib.request
+
+DB = os.path.expanduser("~/jarvis/data/emploi_rqth.db")
+LOGS = os.path.expanduser("~/jarvis/logs/jarvis_logs.db")
+UA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"
+BASE = "https://candidat.francetravail.fr"
+
+# --- Ce que Franck cherche (source : CV_Franck_Delmas_INFRASTRUCTURES_20260819) ---
+METIERS = [
+    "administrateur systemes",
+    "ingenieur infrastructure",
+    "technicien support informatique",
+    "administrateur linux",
+    "technicien informatique",
+    "ingenieur systemes reseaux",
+    "technicien exploitation informatique",
+    "support technique niveau 2",
+]
+DEPARTEMENT = "31D"
+PAR_PAGE = 20
+
+# --- Grands employeurs a fort effectif presents en Haute-Garonne ---
+# Critere : effectif tres superieur au seuil OETH de 20 salaries.
+# On ne prejuge PAS de la qualite de leur politique handicap : on retient
+# uniquement qu'ils y sont legalement tenus et en ont les moyens.
+GRANDS_EMPLOYEURS = {
+    "airbus", "atr", "thales", "safran", "continental", "liebherr",
+    "latecoere", "actia", "sopra", "steria", "capgemini", "atos", "eviden",
+    "cgi", "orange", "sfr", "bouygues", "free", "iliad", "berger-levrault",
+    "pierre fabre", "sanofi", "cnes", "meteo-france", "chu", "onera", "cnrs",
+    "toulouse metropole", "conseil departemental", "region occitanie",
+    "alten", "expleo", "scalian", "akkodis", "sogeti", "ibm", "dell",
+    "infotel", "neurones", "econocom", "inetum", "inserm", "universite",
+    "la poste", "sncf", "edf", "enedis", "engie", "veolia", "suez",
+    "carrefour", "leclerc", "decathlon", "credit agricole", "bnp",
+    "societe generale", "caisse d'epargne", "banque populaire", "harmonie",
+    "cpam", "urssaf", "assurance maladie", "airbus defence", "collins",
+    "honeywell", "altran", "assystem", "segula", "ausy", "modis",
+    "randstad", "manpower", "adecco", "derichebourg", "onet", "spie",
+    "vinci", "eiffage", "nxp", "siemens", "schneider", "thales services",
+}
+
+# Signaux handicap presents DANS le texte de l'offre (preuve directe)
+SIGNAUX_HANDICAP = [
+    "rqth",
+    "travailleur handicape",
+    "travailleurs handicapes",
+    "mission handicap",
+    "situation de handicap",
+    "oeth",
+    "agefiph",
+    "handicap",
+    "diversite et inclusion",
+    "obligation d'emploi",
+]
+
+CDI = ["cdi", "contrat a duree indeterminee"]
+
+MOTS_INTITULE = (
+    "administrateur", "infrastructure", "systeme", "support", "linux",
+    "exploitation", "reseau", "technicien", "informatique",
+)
+
+
+def sans_accents(s):
+    return "".join(c for c in unicodedata.normalize("NFD", s or "")
+                   if unicodedata.category(c) != "Mn").lower()
+
+
+def db():
+    os.makedirs(os.path.dirname(DB), exist_ok=True)
+    c = sqlite3.connect(DB, timeout=30)
+    c.execute("PRAGMA journal_mode=WAL")
+    c.executescript("""
+    CREATE TABLE IF NOT EXISTS offres(
+      id_offre        TEXT PRIMARY KEY,
+      url             TEXT NOT NULL,
+      intitule        TEXT,
+      employeur       TEXT,
+      lieu            TEXT,
+      contrat         TEXT,
+      requete         TEXT,
+      score           INTEGER DEFAULT 0,
+      grand_employeur INTEGER DEFAULT 0,
+      signal_handicap TEXT,
+      est_cdi         INTEGER DEFAULT 0,
+      statut          TEXT DEFAULT 'nouvelle',
+      moissonne_le    TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+    CREATE INDEX IF NOT EXISTS idx_score ON offres(score DESC, statut);
+    """)
+    return c
+
+
+def journalise(action, detail):
+    try:
+        c = sqlite3.connect(LOGS, timeout=20)
+        c.execute("""CREATE TABLE IF NOT EXISTS emploi_rqth(
+                       id INTEGER PRIMARY KEY AUTOINCREMENT,
+                       horodatage TEXT NOT NULL DEFAULT (datetime('now')),
+                       action TEXT, detail TEXT)""")
+        c.execute("INSERT INTO emploi_rqth(action,detail) VALUES(?,?)",
+                  (action, json.dumps(detail, ensure_ascii=False)[:4000]))
+        c.commit()
+        c.close()
+    except Exception:
+        pass
+
+
+def http(url):
+    req = urllib.request.Request(url, headers={
+        "User-Agent": UA, "Accept-Language": "fr-FR,fr;q=0.9"})
+    with urllib.request.urlopen(req, timeout=25) as r:
+        return r.read().decode("utf-8", "ignore")
+
+
+def _txt(bloc, motif, defaut=""):
+    m = re.search(motif, bloc, re.S)
+    if not m:
+        return defaut
+    return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", m.group(1)))).strip()
+
+
+def parse_offres(page, requete):
+    """Extrait les offres du HTML servi cote serveur par France Travail."""
+    out = []
+    for b in re.split(r'(?=<li[^>]+data-id-offre=)', page):
+        m = re.search(r'data-id-offre="([A-Za-z0-9]+)"', b)
+        if not m:
+            continue
+        oid = m.group(1)
+        intitule = _txt(b, r'class="media-heading[^"]*"[^>]*>(.*?)</h2>') or _txt(b, r'<h2[^>]*>(.*?)</h2>')
+        soustexte = _txt(b, r'class="subtext[^"]*"[^>]*>(.*?)</p>')
+        employeur, _, lieu = soustexte.partition(" - ")
+        # France Travail omet l'employeur sur les offres anonymes : le sous-texte
+        # se reduit alors a "31 - Toulouse". Sans ce garde-fou on stocke "31"
+        # comme raison sociale, ce qui pollue le classement par employeur.
+        if re.fullmatch(r"\d{2,3}[A-Z]?", employeur.strip()):
+            employeur, lieu = "", soustexte
+        contrat = _txt(b, r'class="contrat[^"]*"[^>]*>(.*?)</p>')
+        out.append({
+            "id_offre": oid,
+            "url": "%s/offres/recherche/detail/%s" % (BASE, oid),
+            "intitule": intitule[:200],
+            "employeur": employeur[:160],
+            "lieu": lieu[:120],
+            "contrat": contrat[:60],
+            "requete": requete,
+            "_texte": sans_accents(re.sub(r"<[^>]+>", " ", b)),
+        })
+    return out
+
+
+def scorer(o):
+    """Score explicite. Chaque point est justifiable devant l'interesse."""
+    t = o["_texte"]
+    emp = sans_accents(o["employeur"]) + " " + t
+    score = 0
+    # HEURISTIQUE, PAS UNE VERIFICATION : on cherche le nom d'un grand employeur
+    # dans toute la carte, employeur ET corps de l'annonce (une ESN cite souvent
+    # son client final). Un cabinet de recrutement peut donc etre marque "grand"
+    # parce qu'il recrute POUR un grand compte. C'est voulu — le levier OETH joue
+    # chez l'employeur final — mais cela reste a confirmer offre par offre.
+    grand = any(g in emp for g in GRANDS_EMPLOYEURS)
+    if grand:
+        score += 40                       # levier OETH : le coeur de la strategie
+    signaux = [s for s in SIGNAUX_HANDICAP if s in t]
+    if signaux:
+        score += 30                       # l'offre parle elle-meme de handicap
+    cdi = any(c in t for c in CDI)
+    if cdi:
+        score += 15                       # objectif declare : CDI
+    if "toulouse" in t:
+        score += 10
+    if any(k in sans_accents(o["intitule"]) for k in MOTS_INTITULE):
+        score += 5
+    o["score"] = score
+    o["grand_employeur"] = int(grand)
+    o["signal_handicap"] = ", ".join(signaux[:4])
+    o["est_cdi"] = int(cdi)
+    return o
+
+
+def cmd_moisson(a):
+    c = db()
+    vus = neufs_tot = 0
+    metiers = [a.metier] if a.metier else METIERS
+    for metier in metiers:
+        for page in range(a.pages):
+            debut = page * PAR_PAGE
+            url = ("%s/offres/recherche?motsCles=%s&lieux=%s&range=%d-%d"
+                   % (BASE, urllib.parse.quote(metier), DEPARTEMENT,
+                      debut, debut + PAR_PAGE - 1))
+            try:
+                brut = http(url)
+            except Exception as e:
+                print("  ! %s p%d : %s" % (metier[:30], page + 1, e), file=sys.stderr)
+                continue
+            offres = [scorer(o) for o in parse_offres(brut, metier)]
+            vus += len(offres)
+            neufs = 0
+            with c:
+                for o in offres:
+                    cur = c.execute(
+                        """INSERT OR IGNORE INTO offres
+                           (id_offre,url,intitule,employeur,lieu,contrat,requete,
+                            score,grand_employeur,signal_handicap,est_cdi)
+                           VALUES(?,?,?,?,?,?,?,?,?,?,?)""",
+                        (o["id_offre"], o["url"], o["intitule"], o["employeur"],
+                         o["lieu"], o["contrat"], o["requete"], o["score"],
+                         o["grand_employeur"], o["signal_handicap"], o["est_cdi"]))
+                    neufs += cur.rowcount
+            neufs_tot += neufs
+            print("  %-38s p%d : %2d lues, %2d nouvelles"
+                  % (metier[:38], page + 1, len(offres), neufs))
+            if len(offres) < PAR_PAGE:
+                break
+            time.sleep(1.2)               # politesse : on ne matraque pas la source
+    print("\n=== MOISSON : %d offres lues, %d nouvelles en base ===" % (vus, neufs_tot))
+    journalise("moisson", {"lues": vus, "nouvelles": neufs_tot})
+
+
+def cmd_top(a):
+    c = db()
+    # COALESCE : score_final et couverture_pct n'existent qu'apres
+    # dispatch_enrichir_offres.py puis dispatch_adequation.py. Sans eux on
+    # retombe proprement sur le score de moisson.
+    q = ["SELECT COALESCE(score_final,score),grand_employeur,est_cdi,signal_handicap,"
+         "intitule,employeur,lieu,url,id_offre,COALESCE(couverture_pct,-1),"
+         "COALESCE(techs_manquantes,'') FROM offres WHERE statut='nouvelle'"]
+    if a.grands_only:
+        q.append("AND grand_employeur=1")
+    if a.adequation:
+        q.append("AND couverture_pct >= %d" % a.adequation)
+    q.append("ORDER BY COALESCE(score_final,score) DESC, "
+             "COALESCE(couverture_pct,0) DESC LIMIT ?")
+    lignes = c.execute(" ".join(q), (a.n,)).fetchall()
+    if not lignes:
+        print("Aucune offre en base. Lance d'abord : jarvis-emploi-rqth moisson")
+        return
+    print("=== %d MEILLEURES CIBLES (grands employeurs = levier OETH) ===\n" % len(lignes))
+    for sc, grand, cdi, sig, intit, emp, lieu, url, oid, cov, manq in lignes:
+        marques = []
+        if grand:
+            marques.append("GRAND EMPLOYEUR")
+        if cdi:
+            marques.append("CDI")
+        if sig:
+            marques.append("handicap: " + sig)
+        if cov >= 0:
+            marques.append("adequation %d%%" % cov)
+            if manq:
+                marques.append("ecart: " + manq)
+        print("[%3d] %s   (%s)" % (sc, intit, oid))
+        print("      %s — %s" % (emp or "(employeur non precise)", lieu))
+        if marques:
+            print("      " + " · ".join(marques))
+        print("      %s\n" % url)
+
+
+def cmd_lettre(a):
+    """Lettre de motivation. La RQTH y figure — destinataire employeur uniquement."""
+    c = db()
+    r = c.execute("""SELECT intitule,employeur,lieu,url,grand_employeur
+                     FROM offres WHERE id_offre=?""", (a.id_offre,)).fetchone()
+    if not r:
+        print("Offre %s absente de la base." % a.id_offre)
+        return
+    intit, emp, lieu, url, grand = r
+    emp = emp or "votre entreprise"
+    lieu = re.sub(r"^\d{2,3}[A-Z]?\s*-\s*", "", lieu or "").strip() or "Toulouse"
+    rqth = ("\n\nJe suis bénéficiaire d'une RQTH en cours de validité et accompagné "
+            "par Cap emploi 31. Mon handicap n'affecte aucune des compétences "
+            "décrites ci-dessus ; les aménagements éventuels sont légers et peuvent "
+            "être cadrés avec votre référent handicap.")
+    if not grand:
+        rqth = ("\n\nJe suis bénéficiaire d'une RQTH en cours de validité. Mon "
+                "handicap n'affecte aucune des compétences décrites ci-dessus.")
+    accroche = textwrap.fill(
+        "Votre offre de %s à %s correspond précisément à ce que je pratique au "
+        "quotidien depuis 2024 : l'administration d'une infrastructure Linux "
+        "complète, répartie sur plusieurs machines physiques, que je conçois, "
+        "exploite et maintiens de bout en bout." % (intit, lieu), width=82)
+    cloture = textwrap.fill(
+        "Après plusieurs années en autonomie complète, je cherche un cadre d'équipe "
+        "stable où mettre cette rigueur au service d'un collectif — et %s correspond "
+        "au type d'organisation dans laquelle je souhaite m'inscrire dans la durée."
+        % emp, width=82)
+    rqth = textwrap.fill(rqth.strip(), width=82)
+    print("""Objet : Candidature — %s
+Référence France Travail : %s
+Source : %s
+
+Madame, Monsieur,
+
+%s
+
+Trois exemples concrets, chacun vérifiable :
+
+Un disque saturé à 97 %% : j'ai remonté la cause à un composant applicatif dupliqué
+six fois par profil utilisateur, libéré 24 Go sans aucune perte, puis déporté 48 Go
+vers un volume sous-utilisé — avec vérification fichier par fichier avant toute
+suppression.
+
+Des processus zombies qui s'accumulaient : la cause réelle n'était pas applicative
+mais structurelle — une sonde de santé sur un conteneur sans init, le PID 1 ne
+moissonnant pas ses enfants.
+
+Une panne de nœud isolée en croisant deux chemins réseau indépendants avant
+d'escalader, plutôt qu'en redémarrant à l'aveugle.
+
+Ma méthode tient en trois réflexes : diagnostiquer avant de corriger, documenter
+pour qu'un collègue puisse exécuter, vérifier avant de détruire.
+
+%s
+
+%s
+
+Je suis disponible immédiatement et joignable pour un échange à votre convenance.
+
+Franck Delmas
+Toulouse (31) — github.com/Turbo31150
+""" % (intit, a.id_offre, url, accroche, cloture, rqth))
+
+
+def cmd_etat(a):
+    c = db()
+    tot = c.execute("SELECT COUNT(*) FROM offres").fetchone()[0]
+    print("=== ETAT DE LA PROSPECTION ===")
+    if not tot:
+        print("  base vide — lance : jarvis-emploi-rqth moisson")
+        return
+    mesures = [
+        ("offres en base", "SELECT COUNT(*) FROM offres"),
+        ("chez de grands employeurs", "SELECT COUNT(*) FROM offres WHERE grand_employeur=1"),
+        ("mentionnant le handicap", "SELECT COUNT(*) FROM offres WHERE signal_handicap<>''"),
+        ("en CDI", "SELECT COUNT(*) FROM offres WHERE est_cdi=1"),
+        ("score >= 55 (cibles fortes)", "SELECT COUNT(*) FROM offres WHERE score>=55"),
+    ]
+    for lib, req in mesures:
+        print("  %-30s %5d" % (lib, c.execute(req).fetchone()[0]))
+    print("\n  Employeurs les plus presents (grands comptes) :")
+    rows = c.execute("""SELECT employeur,COUNT(*) FROM offres
+                        WHERE employeur<>'' AND grand_employeur=1
+                        GROUP BY employeur ORDER BY 2 DESC LIMIT 8""").fetchall()
+    if not rows:
+        print("    (aucun grand employeur identifie pour l'instant)")
+    for emp, n in rows:
+        print("    %3dx  %s" % (n, emp[:60]))
+
+
+p = argparse.ArgumentParser(
+    prog="jarvis-emploi-rqth",
+    description="Prospection d'emploi infra/systemes, priorite grands employeurs (levier OETH).")
+s = p.add_subparsers(dest="cmd", required=True)
+
+m = s.add_parser("moisson", help="moissonner France Travail (Haute-Garonne)")
+m.add_argument("--pages", type=int, default=2, help="pages par metier (20 offres/page)")
+m.add_argument("--metier", help="limiter a un seul intitule")
+m.set_defaults(f=cmd_moisson)
+
+t = s.add_parser("top", help="meilleures cibles classees")
+t.add_argument("-n", type=int, default=15)
+t.add_argument("--grands-only", action="store_true", help="uniquement les grands employeurs")
+t.add_argument("--adequation", type=int, metavar="PCT",
+               help="ne garder que les offres couvertes a PCT%% ou plus")
+t.set_defaults(f=cmd_top)
+
+lt = s.add_parser("lettre", help="lettre de motivation pour une offre (RQTH incluse)")
+lt.add_argument("id_offre")
+lt.set_defaults(f=cmd_lettre)
+
+e = s.add_parser("etat", help="etat de la base")
+e.set_defaults(f=cmd_etat)
+
+args = p.parse_args()
+args.f(args)

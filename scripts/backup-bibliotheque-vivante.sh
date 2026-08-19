@@ -57,6 +57,30 @@ if compgen -G "$HOME/prompts/*.md" >/dev/null; then
     && journal "  OK   prompts-maitres"
 fi
 
+# ── table ronde : les debats produits + le moteur qui les produit
+# Le corpus interroge (board.db) part par le pipeline SQL ; ce qui manquait,
+# c'est ce qui l'exploite (dispatcher, moteur, MCP) et ce qu'il a produit
+# (les debats). Un board restaure sans cela redemarre muet.
+if [ -d "$HOME/jarvis/data/tables-rondes" ]; then
+  tar czf "$DEST/table-ronde.tar.gz" -C "$HOME" \
+    jarvis/data/tables-rondes \
+    jarvis/board/dispatch_table_ronde.py \
+    jarvis/board/board.py \
+    jarvis/bin/table-ronde-fast \
+    jarvis/scripts/produce_table_ronde.py \
+    jarvis/scripts/studio_v2_table_ronde.html \
+    jarvis/mcp/board_mcp.py \
+    .local/bin/jarvis-table-ronde 2>/dev/null
+  # une archive qui ne se relit pas est un faux succes : on verifie avant de compter
+  if [ -s "$DEST/table-ronde.tar.gz" ] && tar tzf "$DEST/table-ronde.tar.gz" >/dev/null 2>&1; then
+    journal "  OK   table-ronde ($(du -h "$DEST/table-ronde.tar.gz" | cut -f1), $(tar tzf "$DEST/table-ronde.tar.gz" | wc -l) entrees)"
+  else
+    journal "  ECHEC table-ronde"; rm -f "$DEST/table-ronde.tar.gz"
+  fi
+else
+  journal "  absent $HOME/jarvis/data/tables-rondes"
+fi
+
 # ── manifeste de verification
 ( cd "$DEST" && sha256sum ./*.tar.gz > MANIFEST.sha256 2>/dev/null )
 TAILLE=$(du -sh "$DEST" | cut -f1)

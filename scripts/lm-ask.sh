@@ -24,6 +24,37 @@
 
 set -uo pipefail
 
+# --- 2026-08-18 : QUATRIÈME BUG — les drapeaux n'étaient pas parsés ---------
+# Le protocole d'orchestration documente `lm-ask.sh --big` et `--reason`, et
+# 3 séries de la bibliothèque les utilisent. Or aucun drapeau n'était lu : il
+# partait dans le prompt. `lm-ask.sh --big "..."` demandait donc littéralement
+# au modèle « --big ... », qui répondait à côté — exit 0, sortie non vide,
+# résultat absurde. Faux succès classique.
+#
+# Les modèles cités par la doc (qwen3.5-35b, deepseek-r1) ne sont PAS servis
+# par ce parc (M6 sert qwen3.5-9b ; Ollama M4 sert gemma3:4b et qwen2.5:7b).
+# On mappe donc sur ce qui existe VRAIMENT et on le dit sur stderr, plutôt
+# que de laisser croire à un modèle plus gros.
+_FLAG_MODEL=""
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --big|--gros)
+      _FLAG_MODEL="qwen2.5:7b"
+      echo "lm-ask: --big -> qwen2.5:7b (qwen3.5-35b non servi par ce parc)" >&2
+      shift ;;
+    --reason|--raisonne)
+      _FLAG_MODEL="qwen2.5:7b"
+      echo "lm-ask: --reason -> qwen2.5:7b (deepseek-r1 non servi par ce parc)" >&2
+      shift ;;
+    --flash|--fast|--rapide)
+      _FLAG_MODEL="gemma3:4b"; shift ;;
+    --) shift; break ;;
+    -*) echo "lm-ask: drapeau inconnu ignore: $1" >&2; shift ;;
+    *) break ;;
+  esac
+done
+[ -n "$_FLAG_MODEL" ] && OLLAMA_MODEL="$_FLAG_MODEL"
+
 PROMPT="${1:-}"
 if [ -z "$PROMPT" ] && [ ! -t 0 ]; then PROMPT="$(cat)"; fi
 
@@ -40,6 +71,7 @@ LM_HOST="${LM_HOST:-http://10.42.0.230:1234}"
 OLLAMA_URL="${OLLAMA_URL:-http://127.0.0.1:11434}"
 LM_MODEL="${LM_MODEL:-qwen/qwen3.5-9b}"
 OLLAMA_MODEL="${OLLAMA_MODEL:-gemma3:4b}"
+[ -n "${_FLAG_MODEL:-}" ] && OLLAMA_MODEL="$_FLAG_MODEL"
 
 # Corps JSON construits par python : échappement correct garanti.
 build_body() { # $1 = lmstudio|ollama

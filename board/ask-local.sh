@@ -7,5 +7,6 @@ cd "$(dirname "$(readlink -f "$0")")"
 
 export BOARD_LMS_URL="http://127.0.0.1:11434/v1"
 export BOARD_CHAT_MODEL="gemma3:4b"
+export BOARD_EMBED_MODEL="nomic-embed-text:latest"
 
 exec python3 board.py ask "$@"

@@ -1,0 +1,263 @@
+{
+  "version": "1.0",
+  "revision": "2026-08-19",
+  "commentaire": "Regles de routage deterministe. AUCUNE inference. Le moteur routeur.py ne contient pas de logique metier : tout est ici. Pour etendre le routeur on edite ce fichier, on ne touche pas au code.",
+  "scoring": {
+    "commentaire": "Score deterministe borne 0-100. Le cumul des mots-cles est plafonne (plafond_mots_cles) pour que le score discrimine au lieu de saturer. Sert a trier la file, pas a choisir le canal.",
+    "poids_pertinence": 8,
+    "bonus_pays": {
+      "FR": 15,
+      "BE": 10,
+      "CH": 10,
+      "LU": 8,
+      "CA": 8,
+      "INT": 0
+    },
+    "champs_scannes": [
+      "nom",
+      "signal",
+      "preuve",
+      "type"
+    ],
+    "bonus_mots_cles": {
+      "n8n": 25,
+      "self-hosted": 15,
+      "self hosted": 15,
+      "auto-heberge": 15,
+      "sous-traitance": 18,
+      "partenaire technique": 18,
+      "reseau de freelances": 18,
+      "automatisation": 12,
+      "automation": 12,
+      "workflow": 10,
+      "rgpd": 10,
+      "souverain": 10,
+      "ollama": 10,
+      "docker": 8,
+      "make.com": 8,
+      "zapier": 8,
+      "connecteur": 8,
+      "llm": 8,
+      "integration": 6,
+      "freelance": 6,
+      "postgres": 5
+    },
+    "bonus_fraicheur": {
+      "commentaire": "Age du signal en jours depuis date_signal. INCONNU = malus.",
+      "jours_7": 20,
+      "jours_30": 12,
+      "jours_90": 5,
+      "jours_180": 0,
+      "plus_ancien": -5,
+      "inconnu": -8
+    },
+    "seuils_priorite": {
+      "P0": 80,
+      "P1": 60,
+      "P2": 40
+    },
+    "plafond_mots_cles": 30
+  },
+  "garde_fous": {
+    "commentaire": "Applique AVANT les regles. Traduit la REGLE D'OR : aucun envoi vers une adresse devinee.",
+    "emails_generiques_suspects": [
+      "contact@",
+      "info@",
+      "hello@",
+      "bonjour@",
+      "admin@",
+      "webmaster@",
+      "no-reply@",
+      "noreply@",
+      "postmaster@",
+      "sales@",
+      "commercial@"
+    ],
+    "domaines_interdits": [
+      "example.com",
+      "test.com",
+      "localhost",
+      "domain.com"
+    ],
+    "marqueurs_non_contactable": [
+      "NON_PUBLIC",
+      "INCONNU",
+      "N/A",
+      "-",
+      "NONE",
+      "NULL",
+      "FORMULAIRE",
+      "COMPTE_REQUIS"
+    ]
+  },
+  "regles": [
+    {
+      "id": "R00_URL_INTERDITE",
+      "commentaire": "Domaine bidon : on jette, meme si le reste est propre.",
+      "si": {
+        "url": {
+          "contient_un_de": [
+            "example.com",
+            "test.com",
+            "localhost",
+            "domain.com"
+          ]
+        }
+      },
+      "alors": {
+        "decision": "REJETE",
+        "action": "AUCUNE",
+        "file": "REJET",
+        "motif": "domaine non exploitable"
+      },
+      "arret": true
+    },
+    {
+      "id": "R01_EMAIL_VERIFIE",
+      "commentaire": "Seul cas autorisant un envoi SMTP direct.",
+      "si": {
+        "canal_contact": {
+          "egal_un_de": [
+            "EMAIL_VERIFIE",
+            "VERIFIE_HTML_DIRECT",
+            "EMAIL"
+          ]
+        },
+        "contact": {
+          "est_email": true,
+          "non_suspect": true
+        }
+      },
+      "alors": {
+        "decision": "CONTACTABLE",
+        "action": "ENVOI_SMTP",
+        "file": "FILE_EMAIL",
+        "motif": "adresse lue sur la page source, envoi direct autorise"
+      },
+      "arret": true
+    },
+    {
+      "id": "R02_EMAIL_SUSPECT",
+      "commentaire": "Adresse generique type contact@ non attestee : on ne devine pas, on bascule sur le formulaire.",
+      "si": {
+        "contact": {
+          "est_email": true,
+          "non_suspect": false
+        }
+      },
+      "alors": {
+        "decision": "CONTACTABLE_PRUDENT",
+        "action": "DEPOT_FORMULAIRE_CDP",
+        "file": "FILE_FORMULAIRE",
+        "bonus_score": -10,
+        "motif": "email generique non atteste : bascule sur le formulaire officiel"
+      },
+      "arret": true
+    },
+    {
+      "id": "R03_FORMULAIRE",
+      "si": {
+        "canal_contact": {
+          "egal_un_de": [
+            "FORMULAIRE",
+            "FORMULAIRE_SECURISE"
+          ]
+        }
+      },
+      "alors": {
+        "decision": "CONTACTABLE",
+        "action": "DEPOT_FORMULAIRE_CDP",
+        "file": "FILE_FORMULAIRE",
+        "motif": "formulaire officiel sur le site source"
+      },
+      "arret": true
+    },
+    {
+      "id": "R04_CANDIDATURE_PLATEFORME",
+      "si": {
+        "canal_contact": {
+          "egal_un_de": [
+            "CANDIDATURE_DIRECTE",
+            "COMPTE_REQUIS",
+            "INSCRIPTION_LIBRE"
+          ]
+        }
+      },
+      "alors": {
+        "decision": "CONTACTABLE",
+        "action": "CANDIDATURE_PLATEFORME",
+        "file": "FILE_CANDIDATURE",
+        "motif": "postuler via le compte de la plateforme"
+      },
+      "arret": true
+    },
+    {
+      "id": "R05_LINKEDIN",
+      "si": {
+        "canal_contact": {
+          "egal_un_de": [
+            "LINKEDIN"
+          ]
+        }
+      },
+      "alors": {
+        "decision": "CONTACTABLE",
+        "action": "MESSAGE_LINKEDIN",
+        "file": "FILE_LINKEDIN",
+        "motif": "approche via LinkedIn"
+      },
+      "arret": true
+    },
+    {
+      "id": "R06_EVENEMENT",
+      "si": {
+        "canal_contact": {
+          "egal_un_de": [
+            "EVENEMENT"
+          ]
+        }
+      },
+      "alors": {
+        "decision": "A_PLANIFIER",
+        "action": "INSCRIRE_AGENDA",
+        "file": "FILE_AGENDA",
+        "motif": "opportunite de rencontre"
+      },
+      "arret": true
+    },
+    {
+      "id": "R07_SIGNAL_SANS_PORTE",
+      "commentaire": "Cible pertinente sans canal connu : on ne jette pas, on enrichit.",
+      "si": {
+        "canal_contact": {
+          "egal_un_de": [
+            "NON_PUBLIC",
+            ""
+          ]
+        },
+        "pertinence": {
+          "sup_ou_egal": 3
+        }
+      },
+      "alors": {
+        "decision": "A_ENRICHIR",
+        "action": "CHERCHER_CANAL",
+        "file": "FILE_VEILLE",
+        "motif": "cible pertinente sans porte d entree"
+      },
+      "arret": true
+    },
+    {
+      "id": "R99_DEFAUT",
+      "commentaire": "Filet : rien ne sort du moteur sans decision explicite.",
+      "si": {},
+      "alors": {
+        "decision": "A_ENRICHIR",
+        "action": "CHERCHER_CANAL",
+        "file": "FILE_VEILLE",
+        "motif": "aucune regle specifique : mis en veille"
+      },
+      "arret": true
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+RESUME — 4 agences routees
+
+Par segment :
+  automation_n8n         3
+  agents_ia              1
+
+Par priorite :
+  Haut     4
+
+Flags :
+  LOCAL      3

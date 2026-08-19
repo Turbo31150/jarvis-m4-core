@@ -1,0 +1,154 @@
+# JARVIS Tracker Pipeline — Operation Cash (source: JARVIS_Tracker_Pipeline.xlsx, 19/08/2026 04:23)
+
+## Feuille — Tableau de bord
+- ⚡ JARVIS — OPÉRATION CASH 10 JOURS
+- Objectif : 1 000 € – 10 000 € encaissés (acompte) en 10 jours
+- 💰 CASH & PIPELINE | 🔫 VOLUME (le nerf de la guerre)
+- Cash acompte déjà SIGNÉ (€) | 0 | Sollicitations totales (devis+cold) | 0
+- Pipeline pondéré (probable, €) | 750 | Objectif volume (mini) | 150
+- Pipeline potentiel total (€) | 2500 | Reste à faire pour tenir le volume | 150
+- Acompte potentiel si tout signe (€) | 1000 | Réponses cumulées | 0
+- Atteinte objectif mini 1 000 € (%) | 0 | Calls cumulés | 0
+- Propositions cumulées | 0
+- 🎯 FUNNEL (nb prospects par statut) | Signatures cumulées | 0
+- Prospects dans le pipe | 1
+- À contacter | 1 | 🧭 RÈGLE D'OR
+- Contactés | 0 | Le cash rentre à la SIGNATURE (acompte 30–50 %), pas à la livraison. Optimise le nombre de signatures, pas la perfection.
+- Réponses | 0
+- Calls | 0
+- Propositions envoyées | 0 | < 100 sollicitations = objectif raté. > 150 = objectif crédible.
+- SIGNÉS | 0
+- Perdus | 0 | Prérequis n°1 : pouvoir facturer (auto-entrepreneur/société + RIB).
+
+## Feuille — Pipeline
+- PIPELINE — remplis une ligne par prospect. Colonnes jaunes = à saisir. H et J se calculent seuls. La ligne 3 est un EXEMPLE : écrase-la.
+- Prospect / Entreprise | Contact | Secteur | Canal | Offre | Montant potentiel (€) | Probabilité | Pondéré (€) | Acompte % | Acompte (€) | Statut | Prochaine action | Date relance
+- Ex : Cabinet Comptable Dupont | M. Dupont | Compta/juridique | LinkedIn | 1 | 2500 | 0.3 | 750 | 0.4 | 1000 | À contacter | Envoyer message LinkedIn + démo | 22/08/2026
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- 0 | 0
+- TOTAL | 2500 | 750 | 1000
+
+## Feuille — Plan 10 jours
+- PLAN 10 JOURS — logge tes chiffres chaque soir (colonnes D→I). Le tableau de bord agrège tout automatiquement.
+- Jour | Phase | Focus du jour | Devis/candidatures | Cold (LinkedIn+email) | Réponses | Calls | Propositions | Signatures
+- J1 | Armement | Vérifier facturation/RIB · optimiser profils Malt+LinkedIn · publier plaquette+benchmark
+- J2 | Armement | Lister 30–50 cibles (onglet Cibles) · finaliser les 3 offres/prix · préparer le post démo
+- J3 | Prospection | Répondre à toutes les missions n8n/IA (codeur/Malt/Free-Work) · 15 cold LinkedIn · 10 emails
+- J4 | Prospection | Publier le post démo (vidéo) · 20 cold LinkedIn · 15 emails · répondre missions
+- J5 | Prospection | Relancer J3 sans réponse · 20 cold · 15 emails · répondre missions
+- J6 | Closing | Transformer réponses en calls 15 min · envoyer 1res propositions fixes
+- J7 | Closing | Calls · propositions · relances J4/J5
+- J8 | Closing | Calls · propositions · relance de TOUTES les propositions sans réponse
+- J9 | Signature | Signer · envoyer factures d'acompte 30–50 % · démarrer livraison sprint
+- J10 | Signature | Closer les derniers · encaisser · bilan pipeline · planifier semaine 2
+- TOTAL | Sollicitations = Devis + Cold | 0 | 0 | 0 | 0 | 0 | 0
+
+## Feuille — Cibles
+- CIBLES — 30 à 50 prospects. Priorise les secteurs données-sensibles (santé, juridique, public, finance, industrie) et l'Occitanie/Toulouse. Dis-moi « go cibles » et je te la remplis par recherche.
+- Entreprise | Secteur | Taille | Ville | Signal / douleur (pourquoi eux) | Contact / URL | Canal | Priorité | Statut
+- Ex : Clinique Saint-Exupéry | Santé | PME 80p | Toulouse | Beaucoup de doc patient à traiter, données sensibles → IA locale | linkedin.com/… | LinkedIn | Haut | À contacter
+
+## Feuille — Offres
+- LES 3 OFFRES PRODUCTISÉES — prix fixes, facturation à la valeur.
+- Offre | Pour qui | Livrable | Délai | Prix min (€) | Prix max (€) | Acompte
+- 🟢 1. Sprint Automatisation IA | PME/TPE, agences, artisans, cabinets | 1–3 workflows n8n branchés sur leurs outils, documentés | 2–4 j | 1500 | 3500 | 0.4
+- 🟡 2. Assistant IA sur vos données | PME avec doc technique/juridique/support, e-commerce | Agent/chatbot RAG sur leurs docs, local ou cloud | 3–5 j | 3000 | 8000 | 0.45
+- 🔴 3. Audit + POC IA Locale Souveraine | Santé, juridique, public, finance, industrie | Audit faisabilité IA locale + POC + roadmap + volet EU AI Act | 3–6 j | 2500 | 6000 | 0.4
+- Ancrage prix en call : « Sprint dès 1 500 €, Assistant IA dès 3 000 €, Audit souverain dès 2 500 € — lequel colle à votre besoin ? »

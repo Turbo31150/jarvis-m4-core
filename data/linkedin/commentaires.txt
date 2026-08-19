@@ -1,0 +1,20 @@
+## COMMENTAIRE 1 — post gouvernance / data-first
+Le point gouvernance est le plus sous-estimé en Europe : avec le RGPD et l'AI Act,
+la friction d'aujourd'hui devient votre seul argument défendable devant un
+régulateur demain. Je vois trop de PME qui veulent l'agent avant d'avoir un
+propriétaire sur leurs données — on finit toujours par remonter la lineage dans
+la douleur. Data-first, ce n'est pas un luxe : c'est ce qui rend l'IA auditable.
+
+## COMMENTAIRE 2 — post mémoire des agents (Paul Iusztin)
+Roadmap solide. J'ajouterais deux choses : l'oubli maîtrisé (eviction + TTL) et
+la souveraineté du store. Chez mes clients PME, garder la mémoire de l'agent
+100% locale change tout côté RGPD et côté coûts. Le "maintained" est l'étape qui
+casse en prod — un graphe propre à J+1 devient un cimetière à J+90 sans politique
+de rétention.
+
+## COMMENTAIRE 3 — post GenAI au-delà du prompting (Ojas Varshney)
+D'accord sur le fond : build ≠ appeler une API. Un contrepoint au tout-cloud —
+une bonne partie de ce stack (RAG, PEFT, inference) tourne très bien 100% en
+local, ce qui devient indispensable quand le client ne peut pas envoyer ses
+données sur Bedrock pour raisons RGPD. Le vrai skill : choisir cloud ou local
+selon la donnée, pas par défaut.

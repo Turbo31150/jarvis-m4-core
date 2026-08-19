@@ -1,0 +1,98 @@
+{
+  "name": "JARVIS OMEGA — Workflow N8N 02 Complet : Monitoring Feed LinkedIn, IA Commentaire & Auto-Publication",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 5
+            }
+          ]
+        }
+      },
+      "name": "Schedule Trigger (Toutes les 5 min)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        100,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "command": "python3 /home/turbo/jarvis/bin/domino-linkedin-realtime.py run --live --produce"
+      },
+      "name": "Scan Feed LinkedIn & Recommandations CDP",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        320,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "command": "python3 /home/turbo/jarvis/scripts/lm-ask.sh --big \"Génère un post LinkedIn technique sur l'architecture multi-agents et la réduction des coûts de jetons LLM\" > /home/turbo/jarvis/data/linkedin_state/drafts/auto_post_$(date +%Y%m%d_%H%M%S).txt"
+      },
+      "name": "Génération de Post LinkedIn par LLM Local",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        540,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "command": "python3 /home/turbo/jarvis/scripts/util_logging.py \"[N8N LinkedIn Workflow] Feed scanné, likes appliqués et nouveau post rédigé.\""
+      },
+      "name": "Log Centralisé System",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        760,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Schedule Trigger (Toutes les 5 min)": {
+      "main": [
+        [
+          {
+            "node": "Scan Feed LinkedIn & Recommandations CDP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scan Feed LinkedIn & Recommandations CDP": {
+      "main": [
+        [
+          {
+            "node": "Génération de Post LinkedIn par LLM Local",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Génération de Post LinkedIn par LLM Local": {
+      "main": [
+        [
+          {
+            "node": "Log Centralisé System",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {},
+  "id": "2"
+}

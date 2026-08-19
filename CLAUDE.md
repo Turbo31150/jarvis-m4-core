@@ -141,3 +141,28 @@ mindmap
 - **`local` / `qwen-cli`** : Inférence interactive Qwen 3.5 9B.
 - **`yolo` / `nav`** : Mode autonomie totale + BrowserOS.
 - **`m6` / `m1` / `m2`** : Connexions SSH directes cluster.
+
+
+
+## 🧬 BIOS BOYAU 9 COUCHES & ACCÈS DIRECT M6 SOUVERAIN (0-TOKEN)
+
+### 1. Invariants du BIOS Boyau (Règles intangibles)
+- **A1 Gateway LLM Unique** : Tout modèle passe par la passerelle `Neural` (`10.42.0.230:1234` sur M6 ou Ollama local).
+- **A2 Mémoire Unique** : SQLite (`jarvis_master.db`, `board.db`, `etoile.db`).
+- **A3 Web Unique** : BrowserOS MCP / Playwright (SSRF bloqué).
+- **A4 Publish Unique** : Validation typée avant effet de bord.
+
+### 2. Topologie Quad-GPU de M6 (Exposée sur 10.42.0.230:1234)
+- **GPU 0 (RTX 2060 12G)** : `qwen2.5-coder-14b-instruct` (Code lourd & Refactoring)
+- **GPU 2 (RTX 3080 10G)** : `qwen3.5-9b` (Orchestrateur central & Raisonnement)
+- **GPU 1 (GTX 1660S 6G)** : `deepseek-r1-0528-qwen3-8b` (Conseil des 53 Experts du Board)
+- **GPU 3 (GTX 1660S 6G)** : `text-embedding-nomic-embed-text-v1.5` + Whisper (Vectorisation 768 permanente & Audio)
+
+### 3. Exécution Directe depuis M4
+```bash
+# Lancer Claude Code sur Qwen 2.5 Coder 14B (sur M6 via RJ45 direct) :
+claude-m6 --model qwen2.5-coder-14b-instruct
+
+# Lancer Claude Code sur Qwen 3.5 9B (sur M6) :
+claude-m6 --model qwen/qwen3.5-9b
+```

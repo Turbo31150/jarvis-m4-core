@@ -1,0 +1,116 @@
+AGENCE|Neuraflow|Neuraflow — Villeurbanne — Automatisation / n8n / workflows — signaux aucun
+AGENCE|Daemon-ia|Daemon-ia — France — Agence IA generaliste (defaut) — signaux aucun
+AGENCE|Doctor_IA|Doctor IA — Bidart — Agence IA generaliste (defaut) — signaux aucun
+AGENCE|Apsodia|Apsodia — Perigueux — Agence IA generaliste (defaut) — signaux aucun
+AGENCE|France_IA|France IA — Paris — Agence IA generaliste (defaut) — signaux HIRING
+AGENCE|Syril_Digital_ASD|Syril Digital ASD — Toulouse — Agence IA generaliste (defaut) — signaux LOCAL
+AGENCE|Pucci_AI|Pucci AI — Suisse — Automatisation / n8n / workflows — signaux aucun
+AGENCE|Data_AI_Automation|Data AI Automation — Nice — Automatisation / n8n / workflows — signaux aucun
+AGENCE|Feneecia|Feneecia — Paris — Agence IA generaliste (defaut) — signaux aucun
+AGENCE|Velixia|Velixia — Laval — Agence IA generaliste (defaut) — signaux OVERFLOW
+AGENCE|Cabinets_comptables|Cabinets comptables — Lyon — Automatisation / n8n / workflows — signaux aucun
+AGENCE|OccitIA|OccitIA — Occitanie — Automatisation / n8n / workflows — signaux LOCAL
+AGENCE|Tensoria|Tensoria — Toulouse — Agence IA generaliste (defaut) — signaux LOCAL
+AGENCE|Synapze|Synapze — Toulouse — Automatisation / n8n / workflows — signaux LOCAL
+AGENCE|A2Z_Automation|A2Z Automation — Toulouse — Automatisation / n8n / workflows — signaux LOCAL
+AGENCE|Volteyr|Volteyr — Toulouse — Automatisation / n8n / workflows — signaux LOCAL
+AGENCE|EpickOne|EpickOne — Toulouse — Automatisation / n8n / workflows — signaux LOCAL
+AGENCE|Mankova_Consulting|Mankova Consulting — Toulouse — Agence IA generaliste (defaut) — signaux LOCAL
+AGENCE|Poller|Poller — Toulouse — Agence IA generaliste (defaut) — signaux LOCAL
+AGENCE|IA_Agency|IA Agency — France — Souverainete / RGPD / local-first — signaux aucun
+AGENCE|Sequance|Sequance — France — Automatisation / n8n / workflows — signaux aucun
+AGENCE|Genee|Genee — France — Automatisation / n8n / workflows — signaux aucun
+AGENCE|automatisation.dev|automatisation.dev — France — Automatisation / n8n / workflows — signaux aucun
+AGENCE|Uniweb|Uniweb — Toulouse — Automatisation / n8n / workflows — signaux LOCAL
+AGENCE|IA4OPS|IA4OPS — Toulouse — Agents IA / agentique / orchestration — signaux LOCAL
+AGENCE|Agence_Automatisation_n8n|Agence Automatisation n8n — France — Automatisation / n8n / workflows — signaux aucun
+AGENCE|Uclic|Uclic — Toulouse — Automatisation / n8n / workflows — signaux LOCAL
+FORMATION|agents-mcp|Agents Autonomes MCP — categorie Agents — 99 EUR — 30 pages
+FORMATION|agents-vocaux|Agents Vocaux Temps Réel — categorie Agents — 99 EUR — 46 pages
+FORMATION|crewai-autogen|CrewAI vs AutoGen vs JARVIS — categorie Agents — 99 EUR — 32 pages
+FORMATION|langchain-ia|LangChain — Patterns 2026 — categorie Agents — 99 EUR — 23 pages
+FORMATION|mcp-protocol|MCP Protocol — Référence — categorie Agents — 99 EUR — 34 pages
+FORMATION|elasticsearch-ia|Elasticsearch + IA — categorie Avancé — 109 EUR — 35 pages
+FORMATION|multimodal-ia|IA Multimodale — categorie Avancé — 109 EUR — 23 pages
+FORMATION|pgvector-sql|pgvector + PostgreSQL — categorie Avancé — 109 EUR — 36 pages
+FORMATION|rag-vectordb|RAG Production — VectorDB — categorie Avancé — 109 EUR — 24 pages
+FORMATION|react-ia|React 19 + IA — categorie Avancé — 109 EUR — 25 pages
+FORMATION|rust-ia|Rust pour IA — Performance — categorie Avancé — 109 EUR — 29 pages
+FORMATION|weaviate-chroma|Weaviate vs Chroma vs Qdrant — categorie Avancé — 109 EUR — 28 pages
+FORMATION|whisper-voix|Whisper — Pipeline Voix — categorie Avancé — 109 EUR — 24 pages
+FORMATION|claude-code-mastery-bundle|Bundle M2 + M3 + Bonus — categorie BUNDLE — 297 EUR — 6 pages
+FORMATION|claude-code-mastery-m3|Module 3 — Construis ton JARVIS — categorie BUNDLE — 297 EUR — 8 pages
+FORMATION|claude-code-mastery-m2|Module 2 — Agents & Skills Avancés — categorie BUNDLE — 149 EUR — 7 pages
+FORMATION|claude-code-mastery-m1|Module 1 — Fondamentaux — categorie BUNDLE — 0 EUR — 7 pages
+FORMATION|copilot-github|GitHub Copilot — Au-delà du basique — categorie Dev — 69 EUR — 21 pages
+FORMATION|cursor-vscode|Cursor vs VSCode + Continue — categorie Dev — 69 EUR — 32 pages
+FORMATION|ia-no-code|IA No-Code — Make, Zapier, n8n — categorie Dev — 69 EUR — 26 pages
+FORMATION|n8n-masterclass|n8n Masterclass IA — categorie Dev — 69 EUR — 32 pages
+FORMATION|ia-fondamentaux-2026|IA en 2026 — Fondamentaux — categorie Débutant — 39 EUR — 25 pages
+FORMATION|ia-productivite|IA Productivité personnelle — categorie Débutant — 39 EUR — 28 pages
+FORMATION|prompt-engineering|Prompt Engineering Avancé — categorie Débutant — 39 EUR — 23 pages
+FORMATION|vibe-coding|Vibe Coding 2026 — categorie Débutant — 39 EUR — 28 pages
+FORMATION|api-openai|API OpenAI — Patterns — categorie Infra — 89 EUR — 26 pages
+FORMATION|deepseek-open|DeepSeek — Open Weight Avancé — categorie Infra — 89 EUR — 25 pages
+FORMATION|docker-ia|Docker pour Applications IA — categorie Infra — 89 EUR — 24 pages
+FORMATION|fastapi-ia|FastAPI pour Backends IA — categorie Infra — 89 EUR — 31 pages
+FORMATION|gemini-cli|Gemini CLI Masterclass — categorie Infra — 89 EUR — 21 pages
+FORMATION|github-cicd|GitHub Actions pour Projets IA — categorie Infra — 89 EUR — 32 pages
+FORMATION|ia-cloud-gcp|IA Cloud GCP — Vertex AI — categorie Infra — 89 EUR — 18 pages
+FORMATION|ia-devops|DevOps IA — Workflows — categorie Infra — 89 EUR — 26 pages
+FORMATION|kubernetes-ia|Kubernetes pour Workloads IA — categorie Infra — 89 EUR — 37 pages
+FORMATION|llm-finetuning|LLM Fine-Tuning — Pratique — categorie Infra — 89 EUR — 22 pages
+FORMATION|llms-locaux|LLMs Locaux — LMStudio & Ollama — categorie Infra — 89 EUR — 24 pages
+FORMATION|mistral-local|Mistral Local — Production — categorie Infra — 89 EUR — 29 pages
+FORMATION|mlops|MLOps Pratique — categorie Infra — 89 EUR — 30 pages
+FORMATION|monitoring-ia|Monitoring IA Production — categorie Infra — 89 EUR — 33 pages
+FORMATION|ai-freelance-automation|Freelance IA — Automatisation — categorie Métier — 89 EUR — 34 pages
+FORMATION|automatisation-business|Automatisation Business IA — categorie Métier — 89 EUR — 28 pages
+FORMATION|ia-code-review|IA Code Review — categorie Métier — 89 EUR — 27 pages
+FORMATION|ia-cybersec|IA Cybersécurité — categorie Métier — 89 EUR — 24 pages
+FORMATION|ia-ecommerce|IA E-commerce — categorie Métier — 89 EUR — 22 pages
+FORMATION|ia-education|IA Éducation — categorie Métier — 89 EUR — 36 pages
+FORMATION|ia-finance|IA Finance — categorie Métier — 89 EUR — 37 pages
+FORMATION|ia-freelance|Vivre du Freelance IA — categorie Métier — 89 EUR — 30 pages
+FORMATION|ia-healthcare-multiagent|Healthcare Multi-Agent — categorie Métier — 89 EUR — 32 pages
+FORMATION|ia-juridique|IA Juridique — categorie Métier — 89 EUR — 27 pages
+FORMATION|ia-marketing|IA Marketing — categorie Métier — 89 EUR — 32 pages
+FORMATION|ia-rh|IA Ressources Humaines — categorie Métier — 89 EUR — 26 pages
+FORMATION|ia-sante|IA Santé — categorie Métier — 89 EUR — 38 pages
+FORMATION|claude-api-avance|Claude API Avancée — categorie Premium — 149 EUR — 28 pages
+FORMATION|claude-code-pro|Claude Code Pro — Patterns Production — categorie Premium — 149 EUR — 26 pages
+FORMATION|jarvis-architecture|JARVIS — Architecture Distribuée — categorie Premium — 149 EUR — 25 pages
+FORMATION|jarvis-cluster-gpu|JARVIS Cluster GPU Multi-Nœuds — categorie Premium — 149 EUR — 31 pages
+FORMATION|jarvis-cowork-qa|JARVIS Cowork — 249 agents QA — categorie Premium — 149 EUR — 35 pages
+FORMATION|jarvis-domino-engine|JARVIS Domino Engine — categorie Premium — 149 EUR — 36 pages
+FORMATION|jarvis-mcp-toolkit|JARVIS MCP Toolkit — 88 Handlers — categorie Premium — 149 EUR — 32 pages
+FORMATION|jarvis-os-cluster|JARVIS OS — Cluster Complet — categorie Premium — 149 EUR — 28 pages
+FORMATION|jarvis-whisper-flow|JARVIS Whisper Flow — categorie Premium — 149 EUR — 30 pages
+FORMATION|lumen-multilang|Lumen — Transcription Multilingue — categorie Premium — 149 EUR — 35 pages
+FORMATION|openclaw-gateway|OpenClaw Gateway — 1000+ agents — categorie Premium — 149 EUR — 31 pages
+FORMATION|mexc-futures-api|MEXC Futures API — Practical — categorie Trading — 139 EUR — 37 pages
+FORMATION|tradeoracle|TradeOracle — Setup Production — categorie Trading — 139 EUR — 34 pages
+FORMATION|trading-ia|Trading IA — Stratégies LLM — categorie Trading — 139 EUR — 22 pages
+FORMATION|trading-tradeoracle|Trading IA — TradeOracle — categorie Trading — 139 EUR — 34 pages
+MISSION|SMARTPOINT|Consultant IA Generative / Claude (Anthropic) — SMARTPOINT — Ile-de-France — 500-600 EUR/j — score 7.7
+MISSION|Hexateam|Expert IA Agentique Senior — systemes multi-agents, MCP, orchestration — Hexateam — Ile-de-France — n.c. — score 7.3
+MISSION|ARDEMIS PARTNERS|Chef de Projet IA agentique — gouvernance et archi Data — ARDEMIS PARTNERS — Paris — 400-500 EUR/j — score 7.0
+MISSION|ARDEMIS PARTNERS|Architecte Data XP IA Agentique — ARDEMIS PARTNERS — Paris — 400-580 EUR/j — score 7.0
+MISSION|Freelance.com|Developpeur IA Agents & Orchestration H/F — Freelance.com — Ile-de-France — 510-590 EUR/j — score 7.0
+MISSION|Freelance.com|Expert IA generative et Plateforme IA H/F — Freelance.com — Ile-de-France — 510-590 EUR/j — score 7.0
+MISSION|DATAMED RESEARCH|Expert IA generative / LLM Engineer — Cybersecurite — DATAMED RESEARCH — Toulouse, Occitanie — 400-500 EUR/j — score 7.0
+MISSION|INSYCO|Ingenieur automation broadcast ST2110 — INSYCO — Paris — 500-600 EUR/j — score 6.9
+MISSION|ISUPPLIER|Data Scientist specialise evaluation des LLMs — ISUPPLIER — Ile-de-France — 400-550 EUR/j — score 6.6
+MISSION|LeHibou|Ingenieur Automatisation DevOps — LeHibou — Guyancourt, Ile-de-France — 550 EUR/j — score 6.6
+MISSION|STORM GROUP|Tech Lead IA — CIB (H/F) — STORM GROUP — Ile-de-France — 400-650 EUR/j — score 6.5
+MISSION|Freelance.com|Data & AI Engineer Senior (H/F) — Freelance.com — Bois-Colombes, Ile-de-France — 400-580 EUR/j — score 6.2
+MISSION|PROPULSE IT|Testeur & automatisation - Azure DevOps — PROPULSE IT — Le Plessis-Robinson, Ile-de-France — 225-450 EUR/j — score 6.2
+MISSION|R&S TELECOM|Developpeur Python Flask & Automatisation STB — R&S TELECOM — Meudon, Ile-de-France — n.c. — score 6.1
+MISSION|AVA2I|Expert IA Generative — Agents IA, Copilot et Industrialisation — AVA2I — Ile-de-France — n.c. — score 6.1
+MISSION|CELAD|Ingenieur Orchestration et Automatisation Reseau (n8n, API) — CELAD — Toulouse, Occitanie — 360-420 EUR/j — score 5.5
+MISSION|LeHibou|Ingenieur DevOps / SRE Windows et automatisation — LeHibou — Paris — 750 EUR/j — score 5.4
+MISSION|FF|Consultant IA - SDLC/DevEx — FF — Paris — n.c. — score 5.3
+MISSION|CAT-AMANIA|Architecte Applicatif — Audit & Urbanisation (H/F) — CAT-AMANIA — Centre-Val de Loire — n.c. — score 4.3
+MISSION|Nicholson SAS|Data Scientist / Expert IA Generative — Senior Claude (H/F) — Nicholson SAS — Nanterre, Ile-de-France — 650 EUR/j — score 4.3
+MISSION|VISIAN|Architecte & Expert Technique IA & DATA — VISIAN — Paris — 600-800 EUR/j — score 3.5
+MISSION|INFOTEL CONSEIL|Expert Methode & IA — INFOTEL CONSEIL — Saint-Herblain — 300-470 EUR/j — score 3.3

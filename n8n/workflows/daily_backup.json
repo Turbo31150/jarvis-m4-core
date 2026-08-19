@@ -1,0 +1,77 @@
+{
+  "name": "Daily Database Backup",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 3 * * *"
+            }
+          ]
+        }
+      },
+      "name": "Cron",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [ 250, 300 ]
+    },
+    {
+      "parameters": {
+        "command": "docker exec jarvis_prod_postgres pg_dump -U jarvis -d jarvis_db > /tmp/backup.sql"
+      },
+      "name": "Execute Backup Command",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [ 450, 300 ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{\\$env.TELEGRAM_ADMIN_ID}}",
+        "text": "=✅ *Backup Terminé*\n\nLa base de données PostgreSQL a été sauvegardée avec succès à {{\\$now}}.",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "name": "Notify Success",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [ 650, 300 ],
+      "credentials": {
+        "telegramApi": {
+          "id": "1",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Cron": {
+      "main": [
+        [
+          {
+            "node": "Execute Backup Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Backup Command": {
+      "main": [
+        [
+          {
+            "node": "Notify Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

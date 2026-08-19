@@ -1,0 +1,98 @@
+#!/usr/bin/env bash
+# routeur — lanceur du moteur de routage deterministe (0 token, 0 inference).
+#
+#   ./routeur run <source...>        route une ou plusieurs sources
+#   ./routeur avale <dossier>        route tout ce que contient un dossier
+#   ./routeur formats                rappelle le contrat d'entree / sortie
+#   ./routeur file <NOM>             affiche une file d'attente triee
+#   ./routeur etat                   etat du journal (cumul de tous les passages)
+#   ./routeur verifie <source>       teste une source SANS rien produire
+#
+# Variables : FORMAT_SORTIE (defaut tsv), REGLES (defaut regles.json)
+
+set -euo pipefail
+RACINE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PY="${PYTHON:-python3}"
+FORMAT_SORTIE="${FORMAT_SORTIE:-tsv}"
+REGLES="${REGLES:-$RACINE/regles.json}"
+JOURNAL="$RACINE/logs/routage.db"
+
+usage() { sed -n '2,14p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; }
+
+case "${1:-}" in
+  run)
+    shift
+    [ $# -ge 1 ] || { echo "usage: routeur run <source...>" >&2; exit 2; }
+    exec "$PY" "$RACINE/routeur.py" "$@" \
+         --regles "$REGLES" --format "$FORMAT_SORTIE" --sortie "$RACINE/sorties"
+    ;;
+
+  avale)
+    dossier="${2:-$RACINE/entrees}"
+    [ -d "$dossier" ] || { echo "dossier introuvable : $dossier" >&2; exit 2; }
+    mapfile -t fichiers < <(find "$dossier" -maxdepth 2 -type f \
+        \( -name '*.tsv' -o -name '*.csv' -o -name '*.json' -o -name '*.jsonl' \
+           -o -name '*.db' -o -name '*.sqlite' -o -name '*.sqlite3' \) | sort)
+    [ ${#fichiers[@]} -gt 0 ] || { echo "aucune source exploitable dans $dossier" >&2; exit 1; }
+    echo "avalement de ${#fichiers[@]} source(s) depuis $dossier"
+    exec "$PY" "$RACINE/routeur.py" "${fichiers[@]}" \
+         --regles "$REGLES" --format "$FORMAT_SORTIE" --sortie "$RACINE/sorties"
+    ;;
+
+  verifie)
+    [ -n "${2:-}" ] || { echo "usage: routeur verifie <source>" >&2; exit 2; }
+    exec "$PY" "$RACINE/contrat.py" "$2"
+    ;;
+
+  formats)
+    "$PY" - <<'PYEOF'
+import sys, os
+sys.path.insert(0, os.path.expanduser("~/jarvis/routeur"))
+import contrat
+print("CONTRAT D'ENTREE — formats acceptes : tsv, csv, json, jsonl, sqlite")
+print("  (SQLite multi-tables : preciser  fichier.db#nom_table)")
+print()
+print("Colonnes canoniques (%d) :" % len(contrat.CHAMPS_ENTREE))
+for champ in contrat.CHAMPS_ENTREE:
+    marque = " [OBLIGATOIRE]" if champ in contrat.OBLIGATOIRES else ""
+    print("  - %-14s%s" % (champ, marque))
+print()
+print("Alias reconnus automatiquement (une source heterogene est projetee dessus) :")
+for canon, variantes in sorted(contrat.ALIAS.items()):
+    print("  %-14s <- %s" % (canon, ", ".join(variantes[1:8])))
+print()
+print("CONTRAT DE SORTIE — colonnes ajoutees par le moteur :")
+for champ in contrat.CHAMPS_SORTIE[len(contrat.CHAMPS_ENTREE):]:
+    print("  + %s" % champ)
+print()
+print("Regle : une ligne sans 'nom' ou sans 'url' verifiable n'est JAMAIS devinee.")
+print("Elle part dans rejets.tsv avec son motif. Rien n'est pris en charge en silence.")
+PYEOF
+    ;;
+
+  file)
+    nom="${2:-}"
+    [ -n "$nom" ] || { echo "usage: routeur file <FILE_EMAIL|FILE_FORMULAIRE|...>" >&2; exit 2; }
+    [ -f "$JOURNAL" ] || { echo "journal absent : lance d'abord 'routeur run'" >&2; exit 1; }
+    sqlite3 -header -column "$JOURNAL" \
+      "SELECT priorite, score, nom, pays, canal_contact, action
+         FROM routage WHERE file='$nom'
+        ORDER BY score DESC LIMIT 60;"
+    ;;
+
+  etat)
+    [ -f "$JOURNAL" ] || { echo "journal absent : lance d'abord 'routeur run'" >&2; exit 1; }
+    echo "== JOURNAL $JOURNAL =="
+    sqlite3 -header -column "$JOURNAL" \
+      "SELECT file, COUNT(*) AS cibles, ROUND(AVG(score),1) AS score_moyen,
+              SUM(nb_passages>1) AS revues
+         FROM routage GROUP BY file ORDER BY cibles DESC;"
+    echo
+    sqlite3 -header -column "$JOURNAL" \
+      "SELECT priorite, COUNT(*) AS n FROM routage GROUP BY priorite ORDER BY priorite;"
+    echo
+    echo "total : $(sqlite3 "$JOURNAL" 'SELECT COUNT(*) FROM routage;') cible(s) connue(s)"
+    ;;
+
+  *) usage ;;
+esac

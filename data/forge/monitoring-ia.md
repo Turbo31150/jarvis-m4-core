@@ -359,7 +359,7 @@ route:
 receivers:
   - name: slack-notifications
     slack_configs:
-      - api_url: https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+      - api_url: https://hooks.slack.com/services/VOTRE/WEBHOOK/ICI
         channel: "#ml-ops"
         title: "{{ .CommonAnnotations.summary }}"
         text: "{{ .CommonAnnotations.description }}\nLabels: {{ .CommonLabels }}"

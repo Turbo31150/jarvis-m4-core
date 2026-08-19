@@ -1,0 +1,53 @@
+{
+  "name": "System Monitor Alerting",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "system-alert",
+        "options": {}
+      },
+      "name": "Webhook Alert",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [ 250, 300 ],
+      "webhookId": "system-alert-webhook-1234"
+    },
+    {
+      "parameters": {
+        "chatId": "={{\\$json.body.chat_id || 'DEFAULT_CHAT_ID'}}",
+        "text": "=🚨 *ALERTE SYSTÈME JARVIS*\n\n*Service :* {{\\$json.body.service}}\n*Statut :* {{\\$json.body.status}}\n*Message :* {{\\$json.body.message}}\n*Heure :* {{\\$now}}",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "name": "Send Telegram Message",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [ 500, 300 ],
+      "credentials": {
+        "telegramApi": {
+          "id": "1",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook Alert": {
+      "main": [
+        [
+          {
+            "node": "Send Telegram Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

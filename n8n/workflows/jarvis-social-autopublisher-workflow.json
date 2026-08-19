@@ -1,0 +1,155 @@
+{
+  "name": "JARVIS Board OS — Autonomous Social & Multi-IA Publisher",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 4
+            }
+          ]
+        }
+      },
+      "id": "1",
+      "name": "Schedule Trigger (4h)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        220,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "jarvis-publish",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "2",
+      "name": "Webhook Manual Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        220,
+        480
+      ],
+      "webhookId": "jarvis-publish-trigger"
+    },
+    {
+      "parameters": {
+        "command": "/home/pamerys/.local/bin/jarvis-publish --autopilot"
+      },
+      "id": "3",
+      "name": "Execute Board & Publish Autopilot",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        480,
+        380
+      ]
+    },
+    {
+      "parameters": {
+        "command": "python3 -c \"import json; from pathlib import Path; p = sorted(Path('/storage/content').glob('social_*.json'), key=lambda x: x.stat().st_mtime, reverse=True)[0]; print(p.read_text())\""
+      },
+      "id": "4",
+      "name": "Read Generated Social Pack",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        720,
+        380
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:18800/v1/chat/completions",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"jarvis-fast\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Tu es le superviseur qualité n8n de JARVIS. Valide la conformité du post.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Valide ce post pour publication : \" + JSON.stringify($json.stdout)\n    }\n  ],\n  \"max_tokens\": 100\n}",
+        "options": {}
+      },
+      "id": "5",
+      "name": "Audit LLM Hub (:18800)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        960,
+        380
+      ]
+    }
+  ],
+  "connections": {
+    "Schedule Trigger (4h)": {
+      "main": [
+        [
+          {
+            "node": "Execute Board & Publish Autopilot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Execute Board & Publish Autopilot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Board & Publish Autopilot": {
+      "main": [
+        [
+          {
+            "node": "Read Generated Social Pack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Generated Social Pack": {
+      "main": [
+        [
+          {
+            "node": "Audit LLM Hub (:18800)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1.0.0",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "jarvis-n8n-main"
+  },
+  "tags": [
+    {
+      "name": "JARVIS",
+      "id": "jarvis-tag-01"
+    },
+    {
+      "name": "Board OS",
+      "id": "board-tag-02"
+    },
+    {
+      "name": "Multi-IA",
+      "id": "multi-ia-tag-03"
+    }
+  ]
+}

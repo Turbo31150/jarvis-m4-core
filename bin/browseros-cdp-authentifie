@@ -1,0 +1,92 @@
+#!/usr/bin/env bash
+# browseros-cdp-authentifie — expose un CDP PORTEUR DE LA SESSION sur :9222
+#
+# PROBLEME REPARE : le headless de :9108 n'a aucun profil, donc LinkedIn le
+# redirige vers /login et toute la locomotive echoue (420 ECHEC_PUBLICATION).
+# Le navigateur authentifie (BrowserOS, profil ~/chrome-m1) n'expose lui aucun
+# port de debug : il n'est joignable que par l'extension Claude.
+#
+# SOLUTION : cloner le sous-ensemble de session du profil authentifie vers un
+# profil dedie, et relancer LE MEME BINAIRE dessus avec --remote-debugging-port.
+# Le meme binaire est indispensable : la cle de dechiffrement des cookies vit
+# dans "Local State" + le trousseau, elle ne se transpose pas d'un navigateur
+# a l'autre.
+#
+# Usage : browseros-cdp-authentifie {demarrer|arreter|etat|verifier}
+set -uo pipefail
+
+BIN="/opt/browseros/opt/browseros/browseros"
+PROFIL_SRC="/home/pamerys/chrome-m1"
+PROFIL_CDP="/home/pamerys/chrome-m1-cdp"
+PORT=9222
+LOG="/home/pamerys/jarvis/logs/browseros-cdp.log"
+
+cloner_session() {
+  mkdir -p "$PROFIL_CDP/Default"
+  # "Local State" porte os_crypt.encrypted_key : sans lui les cookies restent illisibles.
+  cp -f "$PROFIL_SRC/Local State" "$PROFIL_CDP/Local State" 2>/dev/null
+  for item in "Cookies" "Cookies-journal" "Preferences" "Login Data" "Local Storage" "Session Storage" "Network" "IndexedDB"; do
+    if [ -e "$PROFIL_SRC/Default/$item" ]; then
+      cp -rf "$PROFIL_SRC/Default/$item" "$PROFIL_CDP/Default/" 2>/dev/null
+    fi
+  done
+  # Verrous residuels : ils empechent le demarrage.
+  rm -f "$PROFIL_CDP/SingletonLock" "$PROFIL_CDP/SingletonSocket" "$PROFIL_CDP/SingletonCookie" 2>/dev/null
+  echo "  ↳ session clonee depuis $PROFIL_SRC ($(du -sh "$PROFIL_CDP" 2>/dev/null | cut -f1))"
+}
+
+case "${1:-etat}" in
+  demarrer)
+    if curl -s -m 2 "http://127.0.0.1:$PORT/json/version" >/dev/null 2>&1; then
+      echo "ℹ️ Un CDP repond deja sur :$PORT — rien a faire."; exit 0
+    fi
+    [ -x "$BIN" ] || { echo "❌ Binaire introuvable : $BIN"; exit 1; }
+    [ -d "$PROFIL_SRC" ] || { echo "❌ Profil source introuvable : $PROFIL_SRC"; exit 1; }
+    echo "🧬 Clonage du sous-ensemble de session..."
+    cloner_session
+    echo "🚀 Demarrage de BrowserOS avec CDP sur :$PORT..."
+    nohup "$BIN" \
+      --remote-debugging-port="$PORT" \
+      --remote-allow-origins="*" \
+      --user-data-dir="$PROFIL_CDP" \
+      --headless=new \
+      --no-first-run \
+      --no-default-browser-check \
+      --disable-blink-features=AutomationControlled \
+      --window-size=1400,900 \
+      >>"$LOG" 2>&1 &
+    echo "  ↳ PID $!"
+    for i in $(seq 1 20); do
+      sleep 1
+      curl -s -m 2 "http://127.0.0.1:$PORT/json/version" >/dev/null 2>&1 && { echo "✅ CDP debout sur :$PORT apres ${i}s."; exit 0; }
+    done
+    echo "❌ Pas de reponse CDP apres 20s — voir $LOG"; exit 1
+    ;;
+  arreter)
+    pkill -f "remote-debugging-port=$PORT" && echo "🛑 CDP :$PORT arrete." || echo "ℹ️ Rien a arreter."
+    ;;
+  etat)
+    curl -s -m 3 "http://127.0.0.1:$PORT/json/version" 2>&1 | head -c 300; echo
+    ;;
+  verifier)
+    # Preuve materielle : la session tient-elle ? On charge le feed et on lit l'URL finale.
+    echo "🔎 Test d'authentification reelle via CDP :$PORT ..."
+    python3 - "$PORT" <<'PY'
+import json, sys, time, urllib.request
+import websocket  # depend de websocket-client
+port = sys.argv[1]
+tgt = json.load(urllib.request.urlopen(f"http://127.0.0.1:{port}/json/new?https://www.linkedin.com/feed/"))
+ws = websocket.create_connection(tgt["webSocketDebuggerUrl"], timeout=30)
+time.sleep(6)
+ws.send(json.dumps({"id":1,"method":"Runtime.evaluate","params":{"expression":"location.href","returnByValue":True}}))
+url = json.loads(ws.recv())["result"]["result"]["value"]
+ws.close()
+if "/login" in url or "/uas/login" in url:
+    print(f"❌ NON AUTHENTIFIE — redirige vers {url}")
+    sys.exit(1)
+print(f"✅ AUTHENTIFIE — reste sur {url}")
+PY
+    ;;
+  *)
+    echo "Usage: browseros-cdp-authentifie {demarrer|arreter|etat|verifier}"; exit 2;;
+esac

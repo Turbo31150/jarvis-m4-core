@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+# jarvis-tmux-partage — session tmux PARTAGEE multi-machine du parc JARVIS.
+# M4 heberge la session ; M6 / rem / serveur s'y attachent par SSH.
+#   jarvis-tmux-partage up        -> monte/complete la session sur M4 (idempotent)
+#   jarvis-tmux-partage attach    -> s'y attache localement
+#   jarvis-tmux-partage depuis m6 -> commande a lancer sur une machine distante
+#   jarvis-tmux-partage etat      -> qui est attache, quelles fenetres
+set -uo pipefail
+SESSION=jarvis-cluster
+
+case "${1:-etat}" in
+  up)
+    tmux has-session -t "$SESSION" 2>/dev/null || tmux new-session -d -s "$SESSION" -n accueil
+    # tmux doit accepter plusieurs clients simultanes (defaut OK) et survivre au detach
+    tmux set-option -t "$SESSION" destroy-unattached off 2>/dev/null
+    tmux set-option -t "$SESSION" mouse on 2>/dev/null
+    # la taille suit le plus petit client attache : evite qu'un mobile ecrase la vue
+    tmux set-option -t "$SESSION" window-size latest 2>/dev/null
+    echo "session $SESSION prete (multi-clients)."
+    tmux list-windows -t "$SESSION" -F '  #{window_index}:#{window_name} [#{pane_current_command}]'
+    ;;
+  attach)
+    exec tmux attach -t "$SESSION"
+    ;;
+  depuis)
+    NOEUD="${2:?machine manquante (m6|rem|remjarvis-server)}"
+    echo "Depuis $NOEUD, lancer :"
+    echo "  ssh -t m4 'tmux attach -t $SESSION'"
+    ;;
+  etat)
+    tmux has-session -t "$SESSION" 2>/dev/null || { echo "session $SESSION absente — lancer : jarvis-tmux-partage up"; exit 1; }
+    echo "== fenetres =="
+    tmux list-windows -t "$SESSION" -F '  #{window_index}:#{window_name} [#{pane_current_command}] panes=#{window_panes}'
+    echo "== clients attaches =="
+    tmux list-clients -t "$SESSION" -F '  #{client_tty} #{client_termname} taille=#{client_width}x#{client_height}' 2>/dev/null || echo "  aucun"
+    ;;
+  *) echo "usage: jarvis-tmux-partage {up|attach|depuis <noeud>|etat}"; exit 2 ;;
+esac

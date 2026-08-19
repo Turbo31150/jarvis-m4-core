@@ -1,0 +1,110 @@
+{
+  "name": "JARVIS LLM Gateway",
+  "meta": {
+    "description": "Webhook POST /jarvis-llm (+header auth) -> route vers le hub LLM :18800 cascade -> repond. Container-natif."
+  },
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "jarvis-llm",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "wh",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        200,
+        300
+      ],
+      "webhookId": "jarvis-llm-gw-webhook-0001"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Auth fail-CLOSED + comparaison constant-time (anti fail-open + anti timing).\nconst expected = $env.JARVIS_WEBHOOK_SECRET;\nif (!expected) { throw new Error('server misconfigured: JARVIS_WEBHOOK_SECRET not set'); }\nconst hdr = $input.first().json.headers || {};\nconst provided = hdr['x-jarvis-secret'] || '';\nconst crypto = require('crypto');\nconst a = Buffer.from(String(provided)), b = Buffer.from(String(expected));\nif (a.length !== b.length || !crypto.timingSafeEqual(a, b)) { throw new Error('unauthorized'); }\nconst body = $input.first().json.body || {};\nreturn [{json:{payload: body}}];"
+      },
+      "id": "auth",
+      "name": "Auth+Extract",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        420,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:18800/v1/chat/completions",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.payload) }}",
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "id": "hub",
+      "name": "LLM Hub 18800",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        640,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "resp",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        860,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Auth+Extract",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Auth+Extract": {
+      "main": [
+        [
+          {
+            "node": "LLM Hub 18800",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM Hub 18800": {
+      "main": [
+        [
+          {
+            "node": "Respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "active": false
+}

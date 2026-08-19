@@ -25,7 +25,7 @@ CV_PDF = "/home/pamerys/Bureau/prospection_grands_comptes/CV_Franck_Delmas_AI_Ar
 SMTP_HOST = "smtp.gmail.com"
 SMTP_PORT = 587
 SMTP_USER = "franckdelmas00@gmail.com"
-SMTP_PASS = "emlwsxbejktttzor"
+SMTP_PASS = os.environ.get("JARVIS_SMTP_PASS", "")  # secret retire du code 2026-08-20 : export JARVIS_SMTP_PASS
 FROM_NAME = "Franc Delmas — JARVIS OS"
 
 print("==========================================================")

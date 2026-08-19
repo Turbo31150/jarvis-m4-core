@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#0b0f14">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/icone.png">
+<title>JARVIS Cockpit</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --fond:#0b0f14; --carte:#141b24; --bord:#1f2a36;
+  --texte:#e6edf3; --doux:#8b9aa8; --vert:#3fb950; --jaune:#d29922;
+  --rouge:#f85149; --bleu:#58a6ff; --accent:#00d4aa;
+}
+body{background:var(--fond);color:var(--texte);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);overflow-x:hidden}
+header{display:flex;align-items:center;gap:10px;padding:14px 16px;
+  border-bottom:1px solid var(--bord);position:sticky;top:0;background:var(--fond);z-index:10}
+header .logo{font-size:22px}
+header h1{font-size:16px;font-weight:600;letter-spacing:.3px;flex:1}
+header .heure{font-size:13px;color:var(--doux);font-variant-numeric:tabular-nums}
+main{padding:16px;max-width:760px;margin:0 auto;padding-bottom:40px}
+
+/* ── bouton vocal ── */
+.zone-voix{display:flex;flex-direction:column;align-items:center;gap:14px;margin:18px 0 26px}
+#micro{width:150px;height:150px;border-radius:50%;border:none;cursor:pointer;
+  background:radial-gradient(circle at 32% 28%,#00d4aa,#00806a);color:#02120f;
+  font-size:52px;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 0 0 rgba(0,212,170,.45);transition:transform .12s}
+#micro:active{transform:scale(.96)}
+#micro.ecoute{background:radial-gradient(circle at 32% 28%,#f85149,#8b1a15);color:#fff;
+  animation:pulse 1.25s infinite}
+#micro.calcul{background:radial-gradient(circle at 32% 28%,#d29922,#7a5610);color:#fff}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(248,81,73,.55)}
+  70%{box-shadow:0 0 0 30px rgba(248,81,73,0)}100%{box-shadow:0 0 0 0 rgba(248,81,73,0)}}
+.etiquette{font-size:14px;color:var(--doux);text-align:center;min-height:22px}
+
+/* ── dialogue ── */
+#dialogue{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.bulle{padding:12px 15px;border-radius:14px;font-size:15px;white-space:pre-wrap;
+  word-break:break-word;animation:apparait .2s}
+@keyframes apparait{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.moi{background:#1d3350;align-self:flex-end;max-width:85%;border-bottom-right-radius:4px}
+.lui{background:var(--carte);border:1px solid var(--bord);align-self:flex-start;
+  max-width:92%;border-bottom-left-radius:4px}
+.lui .src{font-size:11px;color:var(--accent);text-transform:uppercase;letter-spacing:.6px;margin-bottom:5px}
+.detail{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;color:var(--doux);
+  background:#0d1219;border:1px solid var(--bord);border-radius:8px;padding:9px;margin-top:8px;
+  overflow-x:auto;white-space:pre;max-height:230px;overflow-y:auto}
+
+/* ── saisie ── */
+.saisie{display:flex;gap:8px;margin-bottom:24px}
+.saisie input{flex:1;background:var(--carte);border:1px solid var(--bord);border-radius:12px;
+  padding:14px;color:var(--texte);font-size:16px;outline:none}
+.saisie input:focus{border-color:var(--accent)}
+.saisie button{background:var(--accent);color:#02120f;border:none;border-radius:12px;
+  padding:0 20px;font-size:20px;font-weight:700;cursor:pointer}
+
+/* ── cartes ── */
+.titre{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--doux);
+  margin:22px 0 10px;display:flex;align-items:center;gap:8px}
+.titre::after{content:"";flex:1;height:1px;background:var(--bord)}
+.grille{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.carte{background:var(--carte);border:1px solid var(--bord);border-radius:14px;padding:14px}
+.carte .nom{font-size:12px;color:var(--doux);margin-bottom:6px;display:flex;
+  align-items:center;justify-content:space-between}
+.carte .val{font-size:19px;font-weight:600;font-variant-numeric:tabular-nums}
+.pastille{width:9px;height:9px;border-radius:50%;display:inline-block}
+.on{background:var(--vert);box-shadow:0 0 8px var(--vert)}
+.off{background:var(--rouge)} .attente{background:var(--jaune)}
+.gpu{display:flex;justify-content:space-between;align-items:center;padding:9px 0;
+  border-bottom:1px solid var(--bord);font-size:14px}
+.gpu:last-child{border:0}
+.gpu .g-nom{color:var(--texte)} .gpu .g-val{color:var(--doux);font-size:13px;
+  font-variant-numeric:tabular-nums}
+.chaud{color:var(--rouge)!important}
+
+/* ── actions ── */
+.actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:9px}
+.actions button{background:var(--carte);border:1px solid var(--bord);color:var(--texte);
+  border-radius:12px;padding:15px 9px;font-size:13px;cursor:pointer;display:flex;
+  flex-direction:column;align-items:center;gap:7px;transition:border-color .15s}
+.actions button:active{border-color:var(--accent)}
+.actions .ico{font-size:22px}
+footer{text-align:center;color:var(--doux);font-size:11px;padding:22px 0 10px}
+</style>
+</head>
+<body>
+<header>
+  <span class="logo">🤖</span>
+  <h1>JARVIS COCKPIT</h1>
+  <span class="heure" id="heure">—</span>
+</header>
+
+<main>
+  <div class="zone-voix">
+    <button id="micro" aria-label="Parler">🎙</button>
+    <div class="etiquette" id="etiquette">Appuie et parle</div>
+  </div>
+
+  <div id="dialogue"></div>
+
+  <div class="saisie">
+    <input id="champ" placeholder="…ou écris ta commande" autocomplete="off">
+    <button id="envoyer">➤</button>
+  </div>
+
+  <div class="titre">Cluster</div>
+  <div class="grille" id="cluster"></div>
+
+  <div class="titre">Cartes graphiques M6</div>
+  <div class="carte" id="gpus"><div style="color:var(--doux);font-size:14px">Lecture…</div></div>
+
+  <div class="titre">Actions</div>
+  <div class="actions">
+    <button data-cmd="état du cluster"><span class="ico">📊</span>État</button>
+    <button data-cmd="les gpu"><span class="ico">🎮</span>GPU</button>
+    <button data-cmd="nouvelles"><span class="ico">📰</span>Nouvelles</button>
+    <button data-cmd="lance jarvis-turbo-status"><span class="ico">🩺</span>Diagnostic</button>
+    <button data-cmd="lance board"><span class="ico">📚</span>Board</button>
+    <button data-cmd="lance table-ronde"><span class="ico">⚖️</span>Experts</button>
+    <button data-cmd="capture"><span class="ico">📸</span>Capture</button>
+    <button data-cmd="sur le pc df -h /"><span class="ico">💾</span>Disque</button>
+  </div>
+
+  <div class="titre">Nouvelles</div>
+  <div class="grille" id="nouvelles"></div>
+
+  <footer>M4 · M6 · S8 — tout local, zéro token</footer>
+</main>
+
+<script>
+const $=s=>document.querySelector(s);
+const micro=$("#micro"), etiquette=$("#etiquette"), dialogue=$("#dialogue");
+let enregistreur=null, morceaux=[], enCours=false;
+
+function bulle(txt,qui,src,detail){
+  const d=document.createElement("div");
+  d.className="bulle "+(qui==="moi"?"moi":"lui");
+  d.innerHTML=(qui!=="moi"&&src?`<div class="src">${src}</div>`:"")+
+    txt.replace(/[<>&]/g,c=>({"<":"&lt;",">":"&gt;","&":"&amp;"}[c]));
+  if(detail){const p=document.createElement("div");p.className="detail";p.textContent=detail;d.appendChild(p);}
+  dialogue.appendChild(d);
+  while(dialogue.children.length>14) dialogue.removeChild(dialogue.firstChild);
+  d.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+
+function jouer(b64){
+  if(!b64) return;
+  try{ new Audio("data:audio/wav;base64,"+b64).play().catch(()=>{}); }catch(e){}
+}
+
+async function envoyerTexte(t,voix){
+  if(!t.trim()) return;
+  bulle(t,"moi");
+  etiquette.textContent="Traitement…"; micro.className="calcul";
+  try{
+    const r=await fetch("/api/texte",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({texte:t,voix:voix!==false})});
+    const d=await r.json();
+    bulle(d.reponse||"(pas de réponse)","lui","jarvis",d.detail&&d.detail.length<4000?d.detail:"");
+    jouer(d.audio);
+  }catch(e){ bulle("Le serveur ne répond pas : "+e.message,"lui","erreur"); }
+  micro.className=""; etiquette.textContent="Appuie et parle";
+}
+
+micro.onclick=async()=>{
+  if(enCours){ // arrêter et envoyer
+    enregistreur.stop(); return;
+  }
+  try{
+    const flux=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}});
+    enregistreur=new MediaRecorder(flux); morceaux=[];
+    enregistreur.ondataavailable=e=>morceaux.push(e.data);
+    enregistreur.onstop=async()=>{
+      flux.getTracks().forEach(t=>t.stop());
+      enCours=false; micro.className="calcul"; etiquette.textContent="Je transcris…";
+      const blob=new Blob(morceaux,{type:enregistreur.mimeType||"audio/webm"});
+      try{
+        const r=await fetch("/api/vocal",{method:"POST",
+          headers:{"Content-Type":blob.type},body:blob});
+        const d=await r.json();
+        if(d.texte) bulle(d.texte,"moi");
+        bulle(d.reponse||"(pas de réponse)","lui","jarvis",
+              d.detail&&d.detail.length<4000?d.detail:"");
+        jouer(d.audio);
+      }catch(e){ bulle("Échec : "+e.message,"lui","erreur"); }
+      micro.className=""; etiquette.textContent="Appuie et parle";
+    };
+    enregistreur.start(); enCours=true;
+    micro.className="ecoute"; etiquette.textContent="J'écoute… appuie pour arrêter";
+  }catch(e){
+    etiquette.textContent="Micro refusé — autorise l'accès";
+    bulle("Le micro n'est pas accessible : "+e.message,"lui","erreur");
+  }
+};
+
+$("#envoyer").onclick=()=>{const v=$("#champ").value;$("#champ").value="";envoyerTexte(v);};
+$("#champ").addEventListener("keydown",e=>{if(e.key==="Enter"){$("#envoyer").click();}});
+document.querySelectorAll(".actions button").forEach(b=>
+  b.onclick=()=>envoyerTexte(b.dataset.cmd));
+
+async function rafraichir(){
+  $("#heure").textContent=new Date().toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"});
+  try{
+    const e=await(await fetch("/api/etat")).json();
+    $("#cluster").innerHTML=`
+      <div class="carte"><div class="nom">PC M4 <span class="pastille ${e.m4.en_ligne?"on":"off"}"></span></div>
+        <div class="val">${e.m4.charge}</div><div style="font-size:12px;color:var(--doux)">${e.m4.ram}</div></div>
+      <div class="carte"><div class="nom">Tour M6 <span class="pastille ${e.m6.en_ligne?"on":"off"}"></span></div>
+        <div class="val">${e.m6.cartes.length} GPU</div>
+        <div style="font-size:12px;color:var(--doux)">LM Studio ${e.m6.lmstudio?"actif":"arrêté"}</div></div>
+      <div class="carte"><div class="nom">Téléphone <span class="pastille ${e.s8.en_ligne?"on":"off"}"></span></div>
+        <div class="val">${e.s8.batterie||"—"}${e.s8.batterie?"%":""}</div>
+        <div style="font-size:12px;color:var(--doux)">${e.s8.en_ligne?"connecté":"hors ligne"}</div></div>`;
+    $("#gpus").innerHTML = e.m6.cartes.length
+      ? e.m6.cartes.map(c=>`<div class="gpu"><span class="g-nom">${c.nom}</span>
+          <span class="g-val ${parseInt(c.temp)>=80?"chaud":""}">${c.charge} · ${c.temp}°C · ${c.vram}</span></div>`).join("")
+      : `<div style="color:var(--doux);font-size:14px">Tour M6 injoignable</div>`;
+  }catch(e){}
+  try{
+    const n=await(await fetch("/api/nouvelles")).json();
+    $("#nouvelles").innerHTML=n.map(x=>
+      `<div class="carte"><div class="nom">${x.titre}</div><div style="font-size:14px">${x.detail}</div></div>`).join("");
+  }catch(e){}
+}
+rafraichir(); setInterval(rafraichir,20000);
+if("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js").catch(()=>{});
+</script>
+</body>
+</html>

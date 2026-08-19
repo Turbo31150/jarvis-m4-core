@@ -1,0 +1,129 @@
+{
+  "name": "JARVIS OMEGA — Workflow N8N 01 Complet : Triage IMAP, Génération Brouillons LLM & Alerte Telegram",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 1
+            }
+          ]
+        }
+      },
+      "name": "Schedule Trigger (Chaque minute)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        100,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "command": "python3 /home/turbo/jarvis/bin/domino-mail-triage.py run --live"
+      },
+      "name": "Lecture IMAP & Classification LLM",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        320,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.stdout }}",
+              "operation": "contains",
+              "value2": "repondu"
+            }
+          ]
+        }
+      },
+      "name": "Nouveau Mail à Traiter ?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        540,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "command": "python3 /home/turbo/jarvis/scripts/lm-ask.sh --big \"Rédige un brouillon de réponse professionnelle pour le mail détecté\""
+      },
+      "name": "Génération Brouillon LLM Local (LM Studio / Ollama)",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        760,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "command": "python3 /home/turbo/jarvis/scripts/util_logging.py \"[N8N Mail Workflow] Nouveaux emails traités et brouillons rédigés avec succès.\""
+      },
+      "name": "Log Centralisé jarvis_logs.db",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        980,
+        200
+      ]
+    }
+  ],
+  "connections": {
+    "Schedule Trigger (Chaque minute)": {
+      "main": [
+        [
+          {
+            "node": "Lecture IMAP & Classification LLM",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lecture IMAP & Classification LLM": {
+      "main": [
+        [
+          {
+            "node": "Nouveau Mail à Traiter ?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nouveau Mail à Traiter ?": {
+      "main": [
+        [
+          {
+            "node": "Génération Brouillon LLM Local (LM Studio / Ollama)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Génération Brouillon LLM Local (LM Studio / Ollama)": {
+      "main": [
+        [
+          {
+            "node": "Log Centralisé jarvis_logs.db",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {},
+  "id": "1"
+}

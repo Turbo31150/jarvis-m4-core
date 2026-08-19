@@ -1,0 +1,148 @@
+{
+  "name": "JARVIS Session End & Boot Compliance Guardian",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 15
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger-1",
+      "name": "Schedule Trigger (15m)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "session-end-audit",
+        "options": {}
+      },
+      "id": "webhook-trigger-1",
+      "name": "Webhook Fin de Session",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 500],
+      "webhookId": "session-end-audit"
+    },
+    {
+      "parameters": {
+        "command": "/home/turbo/jarvis/scripts/audit-session-compliance.sh"
+      },
+      "id": "exec-audit-script",
+      "name": "Audit Système & Verrous (Shell)",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [500, 400]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ JSON.parse($json.stdout).compliance_score }}",
+              "operation": "equal",
+              "value2": 100
+            }
+          ]
+        }
+      },
+      "id": "check-compliance-score",
+      "name": "Score == 100% ?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [750, 400]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "audit_result",
+              "value": "✅ SYSTÈME 100% CONFORME — Matrice GPU, Mémoire Swan & SQLite Verrouillés."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "log-success",
+      "name": "Log Succès & Intégrité",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [1000, 300]
+    },
+    {
+      "parameters": {
+        "command": "/home/turbo/.local/bin/jarvis-boot-lock.sh && /home/turbo/jarvis/scripts/audit-session-compliance.sh"
+      },
+      "id": "auto-healing",
+      "name": "Auto-Healing (Restauration Matrice)",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [1000, 500]
+    }
+  ],
+  "connections": {
+    "Schedule Trigger (15m)": {
+      "main": [
+        [
+          {
+            "node": "Audit Système & Verrous (Shell)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook Fin de Session": {
+      "main": [
+        [
+          {
+            "node": "Audit Système & Verrous (Shell)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Audit Système & Verrous (Shell)": {
+      "main": [
+        [
+          {
+            "node": "Score == 100% ?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Score == 100% ?": {
+      "main": [
+        [
+          {
+            "node": "Log Succès & Intégrité",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Auto-Healing (Restauration Matrice)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

@@ -22,7 +22,7 @@ def run_linkedin_engine(topic=None):
     os.makedirs(STORAGE_CONTENT, exist_ok=True)
     ts = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     
-    sujet = topic or "L'impact de l'IA locale et des 928 agents autonomes sur la productivité d'ingénierie"
+    sujet = topic or "L'impact de l'IA locale et de l'orchestration multi-agents sur la productivité d'ingénierie"
     
     print(f"[LinkedIn] 🚀 Génération autonome pour le sujet : '{sujet}'")
     

@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+# agy-tmux — Pont deterministe JARVIS <-> terminal agy (Antigravity CLI) vivant sous tmux
+# 0-token cote Claude : tout passe par tmux send-keys / capture-pane.
+# Usage :
+#   agy-tmux status                 -> localise le pane agy et son etat
+#   agy-tmux send "<consigne>"      -> injecte la consigne dans le pane agy vivant + Entree
+#   agy-tmux capture [N]            -> rend les N dernieres lignes du pane agy (defaut 80)
+#   agy-tmux relay "<consigne>" [T] -> send puis attend la stabilisation et rend la reponse
+#   agy-tmux ask "<consigne>"       -> voie headless (agy --print), n'occupe pas le pane vivant
+set -uo pipefail
+
+LOG_DB="/home/pamerys/jarvis/logs/jarvis_logs.db"
+
+resolve_pane() {
+  tmux list-panes -a -F '#{pane_id} #{pane_current_command}' 2>/dev/null \
+    | awk '$2=="agy"{print $1; exit}'
+}
+
+journalise() {
+  [ -f "$LOG_DB" ] || return 0
+  local esc
+  esc=$(printf '%s' "$3" | head -c 4000 | sed "s/'/''/g")
+  sqlite3 "$LOG_DB" "CREATE TABLE IF NOT EXISTS agy_bridge(
+      id INTEGER PRIMARY KEY AUTOINCREMENT, ts TEXT, action TEXT, pane TEXT, payload TEXT);
+    INSERT INTO agy_bridge(ts,action,pane,payload)
+      VALUES(datetime('now'), '$1', '$2', '$esc');" 2>/dev/null
+}
+
+PANE="$(resolve_pane)"
+
+case "${1:-status}" in
+  status)
+    if [ -z "$PANE" ]; then echo "❌ Aucun pane agy vivant sous tmux."; exit 1; fi
+    WIN=$(tmux display-message -p -t "$PANE" '#{session_name}:#{window_index}.#{pane_index}')
+    echo "✅ Pane agy : $PANE  ($WIN)"
+    echo "--- 12 dernieres lignes ---"
+    tmux capture-pane -p -t "$PANE" -S -12
+    ;;
+  send)
+    [ -z "$PANE" ] && { echo "❌ Aucun pane agy vivant."; exit 1; }
+    MSG="${2:?consigne manquante}"
+    tmux send-keys -t "$PANE" -l -- "$MSG"
+    sleep 0.4
+    tmux send-keys -t "$PANE" Enter
+    journalise "send" "$PANE" "$MSG"
+    echo "📨 Injecte dans $PANE (${#MSG} caracteres)."
+    ;;
+  capture)
+    [ -z "$PANE" ] && { echo "❌ Aucun pane agy vivant."; exit 1; }
+    tmux capture-pane -p -t "$PANE" -S "-${2:-80}"
+    ;;
+  relay)
+    [ -z "$PANE" ] && { echo "❌ Aucun pane agy vivant."; exit 1; }
+    MSG="${2:?consigne manquante}"
+    TIMEOUT="${3:-180}"
+    tmux send-keys -t "$PANE" -l -- "$MSG"; sleep 0.4; tmux send-keys -t "$PANE" Enter
+    journalise "relay" "$PANE" "$MSG"
+    echo "📨 Envoye. Attente de stabilisation (max ${TIMEOUT}s)..." >&2
+    PREV=""; STABLE=0; ELAPSED=0
+    while [ "$ELAPSED" -lt "$TIMEOUT" ]; do
+      sleep 5; ELAPSED=$((ELAPSED+5))
+      CUR="$(tmux capture-pane -p -t "$PANE" -S -200)"
+      if [ "$CUR" = "$PREV" ]; then
+        STABLE=$((STABLE+1)); [ "$STABLE" -ge 3 ] && break
+      else
+        STABLE=0
+      fi
+      PREV="$CUR"
+    done
+    echo "--- REPONSE agy (stabilisee apres ${ELAPSED}s) ---"
+    tmux capture-pane -p -t "$PANE" -S -120
+    ;;
+  ask)
+    MSG="${2:?consigne manquante}"
+    journalise "ask-headless" "n/a" "$MSG"
+    timeout 300 /home/pamerys/.local/bin/agy --print "$MSG" 2>&1
+    ;;
+  *)
+    echo "Usage: agy-tmux {status|send|capture [N]|relay \"<msg>\" [timeout]|ask \"<msg>\"}"; exit 2;;
+esac

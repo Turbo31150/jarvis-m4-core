@@ -27,7 +27,7 @@ MASTER_DB = os.path.expanduser("~/jarvis/jarvis_master.db")
 SMTP_HOST = "smtp.gmail.com"
 SMTP_PORT = 587
 SMTP_USER = "franckdelmas00@gmail.com"
-SMTP_PASS = "emlwsxbejktttzor"
+SMTP_PASS = os.environ.get("JARVIS_SMTP_PASS", "")  # secret retire du code 2026-08-20 : export JARVIS_SMTP_PASS
 FROM_NAME = "Franc Delmas — Architecte JARVIS OS"
 
 print("==========================================================")

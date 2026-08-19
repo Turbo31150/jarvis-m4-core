@@ -1,0 +1,265 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+m6-envoi-massif — garde-fou d'envoi massif vers le noeud M6 (LM Studio 10.42.0.230:1234).
+
+Calibre sur les mesures du 2026-08-19 (banc M4 -> M6, cable ASIX AX88179) :
+  - cable  : 280 Mbit/s reels (adaptateur gigabit enumere en USB 2.0 -> plafond 480)
+  - LM Studio : 33,6 Mbit/s en ingestion HTTP, soit 12 % de ce que le fil donne
+  - concurrence : >= 2 requetes simultanees -> HTTPError / connexion refusee
+  - piege : qwen3.5-9b est un modele a raisonnement ; un max_tokens faible est
+            integralement consomme par les reasoning_tokens et renvoie un texte VIDE.
+
+D'ou les invariants appliques ici :
+  1. UNE requete a la fois vers M6 (concurrence 1, mesuree, non negociable)
+  2. plancher de max_tokens sur les modeles a raisonnement (defaut 512)
+  3. file SQLite persistante : un lot massif survit a la saturation du noeud
+  4. repli automatique sur Ollama local (LOI 2) si M6 refuse
+  5. journalisation de chaque envoi dans jarvis_logs.db (LOI 3)
+"""
+import argparse, json, os, sqlite3, sys, time, urllib.error, urllib.request
+
+M6        = "http://10.42.0.230:1234"
+OLLAMA    = "http://127.0.0.1:11434"
+DB        = os.path.expanduser("~/jarvis/logs/jarvis_logs.db")
+QUEUE_DB  = os.path.expanduser("~/jarvis/logs/m6_envoi_massif.db")
+
+# Modeles a raisonnement : le budget max_tokens part d'abord dans le reasoning.
+RAISONNEMENT = ("qwen/qwen3.5-9b", "deepseek-r1")
+PLANCHER_TOKENS = 512
+
+# Plafonds mesures, pas devines.
+CONCURRENCE_MAX = 1
+TIMEOUT_S       = 120        # au-dela, le noeud ne repond pas : inutile d'attendre
+BACKOFF         = [5, 15]    # 2 reprises ; le disjoncteur prend ensuite le relais
+ECHECS_AVANT_DISJONCTION = 2 # M6 ecarte du lot apres 2 demandes perdues d'affilee
+
+
+def _db(path, schema):
+    c = sqlite3.connect(path, timeout=30)
+    c.execute("PRAGMA journal_mode=WAL")
+    c.executescript(schema)
+    return c
+
+
+def init_queue():
+    return _db(QUEUE_DB, """
+    CREATE TABLE IF NOT EXISTS file_envoi(
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      lot TEXT NOT NULL,
+      prompt TEXT NOT NULL,
+      modele TEXT NOT NULL,
+      max_tokens INTEGER NOT NULL,
+      statut TEXT NOT NULL DEFAULT 'en_attente',
+      tentatives INTEGER NOT NULL DEFAULT 0,
+      reponse TEXT,
+      backend TEXT,
+      latence_s REAL,
+      erreur TEXT,
+      cree_le TEXT NOT NULL DEFAULT (datetime('now')),
+      fini_le TEXT
+    );
+    CREATE INDEX IF NOT EXISTS idx_statut ON file_envoi(statut, lot);
+    """)
+
+
+def journalise(action, detail):
+    try:
+        c = _db(DB, """CREATE TABLE IF NOT EXISTS m6_envoi_massif(
+                         id INTEGER PRIMARY KEY AUTOINCREMENT,
+                         horodatage TEXT NOT NULL DEFAULT (datetime('now')),
+                         action TEXT, detail TEXT);""")
+        c.execute("INSERT INTO m6_envoi_massif(action,detail) VALUES(?,?)",
+                  (action, json.dumps(detail, ensure_ascii=False)[:4000]))
+        c.commit(); c.close()
+    except Exception:
+        pass  # la journalisation ne doit jamais bloquer un envoi
+
+
+def plancher(modele, demande):
+    """Empeche la reponse vide sur les modeles a raisonnement."""
+    if any(r in modele for r in RAISONNEMENT):
+        return max(demande, PLANCHER_TOKENS)
+    return demande
+
+
+def _post(url, charge, timeout):
+    req = urllib.request.Request(url, json.dumps(charge).encode("utf-8"),
+                                 {"Content-Type": "application/json"})
+    with urllib.request.urlopen(req, timeout=timeout) as r:
+        return json.loads(r.read())
+
+
+def envoi_m6(prompt, modele, max_tokens):
+    d = _post(f"{M6}/v1/chat/completions", {
+        "model": modele,
+        "messages": [{"role": "user", "content": prompt}],
+        "max_tokens": max_tokens, "temperature": 0}, TIMEOUT_S)
+    txt = d["choices"][0]["message"].get("content") or ""
+    u = d.get("usage", {})
+    raison = (u.get("completion_tokens_details") or {}).get("reasoning_tokens", 0)
+    if not txt.strip() and raison:
+        raise RuntimeError(
+            f"reponse vide : les {raison} tokens sont partis dans le raisonnement "
+            f"(max_tokens={max_tokens} trop bas)")
+    return txt, u
+
+
+def envoi_ollama(prompt, max_tokens):
+    d = _post(f"{OLLAMA}/api/chat", {
+        "model": "qwen2.5:7b",
+        "messages": [{"role": "user", "content": prompt}],
+        "stream": False, "options": {"num_predict": max_tokens}}, 120)
+    return d.get("message", {}).get("content", ""), {"backend": "ollama"}
+
+
+class Disjoncteur:
+    """Ecarte M6 du reste du lot quand il est manifestement hors service.
+
+    Sans lui, un noeud mort coute (TIMEOUT_S + backoff) x 3 par demande.
+    Mesure au sol le 2026-08-19 : ~17 min pour UNE seule demande.
+    """
+    def __init__(self):
+        self.echecs = 0
+        self.ouvert = False
+
+    def m6_utilisable(self):
+        return not self.ouvert
+
+    def succes(self):
+        self.echecs = 0
+
+    def echec(self):
+        self.echecs += 1
+        if self.echecs >= ECHECS_AVANT_DISJONCTION and not self.ouvert:
+            self.ouvert = True
+            print("    [!] DISJONCTION : M6 ecarte apres "
+                  f"{self.echecs} echecs — le reste du lot part en repli direct",
+                  file=sys.stderr)
+
+
+def un_envoi(prompt, modele, max_tokens, replier=True, disj=None):
+    """Un envoi, avec backoff puis repli. Retourne (texte, backend, latence, erreur)."""
+    mt = plancher(modele, max_tokens)
+    t0 = time.time()
+    derniere = None
+    if disj is not None and not disj.m6_utilisable():
+        if not replier:
+            return None, None, time.time() - t0, "M6 disjoncte, repli interdit"
+        try:
+            txt, _ = envoi_ollama(prompt, mt)
+            return txt, "ollama-disjoncte", time.time() - t0, None
+        except Exception as e:
+            return None, None, time.time() - t0, f"M6 disjoncte + repli KO: {e}"
+    for i, attente in enumerate([0] + BACKOFF):
+        if attente:
+            time.sleep(attente)
+        try:
+            txt, _ = envoi_m6(prompt, modele, mt)
+            if disj is not None:
+                disj.succes()
+            return txt, "m6", time.time() - t0, None
+        except Exception as e:
+            derniere = f"{type(e).__name__}: {e}"
+            if i < len(BACKOFF):
+                print(f"    ! M6 refuse ({derniere[:70]}) — nouvel essai dans {BACKOFF[i]}s",
+                      file=sys.stderr)
+    if disj is not None:
+        disj.echec()
+    if replier:
+        try:
+            txt, _ = envoi_ollama(prompt, mt)
+            return txt, "ollama-repli", time.time() - t0, None
+        except Exception as e:
+            derniere += f" | repli ollama: {e}"
+    return None, None, time.time() - t0, derniere
+
+
+def cmd_ajouter(a):
+    c = init_queue()
+    src = sys.stdin if a.fichier == "-" else open(a.fichier, encoding="utf-8")
+    n = 0
+    with c:
+        for ligne in src:
+            p = ligne.strip()
+            if not p:
+                continue
+            c.execute("INSERT INTO file_envoi(lot,prompt,modele,max_tokens) VALUES(?,?,?,?)",
+                      (a.lot, p, a.modele, plancher(a.modele, a.max_tokens)))
+            n += 1
+    if src is not sys.stdin:
+        src.close()
+    print(f"{n} demandes mises en file — lot '{a.lot}'")
+    journalise("ajout_file", {"lot": a.lot, "n": n})
+
+
+def cmd_vider(a):
+    c = init_queue()
+    lignes = c.execute(
+        "SELECT id,prompt,modele,max_tokens FROM file_envoi "
+        "WHERE statut IN ('en_attente','echec') AND lot=? ORDER BY id",
+        (a.lot,)).fetchall()
+    if not lignes:
+        print(f"file vide pour le lot '{a.lot}'"); return
+    print(f"=== VIDAGE DU LOT '{a.lot}' — {len(lignes)} demandes, "
+          f"concurrence {CONCURRENCE_MAX} (plafond mesure) ===")
+    ok = ko = 0
+    disj = Disjoncteur()
+    for idx, (rid, prompt, modele, mt) in enumerate(lignes, 1):
+        print(f"[{idx}/{len(lignes)}] {prompt[:60]!r}", flush=True)
+        txt, backend, lat, err = un_envoi(prompt, modele, mt,
+                                          replier=not a.sans_repli, disj=disj)
+        with c:
+            if txt is not None:
+                c.execute("UPDATE file_envoi SET statut='fait',reponse=?,backend=?,"
+                          "latence_s=?,tentatives=tentatives+1,fini_le=datetime('now') "
+                          "WHERE id=?", (txt, backend, lat, rid))
+                ok += 1
+                print(f"    -> {backend} en {lat:.1f}s : {txt[:70]!r}")
+            else:
+                c.execute("UPDATE file_envoi SET statut='echec',erreur=?,latence_s=?,"
+                          "tentatives=tentatives+1 WHERE id=?", (err, lat, rid))
+                ko += 1
+                print(f"    -> ECHEC apres {lat:.1f}s : {err[:90]}")
+    print(f"\n=== LOT '{a.lot}' : {ok} reussies, {ko} en echec ===")
+    journalise("vidage", {"lot": a.lot, "ok": ok, "ko": ko})
+
+
+def cmd_etat(a):
+    c = init_queue()
+    print("=== FILE D ENVOI MASSIF ===")
+    r = c.execute("SELECT lot,statut,COUNT(*),ROUND(AVG(latence_s),1) "
+                  "FROM file_envoi GROUP BY lot,statut ORDER BY lot").fetchall()
+    if not r:
+        print("  (file vide)")
+    for lot, statut, n, lat in r:
+        print(f"  {lot:<20} {statut:<12} {n:>5}   latence moy {lat or 0}s")
+    print("\n=== NOEUD M6 ===")
+    try:
+        with urllib.request.urlopen(f"{M6}/api/v0/models", timeout=10) as x:
+            for m in json.loads(x.read()).get("data", []):
+                print(f"  {m.get('id'):<45} {m.get('state')}")
+    except Exception as e:
+        print(f"  injoignable : {e}")
+
+
+p = argparse.ArgumentParser(prog="m6-envoi-massif",
+        description="Envoi massif vers M6 dans les limites reellement mesurees du cable et du noeud.")
+s = p.add_subparsers(dest="cmd", required=True)
+
+a1 = s.add_parser("ajouter", help="mettre un fichier de prompts (1 par ligne) en file")
+a1.add_argument("fichier"); a1.add_argument("--lot", default="defaut")
+a1.add_argument("--modele", default="qwen/qwen3.5-9b")
+a1.add_argument("--max-tokens", dest="max_tokens", type=int, default=512)
+a1.set_defaults(f=cmd_ajouter)
+
+a2 = s.add_parser("vider", help="ecouler la file en respectant le plafond du noeud")
+a2.add_argument("--lot", default="defaut")
+a2.add_argument("--sans-repli", action="store_true", help="interdire le repli Ollama")
+a2.set_defaults(f=cmd_vider)
+
+a3 = s.add_parser("etat", help="etat de la file et du noeud")
+a3.set_defaults(f=cmd_etat)
+
+args = p.parse_args()
+args.f(args)

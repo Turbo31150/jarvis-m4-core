@@ -1,0 +1,1893 @@
+{
+ "Tableau de bord": [
+  [
+   "",
+   "⚡ JARVIS — OPÉRATION CASH 10 JOURS"
+  ],
+  [
+   "",
+   "Objectif : 1 000 € – 10 000 € encaissés (acompte) en 10 jours"
+  ],
+  [
+   "",
+   "💰 CASH & PIPELINE",
+   "",
+   "",
+   "🔫 VOLUME (le nerf de la guerre)"
+  ],
+  [
+   "",
+   "Cash acompte déjà SIGNÉ (€)",
+   "0",
+   "",
+   "Sollicitations totales (devis+cold)",
+   "0"
+  ],
+  [
+   "",
+   "Pipeline pondéré (probable, €)",
+   "750",
+   "",
+   "Objectif volume (mini)",
+   "150"
+  ],
+  [
+   "",
+   "Pipeline potentiel total (€)",
+   "2500",
+   "",
+   "Reste à faire pour tenir le volume",
+   "150"
+  ],
+  [
+   "",
+   "Acompte potentiel si tout signe (€)",
+   "1000",
+   "",
+   "Réponses cumulées",
+   "0"
+  ],
+  [
+   "",
+   "Atteinte objectif mini 1 000 € (%)",
+   "0",
+   "",
+   "Calls cumulés",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "Propositions cumulées",
+   "0"
+  ],
+  [
+   "",
+   "🎯 FUNNEL (nb prospects par statut)",
+   "",
+   "",
+   "Signatures cumulées",
+   "0"
+  ],
+  [
+   "",
+   "Prospects dans le pipe",
+   "1"
+  ],
+  [
+   "",
+   "À contacter",
+   "1",
+   "",
+   "🧭 RÈGLE D'OR"
+  ],
+  [
+   "",
+   "Contactés",
+   "0",
+   "",
+   "Le cash rentre à la SIGNATURE (acompte 30–50 %), pas à la livraison. Optimise le nombre de signatures, pas la perfection."
+  ],
+  [
+   "",
+   "Réponses",
+   "0"
+  ],
+  [
+   "",
+   "Calls",
+   "0"
+  ],
+  [
+   "",
+   "Propositions envoyées",
+   "0",
+   "",
+   "< 100 sollicitations = objectif raté. > 150 = objectif crédible."
+  ],
+  [
+   "",
+   "SIGNÉS",
+   "0"
+  ],
+  [
+   "",
+   "Perdus",
+   "0",
+   "",
+   "Prérequis n°1 : pouvoir facturer (auto-entrepreneur/société + RIB)."
+  ]
+ ],
+ "Pipeline": [
+  [
+   "PIPELINE — remplis une ligne par prospect. Colonnes jaunes = à saisir. H et J se calculent seuls. La ligne 3 est un EXEMPLE : écrase-la."
+  ],
+  [
+   "Prospect / Entreprise",
+   "Contact",
+   "Secteur",
+   "Canal",
+   "Offre",
+   "Montant potentiel (€)",
+   "Probabilité",
+   "Pondéré (€)",
+   "Acompte %",
+   "Acompte (€)",
+   "Statut",
+   "Prochaine action",
+   "Date relance"
+  ],
+  [
+   "Ex : Cabinet Comptable Dupont",
+   "M. Dupont",
+   "Compta/juridique",
+   "LinkedIn",
+   "1",
+   "2500",
+   "0.3",
+   "750",
+   "0.4",
+   "1000",
+   "À contacter",
+   "Envoyer message LinkedIn + démo",
+   "22/08/2026"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "",
+   "0",
+   "",
+   "0"
+  ],
+  [
+   "TOTAL",
+   "",
+   "",
+   "",
+   "",
+   "2500",
+   "",
+   "750",
+   "",
+   "1000"
+  ]
+ ],
+ "Plan 10 jours": [
+  [
+   "PLAN 10 JOURS — logge tes chiffres chaque soir (colonnes D→I). Le tableau de bord agrège tout automatiquement."
+  ],
+  [
+   "Jour",
+   "Phase",
+   "Focus du jour",
+   "Devis/candidatures",
+   "Cold (LinkedIn+email)",
+   "Réponses",
+   "Calls",
+   "Propositions",
+   "Signatures"
+  ],
+  [
+   "J1",
+   "Armement",
+   "Vérifier facturation/RIB · optimiser profils Malt+LinkedIn · publier plaquette+benchmark"
+  ],
+  [
+   "J2",
+   "Armement",
+   "Lister 30–50 cibles (onglet Cibles) · finaliser les 3 offres/prix · préparer le post démo"
+  ],
+  [
+   "J3",
+   "Prospection",
+   "Répondre à toutes les missions n8n/IA (codeur/Malt/Free-Work) · 15 cold LinkedIn · 10 emails"
+  ],
+  [
+   "J4",
+   "Prospection",
+   "Publier le post démo (vidéo) · 20 cold LinkedIn · 15 emails · répondre missions"
+  ],
+  [
+   "J5",
+   "Prospection",
+   "Relancer J3 sans réponse · 20 cold · 15 emails · répondre missions"
+  ],
+  [
+   "J6",
+   "Closing",
+   "Transformer réponses en calls 15 min · envoyer 1res propositions fixes"
+  ],
+  [
+   "J7",
+   "Closing",
+   "Calls · propositions · relances J4/J5"
+  ],
+  [
+   "J8",
+   "Closing",
+   "Calls · propositions · relance de TOUTES les propositions sans réponse"
+  ],
+  [
+   "J9",
+   "Signature",
+   "Signer · envoyer factures d'acompte 30–50 % · démarrer livraison sprint"
+  ],
+  [
+   "J10",
+   "Signature",
+   "Closer les derniers · encaisser · bilan pipeline · planifier semaine 2"
+  ],
+  [
+   "TOTAL",
+   "",
+   "Sollicitations = Devis + Cold",
+   "0",
+   "0",
+   "0",
+   "0",
+   "0",
+   "0"
+  ]
+ ],
+ "Cibles": [
+  [
+   "CIBLES NOMMÉES (réelles, Toulouse) — 21 prospects prêts à démarcher. Priorité: agences (sous-traitance = cash rapide) + cabinets modernes, puis cliniques (haute valeur, cycle long). Contacte via LinkedIn (cherche le dirigeant/DSI) avec les messages du Dispatch Pack."
+  ],
+  [
+   "Entreprise",
+   "Secteur",
+   "Taille",
+   "Ville",
+   "Signal / douleur (pourquoi eux)",
+   "Contact / URL",
+   "Canal",
+   "Priorité",
+   "Statut"
+  ],
+  [
+   "Agence Syril Digital",
+   "Agence (déjà IA)",
+   "TPE",
+   "Toulouse",
+   "Fait déjà 'digital marketing & AI' → partenaire idéal pour sous-traiter la technique IA/n8n",
+   "LinkedIn + site (route de Seysses)",
+   "Réseau",
+   "Haut",
+   "À contacter"
+  ],
+  [
+   "Nehos Groupe",
+   "Agence multi-service",
+   "TPE/PME",
+   "Toulouse",
+   "Multi-service digital → débordement technique à te confier",
+   "LinkedIn",
+   "Réseau",
+   "Haut",
+   "À contacter"
+  ],
+  [
+   "OPSIDE",
+   "Agence CRM",
+   "TPE",
+   "Toulouse",
+   "Spé CRM → automatisation n8n autour du CRM = complément naturel",
+   "LinkedIn",
+   "Réseau",
+   "Haut",
+   "À contacter"
+  ],
+  [
+   "DATASOLUTION",
+   "Agence e-commerce",
+   "TPE",
+   "Toulouse",
+   "E-commerce → chatbots SAV + automatisation commandes pour leurs clients",
+   "LinkedIn",
+   "Réseau",
+   "Moyen",
+   "À contacter"
+  ],
+  [
+   "Brique lab",
+   "Agence web",
+   "TPE",
+   "Toulouse",
+   "Dev web → revend IA/automatisation à ses clients",
+   "LinkedIn",
+   "Réseau",
+   "Moyen",
+   "À contacter"
+  ],
+  [
+   "DAILYWEB",
+   "Agence web",
+   "TPE",
+   "Toulouse",
+   "Dev web → renfort technique IA en marque blanche",
+   "LinkedIn",
+   "Réseau",
+   "Moyen",
+   "À contacter"
+  ],
+  [
+   "In Extenso Midi-Pyrénées",
+   "Comptabilité",
+   "PME",
+   "Toulouse",
+   "Gros volume TPE/artisans → automatiser saisie, relances, reporting",
+   "LinkedIn (dirigeant/associé)",
+   "LinkedIn",
+   "Haut",
+   "À contacter"
+  ],
+  [
+   "Numbr Toulouse",
+   "Comptabilité (moderne)",
+   "TPE",
+   "Toulouse",
+   "Cabinet 'nouvelle génération' → très réceptif à l'IA/automatisation",
+   "LinkedIn",
+   "LinkedIn",
+   "Haut",
+   "À contacter"
+  ],
+  [
+   "Sygnatures",
+   "Comptabilité",
+   "PME",
+   "Toulouse",
+   "PME & startups → assistant IA sur doc + automatisation",
+   "LinkedIn",
+   "LinkedIn",
+   "Haut",
+   "À contacter"
+  ],
+  [
+   "Fiducial Expertise Toulouse",
+   "Comptabilité",
+   "PME",
+   "Toulouse",
+   "TPE/artisans, tâches répétitives à fort volume",
+   "LinkedIn",
+   "LinkedIn",
+   "Haut",
+   "À contacter"
+  ],
+  [
+   "8 Octobre",
+   "Comptabilité",
+   "TPE",
+   "Toulouse",
+   "TPE/indépendants → sprint automatisation rapide",
+   "LinkedIn",
+   "LinkedIn",
+   "Moyen",
+   "À contacter"
+  ],
+  [
+   "Exco Fiduciaire du Sud Ouest",
+   "Compta / audit",
+   "PME/ETI",
+   "Toulouse",
+   "PME/ETI, données sensibles → assistant RAG LOCAL (RGPD)",
+   "LinkedIn",
+   "LinkedIn",
+   "Moyen",
+   "À contacter"
+  ],
+  [
+   "Altis Eco",
+   "Comptabilité",
+   "TPE/PME",
+   "Toulouse",
+   "Automatisation saisie + assistant doc",
+   "LinkedIn",
+   "LinkedIn",
+   "Moyen",
+   "À contacter"
+  ],
+  [
+   "Alvena Conseil",
+   "Compta / conseil",
+   "TPE/PME",
+   "Toulouse",
+   "Conseil → apprécie le ROI chiffré d'un audit d'automatisation",
+   "LinkedIn",
+   "LinkedIn",
+   "Moyen",
+   "À contacter"
+  ],
+  [
+   "Clinique Pasteur",
+   "Santé",
+   "ETI",
+   "Toulouse",
+   "Grande clinique privée, données patient → IA 100% locale conforme RGPD/AI Act",
+   "LinkedIn (DSI/dir)",
+   "LinkedIn",
+   "Haut",
+   "À contacter"
+  ],
+  [
+   "Clinique Médipôle Garonne",
+   "Santé",
+   "PME",
+   "Toulouse",
+   "Données patient sensibles → assistant IA local + automatisation admin",
+   "LinkedIn",
+   "LinkedIn",
+   "Moyen",
+   "À contacter"
+  ],
+  [
+   "Capio Polyclinique du Parc",
+   "Santé (groupe)",
+   "Groupe",
+   "Toulouse",
+   "Groupe Capio → un pilote local réplicable sur le groupe",
+   "LinkedIn",
+   "LinkedIn",
+   "Moyen",
+   "À contacter"
+  ],
+  [
+   "Clinique Rive Gauche",
+   "Santé",
+   "PME",
+   "Toulouse",
+   "Doc médicale + admin à automatiser, données confidentielles",
+   "LinkedIn",
+   "LinkedIn",
+   "Moyen",
+   "À contacter"
+  ],
+  [
+   "Clinique Saint-Exupéry",
+   "Santé",
+   "PME",
+   "Toulouse",
+   "IA locale sur doc patient + tâches admin répétitives",
+   "LinkedIn",
+   "LinkedIn",
+   "Bas",
+   "À contacter"
+  ],
+  [
+   "Agence IA Toulouse",
+   "Agence IA (partenaire)",
+   "TPE",
+   "Toulouse",
+   "Sous-traiter leur débordement (IA locale, multi-GPU, RAG souverain)",
+   "agence-ia-toulouse.fr",
+   "Email",
+   "Moyen",
+   "À contacter"
+  ],
+  [
+   "IngéniSolution",
+   "Agence IA (partenaire)",
+   "TPE/PME",
+   "Occitanie",
+   "Partenariat / sous-traitance de briques techniques",
+   "ingenisolution.fr",
+   "Email",
+   "Moyen",
+   "À contacter"
+  ]
+ ],
+ "Missions ouvertes": [
+  [
+   "MISSIONS OUVERTES & BOARDS À TRAITER — relevé du 19/08/2026. Les boards se rafraîchissent : à checker chaque jour (J3→J8)."
+  ],
+  [
+   "Source",
+   "Type",
+   "Mission / catégorie",
+   "Lieu",
+   "TJM / budget",
+   "Lien",
+   "Action"
+  ],
+  [
+   "🎯 BOARDS À SURVEILLER TOUS LES JOURS"
+  ],
+  [
+   "Free-Work",
+   "Board",
+   "Missions n8n",
+   "Remote / FR",
+   "variable",
+   "https://www.free-work.com/fr/tech-it/jobs/n8n",
+   "Candidater quotidien"
+  ],
+  [
+   "Free-Work",
+   "Board",
+   "Missions IA",
+   "FR",
+   "variable",
+   "https://www.free-work.com/fr/tech-it/jobs/ia",
+   "Candidater quotidien"
+  ],
+  [
+   "Free-Work",
+   "Board",
+   "Missions Agent IA",
+   "FR",
+   "variable",
+   "https://www.free-work.com/fr/tech-it/jobs/agent-ia",
+   "Candidater quotidien"
+  ],
+  [
+   "Free-Work",
+   "Board",
+   "Missions RAG",
+   "FR",
+   "variable",
+   "https://www.free-work.com/fr/tech-it/jobs/rag",
+   "Candidater quotidien"
+  ],
+  [
+   "Free-Work",
+   "Board",
+   "Missions RPA / automatisation",
+   "FR",
+   "variable",
+   "https://www.free-work.com/fr/tech-it/jobs/rpa-robotic-process-automation",
+   "Candidater quotidien"
+  ],
+  [
+   "Malt",
+   "Board",
+   "Tag n8n (profil + candidatures)",
+   "FR / remote",
+   "600-900 €/j",
+   "https://www.malt.fr/s/tags/n8n-68b1ce80892ea37fa07d5f7b",
+   "Profil optimisé + postuler"
+  ],
+  [
+   "Malt",
+   "Board",
+   "Tag AI Agent",
+   "FR / remote",
+   "600-1000 €/j",
+   "https://www.malt.fr/s/tags/ai-agent-69cf759aaff77f733a6b296a",
+   "Profil + postuler"
+  ],
+  [
+   "Malt",
+   "Board",
+   "Tag No-code",
+   "FR / remote",
+   "variable",
+   "https://www.malt.fr/s/tags/no-code-60239330e7a56507faa5d017",
+   "Profil + postuler"
+  ],
+  [
+   "codeur.com",
+   "Board",
+   "Projets automatisation n8n (one-shot)",
+   "FR",
+   "250-15 000 €",
+   "https://www.codeur.com/creation-automatisation-n8n",
+   "Devis différencié (pas au rabais)"
+  ],
+  [
+   "codeur.com",
+   "Board",
+   "Création chatbot / IA (one-shot)",
+   "FR",
+   "variable",
+   "https://www.codeur.com/creation-chatbot",
+   "Devis différencié"
+  ],
+  [
+   "freelance-informatique.fr",
+   "Board",
+   "Missions IA / LLM",
+   "FR",
+   "variable",
+   "https://www.freelance-informatique.fr",
+   "Déposer CV + candidater"
+  ],
+  [
+   "📌 MISSIONS SPÉCIFIQUES REPÉRÉES (19/08/2026)"
+  ],
+  [
+   "CELAD",
+   "Mission",
+   "Ingénieur Orchestration & Automatisation réseau (n8n, API)",
+   "Toulouse (LOCAL)",
+   "360-420 €/j",
+   "https://www.free-work.com/fr/tech-it/jobs/n8n",
+   "Candidater — terrain local"
+  ],
+  [
+   "VISIAN",
+   "Mission",
+   "Architecte & expert IA & DATA (n8n, POC IA)",
+   "Paris",
+   "600-800 €/j",
+   "https://www.free-work.com/fr/tech-it/jobs/n8n",
+   "Candidater (remote ?)"
+  ],
+  [
+   "Client via freelance-info",
+   "Mission",
+   "Consultant IA Générative / LLM (RAG, LangChain)",
+   "Paris 75003",
+   "n.c.",
+   "https://www.freelance-informatique.fr/mission-consultant-ia-generative-llm-260428R001",
+   "Candidater"
+  ],
+  [
+   "INFOTEL CONSEIL",
+   "Mission",
+   "Expert Méthode & IA (agents IA)",
+   "Saint-Herblain",
+   "300-470 €/j",
+   "https://www.free-work.com/fr/tech-it/jobs/agent-ia",
+   "Candidater"
+  ],
+  [
+   "JCW Search",
+   "Mission",
+   "Chef de Produit Plateforme IA (GenAI, gouvernance)",
+   "Paris",
+   "610-1110 £/j",
+   "https://www.free-work.com/fr/tech-it/jobs/agent-ia",
+   "Candidater si intéressé"
+  ],
+  [
+   "⚠️ Lucidité : la plupart des missions ci-dessus sont LONGUES (6-12 mois) = revenu de fond / backup. Le cash one-shot des 10 jours vient surtout de : (1) projets codeur.com, (2) outreach direct PME cibles, (3) sous-traitance agences."
+  ]
+ ],
+ "Offres": [
+  [
+   "LES 3 OFFRES PRODUCTISÉES — prix fixes, facturation à la valeur."
+  ],
+  [
+   "Offre",
+   "Pour qui",
+   "Livrable",
+   "Délai",
+   "Prix min (€)",
+   "Prix max (€)",
+   "Acompte"
+  ],
+  [
+   "🟢 1. Sprint Automatisation IA",
+   "PME/TPE, agences, artisans, cabinets",
+   "1–3 workflows n8n branchés sur leurs outils, documentés",
+   "2–4 j",
+   "1500",
+   "3500",
+   "0.4"
+  ],
+  [
+   "🟡 2. Assistant IA sur vos données",
+   "PME avec doc technique/juridique/support, e-commerce",
+   "Agent/chatbot RAG sur leurs docs, local ou cloud",
+   "3–5 j",
+   "3000",
+   "8000",
+   "0.45"
+  ],
+  [
+   "🔴 3. Audit + POC IA Locale Souveraine",
+   "Santé, juridique, public, finance, industrie",
+   "Audit faisabilité IA locale + POC + roadmap + volet EU AI Act",
+   "3–6 j",
+   "2500",
+   "6000",
+   "0.4"
+  ],
+  [
+   "Ancrage prix en call : « Sprint dès 1 500 €, Assistant IA dès 3 000 €, Audit souverain dès 2 500 € — lequel colle à votre besoin ? »"
+  ]
+ ]
+}

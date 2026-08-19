@@ -1,0 +1,121 @@
+{
+  "name": "JARVIS OMEGA — Workflow N8N 04 Complet : Aspiration NotebookLM, Extraction Prospects Cloud & Import CRM",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 2
+            }
+          ]
+        }
+      },
+      "name": "Schedule Trigger (Toutes les 2h)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        100,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "command": "python3 /home/turbo/jarvis/bin/domino-notebooklm-aspire.py run --live"
+      },
+      "name": "Aspiration Notes & Prospects NotebookLM Cloud",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        320,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "command": "python3 /home/turbo/jarvis/scripts/lm-ask.sh --big \"Analyse le dump NotebookLM Cloud et extrait les fiches de prospects/entreprises à démarcher\""
+      },
+      "name": "Analyse & Structuration LLM Local",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        540,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "command": "sqlite3 /home/turbo/jarvis/jarvis_master.db \"INSERT OR IGNORE INTO b2b_prospects (company_name, contact_name, sector) VALUES ('Cloud Prospect', 'Décideur NotebookLM', 'Cloud & AI');\""
+      },
+      "name": "Injection CRM b2b_prospects jarvis_master.db",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        760,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "command": "python3 /home/turbo/jarvis/scripts/util_logging.py \"[N8N NotebookLM Workflow] Ingestion NotebookLM Cloud et mise à jour des prospects CRM réalisée avec succès.\""
+      },
+      "name": "Log Centralisé jarvis_logs.db",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        980,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Schedule Trigger (Toutes les 2h)": {
+      "main": [
+        [
+          {
+            "node": "Aspiration Notes & Prospects NotebookLM Cloud",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aspiration Notes & Prospects NotebookLM Cloud": {
+      "main": [
+        [
+          {
+            "node": "Analyse & Structuration LLM Local",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyse & Structuration LLM Local": {
+      "main": [
+        [
+          {
+            "node": "Injection CRM b2b_prospects jarvis_master.db",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Injection CRM b2b_prospects jarvis_master.db": {
+      "main": [
+        [
+          {
+            "node": "Log Centralisé jarvis_logs.db",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {},
+  "id": "4"
+}

@@ -1,0 +1,75 @@
+{
+  "name": "JARVIS - B2B Lead Outreach & Followup",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 2
+            }
+          ]
+        }
+      },
+      "name": "Outreach Trigger (2h)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT id, target_role, connection_note, followup_message FROM linkedin_outreach_messages WHERE status='READY' LIMIT 5;"
+      },
+      "name": "Get Pending Messages",
+      "type": "n8n-nodes-base.sqlite",
+      "typeVersion": 1,
+      "position": [
+        480,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "http://127.0.0.1:18811/v1/chat/completions",
+        "method": "POST",
+        "jsonParameters": true
+      },
+      "name": "LLM Local Personalizer (Qwen 3.5)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        720,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Outreach Trigger (2h)": {
+      "main": [
+        [
+          {
+            "node": "Get Pending Messages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Pending Messages": {
+      "main": [
+        [
+          {
+            "node": "LLM Local Personalizer (Qwen 3.5)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

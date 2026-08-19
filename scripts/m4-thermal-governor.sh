@@ -5,9 +5,9 @@
 trap '' USR1 SIGUSR1
 LOG=/tmp/m4-thermal-governor.log
 PCT=/sys/devices/system/cpu/intel_pstate/max_perf_pct
-CIBLE=82      # °C visés en régime permanent
-CRIT=94       # °C : repli fort (jamais de kill, juste forte réduction)
-MIN=45        # plancher de puissance (reste réactif)
+CIBLE=88      # °C visés — releve depuis 82 : le throttling MATERIEL frappe a 91 C, on exploite la marge
+CRIT=96       # repli fort
+MIN=75        # plancher de puissance releve depuis 45 : 75% = ~3400 MHz, jamais sous le throttling materiel
 MAX=100       # plafond
 STEP=3        # pas de modulation (fin = lissage doux)
 cur=100
