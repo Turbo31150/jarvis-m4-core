@@ -77,6 +77,9 @@ STRAT_FILE = os.path.expanduser("~/jarvis/data/strategie-secteurs.json")
 # OMEGA Mairie (workflow-gestion) : API FastAPI dédiée sur :8140 (8080 occupé).
 OMEGA_URL = "http://127.0.0.1:8140"
 OMEGA_DIR = os.path.expanduser("~/Bureau/workflow-gestion")
+# Racine JARVIS portable : le cockpit tourne aussi sur rem-linux (/home/rempc)
+# et sur M1 (/home/turbo). Aucun chemin de machine ne doit rester en dur.
+JHOME = os.path.expanduser("~/jarvis")
 
 
 def omega_mairie():
@@ -759,7 +762,16 @@ def unified_plan():
         scol = (
             "statut" if "statut" in cols else ("status" if "status" in cols else None)
         )
-        total = c.execute(f"SELECT count(*) FROM {t}").fetchone()[0]
+        # count(*) nu = scan complet : mesure 2026-08-20 -> 1 min 56 s sur 1,96 M
+        # lignes / 1,7 Go. Le meme compte via l'index statut prend 3,4 s (x34).
+        # C'est ce count qui rendait /data injoignable quand le cache page saute.
+        try:
+            total = c.execute(
+                f"SELECT count({scol}) FROM {t} INDEXED BY ix_plan_statut"
+            ).fetchone()[0] if scol else c.execute(
+                f"SELECT count(*) FROM {t}").fetchone()[0]
+        except Exception:
+            total = c.execute(f"SELECT count(*) FROM {t}").fetchone()[0]
         todo = 0
         if scol:
             todo = c.execute(
@@ -1045,7 +1057,7 @@ def ecosysteme():
     """
     import sqlite3 as _sq
 
-    base = "/home/pamerys/jarvis"
+    base = JHOME
     briques = {}
     for b in ("mail", "media", "board", "web", "publish", "agent", "mem", "deepsearch"):
         p = os.path.join(base, "bin", f"jarvis-{b}")
@@ -1139,27 +1151,27 @@ def desktop_apps():
         # mail-triage.sh → mail_sorter_organizer.py.
         {
             "name": "Mail Auto & Démarches",
-            "exec": "bash /home/pamerys/jarvis/scripts/mail-triage.sh",
+            "exec": f"bash {JHOME}/scripts/mail-triage.sh",
             "icon": "✉️",
         },
         {
             "name": "BrowserOS CDP Mail Agent",
-            "exec": "python3 /home/pamerys/jarvis/scripts/browseros_mail_auto_agent.py",
+            "exec": f"python3 {JHOME}/scripts/browseros_mail_auto_agent.py",
             "icon": "🤖",
         },
         {
             "name": "LinkedIn Carrousels Publisher",
-            "exec": "python3 /home/pamerys/jarvis/scripts/linkedin_carousel_publisher.py",
+            "exec": f"python3 {JHOME}/scripts/linkedin_carousel_publisher.py",
             "icon": "🎨",
         },
         {
             "name": "LinkedIn Comments CDP Auto",
-            "exec": "python3 /home/pamerys/jarvis/scripts/auto_post_linkedin_comments.py",
+            "exec": f"python3 {JHOME}/scripts/auto_post_linkedin_comments.py",
             "icon": "💬",
         },
         {
             "name": "NotebookLM Multi-Dépôts",
-            "exec": "python3 /home/pamerys/jarvis/scripts/notebooklm_multi_ingest.py",
+            "exec": f"python3 {JHOME}/scripts/notebooklm_multi_ingest.py",
             "icon": "📚",
         },
         {"name": "Claude Desktop", "exec": "claude-desktop", "icon": "💬"},

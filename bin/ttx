@@ -1,0 +1,130 @@
+#!/bin/bash
+# =============================================================================
+# TTX / TTMUX — WORKSPACE MULTIPLEXER COMPLET JARVIS (M4 COCKPIT SUPREME)
+# =============================================================================
+# Etendu le 20/08/2026 : les 5 fenetres d origine + les 9 outils demandes
+# (OpenClaw, Omega, Manus, Mistral, BrowserOS/CDP, Gemini, Antigravity,
+#  Widget, M6). Sauvegarde de la version precedente :
+#  ~/bin/ttx.bak-avant-extension-20260820
+#
+# Chemins TOUS verifies presents sur M4 le 20/08/2026. Aucun chemin devine.
+# =============================================================================
+
+SESSION_NAME="JARVIS"
+M6_URL="http://100.112.114.32:1234"   # route Tailscale : le cable direct
+                                      # 10.42.0.230 est mort depuis le reboot
+                                      # de M6 (enp8s0 sans IP, sshd muet).
+
+# Si la session existe deja, s'y rattacher immediatement
+if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
+    echo "🟢 [TTX] Reconnexion à la session existante '$SESSION_NAME'..."
+    exec tmux attach-session -t "$SESSION_NAME"
+fi
+
+echo "🚀 [TTX] Déploiement de tout l'écosystème JARVIS dans TMUX..."
+
+# -----------------------------------------------------------------------------
+# FENÊTRE 0 : CLAUDE CODE (MODE ORFÈVRE & SUPERVISION GPU)
+# -----------------------------------------------------------------------------
+# -x/-y obligatoires : sans dimensions, une session detachee n a pas de taille
+# et les split-window echouent avec "size missing" / "can't find pane: 1"
+# (constate le 20/08 : la fenetre 0 se creait avec 1 volet au lieu de 3).
+tmux new-session -d -s "$SESSION_NAME" -x 200 -y 50 -n "CLAUDE-ORFEVRE" "claude"
+# Les volets portent un SHELL, et la commande est ensuite envoyee par
+# send-keys. Motif : `bash -ic <cmd>` passe en argument de split-window meurt
+# instantanement quand ttx est lance sans terminal (constate le 20/08 :
+# "can't find pane: 1", le volet disparaissait avant le decoupage suivant).
+# tmux 3.4 a SUPPRIME le drapeau -p : `split-window -p 35` renvoie
+# "size missing" et le decoupage echoue. Syntaxe actuelle : -l 35%.
+# Defaut present dans le ttx d origine — la fenetre 0 n avait plus qu un
+# seul volet (ni moniteur GPU ni briefing) sans que rien ne le signale.
+tmux split-window -h -t "$SESSION_NAME:0.0" -l 35%
+tmux split-window -v -t "$SESSION_NAME:0.1" -l 50%
+tmux send-keys -t "$SESSION_NAME:0.1" \
+  'watch -n 2 nvidia-smi --query-gpu=name,temperature.gpu,memory.used,memory.total,utilization.gpu --format=csv' C-m
+tmux send-keys -t "$SESSION_NAME:0.2" \
+  'clear; [ -f ~/.config/fastfetch/jarvis_briefing.sh ] && bash ~/.config/fastfetch/jarvis_briefing.sh; echo; echo "💡 table-ronde \"votre question\" pour débattre."' C-m
+
+# -----------------------------------------------------------------------------
+# FENÊTRE 1 : TABLE RONDE & CONSEIL DES EXPERTS
+# -----------------------------------------------------------------------------
+tmux new-window -t "$SESSION_NAME:1" -n "TABLE-RONDE" "env JARVIS_NO_BANNER=1 bash -ic 'clear; echo -e \"\033[1;35m=== 🏛 CONSEIL DES EXPERTS & TABLE RONDE JARVIS ===\033[0m\n\"; python3 /home/pamerys/jarvis/board/dispatch_table_ronde.py --list; echo \"\"; bash'"
+
+# -----------------------------------------------------------------------------
+# FENÊTRE 2 : PLANNING UNIFIÉ & TODOLIST
+# -----------------------------------------------------------------------------
+tmux new-window -t "$SESSION_NAME:2" -n "PLANNING-TODOLIST" "env JARVIS_NO_BANNER=1 bash -ic 'clear; echo -e \"\033[1;33m=== 📋 PLANNING UNIFIÉ & TODOLIST MASTER (M4) ===\033[0m\n\"; python3 /home/pamerys/jarvis/scripts/planning_mega_m4.py; echo \"\"; bash'"
+
+# -----------------------------------------------------------------------------
+# FENÊTRE 3 : SWARM INFRASTRUCTURE
+# -----------------------------------------------------------------------------
+# CORRIGE le 20/08 : `docker` nu frappe la pile LOCALE PERIMEE (incident
+# d ecritures perdues du 11/08). Toujours passer par jarvis-docker.
+# CORRIGE le 20/08 (2e passe) : la commande est deportee dans swarm-watch.sh.
+# `watch -n 5 jarvis-docker ps --format "..."` perdait les guillemets (watch
+# reassemble ses arguments sans re-quoter) -> la tour repondait en boucle
+# "docker: 'docker ps' accepts no arguments". Meme motif que la fenetre M6.
+tmux new-window -t "$SESSION_NAME:3" -n "INFRA-SWARM" "watch -n 5 /home/pamerys/jarvis/bin/swarm-watch.sh"
+
+# -----------------------------------------------------------------------------
+# FENÊTRE 4 : TERMINAL TURBO (INTERACTIF DIRECT)
+# -----------------------------------------------------------------------------
+tmux new-window -t "$SESSION_NAME:4" -n "TERMINAL-TURBO" "/home/pamerys/jarvis/scripts/start-turbo-m1.sh"
+
+# -----------------------------------------------------------------------------
+# FENÊTRE 5 : OPENCLAW (orchestrateur multi-agents, ACP :18789)
+# -----------------------------------------------------------------------------
+tmux new-window -t "$SESSION_NAME:5" -n "OPENCLAW" "env JARVIS_NO_BANNER=1 bash -ic 'clear; echo -e \"\033[1;36m=== 🐾 OPENCLAW — orchestrateur multi-agents ===\033[0m\n\"; openclaw --help 2>&1 | head -25; echo; bash'"
+
+# -----------------------------------------------------------------------------
+# FENÊTRE 6 : OMEGA (orchestrateur maître)
+# -----------------------------------------------------------------------------
+tmux new-window -t "$SESSION_NAME:6" -n "OMEGA" "env JARVIS_NO_BANNER=1 bash -ic 'clear; echo -e \"\033[1;35m=== ♾  OMEGA — orchestrateur maître ===\033[0m\n\"; echo \"python3 ~/jarvis/scripts/jarvis_omega_master_orchestrator.py\"; echo \"python3 ~/jarvis/scripts/jarvis_omega_10k_orchestrator.py\"; echo; bash'"
+
+# -----------------------------------------------------------------------------
+# FENÊTRE 7 : MANUS (agents & webhooks)
+# -----------------------------------------------------------------------------
+tmux new-window -t "$SESSION_NAME:7" -n "MANUS" "env JARVIS_NO_BANNER=1 bash -ic 'clear; echo -e \"\033[1;32m=== 🤲 MANUS — agents & webhooks ===\033[0m\n\"; manus --help 2>&1 | head -25; echo; bash'"
+
+# -----------------------------------------------------------------------------
+# FENÊTRE 8 : MISTRAL RAG
+# -----------------------------------------------------------------------------
+tmux new-window -t "$SESSION_NAME:8" -n "MISTRAL-RAG" "env JARVIS_NO_BANNER=1 bash -ic 'clear; echo -e \"\033[1;34m=== 🌬  MISTRAL RAG ===\033[0m\n\"; mistral-rag --help 2>&1 | head -25; echo; bash'"
+
+# -----------------------------------------------------------------------------
+# FENÊTRE 9 : AGENT WEB — BROWSEROS & CDP
+# -----------------------------------------------------------------------------
+# BrowserOS tourne EN LOCAL sur M4 (CDP 9100/9108, serveur 9201).
+# Le BrowserOS du SSD M1 n est PAS utilisable : seules ses metadonnees dpkg
+# ont ete sauvegardees, /usr/bin/browseros et /usr/lib/browseros sont absents
+# du disque (verifie le 20/08).
+tmux new-window -t "$SESSION_NAME:9" -n "WEB-CDP" "env JARVIS_NO_BANNER=1 bash -ic 'clear; echo -e \"\033[1;36m=== 🌐 AGENT WEB — BROWSEROS & CDP ===\033[0m\n\"; echo \"-- ports CDP en écoute --\"; ss -ltn | grep -E \":(9100|9108|9201|9222)\" || echo \"  aucun\"; echo; echo \"-- cibles CDP --\"; curl -s --max-time 5 http://127.0.0.1:9108/json/version 2>/dev/null | head -5 || echo \"  :9108 muet\"; echo; echo \"outil: ~/jarvis/bin/browseros-cdp-authentifie\"; echo; bash'"
+
+# -----------------------------------------------------------------------------
+# FENÊTRE 10 : GEMINI CLI
+# -----------------------------------------------------------------------------
+tmux new-window -t "$SESSION_NAME:10" -n "GEMINI" "env JARVIS_NO_BANNER=1 bash -ic 'gemini --yolo'"
+
+# -----------------------------------------------------------------------------
+# FENÊTRE 11 : ANTIGRAVITY (agy)
+# -----------------------------------------------------------------------------
+tmux new-window -t "$SESSION_NAME:11" -n "ANTIGRAVITY" "env JARVIS_NO_BANNER=1 bash -ic 'clear; echo -e \"\033[1;33m=== 🛸 ANTIGRAVITY CLI ===\033[0m\n\"; echo \"Tapez: agy\"; echo \"(non lancé automatiquement : agy ouvre un flux OAuth qui bloque le pane)\"; echo; bash'"
+
+# -----------------------------------------------------------------------------
+# FENÊTRE 12 : WIDGET PLANNING (:8899)
+# -----------------------------------------------------------------------------
+tmux new-window -t "$SESSION_NAME:12" -n "WIDGET" "env JARVIS_NO_BANNER=1 bash -ic 'clear; echo -e \"\033[1;33m=== 🖥  WIDGET PLANNING :8899 ===\033[0m\n\"; ss -ltn | grep -q \":8899\" && echo \"  déjà en écoute sur :8899\" || python3 /home/pamerys/jarvis/bin/jarvis-planning-widget.py; bash'"
+
+# -----------------------------------------------------------------------------
+# FENÊTRE 13 : M6 — NŒUD GPU DISTANT
+# -----------------------------------------------------------------------------
+# La commande est deportee dans un script : l imbrication de guillemets
+# necessaire pour la mettre en ligne faisait sauter la fenetre en silence.
+tmux new-window -t "$SESSION_NAME:13" -n "M6" "watch -n 30 /home/pamerys/jarvis/bin/m6-watch.sh"
+
+# Focus sur la première fenêtre Claude Code
+tmux select-window -t "$SESSION_NAME:0"
+tmux select-pane -t "$SESSION_NAME:0.0"
+
+echo "✅ [TTX] 14 fenêtres déployées."
+exec tmux attach-session -t "$SESSION_NAME"
